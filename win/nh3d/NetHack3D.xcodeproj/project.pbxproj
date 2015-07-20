@@ -526,6 +526,7 @@
 		2BFEAC79089794AE00605AE5 /* rip.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BFEAC78089794AE00605AE5 /* rip.png */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
+		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1580,6 +1581,7 @@
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1752,6 +1754,7 @@
 				2B3539190915A2F4002CC8AD /* MainMenu.nib */,
 				2BE3649D095D20F500D34027 /* Usermakesheet.nib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.nib */,
+				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				2BA046CC08EF5831004057D1 /* logfile */,
 			);
@@ -3203,6 +3206,7 @@
 				2B5CC046088EB5A600940C58 /* data.base in Resources */,
 				2B5CC047088EB5A600940C58 /* dungeon in Resources */,
 				2B5CC04A088EB5A600940C58 /* earth.lev in Resources */,
+				55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */,
 				2B5CC04C088EB5A600940C58 /* fakewiz1.lev in Resources */,
 				2B5CC04D088EB5A600940C58 /* fakewiz2.lev in Resources */,
 				2B5CC04E088EB5A600940C58 /* fire.lev in Resources */,
@@ -3774,6 +3778,14 @@
 				2BE3649E095D20F500D34027 /* English */,
 			);
 			name = Usermakesheet.nib;
+			sourceTree = "<group>";
+		};
+		55FC95411B5CD59700B0FFB4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55FC95401B5CD59700B0FFB4 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

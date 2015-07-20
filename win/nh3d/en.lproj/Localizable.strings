@@ -1,0 +1,56 @@
+/* 
+  Localizable.strings
+  NetHack3D
+
+  Created by C.W. Betts on 7/20/15.
+
+*/
+
+
+"the %@" = "the %@";
+
+"Human" = "Human";
+"Elf" = "Elf";
+"Dwarf" = "Dwarf";
+"Gnome" = "Gnome";
+"Orc" = "Orc";
+
+"Archeologist" = "Archeologist";
+"Barbarian" = "Barbarian";
+"Caveman" = "Caveman";
+"Healer" = "Healer";
+"Knight" = "Knight";
+"Monk" = "Monk";
+"Priest" = "Priest";
+"Rogue" = "Rogue";
+"Ranger" = "Ranger";
+"Samurai" = "Samurai";
+"Tourist" = "Tourist";
+"Valkyrie" = "Valkyrie";
+"Wizard" = "Wizard";
+"Priestess" = "Priestess";
+"Cavewoman" = "Cavewoman";
+
+"Male" = "Male";
+"Female" = "Female";
+
+"Lowful" = "Lawful";
+"Newtral" = "Neutral";
+"Chaotic" = "Chaotic";
+
+"*cursed*" = "*cursed*";
+"*cursed *" = "*cursed *";
+"*blessed*" = "*blessed*";
+"*uncursed*" = "*uncursed*";
+"*holy water*" = "*holy water*";
+"*called*" = "*called*";
+
+"Do you really want to Force Quit?" = "Do you really want to Force Quit?";
+"Quit NetHack3D" = "Quit NetHack3D";
+"NetHack3D say,'See you again.'" = "NetHack3D say,'See you again.'";
+"A name is too long, and it is difficult to learn." = "A name is too long, and it is difficult to learn.";
+"There is too much number of the letters." = "There is too much number of the letters.";
+"Please input it within 1 to 20 characters." = "Please input it within 1 to 20 characters.";
+"Who are you?" = "Who are you?";
+"Grater than MacOS 10.4 are necessary so that NetHack3D start." = "MacOS 10.4 or later is necessary so that NetHack3D can start.";
+"*what direction*" = "*what direction*";
