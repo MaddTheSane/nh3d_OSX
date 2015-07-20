@@ -7,7 +7,7 @@
  *
  */
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 //#import <OpenGL/gl.h>
 #import "NH3Dcommon.h"
 

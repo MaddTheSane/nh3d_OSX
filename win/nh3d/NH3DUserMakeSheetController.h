@@ -6,7 +6,7 @@
 //  Copyright 2005 Haruumi Yoshino. All rights reserved.
 //
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DUserDefaultsExtern.h"
 
@@ -82,7 +82,7 @@
 - (void)setPriestName:(NSString *)aString;
 - (void)setCavemanName:(NSString *)aString;
 
-- (void)setPlayerName:(NSAttributedString *)aString;
+@property (copy) NSAttributedString *playerName;
 
 - (void)startSheet:(NH3DUserStatusModel *)userStatusModel;
 

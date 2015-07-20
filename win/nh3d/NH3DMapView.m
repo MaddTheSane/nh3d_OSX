@@ -190,17 +190,13 @@
 	
 }
 
+@synthesize bgColor;
 - (void)setBgColor:(NSColor *)colr
 {
 	[ colr retain ];
 	[ bgColor release ];
 	bgColor = colr;
 	[ self setNeedsDisplay:YES ];	
-}
-
-- (NSColor *)bgColor
-{
-	return bgColor;
 }
 
 

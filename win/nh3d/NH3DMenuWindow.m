@@ -134,28 +134,9 @@ static const int DIALOG_CANCEL	= 129;
 	
 }
 
-
-- (BOOL)isMenu
-{
-	return isMenu;
-}
-
-
-- (void)setIsMenu:(BOOL)flag
-{
-	isMenu = flag;
-}
-
-- (BOOL)isExtendMenu
-{
-	return isExtendMenu;
-}
-
-
-- (void)setIsExtendMenu:(BOOL)flag
-{
-	isExtendMenu = flag;
-}
+@synthesize isMenu;
+@synthesize isExtendMenu;
+@synthesize doneRip;
 
 - (NSMutableArray *)nh3dMenu
 {
@@ -380,7 +361,7 @@ static const int DIALOG_CANCEL	= 129;
 	
 }
 
-- (int)selectMenu:(winid)wid:(int)how:(menu_item **)selected
+- (int)selectMenu:(winid)wid how:(int)how selected:(menu_item **)selected
 {
 	int i,ret = 0;
 	NH3DMenuItem *aMenuItem;

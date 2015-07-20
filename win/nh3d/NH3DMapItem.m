@@ -253,10 +253,7 @@ extern id _NH3DTileCache;
 }
 
 
-- (BOOL)isPlayer
-{
-	return player;
-}
+@synthesize player;
 
 - (void)setPlayer:(BOOL)flag
 {

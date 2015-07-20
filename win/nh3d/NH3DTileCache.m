@@ -117,17 +117,8 @@ extern int total_tiles_used;
 	
 }
 
-
-- (int)tileSize_X
-{
-	return tileSize_X;
-}
-	
-
-- (int)tileSize_Y
-{
-	return tileSize_Y;
-}
+@synthesize tileSize_X;
+@synthesize tileSize_Y;
 
 
 

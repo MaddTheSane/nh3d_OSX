@@ -6,7 +6,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "config.h"
 #import "global.h"
@@ -24,7 +24,7 @@
 - (id)initWithNamed:(NSString *)imageName; /* This is designated initializer. */
 
 - (NSImage *)tileImageFromGlyph:(int)glyph;
-- (int)tileSize_X;
-- (int)tileSize_Y;
+@property (readonly) int tileSize_X;
+@property (readonly) int tileSize_Y;
 
 @end

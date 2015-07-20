@@ -1,6 +1,6 @@
 /* NH3DOpenGLView */
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 //#import <OpenGL/gl.h>
 //#import <OpenGL/glext.h>
 //#import <OpenGL/glu.h>
@@ -122,10 +122,10 @@
 					 offset:(int)offset
 				  modelName:(NSString *)mName
 				   textured:(BOOL)flag
-					withOut:(int)without, ...;
+					withOut:(int)without, ... NS_FORMAT_FUNCTION(4,7);
 //- ( id )loadModelToArray:(int)glyph;
 
-- (float)cameraHead;
+@property (readonly) float cameraHead;
 
 - (void)drawModelArray:(NH3DMapItem *)mapItem;
 
@@ -161,7 +161,6 @@
 // speed function
 //-----------------------
 
-- (BOOL)isOpaque;
 - (void)cashMethod;
 
 @end

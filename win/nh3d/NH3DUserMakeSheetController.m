@@ -61,13 +61,7 @@ static const int DIALOG_CANCEL	= 129;
 	cavemanName = [ NSLocalizedString(aString,@"") retain ];
 }
 
-
-- (void)setPlayerName:(NSAttributedString *)aString
-{
-	[ aString retain ];
-	[ playerName release ];
-	playerName = aString;
-}
+@synthesize playerName;
 
 
 - ( IBAction )checkRace:( id )sender

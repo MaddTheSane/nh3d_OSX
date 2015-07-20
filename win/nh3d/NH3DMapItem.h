@@ -6,7 +6,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 
 @interface NH3DMapItem : NSObject {
@@ -46,11 +46,10 @@
 - (int)posY;
 - (unsigned)special;
 
-- (BOOL)isPlayer;
+@property (nonatomic, getter=isPlayer) BOOL player;
 
 - (char)cSymbol;
 
-- (void)setPlayer:(BOOL)flag;
 - (void)setSymbol:(char)chr;
 
 - (void)setHasAlternateSymbol:(BOOL)flag;
@@ -59,7 +58,7 @@
 - (void)setHasCursor:(BOOL)flag;
 - (BOOL)hasCursor;
 
-- (NSImage *)tile;
+@property (readonly, retain) NSImage *tile;
 
 - (int)modelDrawingType;
 

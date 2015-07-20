@@ -8,7 +8,7 @@
 //
 
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DUserDefaultsExtern.h"
 
@@ -52,8 +52,7 @@
 - (void)startIndicator;
 - (void)stopIndicator;
 
-- (int)playerDirection;
-- (void)setPlayerDirection:(int)direction;
+@property (nonatomic) int playerDirection;
 
 - (void)prepareAttributes;
 
@@ -78,8 +77,8 @@
 - (void)reloadAllMaps;
 
 - (void)setPosCursorAtX:(int)x atY:(int)y;
-- (int)cursX;
-- (int)cursY;
+@property (readonly) int cursX;
+@property (readonly) int cursY;
 
 
 @end

@@ -6,14 +6,14 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DMenuItem.h"
 #import "NH3DMessenger.h"
 
 #import "NH3DUserDefaultsExtern.h"
 
-@interface NH3DMenuWindow : NSObject {
+@interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
 	
 		IBOutlet NSPanel *_menuPanel;
 		IBOutlet NSTableView *_menuTableWindow;
@@ -45,15 +45,12 @@
 		int pickType;
 }
 
-- (BOOL)isMenu;
-- (void)setIsMenu:(BOOL)flag;
+@property BOOL isMenu;
 
-- (BOOL)isExtendMenu;
-- (void)setIsExtendMenu:(BOOL)flag;
-- (int)selectedRow;
+@property BOOL isExtendMenu;
+@property (readonly) int selectedRow;
 
-- (BOOL)doneRip;
-- (void)setDoneRip:(BOOL)flag;
+@property BOOL doneRip;
 
 - (NSMutableArray *)nh3dMenu;
 
@@ -64,17 +61,6 @@
 - (void)createMenuWindow:(int)wid;
 - (void)clearMenuWindow;
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView;
-- (id)tableView:(NSTableView *)aTableView
-        objectValueForTableColumn:(NSTableColumn *)aTableColumn
-        row:(int)rowIndex;
-		
-- (void)tableView:(NSTableView *)tableView 
-        willDisplayCell:(id)cell 
-        forTableColumn:(NSTableColumn *)tableColumn 
-        row:(int)row;
-		
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex;
 
 /*
 - (void)tableView:(NSTableView *)tableView
@@ -95,7 +81,7 @@
 					:(boolean)presel;
 
 - (void)showMenuPanel:(const char *)prompt;
-- (int)selectMenu:(winid)wid:(int)how:(menu_item **)selected;
+- (int)selectMenu:(winid)wid how:(int)how selected:(menu_item **)selected;
 
 - (IBAction)closeModalDialog:(id)sender;
 

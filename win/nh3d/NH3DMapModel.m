@@ -11,6 +11,12 @@
 
 #import "NH3DMapModel.h"
 
+@interface NH3DMapModel ()
+@property (readwrite) int cursX;
+@property (readwrite) int cursY;
+
+@end
+
 @implementation NH3DMapModel
 
 - (id)init
@@ -103,11 +109,7 @@
 	indicatorIsActive = NO;
 }
 
-
-- (int)playerDirection
-{
-	return playerDirection;
-}
+@synthesize playerDirection;
 
 - (void)setPlayerDirection:(int)direction
 {
@@ -261,27 +263,8 @@
 	}
 }
 
-
-- (int)cursX
-{
-	return cursX;
-}
-
-- (int)cursY
-{
-	return cursY;
-}
-
-- (void)setCursX:(int)x
-{
-	cursX = x;
-}
-
-- (void)setCursY:(int)y
-{
-	cursY = y;
-}
-
+@synthesize cursX;
+@synthesize cursY;
 
 - (void)setPosCursorAtX:(int)x atY:(int)y
 {

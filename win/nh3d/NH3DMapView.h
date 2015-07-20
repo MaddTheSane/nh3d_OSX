@@ -7,7 +7,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DMapItem.h"
 #import "NH3DUserDefaultsExtern.h"
@@ -91,6 +91,7 @@
 	
 }
 
+@property (nonatomic, retain) NSColor *bgColor;
 - (void)setBgColor:(NSColor *)colr;
 - (NSColor *)bgColor;
 

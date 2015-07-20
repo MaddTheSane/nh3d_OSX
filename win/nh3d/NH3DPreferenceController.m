@@ -136,19 +136,18 @@
 
 - (IBAction)chooseTileFile:(id)sender
 {
-	int result;
     NSOpenPanel* openPanel;
-	NSArray *fileTypes = [ NSArray arrayWithObjects:@"jpg",@"jpeg",@"png",@"tiff",@"tif",@"gif",@"bmp",nil ];
+	//NSArray *fileTypes = [ NSArray arrayWithObjects:@"jpg",@"jpeg",@"png",@"tiff",@"tif",@"gif",@"bmp",nil ];
 	//NSArray *fileTypes = [ NSArray arrayWithObjects:@"tiff",@"tif",nil ];
     
     openPanel = [ NSOpenPanel openPanel ];
     [ openPanel setCanChooseDirectories:NO ];
 	[ openPanel setAllowsMultipleSelection:NO ];
-    result = [ openPanel runModalForDirectory:NSHomeDirectory()
-										 file:nil 
-										types:fileTypes ];
+	openPanel.allowedFileTypes = [NSImage imageTypes];
+	openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
+	NSInteger result = [openPanel runModal];
     if( result == NSOKButton ) {
-       [ [NSUserDefaults standardUserDefaults] setObject:[openPanel filename] forKey:NH3DTileNameKey ];
+       [ [NSUserDefaults standardUserDefaults] setObject:[[openPanel URL] path] forKey:NH3DTileNameKey ];
     }
 }
 
