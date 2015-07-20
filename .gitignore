@@ -3,3 +3,6 @@
 *.perspective
 project.xcworkspace/
 xcuserdata/
+*.o
+util/makedefs
+*.h-t
