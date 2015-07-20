@@ -2379,7 +2379,7 @@
             <rect key="contentRect" x="253" y="631" width="365" height="132"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="5308">
-                <rect key="frame" x="1" y="1" width="365" height="132"/>
+                <rect key="frame" x="0.0" y="0.0" width="365" height="132"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="5311">
@@ -2437,7 +2437,7 @@ DQ
             <rect key="contentRect" x="212" y="544" width="400" height="365"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="5321">
-                <rect key="frame" x="1" y="1" width="400" height="365"/>
+                <rect key="frame" x="0.0" y="0.0" width="400" height="365"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView id="5322">
@@ -2462,7 +2462,7 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="szt-dP-q4S">
                             <rect key="frame" x="0.0" y="0.0" width="400" height="135"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="135"/>
@@ -2512,7 +2512,7 @@ DQ
             <rect key="contentRect" x="122" y="650" width="571" height="335"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="5367">
-                <rect key="frame" x="1" y="1" width="571" height="335"/>
+                <rect key="frame" x="0.0" y="0.0" width="571" height="335"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView id="5761">
@@ -2520,7 +2520,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="bottom" imageScaling="axesIndependently" image="ScrollPaper" id="6951"/>
                     </imageView>
-                    <searchField verticalHuggingPriority="750" id="5370">
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" id="5370">
                         <rect key="frame" x="383" y="293" width="157" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" borderStyle="bezel" bezelStyle="round" id="6948">
@@ -2562,7 +2562,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="n3r-1g-Qlx">
                             <rect key="frame" x="0.0" y="0.0" width="496" height="239"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
                                     <rect key="frame" x="0.0" y="12" width="496" height="239"/>
@@ -2598,7 +2598,7 @@ DQ
             <rect key="contentRect" x="168" y="433" width="434" height="327"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="5497">
-                <rect key="frame" x="1" y="1" width="434" height="327"/>
+                <rect key="frame" x="0.0" y="0.0" width="434" height="327"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView id="5762">
@@ -2611,7 +2611,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="QxK-KS-b2V">
                             <rect key="frame" x="0.0" y="0.0" width="341" height="223"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="22"/>
@@ -2675,7 +2675,7 @@ DQ
                             <action selector="closeModalDialog:" target="5507" id="5625"/>
                         </connections>
                     </button>
-                    <searchField verticalHuggingPriority="750" id="5505">
+                    <searchField wantsLayer="YES" verticalHuggingPriority="750" id="5505">
                         <rect key="frame" x="339" y="292" width="59" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                         <searchFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" borderStyle="bezel" bezelStyle="round" sendsWholeSearchString="YES" id="6953">
@@ -2710,7 +2710,7 @@ DQ
                     <button verticalHuggingPriority="750" id="5599">
                         <rect key="frame" x="29" y="21" width="56" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="SelectAll" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="6957">
+                        <buttonCell key="cell" type="smallSquare" title="Select All" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="6957">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                             <string key="keyEquivalent">a</string>
@@ -2718,19 +2718,6 @@ DQ
                         </buttonCell>
                         <connections>
                             <action selector="selectAll:" target="5499" id="5601"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" id="5600">
-                        <rect key="frame" x="88" y="21" width="56" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="smallSquare" title="DeSelect" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="6958">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
-                            <string key="keyEquivalent">A</string>
-                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="deselectAll:" target="5499" id="5602"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="5589">
@@ -2742,6 +2729,19 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" id="5600">
+                        <rect key="frame" x="93" y="21" width="56" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="smallSquare" title="Deselect" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="6958">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                            <string key="keyEquivalent">A</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="deselectAll:" target="5499" id="5602"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>
@@ -2769,7 +2769,7 @@ DQ
             <rect key="contentRect" x="89" y="553" width="635" height="381"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="5651">
-                <rect key="frame" x="1" y="1" width="635" height="381"/>
+                <rect key="frame" x="0.0" y="0.0" width="635" height="381"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="5654">
@@ -2791,7 +2791,7 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="Hj5-ZN-y1C">
                             <rect key="frame" x="1" y="1" width="633" height="347"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
                                     <rect key="frame" x="0.0" y="0.0" width="633" height="347"/>
@@ -3289,7 +3289,7 @@ DQ
             <rect key="contentRect" x="35" y="457" width="739" height="523"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="6442">
-                <rect key="frame" x="1" y="1" width="739" height="523"/>
+                <rect key="frame" x="0.0" y="0.0" width="739" height="523"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView id="6446">
@@ -3302,7 +3302,7 @@ DQ
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="qFK-Qf-Zkl">
                             <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <imageView id="6444">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -3862,7 +3862,7 @@ DQ
             <rect key="contentRect" x="214" y="651" width="360" height="240"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
             <view key="contentView" id="6765">
-                <rect key="frame" x="1" y="1" width="360" height="240"/>
+                <rect key="frame" x="0.0" y="0.0" width="360" height="240"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView id="6768">
@@ -3907,7 +3907,7 @@ DQ
                     <button verticalHuggingPriority="750" id="6801">
                         <rect key="frame" x="193" y="192" width="153" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Edit Preference." bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="6971">
+                        <buttonCell key="cell" type="push" title="Edit Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="6971">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
