@@ -1,0 +1,18 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                chooseTileFile = id; 
+                resetFontFamily = id; 
+                resetTileSettings = id; 
+                showFontPanelAction = id; 
+                showPreferencePanel = id; 
+            }; 
+            CLASS = NH3DPreferenceController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

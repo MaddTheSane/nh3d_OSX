@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'NetHack3D' target in the 'NetHack3D' project
+//
+
+#ifdef __OBJC__
+//    #import <Cocoa/Cocoa.h>
+    #import "NH3Dcommon.h"
+#endif

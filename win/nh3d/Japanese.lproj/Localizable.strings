@@ -1,0 +1,48 @@
+
+"the %@" = " %@";
+
+"Human" = "人間";
+"Elf" = "エルフ";
+"Dwarf" = "ドワーフ";
+"Gnome" = "ノーム";
+"Orc" = "オーク";
+
+"Archeologist" = "考古学者";
+"Barbarian" = "バーバリアン";
+"Caveman" = "ケイブマン";
+"Healer" = "薬師";
+"Knight" = "騎士";
+"Monk" = "モンク";
+"Priest" = "僧侶";
+"Rogue" = "盗賊";
+"Ranger" = "レンジャー";
+"Samurai" = "侍";
+"Tourist" = "観光客";
+"Valkyrie" = "ワルキューレ";
+"Wizard" = "魔法使い";
+"Priestess" = "尼僧";
+"Cavewoman" = "ケイブウマン";
+
+"Male" = "男性";
+"Female" = "女性";
+
+"Lowful" = "秩序";
+"Newtral" = "中立";
+"Chaotic" = "混沌";
+
+"*cursed*" = "*呪われた*";
+"*cursed *" = "*不浄な*";
+"*blessed*" = "*祝福された*";
+"*uncursed*" = "*呪われていない*";
+"*holy water*" = "*聖水*";
+"*called*" = "*と呼ばれる*";
+
+"Do you really want to Force Quit?" = "本当に強制的に終了しますか？";
+"Quit NetHack3D" = "NetHack3Dの終了";
+"NetHack3D say,'See you again.'" = "NetHack3Dは言った。'またあう日まで…'";
+"A name is too long, and it is difficult to learn." = "名前が長過ぎて、ちょっと覚えきれないです。";
+"There is too much number of the letters." = "入力された文字数が多すぎます。";
+"Please input it within 1 to 20 characters." = "英数字で1~20文字、日本語で10文字以内でお願いします。";
+"Who are you?" = "ふむ。どなたかな？";
+"Grater than MacOS 10.4 are necessary so that NetHack3D start." = "NetHack3Dの起動にはMacOS 10.4以上が必要です。";
+"*what direction*" = "*方向*";

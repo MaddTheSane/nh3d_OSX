@@ -1,0 +1,24 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                checkGender = id; 
+                checkRace = id; 
+                checkRole = id; 
+                makePlayer = id; 
+                quitGame = id; 
+            }; 
+            CLASS = NH3DUserMakeSheetController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                chooseAlign = NSMatrix; 
+                chooseGender = NSMatrix; 
+                chooseRace = NSMatrix; 
+                chooseRole = NSMatrix; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

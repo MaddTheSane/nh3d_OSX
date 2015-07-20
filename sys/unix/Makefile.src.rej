@@ -1,0 +1,45 @@
+***************
+*** 710,715 ****
+  	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
+  xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
+  	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
+  qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \
+  		../include/dlb.h ../include/patchlevel.h ../include/tile2x11.h \
+  		../include/qt_win.h ../include/qt_clust.h ../include/qt_kde0.h \
+--- 761,796 ----
+  	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
+  xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
+  	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
++ NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapItem.m
++ NH3DMapModel.o: ../win/nh3d/NH3DMapModel.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapModel.m
++ NH3DMapView.o: ../win/nh3d/NH3DMapView.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapView.m
++ NH3DMenuItem.o: ../win/nh3d/NH3DMenuItem.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuItem.m
++ NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
++ NH3DMessenger.o: ../win/nh3d/NH3DMessenger.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMessenger.m
++ NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObjects.m
++ NH3DOpenGLView.o: ../win/nh3d/NH3DOpenGLView.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DOpenGLView.m
++ NH3DPanel.o: ../win/nh3d/NH3DPanel.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
++ NH3DPreferenceController.o: ../win/nh3d/NH3DPreferenceController.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPreferenceController.m
++ NH3DTileCash.o: ../win/nh3d/NH3DTileCash.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCash.m
++ NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserMakeSheetController.m
++ NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserStatusModel.m
++ winnh3d.o: ../win/nh3d/winnh3d.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/winnh3d.m
++ Cocoa-compat.o: ../win/nh3d/compat/Cocoa-compat.m
++ 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/compat/Cocoa-compat.m
+  qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \
+  		../include/dlb.h ../include/patchlevel.h ../include/tile2x11.h \
+  		../include/qt_win.h ../include/qt_clust.h ../include/qt_kde0.h \

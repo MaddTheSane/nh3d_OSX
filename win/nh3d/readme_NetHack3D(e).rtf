@@ -1,0 +1,195 @@
+{\rtf1\mac\ansicpg10001\cocoartf824\cocoasubrtf380
+{\fonttbl\f0\fnil\fcharset77 Copperplate;\f1\fswiss\fcharset77 Optima-Regular;\f2\fswiss\fcharset77 Helvetica;
+\f3\fnil\fcharset78 HiraKakuPro-W6;\f4\fnil\fcharset78 HiraKakuPro-W3;}
+{\colortbl;\red255\green255\blue255;\red15\green21\blue255;\red255\green12\blue54;\red255\green3\blue0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww15600\viewh14320\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\fs48 \cf2 \shad\shadx42\shady-43\shadr41\shado85 \shadc0 NetHack3D (version 2.0.1)\cf0 \shad0 \
+
+\f1\fs26 for MacOSX\
+for GNUStep ( Not available yat. )
+\f2\fs24 \
+\
+
+\f3\b\fs26 \
+What is NetHack3D? \
+
+\f4\b0 NetHack3D was developed as a port for MacOSX of NetHack.\
+Please refer to a history in HELP command during a game whether you read a document about NetHack in detail. \
+It is Read Me in Documentation/jGuidebook.txt whether a hint or a manual of a play refer to a help. \
+ \
+A version1.2 branch is developed as a compatible to purpose with former edition MacOSX (10.2~) and GNUStep, but cannot yet cope. \
+
+\fs24 \
+
+\f3\b\fs26 Modern graphic. \
+
+\f4\b0 By traditional NetHack, a character is expressed in ASCII graphic mainly. For example, if it is a human being, it is a feeling such as '@'. \
+However, in NetHack3D, a human being character is displayed in '@' of 3D graphic! \
+....Ah,Yes.... The reason is because an author arrests the reason that is @ as an image training tool not a simple game about NetHack to the last, and it is never corner-cutting. \
+As the evidence, I file a model (.obj or a .3ds form.) If only 3ds prepares official support) and plays with a source file a little, I can comparatively easily rearrange all characters. \'81\'69I can be going to set it sometime soon even if I do not play with a source\'81\'6aYour image swells out and rearranges it freely by all means if I become unsatisfactory in @, and please be idle.
+\fs24 \
+\
+\
+
+\f3\b\fs26 The thrilling future when it was added. \
+
+\f4\b0 * With 3D, the direction that a player turned to became important. View of a 2D map is limited by default, and You are hard to come to see the rear and a cross direction. \
+* Therefore I was able to hit a function to tell that an enemy approached as a degree of difficulty adjustment step in a constant range with an indicator. Because I do not understand it to the direction where an enemy is, an invisible enemy can play while throbbing. (overconfidence of a radar is bad.) ) which I unexpectedly lose moderately \
+* For the most thrilling thing, it is to say that this port was made by a 'human being (it is an author of this port, and it is not development team of NetHack/jNetHack which became a base) who did not know it at all till' begins to make C and Objective-C and Cocoa and OpenGL. \
+It moves safely, but asks by a self-responsibility in use by all means for the time being.
+\fs24 \
+
+\f3\b\fs28 \
+Key operation \
+
+\f4\b0 * The key operation that is common to NetHack in games a help [?]  input or numpad please take 'h' key) on. \
+* 3D viewpoint movement (a turn) is nominated for the key operation that NetHack does not have. The lengthwise button which is on beside a main movement button is viewpoint operation in GUI. You can move a viewpoint by \'81\'a9\'81\'a8 of a cursor control key with a keyboard. Viewpoint movement does not use a turn.
+\fs24 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b\fs28 \cf3 \
+About indication of graphic. \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f4\b0 \cf0 When it is a video driver of an Apple standard (a state after OS installation as is), it may not be got enough speed / screen quality. \
+Full do not come to use a function of a video card individual in the program side of NetHack3D. \'81\'69Because there is not environment\'81\'6aHowever, there is the thing which it is possible for, and setting of application individual treatment can validate functions such as full screen anti-aliasing or anisotropy filtering in what I download a driver made in a maker with a video card of an errand from a maker site and use by using the function. \'81\'69In addition, I can perform effective adjustment for speed.\'81\'6a
+\fs24 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b \cf0 You can download a video card driver made in ATI company from the following URL.
+\f4\b0 \
+http://support.ati.com/ics/support/default.asp?deptID=894&task=knowledge&folderID=27\
+\
+I do not know a video card driver made by nVidia.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b\fs26 \cf0 About a distribution binary. \
+
+\f4\b0 A binary distributed to by default does not do CPU individual optimization. \
+Errand downloads a source code in G4,G5 and may make the practice binary that I depend on CPU of an errand in an instruction schedule by can put it together, and was optimized in project menu> active target 'NetHack3D' by editing> build setting. \
+As a similar function of GCC4.0, use an Altivec function automatically; there is an option, but "a vector cannot recommend it too much automatically" because the symptom that memory consumption increases as far as tested it at hand, and roll up appeared. \'81\'69If there is a successful person, please report it by all means\'81\'6aIn addition, I do not test it very much, but get possible to perform choice such as yn by the direct key input not popup by taking off a check of check box to "do character string exclusively for reading" that a compilation is optional. Please for preference about this place.
+\fs24 \
+\
+\
+
+\f3\b\fs26 Known problems. \
+
+\f4\b0 * A command of OpenGL goes without an extension now. There there moves at hand of an author, but a problem may be given a performance with other machines. \
+* I do not test all normal options. When some options validate it, perhaps, strange to say, I may become it. \
+* I stay how many a point to have by optimization of various speed side is. \
+* There is a report saying that there is that it crashes at the time of the name input, but waits for detailed report and crash log because I cannot reproduce it in our environment.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b \cf4 *It recruits the people who can make a document translated into better English.
+\f4\b0\fs24 \cf0 \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b\fs28 \cf0 A future plan. 
+\f4\b0 \
+* GNUStep correspondence of 1.2 branches\'81\'63It seems to take it considerably.
+\fs24 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b \cf0 A release history \
+\
+2006/05/27 version 2.0.1\
+* largely speed up drawing processing in a traditional mode. \
+* In traditional ASCII mode, make a font shadow when larger than 12-point font. \
+* In a traditional mode, You can right and left moving by cursor control key \'81\'a9\'81\'a8.\
+\
+2006/05/23 version 2.0.0\
+* add Zoom in / out function of a Level map. \
+* add a sound mute function. \
+* add traditional ASCII mode. \
+* add a traditional Tile mode. \
+* add a setting item for traditional modes. \
+A tile picture file copes with some tile formats by appointing the number of  tiles per a line(20-40), and tiles row (20-40) with a jpg,png,bmp,tiff file. Size per one tile is distinguished automatically. \
+- - - \'81\'40In addition, height, width, each can appoint size in indication separately from size peculiar to a tile in a range of 8 dots - 128 dots. \
+- - - \'81\'40I think that it is 16-32 digit that is practical. Please try to use it together with a Level map well. Drawing level is decided at size of a map font in ASCII mode.\
+\
+2006/05/11 version1.3.2a\
+*Fixed  Some files were not included in a distribution binary.\
+\
+2006/05/11 version1.3.2\
+* Fixed do not work ctrl+d,alt+l commands when use vi keybind. \
+* Fixed indication coordinate gap of "Wizard of Yendor".\
+\
+2006/05/10 version1.3.1a\
+* Fixed Outrip suffix.  \
+\
+2006/05/10 version1.3.1 \
+* A distribution binary is now UB. \'81\'69I wait for the movement report which is non-test.\'81\'6a \
+* A revision of input processing\'81\'63I made it shift movement / cntrol movement possibility at the time of vi mode use. \'81\'69Thanx! Kondo\'81\'6a \
+* It supports jnethack3.4.3-8.( only JapaneseVersion ) \
+* In addition, a careful revision. \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f4\b0 \cf0 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \
+\
+\
+2006/01/12 version1.2.060112 \
+* I revise a carrying judgment of a map item \
+* I revise rounding off handling of coordinate movement\'81\'69It did not function all the time\'81\'6a \
+\
+2006/01/11 version1.2.060111 \
+* Large speedup of OpenGL drawing processing. \
+* I speed up a summons of OpenGL update processing. \
+* Hitoshi equalization & speeds up judgment handling of model reading. \
+* I freed a read model at the time of floor movement. \
+\'81\'69I became considerably fast, but am hard to have come to watch the source as a result of above.\'81\'6a \
+* It is added a downladder model the upladder which I completely forgot \
+* When there were not model data, I added thickness to a drawn substitute model artificially. \
+* I unify resolution of a tiff file. \
+* When model data were unjust, I revise the problem that may have crashed. \
+* I add judgment handling of expansion command. \
+\
+\
+2006/01/07 version1.2.0 alpha0 \
+* Only a source code shows it. \
+* A version1.2 branch is developed as a compatible purpose with former edition MacOSX (per 10.2) and GNUStep. \
+* It is the thing which added an OSX part and editing of route Makefile to a base after patch adaptation of Ide making with 1.1.4. \
+* It does not move in GNUStep at present. \
+\'81\'69Because if buy it, and a machine is built a power supply, there is GNUStep environment; till then waiting.\'81\'6a \
+* Build and both who used Makefile build in XCode are enabled. \
+* \
+\
+2006/01/07 version 1.1.4 \
+* A tex tea change of a puddle. \
+* I change a bridge object. \
+\
+2006/01/03 version 1.1.3 \
+* A Happy New Year. \
+* A monster (indication of W) revises the problem that has become X.) pro-lacework \'81\'69It was break lapse of memory\'81\'6a \
+* Matched info.plist with a guideline after 10.4; got it. \
+* Because a grave was too huge, I adjusted it. \
+* I do not disappear glossily of sheet.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f3\b \cf0 A link concerned. \
+NetHack\'81\'69A site of head family NetHack\'81\'6a \
+http://www.nethack.org/ \
+\
+JNetHack\'81\'69A site of Japanese edition NetHack\'81\'6a \
+http://jnethack.sourceforge.net/ \
+\
+NetHack3D\'81\'69A distribution site of this port\'81\'6a \
+http://www.sbrain.org/nethack3d/ \
+\
+\
+NetHack Portal (the site that I am thankful for that all such as Port or a variety / hints-and-tips of NetHack knows) http://nethack-users.sourceforge.jp/
+\f4\b0 \
+\
+It is bug report hearty welcome!\
+please send bug report to\
+hal@sbrain.org\
+}

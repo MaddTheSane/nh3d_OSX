@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBDocumentLocation</key>
+	<string>4 12 523 354 0 0 1280 1002 </string>
+	<key>IBEditorPositions</key>
+	<dict>
+		<key>29</key>
+		<string>180 923 522 44 0 0 1280 1002 </string>
+		<key>5000</key>
+		<string>401 613 482 109 0 0 1280 1002 </string>
+		<key>5915</key>
+		<string>507 809 107 144 0 0 1280 1002 </string>
+		<key>6240</key>
+		<string>32 404 179 99 0 0 1280 1002 </string>
+		<key>6569</key>
+		<string>99 384 177 163 0 0 1280 1002 </string>
+	</dict>
+	<key>IBFramework Version</key>
+	<string>443.0</string>
+	<key>IBGroupedObjects</key>
+	<dict>
+		<key>10</key>
+		<array>
+			<string>590</string>
+			<string>5144</string>
+		</array>
+		<key>19</key>
+		<array>
+			<string>5437</string>
+			<string>5451</string>
+			<string>5453</string>
+			<string>5455</string>
+			<string>4994</string>
+			<string>5463</string>
+			<string>5737</string>
+			<string>5744</string>
+			<string>5746</string>
+			<string>5748</string>
+			<string>5750</string>
+			<string>5358</string>
+			<string>5457</string>
+			<string>5459</string>
+			<string>5461</string>
+			<string>5464</string>
+		</array>
+		<key>23</key>
+		<array>
+			<string>6402</string>
+			<string>6341</string>
+			<string>6370</string>
+			<string>6366</string>
+			<string>6373</string>
+			<string>6374</string>
+			<string>6371</string>
+			<string>6368</string>
+			<string>6414</string>
+			<string>6377</string>
+			<string>6376</string>
+			<string>6378</string>
+			<string>6375</string>
+			<string>6372</string>
+			<string>6369</string>
+		</array>
+		<key>25</key>
+		<array>
+			<string>6822</string>
+			<string>6823</string>
+		</array>
+		<key>7</key>
+		<array>
+			<string>587</string>
+			<string>5141</string>
+		</array>
+		<key>8</key>
+		<array>
+			<string>588</string>
+			<string>5142</string>
+		</array>
+		<key>9</key>
+		<array>
+			<string>589</string>
+			<string>5143</string>
+		</array>
+	</dict>
+	<key>IBLastGroupID</key>
+	<string>26</string>
+	<key>IBLockedObjects</key>
+	<array>
+		<integer>5000</integer>
+		<integer>5093</integer>
+		<integer>5094</integer>
+		<integer>5322</integer>
+		<integer>21</integer>
+	</array>
+	<key>IBOldestOS</key>
+	<integer>4</integer>
+	<key>IBOpenObjects</key>
+	<array>
+		<integer>21</integer>
+		<integer>5320</integer>
+		<integer>5307</integer>
+		<integer>29</integer>
+		<integer>5496</integer>
+		<integer>5650</integer>
+		<integer>6764</integer>
+		<integer>6441</integer>
+	</array>
+	<key>IBSystem Version</key>
+	<string>8I127</string>
+	<key>IBUsesTextArchiving</key>
+	<true/>
+</dict>
+</plist>
