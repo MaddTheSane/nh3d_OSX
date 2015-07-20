@@ -8,10 +8,12 @@
 //
 
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DUserDefaultsExtern.h"
 
+
+#import <QTKit/QTKit.h>
 #import "func_tab.h"
 #import "dlb.h"
 #import "patchlevel.h"
@@ -56,7 +58,7 @@
 	
 	int lastAttackDirection;
 	
-	NSMovieView *movieView;
+	QTMovieView *movieView;
 	
 }
 

@@ -98,7 +98,7 @@ static const int DIALOG_CANCEL	= 129;
 		userSound = [ self loadSoundConfig ];
 		ripFlag = NO;
 		
-		movieView  = [ [NSMovieView alloc] init ];
+		movieView  = [ [QTMovieView alloc] init ];
 		
 	}
 		return self;

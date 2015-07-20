@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -401,7 +401,6 @@
 		2B9FEDC308AE8CAD00724AEF /* Newtral0.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B9FEDC108AE8CAD00724AEF /* Newtral0.tiff */; };
 		2B9FEDC408AE8CAD00724AEF /* Newtral1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B9FEDC208AE8CAD00724AEF /* Newtral1.tiff */; };
 		2BA021C808EF4B62004057D1 /* perm in Resources */ = {isa = PBXBuildFile; fileRef = 2BA021C708EF4B62004057D1 /* perm */; };
-		2BA0288008EF4F9F004057D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		2BA046CD08EF5831004057D1 /* logfile in Resources */ = {isa = PBXBuildFile; fileRef = 2BA046CC08EF5831004057D1 /* logfile */; };
 		2BA134C20915131C00CB4329 /* human.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BA134C10915131C00CB4329 /* human.tiff */; };
 		2BA7A40609774D3100122932 /* nh3dmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* nh3dmain.m */; };
@@ -526,6 +525,7 @@
 		2BFEAC770897949D00605AE5 /* nhsplash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BFEAC760897949D00605AE5 /* nhsplash.png */; };
 		2BFEAC79089794AE00605AE5 /* rip.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BFEAC78089794AE00605AE5 /* rip.png */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -690,7 +690,7 @@
 		2B31DBA208CD73C5008CCAAC /* mapbg.xpm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapbg.xpm; sourceTree = "<group>"; };
 		2B31DBA308CD73C5008CCAAC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		2B31DBA508CD73C5008CCAAC /* Info.pli */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.pli; sourceTree = "<group>"; };
-		2B31DBA608CD73C5008CCAAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B31DBA608CD73C5008CCAAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B31DBA708CD73C5008CCAAC /* Install.Qt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Install.Qt; sourceTree = "<group>"; };
 		2B31DBA808CD73C5008CCAAC /* knethack.lnk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = knethack.lnk; sourceTree = "<group>"; };
 		2B31DBA908CD73C5008CCAAC /* knh-mini.xpm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "knh-mini.xpm"; sourceTree = "<group>"; };
@@ -1579,8 +1579,9 @@
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
+		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1630,6 +1631,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */,
 				2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B02FB3509497C21008FEDB0 /* Cocoa.framework in Frameworks */,
@@ -1759,6 +1761,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -3139,10 +3142,19 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+			};
 			buildConfigurationList = 2B14B32C0890124A0051A4A9 /* Build configuration list for PBXProject "NetHack3D" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NetHack3D */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NetHack3D */,
 				2BACF9B60902550D0095C8A4 /* makedefs */,
@@ -3318,7 +3330,6 @@
 				2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */,
 				2B5469C208EF2F01008AA81F /* Sysunix in Resources */,
 				2BA021C808EF4B62004057D1 /* perm in Resources */,
-				2BA0288008EF4F9F004057D1 /* Info.plist in Resources */,
 				2BA046CD08EF5831004057D1 /* logfile in Resources */,
 				2B0D0DA408F1C20600F7A7E8 /* options in Resources */,
 				2BCFB08A08F88696007DB83D /* nh3dCursor.tiff in Resources */,
@@ -3768,9 +3779,11 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		2B14B3290890124A0051A4A9 /* Development */ = {
+		2B14B3290890124A0051A4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPYING_PRESERVES_HFS_DATA = NO;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -3824,16 +3837,14 @@
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
 			};
-			name = Development;
+			name = Debug;
 		};
-		2B14B32A0890124A0051A4A9 /* Deployment */ = {
+		2B14B32A0890124A0051A4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = /System/Library/Frameworks;
@@ -3888,57 +3899,15 @@
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2B14B32B0890124A0051A4A9 /* Default */ = {
+		2B14B32D0890124A0051A4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = /System/Library/Frameworks;
-				GCC_ALTIVEC_EXTENSIONS = NO;
-				GCC_AUTO_VECTORIZATION = NO;
-				GCC_CW_ASM_SYNTAX = YES;
-				GCC_ENABLE_ASM_KEYWORD = YES;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_ENABLE_SYMBOL_SEPARATION = NO;
-				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_PPC64 = NO;
-				GCC_MODEL_TUNING = "";
-				GCC_NO_NIL_RECEIVERS = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = NetHack3D_Prefix.pch;
-				GCC_REUSE_STRINGS = YES;
-				GCC_UNROLL_LOOPS = NO;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks,
-					/usr/include,
-				);
-				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = /System/Library;
-				LIBRARY_STYLE = STATIC;
-				OTHER_CFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = NetHack3D;
-				STRIP_INSTALLED_PRODUCT = YES;
-				VERSIONING_SYSTEM = "";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Default;
-		};
-		2B14B32D0890124A0051A4A9 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_FAST_OBJC_DISPATCH = YES;
 				GCC_MODEL_TUNING = "";
@@ -3948,38 +3917,31 @@
 				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_SHADOW = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = NetHack3D;
 				REZ_SCRIPT_TYPE = Japanese;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 				ZERO_LINK = YES;
 			};
-			name = Development;
+			name = Debug;
 		};
-		2B14B32E0890124A0051A4A9 /* Deployment */ = {
+		2B14B32E0890124A0051A4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = NetHack3D;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = macosx;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2B14B32F0890124A0051A4A9 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEAD_CODE_STRIPPING = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PRODUCT_NAME = NetHack3D;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-			};
-			name = Default;
-		};
-		2BACF9BF0902555A0095C8A4 /* Development */ = {
+		2BACF9BF0902555A0095C8A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -4000,9 +3962,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		2BACF9C00902555A0095C8A4 /* Deployment */ = {
+		2BACF9C00902555A0095C8A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -4023,31 +3985,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2BACF9C10902555A0095C8A4 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = ../include;
-				INSTALL_PATH = "$(HOME)/bin";
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = makedefs;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
-		2BACF9C30902555A0095C8A4 /* Development */ = {
+		2BACF9C30902555A0095C8A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -4068,9 +4008,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		2BACF9C40902555A0095C8A4 /* Deployment */ = {
+		2BACF9C40902555A0095C8A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -4091,31 +4031,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2BACF9C50902555A0095C8A4 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = ../include;
-				INSTALL_PATH = "$(HOME)/bin";
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = lev_comp;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
-		2BACF9CC090255760095C8A4 /* Development */ = {
+		2BACF9CC090255760095C8A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -4136,9 +4054,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		2BACF9CD090255760095C8A4 /* Deployment */ = {
+		2BACF9CD090255760095C8A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -4159,31 +4077,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2BACF9CE090255760095C8A4 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = ../include;
-				INSTALL_PATH = "$(HOME)/bin";
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = dgn_comp;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
-		2BACF9F20902580E0095C8A4 /* Development */ = {
+		2BACF9F20902580E0095C8A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -4204,9 +4100,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		2BACF9F30902580E0095C8A4 /* Deployment */ = {
+		2BACF9F30902580E0095C8A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -4227,31 +4123,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2BACF9F40902580E0095C8A4 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				HEADER_SEARCH_PATHS = ../include;
-				INSTALL_PATH = "$(HOME)/bin";
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = recover;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
-		2BCAABCF0913A75400AF1C59 /* Development */ = {
+		2BCAABCF0913A75400AF1C59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -4278,9 +4152,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		2BCAABD00913A75400AF1C59 /* Deployment */ = {
+		2BCAABD00913A75400AF1C59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -4307,37 +4181,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Deployment;
+			name = Release;
 		};
-		2BCAABD10913A75400AF1C59 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = tilemap;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
-		};
-		2BCAABDA0913A7B700AF1C59 /* Development */ = {
+		2BCAABDA0913A7B700AF1C59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -4364,9 +4210,9 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Development;
+			name = Debug;
 		};
-		2BCAABDB0913A7B700AF1C59 /* Deployment */ = {
+		2BCAABDB0913A7B700AF1C59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -4393,35 +4239,7 @@
 					"-Wno-unknown-pragmas",
 				);
 			};
-			name = Deployment;
-		};
-		2BCAABDC0913A7B700AF1C59 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = /usr/local/bin;
-				OPTIMIZATION_CFLAGS = "-O0";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = tiletext;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
-			name = Default;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -4429,82 +4247,74 @@
 		2B14B3280890124A0051A4A9 /* Build configuration list for PBXNativeTarget "NetHack3D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B14B3290890124A0051A4A9 /* Development */,
-				2B14B32A0890124A0051A4A9 /* Deployment */,
-				2B14B32B0890124A0051A4A9 /* Default */,
+				2B14B3290890124A0051A4A9 /* Debug */,
+				2B14B32A0890124A0051A4A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2B14B32C0890124A0051A4A9 /* Build configuration list for PBXProject "NetHack3D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B14B32D0890124A0051A4A9 /* Development */,
-				2B14B32E0890124A0051A4A9 /* Deployment */,
-				2B14B32F0890124A0051A4A9 /* Default */,
+				2B14B32D0890124A0051A4A9 /* Debug */,
+				2B14B32E0890124A0051A4A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2BACF9BE0902555A0095C8A4 /* Build configuration list for PBXNativeTarget "makedefs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BACF9BF0902555A0095C8A4 /* Development */,
-				2BACF9C00902555A0095C8A4 /* Deployment */,
-				2BACF9C10902555A0095C8A4 /* Default */,
+				2BACF9BF0902555A0095C8A4 /* Debug */,
+				2BACF9C00902555A0095C8A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2BACF9C20902555A0095C8A4 /* Build configuration list for PBXNativeTarget "lev_comp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BACF9C30902555A0095C8A4 /* Development */,
-				2BACF9C40902555A0095C8A4 /* Deployment */,
-				2BACF9C50902555A0095C8A4 /* Default */,
+				2BACF9C30902555A0095C8A4 /* Debug */,
+				2BACF9C40902555A0095C8A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2BACF9CB090255760095C8A4 /* Build configuration list for PBXNativeTarget "dgn_comp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BACF9CC090255760095C8A4 /* Development */,
-				2BACF9CD090255760095C8A4 /* Deployment */,
-				2BACF9CE090255760095C8A4 /* Default */,
+				2BACF9CC090255760095C8A4 /* Debug */,
+				2BACF9CD090255760095C8A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2BACF9F10902580E0095C8A4 /* Build configuration list for PBXNativeTarget "recover" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BACF9F20902580E0095C8A4 /* Development */,
-				2BACF9F30902580E0095C8A4 /* Deployment */,
-				2BACF9F40902580E0095C8A4 /* Default */,
+				2BACF9F20902580E0095C8A4 /* Debug */,
+				2BACF9F30902580E0095C8A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2BCAABCE0913A75400AF1C59 /* Build configuration list for PBXNativeTarget "tilemap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BCAABCF0913A75400AF1C59 /* Development */,
-				2BCAABD00913A75400AF1C59 /* Deployment */,
-				2BCAABD10913A75400AF1C59 /* Default */,
+				2BCAABCF0913A75400AF1C59 /* Debug */,
+				2BCAABD00913A75400AF1C59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 		2BCAABD90913A7B700AF1C59 /* Build configuration list for PBXNativeTarget "tiletext" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BCAABDA0913A7B700AF1C59 /* Development */,
-				2BCAABDB0913A7B700AF1C59 /* Deployment */,
-				2BCAABDC0913A7B700AF1C59 /* Default */,
+				2BCAABDA0913A7B700AF1C59 /* Debug */,
+				2BCAABDB0913A7B700AF1C59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

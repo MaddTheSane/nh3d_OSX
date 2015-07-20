@@ -252,9 +252,9 @@ static NH3DMaterial		nh3dMaterialArray[] = {
 //------------------------------------------------------------------
 
 
-#define NH3DOpenGLViewCast( self )  \
-( ( struct { @defs( NH3DOpenGLView ) } * ) self )
-
+//#define NH3DOpenGLViewCast( self )  \
+//( ( struct { @defs( NH3DOpenGLView ) } * ) self )
+#define NH3DOpenGLViewCast( self ) ((NH3DOpenGLView*)self)
 
 
 static inline void drawNullObject( float x, float z,int tex )
