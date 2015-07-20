@@ -64,10 +64,10 @@
 
 - (void)prepareAttributes;
 
-- (void)putMainMessarge:(int)attr:(const char *)text;
+- (void)putMainMessarge:(int)attr text:(const char *)text;
 - (void)clearMainMessarge;
 
-- (int)showInputPanel:(const char *)messageStr:(char *)line;
+- (int)showInputPanel:(const char *)messageStr line:(char *)line;
 - (IBAction)closeInputPanel:(id)sender;
 
 - (void)showOutRip:(const char *)ripString;

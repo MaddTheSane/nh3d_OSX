@@ -573,7 +573,7 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 	switch ( nh3d_windowlist[ wid ].type )
 	{
 		case NHW_MESSAGE:
-			[ _NH3DMessenger putMainMessarge:attr:text ];
+			[ _NH3DMessenger putMainMessarge:attr text:text ];
 			break;
 		case NHW_TEXT:
 			[ _NH3DMenuWindow putTextMessarge:
@@ -881,7 +881,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 	else if(result == NSAlertAlternateReturn && ynfunc) {
 		yn = 'n';
 	}
-	else if(result == NSAlertOtherReturn && choices == "ynq" && ynfunc) {
+	else if(result == NSAlertOtherReturn && strcmp(choices, "ynq") == 0 && ynfunc) {
 		yn = 'q';
 	} else if (result == NSAlertOtherReturn && ynfunc) {
 		yn = 'n';
@@ -905,9 +905,9 @@ void nh3d_getlin(const char *prompt, char *line)
 {
 	int ret = 0;
 	
-	NSAutoreleasePool* pool = [ [NSAutoreleasePool alloc] init ];
-	ret = [ _NH3DMessenger showInputPanel:prompt:line ];
-	[ pool release ];
+	@autoreleasepool {
+	ret = [ _NH3DMessenger showInputPanel:prompt line:line ];
+	}
 	if (ret == -1) line[ 0 ] = (char)0;
 	
 }

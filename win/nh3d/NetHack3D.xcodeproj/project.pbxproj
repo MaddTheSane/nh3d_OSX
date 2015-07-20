@@ -527,14 +527,15 @@
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
+		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
-		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		2B02FB1D09497BDB008FEDB0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		2B02FB1F09497C03008FEDB0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
-		2B02FB3409497C21008FEDB0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2B02FB1D09497BDB008FEDB0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		2B02FB1F09497C03008FEDB0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		2B02FB3409497C21008FEDB0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2B041A8608E605B2007F87AB /* NH3DMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMenuItem.h; sourceTree = "<group>"; };
 		2B041A8708E605B2007F87AB /* NH3DMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMenuItem.m; sourceTree = "<group>"; };
 		2B0964CD091D465D004965B2 /* hearnoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hearnoise.wav; sourceTree = "<group>"; };
@@ -639,7 +640,7 @@
 		2B2612D509233E7900CA7A64 /* upStair.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = upStair.3ds; sourceTree = "<group>"; };
 		2B2612D709233E7900CA7A64 /* vwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = vwall.3ds; sourceTree = "<group>"; };
 		2B2612D909233E7900CA7A64 /* wormtail.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = wormtail.3ds; sourceTree = "<group>"; };
-		2B29B1DD08E0EDFD00951AF7 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2B29B1DD08E0EDFD00951AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2B2BBF58093F487100DCBBBB /* nh3d.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nh3d.icns; sourceTree = "<group>"; };
 		2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DModelObjects.m; sourceTree = "<group>"; };
 		2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMessenger.m; sourceTree = "<group>"; };
@@ -1026,7 +1027,7 @@
 		2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DUserMakeSheetController.m; sourceTree = "<group>"; };
 		2B56CD9E094E8CA500C22BA8 /* magicportal.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = magicportal.3ds; sourceTree = "<group>"; };
 		2B56CD9F094E8CA500C22BA8 /* magicportal.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = magicportal.tif; sourceTree = "<group>"; };
-		2B572F3D08A1DF2C003080BE /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		2B572F3D08A1DF2C003080BE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMenuWindow.h; sourceTree = "<group>"; };
 		2B598AD508E5B523005ECDC5 /* NH3DMenuWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMenuWindow.m; sourceTree = "<group>"; };
 		2B5CBF74088EB5A500940C58 /* air.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = air.lev; sourceTree = "<group>"; };
@@ -1417,7 +1418,7 @@
 		2B89F1290A22FE3F00387832 /* rumors */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rumors; sourceTree = "<group>"; };
 		2B8ADFF7095FBB5500B6998D /* NH3DPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DPreferenceController.h; sourceTree = "<group>"; };
 		2B8ADFF8095FBB5500B6998D /* NH3DPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPreferenceController.m; sourceTree = "<group>"; };
-		2B8ADFFE095FBC7C00B6998D /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/PreferencePanel.nib; sourceTree = "<group>"; };
+		2B8ADFFE095FBC7C00B6998D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
 		2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = asciiMapBase.tiff; sourceTree = "<group>"; };
 		2B9A473E096DD7530074B10D /* bridge_opt.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = bridge_opt.3ds; sourceTree = "<group>"; };
 		2B9A473F096DD7530074B10D /* bridge_opt.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = bridge_opt.tif; sourceTree = "<group>"; };
@@ -1524,7 +1525,7 @@
 		2BE0364B08AFCE3F0085F367 /* Lowful0.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Lowful0.tiff; sourceTree = "<group>"; };
 		2BE0364C08AFCE3F0085F367 /* Lowful1.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Lowful1.tiff; sourceTree = "<group>"; };
 		2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DUserDefaultsExtern.h; sourceTree = "<group>"; };
-		2BE3649E095D20F500D34027 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Usermakesheet.nib; sourceTree = "<group>"; };
+		2BE3649E095D20F500D34027 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
 		2BE376120A22E29D00B3CDF4 /* Ac0.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Ac0.tiff; sourceTree = "<group>"; };
 		2BE376130A22E29D00B3CDF4 /* Ac1.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Ac1.tiff; sourceTree = "<group>"; };
 		2BE376140A22E29D00B3CDF4 /* CHA0.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = CHA0.tiff; sourceTree = "<group>"; };
@@ -1582,6 +1583,7 @@
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1683,18 +1685,9 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2B02FB1F09497C03008FEDB0 /* OpenGL.framework */,
 				2B02FB1D09497BDB008FEDB0 /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 			);
@@ -1757,6 +1750,7 @@
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				2BA046CC08EF5831004057D1 /* logfile */,
+				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1765,7 +1759,8 @@
 			isa = PBXGroup;
 			children = (
 				55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */,
-				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
+				2B02FB1F09497C03008FEDB0 /* OpenGL.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -3154,6 +3149,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NetHack3D */;
 			projectDirPath = "";
@@ -3208,6 +3204,7 @@
 				2B5CC04A088EB5A600940C58 /* earth.lev in Resources */,
 				55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */,
 				2B5CC04C088EB5A600940C58 /* fakewiz1.lev in Resources */,
+				55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */,
 				2B5CC04D088EB5A600940C58 /* fakewiz2.lev in Resources */,
 				2B5CC04E088EB5A600940C58 /* fire.lev in Resources */,
 				2B5CC050088EB5A600940C58 /* Hea-fila.lev in Resources */,
@@ -3751,7 +3748,7 @@
 		2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2B29B1DD08E0EDFD00951AF7 /* English */,
+				2B29B1DD08E0EDFD00951AF7 /* en */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -3759,7 +3756,7 @@
 		2B3539190915A2F4002CC8AD /* MainMenu.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2B572F3D08A1DF2C003080BE /* English */,
+				2B572F3D08A1DF2C003080BE /* en */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -3767,7 +3764,7 @@
 		2B8AE3600960779400B6998D /* PreferencePanel.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2B8ADFFE095FBC7C00B6998D /* English */,
+				2B8ADFFE095FBC7C00B6998D /* en */,
 			);
 			name = PreferencePanel.nib;
 			sourceTree = "<group>";
@@ -3799,12 +3796,7 @@
 				COPYING_PRESERVES_HFS_DATA = NO;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = /System/Library/Frameworks;
-				GCC_ALTIVEC_EXTENSIONS = NO;
-				GCC_AUTO_VECTORIZATION = NO;
-				GCC_CHAR_IS_UNSIGNED_CHAR = NO;
 				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_ASM_KEYWORD = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
@@ -3812,13 +3804,8 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_ENABLE_SYMBOL_SEPARATION = NO;
-				GCC_FAST_OBJC_DISPATCH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_MODEL_PPC64 = NO;
-				GCC_MODEL_TUNING = "";
-				GCC_NO_NIL_RECEIVERS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NetHack3D_Prefix.pch;
@@ -3826,28 +3813,20 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_THREADSAFE_STATICS = YES;
 				GCC_UNROLL_LOOPS = NO;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = YES;
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks,
-					/usr/include,
-				);
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = /System/Library;
-				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
-				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = NetHack3D;
-				REZ_SCRIPT_TYPE = "";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
@@ -3859,9 +3838,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = /System/Library/Frameworks;
-				GCC_ALTIVEC_EXTENSIONS = NO;
-				GCC_AUTO_VECTORIZATION = NO;
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_ASM_KEYWORD = YES;
@@ -3870,84 +3846,64 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_ENABLE_SSE3_EXTENSIONS = NO;
-				GCC_ENABLE_SYMBOL_SEPARATION = NO;
-				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_FEEDBACK_DIRECTED_OPTIMIZATION = Off;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
-				GCC_MODEL_PPC64 = NO;
-				GCC_MODEL_TUNING = "";
-				GCC_NO_NIL_RECEIVERS = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NetHack3D_Prefix.pch;
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_USE_GCC3_PFE_SUPPORT = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = NO;
-				HEADER_SEARCH_PATHS = (
-					/System/Library/Frameworks,
-					/usr/include,
-				);
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = NO;
 				INSTALL_PATH = "$(HOME)/Applications";
-				LIBRARY_SEARCH_PATHS = /System/Library;
-				LIBRARY_STYLE = STATIC;
-				LINKER_DISPLAYS_FILES_FOR_UNDEFINED_SYMBOLS = NO;
-				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_CFLAGS = "";
-				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = NetHack3D;
 				STRIP_INSTALLED_PRODUCT = YES;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 		2B14B32D0890124A0051A4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_MISSING_PARENTHESES = YES;
 				GCC_WARN_SHADOW = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				ONLY_ACTIVE_ARCH = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = NetHack3D;
-				REZ_SCRIPT_TYPE = Japanese;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		2B14B32E0890124A0051A4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = NetHack3D;
 				SDKROOT = macosx;
 			};

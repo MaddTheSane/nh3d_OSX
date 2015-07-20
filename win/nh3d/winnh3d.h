@@ -14,7 +14,7 @@
 #ifndef WINNH3D_H
 #define WINNH3D_H
 
-//#import <Cocoa/Cocoa.h>
+#import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 
 

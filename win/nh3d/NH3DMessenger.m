@@ -168,7 +168,7 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (void)putMainMessarge:(int)attr:(const char *)text
+- (void)putMainMessarge:(int)attr text:(const char *)text
 {	
 	NSAutoreleasePool *pool = [ [NSAutoreleasePool alloc] init ];
 	NSMutableAttributedString* putString = nil;
@@ -187,12 +187,10 @@ static const int DIALOG_CANCEL	= 129;
 			NSString *msgSoundStr = nil;
 			NSString *msgEffectStr = nil;
 			NSString *bundlePath = [ [NSBundle mainBundle] bundlePath ];
-			NSEnumerator *msgSoundEnum = [ soundMessageArray objectEnumerator ];
-			NSEnumerator *msgEffectEnum = [ effectMessageArray objectEnumerator ];
-			NSMovie *playSound;
+			QTMovie *playSound;
 			NSURL      *soundURL;
 			
-			while ( msgSoundStr = [ msgSoundEnum nextObject ] ) {
+			for ( NSString *msgSoundStr in soundMessageArray ) {
 				
 				if ( [ [NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgSoundStr ] ) {
 					
@@ -200,15 +198,17 @@ static const int DIALOG_CANCEL	= 129;
 																	[bundlePath stringByDeletingLastPathComponent],
 																	[soundNameArray objectAtIndex:i]] ];
 
-					playSound = [ [NSMovie alloc] initWithURL: soundURL byReference: YES ];
+					playSound = [ [QTMovie alloc] initWithURL: soundURL error:NULL ];
 					
 					[ movieView setMovie:playSound ];
 					
 					[ playSound release ];
 					[ soundURL release ];
 					
-					[ movieView  setVolume: [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01 ];
-					[ movieView  start: self ];
+					[ playSound  setVolume: [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01];
+					
+					//[ movieView  setVolume: [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01 ];
+					[ movieView  play: self ];
 					
 					break;
 				} else {
@@ -218,7 +218,7 @@ static const int DIALOG_CANCEL	= 129;
 			}
 			
 			i = 0;
-			while ( msgEffectStr = [ msgEffectEnum nextObject ] ) {
+			for ( NSString *msgEffectStr in effectMessageArray ) {
 				
 				if ( [ [NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgEffectStr ] ) {
 					
@@ -298,7 +298,7 @@ static const int DIALOG_CANCEL	= 129;
 
 
 
-- (int)showInputPanel:(const char *)messageStr:(char *)line
+- (int)showInputPanel:(const char *)messageStr line:(char *)line
 {
 	NSAttributedString *putString;
 	NSString *questionStr = [ [NSString alloc] initWithCString:messageStr encoding:NH3DTEXTENCODING ];
