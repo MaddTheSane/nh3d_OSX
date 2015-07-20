@@ -122,7 +122,7 @@
 					 offset:(int)offset
 				  modelName:(NSString *)mName
 				   textured:(BOOL)flag
-					withOut:(int)without, ... NS_FORMAT_FUNCTION(4,7);
+					withOut:(int)without, ... /*NS_FORMAT_FUNCTION(4,7)*/;
 //- ( id )loadModelToArray:(int)glyph;
 
 @property (readonly) float cameraHead;
@@ -132,7 +132,7 @@
 - (GLuint)loadImageToTexture:(NSString *)filename;
 - (GLuint)createTextureFromSymbol:(id)symbol withColor:(id)color;
 
-- (void)setCenter:(int)x :(int)z :(int)depth; 
+- ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth;
 - (void)setCameraAtX:(float)x atY:(float)y atZ:(float)z;
 - (void)setCameraHead:(float)head pitching:(float)pitch rolling:(float)roll;
 

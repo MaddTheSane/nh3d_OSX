@@ -144,7 +144,7 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (int)selectedRow
+- (NSInteger)selectedRow
 {
 	return selectedRow;
 }
@@ -200,7 +200,7 @@ static const int DIALOG_CANCEL	= 129;
 	
 	[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
 	
-	frameRect = [ _textPanel frameRectForContentRect:[[_textPanel contentView] frame] ];
+	frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
 	[ _textPanel setFrame:frameRect display:NO ];
 	
 	if ( [ [_textScrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
@@ -242,7 +242,7 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
 	return [ nh3dMenu count ];
 }
@@ -250,7 +250,7 @@ static const int DIALOG_CANCEL	= 129;
 
 - (id)tableView:(NSTableView *)aTableView
         objectValueForTableColumn:(NSTableColumn *)aTableColumn
-        row:(int)rowIndex
+        row:(NSInteger)rowIndex
 {
 	NSString *identifier = [ aTableColumn identifier ];
 	NH3DMenuItem *aMenuItem = [ nh3dMenu objectAtIndex:rowIndex ];
@@ -263,7 +263,7 @@ static const int DIALOG_CANCEL	= 129;
 - (void)tableView:(NSTableView*)tableView 
                 willDisplayCell:(id)cell 
                 forTableColumn:(NSTableColumn*)tableColumn 
-                row:(int)row
+                row:(NSInteger)row
 {
 	NH3DMenuItem *aMenuItem = [ nh3dMenu objectAtIndex:row ];
 	NSString *identifier = [ tableColumn identifier ];
@@ -274,25 +274,25 @@ static const int DIALOG_CANCEL	= 129;
 		
 		[ cell setImagePosition:NSImageLeft ];
 		//[ cell setImage:[aMenuItem glyph] ];
-		[ cell setImage:[aMenuItem smallGlyph] ];
+		[ (NSCell*)cell setImage:[aMenuItem smallGlyph] ];
 		
 		if ( ![aMenuItem isSelectable] ) {
 			[ cell setBordered:NO ];
 			[ cell setSelectable:NO ];
 		} else {
 			[ cell setBordered:YES ];
-			[ cell setKeyEquivalent:[NSString stringWithFormat:@"%c",[aMenuItem accelerator]] ];
+			[ cell setKeyEquivalent:[NSString stringWithFormat:@"%c",*[[[aMenuItem accelerator] string] UTF8String]] ];
 		}		
 	}
 	
 	if ( [ aMenuItem isPreSelected ] ) {
-		[ tableView selectRow:row byExtendingSelection:YES ];
+		[ tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:YES ];
 		[ aMenuItem setPreselect:MENU_UNSELECTED ];
 	}
 }
 
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
 {	
 	NH3DMenuItem *aMenuItem = [ nh3dMenu objectAtIndex:rowIndex ];
 	return [ aMenuItem isSelectable ];
@@ -349,7 +349,7 @@ static const int DIALOG_CANCEL	= 129;
 	
 	[ self fitMenuWindowSizeToContents:_menuPanel scrollView:_menuScrollview ];
 
-	frameRect = [ _menuPanel frameRectForContentRect:[[_menuPanel contentView] frame] ];
+	frameRect = [ _menuPanel frameRectForContentRect:[(NSView*)[_menuPanel contentView] frame] ];
 	[ _menuPanel setFrame:frameRect display:YES ];
 	
 	[ [_window attachedSheet] orderOut:nil ];
@@ -438,7 +438,7 @@ static const int DIALOG_CANCEL	= 129;
 	}
 }
 
-- (void)fitMenuWindowSizeToContents:(id)window scrollView:(NSScrollView *)scrollView
+- (void)fitMenuWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
 {
 	NSSize contentSize,strSize;
 	NSRect windowRect = [ window frame ];
@@ -485,7 +485,7 @@ static const int DIALOG_CANCEL	= 129;
 
 
 
-- (void)fitTextWindowSizeToContents:(id)window scrollView:(NSScrollView *)scrollView
+- (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
 {
 	NSRect windowRect = [ window frame ];
 	NSSize windowMaxSize = [ window maxSize ];
@@ -532,7 +532,7 @@ static const int DIALOG_CANCEL	= 129;
 	for ( i=0 ; i<[ nh3dMenu count ] ; i++ ) {
 		
 		if ( [ [event charactersIgnoringModifiers] isEqualToString:[[[nh3dMenu objectAtIndex:i] accelerator] string] ] ) {
-			[ _menuTableWindow selectRow:i byExtendingSelection:NO ];
+			[ _menuTableWindow selectRowIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO ];
 			
 			if ( pickType == PICK_ONE ) {
 				[ _menuPanel close ];

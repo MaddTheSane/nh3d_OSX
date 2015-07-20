@@ -28,7 +28,20 @@
 #define MODKEY_CTRL 2
 #define MODKEY_COMMAND 3
 
+@interface NH3DMapView ()
+@property (retain) NSImage *mapBezel;
+@property (retain) NSImage *mapBase;
+@property (retain) NSImage *trMapImage;
+@property (retain) NSImage *posCursor;
+@property (retain) NSImage *mapRestrictedBezel;
+@end
+
 @implementation NH3DMapView
+@synthesize posCursor;
+@synthesize mapBezel;
+@synthesize mapBase;
+@synthesize trMapImage;
+@synthesize mapRestrictedBezel;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
@@ -42,8 +55,8 @@
 		viewCursX = 0;
 		viewCursY = 0;
 										
-		posCursor = [ NSImage imageNamed:@"nh3dPosCursor" ];
-		mapRestrictedBezel = [ NSImage imageNamed:@"asciiMapMaskLimited" ];
+		self.posCursor = [ NSImage imageNamed:@"nh3dPosCursor" ];
+		self.mapRestrictedBezel = [ NSImage imageNamed:@"asciiMapMaskLimited" ];
 
 		cursOpacity = 1.0;
 		keyBuffer = '0';
@@ -58,13 +71,13 @@
 		
 		if ( TRADITIONAL_MAP ) {
 			[ self setFrame:NSMakeRect(183.0, 222.0, 440.0, 320.0) ];
-			mapBezel = nil;
-			mapBase = [ NSImage imageNamed:@"trBase" ];
-			trMapImage = nil;
+			self.mapBezel = nil;
+			self.mapBase = [ NSImage imageNamed:@"trBase" ];
+			self.trMapImage = nil;
 		} else {
-			mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
-			mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
-			trMapImage = nil;
+			self.mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
+			self.mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
+			self.trMapImage = nil;
 		}
 
 	}
@@ -99,10 +112,8 @@
 		
 		[ self setFrame:NSMakeRect(183.0, 222.0, 440.0, 320.0) ];
 		
-		if ( mapBezel != nil ) [ mapBezel release ];
-		if ( mapBase != nil ) [ mapBase release ];
-		mapBezel = nil;
-		mapBase = [ NSImage imageNamed:@"trBase" ];
+		self.mapBezel = nil;
+		self.mapBase = [ NSImage imageNamed:@"trBase" ];
 		
 		[ self makeTraditionalMap ];
 		
@@ -123,13 +134,10 @@
 		
 		[ self setFrame:NSMakeRect(4.0, 366.0, 176.0, 176.0) ];
 		
-		if ( mapBezel != nil ) [ mapBezel release ];
-		if ( mapBase != nil ) [ mapBase release ];
-		mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
-		mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
+		self.mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
+		self.mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
 		
-		if ( trMapImage != nil ) [ trMapImage release ];
-		trMapImage = nil;
+		self.trMapImage = nil;
 		
 		[ self updateMap ];
 		[ self setNeedsDisplay:YES ];
@@ -230,7 +238,7 @@
 
 
 
-- (void)setCenter:(int)x:(int)y:(int)depth
+- (void)setCenterAtX:(int)x y:(int)y depth:(int)depth
 {
 	 
 	if ( depth != plDepth && ( TRADITIONAL_MAP || trMapImage != nil )) [ self makeTraditionalMap ]; 
@@ -246,12 +254,11 @@
 {
 	int x,y;
 
-	if ( trMapImage != nil ) [ trMapImage release ];
 	if ( TRADITIONAL_MAP_TILE ) {
-		trMapImage = [ [NSImage alloc] initWithSize:NSMakeSize( TILE_SIZE_X*MAPSIZE_COLUMN,
+		self.trMapImage = [ [NSImage alloc] initWithSize:NSMakeSize( TILE_SIZE_X*MAPSIZE_COLUMN,
 																TILE_SIZE_Y*MAPSIZE_ROW) ];
 	} else {
-		trMapImage = [ [NSImage alloc] initWithSize:NSMakeSize( NH3DMAPFONTSIZE*MAPSIZE_COLUMN,
+		self.trMapImage = [ [NSImage alloc] initWithSize:NSMakeSize( NH3DMAPFONTSIZE*MAPSIZE_COLUMN,
 																NH3DMAPFONTSIZE*MAPSIZE_ROW) ];
 	}
 	
@@ -1313,8 +1320,8 @@
 
 - (IBAction)setRestrictedView:(id)sender
 {	
-	[ [NSUserDefaults standardUserDefaults] setBool:![ sender state ] forKey:NH3DUseSightRestrictionKey ];
-	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ sender state ]]
+	[ [NSUserDefaults standardUserDefaults] setBool:![ (NSCell*)sender state ] forKey:NH3DUseSightRestrictionKey ];
+	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ (NSCell*)sender state ]]
 																		 forKey:NH3DUseSightRestrictionKey ];
 	[ self setNeedClear:YES ];
 	[ self setNeedsDisplay:YES ];
@@ -1322,8 +1329,8 @@
 
 - (IBAction)setUseTileInGlobalMap:(id)sender
 {
-	[ [NSUserDefaults standardUserDefaults] setBool:![ sender state ] forKey:NH3DUseTileInLevelMapKey ];
-	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ sender state ]]
+	[ [NSUserDefaults standardUserDefaults] setBool:![ (NSCell*)sender state ] forKey:NH3DUseTileInLevelMapKey ];
+	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ (NSCell*)sender state ]]
 																		 forKey:NH3DUseTileInLevelMapKey ];
 }	
 	

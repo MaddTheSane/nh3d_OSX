@@ -258,14 +258,14 @@
                                     </buttonCell>
                                     <cells>
                                         <column>
-                                            <buttonCell type="radio" title="Lowful" imagePosition="left" alignment="left" enabled="NO" state="on" sound="Morse" inset="2" id="55">
+                                            <buttonCell type="radio" title="Lawful" imagePosition="left" alignment="left" enabled="NO" state="on" sound="Morse" inset="2" id="55">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <connections>
                                                     <binding destination="67" name="enabled" keyPath="selection.en_lowful" id="84"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="radio" title="Newtral" imagePosition="left" alignment="left" enabled="NO" tag="1" sound="Morse" inset="2" id="56">
+                                            <buttonCell type="radio" title="Neutral" imagePosition="left" alignment="left" enabled="NO" tag="1" sound="Morse" inset="2" id="56">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <connections>
@@ -370,11 +370,11 @@ DQ
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="29">
-                        <rect key="frame" x="47" y="533" width="382" height="30"/>
+                        <rect key="frame" x="47" y="503" width="382" height="60"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="102">
                             <font key="font" size="24" name="Copperplate"/>
-                            <string key="title">Welcome,NewFace!
+                            <string key="title">Welcome, NewFace!
 </string>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -446,7 +446,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                     <textField verticalHuggingPriority="750" id="9">
                         <rect key="frame" x="47" y="472" width="382" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please teach it about you more." id="99">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please tell us about you more." id="99">
                             <font key="font" size="18" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

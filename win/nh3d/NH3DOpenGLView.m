@@ -35,8 +35,8 @@ static const GLfloat keyLightAltspec[] = {0.04 ,0.09 ,0.18 ,1} ;
 static const GLfloat defaultBackGroundCol[] = {0.00 ,0.00 ,0.00 ,0} ;
 static const GLfloat underWaterColar[] = {0.00 ,0.00 ,0.80 ,1.0} ;
 
-static const long vsincWait = 1;
-static const long vsincNoWait = 0;
+static const GLint vsincWait = 1;
+static const GLint vsincNoWait = 0;
 ////////////////////////////////
 // floor model
 ////////////////////////////////
@@ -1158,8 +1158,9 @@ static void floorfunc_default( id self )
 	
 	
 	
-	CFDictionaryRef curCfg = CGDisplayCurrentMode( kCGDirectMainDisplay ); 
-	dRefreshRate = [ [ ( NSDictionary* ) curCfg objectForKey : @"RefreshRate" ] doubleValue ];
+	CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
+	dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
+	CGDisplayModeRelease(curCfg);
 
 	runnning = YES;
 	threadRunning = NO;
@@ -1193,7 +1194,7 @@ static void floorfunc_default( id self )
 	IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
 	IMP updateGlViewAddress = [ self methodForSelector:@selector( updateGlView ) ];
 	
-	drawGlViewAddress = [ self methodForSelector:@selector( drawGlView:: ) ];
+	drawGlViewAddress = [ self methodForSelector:@selector( drawGlView:z: ) ];
 	playerDirectionImp = [ _mapModel methodForSelector:@selector( playerDirection ) ];
 	drawModelArrayImp = [ self methodForSelector:@selector( drawModelArray: ) ];
 	panCameraImp = [ self methodForSelector:@selector( panCamera ) ];
@@ -1253,7 +1254,8 @@ static void floorfunc_default( id self )
 		[ [ NSColor clearColor ] set ];
 		[ NSBezierPath fillRect:[ self bounds ] ];
 	
-		[ [ NSImage imageNamed:@"nh3d" ] dissolveToPoint:NSMakePoint( 156.0 ,88.0 ) fraction:0.7 ];
+		[[NSImage imageNamed:@"nh3d"] drawAtPoint:NSMakePoint( 156.0 ,88.0 ) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.7];
+		//[ [ NSImage imageNamed:@"nh3d" ] dissolveToPoint:NSMakePoint( 156.0 ,88.0 ) fraction:0.7 ];
 		[ @"NetHack3D" drawAtPoint:NSMakePoint( 168.0 ,70.0 ) withAttributes:attributes ];
 		[ attributes setObject:[ NSFont fontWithName:@"Copperplate"
 												size: 14 ]
@@ -1276,7 +1278,7 @@ static void floorfunc_default( id self )
 
 }
 
-- ( void )drawGlView:( int )x:( int )z
+- ( void )drawGlView:( int )x z:( int )z
 {
 	NH3DMapItem *mapItem = [ mapItemValue[ x ][ z ] retain ];
 	int			type = [ mapItem modelDrawingType ];
@@ -1334,28 +1336,28 @@ static void floorfunc_default( id self )
 			case PL_DIRECTION_FORWARD:
 				for ( x=0 ; x < NH3DGL_MAPVIEWSIZE_COLUMN ; x++ ) {
 					for ( z=0 ; z < MAP_MARGIN+drawMargin ; z++ ) {
-						drawGlViewAddress( self, @selector( drawGlView:: ),x,z );
+						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
 					}
 				}
 				break;
 			case PL_DIRECTION_RIGHT:
 				for ( z=0 ; z < NH3DGL_MAPVIEWSIZE_ROW ; z++ ) {
 					for ( x=NH3DGL_MAPVIEWSIZE_COLUMN-1 ; x > MAP_MARGIN-drawMargin ; x-- ) {
-						drawGlViewAddress( self, @selector( drawGlView:: ),x,z );
+						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
 					}
 				}
 				break;
 			case PL_DIRECTION_BACK:
 				for ( x=0 ; x < NH3DGL_MAPVIEWSIZE_COLUMN ; x++ ) {
 					for ( z=NH3DGL_MAPVIEWSIZE_ROW-1 ; z > MAP_MARGIN-drawMargin ; z-- ) {
-						drawGlViewAddress( self, @selector( drawGlView:: ),x,z );
+						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
 					}
 				}
 				break;
 			case PL_DIRECTION_LEFT:
 				for ( z=0 ; z < NH3DGL_MAPVIEWSIZE_ROW ; z++ ) {
 					for ( x=0 ; x < MAP_MARGIN+drawMargin ; x++ ) {
-						drawGlViewAddress( self, @selector( drawGlView:: ),x,z );
+						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
 					}
 				}
 				break;
@@ -1609,7 +1611,7 @@ static void floorfunc_default( id self )
 	[ [modelDictionary objectForKey:[ NSNumber numberWithInt:S_tlcorn + GLYPH_CMAP_OFF ]] setTexture:tex_id ];	
 }
 
-- ( void )setCenter:( int )x :( int )z :( int )depth
+- ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth
 {
 	
 	[ viewLock lock ];
@@ -2239,7 +2241,7 @@ static void floorfunc_default( id self )
 }
 
 
-- (void)setParamsForMagicEffect:(id)magicItem:(int)color
+- (void)setParamsForMagicEffect:(id)magicItem color:(int)color
 {
 	[ magicItem setPivotX:0.0 atY:1.2 atZ:0.0 ];
 	[ magicItem setModelScaleX:0.4 scaleY:1.0 scaleZ:0.4 ];
@@ -2253,7 +2255,7 @@ static void floorfunc_default( id self )
 }
 
 
-- (void)setParamsForMagicExplotion:(id)magicItem:(int)color
+- (void)setParamsForMagicExplotion:(id)magicItem color:(int)color
 {
 	[ magicItem setParticleType:PARTICLE_AURA ];
 	[ magicItem setParticleColor:color ];
@@ -3787,28 +3789,28 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_WHITE ];
+			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
 			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_WHITE ];
+			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
 			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_WHITE ];
+			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
 			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_WHITE ];
+			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
 			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
@@ -3829,25 +3831,25 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_ORANGE ];
+			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_ORANGE ];
+			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT:	
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_ORANGE ];
+			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_ORANGE ];
+			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
 			break;
 	}
 	
@@ -3865,26 +3867,26 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_CYAN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
 			// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_CYAN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT:	
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_CYAN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_CYAN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
 			break;
 			
 		}
@@ -3921,26 +3923,26 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_GRAY ];
+			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
 			// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_GRAY ];
+			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT:	
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_GRAY ];
+			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_GRAY ];
+			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
 			break;
 	}
 	
@@ -3959,7 +3961,7 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_YELLOW ];
+			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
 			// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
 			break;
@@ -3967,21 +3969,21 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_YELLOW ];
+			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
 			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT:	
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_YELLOW ];
+			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
 			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_YELLOW ];
+			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
 			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
 			break;
 	}	
@@ -4019,26 +4021,26 @@ static void floorfunc_default( id self )
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_GREEN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
 			// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			break;
 			
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_GREEN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT:	
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_GREEN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
 			break;
 			
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret :CLR_BRIGHT_GREEN ];
+			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
 			break;
 	}	
 	
@@ -4153,7 +4155,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 	
-	[ self setParamsForMagicExplotion:ret :CLR_GRAY ];
+	[ self setParamsForMagicExplotion:ret color:CLR_GRAY ];
 	
 	return ret;
 }
@@ -4170,7 +4172,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 	
-	[ self setParamsForMagicExplotion:ret :CLR_GREEN ];
+	[ self setParamsForMagicExplotion:ret color:CLR_GREEN ];
 	
 	return ret;
 }
@@ -4187,7 +4189,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 	
-	[ self setParamsForMagicExplotion:ret :CLR_BROWN ];
+	[ self setParamsForMagicExplotion:ret color:CLR_BROWN ];
 	
 	return ret;
 	
@@ -4205,7 +4207,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 	
-	[ self setParamsForMagicExplotion:ret :CLR_BLUE ];
+	[ self setParamsForMagicExplotion:ret color:CLR_BLUE ];
 	
 	return ret;
 }
@@ -4222,7 +4224,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 
-	[ self setParamsForMagicExplotion:ret :CLR_BRIGHT_MAGENTA ];
+	[ self setParamsForMagicExplotion:ret color:CLR_BRIGHT_MAGENTA ];
 	
 	return ret;
 	
@@ -4240,7 +4242,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 
-	[ self setParamsForMagicExplotion:ret :CLR_ORANGE ];
+	[ self setParamsForMagicExplotion:ret color:CLR_ORANGE ];
 	
 	return ret;
 	
@@ -4258,7 +4260,7 @@ static void floorfunc_default( id self )
 							textured:NO
 							 withOut:nil ];
 
-	[ self setParamsForMagicExplotion:ret :CLR_BRIGHT_CYAN ];
+	[ self setParamsForMagicExplotion:ret color:CLR_BRIGHT_CYAN ];
 	
 	return ret;
 	
@@ -4300,8 +4302,8 @@ static void floorfunc_default( id self )
 	[ viewLock lock ];
 	nowUpdating = YES;
 	
-		[ [NSUserDefaults standardUserDefaults] setBool:![ sender state ] forKey:NH3DOpenGLWaitSyncKey ];
-		[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ sender state ]]
+		[ [NSUserDefaults standardUserDefaults] setBool:![ (NSCell*)sender state ] forKey:NH3DOpenGLWaitSyncKey ];
+		[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ (NSCell*)sender state ]]
 																			 forKey:NH3DOpenGLWaitSyncKey ];
 		
 	nowUpdating = NO;
@@ -4332,8 +4334,8 @@ static void floorfunc_default( id self )
 
 - ( IBAction )setWaitRate:( id )sender
 {
-	CFDictionaryRef curCfg = CGDisplayCurrentMode( kCGDirectMainDisplay ); 
-	dRefreshRate = [ [ ( NSDictionary* ) curCfg objectForKey : @"RefreshRate" ] doubleValue ];
+	CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
+	dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
 	
 	[ viewLock lock ];
 		nowUpdating = YES;
@@ -4341,7 +4343,7 @@ static void floorfunc_default( id self )
 	switch ( [ sender tag ] ) {
 		case 1003 : // no wait			
 			waitRate = dRefreshRate;
-			[ sender setState:NSOnState ];
+			[(NSCell*) sender setState:NSOnState ];
 			[ [NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DOpenGLUseWaitRateKey ];
 			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:NO]
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
@@ -4352,7 +4354,7 @@ static void floorfunc_default( id self )
 			break;
 		case 1004 :
 			waitRate = WAIT_FAST;
-			[ sender setState:NSOnState ];
+			[ (NSCell*)sender setState:NSOnState ];
 			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
 			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:YES]
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
@@ -4363,7 +4365,7 @@ static void floorfunc_default( id self )
 			break;
 		case 1005 :
 			waitRate = WAIT_NORMAL;
-			[ sender setState:NSOnState ];
+			[ (NSCell*)sender setState:NSOnState ];
 			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
 			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:YES]
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
@@ -4374,7 +4376,7 @@ static void floorfunc_default( id self )
 			break;
 		case 1006 :
 			waitRate = WAIT_SLOW;
-			[ sender setState:NSOnState ];
+			[ (NSCell*)sender setState:NSOnState ];
 			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
 			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:YES]
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
@@ -4395,7 +4397,7 @@ static void floorfunc_default( id self )
 	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithFloat:waitRate]
 																		 forKey:NH3DOpenGLWaitRateKey ];
 	
-	
+	CGDisplayModeRelease(curCfg);
 }
 
 
@@ -4428,12 +4430,13 @@ static void floorfunc_default( id self )
 	hasWait = OPENGLVIEW_USEWAIT;
 	
 	if ( !hasWait ) {
-		CFDictionaryRef curCfg = CGDisplayCurrentMode( kCGDirectMainDisplay ); 
-		dRefreshRate = [ [ ( NSDictionary* ) curCfg objectForKey : @"RefreshRate" ] doubleValue ];
+		CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
+		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
 		waitRate = dRefreshRate;
 		[ [oglFrameRateMenu itemWithTag:1004 ] setState:NSOffState ];
 		[ [oglFrameRateMenu itemWithTag:1005 ] setState:NSOffState ];
 		[ [oglFrameRateMenu itemWithTag:1006 ] setState:NSOffState ];
+		CGDisplayModeRelease(curCfg);
 	} else if ( OPENGLVIEW_WAITRATE == WAIT_FAST ) {
 		waitRate = WAIT_FAST;
 		[ [oglFrameRateMenu itemWithTag:1004 ] setState:NSOnState ];

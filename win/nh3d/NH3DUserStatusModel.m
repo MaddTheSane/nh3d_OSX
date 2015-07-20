@@ -182,7 +182,7 @@ extern id _NH3DTileCache;
 - ( NSAttributedString * )playerName
 {
 	int fSize;
-	switch ( [ playerName cStringLength ] ) 
+	switch ( [ playerName length ] )
 	{
 		case 15:
 		case 16:
@@ -743,7 +743,7 @@ extern id _NH3DTileCache;
 //
 
 - ( void )setPlayerName:( NSString * )aString {
-	if ( ![ playerName isEqualToString: aString ] && [ aString cStringLength ] <= PL_NSIZ-11 ) {
+	if ( ![ playerName isEqualToString: aString ] && [ aString length ] <= PL_NSIZ-11 ) {
 		[ playerName release ];
 		playerName = [ aString retain ];
 		//strcpy( plname,[ playerName cStringUsingEncoding:NH3DTEXTENCODING ] );

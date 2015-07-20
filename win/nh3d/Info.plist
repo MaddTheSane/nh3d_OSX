@@ -29,8 +29,6 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string>NetHack3D 2.0.2 © Haruumi Yoshino, 2006</string>
-	<key>CFBundleIconFile</key>
-	<string>nh3d</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.sbrain.portNetHack3D</string>
 	<key>CFBundleInfoDictionaryVersion</key>

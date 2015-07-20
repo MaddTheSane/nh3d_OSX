@@ -48,7 +48,7 @@
 @property BOOL isMenu;
 
 @property BOOL isExtendMenu;
-@property (readonly) int selectedRow;
+@property (readonly) NSInteger selectedRow;
 
 @property BOOL doneRip;
 
@@ -85,8 +85,8 @@
 
 - (IBAction)closeModalDialog:(id)sender;
 
-- (void)fitMenuWindowSizeToContents:(id)window scrollView:(NSScrollView *)scrollView;
-- (void)fitTextWindowSizeToContents:(id)window scrollView:(NSScrollView *)scrollView;
+- (void)fitMenuWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView;
+- (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView;
 
 - (void)keyDown:(NSEvent*)event;
 

@@ -170,7 +170,7 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)putMainMessarge:(int)attr text:(const char *)text
 {	
-	NSAutoreleasePool *pool = [ [NSAutoreleasePool alloc] init ];
+	@autoreleasepool {
 	NSMutableAttributedString* putString = nil;
 	//NSTextStorage* windowString;
 	int i=0;
@@ -179,13 +179,10 @@ static const int DIALOG_CANCEL	= 129;
 	[ style setAlignment:NSLeftTextAlignment] ;
 	
 	if ( !text ) {
-		[ pool release ];
 		return ;
 	} else {
 		
 		if ( userSound && !SOUND_MUTE ) {
-			NSString *msgSoundStr = nil;
-			NSString *msgEffectStr = nil;
 			NSString *bundlePath = [ [NSBundle mainBundle] bundlePath ];
 			QTMovie *playSound;
 			NSURL      *soundURL;
@@ -284,7 +281,7 @@ static const int DIALOG_CANCEL	= 129;
 		
 		[ _messeageWindow scrollRangeToVisible:NSMakeRange([[_messeageWindow textStorage] length], 0) ];
 	
-		[ pool release ];
+	}
 	}
 }
 
@@ -343,7 +340,7 @@ static const int DIALOG_CANCEL	= 129;
 		return -1;
 	}
 	
-	if ( [ [_inputTextField stringValue] cStringLength ] > BUFSZ ) {
+	if ( [ [_inputTextField stringValue] length ] > BUFSZ ) {
 		
 		NSRunAlertPanel( NSLocalizedString(@"There is too much number of the letters.",@""), 
 						@" ", 

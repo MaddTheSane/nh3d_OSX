@@ -46,15 +46,15 @@ extern char **NXArgv;
 
 //bind NetHack C routines to NH3DObjects.
 //set object's instance pointer to work.
-static id _NH3DBindController;
-static id _NH3DUserStatusModel;
-static id _NH3DMapModel;
-static id _NH3DMessenger;
-static id _NH3DMenuWindow;
-static id _NH3DKeyBuffer;
-static id _NH3DOpenGLView;
+static NH3DBindController *_NH3DBindController;
+static NH3DUserStatusModel *_NH3DUserStatusModel;
+static NH3DMapModel *_NH3DMapModel;
+static NH3DMessenger *_NH3DMessenger;
+static NH3DMenuWindow *_NH3DMenuWindow;
+static NH3DMapView *_NH3DKeyBuffer;
+static NH3DOpenGLView *_NH3DOpenGLView;
 
-id _NH3DTileCache;
+NH3DTileCache *_NH3DTileCache;
 
 static void NDECL(wd_message);
 
@@ -302,7 +302,7 @@ void nh3d_askname()
 	NSAutoreleasePool* pool = [ [NSAutoreleasePool alloc] init ];
 	nh3d_getlin( [ NSLocalizedString(@"Who are you?",@"") cStringUsingEncoding:NH3DTEXTENCODING ],plname );
 	
-	if ( [ [ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] cStringLength ] >= PL_NSIZ-11 ) {
+	if ( [ [ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] length ] >= PL_NSIZ-11 ) {
 		plname[ 0 ] = 0;
 		
 		NSRunAlertPanel(NSLocalizedString(@"A name is too long, and it is difficult to learn.",@""),
@@ -688,7 +688,7 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 	
 	if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
 		if ( [ _NH3DMenuWindow isMenu ] ) {
-			ret = [ nh3d_windowlist[ wid ].win selectMenu:wid :how :selected ];
+			ret = [ nh3d_windowlist[ wid ].win selectMenu:wid how:how selected:selected ];
 			[ nh3d_windowlist[ wid ].win setIsMenu:NO ];
 			
 		}
@@ -791,7 +791,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 	if ( choices != nil ) Strcat(buf,choices);
 	putstr(WIN_MESSAGE, ATR_BOLD, buf);
 	
-	if ( choices == "yn" ) {
+	if ( strcmp(choices, "yn") == 0 ) {
 		ynfunc = YES;
 		result = NSRunAlertPanel(
                 [ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 
@@ -800,7 +800,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
                 @"NO", 
                 @"Cancel",nil);
 	
-	} else if ( choices == "ynq" ) {
+	} else if ( strcmp(choices, "ynq") == 0 ) {
 		ynfunc = YES;
 		result = NSRunAlertPanel(
 				[ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 

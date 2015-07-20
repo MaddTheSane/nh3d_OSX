@@ -458,7 +458,7 @@ static NH3DMaterial defaultMat = {
 	p_vector->z /= l_length;
 }
 
-- (void)createVector :(NH3DVertexType *)p_start :(NH3DVertexType *)p_end :(NH3DVertexType *)p_vector
+- (void)createVectorWithStart:(NH3DVertexType *)p_start endingAt:(NH3DVertexType *)p_end outVector:(NH3DVertexType *)p_vector
 {
     p_vector->x = p_end->x - p_start->x;
     p_vector->y = p_end->y - p_start->y;
@@ -468,13 +468,13 @@ static NH3DMaterial defaultMat = {
 
 
 
-- (float)vectScalarProduct:(NH3DVertexType *)p_vector1:(NH3DVertexType *)p_vector2
+- (float)vectScalarProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2
 {
     return (p_vector1->x*p_vector2->x + p_vector1->y*p_vector2->y + p_vector1->z*p_vector2->z);
 }
 
 
-- (void)vectDotProduct:(NH3DVertexType *)p_vector1 :(NH3DVertexType *)p_vector2 :(NH3DVertexType *)p_normal
+- (void)vectDotProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2 normal:(NH3DVertexType *)p_normal
 {
     p_normal->x=(p_vector1->y * p_vector2->z) - (p_vector1->z * p_vector2->y);
     p_normal->y=(p_vector1->z * p_vector2->x) - (p_vector1->x * p_vector2->z);
@@ -510,9 +510,9 @@ static NH3DMaterial defaultMat = {
         l_vect3.z = verts[ faces[i].c ].z ;         
 		
         // Polygon normal calculation
-		[self createVector :&l_vect1 :&l_vect2 :&l_vect_b1];
-        [self createVector :&l_vect1 :&l_vect3 :&l_vect_b2];
-        [self vectDotProduct :&l_vect_b1 :&l_vect_b2 :&l_normal];
+		[self createVectorWithStart:&l_vect1 endingAt:&l_vect2 outVector:&l_vect_b1];
+        [self createVectorWithStart:&l_vect1 endingAt:&l_vect3 outVector:&l_vect_b2];
+        [self vectDotProduct :&l_vect_b1 second:&l_vect_b2 normal:&l_normal];
         [self vectorNormalize :&l_normal];
 		
 		l_Connect[ faces[i].a ]+=1;

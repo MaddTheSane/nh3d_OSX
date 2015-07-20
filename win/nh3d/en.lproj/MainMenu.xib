@@ -363,10 +363,10 @@
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" id="372">
-                        <rect key="frame" x="12" y="124" width="156" height="32"/>
+                        <rect key="frame" x="12" y="124" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="28"/>
+                            <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="480">
@@ -384,10 +384,10 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="375">
-                        <rect key="frame" x="12" y="90" width="156" height="32"/>
+                        <rect key="frame" x="12" y="90" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="28"/>
+                            <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="483">
@@ -406,10 +406,10 @@
                         <font key="titleFont" size="11" name="Monaco"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="378">
-                        <rect key="frame" x="12" y="57" width="156" height="32"/>
+                        <rect key="frame" x="12" y="57" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="28"/>
+                            <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="484">
@@ -443,10 +443,10 @@
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" id="390">
-                        <rect key="frame" x="12" y="23" width="156" height="32"/>
+                        <rect key="frame" x="12" y="23" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="28"/>
+                            <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="485">
@@ -1604,7 +1604,7 @@
                     <button id="6841">
                         <rect key="frame" x="181" y="188" width="26" height="26"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SoundOn" imagePosition="only" alignment="center" alternateImage="SoundOff" borderStyle="border" inset="2" id="6933">
+                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SoundOn" imagePosition="only" alignment="center" alternateImage="SoundOff" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6933">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                             <font key="font" metaFont="label"/>
                         </buttonCell>
@@ -2374,7 +2374,7 @@
             </connections>
         </customObject>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5307" userLabel="GetLine" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
+            <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="253" y="631" width="365" height="132"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
@@ -2431,8 +2431,8 @@ DQ
                 </subviews>
             </view>
         </window>
-        <window title="bye..." allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="NH3DRipwinPos" animationBehavior="default" id="5320" userLabel="OutRip" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
+        <window title="Bye…" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="NH3DRipwinPos" animationBehavior="default" id="5320" userLabel="OutRip" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="212" y="544" width="400" height="365"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
@@ -2457,21 +2457,21 @@ DQ
                             <binding destination="4761" name="value" keyPath="selection.playerName" id="5325"/>
                         </connections>
                     </textField>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="5664">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="5664">
                         <rect key="frame" x="0.0" y="29" width="400" height="135"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="szt-dP-q4S">
-                            <rect key="frame" x="0.0" y="0.0" width="400" height="135"/>
+                            <rect key="frame" x="1" y="1" width="398" height="133"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="135"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="398" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="400" height="135"/>
+                                    <size key="minSize" width="398" height="133"/>
                                     <size key="maxSize" width="400" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="400" height="135"/>
+                                    <size key="minSize" width="398" height="133"/>
                                     <size key="maxSize" width="400" height="10000000"/>
                                 </textView>
                             </subviews>
@@ -2764,7 +2764,7 @@ DQ
             </connections>
         </customObject>
         <window title="NetHack3D" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="NH3DLogwinPos" animationBehavior="default" id="5650" userLabel="LogPanel" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
+            <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="89" y="553" width="635" height="381"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>

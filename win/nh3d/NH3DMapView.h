@@ -95,7 +95,7 @@
 - (void)setBgColor:(NSColor *)colr;
 - (NSColor *)bgColor;
 
-- (void)setCenter:(int)x:(int)y:(int)depth;
+- (void)setCenterAtX:(int)x y:(int)y depth:(int)depth;
 - (BOOL)isReady;
 - (void)setIsReady:(BOOL)flag;
 

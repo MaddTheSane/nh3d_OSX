@@ -34,8 +34,8 @@ extern int total_tiles_used;
 			tileSource = [ [NSImage alloc] initWithContentsOfFile:imageName ];
 			if ( tileSource == nil ) {
 				NSRunCriticalAlertPanel(@"Tile Load Error!",
-										[ NSString stringWithFormat:@"Can't find Tilefile: %@!!",imageName ],
-										@"OK",nil,nil);
+										@"Can't find Tilefile: %@!!",
+										@"OK",nil,nil, imageName);
 				NSLog(@"Can't find Tilefile: %@!!",imageName);
 				return nil; 
 			}
@@ -50,8 +50,8 @@ extern int total_tiles_used;
 		
 		if ( ([ bitMap pixelsWide ] % TILES_PER_LINE) && ([ bitMap pixelsHigh ] % NUMBER_OF_TILES_ROW) ) {
 			NSRunCriticalAlertPanel(@"Tile Format Error!",
-									[ NSString stringWithFormat:@"%@: Does not support this TILE Pattern.",imageName ],
-									@"OK",nil,nil);
+									@"%@: Does not support this TILE Pattern.",
+									@"OK",nil,nil, imageName);
 				NSLog( @"%@: Does not support this TILE Pattern.",imageName );
 				return nil;
 		} else {
@@ -75,7 +75,7 @@ extern int total_tiles_used;
 
 - (NSImage *)tileImageFromGlyph:(int)glyph
 {
-	unsigned int p[tileSize_X*tileSize_Y];
+	NSUInteger p[tileSize_X*tileSize_Y];
 	NSImage *tileImg = [ [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)] autorelease ];
 	NSBitmapImageRep *bmpRep = [ [NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 																		pixelsWide:tileSize_X

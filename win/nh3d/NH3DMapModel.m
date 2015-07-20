@@ -255,8 +255,8 @@
 			[ mapArray[x][y] setPlayer:YES ];
 		
 		//set player pos for asciiview,openGlview
-			[ _asciiMapView setCenter:x:y:depth(&u.uz) ];
-			[ _glMapView setCenter:x:y:depth(&u.uz) ];
+			[ _asciiMapView setCenterAtX:x y:y depth:depth(&u.uz) ];
+			[ _glMapView setCenterAtX:x z:y depth:depth(&u.uz) ];
 		}
 		
 		if ( TRADITIONAL_MAP ) [ _asciiMapView drawTraditionalMapAtX:x atY:y ];
@@ -282,8 +282,8 @@
 			[ mapArray[x+MAP_MARGIN][y+MAP_MARGIN] setPlayer:YES ];
 
 			//set player pos for asciiview,openGlview
-			[ _asciiMapView setCenter:x+MAP_MARGIN :y+MAP_MARGIN:depth(&u.uz) ];
-			[ _glMapView setCenter:x+MAP_MARGIN :y+MAP_MARGIN :depth(&u.uz) ];
+			[ _asciiMapView setCenterAtX:x+MAP_MARGIN y:y+MAP_MARGIN depth:depth(&u.uz) ];
+			[ _glMapView setCenterAtX:x+MAP_MARGIN z:y+MAP_MARGIN depth:depth(&u.uz) ];
 		}
 				
 		[ mapArray[x+MAP_MARGIN][y+MAP_MARGIN] setHasCursor:YES ];
