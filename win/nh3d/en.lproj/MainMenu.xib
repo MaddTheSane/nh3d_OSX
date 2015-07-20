@@ -800,9 +800,9 @@
                                 <button tag="8" id="280">
                                     <rect key="frame" x="48" y="87" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="8" inset="2" id="6980">
+                                    <buttonCell key="cell" type="bevel" title="8" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="8" imageScaling="proportionallyDown" inset="2" id="6980">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="10" name="HiraMaruPro-W4"/>
+                                        <font key="font" metaFont="label"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5791"/>
@@ -812,7 +812,7 @@
                                 <button tag="2" id="281">
                                     <rect key="frame" x="48" y="7" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="2" inset="2" id="6981">
+                                    <buttonCell key="cell" type="bevel" title="2" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="2" imageScaling="proportionallyDown" inset="2" id="6981">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="label"/>
                                     </buttonCell>
@@ -824,7 +824,7 @@
                                 <button tag="4" id="282">
                                     <rect key="frame" x="4" y="48" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="4" inset="2" id="6982">
+                                    <buttonCell key="cell" type="bevel" title="4" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="4" imageScaling="proportionallyDown" inset="2" id="6982">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="label"/>
                                     </buttonCell>
@@ -836,7 +836,7 @@
                                 <button tag="6" id="283">
                                     <rect key="frame" x="91" y="48" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="6" inset="2" id="6983">
+                                    <buttonCell key="cell" type="bevel" title="6" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="6" imageScaling="proportionallyDown" inset="2" id="6983">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="label"/>
                                     </buttonCell>
@@ -848,33 +848,21 @@
                                 <button tag="9" id="284">
                                     <rect key="frame" x="92" y="91" width="28" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="9" inset="2" id="6984">
+                                    <buttonCell key="cell" type="bevel" title="9" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="9" imageScaling="proportionallyDown" inset="2" id="6984">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5792"/>
                                         <outlet property="menu" destination="5915" id="6087"/>
                                     </connections>
                                 </button>
-                                <button tag="7" id="285">
-                                    <rect key="frame" x="16" y="91" width="28" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="7" inset="2" id="6985">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="5790"/>
-                                        <outlet property="menu" destination="5915" id="6086"/>
-                                    </connections>
-                                </button>
                                 <button tag="1" id="286">
                                     <rect key="frame" x="16" y="16" width="28" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="1" inset="2" id="6986">
+                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" id="6986">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5795"/>
@@ -884,9 +872,9 @@
                                 <button tag="3" id="287">
                                     <rect key="frame" x="92" y="16" width="28" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="3" inset="2" id="6987">
+                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="3" imageScaling="proportionallyDown" inset="2" id="6987">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5797"/>
@@ -896,13 +884,25 @@
                                 <button toolTip="Rest" verticalHuggingPriority="750" tag="5" id="452">
                                     <rect key="frame" x="56" y="56" width="24" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" borderStyle="border" tag="5" id="6988">
+                                    <buttonCell key="cell" type="roundTextured" title="5" bezelStyle="texturedRounded" alignment="center" borderStyle="border" tag="5" imageScaling="proportionallyDown" id="6988">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="label"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5793"/>
                                         <outlet property="menu" destination="5915" id="6089"/>
+                                    </connections>
+                                </button>
+                                <button tag="7" id="285">
+                                    <rect key="frame" x="15" y="91" width="28" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                    <buttonCell key="cell" type="bevel" title="7" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="7" imageScaling="proportionallyDown" inset="2" id="6985">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="controllerActions:" target="5648" id="5790"/>
+                                        <outlet property="menu" destination="5915" id="6086"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -1617,6 +1617,7 @@
             <connections>
                 <outlet property="delegate" destination="5089" id="5211"/>
             </connections>
+            <point key="canvasLocation" x="163" y="478"/>
         </window>
         <menu title="Nethack3d" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
@@ -3934,24 +3935,6 @@ DQ
         <userDefaultsController representsSharedInstance="YES" id="6780" userLabel="Shared Defaults"/>
     </objects>
     <resources>
-        <image name="22B99A5D-1880-4FCF-8C49-E1BD9BF00D2C" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
-AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
-AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
-AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
-EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
-dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
-b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
-QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
-AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
-AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
-Amo
-</mutableData>
-        </image>
         <image name="Blind0" width="65" height="65"/>
         <image name="Chaos0" width="48" height="48"/>
         <image name="Confuse0" width="65" height="65"/>
