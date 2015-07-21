@@ -415,6 +415,7 @@ static const int DIALOG_CANCEL	= 129;
 	[_rawPrintWindow.textStorage appendAttributedString:putStr];
 	[_rawPrintWindow.textStorage appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n"] autorelease]];
 	_rawPrintWindow.editable = NO;
+	NSLog(@"%@", rawText);
 	
 	[putStr release];
 }
