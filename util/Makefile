@@ -89,8 +89,8 @@ CC = gcc
 # flags for debugging:
 # CFLAGS = -g -I../include
 
-CFLAGS = -arch i386 -O2 -fomit-frame-pointer -I../include
-LFLAGS = -arch i386
+CFLAGS = -arch x86_64 -O2 -fomit-frame-pointer -I../include
+LFLAGS = -arch x86_64
 
 LIBS =
  

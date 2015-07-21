@@ -2271,7 +2271,7 @@ static void floorfunc_default( id self )
 	return [self checkLoadedModelsAt:PM_GIANT_ANT
 								  to:PM_QUEEN_BEE
 							  offset:GLYPH_MON_OFF
-						   modelName:@"lowerA" textured:NO withOut:nil];
+						   modelName:@"lowerA" textured:NO withOut:0];
 }
 
 
@@ -2281,7 +2281,7 @@ static void floorfunc_default( id self )
 	return [self checkLoadedModelsAt:PM_ACID_BLOB
 								  to:PM_GELATINOUS_CUBE
 							  offset:GLYPH_MON_OFF
-						   modelName:@"lowerB" textured:NO withOut:nil];
+						   modelName:@"lowerB" textured:NO withOut:0];
 }
 
 
@@ -2291,7 +2291,7 @@ static void floorfunc_default( id self )
 	return [ self checkLoadedModelsAt:PM_CHICKATRICE
 								   to:PM_PYROLISK
 							   offset:GLYPH_MON_OFF
-							modelName:@"lowerC" textured:NO withOut:nil];
+							modelName:@"lowerC" textured:NO withOut:0];
 }
 
 
@@ -2301,7 +2301,7 @@ static void floorfunc_default( id self )
 	return [ self checkLoadedModelsAt:PM_JACKAL
 								   to:PM_HELL_HOUND
 							   offset:GLYPH_MON_OFF
-							modelName:@"lowerD" textured:NO withOut:nil ];
+							modelName:@"lowerD" textured:NO withOut:0 ];
 	
 }
 
@@ -2312,7 +2312,7 @@ static void floorfunc_default( id self )
 	return [ self checkLoadedModelsAt:PM_GAS_SPORE
 								   to:PM_SHOCKING_SPHERE
 							   offset:GLYPH_MON_OFF
-							modelName:@"lowerE" textured:NO withOut:nil ];
+							modelName:@"lowerE" textured:NO withOut:0 ];
 	
 }
 
@@ -2323,7 +2323,7 @@ static void floorfunc_default( id self )
 	return [ self checkLoadedModelsAt:PM_KITTEN
 								   to:PM_TIGER
 							   offset:GLYPH_MON_OFF
-							modelName:@"lowerF" textured:NO withOut:nil ];
+							modelName:@"lowerF" textured:NO withOut:0 ];
 	
 }
 
@@ -2334,7 +2334,7 @@ static void floorfunc_default( id self )
 	return [ self checkLoadedModelsAt:PM_GREMLIN
 								   to:PM_WINGED_GARGOYLE
 							   offset:GLYPH_MON_OFF
-							modelName:@"lowerG" textured:NO withOut:nil ];
+							modelName:@"lowerG" textured:NO withOut:0 ];
 	
 }
 
@@ -2371,7 +2371,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerI"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 }
 
 
@@ -2383,7 +2383,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerJ"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2401,7 +2401,7 @@ static void floorfunc_default( id self )
 									  offset:GLYPH_MON_OFF
 								   modelName:@"lowerK"
 									textured:NO
-									 withOut:nil ];
+									 withOut:0 ];
 			break;
 			
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF :
@@ -2442,7 +2442,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerM"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2455,7 +2455,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerN"
 							 textured:NO
-							  withOut:nil ];	
+							  withOut:0 ];	
 }
 
 
@@ -2491,7 +2491,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerP"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2504,7 +2504,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerQ"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2517,7 +2517,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerR"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 		
 }
 
@@ -2530,7 +2530,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerS"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2543,7 +2543,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerT"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 	
 }
@@ -2557,7 +2557,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerU"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 		
 }
 
@@ -2570,7 +2570,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerV"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 }
 
 
@@ -2582,7 +2582,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerW"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2595,7 +2595,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerX"
 							 textured:NO
-							  withOut:nil ];	
+							  withOut:0 ];	
 }
 
 
@@ -2608,7 +2608,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"lowerY"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2629,7 +2629,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperA"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 }
 
 
@@ -2641,7 +2641,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperB"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 }
 
 
@@ -2653,7 +2653,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperC"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2666,7 +2666,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperD"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2679,7 +2679,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperE"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 }
 
 
@@ -2691,7 +2691,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperF"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2708,7 +2708,7 @@ static void floorfunc_default( id self )
 									  offset:GLYPH_MON_OFF
 								   modelName:@"upperG"
 									textured:NO
-									 withOut:nil ];
+									 withOut:0 ];
 			
 			break;
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF :
@@ -2739,7 +2739,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperH"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2760,7 +2760,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperK"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2774,7 +2774,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperL"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2787,7 +2787,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperM"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2800,7 +2800,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperN"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 	
 }
@@ -2820,7 +2820,7 @@ static void floorfunc_default( id self )
 									  offset:GLYPH_MON_OFF
 								   modelName:@"upperO"
 									textured:NO
-									 withOut:nil ];
+									 withOut:0 ];
 			break;
 			
 		case PM_OGRE_KING + GLYPH_MON_OFF :
@@ -2843,7 +2843,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperP"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2863,7 +2863,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperR"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2876,7 +2876,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperS"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2889,7 +2889,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperT"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2915,7 +2915,7 @@ static void floorfunc_default( id self )
 									  offset:GLYPH_MON_OFF
 								   modelName:@"upperV"
 									textured:NO
-									 withOut:nil ];
+									 withOut:0 ];
 			
 			break;
 			
@@ -2940,7 +2940,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperW"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2961,7 +2961,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperY"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2974,7 +2974,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"upperZ"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -2987,7 +2987,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"backslash"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -3079,7 +3079,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_INVIS_OFF
 							modelName:@"invisible"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 }
 
 
@@ -3093,14 +3093,14 @@ static void floorfunc_default( id self )
 								   offset:GLYPH_MON_OFF
 								modelName:@"and"
 								 textured:NO
-								  withOut:nil ];
+								  withOut:0 ];
 	} else {
 		return [ self checkLoadedModelsAt:PM_DJINNI
 									   to:PM_SANDESTIN
 								   offset:GLYPH_MON_OFF
 								modelName:@"and"
 								 textured:NO
-								  withOut:nil ];
+								  withOut:0 ];
 	}		
 }
 
@@ -3127,7 +3127,7 @@ static void floorfunc_default( id self )
 									  offset:GLYPH_MON_OFF
 								   modelName:@"and"
 									textured:NO
-									 withOut:nil ];
+									 withOut:0 ];
 			if ( ![ ret hasChildObject ] ) {
 				[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 				[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
@@ -3157,7 +3157,7 @@ static void floorfunc_default( id self )
 								  offset:GLYPH_MON_OFF
 							   modelName:@"and"
 								textured:NO
-								 withOut:nil ];
+								 withOut:0 ];
 		
 		if ( ![ ret hasChildObject ] ) {
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
@@ -3190,7 +3190,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"semicoron"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -3203,7 +3203,7 @@ static void floorfunc_default( id self )
 							   offset:GLYPH_MON_OFF
 							modelName:@"coron"
 							 textured:NO
-							  withOut:nil ];
+							  withOut:0 ];
 	
 }
 
@@ -3230,7 +3230,7 @@ static void floorfunc_default( id self )
 								  offset:GLYPH_MON_OFF
 							   modelName:@"atmark"
 								textured:NO
-								 withOut:nil ];
+								 withOut:0 ];
 	}
 	
 	return ret;	
@@ -3445,7 +3445,7 @@ static void floorfunc_default( id self )
 									  offset:GLYPH_MON_OFF
 								   modelName:@"atmark"
 									textured:NO
-									 withOut:nil ];
+									 withOut:0 ];
 			}
 			
 			break;
@@ -4150,7 +4150,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 	
 	[ self setParamsForMagicExplotion:ret color:CLR_GRAY ];
 	
@@ -4167,7 +4167,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 	
 	[ self setParamsForMagicExplotion:ret color:CLR_GREEN ];
 	
@@ -4184,7 +4184,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 	
 	[ self setParamsForMagicExplotion:ret color:CLR_BROWN ];
 	
@@ -4202,7 +4202,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 	
 	[ self setParamsForMagicExplotion:ret color:CLR_BLUE ];
 	
@@ -4219,7 +4219,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 
 	[ self setParamsForMagicExplotion:ret color:CLR_BRIGHT_MAGENTA ];
 	
@@ -4237,7 +4237,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 
 	[ self setParamsForMagicExplotion:ret color:CLR_ORANGE ];
 	
@@ -4255,7 +4255,7 @@ static void floorfunc_default( id self )
 							  offset:0
 						   modelName:@"emitter"
 							textured:NO
-							 withOut:nil ];
+							 withOut:0 ];
 
 	[ self setParamsForMagicExplotion:ret color:CLR_BRIGHT_CYAN ];
 	
