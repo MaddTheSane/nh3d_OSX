@@ -56,19 +56,11 @@
 - (void)dealloc
 {
 	int x,y;
-	[ strAttributes release ];
-	[ dungeonNameString release ];
-	[ indicatorTimer release ];
 	for (x=0;x<MAPSIZE_COLUMN;x++) {
 		for (y=0;y<MAPSIZE_ROW;y++) {
-			[ mapArray[x][y] release ];
+			mapArray[x][y] = nil;
 		}
 	}
-
-	[ lock release ];
-	[ shadow release ];
-	
-	[ super dealloc ];
 }
 
 
@@ -94,20 +86,18 @@
 {
 	indicatorIsActive = YES;
 	indicatorTimer =
-    [ [ NSTimer scheduledTimerWithTimeInterval:(1.0 / 20)
+    [NSTimer scheduledTimerWithTimeInterval:(1.0 / 20)
                                       target:self
                                     selector:@selector( updateEnemyIndicator)
                                     userInfo:nil
-                                     repeats:YES ] retain ];
-	 [ [NSRunLoop currentRunLoop] addTimer:indicatorTimer forMode:NSEventTrackingRunLoopMode ];
-
+                                     repeats:YES ];
+	 [[NSRunLoop currentRunLoop] addTimer:indicatorTimer forMode:NSEventTrackingRunLoopMode ];
 }
 
 
 - (void)stopIndicator
 {
 	[indicatorTimer invalidate];
-	[indicatorTimer release];
 	indicatorTimer = nil;	 
 	indicatorIsActive = NO;
 }
@@ -176,10 +166,7 @@
 
 - (void)setDungeonNameString:(NSString *)aStr
 {	
-	[aStr retain];
-	[dungeonNameString release];
 	dungeonNameString = [[NSAttributedString alloc] initWithString:aStr attributes:strAttributes];
-	[aStr release];
 	[ _dungeonName setAttributedStringValue:dungeonNameString ];
 }
 
@@ -240,8 +227,6 @@
 		
 		[ lock lock ];
 	//  make map
-		
-		[ mapArray[x][y] release ];
 		
 		mapArray[x][y] = [ [NH3DMapItem alloc] initWithParameter:ch 
 														   glyph:glf 
@@ -351,8 +336,6 @@
 	for ( x=0 ; x<MAPSIZE_COLUMN ; x++ ) {
 		for ( y=0 ; y<MAPSIZE_ROW ; y++ ) {
 	
-			[ mapArray[x][y] release ];
-		
 			mapArray[x][y] = [ [NH3DMapItem alloc]initWithParameter:' '
 															  glyph:S_stone + GLYPH_CMAP_OFF
 															  color:0

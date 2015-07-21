@@ -47,7 +47,6 @@ extern int total_tiles_used;
 		tiffData = [ tileSource TIFFRepresentation ];
 		bitMap = [[NSBitmapImageRep alloc] initWithData: tiffData];
 		
-		[ tileSource release ];
 		//[ tiffData release ];
 		
 		if ( ([ bitMap pixelsWide ] % TILES_PER_LINE) && ([ bitMap pixelsHigh ] % NUMBER_OF_TILES_ROW) ) {
@@ -66,19 +65,10 @@ extern int total_tiles_used;
 }
 
 	
-
-
-- (void) dealloc {
-
-	[ bitMap release ];
-	[ super dealloc ];
-}
-
-
 - (NSImage *)tileImageFromGlyph:(int)glyph
 {
 	NSUInteger p[tileSize_X*tileSize_Y];
-	NSImage *tileImg = [ [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)] autorelease ];
+	NSImage *tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)];
 	NSBitmapImageRep *bmpRep = [ [NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 																		pixelsWide:tileSize_X
 																		pixelsHigh:tileSize_Y
@@ -96,7 +86,6 @@ extern int total_tiles_used;
 	if ( tile >= total_tiles_used || tile < 0 )
 	{
 		NSLog(@"ERROR:Asked for a TILE %d outside the allowed range.",tile);
-		[bmpRep release];
 		return nil;
 	}
 	
@@ -112,7 +101,6 @@ extern int total_tiles_used;
 	}
 	
 	[ tileImg addRepresentation:bmpRep ];
-	[ bmpRep release ];
 	
 	[ tileImg setCacheMode:NSImageCacheNever ];
 

@@ -15,15 +15,9 @@ static const int DIALOG_OK		= 128;
 static const int DIALOG_CANCEL	= 129;
 
 @interface NH3DMessenger ()
-@property (retain) NSMutableDictionary *darkShadowStrAttributes;
-@property (retain) NSMutableDictionary *lightShadowStrAttributes;
-@property (retain) NSMutableParagraphStyle *style;
 @end
 
 @implementation NH3DMessenger
-@synthesize darkShadowStrAttributes;
-@synthesize lightShadowStrAttributes;
-@synthesize style;
 
 - (BOOL)loadSoundConfig
 {
@@ -73,7 +67,6 @@ static const int DIALOG_CANCEL	= 129;
 	
 	[scanner scanCharactersFromSet:chSet intoString:nil];
 	
-	[ destText release ];
 	}
 	return YES;
 }
@@ -111,23 +104,6 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (void)dealloc
-{
-	[ msgArray release ];
-	[ soundMessageArray release ];
-	[ soundNameArray release ];
-	[ soundVolumeArray release ];
-
-	[ effectMessageArray release ];
-	[ effectTypeArray release ];
-	[ darkShadowStrAttributes release ];
-	[ lightShadowStrAttributes release ];
-	[ darkShadow release ];
-	[ lightShadow release ];
-	[ style release ];
-	[ movieView release ];
-	[ super dealloc ];
-}
 
 - (void)awakeFromNib 
 {
@@ -138,11 +114,11 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)prepareAttributes
 {
-	self.style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+	style = [[NSMutableParagraphStyle alloc] init];
 	style.lineSpacing = -2;
 	
-	self.darkShadowStrAttributes = [[[NSMutableDictionary alloc] init] autorelease];
-	self.lightShadowStrAttributes = [[[NSMutableDictionary alloc] init] autorelease];
+	darkShadowStrAttributes = [[NSMutableDictionary alloc] init];
+	lightShadowStrAttributes = [[NSMutableDictionary alloc] init];
 	
 	//Text attributes in View or backgrounded text field.
 	
@@ -192,9 +168,6 @@ static const int DIALOG_CANCEL	= 129;
 					playSound = [[QTMovie alloc] initWithURL: soundURL error:NULL];
 					
 					[movieView setMovie:playSound];
-					
-					[playSound release];
-					[soundURL release];
 					
 					[playSound setVolume:[[soundVolumeArray objectAtIndex:i] floatValue] * 0.01];
 					
@@ -267,7 +240,6 @@ static const int DIALOG_CANCEL	= 129;
 											   range:NSMakeRange( 0,[[_messeageWindow textStorage] length])];
 		
 		[[_messeageWindow textStorage] appendAttributedString:putString];
-		[putString release];
 		
 		[_messeageWindow scrollRangeToVisible:NSMakeRange([[_messeageWindow textStorage] length], 0)];
 	
@@ -318,15 +290,11 @@ static const int DIALOG_CANCEL	= 129;
 	{
 		[ _questionTextField setStringValue:@"" ];
 		[ _inputTextField setStringValue:@"" ];
-		[ questionStr release ];
-		[ putString release ];
 		return -1;
 	}
 	if ( ![ _inputTextField stringValue ] )
 	{
 		[ _questionTextField setStringValue:@"" ];
-		[ questionStr release ];
-		[ putString release ];
 		return -1;
 	}
 	
@@ -338,8 +306,6 @@ static const int DIALOG_CANCEL	= 129;
 						nil,nil,nil );
 		[ _questionTextField setStringValue:@"" ];
 		[ _inputTextField setStringValue:@"" ];
-		[ questionStr release ];
-		[ putString release ];
 		return -1;
 	}
 			
@@ -350,9 +316,6 @@ static const int DIALOG_CANCEL	= 129;
 	
 	[_questionTextField setStringValue:@""];
 	[_inputTextField setStringValue:@""];
-	[questionStr release];
-	[putString release];
-	[str release];
 	
 	return 0;
 		
@@ -382,9 +345,9 @@ static const int DIALOG_CANCEL	= 129;
 	
 
 	[ _deathDescription setAttributedStringValue:
-				[[[NSAttributedString alloc] initWithString:
+				[[NSAttributedString alloc] initWithString:
 								[NSString stringWithCString:ripString encoding:NH3DTEXTENCODING]
-												 attributes:lightShadowStrAttributes] autorelease] ];
+												 attributes:lightShadowStrAttributes] ];
 	
 	_ripPanel.alphaValue = 0;
 	[_ripPanel orderFront:self];
@@ -422,8 +385,6 @@ static const int DIALOG_CANCEL	= 129;
 #ifdef DEBUG
 	NSLog(@"%@", rawText);
 #endif
-	
-	[putStr release];
 }
 
 - (BOOL)showLogPanel

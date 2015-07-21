@@ -53,15 +53,6 @@ extern id _NH3DTileCache;
 }
 
 
-
-- (void)dealloc
-{
-	//[ img release ];
-	[ name release ];
-	[ super dealloc ];
-}
-
-
 - (NSAttributedString *)name
 {
 	NSAttributedString *aStr = nil;
@@ -100,7 +91,6 @@ extern id _NH3DTileCache;
 		[ strAttributes setObject:darkShadow
 						   forKey:NSShadowAttributeName ];
 		
-		[ darkShadow release ];
 	
 	} 
 
@@ -117,7 +107,6 @@ extern id _NH3DTileCache;
 		[ strAttributes setObject:lightShadow
 						   forKey:NSShadowAttributeName ];
 		
-		[ lightShadow release ];
 		
 	} else if ( ([ name isLike:NSLocalizedString(@"*cursed*",@"") ] || [ name isLike:NSLocalizedString(@"*cursed *",@"") ])
 				&& ( ![ name isLike:NSLocalizedString(@"*uncursed*",@"") ] && ![ name isLike:NSLocalizedString(@"*called*",@"") ]) ) {
@@ -130,20 +119,18 @@ extern id _NH3DTileCache;
 		[ strAttributes setObject:cursedShadow
 		  				   forKey:NSShadowAttributeName ];
 		
-		[ cursedShadow release ];
 
 	}
 
 	[ strAttributes setObject:[NSColor whiteColor]
 					   forKey:NSForegroundColorAttributeName ];
 
-	aStr = [ [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ .",name]
-											 attributes:strAttributes] autorelease ];
+	aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ .",name]
+											 attributes:strAttributes];
 	
 	stringSize = [ aStr size ];
 	strLength = [ name length ];
 		
-	[ strAttributes release ];
 	
 	return aStr;
 }
@@ -188,11 +175,9 @@ extern id _NH3DTileCache;
 								   forKey:NSBackgroundColorAttributeName ];
 		}
 		
-		aStr = [ [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c",accelerator]
-												 attributes:strAttributes] autorelease ];
+		aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c",accelerator]
+												 attributes:strAttributes];
 		
-		[ lightShadow release ];
-		[ strAttributes release ];
 		
 		return aStr;
 		
@@ -219,7 +204,7 @@ extern id _NH3DTileCache;
 	} else if ( [ _NH3DTileCache tileSize_X ] == 16 && [ _NH3DTileCache tileSize_Y ] == 16 ) {
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	} else {
-		NSImage *smallTile = [ [[NSImage alloc] initWithSize:NSMakeSize(16.0, 16.0)] autorelease ];
+		NSImage *smallTile = [[NSImage alloc] initWithSize:NSMakeSize(16.0, 16.0)];
 		
 		[ smallTile lockFocus ];
 		[ [_NH3DTileCache tileImageFromGlyph:glyph] drawInRect:NSMakeRect( 0, 0, 16.0 , 16.0 )

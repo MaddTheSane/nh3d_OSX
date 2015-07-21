@@ -1,4 +1,5 @@
 #import "NH3DPanel.h"
+#import "NH3DMenuWindow.h"
 
 @implementation NH3DPanel
 
@@ -47,7 +48,7 @@
 
 - (void)keyDown:(NSEvent*)event
 {
-	[[self delegate] keyDown:event];
+	[(NH3DMenuWindow*)[self delegate] keyDown:event];
 }
 
 //

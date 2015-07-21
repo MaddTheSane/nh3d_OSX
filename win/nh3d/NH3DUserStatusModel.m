@@ -115,36 +115,6 @@ extern id _NH3DTileCache;
 }
 */
 
-- ( void )dealloc
-{
-	[ strAttributes release ];
-	[ shadow release ];
-	[ style release ];
-	
-	[ playerName release ];
-	[ playerClass release ];
-	[ playerRace release ];
-	[ playerRole release ];
-	[ playerAlign release ];
-	[ playerGender release ];
-	[ playerStatusLine release ];
-		
-	[ playerArmour release ];
-	[ playerCloak release ];
-	[ playerHelmet release ];
-	[ playerShield release ];
-	[ playerGloves release ];
-	[ playerShoes release ];
-	[ playerRingL release ];
-	[ playerRingR release ];
-	[ playerWeapon release ];
-	[ playerSubWeapon release ];
-	[ playerAmulet release ];
-	[ playerBlindFold release ];
-
-	[ super dealloc ];
-}
-
 - ( void )awakeFromNib {
 	[ self prepareAttributes ];
 	[ self setPlayerArmour:0 ];
@@ -204,9 +174,9 @@ extern id _NH3DTileCache;
 						[ NSFont fontWithName:NH3DWINDOWFONT
 								size:fSize ]
 								forKey:NSFontAttributeName ];
-	return [ [ [ NSAttributedString alloc ] 
+	return [[NSAttributedString alloc]
 								initWithString:playerName 
-								attributes:strAttributes ] autorelease ];
+								attributes:strAttributes];
 }
 
 - ( NSString * )playerRole 
@@ -235,9 +205,9 @@ extern id _NH3DTileCache;
 						[ NSFont fontWithName:NH3DWINDOWFONT
 								size: 13 ]
 								forKey:NSFontAttributeName ];
-	return [ [ [ NSAttributedString alloc ] 
+	return [ [ NSAttributedString alloc ] 
 								initWithString:playerClass 
-								attributes:strAttributes ] autorelease ];
+								attributes:strAttributes ];
 }
 
 
@@ -308,10 +278,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerArmour:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerArmour release ];
 		playerArmour = nil;
 	} else {
-		[ playerArmour release ];
 		playerArmour = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -324,10 +292,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerCloak:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerCloak release ];
 		playerCloak = nil;
 	} else {
-		[ playerCloak release ];
 		playerCloak = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -342,10 +308,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerHelmet:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerHelmet release ];
 		playerHelmet = nil;
 	} else {
-		[ playerHelmet release ];
 		playerHelmet = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -358,10 +322,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerShield:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerShield release ];
 		playerShield = nil;
 	} else {
-		[ playerShield release ];
 		playerShield = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -374,10 +336,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerGloves:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerGloves release ];
 		playerGloves = nil;
 	} else {
-		[ playerGloves release ];
 		playerGloves = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -390,10 +350,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerShoes:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerShoes release ];
 		playerShoes = nil;
 	} else {
-		[ playerShoes release ];
 		playerShoes = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -406,10 +364,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerRingL:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerRingL release ]; 
 		playerRingL = nil;
 	} else {
-		[ playerRingL release ]; 
 		playerRingL = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -422,10 +378,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerRingR:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerRingR release ];
 		playerRingR = nil;		
 	} else {
-		[ playerRingR release ];
 		playerRingR = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -438,10 +392,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerWeapon:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerWeapon release ];
 		playerWeapon = nil;
 	} else {		
-		[ playerWeapon release ];
 		playerWeapon = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -454,10 +406,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerSubWeapon:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerSubWeapon release ];
 		playerSubWeapon = nil;
 	} else {
-		[ playerSubWeapon release ];
 		playerSubWeapon = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -470,10 +420,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerAmulet:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerAmulet release ];
 		playerAmulet = nil;
 	} else {
-		[ playerAmulet release ];
 		playerAmulet = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -486,10 +434,8 @@ extern id _NH3DTileCache;
 - ( void )setPlayerBlindFold:( int )glyph
 {
 	if ( !glyph ) {
-		[ playerBlindFold release ];
 		playerBlindFold = nil;
 	} else {
-		[ playerBlindFold release ];
 		playerBlindFold = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
 	}
 }
@@ -744,23 +690,20 @@ extern id _NH3DTileCache;
 
 - ( void )setPlayerName:( NSString * )aString {
 	if ( ![ playerName isEqualToString: aString ] && [ aString length ] <= PL_NSIZ-11 ) {
-		[ playerName release ];
-		playerName = [ aString retain ];
+		playerName = aString;
 		//strcpy( plname,[ playerName cStringUsingEncoding:NH3DTEXTENCODING ] );
 	}
 }
 
 - ( void )setPlayerClass:( NSString * )aString {
 		if ( ![ playerClass isEqualToString: aString ] ) {
-		[ playerClass release ];
-		playerClass = [ aString retain ];
+		playerClass = aString;
 		}
 }
 
 - ( void )setPlayerRace:( NSString * )aString {
 		if ( ![ playerRace isEqualToString: NSLocalizedString(aString,@"") ] ) {
-		[ playerRace release ];
-		playerRace = [ NSLocalizedString(aString,@"") retain ];
+		playerRace = NSLocalizedString(aString,@"");
 	}
 	
 }
@@ -768,8 +711,7 @@ extern id _NH3DTileCache;
 
 - ( void )setPlayerRole:( NSString * )aString {
 	if ( playerRole != NSLocalizedString(aString,@"") ) {
-		[ playerRole release ];
-		playerRole = [ NSLocalizedString(aString,@"") retain ];
+		playerRole = NSLocalizedString(aString,@"");
 	}
 
 }
@@ -777,15 +719,13 @@ extern id _NH3DTileCache;
 
 - ( void )setPlayerAlign:( NSString * )aString {
 	if ( playerAlign != NSLocalizedString(aString,@"") ) {
-		[ playerAlign release ];
-		playerAlign = [ NSLocalizedString(aString,@"") retain ];
+		playerAlign = NSLocalizedString(aString,@"");
 	}
 }
 
 - ( void )setPlayerGender:( NSString * )aString {
 	if ( playerGender != NSLocalizedString(aString,@"") ) {
-		[ playerGender release ];
-		playerGender = [ NSLocalizedString(aString,@"") retain ];
+		playerGender = NSLocalizedString(aString,@"");
 	}
 }
 
@@ -793,8 +733,7 @@ extern id _NH3DTileCache;
 - ( void )setPlayerStatusLine:( NSString * )aString
 {
 	if ( ![ playerStatusLine isEqualToString:aString ] ) {
-		[ playerStatusLine release ];
-		playerStatusLine = [ aString retain ];
+		playerStatusLine = aString;
 	}
 }
 

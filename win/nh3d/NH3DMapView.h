@@ -91,7 +91,7 @@
 	
 }
 
-@property (nonatomic, retain) NSColor *bgColor;
+@property (nonatomic, strong) NSColor *bgColor;
 
 - (void)setCenterAtX:(int)x y:(int)y depth:(int)depth;
 @property BOOL isReady;

@@ -174,11 +174,6 @@ extern id _NH3DTileCache;
 
 
 
-- (void) dealloc {
-	//[ tile release ];
-	[ lock release ];
-	[ super dealloc ];
-}
 
 - (NSString *)symbol
 {

@@ -923,7 +923,6 @@ static void floorfunc_default( id self )
 	pfmt = [ [ NSOpenGLPixelFormat alloc ] initWithAttributes: attribs ];
 	self = [ super initWithFrame: theFrame pixelFormat: pfmt ];
 	[ [ self openGLContext ] makeCurrentContext ];
-	[ pfmt release ];
 	
 	[ self setFrameSize: theFrame.size ];
 	
@@ -1097,18 +1096,16 @@ static void floorfunc_default( id self )
 	int i,j;
 	
 	[ delayDrawing removeAllObjects ];
-	[ delayDrawing release ];
 
 	[ modelDictionary removeAllObjects ];
-	[ modelDictionary release ];
 	
 	for ( i=0 ; i<NH3D_MAX_EFFECTS ;i++ ) {
-		[ effectArray[ i ] release ];
+		effectArray[i] = nil;
 	}
 	
 	for ( i=0 ; i<NH3DGL_MAPVIEWSIZE_COLUMN ;i++ ) {
 		for ( j=0 ; j<NH3DGL_MAPVIEWSIZE_ROW ; j++ ) {
-			[ mapItemValue [ i ][ j ] release ];
+			mapItemValue [ i ][ j ] = nil;
 		}
 	}
 	
@@ -1130,10 +1127,6 @@ static void floorfunc_default( id self )
 	glDeleteTextures( 1 , &hellTex );
 	glDeleteTextures( 1 , &nullTex );
 	glDeleteTextures( 1 , &rougeTex );
-	
-	
-	[ viewLock release ];
-	[ super dealloc ];
 }
 
 
@@ -1186,49 +1179,49 @@ static void floorfunc_default( id self )
 // OpenGL update method.
 - (void)timerFired:(id)sender
 {
-	NSAutoreleasePool *threadPool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
 	// cash method addresses.
-	IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
-	IMP updateGlViewAddress = [ self methodForSelector:@selector( updateGlView ) ];
-	
-	drawGlViewAddress = [ self methodForSelector:@selector( drawGlView:z: ) ];
-	playerDirectionImp = [ _mapModel methodForSelector:@selector( playerDirection ) ];
-	drawModelArrayImp = [ self methodForSelector:@selector( drawModelArray: ) ];
-	panCameraImp = [ self methodForSelector:@selector( panCamera ) ];
-	dorryCameraImp = [ self methodForSelector:@selector( dorryCamera ) ];
-	floatingCameraImp = [ self methodForSelector:@selector( floatingCamera ) ];
-	shockedCameraImp = [ self methodForSelector:@selector( shockedCamera ) ];
-	
-	
-	[[self openGLContext] makeCurrentContext];
-	
-	
-	flushBufferImp = [[self openGLContext] methodForSelector:@selector(flushBuffer)];
-	
-	[viewLock lock];
-	
-	if ( OPENGLVIEW_WAITSYNC )
-		[ [ self openGLContext ] setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
-	else 
-		[ [ self openGLContext ] setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
-	[ viewLock unlock ];
-	
-	while ( runnning && !TRADITIONAL_MAP ) {
-		@autoreleasepool {
+		IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
+		IMP updateGlViewAddress = [ self methodForSelector:@selector( updateGlView ) ];
+		
+		drawGlViewAddress = [ self methodForSelector:@selector( drawGlView:z: ) ];
+		playerDirectionImp = [ _mapModel methodForSelector:@selector( playerDirection ) ];
+		drawModelArrayImp = [ self methodForSelector:@selector( drawModelArray: ) ];
+		panCameraImp = [ self methodForSelector:@selector( panCamera ) ];
+		dorryCameraImp = [ self methodForSelector:@selector( dorryCamera ) ];
+		floatingCameraImp = [ self methodForSelector:@selector( floatingCamera ) ];
+		shockedCameraImp = [ self methodForSelector:@selector( shockedCamera ) ];
+		
+		
+		[[self openGLContext] makeCurrentContext];
+		
+		
+		flushBufferImp = [[self openGLContext] methodForSelector:@selector(flushBuffer)];
+		
+		[viewLock lock];
+		
+		if ( OPENGLVIEW_WAITSYNC )
+			[ [ self openGLContext ] setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
+		else 
+			[ [ self openGLContext ] setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
+		[ viewLock unlock ];
+		
+		while ( runnning && !TRADITIONAL_MAP ) {
+			@autoreleasepool {
 
-		if ( isReady && !nowUpdating && !needsDisplayAddress( self, @selector( needsDisplay )) ) {
-		//if ( isReady && !nowUpdating ) {
-			updateGlViewAddress( self, @selector( updateGlView ));
+			if ( isReady && !nowUpdating && !needsDisplayAddress( self, @selector( needsDisplay )) ) {
+			//if ( isReady && !nowUpdating ) {
+				updateGlViewAddress( self, @selector( updateGlView ));
+			}
+			
+			
+			if ( hasWait ) [ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:( 1.0 / waitRate ) ] ];
+			
+			}
 		}
-		
-		
-		if ( hasWait ) [ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:( 1.0 / waitRate ) ] ];
-		
-		}
-	}
 	
-	[threadPool release];
+	}
 	[NSThread exit];
 }
 
@@ -1268,17 +1261,14 @@ static void floorfunc_default( id self )
 	
 		[ self unlockFocus ];
 	
-		[ attributes release ];
-	
 		firstTime = NO;
 	
 	}
-
 }
 
 - (void)drawGlView:(int)x z:(int)z
 {
-	NH3DMapItem *mapItem = [ mapItemValue[ x ][ z ] retain ];
+	NH3DMapItem *mapItem = mapItemValue[ x ][ z ];
 	int			type = [ mapItem modelDrawingType ];
 				
 	if ( type != 10 ) {
@@ -1293,21 +1283,17 @@ static void floorfunc_default( id self )
 		[ delayDrawing addObject:mapItem ];
 		[ delayDrawing addObject:numX ];
 		[ delayDrawing addObject:numZ ];
-		[ numX release ];
-		[ numZ release ]; 
 		// if you want use this method from difference thread,
 		// you must do some tricky technique for using collectionclass. 
 		// e.g;
 		// [ NSMutableArrayobject addObject:[ [ [ NSNumber numberWithInt:x ] retain ] autorelease ] ];
 		// [ NSDictionaryobject addObject:[ [ mapItem retain ] autorelease ] ];
 	}
-	[ mapItem release ];
 }
 
 // Drawing OpenGL functions.
 - ( void )updateGlView
-{		
-	
+{
 	if ( nowUpdating || TRADITIONAL_MAP ) return;
 	
 	if ( [ viewLock tryLock ] ) {
@@ -1417,7 +1403,7 @@ static void floorfunc_default( id self )
 		float posz = [ mapItem posY ] * NH3DGL_TILE_SIZE;
 		
 		NSNumber *modelNum = @(glyph);
-		id model = [ [modelDictionary objectForKey:modelNum] retain ];
+		id model = [modelDictionary objectForKey:modelNum];
 		
 		if ( model == nil && !defaultTex[ glyph ] ) {
 			id newModel = loadModelAddreses[ glyph ]( self, loadModelSelectors[ glyph ], glyph );
@@ -1432,10 +1418,9 @@ static void floorfunc_default( id self )
 				//NSLog(@"bf retaincount %d",[ newModel retainCount ]);
 				[ modelDictionary setObject:newModel forKey:modelNum ];
 				//NSLog(@"af retaincount %d",[ newModel retainCount ]);
-				[ newModel autorelease ];
 				[ keyArray addObject:[NSNumber numberWithInt:glyph] ];
 				
-				model = [ [modelDictionary objectForKey:modelNum] retain ];
+				model = [modelDictionary objectForKey:modelNum];
 			}
 		}
 		
@@ -1544,8 +1529,6 @@ static void floorfunc_default( id self )
 			[ model drawSelf ];
 			[ model animate ];
 			
-			[ model release ];
-			
 		}
 		
 		glPopMatrix();
@@ -1573,8 +1556,7 @@ static void floorfunc_default( id self )
 		
 		for ( x = centerX-MAP_MARGIN;x < centerX+1+MAP_MARGIN;x++ ) {
 			for ( z = centerZ-MAP_MARGIN;z < centerZ+1+MAP_MARGIN;z++ ) {
-				NH3DMapItem *mapItem = [ [ _mapModel mapArrayAtX:x atY:z ] retain ];
-				[ mapItemValue[ localx ][ localz ] release ];
+				NH3DMapItem *mapItem = [ _mapModel mapArrayAtX:x atY:z ];
 				mapItemValue[ localx ][ localz ] = mapItem;			
 				localz++;
 			}
@@ -1989,9 +1971,6 @@ static void floorfunc_default( id self )
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 
-	[ imgrep release ];
-	[ sourcefile release ];
-
 	[ viewLock unlock ];
 	
 	return tex_id;
@@ -2001,7 +1980,6 @@ static void floorfunc_default( id self )
 - ( GLuint )createTextureFromSymbol:( id )symbol withColor:( NSColor* )color
 {
 	[ viewLock lock ];
-	[ symbol retain ];
 	
 	GLuint tex_id;
 	NSImage				*img = [[NSImage alloc] initWithSize:NSMakeSize( TEX_SIZE , TEX_SIZE )];
@@ -2012,12 +1990,11 @@ static void floorfunc_default( id self )
 	
 	if ( !NH3DGL_USETILE ) {
 		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-		NSString *fontName = [[[NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey] retain];
+		NSString *fontName = [[NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey];
 		
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName: fontName
 														  size: TEX_SIZE];
-		[fontName release];
 		attributes[NSForegroundColorAttributeName] = color;
 		attributes[NSBackgroundColorAttributeName] = [NSColor clearColor];
 		
@@ -2030,7 +2007,6 @@ static void floorfunc_default( id self )
 			  withAttributes:attributes];
 		
 		[img unlockFocus];
-		[attributes release];
 		
 	} else {
 		symbolsize = [symbol size];
@@ -2043,7 +2019,6 @@ static void floorfunc_default( id self )
 		[img unlockFocus];
 	}
 	
-	[symbol release];
 	
 	imgrep = [[NSBitmapImageRep alloc] initWithData:[img TIFFRepresentation]];
 	
@@ -2081,8 +2056,6 @@ static void floorfunc_default( id self )
 	
 	glAlphaFunc( GL_GREATER, 0.5 );
 	
-	[imgrep release];
-	[img release];
 	
 	[viewLock unlock];
 	
@@ -2117,8 +2090,6 @@ static void floorfunc_default( id self )
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
 	[modelDictionary setObject:model
 						forKey:@(S_vwall + GLYPH_CMAP_OFF)];
-	[model release];
-			
 				
 	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"hwall" withTexture:YES ];
 	[ model addTexture:@"wall_mines" ];
@@ -2139,8 +2110,6 @@ static void floorfunc_default( id self )
 		[ [ model childObjectAtLast ] setModelRotateX:0.0 rotateY:-90.0 rotateZ:0.0 ];
 	[modelDictionary setObject:model
 						forKey:@(S_hwall + GLYPH_CMAP_OFF)];
-	[model release];
-	
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"corner" withTexture:YES];
 	[model addTexture:@"corner_mines"];
@@ -2167,27 +2136,21 @@ static void floorfunc_default( id self )
 	[modelDictionary setObject:model
 						forKey:@(S_trwall + GLYPH_CMAP_OFF)];
 	
-	[model release];
-	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vopendoor" withTexture:YES];
 	[modelDictionary setObject:model
 						forKey:@(S_vodoor + GLYPH_CMAP_OFF)];
-	[model release];
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hopendoor" withTexture:YES];
 	[modelDictionary setObject:model
 						forKey:@(S_hodoor + GLYPH_CMAP_OFF)];
-	[model release];
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vdoor" withTexture:YES];
 	[modelDictionary setObject:model
 						forKey:@(S_vcdoor + GLYPH_CMAP_OFF)];
-	[model release];
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hdoor" withTexture:YES];
 	[modelDictionary setObject:model
 						 forKey:@(S_hcdoor + GLYPH_CMAP_OFF)];
-	[model release];
 			
 		
 	}
@@ -2224,10 +2187,10 @@ static void floorfunc_default( id self )
 					withoutFlag = NO;
 					continue;
 				} else																	// Increment retain count
-					return [[modelDictionary objectForKey:@(i)] retain];
+					return [modelDictionary objectForKey:@(i)];
 					
 			} else																	// Increment retain count
-				return [[modelDictionary objectForKey:@(i)] retain];
+				return [modelDictionary objectForKey:@(i)];
 		}
 	}
 	

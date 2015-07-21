@@ -31,16 +31,6 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (void) dealloc {
-	
-	[ priestName release ];
-	[ cavemanName release ];
-	[ playerName release ];
-
-	[ super dealloc ];
-}
-
-
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	self.window.backgroundColor = [NSColor clearColor];
@@ -49,14 +39,12 @@ static const int DIALOG_CANCEL	= 129;
 	
 
 - ( void )setPriestName:( NSString * )aString {
-	[priestName release];
-	priestName = [NSLocalizedString(aString,@"") retain];
+	priestName = NSLocalizedString(aString,@"");
 }
 
 
 - ( void )setCavemanName:( NSString * )aString {
-	[cavemanName release];
-	cavemanName = [NSLocalizedString(aString, @"") retain];
+	cavemanName = NSLocalizedString(aString, @"");
 }
 
 - (IBAction)checkRace:(id)sender

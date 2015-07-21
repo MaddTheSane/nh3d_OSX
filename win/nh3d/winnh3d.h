@@ -35,7 +35,7 @@
 #import "NH3DPreferenceController.h"
 
 typedef struct nh3d_nhwindow_data {
-	id			win;
+	__unsafe_unretained id			win;
 	int         type;
 } NH3DWinData;
 

@@ -48,7 +48,7 @@ static NH3DMaterial defaultMat = {
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
-	NSImage	*sourcefile = [[NSImage imageNamed:fileName] retain];
+	NSImage	*sourcefile = [NSImage imageNamed:fileName];
 	NSBitmapImageRep	*imgrep;
 	GLuint				tex_id;			// valiable to return
 	
@@ -92,10 +92,6 @@ static NH3DMaterial defaultMat = {
 	
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	
-	
-	[imgrep release];
-	[sourcefile release];
 	
 	return tex_id;
 }
@@ -328,7 +324,6 @@ static NH3DMaterial defaultMat = {
 						//NSLog(@"%d Vertices list z: %f",i,verts[i].z);
 					}
 				} else {
-					[file_3ds release];
 					NSLog(@"Model %@|%@ does not have effective data. check modelformat or data.",modelCode,modelName);
 					return NO;
 				}
@@ -439,8 +434,6 @@ static NH3DMaterial defaultMat = {
 		}
 		
 	}
-		
-	[file_3ds release];
 	
 	return YES;
 }
@@ -659,7 +652,7 @@ static NH3DMaterial defaultMat = {
 			particles[ i ].zg = particleGravity.z;
 		}
 		
-		modelName = [ [[NSDate date] description] retain ];
+		modelName = [[NSDate date] description];
 		modelCode = @"emitter";
 		modelType = NH3DModelTypeEmitter;
 		active = YES;
@@ -738,7 +731,6 @@ static NH3DMaterial defaultMat = {
 		particleType = NH3DParticleTypePoints;
 		
 		if ( ![self import3DSfileToNH3DModel:name] ) {
-			[self release];
 			return nil;
 		}
 		
@@ -774,13 +766,6 @@ static NH3DMaterial defaultMat = {
 	free(particles);
 
 	[ childObjects removeAllObjects ];
-	[ childObjects release ];
-
-	[ modelName release ];
-	[ modelCode release ];
-	
-	[super dealloc];
-	
 }
 
 
@@ -1073,21 +1058,21 @@ static NH3DMaterial defaultMat = {
 	switch (type) {
 		
 		case NH3DModelTypeObject:
-			modelobj = [ [[[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:NO] retain] autorelease ];
+			modelobj = [[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:NO];
 //			if (modelobj == nil) {
 //				modelobj = [[NH3DModelObjects alloc] initWithOBJFile:childName withTexture:NO];
 //			}
 			
 			break;
 		case NH3DModelTypeTexturedObject:
-			modelobj = [ [[[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:YES] retain] autorelease ];
+			modelobj = [[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:YES];
 //			if (modelobj == nil) {
 //				modelobj = [[NH3DModelObjects alloc] initWithOBJFile:childName withTexture:YES];
 //			}
 				
 			break;
 		case NH3DModelTypeEmitter:
-			modelobj = [ [[[NH3DModelObjects alloc] init] retain] autorelease ];
+			modelobj = [[NH3DModelObjects alloc] init];
 			
 			break;
 		default :
@@ -1107,9 +1092,6 @@ static NH3DMaterial defaultMat = {
 	} else {
 		NSLog(@"NH3DModelObjects:Can't add Child object '%@'. please check filename or location.",childName);
 	}
-	
-	[ modelobj release ];
-												
 }
 
 

@@ -54,7 +54,7 @@
 
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;
-@property (readonly, retain) NSImage *tile;
+@property (readonly, strong) NSImage *tile;
 
 - (int)modelDrawingType;
 

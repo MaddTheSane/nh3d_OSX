@@ -48,17 +48,6 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (void)dealloc 
-{
-	[ nh3dMenu release ];
-	[ darkShadowStrAttributes release ];
-	[ lightShadowStrAttributes release ];
-	[ darkShadow release ];
-	[ lightShadow release ];
-	[ style release ];
-	[ super dealloc ];
-}
-
 - (void)awakeFromNib {
 			
 	[ _textPanel setBackgroundColor:[NSColor clearColor] ];
@@ -92,7 +81,6 @@ static const int DIALOG_CANCEL	= 129;
 	[ cell setControlView:_menuTableWindow ];
 	
 	[ tableColumn setDataCell:cell ];
-	[ cell release ];
 	
 }
 
@@ -185,37 +173,36 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)showTextPanel
 {
-	NSAutoreleasePool *pool = [ NSAutoreleasePool new ];
-	NSRect frameRect;
-	
-	if ( flags.tombstone && doneRip ) {
-		[ pool release ];
-		return;
-	}
-	
-	[ [_window attachedSheet] orderOut:nil ];
-	
-	[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
-	
-	frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
-	[ _textPanel setFrame:frameRect display:NO ];
-	
-	if ( [ [_textScrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
-		[ _textWindow scrollRangeToVisible:NSMakeRange(0,0) ];
-	}
-	
-	[ NSApp beginSheet:_textPanel
-	    modalForWindow:_window
-		 modalDelegate:nil
-	    didEndSelector:nil
-		   contextInfo:nil ];
-	//[ NSApp runModalForWindow: _textPanel ];
+	@autoreleasepool {
+		NSRect frameRect;
+		
+		if ( flags.tombstone && doneRip ) {
+			return;
+		}
+		
+		[ [_window attachedSheet] orderOut:nil ];
+		
+		[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
+		
+		frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
+		[ _textPanel setFrame:frameRect display:NO ];
+		
+		if ( [ [_textScrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
+			[ _textWindow scrollRangeToVisible:NSMakeRange(0,0) ];
+		}
+		
+		[ NSApp beginSheet:_textPanel
+		    modalForWindow:_window
+			 modalDelegate:nil
+		    didEndSelector:nil
+			   contextInfo:nil ];
+		//[ NSApp runModalForWindow: _textPanel ];
     // Dialog is up here.
 
-	[ _textWindow setString:@"" ];
-	
-	[ NSApp stopSpeaking:self ];
-	[ pool release ];
+		[ _textWindow setString:@"" ];
+		
+		[ NSApp stopSpeaking:self ];
+	}
 }
 
 
@@ -322,8 +309,6 @@ static const int DIALOG_CANCEL	= 129;
 												  preSelect:presel ];
 
 		[ nh3dMenu addObject:aMenuItem ];
-		[ aMenuItem release ];
-
 }					
 		
 //
@@ -364,7 +349,6 @@ static const int DIALOG_CANCEL	= 129;
 	NH3DMenuItem *aMenuItem;
 	menu_item *mi;
 	
-	NSAutoreleasePool *pool;
 
 	
 	switch ( how ) 
@@ -382,9 +366,9 @@ static const int DIALOG_CANCEL	= 129;
 		break;
 	}
 	
-	pool = [ NSAutoreleasePool new ];
-	ret = [ NSApp runModalForWindow: _menuPanel ];
-	[ pool release ];
+	@autoreleasepool {
+		ret = [ NSApp runModalForWindow: _menuPanel ];
+	}
     // Dialog is up here.
 	
 	[ NSApp stopSpeaking:self ];
@@ -457,14 +441,13 @@ static const int DIALOG_CANCEL	= 129;
 //	for 2byte letter Strings (e,g,Japanese)any size method of Cocoa, does not acquire size of a 2byte letter well for some reason. Why?
 	contentSize = NSMakeSize( 0,0 );
 	for (i=0 ; i < [ nh3dMenu count ] ; i++ ) {
-		NH3DMenuItem *aMenuItem = [ [nh3dMenu objectAtIndex:i] retain ];
+		NH3DMenuItem *aMenuItem = [nh3dMenu objectAtIndex:i];
 		unsigned len = [ [aMenuItem name]length ];
 		strSize.width = len * ( NH3DINVFONTSIZE + 4.0 ) ;
 		//strSize = [[nh3dMenu objectAtIndex:i] stringSize];  // fmm...  does not acquire size of a 2byte letter well, too.
 		if ( strSize.width > contentSize.width ) {
 			contentSize.width = strSize.width;
 		}
-		[ aMenuItem release ];
 	}
 
 	if ( contentSize.width > 640.0 ) {
