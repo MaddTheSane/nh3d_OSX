@@ -239,13 +239,13 @@ WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 WINNH3DSRC = ../win/nh3d/NH3DMapItem.m ../win/nh3d/NH3DMapModel.m \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
 	../win/nh3d/NH3DMessenger.m ../win/nh3d/NH3DModelObjects.m ../win/nh3d/NH3DOpenGLView.m \
-	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DPreferenceController.m ../win/nh3d/NH3DTileCash.m \
+	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DPreferenceController.m ../win/nh3d/NH3DTileCache.m \
 	../win/nh3d/NH3DUserMakeSheetController.m ../win/nh3d/NH3DUserStatusModel.m \
 	../win/nh3d/winnh3d.m \
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DOBJ = NH3DMapItem.o NH3DMapModel.o NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DMessenger.o NH3DModelObjects.o NH3DOpenGLView.o NH3DPanel.o NH3DPreferenceController.o \
-	NH3DTileCash.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
+	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
 #	Cocoa-compat.o
 #
 # Files for a Gem port
@@ -301,7 +301,7 @@ WINGNOMELIB = -lgnomeui -lgnome -lart_lgpl -lgtk -lgdk -lpopt
 # For Linux?
 #WINNH3DLIB = -L$(GNUSTEPDIR)/Libraries -lgnustep-gui -lgnustep-base -lobjc -lGL -lGLU
 # For MacOSX_PPC
-WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -framework AppKit -framework OpenGL -framework Cocoa -framework Foundation $(OSXARCH)
+WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -framework AppKit -framework OpenGL -framework Cocoa -framework Foundation -framework QTKit $(OSXARCH)
 #
 # libraries for Gem port
 WINGEMLIB = -le_gem -lgem
@@ -792,8 +792,8 @@ NH3DPanel.o: ../win/nh3d/NH3DPanel.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
 NH3DPreferenceController.o: ../win/nh3d/NH3DPreferenceController.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPreferenceController.m
-NH3DTileCash.o: ../win/nh3d/NH3DTileCash.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCash.m
+NH3DTileCache.o: ../win/nh3d/NH3DTileCache.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCache.m
 NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserMakeSheetController.m
 NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m

@@ -6,3 +6,5 @@ xcuserdata/
 *.o
 util/makedefs
 *.h-t
+src/NetHack3D
+util/tilemap
