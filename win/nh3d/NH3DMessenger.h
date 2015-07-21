@@ -59,7 +59,6 @@
 	int lastAttackDirection;
 	
 	QTMovieView *movieView;
-	
 }
 
 - (void)prepareAttributes;

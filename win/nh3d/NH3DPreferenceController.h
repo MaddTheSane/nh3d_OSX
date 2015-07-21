@@ -15,7 +15,7 @@
 @interface NH3DPreferenceController : NSWindowController <NSWindowDelegate> {
 	
 	NH3DBindController	*bindController;
-	int					_fontButtonTag;
+	NSInteger			_fontButtonTag;
 
 }
 

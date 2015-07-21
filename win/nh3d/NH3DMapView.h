@@ -81,7 +81,7 @@
 	//NSShadow *fontShadow;
 	//NSMutableDictionary *fontAttributes;
 
-	float	cursOpacity;
+	CGFloat	cursOpacity;
 		
 	NH3DMapItem *mapItemValue[MAPVIEWSIZE_COLUMN][MAPVIEWSIZE_ROW];
 	

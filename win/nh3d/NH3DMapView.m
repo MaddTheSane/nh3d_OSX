@@ -52,8 +52,8 @@
 - (id)initWithFrame:(NSRect)frameRect
 {
 		
-	if ( (self = [ super initWithFrame:frameRect ]) != nil ) {
-		[ self setBgColor:[NSColor colorWithCalibratedWhite:0.15 alpha:1.0] ];
+	if (self = [ super initWithFrame:frameRect ]) {
+		self.bgColor = [NSColor colorWithCalibratedWhite:0.15 alpha:1.0];
 			
 		isReady = NO;
 		enemyCatch = 0;
@@ -61,8 +61,8 @@
 		viewCursX = 0;
 		viewCursY = 0;
 										
-		self.posCursor = [ NSImage imageNamed:@"nh3dPosCursor" ];
-		self.mapRestrictedBezel = [ NSImage imageNamed:@"asciiMapMaskLimited" ];
+		self.posCursor = [NSImage imageNamed:@"nh3dPosCursor"];
+		self.mapRestrictedBezel = [NSImage imageNamed:@"asciiMapMaskLimited"];
 
 		cursOpacity = 1.0;
 		keyBuffer = '0';
@@ -71,18 +71,18 @@
 //		cursPos = NSZeroPoint;
 		plDepth = 0;
 		
-		lock = [ [NSRecursiveLock alloc] init ];
+		lock = [[NSRecursiveLock alloc] init];
 		
 		//NSLog(@"%f,%f,%f,%f",frameRect.origin.x,frameRect.origin.y,frameRect.size.width,frameRect.size.height);
 		
-		if ( TRADITIONAL_MAP ) {
-			[ self setFrame:NSMakeRect(183.0, 222.0, 440.0, 320.0) ];
+		if (TRADITIONAL_MAP) {
+			[self setFrame:NSMakeRect(183.0, 222.0, 440.0, 320.0)];
 			self.mapBezel = nil;
-			self.mapBase = [ NSImage imageNamed:@"trBase" ];
+			self.mapBase = [NSImage imageNamed:@"trBase"];
 			self.trMapImage = nil;
 		} else {
-			self.mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
-			self.mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
+			self.mapBezel = [NSImage imageNamed:@"asciiMapMask"];
+			self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 			self.trMapImage = nil;
 		}
 

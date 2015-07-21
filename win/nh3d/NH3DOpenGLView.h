@@ -115,11 +115,11 @@
 - (void)updateGlView;
 - (void)loadModels;
 - (id)checkLoadedModelsAt:(int)startNum
-						 to:(int)endNum
-					 offset:(int)offset
-				  modelName:(NSString *)mName
-				   textured:(BOOL)flag
-					withOut:(int)without, ... NS_RETURNS_RETAINED /*NS_FORMAT_FUNCTION(4,7)*/;
+					   to:(int)endNum
+				   offset:(int)offset
+				modelName:(NSString *)mName
+				 textured:(BOOL)flag
+				  withOut:(int)without, ... NS_RETURNS_RETAINED /*NS_FORMAT_FUNCTION(4,7)*/;
 //- ( id )loadModelToArray:(int)glyph;
 
 @property (readonly) float cameraHead;

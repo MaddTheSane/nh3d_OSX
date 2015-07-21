@@ -150,13 +150,17 @@ extern NSString *NH3DGLTileKey;
 #define MAX_POLYGONS 8000 // Max number of polygons (for each object)
 #define MAX_PARTICLES 150 // Max number of Particle effects
 
-#define MODEL_IS_OBJECT 0
-#define MODEL_IS_TEXTURED_OBJECT 1
-#define MODEL_IS_EMITTER 2
+typedef NS_ENUM(int, NH3DModelType) {
+	NH3DModelTypeObject = 0,
+	NH3DModelTypeTexturedObject = 1,
+	NH3DModelTypeEmitter = 2
+};
 
-#define PARTICLE_POINTS 0
-#define PARTICLE_LINES 1
-#define PARTICLE_BOTH 2
-#define PARTICLE_AURA 3
+typedef NS_ENUM(int, NH3DParticleType) {
+	NH3DParticleTypePoints = 0,
+	NH3DParticleTypeLines = 1,
+	NH3DParticleTypeBoth = 2,
+	NH3DParticleTypeAura = 3
+};
 
 #define MAX_TEXTURES 10

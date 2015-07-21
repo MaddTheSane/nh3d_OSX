@@ -14,6 +14,8 @@ extern int total_tiles_used;
 
 
 @implementation NH3DTileCache
+@synthesize tileSize_X;
+@synthesize tileSize_Y;
 
 
 - (id) init 
@@ -43,7 +45,7 @@ extern int total_tiles_used;
 		}
 		
 		tiffData = [ tileSource TIFFRepresentation ];
-		bitMap = [ [ NSBitmapImageRep alloc ]  initWithData : tiffData ];
+		bitMap = [[NSBitmapImageRep alloc] initWithData: tiffData];
 		
 		[ tileSource release ];
 		//[ tiffData release ];
@@ -117,10 +119,5 @@ extern int total_tiles_used;
 	return tileImg;
 	
 }
-
-@synthesize tileSize_X;
-@synthesize tileSize_Y;
-
-
 
 @end

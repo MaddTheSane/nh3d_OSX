@@ -86,7 +86,7 @@ typedef struct {
 	BOOL				useEnvironment;
 	
 	NH3DParticle		*particles;			/* particle Array */
-	int					particleType;
+	NH3DParticleType	particleType;
 	NH3DVertexType		particleGravity;
 	int					particleColor;
 	float				particleLife;
@@ -101,7 +101,7 @@ typedef struct {
 	NSUInteger			numberOfChildObjects;
 	NSMutableArray		*childObjects;
 	
-	int					modelType;
+	NH3DModelType		modelType;
 	
 	float				slowdown; 
 	float				xspeed;
@@ -148,17 +148,16 @@ typedef struct {
 - (BOOL)addTexture:(NSString *)textureName;
 @property BOOL useEnvironment;
 
-@property (getter=isAnimate) BOOL animate;
+@property (getter=isAnimated) BOOL animated;
 @property float animationValue;
 @property float animationRate;
 
 - (void)animate;
 
-- (NH3DVertexType )particleGravity;
+- (NH3DVertexType)particleGravity;
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
-- (void)setParticleType:(int)type;
-- (int)particleColor;
-- (void)setParticleColor:(int)col;
+- (void)setParticleType:(NH3DParticleType)type;
+@property int particleColor;
 - (void)setParticleSpeedX:(float)x Y:(float)y;
 - (void)setParticleSlowdown:(float)value;
 - (void)setParticleLife:(float)value;
@@ -170,7 +169,7 @@ typedef struct {
 
 @property BOOL isChild;
 
-- (void)addChildObject:(NSString *)childName type:(int)type;
+- (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
 - (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
 - (NH3DModelObjects *)childObjectAtLast;
 

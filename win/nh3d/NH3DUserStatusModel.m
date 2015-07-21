@@ -1029,18 +1029,19 @@ extern id _NH3DTileCache;
 - ( void )setLowfulIcon:( BOOL )enable {
 	lowfulIcon = enable;
 }
+
 - ( void )setNewtralIcon:( BOOL )enable {
 	newtralIcon = enable;
 }
+
 - ( void )setChaosIcon:( BOOL )enable {
 	chaosIcon = enable;
 }
 
-- ( void )setStHunger:( BOOL )aBool 
+- (void)setStHunger:(BOOL)aBool
 {
 	stHunger = aBool;
-	[ self checkStDrawer ];
-	
+	[self checkStDrawer];
 }
 
 - ( void )setStConfuse:( BOOL )aBool
@@ -1080,7 +1081,7 @@ extern id _NH3DTileCache;
 	
 }
 
-- ( void )checkStDrawer
+- (void)checkStDrawer
 {
 	if ( stHunger || stConfuse || stSick || stIll || stBlind || stStun || stHallu )
 		{	
@@ -1088,7 +1089,8 @@ extern id _NH3DTileCache;
 			[ stDrawer open ];
 			[ [ NSSound soundNamed:@"Purr" ] play ];
 		}
-	} else if ( [ stDrawer state ] != NSDrawerClosedState ) [ stDrawer close ];
+	} else if ( [ stDrawer state ] != NSDrawerClosedState )
+		[stDrawer close];
 		
 }
 
@@ -1182,7 +1184,7 @@ extern id _NH3DTileCache;
 	
 	firstTime = NO;
 
-	[ window displayIfNeeded ];
+	[window displayIfNeeded];
 }
 
 @end

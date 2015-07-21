@@ -1070,7 +1070,7 @@ static void floorfunc_default( id self )
 	
 	for ( i=0 ; i < NH3D_MAX_EFFECTS ;i++ ) {
 		[ effectArray[ i ] setParticleSize:8.5 ];
-		[ effectArray[ i ] setParticleType:PARTICLE_POINTS ];
+		[ effectArray[ i ] setParticleType:NH3DParticleTypePoints ];
 		[ effectArray[ i ] setParticleColor:CLR_RED ];
 		[ effectArray[ i ] setParticleSpeedX:1.0 Y:-1.0 ];
 		[ effectArray[ i ] setParticleSlowdown:0.8 ];
@@ -1418,14 +1418,14 @@ static void floorfunc_default( id self )
 		float posx = [ mapItem posX ] * NH3DGL_TILE_SIZE;
 		float posz = [ mapItem posY ] * NH3DGL_TILE_SIZE;
 		
-		NSNumber *modelNum = [ NSNumber numberWithInt:glyph ];
+		NSNumber *modelNum = @(glyph);
 		id model = [ [modelDictionary objectForKey:modelNum] retain ];
 		
 		if ( model == nil && !defaultTex[ glyph ] ) {
 			id newModel = loadModelAddreses[ glyph ]( self, loadModelSelectors[ glyph ], glyph );
 			if ( newModel != nil ) {
 				if ( glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF ) {
-					[ newModel setAnimate:YES ];
+					[ newModel setAnimated:YES ];
 					[ newModel setAnimationRate:( ( float )( random() %5 )*0.1 )+0.5 ];
 					[ newModel setPivotX:0.0 atY:0.3 atZ:0.0 ];
 					[ newModel setUseEnvironment:YES ];
@@ -1445,7 +1445,7 @@ static void floorfunc_default( id self )
 		
 		
 		glPushMatrix();
-		glTranslatef( posx,0.0,posz );
+		glTranslatef(posx, 0.0, posz);
 		
 		if ( model == nil
 			 && !( glyph >= S_stone+GLYPH_CMAP_OFF
@@ -1454,13 +1454,13 @@ static void floorfunc_default( id self )
 			float f,angle;
 			
 			glPushMatrix();
-			glRotatef( rot,   0.0, 1.0, 0.0 );
+			glRotatef(rot, 0.0, 1.0, 0.0);
 			
 			if ( !defaultTex[ glyph ] ) {
 				if ( NH3DGL_USETILE )
-					defaultTex[ glyph ] = [ self createTextureFromSymbol:[ mapItem tile ] withColor:nil ];
+					defaultTex[glyph] = [self createTextureFromSymbol:[mapItem tile] withColor:nil];
 				else 
-					defaultTex[ glyph ] = [ self createTextureFromSymbol:[ mapItem symbol ] withColor:[ mapItem color ] ];
+					defaultTex[glyph] = [self createTextureFromSymbol:[mapItem symbol] withColor:[mapItem color]];
 			}
 			glActiveTexture( GL_TEXTURE0 );
 			glEnable( GL_TEXTURE_2D );
@@ -1511,7 +1511,7 @@ static void floorfunc_default( id self )
 			
 		} else { // Draw model 
 			
-			if ( [ model isAnimate ] ) {
+			if ( [ model isAnimated ] ) {
 				glRotatef( [ model animationValue ],   0.0, 1.0, 0.0 );
 			}
 			
@@ -2106,11 +2106,11 @@ static void floorfunc_default( id self )
 	[ model addTexture:@"wall_hell" ];
 	[ model addTexture:@"wall_knox" ];
 	[ model addTexture:@"wall_rouge" ];
-		[ model addChildObject:@"touch" type:MODEL_IS_TEXTURED_OBJECT ];
+		[ model addChildObject:@"touch" type:NH3DModelTypeTexturedObject ];
 		[ [ model childObjectAtLast ] setPivotX:0.478 atY:2.834 atZ:0.007 ];
-		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setPivotX:0.593 atY:1.261 atZ:0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_ORANGE ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleGravityX:0.0 Y:2.0 Z:0 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -2127,11 +2127,11 @@ static void floorfunc_default( id self )
 	[ model addTexture:@"wall_hell" ];
 	[ model addTexture:@"wall_knox" ];
 	[ model addTexture:@"wall_rouge" ];
-		[ model addChildObject:@"touch" type:MODEL_IS_TEXTURED_OBJECT ];
+		[ model addChildObject:@"touch" type:NH3DModelTypeTexturedObject ];
 		[ [ model childObjectAtLast ] setPivotX:-0.005 atY:2.834 atZ:0.483 ];
-		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setPivotX:0.593 atY:1.261 atZ:0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_ORANGE ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleGravityX:0.0 Y:2.0 Z:0 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -2245,7 +2245,7 @@ static void floorfunc_default( id self )
 {
 	[ magicItem setPivotX:0.0 atY:1.2 atZ:0.0 ];
 	[ magicItem setModelScaleX:0.4 scaleY:1.0 scaleZ:0.4 ];
-	[ magicItem setParticleType:PARTICLE_AURA ];
+	[ magicItem setParticleType:NH3DParticleTypeAura ];
 	[ magicItem setParticleColor:color ];
 	[ magicItem setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 	[ magicItem setParticleSpeedX:1.0 Y:1.00 ];
@@ -2257,7 +2257,7 @@ static void floorfunc_default( id self )
 
 - (void)setParamsForMagicExplotion:(NH3DModelObjects*)magicItem color:(int)color
 {
-	[magicItem setParticleType:PARTICLE_AURA ];
+	[magicItem setParticleType:NH3DParticleTypeAura ];
 	[magicItem setParticleColor:color ];
 	[magicItem setParticleGravityX:0.0 Y:15.5 Z:0.0 ];
 	[magicItem setParticleSpeedX:1.0 Y:15.00 ];
@@ -2348,7 +2348,7 @@ static void floorfunc_default( id self )
 	
 	if ( glyph ==  PM_DWARF_KING+GLYPH_MON_OFF ) {
 		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerH" withTexture:NO ];
-		[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+		[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 		[ [ret childObjectAtLast] setPivotX:0.0 atY:0.2 atZ:-0.21 ];
 		[ [ret childObjectAtLast] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 	} else {
@@ -2408,7 +2408,7 @@ static void floorfunc_default( id self )
 			
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerK" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.1 atZ:-0.25 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			
@@ -2416,7 +2416,7 @@ static void floorfunc_default( id self )
 			
 		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerK" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			
@@ -2468,7 +2468,7 @@ static void floorfunc_default( id self )
 	
 	if ( glyph ==  PM_ORC_SHAMAN + GLYPH_MON_OFF ) {
 		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerO" withTexture:NO ];
-		[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+		[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 		[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.15 atZ:-0.15 ];
 		[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 	} else {
@@ -2715,14 +2715,14 @@ static void floorfunc_default( id self )
 			break;
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperG" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			break;
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperG" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.05 atZ:-0.25 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			break;
@@ -2827,7 +2827,7 @@ static void floorfunc_default( id self )
 			
 		case PM_OGRE_KING + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperO" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.15 atZ:-0.18 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			break;
@@ -2923,7 +2923,7 @@ static void floorfunc_default( id self )
 			
 		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperV" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.15 atZ:-0.18 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			break;
@@ -3002,7 +3002,7 @@ static void floorfunc_default( id self )
 		
 		case PM_ELVENKING + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.18 atZ:0.0 ];
 			[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
@@ -3010,7 +3010,7 @@ static void floorfunc_default( id self )
 			
 		case PM_NURSE + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"nurse" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"nurse" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:1.00 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
 			break;
@@ -3019,8 +3019,8 @@ static void floorfunc_default( id self )
 		case PM_MEDUSA + GLYPH_MON_OFF :
 		case PM_CROESUS + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3031,12 +3031,12 @@ static void floorfunc_default( id self )
 			
 		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
-			[ [ ret childObjectAtLast ] addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ [ ret childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setPivotX:-0.827 atY:1.968 atZ:1.793 ];
-			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleGravityX:-3.5 Y:1.5 Z:0.8 ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:1.5 Y:2.00 ];
@@ -3044,8 +3044,8 @@ static void floorfunc_default( id self )
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleLife:0.5 ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleSize:6.0 ];
 			
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setPivotX:0.827 atY:-1.800 atZ:-1.793 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
@@ -3114,8 +3114,8 @@ static void floorfunc_default( id self )
 
 	if ( glyph == PM_JUIBLEX + GLYPH_MON_OFF ) {
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3131,15 +3131,15 @@ static void floorfunc_default( id self )
 									textured:NO
 									 withOut:nil ];
 			if ( ![ ret hasChildObject ] ) {
-				[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-				[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+				[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+				[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 				[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 				[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 				[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
 				[ [ ret childObjectAtLast ] setParticleSlowdown:8.8 ];
 				[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
 				[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
-				[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+				[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 				[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.52 atZ:0.0 ];
 				[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:0.7 rotateZ:0.0 ];
 				[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
@@ -3162,16 +3162,16 @@ static void floorfunc_default( id self )
 								 withOut:nil ];
 		
 		if ( ![ ret hasChildObject ] ) {
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:8.8 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
 			[ [ ret childObjectAtLast ] setParticleSize:15.0 ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3224,7 +3224,7 @@ static void floorfunc_default( id self )
 	
 	if ( glyph == PM_WIZARD + GLYPH_MON_OFF ) {
 		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-		[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+		[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 		[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
 	} else {		
 		ret = [ self checkLoadedModelsAt:PM_ARCHEOLOGIST
@@ -3249,12 +3249,12 @@ static void floorfunc_default( id self )
 		
 		case PM_KING_ARTHUR + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.18 atZ:0.0 ];
 			[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3266,10 +3266,10 @@ static void floorfunc_default( id self )
 			
 		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3280,8 +3280,8 @@ static void floorfunc_default( id self )
 			
 		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3293,8 +3293,8 @@ static void floorfunc_default( id self )
 			
 		case PM_THOTH_AMON + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3306,8 +3306,8 @@ static void floorfunc_default( id self )
 			
 		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperD" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3318,8 +3318,8 @@ static void floorfunc_default( id self )
 			
 		case PM_CYCLOPS + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperH" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3330,8 +3330,8 @@ static void floorfunc_default( id self )
 			
 		case PM_IXOTH + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperD" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3342,8 +3342,8 @@ static void floorfunc_default( id self )
 			
 		case PM_MASTER_KAEN + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3354,8 +3354,8 @@ static void floorfunc_default( id self )
 			
 		case PM_NALZOK + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3366,8 +3366,8 @@ static void floorfunc_default( id self )
 			
 		case PM_SCORPIUS + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerS" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3379,8 +3379,8 @@ static void floorfunc_default( id self )
 		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF :
 		case PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3391,12 +3391,12 @@ static void floorfunc_default( id self )
 			
 		case PM_LORD_SURTUR + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperH" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.18 atZ:0.0 ];
 			[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3407,11 +3407,11 @@ static void floorfunc_default( id self )
 			
 		case PM_DARK_ONE + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
 			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3431,8 +3431,8 @@ static void floorfunc_default( id self )
 										  withOut:PM_KING_ARTHUR,nil ];
 				 
 				 if ( ![ ret hasChildObject ] ) {
-					 [ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
-					 [ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+					 [ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
+					 [ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 					 [ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 					 [ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 					 [ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3505,16 +3505,16 @@ static void floorfunc_default( id self )
 			
 		case S_sink + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"sink" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:1.277 atZ:-0.812 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_POINTS ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypePoints ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:-8.8 Z:1.0 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.21 ];
 			[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.687 atZ:0.512 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_POINTS ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypePoints ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:-5.8 Z:1.0 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.3 ];
@@ -3523,30 +3523,30 @@ static void floorfunc_default( id self )
 			
 		case S_fountain + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"fountain" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.34 atY:2.68 atZ:0.65 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:0.1 Z:0.08 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:-130.0 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:4.2 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.8 ];
 			[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.34 atY:-1.70 atZ:-0.65 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.98 scaleY:0.7 scaleZ:0.98 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:0.1 Z:0.00 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:-130.0 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:4.2 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.28 ];
 			[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.5 scaleY:0.7 scaleZ:0.5 ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:1.35 atZ:-0.0 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:0.4 Z:0.00 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:-190.0 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:4.2 ];
@@ -3557,24 +3557,24 @@ static void floorfunc_default( id self )
 		case S_vodbridge + GLYPH_CMAP_OFF: 
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"bridgeUP" withTexture:YES ];
 			[ ret setModelRotateX:0 rotateY:-90 rotateZ:0 ];
-			[ ret addChildObject:@"bridge_opt" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"bridge_opt" type:NH3DModelTypeTexturedObject ];
 			break;
 			
 		case S_hodbridge + GLYPH_CMAP_OFF: 
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"bridge" withTexture:YES ];
-			[ ret addChildObject:@"bridge_opt" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"bridge_opt" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:4.0 atY:0.0 atZ:0.0 ];
 			break;
 			
 		case S_vcdbridge + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"bridgeUP" withTexture:YES ];
-			[ ret addChildObject:@"bridge_opt" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"bridge_opt" type:NH3DModelTypeTexturedObject ];
 			break;
 			
 		case S_hcdbridge + GLYPH_CMAP_OFF: 
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"bridge" withTexture:YES ];
 			[ ret setModelRotateX:0 rotateY:-90 rotateZ:0 ];
-			[ ret addChildObject:@"bridge_opt" type:MODEL_IS_TEXTURED_OBJECT ];
+			[ ret addChildObject:@"bridge_opt" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:4.0 atY:0.0 atZ:0.0 ];
 			break;
 			
@@ -3617,9 +3617,9 @@ static void floorfunc_default( id self )
 			//case S_rolling_boulder_trap + GLYPH_CMAP_OFF :
 		case S_sleeping_gas_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"gastrap" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.5 atZ:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.0 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:300 ];
@@ -3630,9 +3630,9 @@ static void floorfunc_default( id self )
 			
 		case S_rust_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"gastrap" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.5 atZ:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.0 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_GREEN ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:300.0 ];
@@ -3643,9 +3643,9 @@ static void floorfunc_default( id self )
 			
 		case S_fire_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"gastrap" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.5 atZ:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_BOTH ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
 			[ [ ret childObjectAtLast ] setParticleSize:4.0 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-1.0 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_ORANGE ];
@@ -3671,20 +3671,20 @@ static void floorfunc_default( id self )
 			break;
 		case S_teleportation_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"telporter" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:3.82 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:1.8 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.23 ];
 			[ [ ret childObjectAtLast ] setIsChild:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:0.42 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -3694,20 +3694,20 @@ static void floorfunc_default( id self )
 			
 		case S_level_teleporter + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"leveltelporter" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:3.82 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:1.8 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.23 ];
 			[ [ ret childObjectAtLast ] setIsChild:NO ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:0.42 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -3717,9 +3717,9 @@ static void floorfunc_default( id self )
 			
 		case S_magic_portal + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"magicportal" withTexture:YES ];
-			[ ret addChildObject:@"emitter" type:MODEL_IS_EMITTER ];
+			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.8 scaleY:0.7 scaleZ:0.8 ];
-			[ [ ret childObjectAtLast ] setParticleType:PARTICLE_AURA ];
+			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3734,7 +3734,7 @@ static void floorfunc_default( id self )
 		case S_magic_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelScaleX:0.7 scaleY:0.4 scaleZ:0.7 ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -3746,7 +3746,7 @@ static void floorfunc_default( id self )
 		case S_anti_magic_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelScaleX:0.7 scaleY:0.4 scaleZ:0.7 ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_CYAN ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -3758,7 +3758,7 @@ static void floorfunc_default( id self )
 		case S_polymorph_trap + GLYPH_CMAP_OFF :
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelScaleX:0.7 scaleY:0.4 scaleZ:0.7 ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_BROWN ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -3900,7 +3900,7 @@ static void floorfunc_default( id self )
 	id ret = [ [ NH3DModelObjects alloc ] init ];
 	[ ret setPivotX:0.0 atY:1.2 atZ:0.0 ];
 	[ ret setModelScaleX:1.0 scaleY:1.0 scaleZ:1.0 ];
-	[ ret setParticleType:PARTICLE_AURA ];
+	[ ret setParticleType:NH3DParticleTypeAura ];
 	[ ret setParticleColor:CLR_MAGENTA ];
 	//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 	[ ret setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
@@ -3997,7 +3997,7 @@ static void floorfunc_default( id self )
 	id ret = [ [ NH3DModelObjects alloc ] init ];
 	[ ret setPivotX:0.0 atY:1.2 atZ:0.0 ];
 	[ ret setModelScaleX:1.0 scaleY:1.0 scaleZ:1.0 ];
-	[ ret setParticleType:PARTICLE_AURA ];
+	[ ret setParticleType:NH3DParticleTypeAura ];
 	[ ret setParticleColor:CLR_GREEN ];
 	//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
 	[ ret setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
@@ -4056,7 +4056,7 @@ static void floorfunc_default( id self )
 		case S_digbeam + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelScaleX:0.7 scaleY:1.0 scaleZ:0.7 ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_BROWN ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -4069,7 +4069,7 @@ static void floorfunc_default( id self )
 		case S_flashbeam + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] init ];
 			[ ret setModelScaleX:1.4 scaleY:1.5 scaleZ:1.4 ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_WHITE ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -4095,7 +4095,7 @@ static void floorfunc_default( id self )
 	switch ( glyph ) {
 		case S_ss1 + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_BRIGHT_BLUE ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -4106,7 +4106,7 @@ static void floorfunc_default( id self )
 			
 		case S_ss2 + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_BRIGHT_CYAN ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -4117,7 +4117,7 @@ static void floorfunc_default( id self )
 			
 		case S_ss3 + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_WHITE ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -4128,7 +4128,7 @@ static void floorfunc_default( id self )
 			
 		case S_ss4 + GLYPH_CMAP_OFF:
 			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:PARTICLE_AURA ];
+			[ ret setParticleType:NH3DParticleTypeAura ];
 			[ ret setParticleColor:CLR_BLUE ];
 			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ ret setParticleSpeedX:1.0 Y:1.00 ];

@@ -20,8 +20,8 @@
 	int					tileSize_Y;
 }
 
-
-- (id)initWithNamed:(NSString *)imageName; /* This is designated initializer. */
+- (instancetype)init;
+- (instancetype)initWithNamed:(NSString *)imageName NS_DESIGNATED_INITIALIZER; /* This is designated initializer. */
 
 - (NSImage *)tileImageFromGlyph:(int)glyph;
 @property (readonly) int tileSize_X;

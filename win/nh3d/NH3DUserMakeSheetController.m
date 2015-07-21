@@ -16,8 +16,7 @@ static const int DIALOG_CANCEL	= 129;
 
 
 @implementation NH3DUserMakeSheetController
-
-
+@synthesize playerName;
 
 - (id) init {
 	self = [ super initWithWindowNibName:@"Usermakesheet" ];
@@ -43,28 +42,23 @@ static const int DIALOG_CANCEL	= 129;
 
 
 - (void)awakeFromNib {
-	
-	[ [ self window ] setBackgroundColor:[ NSColor clearColor ] ];
-    [ [ self window ] setOpaque:YES ];
-
+	self.window.backgroundColor = [NSColor clearColor];
+	self.window.opaque = YES;
 }
 	
 
 - ( void )setPriestName:( NSString * )aString {
-	[ priestName release ];
-	priestName = [ NSLocalizedString(aString,@"") retain ];
+	[priestName release];
+	priestName = [NSLocalizedString(aString,@"") retain];
 }
 
 
 - ( void )setCavemanName:( NSString * )aString {
-	[ cavemanName release ];
-	cavemanName = [ NSLocalizedString(aString,@"") retain ];
+	[cavemanName release];
+	cavemanName = [NSLocalizedString(aString, @"") retain];
 }
 
-@synthesize playerName;
-
-
-- ( IBAction )checkRace:( id )sender
+- (IBAction)checkRace:(id)sender
 {
 	int tag ;
 	tag = [ chooseRace selectedTag ];

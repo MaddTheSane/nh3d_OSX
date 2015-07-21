@@ -40,7 +40,7 @@ static NH3DMaterial defaultMat = {
 @implementation NH3DModelObjects
 @synthesize currentMaterial;
 @synthesize isChild;
-@synthesize animate;
+@synthesize animated = animate;
 @synthesize useEnvironment;
 @synthesize active;
 @synthesize animationRate;
@@ -48,9 +48,7 @@ static NH3DMaterial defaultMat = {
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
-	NSImage	*sourcefile = [ [NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.tif",
-																   [[NSBundle mainBundle] resourcePath],
-																	fileName]						  ];
+	NSImage	*sourcefile = [[NSImage imageNamed:fileName] retain];
 	NSBitmapImageRep	*imgrep;
 	GLuint				tex_id;			// valiable to return
 	
@@ -58,55 +56,55 @@ static NH3DMaterial defaultMat = {
 		
 		sourcefile = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",
 															  [[NSBundle mainBundle] resourcePath],
-															   fileName]						 ];
+															  fileName]];
 		
 		if (sourcefile == nil) {
 			NSLog(@"texture file %@ is not found.",fileName);
 			return 0;
 		}
 	}
-	   
-		imgrep = [[NSBitmapImageRep alloc] initWithData:[sourcefile TIFFRepresentation]];
-	   
-	   glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-	   
-	   glGenTextures( 1, &tex_id );
-	   glBindTexture( GL_TEXTURE_2D, tex_id );
-	   
-	   glTexParameterf(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
-	   
-	   
-	  // glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 
-	  //			[imgrep pixelsWide], [imgrep pixelsHigh], 
-	  //				0,
-	//				[imgrep hasAlpha] ? GL_RGBA : GL_RGB, 
-	//				GL_UNSIGNED_BYTE, 
+	
+	imgrep = [[NSBitmapImageRep alloc] initWithData:[sourcefile TIFFRepresentation]];
+	
+	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+	
+	glGenTextures( 1, &tex_id );
+	glBindTexture( GL_TEXTURE_2D, tex_id );
+	
+	glTexParameterf(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
+	
+	
+	// glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA,
+	//			[imgrep pixelsWide], [imgrep pixelsHigh],
+	//				0,
+	//				[imgrep hasAlpha] ? GL_RGBA : GL_RGB,
+	//				GL_UNSIGNED_BYTE,
 	//				[imgrep bitmapData]);
-	   
-	   // create automipmap texture
-	   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
+	
+	// create automipmap texture
+	gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
 						 [imgrep pixelsWide],[imgrep pixelsHigh],
 						 [imgrep hasAlpha] ? GL_RGBA : GL_RGB,
 						 GL_UNSIGNED_BYTE,[imgrep bitmapData]);
-	   
-	   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	   
-	   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	   
-	   
-	   [imgrep release];
-	   [sourcefile release];
-	   
-	   return tex_id;
+	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	
+	
+	[imgrep release];
+	[sourcefile release];
+	
+	return tex_id;
 }
 
 /*
 - (BOOL)importOBJfileToNH3DModel:(NSString *)name
-{	
+{
 	// NOTICE.
-	// this method work for TRIANGLE MESH(vertexs,normals) ONLY 
+	// this method work for TRIANGLE MESH(vertexs,normals) ONLY
 	// not yat impliment other mesh type. do not work well texturecood, and faceinfomation.
 	// plz use method '- (BOOL)import3DSfileToNH3DModel:(NSString *)filename ' and 3ds format files.
 	// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
@@ -640,7 +638,7 @@ static NH3DMaterial defaultMat = {
 		particleGravity.y = -4.0f;
 		particleGravity.z = 0;		
 		particleSize = 1.0;
-		particleType = PARTICLE_POINTS;
+		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
 		particles = malloc( MAX_PARTICLES * sizeof(NH3DParticle) );
 
@@ -663,7 +661,7 @@ static NH3DMaterial defaultMat = {
 		
 		modelName = [ [[NSDate date] description] retain ];
 		modelCode = @"emitter";
-		modelType = MODEL_IS_EMITTER;
+		modelType = NH3DModelTypeEmitter;
 		active = YES;
 		
 	}
@@ -695,7 +693,7 @@ static NH3DMaterial defaultMat = {
 		
 		particleSize = 1.0;
 		
-		particleType = PARTICLE_POINTS;
+		particleType = NH3DParticleTypePoints;
 		
 		for (i=0;i<MAX_TEXTURES;i++)
 			textures[i] = 0;
@@ -704,11 +702,11 @@ static NH3DMaterial defaultMat = {
 		
 		if ([self importOBJfileToNH3DModel:name] == NO) return nil;
 		
-		modelType = MODEL_IS_OBJECT;
+		modelType = NH3DModelTypeObject;
 		
 		if (flag == YES) {
 			textures[texture] = [self loadImageToTexture:name];
-			modelType = MODEL_IS_TEXTURED_OBJECT;
+			modelType = NH3DModelTypeTexturedObject;
 			++numberOfTextures;
 		}
 		
@@ -737,18 +735,18 @@ static NH3DMaterial defaultMat = {
 		particleGravity.y = 0;
 		particleGravity.z = 0;
 		particleSize = 0;
-		particleType = PARTICLE_POINTS;
+		particleType = NH3DParticleTypePoints;
 		
 		if ( ![self import3DSfileToNH3DModel:name] ) {
 			[self release];
 			return nil;
 		}
 		
-		modelType = MODEL_IS_OBJECT;
+		modelType = NH3DModelTypeObject;
 		
 		if ( flag ) {
 			textures[texture] = [self loadImageToTexture:name];
-			modelType = MODEL_IS_TEXTURED_OBJECT;
+			modelType = NH3DModelTypeTexturedObject;
 			++numberOfTextures;
 		}
 		
@@ -912,7 +910,7 @@ static NH3DMaterial defaultMat = {
 	
 	int i;
 	
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	
 	particleGravity.x = x_gravity;
 	particleGravity.y = y_gravity;
@@ -928,9 +926,9 @@ static NH3DMaterial defaultMat = {
 }
 
 
-- (void)setParticleType:(int)type
+- (void)setParticleType:(NH3DParticleType)type
 {
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	
 	particleType = type;
 }
@@ -938,7 +936,7 @@ static NH3DMaterial defaultMat = {
 
 - (int)particleColor
 {
-	if (modelType != MODEL_IS_EMITTER) return 0;
+	if (modelType != NH3DModelTypeEmitter) return 0;
 	
 	return particleColor;
 }
@@ -946,7 +944,7 @@ static NH3DMaterial defaultMat = {
 
 - (void)setParticleColor:(int)col
 {
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	
 	particleColor = col;
 }
@@ -954,7 +952,7 @@ static NH3DMaterial defaultMat = {
 
 - (void)setParticleSpeedX:(float)x Y:(float)y
 {
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	
 	xspeed = x;
 	yspeed = y;
@@ -963,19 +961,19 @@ static NH3DMaterial defaultMat = {
 
 - (void)setParticleSlowdown:(float)value
 {
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	slowdown = value;
 }
 
 - (void)setParticleLife:(float)value
 {
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	particleLife = value;
 }
 
 - (void)setParticleSize:(float)value
 {
-	if (modelType != MODEL_IS_EMITTER) return;
+	if (modelType != NH3DModelTypeEmitter) return;
 	particleSize = value;
 }
 
@@ -1068,27 +1066,27 @@ static NH3DMaterial defaultMat = {
 }
 
 
-- (void)addChildObject:(NSString *)childName type:(int)type
+- (void)addChildObject:(NSString *)childName type:(NH3DModelType)type
 {
 	NH3DModelObjects *modelobj = nil;
 	
 	switch (type) {
 		
-		case MODEL_IS_OBJECT:
+		case NH3DModelTypeObject:
 			modelobj = [ [[[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:NO] retain] autorelease ];
 //			if (modelobj == nil) {
 //				modelobj = [[NH3DModelObjects alloc] initWithOBJFile:childName withTexture:NO];
 //			}
 			
 			break;
-		case MODEL_IS_TEXTURED_OBJECT:
+		case NH3DModelTypeTexturedObject:
 			modelobj = [ [[[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:YES] retain] autorelease ];
 //			if (modelobj == nil) {
 //				modelobj = [[NH3DModelObjects alloc] initWithOBJFile:childName withTexture:YES];
 //			}
 				
 			break;
-		case MODEL_IS_EMITTER:
+		case NH3DModelTypeEmitter:
 			modelobj = [ [[[NH3DModelObjects alloc] init] retain] autorelease ];
 			
 			break;
@@ -1145,7 +1143,7 @@ static NH3DMaterial defaultMat = {
 		
 		switch ( modelType ) {
 			
-			case MODEL_IS_OBJECT:
+			case NH3DModelTypeObject:
 				
 				glActiveTexture(GL_TEXTURE0);
 				glDisable(GL_TEXTURE_2D);
@@ -1212,7 +1210,7 @@ static NH3DMaterial defaultMat = {
 				
 				break;
 				
-			case MODEL_IS_TEXTURED_OBJECT:
+			case NH3DModelTypeTexturedObject:
 				
 				glActiveTexture(GL_TEXTURE0);
 				glEnable(GL_TEXTURE_2D);
@@ -1264,7 +1262,7 @@ static NH3DMaterial defaultMat = {
 				
 					break;
 				
-			case MODEL_IS_EMITTER:
+			case NH3DModelTypeEmitter:
 				
 				glDisable(GL_LIGHTING);
 				glDisable(GL_TEXTURE_2D);
@@ -1284,7 +1282,7 @@ static NH3DMaterial defaultMat = {
 						
 						switch ( particleType ) {
 							
-							case PARTICLE_POINTS :
+							case NH3DParticleTypePoints :
 								
 								glPointSize( ((random() % 500 )*0.01) + particleSize );
 								
@@ -1297,7 +1295,7 @@ static NH3DMaterial defaultMat = {
 								glEnd();
 								
 								break;
-							case PARTICLE_LINES :
+							case NH3DParticleTypeLines :
 								glLineWidth( ((random() % 400)*0.01) + particleSize );
 								
 								glBegin(GL_LINE_STRIP);
@@ -1307,7 +1305,7 @@ static NH3DMaterial defaultMat = {
 								glEnd();
 								
 								break;
-							case PARTICLE_BOTH :								
+							case NH3DParticleTypeBoth :								
 								glPointSize( ((random() % 500)*0.01) + particleSize);
 								
 								glBegin(GL_POINTS);
@@ -1328,7 +1326,7 @@ static NH3DMaterial defaultMat = {
 								glEnd();
 								
 								break;
-							case PARTICLE_AURA :
+							case NH3DParticleTypeAura :
 								glLineWidth( ((random() % 200)*0.01) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);

@@ -14,8 +14,16 @@
 static const int DIALOG_OK		= 128;
 static const int DIALOG_CANCEL	= 129;
 
-@implementation NH3DMessenger
+@interface NH3DMessenger ()
+@property (retain) NSMutableDictionary *darkShadowStrAttributes;
+@property (retain) NSMutableDictionary *lightShadowStrAttributes;
+@property (retain) NSMutableParagraphStyle *style;
+@end
 
+@implementation NH3DMessenger
+@synthesize darkShadowStrAttributes;
+@synthesize lightShadowStrAttributes;
+@synthesize style;
 
 - (BOOL)loadSoundConfig
 {
@@ -130,20 +138,11 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)prepareAttributes
 {
-	if (style) {
-		[style release];
-	}
-	style = [[NSMutableParagraphStyle alloc] init];
+	self.style = [[[NSMutableParagraphStyle alloc] init] autorelease];
 	style.lineSpacing = -2;
 	
-	if (darkShadowStrAttributes) {
-		[darkShadowStrAttributes release];
-	}
-	if (lightShadowStrAttributes) {
-		[lightShadowStrAttributes release];
-	}
-	darkShadowStrAttributes = [[NSMutableDictionary alloc] init];
-	lightShadowStrAttributes = [[NSMutableDictionary alloc] init];
+	self.darkShadowStrAttributes = [[[NSMutableDictionary alloc] init] autorelease];
+	self.lightShadowStrAttributes = [[[NSMutableDictionary alloc] init] autorelease];
 	
 	//Text attributes in View or backgrounded text field.
 	
@@ -160,7 +159,6 @@ static const int DIALOG_CANCEL	= 129;
 	lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
 	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 	lightShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.0 alpha:0.8];
-	
 }
 
 
@@ -179,7 +177,7 @@ static const int DIALOG_CANCEL	= 129;
 	} else {
 		
 		if ( userSound && !SOUND_MUTE ) {
-			NSString *bundlePath = [ [NSBundle mainBundle] bundlePath ];
+			NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 			QTMovie *playSound;
 			NSURL      *soundURL;
 			
@@ -187,21 +185,21 @@ static const int DIALOG_CANCEL	= 129;
 				
 				if ( [ [NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgSoundStr ] ) {
 					
-					soundURL  = [ [NSURL alloc] initFileURLWithPath:[NSString stringWithFormat:@"%@/nh3dSounds/%@",
+					soundURL  = [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat:@"%@/nh3dSounds/%@",
 																	[bundlePath stringByDeletingLastPathComponent],
-																	[soundNameArray objectAtIndex:i]] ];
+																	[soundNameArray objectAtIndex:i]]];
 
-					playSound = [ [QTMovie alloc] initWithURL: soundURL error:NULL ];
+					playSound = [[QTMovie alloc] initWithURL: soundURL error:NULL];
 					
-					[ movieView setMovie:playSound ];
+					[movieView setMovie:playSound];
 					
-					[ playSound release ];
-					[ soundURL release ];
+					[playSound release];
+					[soundURL release];
 					
-					[ playSound  setVolume: [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01];
+					[playSound setVolume:[[soundVolumeArray objectAtIndex:i] floatValue] * 0.01];
 					
 					//[ movieView  setVolume: [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01 ];
-					[ movieView  play: self ];
+					[movieView play: self];
 					
 					break;
 				} else {
@@ -213,7 +211,7 @@ static const int DIALOG_CANCEL	= 129;
 			i = 0;
 			for ( NSString *msgEffectStr in effectMessageArray ) {
 				
-				if ( [ [NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgEffectStr ] ) {
+				if ([[NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgEffectStr] ) {
 					
 					switch ( [ [effectTypeArray objectAtIndex:i] intValue ] ) {
 					case 1: // hit enemy attack to player
@@ -405,21 +403,20 @@ static const int DIALOG_CANCEL	= 129;
 #ifdef DEBUG
 	NSLog(@" %@",rawText);
 #endif
-	[ self prepareAttributes ];
+	[self prepareAttributes];
 	style.alignment = NSLeftTextAlignment;
 	
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Courier Bold" size:12];
 	
 	putStr = [[NSAttributedString alloc] initWithString:rawText
-											   attributes:lightShadowStrAttributes];
+											 attributes:lightShadowStrAttributes];
 	
 	_rawPrintWindow.editable = YES;
 	[_rawPrintWindow insertText:putStr];
 	[_rawPrintWindow insertText:@"\n"];
 	_rawPrintWindow.editable = NO;
 	
-	[ putStr release ];
-
+	[putStr release];
 }
 
 - (BOOL)showLogPanel
