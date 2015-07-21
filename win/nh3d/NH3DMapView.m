@@ -94,13 +94,12 @@
 
 -( void )awakeFromNib
 {
-	
-	NSNotificationCenter *nCenter =[ NSNotificationCenter defaultCenter ];
-	[ nCenter addObserver:self
-				 selector:@selector(defaultDidChange:)
-					 name:@"NSUserDefaultsDidChangeNotification"
-				   object:nil ];
-
+	[super awakeFromNib];
+	NSNotificationCenter *nCenter = [NSNotificationCenter defaultCenter];
+	[nCenter addObserver:self
+				selector:@selector(defaultDidChange:)
+					name:@"NSUserDefaultsDidChangeNotification"
+				  object:nil];
 }
 
 

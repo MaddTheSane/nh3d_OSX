@@ -1147,16 +1147,14 @@ static void floorfunc_default( id self )
 }
 
 
--( void )awakeFromNib
+- (void)awakeFromNib
 {
-	
+	[super awakeFromNib];
 	NSNotificationCenter *nCenter =[ NSNotificationCenter defaultCenter ];
 	[ nCenter addObserver:self
 				 selector:@selector(defaultDidChange:)
 					 name:@"NSUserDefaultsDidChangeNotification"
 				   object:nil ];
-	
-	
 	
 	CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
 	dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
@@ -1166,29 +1164,29 @@ static void floorfunc_default( id self )
 	threadRunning = NO;
 	
 	// set drawflag for Nh3d Titles
-	[ self setNeedsDisplay:YES ];
+	[self setNeedsDisplay:YES];
 
 	// setup from defaults
-	[ self defaultDidChange:nil ];
+	[self defaultDidChange:nil];
 	
 	useTile = NH3DGL_USETILE;
 	
 	// Create and detach to other thread for OpenGL update and drawing.  
-	if ( !TRADITIONAL_MAP ) [ self detachOpenGLThread ];
-	
+	if ( !TRADITIONAL_MAP )
+		[self detachOpenGLThread];
 }
 
 
-- ( float )cameraHead
+- (float)cameraHead
 {
 	return cameraHead;
 }
 
 
 // OpenGL update method.
-- ( void )timerFired:( id )sender
+- (void)timerFired:(id)sender
 {
-	NSAutoreleasePool *threadPool = [ [NSAutoreleasePool alloc] init ];
+	NSAutoreleasePool *threadPool = [[NSAutoreleasePool alloc] init];
 	
 	// cash method addresses.
 	IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
@@ -1203,12 +1201,12 @@ static void floorfunc_default( id self )
 	shockedCameraImp = [ self methodForSelector:@selector( shockedCamera ) ];
 	
 	
-	[ [ self openGLContext ] makeCurrentContext ];
+	[[self openGLContext] makeCurrentContext];
 	
 	
-	flushBufferImp = [ [ self openGLContext ] methodForSelector:@selector( flushBuffer ) ];
+	flushBufferImp = [[self openGLContext] methodForSelector:@selector(flushBuffer)];
 	
-	[ viewLock lock ];
+	[viewLock lock];
 	
 	if ( OPENGLVIEW_WAITSYNC )
 		[ [ self openGLContext ] setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
@@ -1217,7 +1215,7 @@ static void floorfunc_default( id self )
 	[ viewLock unlock ];
 	
 	while ( runnning && !TRADITIONAL_MAP ) {
-		NSAutoreleasePool *pool = [ [NSAutoreleasePool alloc] init ];
+		@autoreleasepool {
 
 		if ( isReady && !nowUpdating && !needsDisplayAddress( self, @selector( needsDisplay )) ) {
 		//if ( isReady && !nowUpdating ) {
@@ -1227,16 +1225,16 @@ static void floorfunc_default( id self )
 		
 		if ( hasWait ) [ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:( 1.0 / waitRate ) ] ];
 		
-		[ pool release ];
+		}
 	}
 	
-	[ threadPool release ];
-	[ NSThread exit ];
+	[threadPool release];
+	[NSThread exit];
 }
 
 
 // draw title.
-- ( void ) drawRect: ( NSRect ) theRect
+- (void) drawRect:(NSRect) theRect
 {
 	
 	if ( isReady || !firstTime ) {
@@ -1278,7 +1276,7 @@ static void floorfunc_default( id self )
 
 }
 
-- ( void )drawGlView:( int )x z:( int )z
+- (void)drawGlView:(int)x z:(int)z
 {
 	NH3DMapItem *mapItem = [ mapItemValue[ x ][ z ] retain ];
 	int			type = [ mapItem modelDrawingType ];
@@ -1383,32 +1381,32 @@ static void floorfunc_default( id self )
 		glPopMatrix();
 		
 		//[ [ self openGLContext ] flushBuffer ];
-		flushBufferImp( [ self openGLContext ] , @selector( flushBuffer ) );
+		flushBufferImp([self openGLContext] , @selector(flushBuffer));
 		
 		[ delayDrawing removeAllObjects ];
 		
 		nowUpdating = NO;
-		[ viewLock unlock ];
+		[viewLock unlock];
 	}
 }
 
 
-- ( void ) setFrameSize: ( NSSize ) newSize
+- (void)setFrameSize:(NSSize) newSize
 {
-	[ super setFrameSize: newSize ];
+	[super setFrameSize:newSize];
 	
 	glViewport( 0, 0, newSize.width, newSize.height );
 }
 
 
-- ( void )clearGLView
+- (void)clearGLView
 {
 	glClearColor( 0, 0, 0, 0 );
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 }
 
 
-- ( void )drawModelArray:( NH3DMapItem * )mapItem
+- (void)drawModelArray:(NH3DMapItem *)mapItem
 {
 	int glyph = [ mapItem glyph ];
 	
@@ -1559,14 +1557,14 @@ static void floorfunc_default( id self )
 }
 
 
-- ( void )updateMap
+- (void)updateMap
 {
 	
 	if ( !isReady || TRADITIONAL_MAP ) {
 		return;
 	} else {
 		
-		[ viewLock lock ];
+		[viewLock lock];
 		int x,z;
 		int localx = 0;
 		int localz = 0;

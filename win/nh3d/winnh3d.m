@@ -1193,71 +1193,74 @@ You("スコアの載らない発見モードで起動した．");
 
 
 // for UserDefaults
-
+// set user defaults
 + (void) initialize
 {
-	NSMutableDictionary *defaultValues = [ NSMutableDictionary dictionary ];
-	
-	[ defaultValues setObject:[ NSNumber numberWithBool:NO ] forKey:NH3DUseTraditionalMapKey ];
-	[ defaultValues setObject:[ NSNumber numberWithBool:NO ] forKey:NH3DTraditionalMapModeKey ];
-
-	
-	[ defaultValues setObject:@"nhtiles.tiff" forKey:NH3DTileNameKey ];
-	[ defaultValues setObject:[ NSNumber numberWithInt:16 ] forKey:NH3DTileSizeWidthKey ];
-	[ defaultValues setObject:[ NSNumber numberWithInt:16 ] forKey:NH3DTileSizeHeightKey ];
-	[ defaultValues setObject:[ NSNumber numberWithInt:40 ] forKey:NH3DTilesPerLineKey ];
-	[ defaultValues setObject:[ NSNumber numberWithInt:30 ] forKey:NH3DNumberOfTilesRowKey ];
-	
-	[ defaultValues setObject:[ NSNumber numberWithBool:YES ] forKey:NH3DUseTileInLevelMapKey ];
-	[ defaultValues setObject:[ NSNumber numberWithBool:YES ] forKey:NH3DUseSightRestrictionKey ];
-	
-	[ defaultValues setObject:[ NSNumber numberWithBool:YES ] forKey:NH3DOpenGLWaitSyncKey ];
-	[ defaultValues setObject:[ NSNumber numberWithBool:YES ] forKey:NH3DOpenGLUseWaitRateKey ];
-	[ defaultValues setObject:[ NSNumber numberWithInt:1 ] forKey:NH3DOpenGLNumberOfThreadsKey ];
-	
-	[ defaultValues setObject:[ NSNumber numberWithFloat:WAIT_NORMAL ] forKey:NH3DOpenGLWaitRateKey ];
-	
-	[ defaultValues setObject:@"Hiragino Maru Gothic Pro" forKey:NH3DMsgFontKey ];
-	[ defaultValues setObject:@"Courier Bold" forKey:NH3DMapFontKey ];
-	[ defaultValues setObject:@"Lucida Grande Bold" forKey:NH3DBoldFontKey ];
-	[ defaultValues setObject:@"Courier New Bold" forKey:NH3DInventryFontKey ];
-	[ defaultValues setObject:@"Optima Bold" forKey:NH3DWindowFontKey ];
-	
-	[ defaultValues setObject:[ NSNumber numberWithBool:NO ] forKey:NH3DGLTileKey ];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSDictionary *defaultValues;
 		
-	[ defaultValues setObject:[ NSNumber numberWithFloat:13 ] forKey:NH3DMsgFontSizeKey ];
-	[ defaultValues setObject:[ NSNumber numberWithFloat:13 ] forKey:NH3DMapFontSizeKey ];
-	[ defaultValues setObject:[ NSNumber numberWithFloat:13 ] forKey:NH3DBoldFontSizeKey ];
-	[ defaultValues setObject:[ NSNumber numberWithFloat:13 ] forKey:NH3DInventryFontSizeKey ];
-	[ defaultValues setObject:[ NSNumber numberWithFloat:13 ] forKey:NH3DWindowFontSizeKey ];
-	
-	[ defaultValues setObject:[ NSNumber numberWithBool:NO ] forKey:NH3DSoundMuteKey ];
-	
-	[ [NSUserDefaults standardUserDefaults] registerDefaults:defaultValues ];
-	
-	[ [NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaultValues ];
-
+		defaultValues = @{
+						  NH3DUseTraditionalMapKey: @NO,
+						  NH3DTraditionalMapModeKey: @NO,
+						  
+						  NH3DTileNameKey: @"nhtiles.tiff",
+						  NH3DTileSizeWidthKey: @16,
+						  NH3DTileSizeHeightKey: @16,
+						  NH3DTilesPerLineKey: @40,
+						  NH3DNumberOfTilesRowKey: @30,
+						  
+						  NH3DUseTileInLevelMapKey: @YES,
+						  NH3DUseSightRestrictionKey: @YES,
+						  
+						  NH3DOpenGLWaitSyncKey: @YES,
+						  NH3DOpenGLUseWaitRateKey: @YES,
+						  NH3DOpenGLNumberOfThreadsKey: @1,
+						  
+						  NH3DOpenGLWaitRateKey: @(WAIT_NORMAL),
+						  
+						  NH3DMsgFontKey: @"Hiragino Maru Gothic Pro",
+						  NH3DMapFontKey: @"Courier Bold",
+						  NH3DBoldFontKey: @"Lucida Grande Bold",
+						  NH3DInventryFontKey: @"Courier New Bold",
+						  NH3DWindowFontKey: @"Optima Bold",
+						  
+						  NH3DGLTileKey: @NO,
+						  
+						  NH3DMsgFontSizeKey: @13.0f,
+						  NH3DMapFontSizeKey: @13.0f,
+						  NH3DBoldFontSizeKey: @13.0f,
+						  NH3DInventryFontSizeKey: @13.0f,
+						  NH3DWindowFontSizeKey: @13.0f,
+						  
+						  NH3DSoundMuteKey: @NO
+						  };
+		
+		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
+		
+		[[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaultValues];
+	});
 }
 
 
 - (id)init
 {
-		self = [ super init ];
-		_prefPanel = nil;
-		return self;
+	self = [ super init ];
+	_prefPanel = nil;
+	return self;
 }
 
 - (void)dealloc
 {
-	[ _prefPanel release ];
-	[ super dealloc ];
+	[_prefPanel release];
+	[super dealloc];
 }
 
 
 - (void)awakeFromNib
 {		
 	_window.alphaValue = 0;
-	[ _window setMovableByWindowBackground:NO ];
+	[_window setMovableByWindowBackground:NO];
 }
 
 
@@ -1267,9 +1270,9 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {	
-	NSAutoreleasePool* pool = [ [NSAutoreleasePool alloc] init ];
+	@autoreleasepool {
 	
-	_tileCache = [ [ NH3DTileCache alloc ] initWithNamed:TILE_FILE_NAME ];
+	_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
 	
 	_NH3DBindController = self;
 	_NH3DUserStatusModel = _userStatus;
@@ -1280,8 +1283,7 @@ You("スコアの載らない発見モードで起動した．");
 	_NH3DOpenGLView = _glMapView;
 	_NH3DTileCache = _tileCache;
 	
-	[ pool release ];
-
+	}
 }
 
 - (BOOL)windowShouldClose:(id)sender
@@ -1363,7 +1365,10 @@ You("スコアの載らない発見モードで起動した．");
 - (void)showMainWindow
 {
 	// window fade in
+	[NSAnimationContext beginGrouping];
+	[NSAnimationContext currentContext].duration = 1.0;
 	_window.animator.alphaValue = 1;
+	[NSAnimationContext endGrouping];
 }
 
 
@@ -1375,11 +1380,9 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)didPresentError:(NSError *)error
 {
-			
 	int result;
 	NSAlert *alert = [ NSAlert alertWithError:error ];
 	result = [ alert runModal ];
-
 }
 
 
@@ -1392,7 +1395,6 @@ You("スコアの載らない発見モードで起動した．");
 	default:
 		break;
 	}
-	
 }	
 
 

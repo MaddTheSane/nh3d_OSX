@@ -90,7 +90,7 @@ void nethack3d_exit(int status);
 #ifndef GNUSTEP
 void nh3d_set_savefile_name();
 #endif
-@interface NH3DBindController : NSObject {
+@interface NH3DBindController : NSObject <NSApplicationDelegate> {
 
 	IBOutlet NSWindow *_window;
 	IBOutlet NSMenu  *_mainMenu;
@@ -106,13 +106,8 @@ void nh3d_set_savefile_name();
 	NH3DTileCache			*_tileCache;
 }
 
-// set user defaults
-+ (void) initialize;
-
 // App delegates
 //
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
 - (BOOL)windowShouldClose:(id)sender;
 //- (void)windowWillBeginSheet:(NSNotification *)notification;
 
@@ -135,10 +130,6 @@ void nh3d_set_savefile_name();
 - (IBAction)showPreferencePanel:(id)sender;
 - (void)endPreferencePanel;
 
-
 @end
 
-
 #endif /* WINNH3D_H */
-
-

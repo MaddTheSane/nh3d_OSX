@@ -389,8 +389,11 @@ static const int DIALOG_CANCEL	= 129;
 	_ripPanel.alphaValue = 0;
 	[_ripPanel orderFront:self];
 	// window fade out/in
+	[NSAnimationContext beginGrouping];
+	[NSAnimationContext currentContext].duration = 1.1;
 	_window.animator.alphaValue = 0;
 	_ripPanel.animator.alphaValue = 1;
+	[NSAnimationContext endGrouping];
 	
 	[ _ripPanel flushWindow ];
 }
@@ -435,8 +438,11 @@ static const int DIALOG_CANCEL	= 129;
 		ripOrMainWindow = _window;
 	}
 	
+	[NSAnimationContext beginGrouping];
+	[NSAnimationContext currentContext].duration = 1.1;
 	ripOrMainWindow.animator.alphaValue = 0;
 	_rawPrintPanel.animator.alphaValue = 1;
+	[NSAnimationContext endGrouping];
 	
 	[NSApp runModalForWindow:_rawPrintPanel];
 	[_rawPrintPanel orderOut:self];

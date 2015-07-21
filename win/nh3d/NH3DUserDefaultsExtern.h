@@ -114,9 +114,9 @@ extern NSString *NH3DGLTileKey;
 #define ENEMY_IS_RIGHT	3
 
 #define WAIT_NONE		0
-#define WAIT_FAST		60.0
-#define WAIT_NORMAL		45.0
-#define WAIT_SLOW		30.0
+#define WAIT_FAST		60.0f
+#define WAIT_NORMAL		45.0f
+#define WAIT_SLOW		30.0f
 
 
 
