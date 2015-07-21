@@ -374,7 +374,7 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="102">
                             <font key="font" size="24" name="Copperplate"/>
-                            <string key="title">Welcome, NewFace!
+                            <string key="title">Welcome, New Player!
 </string>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

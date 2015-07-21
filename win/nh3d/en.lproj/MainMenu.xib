@@ -1624,7 +1624,7 @@
                 <menuItem title="NetHack3D" id="4845">
                     <menu key="submenu" title="NetHack3D" systemMenu="apple" id="4846">
                         <items>
-                            <menuItem title="About NetHack3D..." id="4847">
+                            <menuItem title="About NetHack3D…" id="4847">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="5317"/>
@@ -1633,7 +1633,7 @@
                             <menuItem isSeparatorItem="YES" id="4848">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="GameOptions…" tag="4" keyEquivalent="O" id="4850">
+                            <menuItem title="Game Options…" tag="4" keyEquivalent="O" id="4850">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5850"/>
@@ -1714,13 +1714,13 @@
                                     <action selector="otherMenuActions:" target="5648" id="5852"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Compilation ..." tag="7" keyEquivalent="v" id="5028">
+                            <menuItem title="Compilation..." tag="7" keyEquivalent="v" id="5028">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5853"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="History ..." tag="8" keyEquivalent="V" id="5029">
+                            <menuItem title="History..." tag="8" keyEquivalent="V" id="5029">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5854"/>
@@ -1753,12 +1753,12 @@
                                     <action selector="gearMenuActions:" target="5648" id="5857"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Tow Weapon Combat" tag="3" keyEquivalent="2" id="5033">
+                            <menuItem title="Two-Weapon Combat" tag="3" keyEquivalent="2" id="5033">
                                 <connections>
                                     <action selector="gearMenuActions:" target="5648" id="5858"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Load quiver" tag="4" keyEquivalent="Q" id="5034">
+                            <menuItem title="Load Quiver" tag="4" keyEquivalent="Q" id="5034">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="gearMenuActions:" target="5648" id="5859"/>
@@ -2114,7 +2114,7 @@
                             <menuItem isSeparatorItem="YES" id="5088">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Qualificatuons" tag="8" keyEquivalent="e" id="5085">
+                            <menuItem title="Qualifications" tag="8" keyEquivalent="e" id="5085">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="infoMenuActions:" target="5648" id="5910"/>
@@ -2168,19 +2168,19 @@
                             <menuItem isSeparatorItem="YES" id="6473">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="What is here" tag="1" keyEquivalent=":" id="498">
+                            <menuItem title="What is Here" tag="1" keyEquivalent=":" id="498">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5912"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="What is there" tag="2" keyEquivalent=";" id="500">
+                            <menuItem title="What is There…" tag="2" keyEquivalent=";" id="500">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5913"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="What is ..." tag="3" id="501">
+                            <menuItem title="What is..." tag="3" id="501">
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5914"/>
                                 </connections>
