@@ -172,44 +172,32 @@
 }
 
 
-- (BOOL)isReady
-{
-	return isReady;
-}
-
-- (void)setIsReady:(BOOL)flag
-{
-	 
-	isReady = flag;
-	
-}
-
-
 - (void)drawRect:(NSRect)rect
 {
-	NSRect bounds = [ self bounds ];
+	NSRect bounds = [self bounds];
 	
-	[ mapBase drawInRect:bounds
-				fromRect:NSZeroRect
-			   operation:NSCompositeSourceOver
-				fraction:1.0 ];
+	[mapBase drawInRect:bounds
+			   fromRect:NSZeroRect
+			  operation:NSCompositeSourceOver
+			   fraction:1.0 ];
 	
-	if ( isReady ) {
-		if ( TRADITIONAL_MAP ) [ self updateMap ];
-		else [ self reloadMap ];
+	if (isReady) {
+		if (TRADITIONAL_MAP)
+			[self updateMap];
+		else
+			[self reloadMap];
 	}
 	
 	[ self drawMask ];
-	
 }
 
 @synthesize bgColor;
 - (void)setBgColor:(NSColor *)colr
 {
-	[ colr retain ];
-	[ bgColor release ];
+	[colr retain];
+	[bgColor release];
 	bgColor = colr;
-	[ self setNeedsDisplay:YES ];	
+	[self setNeedsDisplay:YES];
 }
 
 
@@ -232,26 +220,25 @@
 
 
  - (void)resetCursorRects
- {
-	 NSRect rect = [ self bounds ];
-	 NSCursor* cursor = [ [NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
-												 hotSpot:NSMakePoint(7, 7) ];
-	 [ self addCursorRect:rect cursor:cursor ];
-	 
-	 [ cursor release ];
- }
+{
+	NSRect rect = [ self bounds ];
+	NSCursor* cursor = [ [NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
+												hotSpot:NSMakePoint(7, 7) ];
+	[ self addCursorRect:rect cursor:cursor ];
+	
+	[ cursor release ];
+}
 
 
 
 - (void)setCenterAtX:(int)x y:(int)y depth:(int)depth
 {
-	 
-	if ( depth != plDepth && ( TRADITIONAL_MAP || trMapImage != nil )) [ self makeTraditionalMap ]; 
+	if ( depth != plDepth && ( TRADITIONAL_MAP || trMapImage != nil ))
+		[self makeTraditionalMap];
 	plDepth = depth;
 	centerX = x;
 	centerY = y;
 	isReady = YES;
-	
 }
 
 
@@ -408,6 +395,7 @@
 				trcpY = (centerY - [_mapModel cursY] - MAP_MARGIN) * -1 ;
 				
 			[ self lockFocusIfCanDraw ];
+			{
 				[ trMapImage compositeToPoint:bounds.origin
 									 fromRect:NSMakeRect(  trCenterX,
 														   trCenterY,
@@ -420,12 +408,9 @@
 							  fromRect:NSMakeRect( 0 ,0 ,16.0 ,16.0 )
 							 operation:NSCompositeSourceOver
 							  fraction:cursOpacity ];
-				
-			[ self unlockFocus ]; 	
-
-				
-		} else { 
-			
+			}
+			[ self unlockFocus ];
+		} else {
 			switch ( [ _mapModel playerDirection ] ) {
 				case PL_DIRECTION_FORWARD:
 					for ( x = centerX-MAP_MARGIN ; x < centerX+1+MAP_MARGIN ; x++ ) {
@@ -620,8 +605,8 @@
 
 - (void)reloadMap
 {
-	
-	if ( TRADITIONAL_MAP ) return;
+	if (TRADITIONAL_MAP)
+		return;
 	
 	NSRect bounds = [ self bounds ];
 	NSShadow *lshadow = [ [NSShadow alloc] init ];
@@ -686,18 +671,15 @@
 	[ self unlockFocus ];
 	[ lshadow release ];
 	[ attributes release ];
-	
 }
 
 
 - (void)setCursOpacity:(float)opaq
 {
-	 
 	cursOpacity = opaq;
-	if ( isReady ) {
-		[ self setNeedsDisplay:YES ];
+	if (isReady) {
+		[self setNeedsDisplay:YES];
 	}
-	
 }
 
 - (void)drawMask
@@ -741,10 +723,7 @@
 	[ self unlockFocus ];
 	
 	[ attributes_alt release ];
-	
-}	
-
-
+}
 
 
 - (void)enemyCheck
@@ -788,30 +767,6 @@
 //
 //	controller
 //-----------------------------------------------------
-
-
-- (int)extendKey
-{
-	return extendKey;
-}
-
-
-- (void)setExtendKey:(int)value
-{	 
-	extendKey = value;	
-}
-
-
-- (BOOL)getCharMode
-{
-	return getCharMode;
-}
-
-
-- (void)setGetCharMode:(BOOL)flag
-{
-	getCharMode = flag;
-}
 
 
 - (int)centerX
@@ -1202,7 +1157,6 @@
 
 - (IBAction)magicMenuActions:(id)sender
 {
-
 	keyBuffer = 0;
 	switch ( [ sender tag ] ) {
 		case 0: keyBuffer = 'q';	/* Quaff Potion */
@@ -1233,13 +1187,12 @@
 	}
 	
 	lastKeyBuffer = keyBuffer;
-	[ self setNeedClear:YES ];
-	[ self setKeyUpdated:YES ];
+	[self setNeedClear:YES];
+	[self setKeyUpdated:YES];
 }
 
 - (IBAction)infoMenuActions:(id)sender
 {
-
 	keyBuffer = 0;
 	switch ( [ sender tag ] ) {
 		case 0: keyBuffer = 'i';	/* Inventory */
@@ -1266,14 +1219,12 @@
 	lastKeyBuffer = keyBuffer;
 	[ self setNeedClear:YES ];
 	[ self setKeyUpdated:YES ];
-
 }
 
 - (IBAction)otherMenuActions:(id)sender
 {
-	 
 	keyBuffer = 0;
-	switch ( [ sender tag ] ) {
+	switch ([sender tag]) {
 		case 0: keyBuffer = '?';	/* Help */
 			break;
 		case 1: keyBuffer = ':';	/* What is here */
@@ -1307,11 +1258,11 @@
 
 - (IBAction)setRestrictedView:(id)sender
 {	
-	[ [NSUserDefaults standardUserDefaults] setBool:![ (NSCell*)sender state ] forKey:NH3DUseSightRestrictionKey ];
-	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ (NSCell*)sender state ]]
-																		 forKey:NH3DUseSightRestrictionKey ];
-	[ self setNeedClear:YES ];
-	[ self setNeedsDisplay:YES ];
+	[[NSUserDefaults standardUserDefaults] setBool:![(NSCell*)sender state] forKey:NH3DUseSightRestrictionKey];
+	[[[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![(NSCell*)sender state]]
+																		 forKey:NH3DUseSightRestrictionKey];
+	[self setNeedClear:YES];
+	[self setNeedsDisplay:YES];
 }
 
 - (IBAction)setUseTileInGlobalMap:(id)sender
@@ -1319,8 +1270,8 @@
 	[ [NSUserDefaults standardUserDefaults] setBool:![ (NSCell*)sender state ] forKey:NH3DUseTileInLevelMapKey ];
 	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ (NSCell*)sender state ]]
 																		 forKey:NH3DUseTileInLevelMapKey ];
-}	
-	
+}
+
 
 - (BOOL)keyUpdated
 {
@@ -1562,8 +1513,8 @@
 				} // end case NSLeftMouseDown:
 				
 				default :
-					[ NSApp sendEvent:event ];
-					[ pool release ];
+					[NSApp sendEvent:event];
+					[pool release];
 					continue;
 					
 			} //end switch ([event type])
@@ -1578,7 +1529,7 @@
 
 - (IBAction)showGlobalMap:(id)sender
 {
-	NSAutoreleasePool *pool = [ [NSAutoreleasePool alloc] init ];
+	@autoreleasepool {
 	int x,y,cusx,cusy;
 	NSRect mapwindowRect = NSMakeRect(0,0,[_mapLpanel maxSize].width,[_mapLpanel maxSize].height);
 	NSSize drawSize;
@@ -1691,10 +1642,10 @@
 	[ _mapLview scrollPoint:NSMakePoint(drawSize.width * (float)(cusx - 7),
 									   imgSize.height - (drawSize.height * (float)(cusy + 7))) ];
 	
-	[pool release];
+	}
 	
 	// Sheet is Up.
-	pool = [[NSAutoreleasePool alloc] init];
+	@autoreleasepool {
 	
 	[ NSApp		beginSheet:_mapLpanel
 			modalForWindow:_window
@@ -1712,21 +1663,21 @@
 	[ mapImage release ];
 	[ _mapLview setImage:nil];
 	
-	[pool release];
+	}
 }
 
 
-- (IBAction)closeModalDialog: (id)sender
+- (IBAction)closeModalDialog:(id)sender
 {
-	[ NSApp stopModal ];
+	[NSApp stopModal];
 }
 
 
-- (IBAction)zoomLevelMap: (id)sender
+- (IBAction)zoomLevelMap:(id)sender
 {
 	NSImage *newImg;
-	NSSize	mapSize = [ mapImage size ];
-	NSSize	newSize = [ [_mapLview image] size ];
+	NSSize	mapSize = [mapImage size ];
+	NSSize	newSize = [[_mapLview image] size ];
 	
 	if ( newSize.height > mapSize.height*1.5 ) {
 		newSize.height = mapSize.height*1.5;
@@ -1736,7 +1687,7 @@
 		newSize.width = mapSize.width*0.5;
 	}
 		
-	if ( [ sender tag ] ) {
+	if ([sender tag]) {
 		// zoom in
 		newSize = NSMakeSize( newSize.width*0.75 , newSize.height*0.75 );
 	} else {
@@ -1748,20 +1699,19 @@
 	NSGraphicsContext* gc = [ NSGraphicsContext currentContext ];
 	[ gc setImageInterpolation : NSImageInterpolationHigh ];
 	
-	[ newImg lockFocus ];
-	[ mapImage drawInRect:NSMakeRect( 0, 0, newSize.width , newSize.height )
+	[newImg lockFocus ];
+	[mapImage drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height)
 				 fromRect:NSZeroRect
 				operation:NSCompositeSourceOver
-				 fraction:1.0 ];
-	[ newImg unlockFocus ];
+				 fraction:1.0];
+	[newImg unlockFocus ];
 	
-	[ _mapLview setFrame:NSMakeRect(0.0 ,0.0 ,newSize.width ,newSize.height ) ];
-	[ _mapLview setImage:newImg ];
+	[_mapLview setFrame:NSMakeRect(0.0, 0.0, newSize.width, newSize.height)];
+	[_mapLview setImage:newImg];
 	
-	[ newImg release ];
+	[newImg release];
 
-	[ _mapLview setNeedsDisplay ];
-	
+	[_mapLview setNeedsDisplay];
 }
 
 
