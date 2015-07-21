@@ -310,14 +310,14 @@ install.nh3dInfo.plist:
 Englishlproj:
 
 install.Englishlproj:
-	cp -r win/nh3d/English.lproj $(GAMEDIR)/English.lproj
-	chmod $(DIRPERM) $(GAMEDIR)/English.lproj
+	cp -r win/nh3d/en.lproj $(GAMEDIR)/ja.lproj
+	chmod $(DIRPERM) $(GAMEDIR)/ja.lproj
 
 Japaneselproj:
 
 install.Japaneselproj:
-	cp -r win/nh3d/Japanese.lproj $(GAMEDIR)/Japanese.lproj
-	chmod $(DIRPERM) $(GAMEDIR)/Japanese.lproj
+	cp -r win/nh3d/ja.lproj $(GAMEDIR)/ja.lproj
+	chmod $(DIRPERM) $(GAMEDIR)/ja.lproj
 
 nh3d.icns:
 
