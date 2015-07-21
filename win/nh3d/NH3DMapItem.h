@@ -52,8 +52,8 @@
 
 - (void)setSymbol:(char)chr;
 
-@property BOOL hasAlternateSymbol;
-@property BOOL hasCursor;
+@property (nonatomic) BOOL hasAlternateSymbol;
+@property (nonatomic) BOOL hasCursor;
 @property (readonly, retain) NSImage *tile;
 
 - (int)modelDrawingType;

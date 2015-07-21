@@ -274,21 +274,11 @@ extern id _NH3DTileCache;
 	[ lock unlock ];
 }
 
-- (BOOL)hasAlternateSymbol
-{
-	return hasAlternateSymbol;
-}
-
 - (void)setHasCursor:(BOOL)flag
 {
 	[ lock lock ]; 
 	hasCursor = flag;
 	[ lock unlock ];
-}
-
-- (BOOL)hasCursor
-{
-	return hasCursor;
 }
 
 - (char)cSymbol

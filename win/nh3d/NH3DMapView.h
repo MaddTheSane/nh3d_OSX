@@ -113,7 +113,7 @@
 @property int extendKey;
 @property BOOL getCharMode;
 
-- (int)clickType;
+@property (readonly) int clickType;
 
 - (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask;
 

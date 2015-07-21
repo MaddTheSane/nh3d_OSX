@@ -1441,11 +1441,11 @@ You("スコアの載らない発見モードで起動した．");
 - (void)updateAll
 {
 	char buf[ BUFSZ ] = " ";
-	[ _asciiMapView setNeedClear:YES ];
-	[ _asciiMapView updateMap ];
-	[ _glMapView updateMap ];
-	[ _userStatus updatePlayerInventory ];
-	[ _userStatus updatePlayer ];
+	_asciiMapView.needClear = YES;
+	[_asciiMapView updateMap];
+	[_glMapView updateMap];
+	[_userStatus updatePlayerInventory];
+	[_userStatus updatePlayer];
 	
 	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
 /*
@@ -1457,7 +1457,6 @@ You("スコアの載らない発見モードで起動した．");
 
 - (IBAction)showPreferencePanel:(id)sender
 {
-	
 	if (_prefPanel == nil)
 		_prefPanel = [[NH3DPreferenceController alloc] init];
 	
@@ -1486,8 +1485,8 @@ You("スコアの載らない発見モードで起動した．");
 	const char *dir;
 #endif
 #endif	
-	[ [sender window] close ];
-	[ _window makeKeyAndOrderFront:self ];
+	[[sender window] close];
+	[_window makeKeyAndOrderFront:self];
 
 #ifndef GNUSTEP	
 

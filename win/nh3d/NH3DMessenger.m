@@ -394,8 +394,9 @@ static const int DIALOG_CANCEL	= 129;
 	_window.animator.alphaValue = 0;
 	_ripPanel.animator.alphaValue = 1;
 	[NSAnimationContext endGrouping];
-	
-	[ _ripPanel flushWindow ];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[_ripPanel flushWindow];
+	});
 }
 
 
@@ -447,7 +448,9 @@ static const int DIALOG_CANCEL	= 129;
 	[NSAnimationContext endGrouping];
 	
 	[NSApp runModalForWindow:_rawPrintPanel];
-	[_rawPrintPanel orderOut:self];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[_rawPrintPanel orderOut:self];
+	});
 	
 	return YES;
 }

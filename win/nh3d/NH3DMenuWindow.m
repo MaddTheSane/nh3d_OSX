@@ -209,7 +209,7 @@ static const int DIALOG_CANCEL	= 129;
 		 modalDelegate:nil
 	    didEndSelector:nil
 		   contextInfo:nil ];
-	[ NSApp runModalForWindow: _textPanel ];
+	//[ NSApp runModalForWindow: _textPanel ];
     // Dialog is up here.
 
 	[ _textWindow setString:@"" ];
