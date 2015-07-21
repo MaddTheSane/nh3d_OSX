@@ -94,6 +94,7 @@ extern int total_tiles_used;
 	if ( tile >= total_tiles_used || tile < 0 )
 	{
 		NSLog(@"ERROR:Asked for a TILE %d outside the allowed range.",tile);
+		[bmpRep release];
 		return nil;
 	}
 	

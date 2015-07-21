@@ -98,7 +98,7 @@ typedef struct {
 	
 	BOOL				hasChildObject;
 	BOOL				isChild;
-	unsigned int		numberOfChildObjects;
+	NSUInteger			numberOfChildObjects;
 	NSMutableArray		*childObjects;
 	
 	int					modelType;
@@ -115,7 +115,7 @@ typedef struct {
 }
 
 
-- (id)init; // init for particle emitter
+- (instancetype)init; // init for particle emitter
 /*
 - (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag; // 
 																// NOTICE.
@@ -124,7 +124,7 @@ typedef struct {
 																// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
 																// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
 */
-- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag; // This is designated initializer.
+- (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag; // This is designated initializer.
 
 - (void)calculateNormals;
 

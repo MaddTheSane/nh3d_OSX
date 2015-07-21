@@ -865,7 +865,7 @@
 
 - (int)checkExtendCmdList:(const char*)excmd
 {
-	int i,ret;
+	int i,ret = -1;
 	for ( i=0 ; extcmdlist[i].ef_txt ; i++) { 
 		if ( strstr( extcmdlist[i].ef_txt , excmd) != NULL ) {
 			ret = i;
@@ -1322,7 +1322,6 @@
 																		 forKey:NH3DUseTileInLevelMapKey ];
 }	
 	
-
 
 - (BOOL)keyUpdated
 {

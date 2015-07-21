@@ -19,26 +19,25 @@ static const int DIALOG_CANCEL	= 129;
 
 - (BOOL)loadSoundConfig
 {
-	NSAutoreleasePool *pool = [ [NSAutoreleasePool alloc] init ];
+	@autoreleasepool {
 	NSString *bundlePath = [ [NSBundle mainBundle] bundlePath ];
 	NSString* configFile = [ NSString stringWithContentsOfFile:
 						   [NSString stringWithFormat:@"%@/nh3dSounds/%@", [bundlePath stringByDeletingLastPathComponent],@"soundconfig.txt"]
 													 encoding:NSUTF8StringEncoding
 														error:nil ];
-	NSString* destText;
-	NSScanner* scanner ;
-	NSCharacterSet* chSet = [ NSCharacterSet whitespaceAndNewlineCharacterSet ];
+	NSString* destText = nil;
+	NSScanner* scanner = nil;
+	NSCharacterSet* chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	
 	
 	if (configFile == nil) {
-		[ pool release ];
 		return NO;
 	} else
 		
 	scanner = [NSScanner scannerWithString:configFile];
 	//[scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
 		
-	while(![ scanner isAtEnd ]) {
+	while (![scanner isAtEnd]) {
 		
 		[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
 		
@@ -67,7 +66,7 @@ static const int DIALOG_CANCEL	= 129;
 	[scanner scanCharactersFromSet:chSet intoString:nil];
 	
 	[ destText release ];
-	[ pool release ];
+	}
 	return YES;
 }
 
@@ -76,28 +75,28 @@ static const int DIALOG_CANCEL	= 129;
 {
 	if (self = [super init]) {
 		//for view or backgrounded text field.
-		darkShadow = [ [NSShadow alloc] init ];
-		[ darkShadow setShadowColor:[NSColor colorWithCalibratedWhite:0.2 alpha:0.5] ];
-		[ darkShadow setShadowOffset:NSMakeSize(2, -2) ];
-		[ darkShadow setShadowBlurRadius:0.5 ];
+		darkShadow = [[NSShadow alloc] init];
+		darkShadow.shadowColor = [NSColor colorWithCalibratedWhite:0.2 alpha:0.5];
+		darkShadow.shadowOffset = NSMakeSize(2, -2);
+		darkShadow.shadowBlurRadius = 0.5;
 		//for panel or window.
 		lightShadow = [[NSShadow alloc] init];
-		[ lightShadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] ];
-		[ lightShadow setShadowOffset:NSMakeSize(-1.5, 1.5) ];
-		[ lightShadow setShadowBlurRadius:1.6 ];
+		lightShadow.shadowColor = [NSColor colorWithCalibratedWhite:1.0 alpha:1.0];
+		lightShadow.shadowOffset = NSMakeSize(-1.5, 1.5);
+		lightShadow.shadowBlurRadius = 1.6;
 		
-		msgArray = [ [NSMutableArray alloc] init ];
-		soundMessageArray = [ [NSMutableArray alloc] init ];
-		soundNameArray = [ [NSMutableArray alloc] init ];
-		soundVolumeArray = [ [NSMutableArray alloc] init ];
+		msgArray = [[NSMutableArray alloc] init];
+		soundMessageArray = [[NSMutableArray alloc] init];
+		soundNameArray = [[NSMutableArray alloc] init];
+		soundVolumeArray = [[NSMutableArray alloc] init];
 		
-		effectMessageArray = [ [NSMutableArray alloc] init ];
-		effectTypeArray = [ [NSMutableArray alloc] init ];
+		effectMessageArray = [[NSMutableArray alloc] init];
+		effectTypeArray = [[NSMutableArray alloc] init];
 		
-		userSound = [ self loadSoundConfig ];
+		userSound = [self loadSoundConfig];
 		ripFlag = NO;
 		
-		movieView  = [ [QTMovieView alloc] init ];
+		movieView  = [[QTMovieView alloc] init];
 		
 	}
 	return self;
@@ -124,46 +123,44 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)awakeFromNib 
 {
-	[ self prepareAttributes ];
-	[ _messeageWindow setDrawsBackground:NO ];
-	[ _messeageScrollView setDrawsBackground:NO ];
+	[self prepareAttributes];
+	_messeageWindow.drawsBackground = NO;
+	_messeageScrollView.drawsBackground = NO;
 }
 
 - (void)prepareAttributes
 {
-
+	if (style) {
+		[style release];
+	}
+	style = [[NSMutableParagraphStyle alloc] init];
+	style.lineSpacing = -2;
 	
-	style = [ [[NSMutableParagraphStyle alloc] init] autorelease ];
-	[ style setLineSpacing:-2 ];
-	
-	darkShadowStrAttributes = [ [[NSMutableDictionary alloc] init] autorelease ];
-	lightShadowStrAttributes = [ [[NSMutableDictionary alloc] init] autorelease ];
+	if (darkShadowStrAttributes) {
+		[darkShadowStrAttributes release];
+	}
+	if (lightShadowStrAttributes) {
+		[lightShadowStrAttributes release];
+	}
+	darkShadowStrAttributes = [[NSMutableDictionary alloc] init];
+	lightShadowStrAttributes = [[NSMutableDictionary alloc] init];
 	
 	//Text attributes in View or backgrounded text field.
 	
-	[ darkShadowStrAttributes setObject:[NSFont fontWithName:NH3DMSGFONT
-													   size: NH3DMSGFONTSIZE ]
-								 forKey:NSFontAttributeName ];
-	[ darkShadowStrAttributes setObject:darkShadow
-								 forKey:NSShadowAttributeName ];
-	[ darkShadowStrAttributes setObject:style
-								 forKey:NSParagraphStyleAttributeName ];
-	[ darkShadowStrAttributes setObject:[NSColor colorWithCalibratedWhite:0.0 alpha:0.8]
-								 forKey:NSForegroundColorAttributeName ];
+	darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMSGFONT
+																   size: NH3DMSGFONTSIZE];
+	darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
+	darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+	darkShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.0 alpha:0.8];
 	
 	//Text attributes on Panel or Window.
 	
-	[ lightShadowStrAttributes setObject:[NSFont fontWithName:NH3DWINDOWFONT
-														 size: NH3DWINDOWFONTSIZE]
-								  forKey:NSFontAttributeName ];
-	[ lightShadowStrAttributes setObject:lightShadow
-								  forKey:NSShadowAttributeName ];
-	[ lightShadowStrAttributes setObject:style
-								  forKey:NSParagraphStyleAttributeName ];
-	[ lightShadowStrAttributes setObject:[NSColor colorWithCalibratedWhite:0.0 alpha:0.8]
-								  forKey:NSForegroundColorAttributeName ];
+	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
+																	size: NH3DWINDOWFONTSIZE];
+	lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
+	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+	lightShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.0 alpha:0.8];
 	
-
 }
 
 
@@ -174,11 +171,11 @@ static const int DIALOG_CANCEL	= 129;
 	//NSTextStorage* windowString;
 	int i=0;
 			
-	[ self prepareAttributes ];
-	[ style setAlignment:NSLeftTextAlignment] ;
+	[self prepareAttributes];
+	style.alignment = NSLeftTextAlignment;
 	
 	if ( !text ) {
-		return ;
+		return;
 	} else {
 		
 		if ( userSound && !SOUND_MUTE ) {
@@ -242,41 +239,39 @@ static const int DIALOG_CANCEL	= 129;
 			case ATR_NONE:
 				break;
 			case ATR_ULINE:
-				[ darkShadowStrAttributes setObject:@(NSUnderlineStyleSingle)
-											 forKey:NSUnderlineStyleAttributeName ];
+				darkShadowStrAttributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
 				break;
 			case ATR_BOLD:
-				[ darkShadowStrAttributes setObject:[NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE]
-											 forKey:NSFontAttributeName ];
+				darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];
 				break;
 			case ATR_BLINK:
 			case ATR_INVERSE:
 				darkShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor alternateSelectedControlTextColor];
-				darkShadowStrAttributes[NSBackgroundColorAttributeName] =[NSColor alternateSelectedControlColor];
+				darkShadowStrAttributes[NSBackgroundColorAttributeName] = [NSColor alternateSelectedControlColor];
 		}
 		
-		putString = [ [NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",
-																			[NSString stringWithCString:text
-																							   encoding:NH3DTEXTENCODING]]
+		putString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",
+																	   [NSString stringWithCString:text
+																						  encoding:NH3DTEXTENCODING]]
 														   attributes:darkShadowStrAttributes ];
 
 		
-		if ( [ msgArray count ] < iflags.msg_history ) {
-			 [ msgArray addObject:@([putString length]) ];
+		if ([msgArray count] < iflags.msg_history) {
+			 [msgArray addObject:@([putString length])];
 		} else {
-			[ [_messeageWindow textStorage] deleteCharactersInRange:NSMakeRange(0,[[msgArray objectAtIndex:0] intValue]) ];
-			[ msgArray removeObjectAtIndex:0 ];
-			[ msgArray addObject:@([putString length]) ];
+			[[_messeageWindow textStorage] deleteCharactersInRange:NSMakeRange(0,[[msgArray objectAtIndex:0] intValue])];
+			[msgArray removeObjectAtIndex:0];
+			[msgArray addObject:@([putString length])];
 		}
 				
-		[ [_messeageWindow textStorage] addAttribute:NSForegroundColorAttributeName
+		[[_messeageWindow textStorage] addAttribute:NSForegroundColorAttributeName
 											   value:[NSColor colorWithCalibratedWhite:0.4 alpha:0.7]
-											   range:NSMakeRange( 0,[[_messeageWindow textStorage] length]) ];
+											   range:NSMakeRange( 0,[[_messeageWindow textStorage] length])];
 		
-		[ [_messeageWindow textStorage] appendAttributedString:putString ];
-		[ putString release ];
+		[[_messeageWindow textStorage] appendAttributedString:putString];
+		[putString release];
 		
-		[ _messeageWindow scrollRangeToVisible:NSMakeRange([[_messeageWindow textStorage] length], 0) ];
+		[_messeageWindow scrollRangeToVisible:NSMakeRange([[_messeageWindow textStorage] length], 0)];
 	
 	}
 	}
@@ -285,8 +280,8 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)clearMainMessarge
 {
-	[ msgArray removeAllObjects ];
-	[ _messeageWindow setString:@"" ];
+	[msgArray removeAllObjects];
+	_messeageWindow.string = @"";
 }
 
 
@@ -295,31 +290,31 @@ static const int DIALOG_CANCEL	= 129;
 - (int)showInputPanel:(const char *)messageStr line:(char *)line
 {
 	NSAttributedString *putString;
-	NSString *questionStr = [ [NSString alloc] initWithCString:messageStr encoding:NH3DTEXTENCODING ];
+	NSString *questionStr = [[NSString alloc] initWithCString:messageStr encoding:NH3DTEXTENCODING];
 	NSString *str;
 	NSData *inputData;
 	int result = 0;
 		
 	[ self prepareAttributes ];
-	[ style setAlignment:NSCenterTextAlignment ];
+	style.alignment = NSCenterTextAlignment;
 	
-	putString = [ [NSAttributedString alloc] initWithString:questionStr
-												 attributes:lightShadowStrAttributes ];
+	putString = [[NSAttributedString alloc] initWithString:questionStr
+												attributes:lightShadowStrAttributes];
 	
 											   
 	[ _questionTextField setAttributedStringValue:putString ];
 	
-	[ NSApp beginSheet:_inputPanel
-		modalForWindow:_window
-		 modalDelegate:nil
-		didEndSelector:nil
-		   contextInfo:nil ];
+	[NSApp beginSheet:_inputPanel
+	   modalForWindow:_window
+		modalDelegate:nil
+	   didEndSelector:nil
+		  contextInfo:nil];
 	
 	
-	result = [ NSApp runModalForWindow:_inputPanel ];
+	result = [NSApp runModalForWindow:_inputPanel];
 		
-	[ NSApp endSheet:_inputPanel ];
-    [ _inputPanel orderOut:self ];
+	[NSApp endSheet:_inputPanel];
+    [_inputPanel orderOut:self];
 	
 	if ( result == DIALOG_CANCEL )
 	{
@@ -355,11 +350,11 @@ static const int DIALOG_CANCEL	= 129;
 	
 	Strcpy( line,[ str cStringUsingEncoding:NH3DTEXTENCODING ] );
 	
-	[ _questionTextField setStringValue:@"" ];
-	[ _inputTextField setStringValue:@"" ];
-	[ questionStr release ];
-	[ putString release ];
-	[ str release ];
+	[_questionTextField setStringValue:@""];
+	[_inputTextField setStringValue:@""];
+	[questionStr release];
+	[putString release];
+	[str release];
 	
 	return 0;
 		
@@ -381,8 +376,8 @@ static const int DIALOG_CANCEL	= 129;
 	ripFlag = YES;
 
 	
-	[ self prepareAttributes ];
-	[ style setAlignment:NSCenterTextAlignment ];
+	[self prepareAttributes];
+	style.alignment = NSCenterTextAlignment;
 
 	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Optima Bold" size:11];
@@ -394,7 +389,7 @@ static const int DIALOG_CANCEL	= 129;
 												 attributes:lightShadowStrAttributes] autorelease] ];
 	
 	_ripPanel.alphaValue = 0;
-	[ _ripPanel orderFront:self ];
+	[_ripPanel orderFront:self];
 	// window fade out/in
 	_window.animator.alphaValue = 0;
 	_ripPanel.animator.alphaValue = 1;
@@ -411,19 +406,17 @@ static const int DIALOG_CANCEL	= 129;
 	NSLog(@" %@",rawText);
 #endif
 	[ self prepareAttributes ];
-	[ style setAlignment:NSLeftTextAlignment ];
+	style.alignment = NSLeftTextAlignment;
 	
+	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Courier Bold" size:12];
 	
-	[ lightShadowStrAttributes setObject:[NSFont fontWithName:@"Courier Bold" size:12]
-								  forKey:NSFontAttributeName ];
-		
-	putStr = [ [NSAttributedString alloc] initWithString:rawText
-											   attributes:lightShadowStrAttributes ];
-		
-	[ _rawPrintWindow setEditable:YES ];
-	[ _rawPrintWindow insertText:putStr ];
-	[ _rawPrintWindow insertText:@"\n" ];
-	[ _rawPrintWindow setEditable:NO ];
+	putStr = [[NSAttributedString alloc] initWithString:rawText
+											   attributes:lightShadowStrAttributes];
+	
+	_rawPrintWindow.editable = YES;
+	[_rawPrintWindow insertText:putStr];
+	[_rawPrintWindow insertText:@"\n"];
+	_rawPrintWindow.editable = NO;
 	
 	[ putStr release ];
 
@@ -431,28 +424,26 @@ static const int DIALOG_CANCEL	= 129;
 
 - (BOOL)showLogPanel
 {
-	int i;
 	NSWindow *ripOrMainWindow = nil;
 	
-	[ _rawPrintPanel setAlphaValue:0 ];
-	[ _rawPrintPanel makeKeyAndOrderFront:self ];
+	_rawPrintPanel.alphaValue = 0;
+	[_rawPrintPanel makeKeyAndOrderFront:self];
 	// window fade out/in
 	
 	if ( ripFlag ) {
 		ripOrMainWindow = _ripPanel;
-		[ NSApp runModalForWindow:_ripPanel ];
+		[NSApp runModalForWindow:_ripPanel];
 	} else {
 		ripOrMainWindow = _window;
 	}
 	
-	[ripOrMainWindow animator].alphaValue = 0;
-	[_rawPrintPanel animator].alphaValue = 1;
+	ripOrMainWindow.animator.alphaValue = 0;
+	_rawPrintPanel.animator.alphaValue = 1;
 	
-	[ NSApp runModalForWindow:_rawPrintPanel ];
-	[ _rawPrintPanel orderOut:self ];
+	[NSApp runModalForWindow:_rawPrintPanel];
+	[_rawPrintPanel orderOut:self];
 	
 	return YES;
-	
 }
 
 - (void)setLastAttackDirection:(int)direction

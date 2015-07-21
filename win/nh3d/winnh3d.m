@@ -1256,9 +1256,8 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)awakeFromNib
 {		
-	[ _window setAlphaValue:0 ];
+	_window.alphaValue = 0;
 	[ _window setMovableByWindowBackground:NO ];
-	
 }
 
 
@@ -1363,12 +1362,8 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)showMainWindow
 {
-	int i;
-	// window fade in 
-	for (i=0;i<=10;i++) {
-	[ _window setAlphaValue:((float)i)/10 ];
-	[ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:0.1 ] ]; 
-	} 
+	// window fade in
+	_window.animator.alphaValue = 1;
 }
 
 
@@ -1404,7 +1399,7 @@ You("スコアの載らない発見モードで起動した．");
 - (int)nhPosKeyAtX:(int *)x atY:(int *)y keyMod:(int *)mod
 {
 	int ret = 0;
-	unsigned int mask = ( NSAnyEventMask );
+	NSUInteger mask = ( NSAnyEventMask );
 
 	//Wait next Event
 	[ _asciiMapView nh3dEventHandlerLoopWithMask:mask ];	
@@ -1425,9 +1420,9 @@ You("スコアの載らない発見モードで起動した．");
 - (int)nhGetKey
 {
 	int ret;
-	unsigned int mask = ( NSLeftMouseDownMask	|
-						  NSKeyDownMask			|
-						  NSApplicationDefinedMask);
+	NSEventMask mask = (NSLeftMouseDownMask	|
+						NSKeyDownMask		|
+						NSApplicationDefinedMask);
 	
 	[ _asciiMapView setGetCharMode:YES ];
 	//Wait next Event
@@ -1461,18 +1456,16 @@ You("スコアの載らない発見モードで起動した．");
 - (IBAction)showPreferencePanel:(id)sender
 {
 	
-	if ( _prefPanel == nil )
-		_prefPanel = [ [NH3DPreferenceController alloc] init ];
+	if (_prefPanel == nil)
+		_prefPanel = [[NH3DPreferenceController alloc] init];
 	
-	[ _prefPanel showPreferencePanel:self ];
-	
-	
+	[_prefPanel showPreferencePanel:self];
 }
 
 
 - (void)endPreferencePanel
 {
-	[ _prefPanel release ];
+	[_prefPanel release];
 	_prefPanel = nil;
 }
 

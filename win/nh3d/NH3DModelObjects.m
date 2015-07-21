@@ -220,7 +220,7 @@ static NH3DMaterial defaultMat = {
 	NSRange fileRange = {0,0};
 	
 	// Open 3DS file and Create NSData object
-	NSData *file_3ds = [[NSData alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.3ds",[[NSBundle mainBundle] resourcePath],name]
+	NSData *file_3ds = [[NSData alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"3ds"]
 													  options:NSMappedRead
 														error:nil];
 	//NSLog(@"Model %@ loading...",name);
@@ -330,6 +330,7 @@ static NH3DMaterial defaultMat = {
 						//NSLog(@"%d Vertices list z: %f",i,verts[i].z);
 					}
 				} else {
+					[file_3ds release];
 					NSLog(@"Model %@|%@ does not have effective data. check modelformat or data.",modelCode,modelName);
 					return NO;
 				}
@@ -722,8 +723,7 @@ static NH3DMaterial defaultMat = {
 
 - (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
 {
-	self = [super init];
-	if (self != nil) {
+	if (self = [super init]) {
 		
 		modelCode = [ [NSString alloc] initWithString:name ];
 		
@@ -739,7 +739,10 @@ static NH3DMaterial defaultMat = {
 		particleSize = 0;
 		particleType = PARTICLE_POINTS;
 		
-		if ( ![self import3DSfileToNH3DModel:name] ) return nil;
+		if ( ![self import3DSfileToNH3DModel:name] ) {
+			[self release];
+			return nil;
+		}
 		
 		modelType = MODEL_IS_OBJECT;
 		

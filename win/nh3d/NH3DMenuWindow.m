@@ -20,8 +20,7 @@ static const int DIALOG_CANCEL	= 129;
 
 - (id)init
 {
-	[ super init ];
-	if (self != nil) {
+	if (self = [super init]) {
 		nh3dMenu = nil;
 		isMenu = NO;
 		doneRip = NO;
