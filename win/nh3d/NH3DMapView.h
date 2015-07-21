@@ -92,15 +92,11 @@
 }
 
 @property (nonatomic, retain) NSColor *bgColor;
-- (void)setBgColor:(NSColor *)colr;
-- (NSColor *)bgColor;
 
 - (void)setCenterAtX:(int)x y:(int)y depth:(int)depth;
-- (BOOL)isReady;
-- (void)setIsReady:(BOOL)flag;
+@property BOOL isReady;
 
-- (BOOL)needClear;
-- (void)setNeedClear:(BOOL)flag;
+@property BOOL needClear;
 
 - (void)makeTraditionalMap;
 - (void)drawTraditionalMapAtX:(int)x atY:(int)y;
@@ -112,21 +108,14 @@
 - (void)setCursOpacity:(float)opaq;
 - (void)drawMask;
 
-- (int)keyBuffer;
-- (void)setKeyBufffer:(int)value;
-
-- (BOOL)keyUpdated;
-- (void)setKeyUpdated:(BOOL)flag;
-
-- (int)extendKey;
-- (void)setExtendKey:(int)value;
-
-- (BOOL)getCharMode;
-- (void)setGetCharMode:(BOOL)flag;
+@property (nonatomic) int keyBuffer;
+@property BOOL keyUpdated;
+@property int extendKey;
+@property BOOL getCharMode;
 
 - (int)clickType;
 
-- (void)nh3dEventHandlerLoopWithMask:(unsigned int)mask;
+- (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask;
 
 // Notification
 - (void)defaultDidChange:(NSNotification *)notification;

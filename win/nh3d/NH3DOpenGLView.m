@@ -2000,57 +2000,54 @@ static void floorfunc_default( id self )
 }
 
 
-- ( GLuint )createTextureFromSymbol:( id )symbol withColor:( id )color
+- ( GLuint )createTextureFromSymbol:( id )symbol withColor:( NSColor* )color
 {
 	[ viewLock lock ];
 	[ symbol retain ];
 	
 	GLuint tex_id;
-	NSImage				*img = [ [ NSImage alloc ] initWithSize:NSMakeSize( TEX_SIZE , TEX_SIZE ) ];
+	NSImage				*img = [[NSImage alloc] initWithSize:NSMakeSize( TEX_SIZE , TEX_SIZE )];
 	NSBitmapImageRep	*imgrep;
 	NSSize				symbolsize;
-		
-	[ img setBackgroundColor:[ NSColor clearColor ] ];
+	
+	img.backgroundColor = [NSColor clearColor];
 	
 	if ( !NH3DGL_USETILE ) {
-		NSMutableDictionary *attributes = [ [ NSMutableDictionary alloc ] init ];
-		NSString *fontName = [ [[[NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey] retain] autorelease ];
+		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+		NSString *fontName = [[[NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey] retain];
 		
 		
-		[ attributes setObject:[ NSFont fontWithName: fontName
-												size: TEX_SIZE ] 
-						forKey:NSFontAttributeName ];
+		attributes[NSFontAttributeName] = [NSFont fontWithName: fontName
+														  size: TEX_SIZE];
+		[fontName release];
+		attributes[NSForegroundColorAttributeName] = color;
+		attributes[NSBackgroundColorAttributeName] = [NSColor clearColor];
 		
-		[ attributes setObject:color
-						forKey:NSForegroundColorAttributeName ];
-		[ attributes setObject:[ NSColor clearColor ]
-						forKey:NSBackgroundColorAttributeName ];
-		
-		symbolsize = [ symbol sizeWithAttributes:attributes ];
+		symbolsize = [symbol sizeWithAttributes:attributes];
 	
 		// Draw texture
-		[ img lockFocus ];
+		[img lockFocus];
 		
-		[ symbol drawAtPoint:NSMakePoint( ( TEX_SIZE/2 ) - ( symbolsize.width/2 ) ,( TEX_SIZE/2 ) - ( symbolsize.height/2 ) )
-			  withAttributes:attributes ];
+		[symbol drawAtPoint:NSMakePoint( ( TEX_SIZE/2 ) - ( symbolsize.width/2 ) ,( TEX_SIZE/2 ) - ( symbolsize.height/2 ) )
+			  withAttributes:attributes];
 		
-		[ img unlockFocus ];
-		[ attributes release ];
+		[img unlockFocus];
+		[attributes release];
 		
 	} else {
-		symbolsize = [ symbol size ];
+		symbolsize = [symbol size];
 		// Draw Tiled texture 
-		[ img lockFocus ];
-		[ symbol drawInRect:NSMakeRect( TEX_SIZE/4 ,0 ,(TEX_SIZE/4)*3 ,(TEX_SIZE/4)*3 )
+		[img lockFocus ];
+		[symbol drawInRect:NSMakeRect( TEX_SIZE/4 ,0 ,(TEX_SIZE/4)*3 ,(TEX_SIZE/4)*3 )
 				   fromRect:NSMakeRect( 0 ,0 ,symbolsize.width ,symbolsize.height )
 				  operation:NSCompositeSourceOver
-				   fraction:1.0 ];
-		[ img unlockFocus ];
+				   fraction:1.0];
+		[img unlockFocus];
 	}
 	
-	[ symbol release ];
+	[symbol release];
 	
-	imgrep = [ [ NSBitmapImageRep alloc ] initWithData:[ img TIFFRepresentation ] ];
+	imgrep = [[NSBitmapImageRep alloc] initWithData:[img TIFFRepresentation]];
 	
 	
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
@@ -2063,7 +2060,7 @@ static void floorfunc_default( id self )
 	
 	// create automipmap texture
 	
-	if ( [ imgrep hasAlpha ] ) {
+	if ([imgrep hasAlpha]) {
 		gluBuild2DMipmaps( GL_TEXTURE_2D,GL_RGBA,
 						   [ imgrep pixelsWide ],[ imgrep pixelsHigh ],
 						   GL_RGBA,
@@ -2086,10 +2083,10 @@ static void floorfunc_default( id self )
 	
 	glAlphaFunc( GL_GREATER, 0.5 );
 	
-	[ imgrep release ];
-	[ img release ];
+	[imgrep release];
+	[img release];
 	
-	[ viewLock unlock ];
+	[viewLock unlock];
 	
 	return tex_id;
 	
@@ -2099,12 +2096,12 @@ static void floorfunc_default( id self )
 - ( void )loadModels
 {
 	//load models first time.
-	NSAutoreleasePool *pool = [ [NSAutoreleasePool alloc] init ];
+	@autoreleasepool {
 	NH3DModelObjects *model;
 	
 //  -------------------------- Map Symbols Section. -------------------------- //
 	
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"vwall" withTexture:YES ];
+	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vwall" withTexture:YES];
 	[ model addTexture:@"wall_mines" ];
 	[ model addTexture:@"wall_hell" ];
 	[ model addTexture:@"wall_knox" ];
@@ -2120,9 +2117,9 @@ static void floorfunc_default( id self )
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSlowdown:6.0 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleLife:0.30 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_vwall + GLYPH_CMAP_OFF ] ];	
-	[ model release ];
+	[modelDictionary setObject:model
+						forKey:@(S_vwall + GLYPH_CMAP_OFF)];
+	[model release];
 			
 				
 	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"hwall" withTexture:YES ];
@@ -2142,61 +2139,61 @@ static void floorfunc_default( id self )
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleLife:0.30 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
 		[ [ model childObjectAtLast ] setModelRotateX:0.0 rotateY:-90.0 rotateZ:0.0 ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_hwall + GLYPH_CMAP_OFF ] ];
-	[ model release ];
+	[modelDictionary setObject:model
+						forKey:@(S_hwall + GLYPH_CMAP_OFF)];
+	[model release];
 	
 	
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"corner" withTexture:YES ];
-	[ model addTexture:@"corner_mines" ];
-	[ model addTexture:@"corner_hell" ];
-	[ model addTexture:@"corner_knox" ];
-	[ model addTexture:@"corner_rouge" ];
+	model = [[NH3DModelObjects alloc] initWith3DSFile:@"corner" withTexture:YES];
+	[model addTexture:@"corner_mines"];
+	[model addTexture:@"corner_hell"];
+	[model addTexture:@"corner_knox"];
+	[model addTexture:@"corner_rouge"];
 	
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_tlcorn + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_trcorn + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_blcorn + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_brcorn + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_crwall + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_tuwall + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_tdwall + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_tlwall + GLYPH_CMAP_OFF ] ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_trwall + GLYPH_CMAP_OFF ] ];
+	[modelDictionary setObject:model
+						forKey:@(S_tlcorn + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_trcorn + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_blcorn + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_brcorn + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_crwall + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_tuwall + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_tdwall + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_tlwall + GLYPH_CMAP_OFF)];
+	[modelDictionary setObject:model
+						forKey:@(S_trwall + GLYPH_CMAP_OFF)];
 	
-	[ model release ];
+	[model release];
 	
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"vopendoor" withTexture:YES ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_vodoor + GLYPH_CMAP_OFF ] ];
-	[ model release ];
+	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vopendoor" withTexture:YES];
+	[modelDictionary setObject:model
+						forKey:@(S_vodoor + GLYPH_CMAP_OFF)];
+	[model release];
 	
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"hopendoor" withTexture:YES ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_hodoor + GLYPH_CMAP_OFF ] ];
-	[ model release ];
+	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hopendoor" withTexture:YES];
+	[modelDictionary setObject:model
+						forKey:@(S_hodoor + GLYPH_CMAP_OFF)];
+	[model release];
 	
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"vdoor" withTexture:YES ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_vcdoor + GLYPH_CMAP_OFF ] ];
-	[ model release ];
+	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vdoor" withTexture:YES];
+	[modelDictionary setObject:model
+						forKey:@(S_vcdoor + GLYPH_CMAP_OFF)];
+	[model release];
 	
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"hdoor" withTexture:YES ];
-	[ modelDictionary setObject:model
-						 forKey:[ NSNumber numberWithInt:S_hcdoor + GLYPH_CMAP_OFF ] ];
-	[ model release ];
+	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hdoor" withTexture:YES];
+	[modelDictionary setObject:model
+						 forKey:@(S_hcdoor + GLYPH_CMAP_OFF)];
+	[model release];
 			
 		
-	[ pool release ];
-}	
+	}
+}
 
 
 - ( id )checkLoadedModelsAt:(int)startNum
@@ -2229,19 +2226,22 @@ static void floorfunc_default( id self )
 					withoutFlag = NO;
 					continue;
 				} else																	// Increment retain count
-					return [ [modelDictionary objectForKey:[ NSNumber numberWithInt:i ]] retain ];
+					return [[modelDictionary objectForKey:@(i)] retain];
 					
 			} else																	// Increment retain count
-				return [ [modelDictionary objectForKey:[ NSNumber numberWithInt:i ]] retain ];
+				return [[modelDictionary objectForKey:@(i)] retain];
 		}
 	}
 	
-	if ( [ mName isEqualToString:@"emitter" ] ) return [ [ NH3DModelObjects alloc ] init ];
-	else return [ [ NH3DModelObjects alloc ] initWith3DSFile:mName withTexture:flag ];;
+	if ( [ mName isEqualToString:@"emitter" ] ) {
+		return [[NH3DModelObjects alloc] init];
+	} else {
+		return [[NH3DModelObjects alloc] initWith3DSFile:mName withTexture:flag];
+	}
 }
 
 
-- (void)setParamsForMagicEffect:(id)magicItem color:(int)color
+- (void)setParamsForMagicEffect:(NH3DModelObjects*)magicItem color:(int)color
 {
 	[ magicItem setPivotX:0.0 atY:1.2 atZ:0.0 ];
 	[ magicItem setModelScaleX:0.4 scaleY:1.0 scaleZ:0.4 ];
@@ -2255,36 +2255,35 @@ static void floorfunc_default( id self )
 }
 
 
-- (void)setParamsForMagicExplotion:(id)magicItem color:(int)color
+- (void)setParamsForMagicExplotion:(NH3DModelObjects*)magicItem color:(int)color
 {
-	[ magicItem setParticleType:PARTICLE_AURA ];
-	[ magicItem setParticleColor:color ];
-	[ magicItem setParticleGravityX:0.0 Y:15.5 Z:0.0 ];
-	[ magicItem setParticleSpeedX:1.0 Y:15.00 ];
-	[ magicItem setParticleSlowdown:8.8 ];
-	[ magicItem setParticleLife:0.4 ];
-	[ magicItem setParticleSize:35.0 ];
-	
+	[magicItem setParticleType:PARTICLE_AURA ];
+	[magicItem setParticleColor:color ];
+	[magicItem setParticleGravityX:0.0 Y:15.5 Z:0.0 ];
+	[magicItem setParticleSpeedX:1.0 Y:15.00 ];
+	[magicItem setParticleSlowdown:8.8 ];
+	[magicItem setParticleLife:0.4 ];
+	[magicItem setParticleSize:35.0 ];
 }
 	
 
 - ( id )loadModelFunc_insect:(int)glyph
 {
 	// insect class
-	return [ self checkLoadedModelsAt:PM_GIANT_ANT
-								   to:PM_QUEEN_BEE
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerA" textured:NO withOut:nil];
+	return [self checkLoadedModelsAt:PM_GIANT_ANT
+								  to:PM_QUEEN_BEE
+							  offset:GLYPH_MON_OFF
+						   modelName:@"lowerA" textured:NO withOut:nil];
 }
 
 
 - ( id )loadModelFunc_blob:(int)glyph
 {
 	// blob class
-	return [ self checkLoadedModelsAt:PM_ACID_BLOB
-								   to:PM_GELATINOUS_CUBE
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerB" textured:NO withOut:nil];
+	return [self checkLoadedModelsAt:PM_ACID_BLOB
+								  to:PM_GELATINOUS_CUBE
+							  offset:GLYPH_MON_OFF
+						   modelName:@"lowerB" textured:NO withOut:nil];
 }
 
 

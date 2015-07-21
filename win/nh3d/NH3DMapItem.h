@@ -42,8 +42,8 @@
 - (int)glyph;
 - (NSColor *)color;
 - (int)material;
-- (int)posX;
-- (int)posY;
+@property (readonly) int posX;
+@property (readonly) int posY;
 - (unsigned)special;
 
 @property (nonatomic, getter=isPlayer) BOOL player;
@@ -52,12 +52,8 @@
 
 - (void)setSymbol:(char)chr;
 
-- (void)setHasAlternateSymbol:(BOOL)flag;
-- (BOOL)hasAlternateSymbol;
-
-- (void)setHasCursor:(BOOL)flag;
-- (BOOL)hasCursor;
-
+@property BOOL hasAlternateSymbol;
+@property BOOL hasCursor;
 @property (readonly, retain) NSImage *tile;
 
 - (int)modelDrawingType;

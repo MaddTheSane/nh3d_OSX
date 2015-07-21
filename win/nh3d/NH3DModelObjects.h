@@ -13,6 +13,8 @@
 
 #import "NH3DUserDefaultsExtern.h"
 
+#undef index
+
 typedef struct nh3d_point3 {
 	float x, y, z;
 } NH3DVertexType;
@@ -59,7 +61,7 @@ typedef struct {
 } NH3DParticle;
 
 
-@interface NH3DModelObjects : NSObject {
+@interface NH3DModelObjects : NSObject <NSFastEnumeration> {
 	
 	BOOL				active;
 	NSString			*modelName;					/* model name from data */
@@ -126,8 +128,7 @@ typedef struct {
 
 - (void)calculateNormals;
 
-- (BOOL)isActive;
-- (void)setActive:(BOOL)flag;
+@property (getter=isActive) BOOL active;
 
 - (NSString *)modelName;
 - (int)verts_qty;
@@ -143,20 +144,13 @@ typedef struct {
 //- (NH3DFaceType *)normReference;
 - (NH3DMapCoordType *)texcoords;
 
-- (int)texture;
-- (void)setTexture:(int)tex_id;
+@property int texture;
 - (BOOL)addTexture:(NSString *)textureName;
-- (BOOL)useEnvironment;
-- (void)setUseEnvironment:(BOOL)flag;
+@property BOOL useEnvironment;
 
-- (BOOL)isAnimate;
-- (void)setAnimate:(BOOL)flag;
-
-- (float)animationValue;
-- (void)setAnimationValue:(float)value;
-
-- (float)animationRate;
-- (void)setAnimationRate:(float)rate;
+@property (getter=isAnimate) BOOL animate;
+@property float animationValue;
+@property float animationRate;
 
 - (void)animate;
 
@@ -171,30 +165,28 @@ typedef struct {
 - (void)setParticleSize:(float)value;
 
 
-- (BOOL)hasChildObject;
-- (unsigned int)numberOfChildObjects;
+@property (readonly) BOOL hasChildObject;
+@property (readonly) NSInteger numberOfChildObjects;
 
-- (BOOL)isChild;
-- (void)setIsChild:(BOOL)flag;
+@property BOOL isChild;
 
 - (void)addChildObject:(NSString *)childName type:(int)type;
-- (NH3DModelObjects *)childObjectAtIndex:(unsigned int)index;
+- (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
 - (NH3DModelObjects *)childObjectAtLast;
 
-- (NH3DVertexType )modelShift;
+@property (readonly) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
 
-- (NH3DVertexType )modelScale;
+@property (readonly) NH3DVertexType modelScale;
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz;
 
-- (NH3DVertexType )modelRotate;
+@property (readonly) NH3DVertexType modelRotate;
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz;
 
-- (NH3DVertexType )modelPivot;
+@property (readonly) NH3DVertexType modelPivot;
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz;
 
-- (NH3DMaterial )currentMaterial;
-- (void)setCurrentMaterial:(NH3DMaterial)material;
+@property NH3DMaterial currentMaterial;
 
 - (void)drawSelf;
 

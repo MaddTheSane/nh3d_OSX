@@ -14,7 +14,9 @@ static const int DIALOG_OK		= 128;
 static const int DIALOG_CANCEL	= 129;
 
 @implementation NH3DMenuWindow
-
+@synthesize isMenu;
+@synthesize isExtendMenu;
+@synthesize doneRip;
 
 - (id)init
 {
@@ -133,10 +135,6 @@ static const int DIALOG_CANCEL	= 129;
 								  forKey:NSForegroundColorAttributeName ];
 	
 }
-
-@synthesize isMenu;
-@synthesize isExtendMenu;
-@synthesize doneRip;
 
 - (NSMutableArray *)nh3dMenu
 {
@@ -444,8 +442,8 @@ static const int DIALOG_CANCEL	= 129;
 	NSRect windowRect = [ window frame ];
 	NSSize windowMaxSize = [ window maxSize ];
 	NSSize windowMinSize = [ window minSize ];
-	const float contentWidthMergin = 44.0;
-	const float contentHeightMergin = 99.0;
+	const CGFloat contentWidthMergin = 44.0;
+	const CGFloat contentHeightMergin = 99.0;
 	int i;
 	
 	//set height

@@ -38,7 +38,13 @@ static NH3DMaterial defaultMat = {
 
 
 @implementation NH3DModelObjects
-
+@synthesize currentMaterial;
+@synthesize isChild;
+@synthesize animate;
+@synthesize useEnvironment;
+@synthesize active;
+@synthesize animationRate;
+@synthesize animationValue;
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
@@ -782,17 +788,6 @@ static NH3DMaterial defaultMat = {
 
 //--------------------------------------------
 
-- (BOOL)isActive
-{
-	return active;
-}
-
-
-- (void)setActive:(BOOL)flag
-{
-	active = flag;
-}
-
 
 - (NSString *)modelName 
 {
@@ -894,42 +889,6 @@ static NH3DMaterial defaultMat = {
 - (void)setUseEnvironment:(BOOL)flag
 {
 	useEnvironment = flag;
-}
-
-
-- (BOOL)isAnimate
-{
-	return animate;
-}
-
-
-- (void)setAnimate:(BOOL)flag
-{
-	animate = flag;
-}
-
-
-- (float)animationValue
-{
-	return animationValue;
-}
-
-
-- (void)setAnimationValue:(float)value
-{
-	animationValue = value;
-}
-
-
-- (float)animationRate
-{
-	return animationRate;
-}
-
-
-- (void)setAnimationRate:(float)rate
-{
-	animationRate = rate;
 }
 
 
@@ -1089,13 +1048,13 @@ static NH3DMaterial defaultMat = {
 }
 
 
-- (unsigned int)numberOfChildObjects
+- (NSInteger)numberOfChildObjects
 {
 	return numberOfChildObjects;
 }
 
 
-- (NH3DModelObjects *)childObjectAtIndex:(unsigned int)index;
+- (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
 {
 	return [childObjects objectAtIndex:index];
 }
@@ -1150,18 +1109,6 @@ static NH3DMaterial defaultMat = {
 	
 	[ modelobj release ];
 												
-}
-
-
-- (NH3DMaterial )currentMaterial
-{
-	return currentMaterial;
-}
-
-
-- (void)setCurrentMaterial:(NH3DMaterial)material
-{
-	currentMaterial = material;
 }
 
 
@@ -1468,5 +1415,9 @@ static NH3DMaterial defaultMat = {
 	
 }	
 
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
+{
+	return [childObjects countByEnumeratingWithState:state objects:buffer count:len];
+}
 
 @end

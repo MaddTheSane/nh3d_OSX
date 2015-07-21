@@ -110,19 +110,16 @@
 	
 }
 
-- (id)initWithFrame:(NSRect)theFrame;
-- (void)dealloc;
-- (void)drawRect:(NSRect)theRect;
-- (void)setFrameSize:(NSSize)newSize;
+- (instancetype)initWithFrame:(NSRect)theFrame;
 
 - (void)updateGlView;
 - (void)loadModels;
-- ( id )checkLoadedModelsAt:(int)startNum
+- (id)checkLoadedModelsAt:(int)startNum
 						 to:(int)endNum
 					 offset:(int)offset
 				  modelName:(NSString *)mName
 				   textured:(BOOL)flag
-					withOut:(int)without, ... /*NS_FORMAT_FUNCTION(4,7)*/;
+					withOut:(int)without, ... NS_RETURNS_RETAINED /*NS_FORMAT_FUNCTION(4,7)*/;
 //- ( id )loadModelToArray:(int)glyph;
 
 @property (readonly) float cameraHead;
@@ -130,9 +127,9 @@
 - (void)drawModelArray:(NH3DMapItem *)mapItem;
 
 - (GLuint)loadImageToTexture:(NSString *)filename;
-- (GLuint)createTextureFromSymbol:(id)symbol withColor:(id)color;
+- (GLuint)createTextureFromSymbol:(id)symbol withColor:(NSColor*)color;
 
-- ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth;
+- (void)setCenterAtX:(int)x z:(int)z depth:(int)depth;
 - (void)setCameraAtX:(float)x atY:(float)y atZ:(float)z;
 - (void)setCameraHead:(float)head pitching:(float)pitch rolling:(float)roll;
 

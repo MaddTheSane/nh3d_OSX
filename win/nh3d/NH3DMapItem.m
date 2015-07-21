@@ -16,6 +16,11 @@ extern id _NH3DTileCache;
 
 
 @implementation NH3DMapItem
+@synthesize player;
+@synthesize hasAlternateSymbol;
+@synthesize hasCursor;
+@synthesize posX;
+@synthesize posY;
 
 - (void)checkDrawingType
 {
@@ -236,24 +241,11 @@ extern id _NH3DTileCache;
 	return color;
 }
 
-
-- (int)posX
-{
-	return posX;
-}
-
-
-- (int)posY
-{
-	return posY;
-}
 - (unsigned)special
 {
 	return special;
 }
 
-
-@synthesize player;
 
 - (void)setPlayer:(BOOL)flag
 {

@@ -11,6 +11,10 @@
 extern id _NH3DTileCache;
 
 @implementation NH3DMenuItem
+@synthesize stringSize;
+@synthesize strLength;
+@synthesize selectable;
+@synthesize selected;
 
 //Over wride NSObject designated initializer. this is not work!! don't use this.
 - (id)init
@@ -144,16 +148,6 @@ extern id _NH3DTileCache;
 	return aStr;
 }
 
-- (NSSize)stringSize
-{
-	return stringSize;
-}
-
-- (unsigned )strLength
-{ 
-	return strLength;
-}
-
 - (NSAttributedString *)accelerator
 {
 	
@@ -246,24 +240,12 @@ extern id _NH3DTileCache;
 }
 
 
-- (BOOL)isSelectable
-{
-	return selectable;
-}
-
-
 - (BOOL)isPreSelected
 {
 	if ( preselect == MENU_SELECTED ) {
 		return YES;
 	} else
 		return NO;
-}
-
-
-- (BOOL)isSelected
-{
-	return selected;
 }
 
 
@@ -312,17 +294,5 @@ extern id _NH3DTileCache;
 {
 	preselect = preselectValue;
 }
-
-- (void)setSelectable:(BOOL)flag
-{
-	selectable = flag;
-}
-
-- (void)setSelected:(BOOL)flag
-{
-	selected = flag;
-
-}
-
 
 @end

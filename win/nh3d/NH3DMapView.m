@@ -42,6 +42,12 @@
 @synthesize mapBase;
 @synthesize trMapImage;
 @synthesize mapRestrictedBezel;
+@synthesize keyBuffer;
+@synthesize extendKey;
+@synthesize keyUpdated;
+@synthesize getCharMode;
+@synthesize isReady;
+@synthesize needClear;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
@@ -833,25 +839,7 @@
 }
 
 
-- (BOOL)needClear
-{
-	return needClear;
-}
-
-
-- (void)setNeedClear:(BOOL)flag
-{	 
-	needClear = flag;	
-}
-
-
-- (int)keyBuffer
-{
-	return keyBuffer;
-}
-
-
-- (void)setKeyBufffer:(int)value
+- (void)setKeyBuffer:(int)value
 {	 
 	switch ( modKeyFlag ) {
 		
@@ -934,7 +922,7 @@
 						[ _messenger setLastAttackDirection:3 ];
 						break;
 				}
-				//[ self setKeyBufffer:lkey ];
+				//[ self setKeyBuffer:lkey ];
 				break;
 			case PL_DIRECTION_RIGHT:
 				switch ( [ sender tag ] ) {
@@ -974,7 +962,7 @@
 						[ _messenger setLastAttackDirection:6 ];
 						break;
 				}
-				//[ self setKeyBufffer:lkey ];
+				//[ self setKeyBuffer:lkey ];
 				break;
 			case PL_DIRECTION_BACK:
 				switch ([sender tag]) {
@@ -1014,7 +1002,7 @@
 						[ _messenger setLastAttackDirection:9 ];
 						break;
 				}
-				//[ self setKeyBufffer:lkey ];
+				//[ self setKeyBuffer:lkey ];
 				break;
 			case PL_DIRECTION_LEFT:
 				switch ( [ sender tag ] ) {
@@ -1054,7 +1042,7 @@
 						[ _messenger setLastAttackDirection:12 ];
 						break;
 				}
-				//[ self setKeyBufffer:lkey ];
+				//[ self setKeyBuffer:lkey ];
 				break;
 		}
 	} else {
@@ -1086,7 +1074,7 @@
 		}
 	}
 	
-	[ self setKeyBufffer:lkey ];
+	[ self setKeyBuffer:lkey ];
 	lastKeyBuffer = keyBuffer;	
 	[ self setNeedClear:YES ];
 	[ self setKeyUpdated:YES ];
@@ -1348,7 +1336,7 @@
 
 
 
-- (void)nh3dEventHandlerLoopWithMask:(unsigned int)mask
+- (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
 {
 	NSAutoreleasePool *pool = nil;
 	NSEvent *event;
@@ -1435,38 +1423,38 @@
 									break;
 								default:
 									modKeyFlag = MODKEY_COMMAND;
-									[ self setKeyBufffer:(int)ch[0] ];
+									[ self setKeyBuffer:(int)ch[0] ];
 									break;
 							}
 						} else 
 					
 						switch ( ch[0] ) {
 							case '1': if ( iflags.num_pad ) [ _num1 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '2': if ( iflags.num_pad ) [ _num2 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '3': if ( iflags.num_pad ) [ _num3 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '4': if ( iflags.num_pad ) [ _num4 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '5':
 							case '.': [ _num5 performClick:self ]; 
 								break;
 							case '6': if ( iflags.num_pad ) [ _num6 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '7': if ( iflags.num_pad ) [ _num7 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '8': if ( iflags.num_pad ) [ _num8 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case '9': if ( iflags.num_pad ) [ _num9 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'f':[ [_cmdGroup2 cellWithTag:61] performClick:self ];
 								break;
@@ -1485,32 +1473,32 @@
 							case ':':[ _help2 performClick:self ];
 								break;
 							case 'b': if ( !iflags.num_pad ) [ _num1 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'j': if ( !iflags.num_pad ) [ _num2 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'n': if ( !iflags.num_pad ) [ _num3 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'h': if ( !iflags.num_pad ) [ _num4 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'l': if ( !iflags.num_pad ) [ _num6 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'y': if ( !iflags.num_pad ) [ _num7 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'k': if ( !iflags.num_pad ) [ _num8 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 							case 'u': if ( !iflags.num_pad ) [ _num9 performClick:self ];
-									  else [ self setKeyBufffer:(int)ch[0] ];
+									  else [ self setKeyBuffer:(int)ch[0] ];
 								break;
 								
 							default:
-								[ self setKeyBufffer:(int)ch[0] ];
+								[ self setKeyBuffer:(int)ch[0] ];
 								
 								break;
 						} // end switch (ch[0])

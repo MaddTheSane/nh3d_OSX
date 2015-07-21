@@ -18,6 +18,9 @@
 @end
 
 @implementation NH3DMapModel
+@synthesize cursX;
+@synthesize cursY;
+@synthesize playerDirection;
 
 - (id)init
 {
@@ -103,13 +106,11 @@
 
 - (void)stopIndicator
 {
-	[ indicatorTimer invalidate ];
-	[ indicatorTimer release ];
+	[indicatorTimer invalidate];
+	[indicatorTimer release];
 	indicatorTimer = nil;	 
 	indicatorIsActive = NO;
 }
-
-@synthesize playerDirection;
 
 - (void)setPlayerDirection:(int)direction
 {
@@ -175,10 +176,10 @@
 
 - (void)setDungeonNameString:(NSString *)aStr
 {	
-	[ aStr retain ];
-	[ dungeonNameString release ];
-	dungeonNameString = [ [NSAttributedString alloc] initWithString:aStr attributes:strAttributes ];
-	[ aStr release ];
+	[aStr retain];
+	[dungeonNameString release];
+	dungeonNameString = [[NSAttributedString alloc] initWithString:aStr attributes:strAttributes];
+	[aStr release];
 	[ _dungeonName setAttributedStringValue:dungeonNameString ];
 }
 
@@ -262,9 +263,6 @@
 		if ( TRADITIONAL_MAP ) [ _asciiMapView drawTraditionalMapAtX:x atY:y ];
 	}
 }
-
-@synthesize cursX;
-@synthesize cursY;
 
 - (void)setPosCursorAtX:(int)x atY:(int)y
 {

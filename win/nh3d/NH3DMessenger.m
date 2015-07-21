@@ -74,18 +74,17 @@ static const int DIALOG_CANCEL	= 129;
 
 - (id)init
 {
-		self = [ super init ];
-	if (self != nil) {
+	if (self = [super init]) {
 		//for view or backgrounded text field.
 		darkShadow = [ [NSShadow alloc] init ];
-			[ darkShadow setShadowColor:[NSColor colorWithCalibratedWhite:0.2 alpha:0.5] ];
-            [ darkShadow setShadowOffset:NSMakeSize(2, -2) ];
-            [ darkShadow setShadowBlurRadius:0.5 ];
+		[ darkShadow setShadowColor:[NSColor colorWithCalibratedWhite:0.2 alpha:0.5] ];
+		[ darkShadow setShadowOffset:NSMakeSize(2, -2) ];
+		[ darkShadow setShadowBlurRadius:0.5 ];
 		//for panel or window.
 		lightShadow = [[NSShadow alloc] init];
-			[ lightShadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] ];
-            [ lightShadow setShadowOffset:NSMakeSize(-1.5, 1.5) ];
-            [ lightShadow setShadowBlurRadius:1.6 ];
+		[ lightShadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:1.0] ];
+		[ lightShadow setShadowOffset:NSMakeSize(-1.5, 1.5) ];
+		[ lightShadow setShadowBlurRadius:1.6 ];
 		
 		msgArray = [ [NSMutableArray alloc] init ];
 		soundMessageArray = [ [NSMutableArray alloc] init ];
@@ -94,14 +93,14 @@ static const int DIALOG_CANCEL	= 129;
 		
 		effectMessageArray = [ [NSMutableArray alloc] init ];
 		effectTypeArray = [ [NSMutableArray alloc] init ];
-
+		
 		userSound = [ self loadSoundConfig ];
 		ripFlag = NO;
 		
 		movieView  = [ [QTMovieView alloc] init ];
 		
 	}
-		return self;
+	return self;
 }
 
 
@@ -243,7 +242,7 @@ static const int DIALOG_CANCEL	= 129;
 			case ATR_NONE:
 				break;
 			case ATR_ULINE:
-				[ darkShadowStrAttributes setObject:[NSNumber numberWithInt:1]
+				[ darkShadowStrAttributes setObject:@(NSUnderlineStyleSingle)
 											 forKey:NSUnderlineStyleAttributeName ];
 				break;
 			case ATR_BOLD:
@@ -252,10 +251,8 @@ static const int DIALOG_CANCEL	= 129;
 				break;
 			case ATR_BLINK:
 			case ATR_INVERSE:
-				[ darkShadowStrAttributes setObject:[NSColor alternateSelectedControlTextColor]
-											 forKey:NSForegroundColorAttributeName ];
-				[darkShadowStrAttributes setObject:[NSColor alternateSelectedControlColor]
-											forKey:NSBackgroundColorAttributeName ];
+				darkShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor alternateSelectedControlTextColor];
+				darkShadowStrAttributes[NSBackgroundColorAttributeName] =[NSColor alternateSelectedControlColor];
 		}
 		
 		putString = [ [NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",
@@ -265,11 +262,11 @@ static const int DIALOG_CANCEL	= 129;
 
 		
 		if ( [ msgArray count ] < iflags.msg_history ) {
-			 [ msgArray addObject:[NSNumber numberWithInt:[putString length]] ];
+			 [ msgArray addObject:@([putString length]) ];
 		} else {
 			[ [_messeageWindow textStorage] deleteCharactersInRange:NSMakeRange(0,[[msgArray objectAtIndex:0] intValue]) ];
 			[ msgArray removeObjectAtIndex:0 ];
-			[ msgArray addObject:[NSNumber numberWithInt:[putString length]] ];
+			[ msgArray addObject:@([putString length]) ];
 		}
 				
 		[ [_messeageWindow textStorage] addAttribute:NSForegroundColorAttributeName
@@ -381,33 +378,27 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)showOutRip:(const char *)ripString
 {
-	int i;
-	
 	ripFlag = YES;
 
 	
 	[ self prepareAttributes ];
 	[ style setAlignment:NSCenterTextAlignment ];
 
-	[ lightShadowStrAttributes setObject:style
-								  forKey:NSParagraphStyleAttributeName ];
-	[ lightShadowStrAttributes setObject:[NSFont fontWithName:@"Optima Bold" size:11] 
-								  forKey:NSFontAttributeName ];
-		
+	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Optima Bold" size:11];
+	
 
 	[ _deathDescription setAttributedStringValue:
 				[[[NSAttributedString alloc] initWithString:
 								[NSString stringWithCString:ripString encoding:NH3DTEXTENCODING]
 												 attributes:lightShadowStrAttributes] autorelease] ];
 	
-	[ _ripPanel setAlphaValue:0 ];
+	_ripPanel.alphaValue = 0;
 	[ _ripPanel orderFront:self ];
-	// window fade out/in 
-	for ( i=10 ; i>=0 ; i-- ) {
-		[ _window setAlphaValue: i*0.1 ];
-		[ _ripPanel setAlphaValue: (i-10)*-0.1 ];
-		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ]; 
-	}
+	// window fade out/in
+	_window.animator.alphaValue = 0;
+	_ripPanel.animator.alphaValue = 1;
+	
 	[ _ripPanel flushWindow ];
 }
 
@@ -441,11 +432,11 @@ static const int DIALOG_CANCEL	= 129;
 - (BOOL)showLogPanel
 {
 	int i;
-	id ripOrMainWindow = nil;
+	NSWindow *ripOrMainWindow = nil;
 	
 	[ _rawPrintPanel setAlphaValue:0 ];
 	[ _rawPrintPanel makeKeyAndOrderFront:self ];
-	// window fade out/in 
+	// window fade out/in
 	
 	if ( ripFlag ) {
 		ripOrMainWindow = _ripPanel;
@@ -453,18 +444,15 @@ static const int DIALOG_CANCEL	= 129;
 	} else {
 		ripOrMainWindow = _window;
 	}
-		
-		for ( i=10 ; i>=0 ; i-- ) {
-			[ ripOrMainWindow setAlphaValue: i*0.1 ];
-			[ _rawPrintPanel setAlphaValue: (i-10)*-0.1 ];
-			[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ]; 
-		}
-
+	
+	[ripOrMainWindow animator].alphaValue = 0;
+	[_rawPrintPanel animator].alphaValue = 1;
+	
 	[ NSApp runModalForWindow:_rawPrintPanel ];
 	[ _rawPrintPanel orderOut:self ];
 	
 	return YES;
-
+	
 }
 
 - (void)setLastAttackDirection:(int)direction

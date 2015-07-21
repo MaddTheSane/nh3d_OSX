@@ -26,7 +26,7 @@
 	
 	//NSImage			*img;
 	NSSize			stringSize;
-	unsigned		strLength;
+	NSUInteger		strLength;
 	
 }
 
@@ -44,12 +44,12 @@
 - (NSImage *)glyph;
 - (NSImage *)smallGlyph;
 - (anything)identifier;
-- (BOOL)isSelectable;
-- (BOOL)isPreSelected;
-- (BOOL)isSelected;
+@property (readwrite, getter=isSelectable) BOOL selectable;
+@property (readonly, getter=isPreSelected) BOOL preSelected;
+@property (readwrite, getter=isSelected) BOOL selected;
 
-- (NSSize)stringSize;
-- (unsigned)strLength;
+@property (readonly) NSSize stringSize;
+@property (readonly) NSUInteger strLength;
 
 
 - (void)setName:(const char*)nameStr;
@@ -60,6 +60,4 @@
 - (void)setAttribute:(int)attrValue;
 
 - (void)setPreselect:(BOOLEAN_P)preselectValue;
-- (void)setSelectable:(BOOL)flag;
-- (void)setSelected:(BOOL)flag;
 @end
