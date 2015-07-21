@@ -1655,24 +1655,22 @@
 			}
 			
 			if ( [ mapcell hasCursor ] ) { // Check cursor postion and drawing.
-				NSShadow* sd = [ [NSShadow alloc] init ];
-				NSSize cursOrigin = [ posCursor size ];
+				NSShadow* sd = [[NSShadow alloc] init];
+				NSSize cursOrigin = [posCursor size];
 				cusx = x;
 				cusy = y;
-				[ NSGraphicsContext saveGraphicsState ];
+				[NSGraphicsContext saveGraphicsState];
 				[ sd setShadowOffset : NSMakeSize( 2, -2 ) ]; 
 				[ sd setShadowBlurRadius : 3 ];
-				[ sd setShadowColor : [ NSColor blackColor ] ];
+				[sd setShadowColor: [NSColor blackColor]];
 				[ sd set ];
-				[ posCursor setScalesWhenResized:YES ];
 				[ posCursor setSize:drawSize ];
 				[ posCursor dissolveToPoint:NSMakePoint(drawSize.width * (float)x,
 													   imgSize.height - (drawSize.height * (float)y))
 								   fraction:1.0 ];
 				[ posCursor setSize:cursOrigin ];
-				[ posCursor setScalesWhenResized:NO ];
-				[ NSGraphicsContext restoreGraphicsState ];
-				[ sd release ];
+				[NSGraphicsContext restoreGraphicsState];
+				[sd release];
 				
 			}
 			
@@ -1693,10 +1691,10 @@
 	[ _mapLview scrollPoint:NSMakePoint(drawSize.width * (float)(cusx - 7),
 									   imgSize.height - (drawSize.height * (float)(cusy + 7))) ];
 	
-	[ pool release ];
+	[pool release];
 	
 	// Sheet is Up.
-	pool = [ [NSAutoreleasePool alloc] init ];
+	pool = [[NSAutoreleasePool alloc] init];
 	
 	[ NSApp		beginSheet:_mapLpanel
 			modalForWindow:_window
@@ -1714,8 +1712,7 @@
 	[ mapImage release ];
 	[ _mapLview setImage:nil];
 	
-	[ pool release ];
-	
+	[pool release];
 }
 
 

@@ -48,6 +48,7 @@ extern void FDECL(nethack_exit,(int));
 #endif
 /* NetHack3D */
 # ifdef NH3D_GRAPHICS
+extern void nethack3d_exit(int status);
 # define nethack_exit nethack3d_exit
 #else
 #define nethack_exit exit

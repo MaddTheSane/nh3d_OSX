@@ -60,8 +60,8 @@ static void NDECL(wd_message);
 
 // set Localized String's Text encoding(used only for hard corded strings in 'C' source files)
 // localized 'Cocoa' Strings use '<your locale>.iproj/Localizable.strings'file. that format is "baseStr"="LocalStr";.  
-//const int NH3DTEXTENCODING = NSJapaneseEUCStringEncoding;
-const int NH3DTEXTENCODING = NSASCIIStringEncoding;
+const NSStringEncoding NH3DTEXTENCODING = NSJapaneseEUCStringEncoding;
+//const NSStringEncoding NH3DTEXTENCODING = NSASCIIStringEncoding;
 
 
 // UserDefaultKeys
@@ -684,8 +684,8 @@ void nh3d_end_menu(winid wid, const char *prompt)
 
 int nh3d_select_menu(winid wid, int how, menu_item **selected)
 {
-	NSAutoreleasePool* pool = [ [NSAutoreleasePool alloc] init ];
 	int ret = -1;
+	@autoreleasepool {
 	
 	if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
 		if ( [ _NH3DMenuWindow isMenu ] ) {
@@ -695,7 +695,7 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 		}
 	}
 	
-	[ pool release ];
+	}
 	return ret;
 }
 
@@ -1082,7 +1082,7 @@ void nh3d_set_savefile_name()
 	NSAutoreleasePool* pool = [ [NSAutoreleasePool alloc] init ];
 	NSString *saveString;
 	saveString = [ NSString stringWithFormat:@"%d%@",(int)getuid(),[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
-	Strcpy(SAVEF,[ saveString UTF8String ]);
+	Strcpy(SAVEF,[ saveString fileSystemRepresentation ]);
 	[ pool release ];
 }
 #endif
@@ -1544,7 +1544,7 @@ You("スコアの載らない発見モードで起動した．");
 				initoptions();
 				init_jtrns();
 				prscore(argc, argv);
-				jputchar('\0'); /* reset */
+				jputchar('\0');*/ /* reset */
 
 						 prscore(argc, argv);
 

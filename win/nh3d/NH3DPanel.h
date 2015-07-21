@@ -4,9 +4,6 @@
 #import "NH3Dcommon.h"
 
 @interface NH3DPanel : NSPanel
-{
-
-}
 
 @end
 

@@ -23,7 +23,7 @@ extern NSString *NH3DBoldFontSizeKey;
 extern NSString *NH3DInventryFontSizeKey;
 extern NSString *NH3DWindowFontSizeKey;
 
-extern const int NH3DTEXTENCODING;
+extern const NSStringEncoding NH3DTEXTENCODING;
 
 // for font
 #define NH3DMSGFONT		[ [NSUserDefaults standardUserDefaults] stringForKey:NH3DMsgFontKey ]

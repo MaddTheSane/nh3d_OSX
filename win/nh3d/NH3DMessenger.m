@@ -411,14 +411,16 @@ static const int DIALOG_CANCEL	= 129;
 	
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Courier Bold" size:12];
 	
-	putStr = [[NSAttributedString alloc] initWithString:rawText
+	putStr = [[NSAttributedString alloc] initWithString:[rawText stringByAppendingString:@"\n"]
 											 attributes:lightShadowStrAttributes];
 	
 	_rawPrintWindow.editable = YES;
 	[_rawPrintWindow.textStorage appendAttributedString:putStr];
-	[_rawPrintWindow.textStorage appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n"] autorelease]];
+	//[_rawPrintWindow.textStorage appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\n"] autorelease]];
 	_rawPrintWindow.editable = NO;
+#ifdef DEBUG
 	NSLog(@"%@", rawText);
+#endif
 	
 	[putStr release];
 }

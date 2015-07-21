@@ -3,6 +3,6 @@
 //
 
 #ifdef __OBJC__
-//    #import <Cocoa/Cocoa.h>
+    #import <Cocoa/Cocoa.h>
     #import "NH3Dcommon.h"
 #endif
