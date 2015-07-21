@@ -1085,11 +1085,11 @@ extern id _NH3DTileCache;
 {
 	if ( stHunger || stConfuse || stSick || stIll || stBlind || stStun || stHallu )
 		{	
-		if ( [ stDrawer state ] == NSDrawerClosedState ) {
-			[ stDrawer open ];
-			[ [ NSSound soundNamed:@"Purr" ] play ];
+		if ([stDrawer state] == NSDrawerClosedState) {
+			[stDrawer open];
+			[[NSSound soundNamed:@"Purr"] play];
 		}
-	} else if ( [ stDrawer state ] != NSDrawerClosedState )
+	} else if ([stDrawer state] != NSDrawerClosedState)
 		[stDrawer close];
 		
 }

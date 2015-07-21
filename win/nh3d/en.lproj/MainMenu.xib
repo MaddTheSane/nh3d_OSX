@@ -1617,7 +1617,7 @@
             <connections>
                 <outlet property="delegate" destination="5089" id="5211"/>
             </connections>
-            <point key="canvasLocation" x="163" y="478"/>
+            <point key="canvasLocation" x="332" y="714"/>
         </window>
         <menu title="Nethack3d" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
@@ -1673,7 +1673,7 @@
                             <menuItem isSeparatorItem="YES" id="4849">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Quit without Save..." tag="20" keyEquivalent="q" id="4851">
+                            <menuItem title="Quit without Saving…" tag="20" keyEquivalent="q" id="4851">
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6413"/>
                                 </connections>
@@ -1714,13 +1714,13 @@
                                     <action selector="otherMenuActions:" target="5648" id="5852"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Compilation..." tag="7" keyEquivalent="v" id="5028">
+                            <menuItem title="Compilation…" tag="7" keyEquivalent="v" id="5028">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5853"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="History..." tag="8" keyEquivalent="V" id="5029">
+                            <menuItem title="History…" tag="8" keyEquivalent="V" id="5029">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5854"/>
@@ -2180,7 +2180,7 @@
                                     <action selector="otherMenuActions:" target="5648" id="5913"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="What is..." tag="3" id="501">
+                            <menuItem title="What is…" tag="3" id="501">
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="5914"/>
                                 </connections>
@@ -3160,7 +3160,7 @@ DQ
                                     <action selector="otherMenuActions:" target="5648" id="6156"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="What is ..." tag="3" id="6082">
+                            <menuItem title="What is…" tag="3" id="6082">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6157"/>
@@ -3237,18 +3237,18 @@ DQ
                 <menuItem title="Game" id="5924">
                     <menu key="submenu" title="Game" id="5925">
                         <items>
-                            <menuItem title="Version ..." tag="6" id="6006">
+                            <menuItem title="Version…" tag="6" id="6006">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6095"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Compilation ..." tag="7" id="6007">
+                            <menuItem title="Compilation…" tag="7" id="6007">
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6096"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="History ..." tag="8" id="6008">
+                            <menuItem title="History…" tag="8" id="6008">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6097"/>
@@ -3711,7 +3711,7 @@ DQ
                                     <action selector="otherMenuActions:" target="5648" id="6715"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="What is ..." tag="3" id="6576">
+                            <menuItem title="What is…" tag="3" id="6576">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6716"/>
@@ -3788,18 +3788,18 @@ DQ
                 <menuItem title="Game" id="6640">
                     <menu key="submenu" title="Game" id="6641">
                         <items>
-                            <menuItem title="Version ..." tag="6" id="6642">
+                            <menuItem title="Version…" tag="6" id="6642">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6726"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Compilation ..." tag="7" id="6643">
+                            <menuItem title="Compilation…" tag="7" id="6643">
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6727"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="History ..." tag="8" id="6644">
+                            <menuItem title="History…" tag="8" id="6644">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="otherMenuActions:" target="5648" id="6728"/>
