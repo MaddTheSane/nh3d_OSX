@@ -1486,6 +1486,7 @@
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
+		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -3560,6 +3561,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2B29B1DD08E0EDFD00951AF7 /* en */,
+				55459F8A1B5DFD690098F5BC /* ja */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";

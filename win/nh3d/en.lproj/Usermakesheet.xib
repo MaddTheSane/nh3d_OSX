@@ -394,7 +394,7 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="104">
                             <font key="font" size="10" name="Copperplate"/>
-                            <string key="title">Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985.
+                            <string key="title">Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.
 NetHack may be freely redistributed.  See license for details.</string>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

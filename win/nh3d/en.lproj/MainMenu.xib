@@ -2406,7 +2406,7 @@
                     <button verticalHuggingPriority="750" id="5312">
                         <rect key="frame" x="275" y="12" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Okey" bezelStyle="rounded" alignment="center" continuous="YES" state="on" borderStyle="border" inset="2" id="6943">
+                        <buttonCell key="cell" type="push" title="Okay" bezelStyle="rounded" alignment="center" continuous="YES" state="on" borderStyle="border" inset="2" id="6943">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -3349,7 +3349,7 @@ DQ
                     <button verticalHuggingPriority="750" id="6808">
                         <rect key="frame" x="34" y="19" width="35" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="zoomin" imagePosition="below" alignment="center" borderStyle="border" id="6965">
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="zoomin" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="6965">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="label"/>
                         </buttonCell>
@@ -3360,7 +3360,7 @@ DQ
                     <button verticalHuggingPriority="750" tag="-1" id="6810">
                         <rect key="frame" x="68" y="19" width="35" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="zoomout" imagePosition="below" alignment="center" borderStyle="border" tag="-1" id="6966">
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="zoomout" imagePosition="only" alignment="center" borderStyle="border" tag="-1" imageScaling="proportionallyDown" id="6966">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="label"/>
                         </buttonCell>
@@ -3884,7 +3884,7 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="6969">
                             <font key="font" size="10" name="Copperplate"/>
-                            <string key="title">Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985.
+                            <string key="title">Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.
 NetHack may be freely redistributed.  See license for details.</string>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
