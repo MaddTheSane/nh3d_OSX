@@ -156,7 +156,7 @@ typedef struct {
 
 - (NH3DVertexType)particleGravity;
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
-- (void)setParticleType:(NH3DParticleType)type;
+@property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
 - (void)setParticleSpeedX:(float)x Y:(float)y;
 - (void)setParticleSlowdown:(float)value;

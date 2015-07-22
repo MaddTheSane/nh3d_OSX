@@ -20,7 +20,8 @@ STATIC_DCL void FDECL(maze0xy,(coord *));
 STATIC_DCL boolean FDECL(put_lregion_here,(XCHAR_P,XCHAR_P,XCHAR_P,
 	XCHAR_P,XCHAR_P,XCHAR_P,XCHAR_P,BOOLEAN_P,d_level *));
 STATIC_DCL void NDECL(fixup_special);
-STATIC_DCL void FDECL(move, (int *,int *,int));
+#undef move
+STATIC_DCL void FDECL(move, (int *,int *,int)) __attribute__((overloadable));
 STATIC_DCL void NDECL(setup_waterlevel);
 STATIC_DCL void NDECL(unsetup_waterlevel);
 
@@ -742,7 +743,7 @@ int x,y;
 #endif /* MICRO */
 
 STATIC_OVL void
-move(x,y,dir)
+__attribute__((overloadable)) move(x,y,dir)
 register int *x, *y;
 register int dir;
 {

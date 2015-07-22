@@ -6,6 +6,7 @@
 
 #ifdef OVL0
 
+#define expl explA
 /* Note: Arrays are column first, while the screen is row first */
 static int expl[3][3] = {
 	{ S_explode1, S_explode4, S_explode7 },

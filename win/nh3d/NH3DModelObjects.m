@@ -45,6 +45,7 @@ static NH3DMaterial defaultMat = {
 @synthesize active;
 @synthesize animationRate;
 @synthesize animationValue;
+@synthesize particleType;
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {

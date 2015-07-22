@@ -1311,8 +1311,10 @@ static void floorfunc_default( id self )
 		panCameraImp( self,@selector( panCamera ) );
 		dorryCameraImp( self,@selector( dorryCamera ) );
 		
-		if ( isFloating ) floatingCameraImp( self,@selector( floatingCamera) );
-		if ( isShocked ) shockedCameraImp( self,@selector( shockedCamera ) );
+		if ( isFloating )
+			[self floatingCamera];
+		if ( isShocked )
+			[self shockedCamera];
 		
 		// draw models
 		// at first. normal objects
@@ -1406,10 +1408,11 @@ static void floorfunc_default( id self )
 		id model = [modelDictionary objectForKey:modelNum];
 		
 		if ( model == nil && !defaultTex[ glyph ] ) {
-			id newModel = loadModelAddreses[ glyph ]( self, loadModelSelectors[ glyph ], glyph );
+			
+			NH3DModelObjects *newModel = loadModelBlocks[glyph](glyph);
 			if ( newModel != nil ) {
 				if ( glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF ) {
-					[ newModel setAnimated:YES ];
+					newModel.animated = YES;
 					[ newModel setAnimationRate:( ( float )( random() %5 )*0.1 )+0.5 ];
 					[ newModel setPivotX:0.0 atY:0.3 atZ:0.0 ];
 					[ newModel setUseEnvironment:YES ];
@@ -2157,12 +2160,12 @@ static void floorfunc_default( id self )
 }
 
 
-- ( id )checkLoadedModelsAt:(int)startNum
-						 to:(int)endNum
-					 offset:(int)offset
-				  modelName:(NSString *)mName
-				   textured:(BOOL)flag
-					withOut:(int)without, ...
+- (id)checkLoadedModelsAt:(int)startNum
+					   to:(int)endNum
+				   offset:(int)offset
+				modelName:(NSString *)mName
+				 textured:(BOOL)flag
+				  withOut:(int)without, ...
 {
 	int i;
 	va_list argumentList;
@@ -3389,7 +3392,7 @@ static void floorfunc_default( id self )
 										   offset:GLYPH_MON_OFF
 										modelName:@"atmark"
 										 textured:NO
-										  withOut:PM_KING_ARTHUR,nil ];
+										  withOut:PM_KING_ARTHUR, nil];
 				 
 				 if ( ![ ret hasChildObject ] ) {
 					 [ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
@@ -4472,1177 +4475,936 @@ static void floorfunc_default( id self )
 	drawFloorArray[ 7 ] = &floorfunc_7;
 	drawFloorArray[ 8 ] = &floorfunc_8;
 	
-	for ( i = 0; i < MAX_GLYPH ; i++ ) {
-		loadModelAddreses[ i ] = [ self methodForSelector:@selector( loadModelFunc_default: ) ];
-		loadModelSelectors[ i ] = @selector( loadModelFunc_default: );
+	{
+		LoadModelBlock defaultBlock = ^(int glyph) {
+			return (id)nil;
+		};
+		for ( i = 0; i < MAX_GLYPH ; i++ ) {
+			loadModelBlocks[i] = [defaultBlock copy];
+		}
 	}
 	
 	// insect class
-	loadModelAddreses[ PM_GIANT_ANT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_insect:) ];
-	loadModelAddreses[ PM_KILLER_BEE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_insect:) ];
-	loadModelAddreses[ PM_SOLDIER_ANT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_insect:) ];
-	loadModelAddreses[ PM_FIRE_ANT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_insect:) ];
-	loadModelAddreses[ PM_GIANT_BEETLE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_insect:) ];
-	loadModelAddreses[ PM_QUEEN_BEE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_insect:) ];
+	LoadModelBlock insectBlock = ^(int glyph) {
+		return [self loadModelFunc_insect:glyph];
+	};
+	loadModelBlocks[PM_GIANT_ANT+GLYPH_MON_OFF ] =		[insectBlock copy];
+	loadModelBlocks[PM_KILLER_BEE+GLYPH_MON_OFF ] =		[insectBlock copy];
+	loadModelBlocks[PM_SOLDIER_ANT+GLYPH_MON_OFF ] =	[insectBlock copy];
+	loadModelBlocks[PM_FIRE_ANT+GLYPH_MON_OFF ] =		[insectBlock copy];
+	loadModelBlocks[PM_GIANT_BEETLE+GLYPH_MON_OFF ] =	[insectBlock copy];
+	loadModelBlocks[PM_QUEEN_BEE+GLYPH_MON_OFF ] =		[insectBlock copy];
+	
 	// blob class
-	loadModelAddreses[ PM_ACID_BLOB+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_blob:) ];
-	loadModelAddreses[ PM_QUIVERING_BLOB+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_blob:) ];
-	loadModelAddreses[ PM_GELATINOUS_CUBE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_blob:) ];
+	LoadModelBlock blobBlock = ^(int glyph) {
+		return [self loadModelFunc_blob:glyph];
+	};
+	loadModelBlocks[ PM_ACID_BLOB+GLYPH_MON_OFF ] =			[blobBlock copy];
+	loadModelBlocks[ PM_QUIVERING_BLOB+GLYPH_MON_OFF ] =	[blobBlock copy];
+	loadModelBlocks[ PM_GELATINOUS_CUBE+GLYPH_MON_OFF ] =	[blobBlock copy];
+	
 	// cockatrice class
-	loadModelAddreses[ PM_CHICKATRICE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cockatrice:) ];
-	loadModelAddreses[ PM_COCKATRICE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cockatrice:) ];
-	loadModelAddreses[ PM_PYROLISK+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cockatrice:) ];		
+	LoadModelBlock cockatriceBlock = ^(int glyph) {
+		return [self loadModelFunc_cockatrice:glyph];
+	};
+	loadModelBlocks[ PM_CHICKATRICE+GLYPH_MON_OFF ] =	[cockatriceBlock copy];
+	loadModelBlocks[ PM_COCKATRICE+GLYPH_MON_OFF ] =	[cockatriceBlock copy];
+	loadModelBlocks[ PM_PYROLISK+GLYPH_MON_OFF ] =		[cockatriceBlock copy];
+	
 	// dog or canine class
-	loadModelAddreses[ PM_JACKAL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_FOX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_COYOTE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_WEREJACKAL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_LITTLE_DOG+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_DOG+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_LARGE_DOG+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_DINGO+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_WOLF+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_WEREWOLF+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_WARG+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_WINTER_WOLF_CUB+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_WINTER_WOLF+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_HELL_HOUND_PUP+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
-	loadModelAddreses[ PM_HELL_HOUND+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_dog:) ];
+	LoadModelBlock dogBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_JACKAL
+									  to:PM_HELL_HOUND
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerD" textured:NO withOut:0];
+	};
+	loadModelBlocks[ PM_JACKAL+GLYPH_MON_OFF ] =		[dogBlock copy];
+	loadModelBlocks[ PM_FOX+GLYPH_MON_OFF ] =			[dogBlock copy];
+	loadModelBlocks[ PM_COYOTE+GLYPH_MON_OFF ] =		[dogBlock copy];
+	loadModelBlocks[ PM_WEREJACKAL+GLYPH_MON_OFF ] =	[dogBlock copy];
+	loadModelBlocks[ PM_LITTLE_DOG+GLYPH_MON_OFF ] =	[dogBlock copy];
+	loadModelBlocks[ PM_DOG+GLYPH_MON_OFF ] =			[dogBlock copy];
+	loadModelBlocks[ PM_LARGE_DOG+GLYPH_MON_OFF ] =		[dogBlock copy];
+	loadModelBlocks[ PM_DINGO+GLYPH_MON_OFF ] =			[dogBlock copy];
+	loadModelBlocks[ PM_WOLF+GLYPH_MON_OFF ] =			[dogBlock copy];
+	loadModelBlocks[ PM_WEREWOLF+GLYPH_MON_OFF ] =		[dogBlock copy];
+	loadModelBlocks[ PM_WARG+GLYPH_MON_OFF ] =			[dogBlock copy];
+	loadModelBlocks[PM_WINTER_WOLF_CUB+GLYPH_MON_OFF] = [dogBlock copy];
+	loadModelBlocks[ PM_WINTER_WOLF+GLYPH_MON_OFF ] =	[dogBlock copy];
+	loadModelBlocks[PM_HELL_HOUND_PUP+GLYPH_MON_OFF] =	[dogBlock copy];
+	loadModelBlocks[ PM_HELL_HOUND+GLYPH_MON_OFF ] =	[dogBlock copy];
+	
 	// eye or sphere class
-	loadModelAddreses[ PM_GAS_SPORE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_sphere:) ];
-	loadModelAddreses[ PM_FLOATING_EYE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_sphere:) ];
-	loadModelAddreses[ PM_FREEZING_SPHERE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_sphere:) ];
-	loadModelAddreses[ PM_FLAMING_SPHERE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_sphere:) ];
-	loadModelAddreses[ PM_SHOCKING_SPHERE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_sphere:) ];
+	LoadModelBlock sphereBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_GAS_SPORE
+									  to:PM_SHOCKING_SPHERE
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerE" textured:NO withOut:0];
+	};
+	loadModelBlocks[PM_GAS_SPORE+GLYPH_MON_OFF] =		[sphereBlock copy];
+	loadModelBlocks[PM_FLOATING_EYE+GLYPH_MON_OFF] =	[sphereBlock copy];
+	loadModelBlocks[PM_FREEZING_SPHERE+GLYPH_MON_OFF] =	[sphereBlock copy];
+	loadModelBlocks[PM_FLAMING_SPHERE+GLYPH_MON_OFF] =	[sphereBlock copy];
+	loadModelBlocks[PM_SHOCKING_SPHERE+GLYPH_MON_OFF] =	[sphereBlock copy];
 	
 	// cat or feline class
-	loadModelAddreses[ PM_KITTEN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-	loadModelAddreses[ PM_HOUSECAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-	loadModelAddreses[ PM_JAGUAR+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-	loadModelAddreses[ PM_LYNX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-	loadModelAddreses[ PM_PANTHER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-	loadModelAddreses[ PM_LARGE_CAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-	loadModelAddreses[ PM_TIGER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_cat:) ];
-		
+	LoadModelBlock catBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_KITTEN
+									  to:PM_TIGER
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerF" textured:NO withOut:0];
+	};
+	loadModelBlocks[ PM_KITTEN+GLYPH_MON_OFF ] =	[catBlock copy];
+	loadModelBlocks[ PM_HOUSECAT+GLYPH_MON_OFF ] =	[catBlock copy];
+	loadModelBlocks[ PM_JAGUAR+GLYPH_MON_OFF ] =	[catBlock copy];
+	loadModelBlocks[ PM_LYNX+GLYPH_MON_OFF ] =		[catBlock copy];
+	loadModelBlocks[ PM_PANTHER+GLYPH_MON_OFF ] =	[catBlock copy];
+	loadModelBlocks[ PM_LARGE_CAT+GLYPH_MON_OFF ] = [catBlock copy];
+	loadModelBlocks[ PM_TIGER+GLYPH_MON_OFF ] =		[catBlock copy];
+	
 	// gremlins and gagoyles class
-	loadModelAddreses[ PM_GREMLIN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_gremlins:) ];
-	loadModelAddreses[ PM_GARGOYLE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_gremlins:) ];
-	loadModelAddreses[ PM_WINGED_GARGOYLE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_gremlins:) ];
-			
+	LoadModelBlock gremlinsBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_GREMLIN
+									  to:PM_WINGED_GARGOYLE
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerG" textured:NO withOut:0];
+	};
+	loadModelBlocks[PM_GREMLIN+GLYPH_MON_OFF] =			[gremlinsBlock copy];
+	loadModelBlocks[PM_GARGOYLE+GLYPH_MON_OFF] =		[gremlinsBlock copy];
+	loadModelBlocks[PM_WINGED_GARGOYLE+GLYPH_MON_OFF] =	[gremlinsBlock copy];
+	
 	// humanoids class
-	loadModelAddreses[ PM_DWARF_KING+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
-	loadModelAddreses[ PM_HOBBIT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
-	loadModelAddreses[ PM_DWARF+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
-	loadModelAddreses[ PM_BUGBEAR+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
-	loadModelAddreses[ PM_DWARF_LORD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
-	loadModelAddreses[ PM_MIND_FLAYER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
-	loadModelAddreses[ PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_humanoids:) ];
+	LoadModelBlock humanoidsBlock = ^(int glyph) {
+		return [self loadModelFunc_humanoids:glyph];
+	};
+	loadModelBlocks[PM_DWARF_KING+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
+	loadModelBlocks[PM_HOBBIT+GLYPH_MON_OFF ] =				[humanoidsBlock copy];
+	loadModelBlocks[PM_DWARF+GLYPH_MON_OFF ] =				[humanoidsBlock copy];
+	loadModelBlocks[PM_BUGBEAR+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
+	loadModelBlocks[PM_DWARF_LORD+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
+	loadModelBlocks[PM_MIND_FLAYER+GLYPH_MON_OFF ] =		[humanoidsBlock copy];
+	loadModelBlocks[PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF ] =	[humanoidsBlock copy];
 	// imp and minor demons
-	loadModelAddreses[ PM_MANES+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_imp:) ];
-	loadModelAddreses[ PM_HOMUNCULUS+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_imp:) ];
-	loadModelAddreses[ PM_IMP+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_imp:) ];
-	loadModelAddreses[ PM_LEMURE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_imp:) ];
-	loadModelAddreses[ PM_QUASIT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_imp:) ];
-	loadModelAddreses[ PM_TENGU+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_imp:) ];
-		
+	LoadModelBlock impBlock = ^(int glyph) {
+		return [self loadModelFunc_imp:glyph];
+	};
+	loadModelBlocks[ PM_MANES+GLYPH_MON_OFF ] =			[impBlock copy];
+	loadModelBlocks[ PM_HOMUNCULUS+GLYPH_MON_OFF ] =	[impBlock copy];
+	loadModelBlocks[ PM_IMP+GLYPH_MON_OFF ] =			[impBlock copy];
+	loadModelBlocks[ PM_LEMURE+GLYPH_MON_OFF ] =		[impBlock copy];
+	loadModelBlocks[ PM_QUASIT+GLYPH_MON_OFF ] =		[impBlock copy];
+	loadModelBlocks[ PM_TENGU+GLYPH_MON_OFF ] =			[impBlock copy];
+	
 	// jellys
-	loadModelAddreses[ PM_BLUE_JELLY+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_jellys:) ];
-	loadModelAddreses[ PM_SPOTTED_JELLY+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_jellys:) ];
-	loadModelAddreses[ PM_OCHRE_JELLY+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_jellys:) ];
+	LoadModelBlock jellyBlock = ^(int glyph) {
+		return [self loadModelFunc_jellys:glyph];
+	};
+	loadModelBlocks[ PM_BLUE_JELLY+GLYPH_MON_OFF ] =	[jellyBlock copy];
+	loadModelBlocks[ PM_SPOTTED_JELLY+GLYPH_MON_OFF ] =	[jellyBlock copy];
+	loadModelBlocks[ PM_OCHRE_JELLY+GLYPH_MON_OFF ] =	[jellyBlock copy];
+	
 	// kobolds
-	loadModelAddreses[ PM_KOBOLD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_kobolds:) ];
-	loadModelAddreses[ PM_LARGE_KOBOLD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_kobolds:) ];
-	loadModelAddreses[ PM_KOBOLD_LORD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_kobolds:) ];
-	loadModelAddreses[ PM_KOBOLD_SHAMAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_kobolds:) ];
+	LoadModelBlock koboldBlock = ^(int glyph) {
+		return [self loadModelFunc_kobolds:glyph];
+	};
+	loadModelBlocks[ PM_KOBOLD+GLYPH_MON_OFF ] =			[koboldBlock copy];
+	loadModelBlocks[ PM_LARGE_KOBOLD+GLYPH_MON_OFF ] =		[koboldBlock copy];
+	loadModelBlocks[ PM_KOBOLD_LORD+GLYPH_MON_OFF ] =		[koboldBlock copy];
+	loadModelBlocks[ PM_KOBOLD_SHAMAN + GLYPH_MON_OFF ] =	[koboldBlock copy];
 	// leprechaun
-	loadModelAddreses[ PM_LEPRECHAUN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_leprechaun:) ];
+	loadModelBlocks[ PM_LEPRECHAUN+GLYPH_MON_OFF ] = [^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"lowerL" withTexture:NO];
+	} copy];
 	// mimics
-	loadModelAddreses[ PM_SMALL_MIMIC+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_mimics:) ];
-	loadModelAddreses[ PM_LARGE_MIMIC+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_mimics:) ];
-	loadModelAddreses[ PM_GIANT_MIMIC+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_mimics:) ];
+	LoadModelBlock mimicBlock = ^(int glyph) {
+		return [self loadModelFunc_mimics:glyph];
+	};
+	loadModelBlocks[ PM_SMALL_MIMIC+GLYPH_MON_OFF ] = [mimicBlock copy];
+	loadModelBlocks[ PM_LARGE_MIMIC+GLYPH_MON_OFF ] = [mimicBlock copy];
+	loadModelBlocks[ PM_GIANT_MIMIC+GLYPH_MON_OFF ] = [mimicBlock copy];
 	// nymphs
-	loadModelAddreses[ PM_WOOD_NYMPH+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_nymphs:) ];
-	loadModelAddreses[ PM_WATER_NYMPH+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_nymphs:) ];
-	loadModelAddreses[ PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_nymphs:) ];
+	LoadModelBlock nymphBlock = ^(int glyph) {
+		return [self loadModelFunc_nymphs:glyph];
+	};
+	loadModelBlocks[ PM_WOOD_NYMPH+GLYPH_MON_OFF ] = [nymphBlock copy];
+	loadModelBlocks[ PM_WATER_NYMPH+GLYPH_MON_OFF ] = [nymphBlock copy];
+	loadModelBlocks[ PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF ] = [nymphBlock copy];
 	// orc class
-	loadModelAddreses[ PM_ORC_SHAMAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_GOBLIN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_HOBGOBLIN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_ORC+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_HILL_ORC+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_MORDOR_ORC+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_URUK_HAI+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
-	loadModelAddreses[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_orc:) ];
+	LoadModelBlock orcBlock = ^(int glyph) {
+		return [self loadModelFunc_orc:glyph];
+	};
+	loadModelBlocks[ PM_ORC_SHAMAN + GLYPH_MON_OFF ] =	[orcBlock copy];
+	loadModelBlocks[ PM_GOBLIN+GLYPH_MON_OFF ] =		[orcBlock copy];
+	loadModelBlocks[ PM_HOBGOBLIN+GLYPH_MON_OFF ] =		[orcBlock copy];
+	loadModelBlocks[ PM_ORC+GLYPH_MON_OFF ] =			[orcBlock copy];
+	loadModelBlocks[ PM_HILL_ORC+GLYPH_MON_OFF ] =		[orcBlock copy];
+	loadModelBlocks[ PM_MORDOR_ORC+GLYPH_MON_OFF ] =	[orcBlock copy];
+	loadModelBlocks[ PM_URUK_HAI+GLYPH_MON_OFF ] =		[orcBlock copy];
+	loadModelBlocks[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] =	[orcBlock copy];
 	// piercers
-	loadModelAddreses[ PM_ROCK_PIERCER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_piercers:) ];
-	loadModelAddreses[ PM_IRON_PIERCER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_piercers:) ];
-	loadModelAddreses[ PM_GLASS_PIERCER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_piercers:) ];
+	LoadModelBlock piercersBlock = ^(int glyph) {
+		return [self loadModelFunc_piercers:glyph];
+	};
+	loadModelBlocks[ PM_ROCK_PIERCER+GLYPH_MON_OFF ] = [piercersBlock copy];
+	loadModelBlocks[ PM_IRON_PIERCER+GLYPH_MON_OFF ] = [piercersBlock copy];
+	loadModelBlocks[ PM_GLASS_PIERCER+GLYPH_MON_OFF ] = [piercersBlock copy];
 	// quadrupeds
-	loadModelAddreses[ PM_ROTHE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
-	loadModelAddreses[ PM_MUMAK+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
-	loadModelAddreses[ PM_LEOCROTTA+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
-	loadModelAddreses[ PM_WUMPUS+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
-	loadModelAddreses[ PM_TITANOTHERE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
-	loadModelAddreses[ PM_BALUCHITHERIUM+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
-	loadModelAddreses[ PM_MASTODON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_quadrupeds:) ];
+	LoadModelBlock quadrupedsBlock = ^(int glyph) {
+		return [self loadModelFunc_quadrupeds:glyph];
+	};
+	loadModelBlocks[ PM_ROTHE+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
+	loadModelBlocks[ PM_MUMAK+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
+	loadModelBlocks[ PM_LEOCROTTA+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
+	loadModelBlocks[ PM_WUMPUS+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
+	loadModelBlocks[ PM_TITANOTHERE+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
+	loadModelBlocks[ PM_BALUCHITHERIUM+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
+	loadModelBlocks[ PM_MASTODON+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
 	// rodents
-	loadModelAddreses[ PM_SEWER_RAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_rodents:) ];
-	loadModelAddreses[ PM_GIANT_RAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_rodents:) ];
-	loadModelAddreses[ PM_RABID_RAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_rodents:) ];
-	loadModelAddreses[ PM_WERERAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_rodents:) ];
-	loadModelAddreses[ PM_ROCK_MOLE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_rodents:) ];
-	loadModelAddreses[ PM_WOODCHUCK+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_rodents:) ];
+	LoadModelBlock rodentsBlock = ^(int glyph) {
+		return [self loadModelFunc_rodents:glyph];
+	};
+	loadModelBlocks[ PM_SEWER_RAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
+	loadModelBlocks[ PM_GIANT_RAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
+	loadModelBlocks[ PM_RABID_RAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
+	loadModelBlocks[ PM_WERERAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
+	loadModelBlocks[ PM_ROCK_MOLE+GLYPH_MON_OFF ] = [rodentsBlock copy];
+	loadModelBlocks[ PM_WOODCHUCK+GLYPH_MON_OFF ] = [rodentsBlock copy];
 	// spiders
-	loadModelAddreses[ PM_CAVE_SPIDER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_spiders:) ];
-	loadModelAddreses[ PM_CENTIPEDE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_spiders:) ];
-	loadModelAddreses[ PM_GIANT_SPIDER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_spiders:) ];
-	loadModelAddreses[ PM_SCORPION+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_spiders:) ];
+	LoadModelBlock spiderBlock = ^(int glyph) {
+		return [self loadModelFunc_spiders:glyph];
+	};
+	loadModelBlocks[ PM_CAVE_SPIDER+GLYPH_MON_OFF ] = [spiderBlock copy];
+	loadModelBlocks[ PM_CENTIPEDE+GLYPH_MON_OFF ] = [spiderBlock copy];
+	loadModelBlocks[ PM_GIANT_SPIDER+GLYPH_MON_OFF ] = [spiderBlock copy];
+	loadModelBlocks[ PM_SCORPION+GLYPH_MON_OFF ] = [spiderBlock copy];
 	// trapper
-	loadModelAddreses[ PM_LURKER_ABOVE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_trapper:) ];
-	loadModelAddreses[ PM_TRAPPER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_trapper:) ];
+	LoadModelBlock trapperBlock = ^(int glyph) {
+		return [self loadModelFunc_trapper:glyph];
+	};
+	loadModelBlocks[ PM_LURKER_ABOVE+GLYPH_MON_OFF ] = [trapperBlock copy];
+	loadModelBlocks[ PM_TRAPPER+GLYPH_MON_OFF ] = [trapperBlock copy];
 	// unicorns and horses
-	loadModelAddreses[ PM_WHITE_UNICORN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_unicorns:) ];
-	loadModelAddreses[ PM_GRAY_UNICORN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_unicorns:) ];
-	loadModelAddreses[ PM_BLACK_UNICORN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_unicorns:) ];
-	loadModelAddreses[ PM_PONY+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_unicorns:) ];
-	loadModelAddreses[ PM_HORSE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_unicorns:) ];
-	loadModelAddreses[ PM_WARHORSE+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_unicorns:) ];
+	LoadModelBlock unicornBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_WHITE_UNICORN
+									  to:PM_WARHORSE
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerU"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_WHITE_UNICORN+GLYPH_MON_OFF ] = [unicornBlock copy];
+	loadModelBlocks[ PM_GRAY_UNICORN+GLYPH_MON_OFF ] = [unicornBlock copy];
+	loadModelBlocks[ PM_BLACK_UNICORN+GLYPH_MON_OFF ] = [unicornBlock copy];
+	loadModelBlocks[ PM_PONY+GLYPH_MON_OFF ] = [unicornBlock copy];
+	loadModelBlocks[ PM_HORSE+GLYPH_MON_OFF ] = [unicornBlock copy];
+	loadModelBlocks[ PM_WARHORSE+GLYPH_MON_OFF ] = [unicornBlock copy];
 	// vortices
-	loadModelAddreses[ PM_FOG_CLOUD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_vortices:) ];
-	loadModelAddreses[ PM_DUST_VORTEX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_vortices:) ];
-	loadModelAddreses[ PM_ICE_VORTEX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_vortices:) ];
-	loadModelAddreses[ PM_ENERGY_VORTEX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_vortices:) ];
-	loadModelAddreses[ PM_STEAM_VORTEX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_vortices:) ];
-	loadModelAddreses[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_vortices:) ];
+	LoadModelBlock vortexBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_FOG_CLOUD
+									  to:PM_FIRE_VORTEX
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerV"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_FOG_CLOUD+GLYPH_MON_OFF ] = [vortexBlock copy];
+	loadModelBlocks[ PM_DUST_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
+	loadModelBlocks[ PM_ICE_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
+	loadModelBlocks[ PM_ENERGY_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
+	loadModelBlocks[ PM_STEAM_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
+	loadModelBlocks[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
 	// worms
-	loadModelAddreses[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_worms:) ];
-	loadModelAddreses[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_worms:) ];
-	loadModelAddreses[ PM_LONG_WORM+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_worms:) ];
-	loadModelAddreses[ PM_PURPLE_WORM+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_worms:) ];
+	LoadModelBlock wormBlock = ^(int glyph) {
+		return [self loadModelFunc_worms:glyph];
+	};
+	loadModelBlocks[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
+	loadModelBlocks[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
+	loadModelBlocks[ PM_LONG_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
+	loadModelBlocks[ PM_PURPLE_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
 	// xan
-	loadModelAddreses[ PM_GRID_BUG+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_xan:) ];
-	loadModelAddreses[ PM_XAN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_xan:) ];
+	LoadModelBlock xanBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_GRID_BUG
+									  to:PM_XAN
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerX"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_GRID_BUG+GLYPH_MON_OFF ] = [xanBlock copy];
+	loadModelBlocks[ PM_XAN+GLYPH_MON_OFF ] = [xanBlock copy];
 	// lights
-	loadModelAddreses[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lights:) ];
-	loadModelAddreses[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lights:) ];
+	LoadModelBlock lightsBlock = ^(int glyph) {
+		return [self loadModelFunc_lights:glyph];
+	};
+	loadModelBlocks[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
+	loadModelBlocks[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
 	// zruty
-	loadModelAddreses[ PM_ZRUTY+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_zruty:) ];
+	loadModelBlocks[ PM_ZRUTY+GLYPH_MON_OFF ] = [^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"lowerZ" withTexture:NO];
+	} copy];
 	// Angels
-	loadModelAddreses[ PM_COUATL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Angels:) ];
-	loadModelAddreses[ PM_ALEAX+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Angels:) ];
-	loadModelAddreses[ PM_ANGEL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Angels:) ];
-	loadModelAddreses[ PM_KI_RIN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Angels:) ];
-	loadModelAddreses[ PM_ARCHON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Angels:) ];
+	LoadModelBlock angelBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_COUATL
+									  to:PM_ARCHON
+								  offset:GLYPH_MON_OFF
+							   modelName:@"upperA"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_COUATL+GLYPH_MON_OFF ] = [angelBlock copy];
+	loadModelBlocks[ PM_ALEAX+GLYPH_MON_OFF ] = [angelBlock copy];
+	loadModelBlocks[ PM_ANGEL+GLYPH_MON_OFF ] = [angelBlock copy];
+	loadModelBlocks[ PM_KI_RIN+GLYPH_MON_OFF ] = [angelBlock copy];
+	loadModelBlocks[ PM_ARCHON+GLYPH_MON_OFF ] = [angelBlock copy];
 	// Bats
-	loadModelAddreses[ PM_BAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Bats:) ];
-	loadModelAddreses[ PM_GIANT_BAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Bats:) ];
-	loadModelAddreses[ PM_RAVEN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Bats:) ];
-	loadModelAddreses[ PM_VAMPIRE_BAT+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Bats:) ];
+	LoadModelBlock batBlock = ^(int glyph) {
+		return [self loadModelFunc_Bats:glyph];
+	};
+	loadModelBlocks[ PM_BAT+GLYPH_MON_OFF ] = [batBlock copy];
+	loadModelBlocks[ PM_GIANT_BAT+GLYPH_MON_OFF ] = [batBlock copy];
+	loadModelBlocks[ PM_RAVEN+GLYPH_MON_OFF ] = [batBlock copy];
+	loadModelBlocks[ PM_VAMPIRE_BAT+GLYPH_MON_OFF ] = [batBlock copy];
 	// Centaurs
-	loadModelAddreses[ PM_PLAINS_CENTAUR+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Centaurs:) ];
-	loadModelAddreses[ PM_FOREST_CENTAUR+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Centaurs:) ];
-	loadModelAddreses[ PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Centaurs:) ];
+	LoadModelBlock centaurBlock = ^(int glyph) {
+		return [self loadModelFunc_Centaurs:glyph];
+	};
+	loadModelBlocks[ PM_PLAINS_CENTAUR+GLYPH_MON_OFF ] = [centaurBlock copy];
+	loadModelBlocks[ PM_FOREST_CENTAUR+GLYPH_MON_OFF ] = [centaurBlock copy];
+	loadModelBlocks[ PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF ] = [centaurBlock copy];
 	// Dragons
-	loadModelAddreses[ PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_RED_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_GRAY_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_SILVER_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_RED_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_WHITE_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_ORANGE_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BLACK_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_BLUE_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_GREEN_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
-	loadModelAddreses[ PM_YELLOW_DRAGON+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Dragons:) ];
+	LoadModelBlock dragonBlock = ^(int glyph) {
+		return [self loadModelFunc_Dragons:glyph];
+	};
+	loadModelBlocks[ PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_RED_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_GRAY_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_SILVER_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_RED_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_WHITE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_ORANGE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BLACK_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BLUE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_GREEN_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_YELLOW_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
 	// Elementals
-	loadModelAddreses[ PM_STALKER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Elementals:) ];
-	loadModelAddreses[ PM_AIR_ELEMENTAL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Elementals:) ];
-	loadModelAddreses[ PM_FIRE_ELEMENTAL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Elementals:) ];
-	loadModelAddreses[ PM_EARTH_ELEMENTAL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Elementals:) ];
-	loadModelAddreses[ PM_WATER_ELEMENTAL+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Elementals:) ];
+	LoadModelBlock elementalsBlock = ^(int glyph) {
+		return [self loadModelFunc_Elementals:glyph];
+	};
+	loadModelBlocks[ PM_STALKER+GLYPH_MON_OFF ] = [elementalsBlock copy];
+	loadModelBlocks[ PM_AIR_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
+	loadModelBlocks[ PM_FIRE_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
+	loadModelBlocks[ PM_EARTH_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
+	loadModelBlocks[ PM_WATER_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
 	// Fungi
-	loadModelAddreses[ PM_LICHEN+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
-	loadModelAddreses[ PM_BROWN_MOLD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
-	loadModelAddreses[ PM_YELLOW_MOLD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
-	loadModelAddreses[ PM_GREEN_MOLD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
-	loadModelAddreses[ PM_RED_MOLD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
-	loadModelAddreses[ PM_SHRIEKER+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
-	loadModelAddreses[ PM_VIOLET_FUNGUS+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Fungi:) ];
+	LoadModelBlock fungusBlock = ^(int glyph) {
+		return [self loadModelFunc_Fungi:glyph];
+	};
+	loadModelBlocks[ PM_LICHEN+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_BROWN_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_YELLOW_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_GREEN_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_RED_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_SHRIEKER+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_VIOLET_FUNGUS+GLYPH_MON_OFF ] = [fungusBlock copy];
 	// Gnomes
-	loadModelAddreses[ PM_GNOME+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Gnomes:) ];
-	loadModelAddreses[ PM_GNOME_LORD+GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Gnomes:) ];
-	loadModelAddreses[ PM_GNOMISH_WIZARD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Gnomes:) ];
-	loadModelAddreses[ PM_GNOME_KING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Gnomes:) ];
+	LoadModelBlock gnomeBlock = ^(int glyph) {
+		return [self loadModelFunc_Gnomes:glyph];
+	};
+	loadModelBlocks[ PM_GNOME+GLYPH_MON_OFF ] = [gnomeBlock copy];
+	loadModelBlocks[ PM_GNOME_LORD+GLYPH_MON_OFF ] = [gnomeBlock copy];
+	loadModelBlocks[ PM_GNOMISH_WIZARD + GLYPH_MON_OFF ] = [gnomeBlock copy];
+	loadModelBlocks[ PM_GNOME_KING + GLYPH_MON_OFF ] = [gnomeBlock copy];
 	// Giant Humanoids
-	loadModelAddreses[ PM_GIANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_STONE_GIANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_HILL_GIANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_FIRE_GIANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_FROST_GIANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_STORM_GIANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_ETTIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_TITAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
-	loadModelAddreses[ PM_MINOTAUR + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_giantHumanoids:) ];
+	LoadModelBlock giantsBlock = ^(int glyph) {
+		return [self loadModelFunc_giantHumanoids:glyph];
+	};
+	loadModelBlocks[ PM_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_STONE_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_HILL_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_FIRE_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_FROST_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_STORM_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_ETTIN + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_TITAN + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_MINOTAUR + GLYPH_MON_OFF ] = [giantsBlock copy];
 	// Jabberwock
-	loadModelAddreses[ PM_JABBERWOCK + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Jabberwock:) ];
+	loadModelBlocks[ PM_JABBERWOCK + GLYPH_MON_OFF ] = [^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperJ" withTexture:NO];
+	} copy];
 	// Kops
-	loadModelAddreses[ PM_KEYSTONE_KOP + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Kops:) ];
-	loadModelAddreses[ PM_KOP_SERGEANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Kops:) ];
-	loadModelAddreses[ PM_KOP_LIEUTENANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Kops:) ];
-	loadModelAddreses[ PM_KOP_KAPTAIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Kops:) ];
+	LoadModelBlock kopBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_KEYSTONE_KOP
+									  to:PM_KOP_KAPTAIN
+								  offset:GLYPH_MON_OFF
+							   modelName:@"upperK"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_KEYSTONE_KOP + GLYPH_MON_OFF ] = [kopBlock copy];
+	loadModelBlocks[ PM_KOP_SERGEANT + GLYPH_MON_OFF ] = [kopBlock copy];
+	loadModelBlocks[ PM_KOP_LIEUTENANT + GLYPH_MON_OFF ] = [kopBlock copy];
+	loadModelBlocks[ PM_KOP_KAPTAIN + GLYPH_MON_OFF ] = [kopBlock copy];
 	// Liches
-	loadModelAddreses[ PM_LICH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Liches:) ];
-	loadModelAddreses[ PM_DEMILICH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Liches:) ];
-	loadModelAddreses[ PM_MASTER_LICH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Liches:) ];
-	loadModelAddreses[ PM_ARCH_LICH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Liches:) ];
+	LoadModelBlock lichBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_LICH
+									  to:PM_ARCH_LICH
+								  offset:GLYPH_MON_OFF
+							   modelName:@"upperL"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_LICH + GLYPH_MON_OFF ] = [lichBlock copy];
+	loadModelBlocks[ PM_DEMILICH + GLYPH_MON_OFF ] = [lichBlock copy];
+	loadModelBlocks[ PM_MASTER_LICH + GLYPH_MON_OFF ] = [lichBlock copy];
+	loadModelBlocks[ PM_ARCH_LICH + GLYPH_MON_OFF ] = [lichBlock copy];
 	// Mummies
-	loadModelAddreses[ PM_KOBOLD_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_GNOME_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_ORC_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_DWARF_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_ELF_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_HUMAN_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_ETTIN_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
-	loadModelAddreses[ PM_GIANT_MUMMY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Mummies:) ];
+	LoadModelBlock mummyBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_KOBOLD_MUMMY
+									  to:PM_GIANT_MUMMY
+								  offset:GLYPH_MON_OFF
+							   modelName:@"upperM"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_KOBOLD_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_GNOME_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_ORC_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_DWARF_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_ELF_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_HUMAN_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_ETTIN_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_GIANT_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
 	// Nagas
-	loadModelAddreses[ PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_RED_NAGA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_BLACK_NAGA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_GOLDEN_NAGA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
-	loadModelAddreses[ PM_GUARDIAN_NAGA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Nagas:) ];
+	LoadModelBlock nagaBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_RED_NAGA_HATCHLING
+									  to:PM_GUARDIAN_NAGA
+								  offset:GLYPH_MON_OFF
+							   modelName:@"upperN"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_RED_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_BLACK_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_GOLDEN_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_GUARDIAN_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
 	// Ogres
-	loadModelAddreses[ PM_OGRE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Ogres:) ];
-	loadModelAddreses[ PM_OGRE_LORD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Ogres:) ];
-	loadModelAddreses[ PM_OGRE_KING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Ogres:) ];
+	LoadModelBlock ogresBlock = ^(int glyph) {
+		return [self loadModelFunc_Ogres:glyph];
+	};
+	loadModelBlocks[ PM_OGRE + GLYPH_MON_OFF ] = [ogresBlock copy];
+	loadModelBlocks[ PM_OGRE_LORD + GLYPH_MON_OFF ] = [ogresBlock copy];
+	loadModelBlocks[ PM_OGRE_KING + GLYPH_MON_OFF ] = [ogresBlock copy];
 	// Puddings
-	loadModelAddreses[ PM_GRAY_OOZE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Puddings:) ];
-	loadModelAddreses[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Puddings:) ];
-	loadModelAddreses[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Puddings:) ];
-	loadModelAddreses[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Puddings:) ];
+	LoadModelBlock puddingBlock = ^(int glyph) {
+		return [self loadModelFunc_Puddings:glyph];
+	};
+	loadModelBlocks[ PM_GRAY_OOZE + GLYPH_MON_OFF ] = [puddingBlock copy];
+	loadModelBlocks[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = [puddingBlock copy];
+	loadModelBlocks[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = [puddingBlock copy];
+	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = [puddingBlock copy];
 	// Quantum mechanics
-	loadModelAddreses[ PM_QUANTUM_MECHANIC + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Quantummechanics:) ];
+	loadModelBlocks[ PM_QUANTUM_MECHANIC + GLYPH_MON_OFF ] = [ ^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperQ" withTexture:NO];
+	} copy];
 	// Rust monster or disenchanter
-	loadModelAddreses[ PM_RUST_MONSTER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Rustmonster:) ];
-	loadModelAddreses[ PM_DISENCHANTER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Rustmonster:) ];
+	LoadModelBlock rustMonsterBlock = ^(int glyph) {
+		return [self loadModelFunc_Rustmonster:glyph];
+	};
+	loadModelBlocks[ PM_RUST_MONSTER + GLYPH_MON_OFF ] = [rustMonsterBlock copy];
+	loadModelBlocks[ PM_DISENCHANTER + GLYPH_MON_OFF ] = [rustMonsterBlock copy];
 	// Snakes
-	loadModelAddreses[ PM_GARTER_SNAKE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Snakes:) ];
-	loadModelAddreses[ PM_SNAKE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Snakes:) ];
-	loadModelAddreses[ PM_WATER_MOCCASIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Snakes:) ];
-	loadModelAddreses[ PM_PIT_VIPER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Snakes:) ];
-	loadModelAddreses[ PM_PYTHON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Snakes:) ];
-	loadModelAddreses[ PM_COBRA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Snakes:) ];
+	LoadModelBlock snakeBlock = ^(int glyph) {
+		return [self loadModelFunc_Snakes:glyph];
+	};
+	loadModelBlocks[ PM_GARTER_SNAKE + GLYPH_MON_OFF ] = [snakeBlock copy];
+	loadModelBlocks[ PM_SNAKE + GLYPH_MON_OFF ] = [snakeBlock copy];
+	loadModelBlocks[ PM_WATER_MOCCASIN + GLYPH_MON_OFF ] = [snakeBlock copy];
+	loadModelBlocks[ PM_PIT_VIPER + GLYPH_MON_OFF ] = [snakeBlock copy];
+	loadModelBlocks[ PM_PYTHON + GLYPH_MON_OFF ] = [snakeBlock copy];
+	loadModelBlocks[ PM_COBRA + GLYPH_MON_OFF ] = [snakeBlock copy];
 	// Trolls
-	loadModelAddreses[ PM_TROLL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Trolls:) ];
-	loadModelAddreses[ PM_ICE_TROLL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Trolls:) ];
-	loadModelAddreses[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Trolls:) ];
-	loadModelAddreses[ PM_WATER_TROLL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Trolls:) ];
-	loadModelAddreses[ PM_OLOG_HAI + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Trolls:) ];
+	LoadModelBlock trollBlock = ^(int glyph) {
+		return [self loadModelFunc_Trolls:glyph];
+	};
+	loadModelBlocks[ PM_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
+	loadModelBlocks[ PM_ICE_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
+	loadModelBlocks[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
+	loadModelBlocks[ PM_WATER_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
+	loadModelBlocks[ PM_OLOG_HAI + GLYPH_MON_OFF ] = [trollBlock copy];
 	// Umber hulk
-	loadModelAddreses[ PM_UMBER_HULK + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Umberhulk:) ];
+	loadModelBlocks[ PM_UMBER_HULK + GLYPH_MON_OFF ] = [^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperU" withTexture:NO];
+	} copy];
 	// Vampires
-	loadModelAddreses[ PM_VAMPIRE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Vampires:) ];
-	loadModelAddreses[ PM_VAMPIRE_LORD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Vampires:) ];
-	loadModelAddreses[ PM_VLAD_THE_IMPALER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Vampires:) ];
+	LoadModelBlock vampireBlock = ^(int glyph) {
+		return [self loadModelFunc_Vampires:glyph];
+	};
+	loadModelBlocks[ PM_VAMPIRE + GLYPH_MON_OFF ] = [vampireBlock copy];
+	loadModelBlocks[ PM_VAMPIRE_LORD + GLYPH_MON_OFF ] = [vampireBlock copy];
+	loadModelBlocks[ PM_VLAD_THE_IMPALER + GLYPH_MON_OFF ] = [vampireBlock copy];
 	// Wraiths
-	loadModelAddreses[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Wraiths:) ];
-	loadModelAddreses[ PM_WRAITH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Wraiths:) ];
-	loadModelAddreses[ PM_NAZGUL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Wraiths:) ];
+	LoadModelBlock wraithBlock = ^(int glyph) {
+		return [self loadModelFunc_Wraiths:glyph];
+	};
+	loadModelBlocks[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = [wraithBlock copy];
+	loadModelBlocks[ PM_WRAITH + GLYPH_MON_OFF ] = [wraithBlock copy];
+	loadModelBlocks[ PM_NAZGUL + GLYPH_MON_OFF ] = [wraithBlock copy];
 	// Xorn
-	loadModelAddreses[ PM_XORN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Xorn:) ];
+	loadModelBlocks[ PM_XORN + GLYPH_MON_OFF ] = [^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperX" withTexture:NO];
+	} copy];
 	// Yeti and other large beasts
-	loadModelAddreses[ PM_MONKEY + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Yeti:) ];
-	loadModelAddreses[ PM_APE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Yeti:) ];
-	loadModelAddreses[ PM_OWLBEAR + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Yeti:) ];
-	loadModelAddreses[ PM_YETI + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Yeti:) ];
-	loadModelAddreses[ PM_CARNIVOROUS_APE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Yeti:) ];
-	loadModelAddreses[ PM_SASQUATCH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Yeti:) ];
+	LoadModelBlock yetiBlock = ^(int glyph) {
+		return [self loadModelFunc_Yeti:glyph];
+	};
+	loadModelBlocks[ PM_MONKEY + GLYPH_MON_OFF ] = [yetiBlock copy];
+	loadModelBlocks[ PM_APE + GLYPH_MON_OFF ] = [yetiBlock copy];
+	loadModelBlocks[ PM_OWLBEAR + GLYPH_MON_OFF ] = [yetiBlock copy];
+	loadModelBlocks[ PM_YETI + GLYPH_MON_OFF ] = [yetiBlock copy];
+	loadModelBlocks[ PM_CARNIVOROUS_APE + GLYPH_MON_OFF ] = [yetiBlock copy];
+	loadModelBlocks[ PM_SASQUATCH + GLYPH_MON_OFF ] = [yetiBlock copy];
 	// Zombie
-	loadModelAddreses[ PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_GNOME_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_ORC_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_DWARF_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_ELF_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_HUMAN_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_ETTIN_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_GIANT_ZOMBIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_GHOUL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
-	loadModelAddreses[ PM_SKELETON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Zombie:) ];
+	LoadModelBlock zombieBlock = ^(int glyph) {
+		return [self loadModelFunc_Zombie:glyph];
+	};
+	loadModelBlocks[ PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_GNOME_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_ORC_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_DWARF_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_ELF_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_HUMAN_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_ETTIN_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_GIANT_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_GHOUL + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_SKELETON + GLYPH_MON_OFF ] = [zombieBlock copy];
 	// Golems
-	loadModelAddreses[ PM_STRAW_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_PAPER_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_ROPE_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_GOLD_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_LEATHER_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_WOOD_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_FLESH_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_CLAY_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
-	loadModelAddreses[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Golems:) ];
+	LoadModelBlock golemBlock = ^(int glyph) {
+		return [self loadModelFunc_Golems:glyph];
+	};
+	loadModelBlocks[ PM_STRAW_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_PAPER_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_ROPE_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_GOLD_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_LEATHER_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_WOOD_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_FLESH_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_CLAY_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
 	// Human or Elves
-	loadModelAddreses[ PM_ELVENKING + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_NURSE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_HIGH_PRIEST + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_MEDUSA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_CROESUS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_HUMAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_HUMAN_WERERAT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_HUMAN_WEREWOLF + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];	
-	loadModelAddreses[ PM_ELF + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_WOODLAND_ELF + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_GREEN_ELF + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_GREY_ELF + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_ELF_LORD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];	
-	loadModelAddreses[ PM_DOPPELGANGER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];		
-	loadModelAddreses[ PM_SHOPKEEPER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];	
-	loadModelAddreses[ PM_GUARD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_PRISONER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_ORACLE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_ALIGNED_PRIEST + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_SOLDIER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_SERGEANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_LIEUTENANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_CAPTAIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_WATCHMAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_WATCH_CAPTAIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];
-	loadModelAddreses[ PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_HumanorElves:) ];	
+	LoadModelBlock humanOrElfBlock = ^(int glyph) {
+		return [self loadModelFunc_HumanorElves:glyph];
+	};
+	loadModelBlocks[ PM_ELVENKING + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_NURSE + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_HIGH_PRIEST + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_MEDUSA + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_CROESUS + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_HUMAN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_HUMAN_WERERAT + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_HUMAN_WEREWOLF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
+	loadModelBlocks[ PM_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_WOODLAND_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_GREEN_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_GREY_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_ELF_LORD + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
+	loadModelBlocks[ PM_DOPPELGANGER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];		
+	loadModelBlocks[ PM_SHOPKEEPER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
+	loadModelBlocks[ PM_GUARD + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_PRISONER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_ORACLE + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_ALIGNED_PRIEST + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_SOLDIER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_SERGEANT + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_LIEUTENANT + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_CAPTAIN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_WATCHMAN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_WATCH_CAPTAIN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
+	loadModelBlocks[ PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
 	// Ghosts
-	loadModelAddreses[ PM_GHOST + GLYPH_INVIS_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Ghosts:) ];
-	loadModelAddreses[ PM_SHADE + GLYPH_INVIS_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Ghosts:) ];
+	LoadModelBlock ghostBlock = ^(int glyph) {
+		return [self loadModelFunc_Ghosts:glyph];
+	};
+	loadModelBlocks[ PM_GHOST + GLYPH_INVIS_OFF ] = [ghostBlock copy];
+	loadModelBlocks[ PM_SHADE + GLYPH_INVIS_OFF ] = [ghostBlock copy];
 	// Major Damons
-	loadModelAddreses[ PM_WATER_DEMON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_HORNED_DEVIL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_SUCCUBUS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_INCUBUS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_ERINYS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_BARBED_DEVIL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_MARILITH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_VROCK + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_HEZROU + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_BONE_DEVIL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_ICE_DEVIL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_NALFESHNEE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_PIT_FIEND + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_BALROG + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_DJINNI + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
-	loadModelAddreses[ PM_SANDESTIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MajorDamons:) ];
+	LoadModelBlock majorDemonBlock = ^(int glyph) {
+		return [self loadModelFunc_MajorDamons:glyph];
+	};
+	loadModelBlocks[ PM_WATER_DEMON + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_HORNED_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_SUCCUBUS + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_INCUBUS + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_ERINYS + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_BARBED_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_MARILITH + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_VROCK + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_HEZROU + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_BONE_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_ICE_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_NALFESHNEE + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_PIT_FIEND + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_BALROG + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_DJINNI + GLYPH_MON_OFF ] = [majorDemonBlock copy];
+	loadModelBlocks[ PM_SANDESTIN + GLYPH_MON_OFF ] = [majorDemonBlock copy];
 	// Grater Damons 
-	loadModelAddreses[ PM_JUIBLEX + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
-	loadModelAddreses[ PM_YEENOGHU + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];	
-	loadModelAddreses[ PM_ORCUS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
-	loadModelAddreses[ PM_GERYON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
-	loadModelAddreses[ PM_DISPATER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
-	loadModelAddreses[ PM_BAALZEBUB + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
-	loadModelAddreses[ PM_ASMODEUS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
-	loadModelAddreses[ PM_DEMOGORGON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_GraterDamons:) ];
+	LoadModelBlock greaterDemonBlock = ^(int glyph) {
+		return [self loadModelFunc_GraterDamons:glyph];
+	};
+	loadModelBlocks[ PM_JUIBLEX + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_YEENOGHU + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_ORCUS + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_GERYON + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_DISPATER + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_BAALZEBUB + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_ASMODEUS + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
+	loadModelBlocks[ PM_DEMOGORGON + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
 	// damon "The Riders"
-	loadModelAddreses[ PM_DEATH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Riders:) ];
-	loadModelAddreses[ PM_PESTILENCE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Riders:) ];
-	loadModelAddreses[ PM_FAMINE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Riders:) ];
+	LoadModelBlock riderDemonBlock = ^(int glyph) {
+		return [self loadModelFunc_Riders:glyph];
+	};
+	loadModelBlocks[ PM_DEATH + GLYPH_MON_OFF ] = [riderDemonBlock copy];
+	loadModelBlocks[ PM_PESTILENCE + GLYPH_MON_OFF ] = [riderDemonBlock copy];
+	loadModelBlocks[ PM_FAMINE + GLYPH_MON_OFF ] = [riderDemonBlock copy];
 	// sea monsters
-	loadModelAddreses[ PM_JELLYFISH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_seamonsters:) ];
-	loadModelAddreses[ PM_PIRANHA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_seamonsters:) ];
-	loadModelAddreses[ PM_SHARK + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_seamonsters:) ];
-	loadModelAddreses[ PM_GIANT_EEL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_seamonsters:) ];
-	loadModelAddreses[ PM_ELECTRIC_EEL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_seamonsters:) ];
-	loadModelAddreses[ PM_KRAKEN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_seamonsters:) ];
+	LoadModelBlock seaMonsterBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_JELLYFISH
+									  to:PM_KRAKEN
+								  offset:GLYPH_MON_OFF
+							   modelName:@"semicoron"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_JELLYFISH + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
+	loadModelBlocks[ PM_PIRANHA + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
+	loadModelBlocks[ PM_SHARK + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
+	loadModelBlocks[ PM_GIANT_EEL + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
+	loadModelBlocks[ PM_ELECTRIC_EEL + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
+	loadModelBlocks[ PM_KRAKEN + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
 	// lizards
-	loadModelAddreses[ PM_NEWT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_GECKO + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_IGUANA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_BABY_CROCODILE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_LIZARD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_CHAMELEON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_CROCODILE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
-	loadModelAddreses[ PM_SALAMANDER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_lizards:) ];
+	LoadModelBlock lizardBlock = ^(int glyph) {
+		return [self checkLoadedModelsAt:PM_NEWT
+									  to:PM_SALAMANDER
+								  offset:GLYPH_MON_OFF
+							   modelName:@"coron"
+								textured:NO
+								 withOut:0];
+	};
+	loadModelBlocks[ PM_NEWT + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_GECKO + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_IGUANA + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_BABY_CROCODILE + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_LIZARD + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_CHAMELEON + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_CROCODILE + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[ PM_SALAMANDER + GLYPH_MON_OFF ] = [lizardBlock copy];
 	// wormtail
-	loadModelAddreses[ PM_LONG_WORM_TAIL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_wormtail:) ];
+	loadModelBlocks[ PM_LONG_WORM_TAIL + GLYPH_MON_OFF ] = [^(int glyph) {
+		return [[NH3DModelObjects alloc] initWith3DSFile:@"wormtail" withTexture:NO];
+	} copy];;
 	// Adventures
-	loadModelAddreses[ PM_ARCHEOLOGIST + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_BARBARIAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_CAVEMAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_CAVEWOMAN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_HEALER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_KNIGHT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_MONK + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_PRIEST + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_PRIESTESS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_RANGER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_ROGUE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_SAMURAI + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_TOURIST + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_VALKYRIE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
-	loadModelAddreses[ PM_WIZARD + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Adventures:) ];
+	LoadModelBlock adventurerBlock = ^(int glyph) {
+		return [self loadModelFunc_Adventures:glyph];
+	};
+	loadModelBlocks[ PM_ARCHEOLOGIST + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_BARBARIAN + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_CAVEMAN + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_CAVEWOMAN + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_HEALER + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_KNIGHT + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_MONK + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_PRIEST + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_PRIESTESS + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_RANGER + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_ROGUE + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_SAMURAI + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_TOURIST + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_VALKYRIE + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_WIZARD + GLYPH_MON_OFF ] = [adventurerBlock copy];
 	// Unique person
-	loadModelAddreses[ PM_LORD_CARNARVON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_PELIAS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_SHAMAN_KARNOV + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_HIPPOCRATES + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_GRAND_MASTER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ARCH_PRIEST + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ORION + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_MASTER_OF_THIEVES + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_LORD_SATO + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_TWOFLOWER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_NORN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_KING_ARTHUR + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_NEFERET_THE_GREEN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_THOTH_AMON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_CHROMATIC_DRAGON + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_CYCLOPS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_IXOTH + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_MASTER_KAEN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_NALZOK + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_SCORPIUS + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_MASTER_ASSASSIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_LORD_SURTUR + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_DARK_ONE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_STUDENT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_CHIEFTAIN + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_NEANDERTHAL + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ATTENDANT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_PAGE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ABBOT + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ACOLYTE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_HUNTER + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_THUG + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_NINJA + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_ROSHI + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_GUIDE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_WARRIOR + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
-	loadModelAddreses[ PM_APPRENTICE + GLYPH_MON_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Uniqueperson:) ];
+	LoadModelBlock uniquePersonBlock = ^(int glyph) {
+		return [self loadModelFunc_Uniqueperson:glyph];
+	};
+	loadModelBlocks[ PM_LORD_CARNARVON + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_PELIAS + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_SHAMAN_KARNOV + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_HIPPOCRATES + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_GRAND_MASTER + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ARCH_PRIEST + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ORION + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_MASTER_OF_THIEVES + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_LORD_SATO + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_TWOFLOWER + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_NORN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_KING_ARTHUR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_NEFERET_THE_GREEN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_THOTH_AMON + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_CHROMATIC_DRAGON + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_CYCLOPS + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_IXOTH + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_MASTER_KAEN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_NALZOK + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_SCORPIUS + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_MASTER_ASSASSIN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_LORD_SURTUR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_DARK_ONE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_STUDENT + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_CHIEFTAIN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_NEANDERTHAL + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ATTENDANT + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_PAGE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ABBOT + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ACOLYTE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_HUNTER + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_THUG + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_NINJA + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_ROSHI + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_GUIDE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_WARRIOR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_APPRENTICE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
 
 // -------------------------- Map Symbol Section ----------------------------- //
 	
-	loadModelAddreses[ S_bars + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_tree + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_upstair + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_dnstair + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_upladder + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_dnladder + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_altar + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_grave + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_throne + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_sink + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_fountain + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_vodbridge + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ]; 
-	loadModelAddreses[ S_hodbridge + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ]; 
-	loadModelAddreses[ S_vcdbridge + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ];
-	loadModelAddreses[ S_hcdbridge + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MapSymbols:) ]; 
+	LoadModelBlock mapSymbolBlock = ^(int glyph) {
+		return [self loadModelFunc_MapSymbols:glyph];
+	};
+	loadModelBlocks[ S_bars + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_tree + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_upstair + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_dnstair + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_upladder + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_dnladder + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_altar + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_grave + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_throne + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_sink + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_fountain + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_vodbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; 
+	loadModelBlocks[ S_hodbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; 
+	loadModelBlocks[ S_vcdbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
+	loadModelBlocks[ S_hcdbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; 
 //  ------------------------------  Boulder ---------------------------------- //
 	
-	loadModelAddreses[ BOULDER + GLYPH_OBJ_OFF ] = [ self methodForSelector:@selector( loadModelFunc_Boulder:) ];
+	loadModelBlocks[ BOULDER + GLYPH_OBJ_OFF ] = [^(int glyph) {
+		return [self loadModelFunc_Boulder:glyph];
+	} copy];
 // --------------------------  Trap Symbol Section --------------------------- // 
 	
-	loadModelAddreses[ S_arrow_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_dart_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_falling_rock_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	//loadModelAddreses[ S_squeaky_board + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_land_mine + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	//loadModelAddreses[ S_rolling_boulder_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_sleeping_gas_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_rust_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_fire_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_bear_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_pit + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_spiked_pit + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_hole + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_trap_door + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_teleportation_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_level_teleporter + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_magic_portal + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	//loadModelAddreses[ S_web + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	//loadModelAddreses[ S_statue_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];	
-	loadModelAddreses[ S_magic_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_anti_magic_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
-	loadModelAddreses[ S_polymorph_trap + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_TrapSymbol:) ];
+	LoadModelBlock trapSymbolBlock = ^(int glyph) {
+		return [self loadModelFunc_TrapSymbol:glyph];
+	};
+	loadModelBlocks[ S_arrow_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_dart_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_falling_rock_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	//loadModelBlocks[ S_squeaky_board + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_land_mine + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	//loadModelBlocks[ S_rolling_boulder_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_sleeping_gas_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_rust_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_fire_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_bear_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_pit + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_spiked_pit + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_hole + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_trap_door + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_teleportation_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_level_teleporter + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_magic_portal + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	//loadModelBlocks[ S_web + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	//loadModelBlocks[ S_statue_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];	
+	loadModelBlocks[ S_magic_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_anti_magic_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
+	loadModelBlocks[ S_polymorph_trap + GLYPH_CMAP_OFF ] = [trapSymbolBlock copy];
 	// ------------------------- Effect Symbols Section. ------------------------- //
 	
 	// ZAP symbols ( NUM_ZAP * four directions )
 	
 	// type Magic Missile
-	loadModelAddreses[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicMissile:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicMissile:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicMissile:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicMissile:) ];
+	LoadModelBlock magicMissileBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicMissile:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM ] = [magicMissileBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM ] = [magicMissileBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT ] = [magicMissileBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT ] = [magicMissileBlock copy];
 	// type Magic FIRE
-	loadModelAddreses[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicFIRE:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicFIRE:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicFIRE:) ];	
-	loadModelAddreses[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicFIRE:) ];
+	LoadModelBlock magicFireBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicFIRE:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM ] = [magicFireBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM ] = [magicFireBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT ] = [magicFireBlock copy];	
+	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT ] = [magicFireBlock copy];
 	// type Magic COLD
-	loadModelAddreses[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicCOLD:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicCOLD:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicCOLD:) ];	
-	loadModelAddreses[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicCOLD:) ];
+	LoadModelBlock magicColdBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicCOLD:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM ] = [magicColdBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM ] = [magicColdBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT ] = [magicColdBlock copy];	
+	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT ] = [magicColdBlock copy];
 	// type Magic SLEEP
-	loadModelAddreses[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicSLEEP:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicSLEEP:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicSLEEP:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicSLEEP:) ];
+	LoadModelBlock magicSleepBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicSLEEP:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM ] = [magicSleepBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM ] = [magicSleepBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT ] = [magicSleepBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT ] = [magicSleepBlock copy];
 	// type Magic DEATH
-	loadModelAddreses[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicDEATH:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicDEATH:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicDEATH:) ];	
-	loadModelAddreses[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicDEATH:) ];
+	LoadModelBlock magicDeathBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicDEATH:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM ] = [magicDeathBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM ] = [magicDeathBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT ] = [magicDeathBlock copy];	
+	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT ] = [magicDeathBlock copy];
 	// type Magic LIGHTNING
-	loadModelAddreses[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicLIGHTNING:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicLIGHTNING:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicLIGHTNING:) ];	
-	loadModelAddreses[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicLIGHTNING:) ];
+	LoadModelBlock magicLightningBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicLIGHTNING:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM ] = [magicLightningBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM ] = [magicLightningBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT ] = [magicLightningBlock copy];	
+	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT ] = [magicLightningBlock copy];
 	// type Magic POISONGAS
-	loadModelAddreses[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicPOISONGAS:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicPOISONGAS:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicPOISONGAS:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicPOISONGAS:) ];
+	LoadModelBlock magicPoisonGasBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicPOISONGAS:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM ] = [magicPoisonGasBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM ] = [magicPoisonGasBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT ] = [magicPoisonGasBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT ] = [magicPoisonGasBlock copy];
 	// type Magic ACID
-	loadModelAddreses[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicACID:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM ] = [ self methodForSelector:@selector( loadModelFunc_MagicACID:) ];
-	loadModelAddreses[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicACID:) ];	
-	loadModelAddreses[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT ] = [ self methodForSelector:@selector( loadModelFunc_MagicACID:) ];
+	LoadModelBlock magicAcidBlock = ^(int glyph) {
+		return [self loadModelFunc_MagicACID:glyph];
+	};
+	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM ] = [magicAcidBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM ] = [magicAcidBlock copy];
+	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT ] = [magicAcidBlock copy];	
+	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT ] = [magicAcidBlock copy];
 	// dig beam
-	loadModelAddreses[ S_digbeam + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+	loadModelBlocks[ S_digbeam + GLYPH_CMAP_OFF ] = [^(int glyph) {
+		NH3DModelObjects *ret = [[NH3DModelObjects alloc] init];
+		[ ret setModelScaleX:0.7 scaleY:1.0 scaleZ:0.7 ];
+		[ ret setParticleType:NH3DParticleTypeAura ];
+		[ ret setParticleColor:CLR_BROWN ];
+		[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
+		[ ret setParticleSpeedX:1.0 Y:1.00 ];
+		[ ret setParticleSlowdown:3.8 ];
+		[ ret setParticleLife:0.4 ];
+		[ ret setParticleSize:20.0 ];
+
+		return ret;
+	} copy];
 	// camera flash
-	loadModelAddreses[ S_flashbeam + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+	loadModelBlocks[ S_flashbeam + GLYPH_CMAP_OFF ] = [^(int glyph) {
+		NH3DModelObjects *ret = [ [ NH3DModelObjects alloc ] init ];
+		[ ret setModelScaleX:1.4 scaleY:1.5 scaleZ:1.4 ];
+		[ ret setParticleType:NH3DParticleTypeAura ];
+		ret.particleColor = CLR_WHITE;
+		[ ret setParticleColor:CLR_WHITE ];
+		[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
+		[ ret setParticleSpeedX:1.0 Y:1.00 ];
+		[ ret setParticleSlowdown:3.8 ];
+		[ ret setParticleLife:0.4 ];
+		[ ret setParticleSize:20.0 ];
+
+		return ret;
+	} copy];
 	// boomerang
-	//loadModelAddreses[ S_boomleft + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
-	//loadModelAddreses[ S_boomright + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+	//loadModelBlocks[ S_boomleft + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+	//loadModelBlocks[ S_boomright + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
 
 	// magic shild
-	loadModelAddreses[ S_ss1 + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicSHILD:) ];
-	loadModelAddreses[ S_ss2 + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicSHILD:) ];
-	loadModelAddreses[ S_ss3 + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicSHILD:) ];
-	loadModelAddreses[ S_ss4 + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicSHILD:) ];
+	{
+		LoadModelBlock magicShildBlock = ^(int glyph) {
+			return [self loadModelFunc_MagicSHILD:glyph];
+		};
+		loadModelBlocks[ S_ss1 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
+		loadModelBlocks[ S_ss2 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
+		loadModelBlocks[ S_ss3 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
+		loadModelBlocks[ S_ss4 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
+	}
 	// explotion symbols ( 9 postion * 7 types )
 	// type DARK
+	{
+	LoadModelBlock DarkBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionDARK:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_DARK + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionDARK:) ];
+		loadModelBlocks[ NH3D_EXPLODE_DARK + i ] = [DarkBlock copy];
+	}
 	}
 	// type NOXIOUS
+	{
+	LoadModelBlock NOXIOUSBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionNOXIOUS:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_NOXIOUS + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionNOXIOUS:) ];
+		loadModelBlocks[ NH3D_EXPLODE_NOXIOUS + i ] = [NOXIOUSBlock copy];
+	}
 	}
 	// type MUDDY
+	{
+	LoadModelBlock MUDDYBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionMUDDY:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_MUDDY + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionMUDDY:) ];
+		loadModelBlocks[ NH3D_EXPLODE_MUDDY + i ] = [MUDDYBlock copy];
+	}
 	}
 	// type WET
+	{
+	LoadModelBlock wetBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionWET:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_WET + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionWET:) ];
+		loadModelBlocks[ NH3D_EXPLODE_WET + i ] = [wetBlock copy];
+	}
 	}
 	// type MAGICAL
+	{
+	LoadModelBlock magicalBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionMAGICAL:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_MAGICAL + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionMAGICAL:) ];
+		loadModelBlocks[ NH3D_EXPLODE_MAGICAL + i ] = [magicalBlock copy];
+	}
 	}
 	// type FIERY
+	{
+	LoadModelBlock fieryBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionFIERY:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_FIERY + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionFIERY:) ];
+		loadModelBlocks[ NH3D_EXPLODE_FIERY + i ] = [fieryBlock copy];
+	}
 	}
 	// type FROSTY
+	{
+	LoadModelBlock frostyBlock = ^(int glyph) {
+		return [self loadModelFunc_explotionFROSTY:glyph];
+	};
 	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelAddreses[ NH3D_EXPLODE_FROSTY + i ] = [ self methodForSelector:@selector( loadModelFunc_explotionFROSTY:) ];
+		loadModelBlocks[ NH3D_EXPLODE_FROSTY + i ] = [frostyBlock copy];
 	}
-	
-	
-// ---------------------------------------------------------------------------- //
-// cash Selector
-// ---------------------------------------------------------------------------- //
-	
-	// insect class
-	loadModelSelectors[ PM_GIANT_ANT+GLYPH_MON_OFF ] = @selector( loadModelFunc_insect: );
-	loadModelSelectors[ PM_KILLER_BEE+GLYPH_MON_OFF ] = @selector( loadModelFunc_insect: );
-	loadModelSelectors[ PM_SOLDIER_ANT+GLYPH_MON_OFF ] = @selector( loadModelFunc_insect: );
-	loadModelSelectors[ PM_FIRE_ANT+GLYPH_MON_OFF ] = @selector( loadModelFunc_insect: );
-	loadModelSelectors[ PM_GIANT_BEETLE+GLYPH_MON_OFF ] = @selector( loadModelFunc_insect: );
-	loadModelSelectors[ PM_QUEEN_BEE+GLYPH_MON_OFF ] = @selector( loadModelFunc_insect: );
-	// blob class
-	loadModelSelectors[ PM_ACID_BLOB+GLYPH_MON_OFF ] = @selector( loadModelFunc_blob: );
-	loadModelSelectors[ PM_QUIVERING_BLOB+GLYPH_MON_OFF ] = @selector( loadModelFunc_blob: );
-	loadModelSelectors[ PM_GELATINOUS_CUBE+GLYPH_MON_OFF ] = @selector( loadModelFunc_blob: );
-	// cockatrice class
-	loadModelSelectors[ PM_CHICKATRICE+GLYPH_MON_OFF ] = @selector( loadModelFunc_cockatrice: );
-	loadModelSelectors[ PM_COCKATRICE+GLYPH_MON_OFF ] = @selector( loadModelFunc_cockatrice: );
-	loadModelSelectors[ PM_PYROLISK+GLYPH_MON_OFF ] = @selector( loadModelFunc_cockatrice: );		
-	// dog or canine class
-	loadModelSelectors[ PM_JACKAL+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_FOX+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_COYOTE+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_WEREJACKAL+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_LITTLE_DOG+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_DOG+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_LARGE_DOG+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_DINGO+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_WOLF+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_WEREWOLF+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_WARG+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_WINTER_WOLF_CUB+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_WINTER_WOLF+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_HELL_HOUND_PUP+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	loadModelSelectors[ PM_HELL_HOUND+GLYPH_MON_OFF ] = @selector( loadModelFunc_dog: );
-	// eye or sphere class
-	loadModelSelectors[ PM_GAS_SPORE+GLYPH_MON_OFF ] = @selector( loadModelFunc_sphere: );
-	loadModelSelectors[ PM_FLOATING_EYE+GLYPH_MON_OFF ] = @selector( loadModelFunc_sphere: );
-	loadModelSelectors[ PM_FREEZING_SPHERE+GLYPH_MON_OFF ] = @selector( loadModelFunc_sphere: );
-	loadModelSelectors[ PM_FLAMING_SPHERE+GLYPH_MON_OFF ] = @selector( loadModelFunc_sphere: );
-	loadModelSelectors[ PM_SHOCKING_SPHERE+GLYPH_MON_OFF ] = @selector( loadModelFunc_sphere: );
-	
-	// cat or feline class
-	loadModelSelectors[ PM_KITTEN+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-	loadModelSelectors[ PM_HOUSECAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-	loadModelSelectors[ PM_JAGUAR+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-	loadModelSelectors[ PM_LYNX+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-	loadModelSelectors[ PM_PANTHER+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-	loadModelSelectors[ PM_LARGE_CAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-	loadModelSelectors[ PM_TIGER+GLYPH_MON_OFF ] = @selector( loadModelFunc_cat: );
-		
-	// gremlins and gagoyles class
-	loadModelSelectors[ PM_GREMLIN+GLYPH_MON_OFF ] = @selector( loadModelFunc_gremlins: );
-	loadModelSelectors[ PM_GARGOYLE+GLYPH_MON_OFF ] = @selector( loadModelFunc_gremlins: );
-	loadModelSelectors[ PM_WINGED_GARGOYLE+GLYPH_MON_OFF ] = @selector( loadModelFunc_gremlins: );
-			
-	// humanoids class
-	loadModelSelectors[ PM_DWARF_KING+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	loadModelSelectors[ PM_HOBBIT+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	loadModelSelectors[ PM_DWARF+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	loadModelSelectors[ PM_BUGBEAR+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	loadModelSelectors[ PM_DWARF_LORD+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	loadModelSelectors[ PM_MIND_FLAYER+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	loadModelSelectors[ PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF ] = @selector( loadModelFunc_humanoids: );
-	// imp and minor demons
-	loadModelSelectors[ PM_MANES+GLYPH_MON_OFF ] = @selector( loadModelFunc_imp: );
-	loadModelSelectors[ PM_HOMUNCULUS+GLYPH_MON_OFF ] = @selector( loadModelFunc_imp: );
-	loadModelSelectors[ PM_IMP+GLYPH_MON_OFF ] = @selector( loadModelFunc_imp: );
-	loadModelSelectors[ PM_LEMURE+GLYPH_MON_OFF ] = @selector( loadModelFunc_imp: );
-	loadModelSelectors[ PM_QUASIT+GLYPH_MON_OFF ] = @selector( loadModelFunc_imp: );
-	loadModelSelectors[ PM_TENGU+GLYPH_MON_OFF ] = @selector( loadModelFunc_imp: );
-		
-	// jellys
-	loadModelSelectors[ PM_BLUE_JELLY+GLYPH_MON_OFF ] = @selector( loadModelFunc_jellys: );
-	loadModelSelectors[ PM_SPOTTED_JELLY+GLYPH_MON_OFF ] = @selector( loadModelFunc_jellys: );
-	loadModelSelectors[ PM_OCHRE_JELLY+GLYPH_MON_OFF ] = @selector( loadModelFunc_jellys: );
-	// kobolds
-	loadModelSelectors[ PM_KOBOLD+GLYPH_MON_OFF ] = @selector( loadModelFunc_kobolds: );
-	loadModelSelectors[ PM_LARGE_KOBOLD+GLYPH_MON_OFF ] = @selector( loadModelFunc_kobolds: );
-	loadModelSelectors[ PM_KOBOLD_LORD+GLYPH_MON_OFF ] = @selector( loadModelFunc_kobolds: );
-	loadModelSelectors[ PM_KOBOLD_SHAMAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_kobolds: );
-	// leprechaun
-	loadModelSelectors[ PM_LEPRECHAUN+GLYPH_MON_OFF ] = @selector( loadModelFunc_leprechaun: );
-	// mimics
-	loadModelSelectors[ PM_SMALL_MIMIC+GLYPH_MON_OFF ] = @selector( loadModelFunc_mimics: );
-	loadModelSelectors[ PM_LARGE_MIMIC+GLYPH_MON_OFF ] = @selector( loadModelFunc_mimics: );
-	loadModelSelectors[ PM_GIANT_MIMIC+GLYPH_MON_OFF ] = @selector( loadModelFunc_mimics: );
-	// nymphs
-	loadModelSelectors[ PM_WOOD_NYMPH+GLYPH_MON_OFF ] = @selector( loadModelFunc_nymphs: );
-	loadModelSelectors[ PM_WATER_NYMPH+GLYPH_MON_OFF ] = @selector( loadModelFunc_nymphs: );
-	loadModelSelectors[ PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF ] = @selector( loadModelFunc_nymphs: );
-	// orc class
-	loadModelSelectors[ PM_ORC_SHAMAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_GOBLIN+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_HOBGOBLIN+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_ORC+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_HILL_ORC+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_MORDOR_ORC+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_URUK_HAI+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	loadModelSelectors[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] = @selector( loadModelFunc_orc: );
-	// piercers
-	loadModelSelectors[ PM_ROCK_PIERCER+GLYPH_MON_OFF ] = @selector( loadModelFunc_piercers: );
-	loadModelSelectors[ PM_IRON_PIERCER+GLYPH_MON_OFF ] = @selector( loadModelFunc_piercers: );
-	loadModelSelectors[ PM_GLASS_PIERCER+GLYPH_MON_OFF ] = @selector( loadModelFunc_piercers: );
-	// quadrupeds
-	loadModelSelectors[ PM_ROTHE+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	loadModelSelectors[ PM_MUMAK+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	loadModelSelectors[ PM_LEOCROTTA+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	loadModelSelectors[ PM_WUMPUS+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	loadModelSelectors[ PM_TITANOTHERE+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	loadModelSelectors[ PM_BALUCHITHERIUM+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	loadModelSelectors[ PM_MASTODON+GLYPH_MON_OFF ] = @selector( loadModelFunc_quadrupeds: );
-	// rodents
-	loadModelSelectors[ PM_SEWER_RAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_rodents: );
-	loadModelSelectors[ PM_GIANT_RAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_rodents: );
-	loadModelSelectors[ PM_RABID_RAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_rodents: );
-	loadModelSelectors[ PM_WERERAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_rodents: );
-	loadModelSelectors[ PM_ROCK_MOLE+GLYPH_MON_OFF ] = @selector( loadModelFunc_rodents: );
-	loadModelSelectors[ PM_WOODCHUCK+GLYPH_MON_OFF ] = @selector( loadModelFunc_rodents: );
-	// spiders
-	loadModelSelectors[ PM_CAVE_SPIDER+GLYPH_MON_OFF ] = @selector( loadModelFunc_spiders: );
-	loadModelSelectors[ PM_CENTIPEDE+GLYPH_MON_OFF ] = @selector( loadModelFunc_spiders: );
-	loadModelSelectors[ PM_GIANT_SPIDER+GLYPH_MON_OFF ] = @selector( loadModelFunc_spiders: );
-	loadModelSelectors[ PM_SCORPION+GLYPH_MON_OFF ] = @selector( loadModelFunc_spiders: );
-	// trapper
-	loadModelSelectors[ PM_LURKER_ABOVE+GLYPH_MON_OFF ] = @selector( loadModelFunc_trapper: );
-	loadModelSelectors[ PM_TRAPPER+GLYPH_MON_OFF ] = @selector( loadModelFunc_trapper: );
-	// unicorns and horses
-	loadModelSelectors[ PM_WHITE_UNICORN+GLYPH_MON_OFF ] = @selector( loadModelFunc_unicorns: );
-	loadModelSelectors[ PM_GRAY_UNICORN+GLYPH_MON_OFF ] = @selector( loadModelFunc_unicorns: );
-	loadModelSelectors[ PM_BLACK_UNICORN+GLYPH_MON_OFF ] = @selector( loadModelFunc_unicorns: );
-	loadModelSelectors[ PM_PONY+GLYPH_MON_OFF ] = @selector( loadModelFunc_unicorns: );
-	loadModelSelectors[ PM_HORSE+GLYPH_MON_OFF ] = @selector( loadModelFunc_unicorns: );
-	loadModelSelectors[ PM_WARHORSE+GLYPH_MON_OFF ] = @selector( loadModelFunc_unicorns: );
-	// vortices
-	loadModelSelectors[ PM_FOG_CLOUD+GLYPH_MON_OFF ] = @selector( loadModelFunc_vortices: );
-	loadModelSelectors[ PM_DUST_VORTEX+GLYPH_MON_OFF ] = @selector( loadModelFunc_vortices: );
-	loadModelSelectors[ PM_ICE_VORTEX+GLYPH_MON_OFF ] = @selector( loadModelFunc_vortices: );
-	loadModelSelectors[ PM_ENERGY_VORTEX+GLYPH_MON_OFF ] = @selector( loadModelFunc_vortices: );
-	loadModelSelectors[ PM_STEAM_VORTEX+GLYPH_MON_OFF ] = @selector( loadModelFunc_vortices: );
-	loadModelSelectors[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = @selector( loadModelFunc_vortices: );
-	// worms
-	loadModelSelectors[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = @selector( loadModelFunc_worms: );
-	loadModelSelectors[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = @selector( loadModelFunc_worms: );
-	loadModelSelectors[ PM_LONG_WORM+GLYPH_MON_OFF ] = @selector( loadModelFunc_worms: );
-	loadModelSelectors[ PM_PURPLE_WORM+GLYPH_MON_OFF ] = @selector( loadModelFunc_worms: );
-	// xan
-	loadModelSelectors[ PM_GRID_BUG+GLYPH_MON_OFF ] = @selector( loadModelFunc_xan: );
-	loadModelSelectors[ PM_XAN+GLYPH_MON_OFF ] = @selector( loadModelFunc_xan: );
-	// lights
-	loadModelSelectors[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = @selector( loadModelFunc_lights: );
-	loadModelSelectors[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = @selector( loadModelFunc_lights: );
-	// zruty
-	loadModelSelectors[ PM_ZRUTY+GLYPH_MON_OFF ] = @selector( loadModelFunc_zruty: );
-	// Angels
-	loadModelSelectors[ PM_COUATL+GLYPH_MON_OFF ] = @selector( loadModelFunc_Angels: );
-	loadModelSelectors[ PM_ALEAX+GLYPH_MON_OFF ] = @selector( loadModelFunc_Angels: );
-	loadModelSelectors[ PM_ANGEL+GLYPH_MON_OFF ] = @selector( loadModelFunc_Angels: );
-	loadModelSelectors[ PM_KI_RIN+GLYPH_MON_OFF ] = @selector( loadModelFunc_Angels: );
-	loadModelSelectors[ PM_ARCHON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Angels: );
-	// Bats
-	loadModelSelectors[ PM_BAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_Bats: );
-	loadModelSelectors[ PM_GIANT_BAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_Bats: );
-	loadModelSelectors[ PM_RAVEN+GLYPH_MON_OFF ] = @selector( loadModelFunc_Bats: );
-	loadModelSelectors[ PM_VAMPIRE_BAT+GLYPH_MON_OFF ] = @selector( loadModelFunc_Bats: );
-	// Centaurs
-	loadModelSelectors[ PM_PLAINS_CENTAUR+GLYPH_MON_OFF ] = @selector( loadModelFunc_Centaurs: );
-	loadModelSelectors[ PM_FOREST_CENTAUR+GLYPH_MON_OFF ] = @selector( loadModelFunc_Centaurs: );
-	loadModelSelectors[ PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF ] = @selector( loadModelFunc_Centaurs: );
-	// Dragons
-	loadModelSelectors[ PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_RED_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_GRAY_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_SILVER_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_RED_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_WHITE_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_ORANGE_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BLACK_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_BLUE_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_GREEN_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	loadModelSelectors[ PM_YELLOW_DRAGON+GLYPH_MON_OFF ] = @selector( loadModelFunc_Dragons: );
-	// Elementals
-	loadModelSelectors[ PM_STALKER+GLYPH_MON_OFF ] = @selector( loadModelFunc_Elementals: );
-	loadModelSelectors[ PM_AIR_ELEMENTAL+GLYPH_MON_OFF ] = @selector( loadModelFunc_Elementals: );
-	loadModelSelectors[ PM_FIRE_ELEMENTAL+GLYPH_MON_OFF ] = @selector( loadModelFunc_Elementals: );
-	loadModelSelectors[ PM_EARTH_ELEMENTAL+GLYPH_MON_OFF ] = @selector( loadModelFunc_Elementals: );
-	loadModelSelectors[ PM_WATER_ELEMENTAL+GLYPH_MON_OFF ] = @selector( loadModelFunc_Elementals: );
-	// Fungi
-	loadModelSelectors[ PM_LICHEN+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	loadModelSelectors[ PM_BROWN_MOLD+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	loadModelSelectors[ PM_YELLOW_MOLD+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	loadModelSelectors[ PM_GREEN_MOLD+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	loadModelSelectors[ PM_RED_MOLD+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	loadModelSelectors[ PM_SHRIEKER+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	loadModelSelectors[ PM_VIOLET_FUNGUS+GLYPH_MON_OFF ] = @selector( loadModelFunc_Fungi: );
-	// Gnomes
-	loadModelSelectors[ PM_GNOME+GLYPH_MON_OFF ] = @selector( loadModelFunc_Gnomes: );
-	loadModelSelectors[ PM_GNOME_LORD+GLYPH_MON_OFF ] = @selector( loadModelFunc_Gnomes: );
-	loadModelSelectors[ PM_GNOMISH_WIZARD + GLYPH_MON_OFF ] = @selector( loadModelFunc_Gnomes: );
-	loadModelSelectors[ PM_GNOME_KING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Gnomes: );
-	// Giant Humanoids
-	loadModelSelectors[ PM_GIANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_STONE_GIANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_HILL_GIANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_FIRE_GIANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_FROST_GIANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_STORM_GIANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_ETTIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_TITAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	loadModelSelectors[ PM_MINOTAUR + GLYPH_MON_OFF ] = @selector( loadModelFunc_giantHumanoids: );
-	// Jabberwock
-	loadModelSelectors[ PM_JABBERWOCK + GLYPH_MON_OFF ] = @selector( loadModelFunc_Jabberwock: );
-	// Kops
-	loadModelSelectors[ PM_KEYSTONE_KOP + GLYPH_MON_OFF ] = @selector( loadModelFunc_Kops: );
-	loadModelSelectors[ PM_KOP_SERGEANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Kops: );
-	loadModelSelectors[ PM_KOP_LIEUTENANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Kops: );
-	loadModelSelectors[ PM_KOP_KAPTAIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Kops: );
-	// Liches
-	loadModelSelectors[ PM_LICH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Liches: );
-	loadModelSelectors[ PM_DEMILICH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Liches: );
-	loadModelSelectors[ PM_MASTER_LICH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Liches: );
-	loadModelSelectors[ PM_ARCH_LICH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Liches: );
-	// Mummies
-	loadModelSelectors[ PM_KOBOLD_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_GNOME_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_ORC_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_DWARF_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_ELF_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_HUMAN_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_ETTIN_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	loadModelSelectors[ PM_GIANT_MUMMY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Mummies: );
-	// Nagas
-	loadModelSelectors[ PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_RED_NAGA + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_BLACK_NAGA + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_GOLDEN_NAGA + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	loadModelSelectors[ PM_GUARDIAN_NAGA + GLYPH_MON_OFF ] = @selector( loadModelFunc_Nagas: );
-	// Ogres
-	loadModelSelectors[ PM_OGRE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Ogres: );
-	loadModelSelectors[ PM_OGRE_LORD + GLYPH_MON_OFF ] = @selector( loadModelFunc_Ogres: );
-	loadModelSelectors[ PM_OGRE_KING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Ogres: );
-	// Puddings
-	loadModelSelectors[ PM_GRAY_OOZE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Puddings: );
-	loadModelSelectors[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Puddings: );
-	loadModelSelectors[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = @selector( loadModelFunc_Puddings: );
-	loadModelSelectors[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = @selector( loadModelFunc_Puddings: );
-	// Quantum mechanics
-	loadModelSelectors[ PM_QUANTUM_MECHANIC + GLYPH_MON_OFF ] = @selector( loadModelFunc_Quantummechanics: );
-	// Rust monster or disenchanter
-	loadModelSelectors[ PM_RUST_MONSTER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Rustmonster: );
-	loadModelSelectors[ PM_DISENCHANTER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Rustmonster: );
-	// Snakes
-	loadModelSelectors[ PM_GARTER_SNAKE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Snakes: );
-	loadModelSelectors[ PM_SNAKE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Snakes: );
-	loadModelSelectors[ PM_WATER_MOCCASIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Snakes: );
-	loadModelSelectors[ PM_PIT_VIPER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Snakes: );
-	loadModelSelectors[ PM_PYTHON + GLYPH_MON_OFF ] = @selector( loadModelFunc_Snakes: );
-	loadModelSelectors[ PM_COBRA + GLYPH_MON_OFF ] = @selector( loadModelFunc_Snakes: );
-	// Trolls
-	loadModelSelectors[ PM_TROLL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Trolls: );
-	loadModelSelectors[ PM_ICE_TROLL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Trolls: );
-	loadModelSelectors[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Trolls: );
-	loadModelSelectors[ PM_WATER_TROLL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Trolls: );
-	loadModelSelectors[ PM_OLOG_HAI + GLYPH_MON_OFF ] = @selector( loadModelFunc_Trolls: );
-	// Umber hulk
-	loadModelSelectors[ PM_UMBER_HULK + GLYPH_MON_OFF ] = @selector( loadModelFunc_Umberhulk: );
-	// Vampires
-	loadModelSelectors[ PM_VAMPIRE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Vampires: );
-	loadModelSelectors[ PM_VAMPIRE_LORD + GLYPH_MON_OFF ] = @selector( loadModelFunc_Vampires: );
-	loadModelSelectors[ PM_VLAD_THE_IMPALER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Vampires: );
-	// Wraiths
-	loadModelSelectors[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Wraiths: );
-	loadModelSelectors[ PM_WRAITH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Wraiths: );
-	loadModelSelectors[ PM_NAZGUL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Wraiths: );
-	// Xorn
-	loadModelSelectors[ PM_XORN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Xorn: );
-	// Yeti and other large beasts
-	loadModelSelectors[ PM_MONKEY + GLYPH_MON_OFF ] = @selector( loadModelFunc_Yeti: );
-	loadModelSelectors[ PM_APE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Yeti: );
-	loadModelSelectors[ PM_OWLBEAR + GLYPH_MON_OFF ] = @selector( loadModelFunc_Yeti: );
-	loadModelSelectors[ PM_YETI + GLYPH_MON_OFF ] = @selector( loadModelFunc_Yeti: );
-	loadModelSelectors[ PM_CARNIVOROUS_APE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Yeti: );
-	loadModelSelectors[ PM_SASQUATCH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Yeti: );
-	// Zombie
-	loadModelSelectors[ PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_GNOME_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_ORC_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_DWARF_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_ELF_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_HUMAN_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_ETTIN_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_GIANT_ZOMBIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_GHOUL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	loadModelSelectors[ PM_SKELETON + GLYPH_MON_OFF ] = @selector( loadModelFunc_Zombie: );
-	// Golems
-	loadModelSelectors[ PM_STRAW_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_PAPER_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_ROPE_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_GOLD_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_LEATHER_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_WOOD_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_FLESH_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_CLAY_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	loadModelSelectors[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = @selector( loadModelFunc_Golems: );
-	// Human or Elves
-	loadModelSelectors[ PM_ELVENKING + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_NURSE + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_HIGH_PRIEST + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_MEDUSA + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_CROESUS + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_HUMAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_HUMAN_WERERAT + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_HUMAN_WEREWOLF + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );	
-	loadModelSelectors[ PM_ELF + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_WOODLAND_ELF + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_GREEN_ELF + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_GREY_ELF + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_ELF_LORD + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );	
-	loadModelSelectors[ PM_DOPPELGANGER + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );		
-	loadModelSelectors[ PM_SHOPKEEPER + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );	
-	loadModelSelectors[ PM_GUARD + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_PRISONER + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_ORACLE + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_ALIGNED_PRIEST + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_SOLDIER + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_SERGEANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_LIEUTENANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_CAPTAIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_WATCHMAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_WATCH_CAPTAIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );
-	loadModelSelectors[ PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF ] = @selector( loadModelFunc_HumanorElves: );	
-	// Ghosts
-	loadModelSelectors[ PM_GHOST + GLYPH_INVIS_OFF ] = @selector( loadModelFunc_Ghosts: );
-	loadModelSelectors[ PM_SHADE + GLYPH_INVIS_OFF ] = @selector( loadModelFunc_Ghosts: );
-	// Major Damons
-	loadModelSelectors[ PM_WATER_DEMON + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_HORNED_DEVIL + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_SUCCUBUS + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_INCUBUS + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_ERINYS + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_BARBED_DEVIL + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_MARILITH + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_VROCK + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_HEZROU + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_BONE_DEVIL + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_ICE_DEVIL + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_NALFESHNEE + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_PIT_FIEND + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_BALROG + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_DJINNI + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	loadModelSelectors[ PM_SANDESTIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_MajorDamons: );
-	// Grater Damons 
-	loadModelSelectors[ PM_JUIBLEX + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	loadModelSelectors[ PM_YEENOGHU + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );	
-	loadModelSelectors[ PM_ORCUS + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	loadModelSelectors[ PM_GERYON + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	loadModelSelectors[ PM_DISPATER + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	loadModelSelectors[ PM_BAALZEBUB + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	loadModelSelectors[ PM_ASMODEUS + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	loadModelSelectors[ PM_DEMOGORGON + GLYPH_MON_OFF ] = @selector( loadModelFunc_GraterDamons: );
-	// damon "The Riders"
-	loadModelSelectors[ PM_DEATH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Riders: );
-	loadModelSelectors[ PM_PESTILENCE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Riders: );
-	loadModelSelectors[ PM_FAMINE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Riders: );
-	// sea monsters
-	loadModelSelectors[ PM_JELLYFISH + GLYPH_MON_OFF ] = @selector( loadModelFunc_seamonsters: );
-	loadModelSelectors[ PM_PIRANHA + GLYPH_MON_OFF ] = @selector( loadModelFunc_seamonsters: );
-	loadModelSelectors[ PM_SHARK + GLYPH_MON_OFF ] = @selector( loadModelFunc_seamonsters: );
-	loadModelSelectors[ PM_GIANT_EEL + GLYPH_MON_OFF ] = @selector( loadModelFunc_seamonsters: );
-	loadModelSelectors[ PM_ELECTRIC_EEL + GLYPH_MON_OFF ] = @selector( loadModelFunc_seamonsters: );
-	loadModelSelectors[ PM_KRAKEN + GLYPH_MON_OFF ] = @selector( loadModelFunc_seamonsters: );
-	// lizards
-	loadModelSelectors[ PM_NEWT + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_GECKO + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_IGUANA + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_BABY_CROCODILE + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_LIZARD + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_CHAMELEON + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_CROCODILE + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	loadModelSelectors[ PM_SALAMANDER + GLYPH_MON_OFF ] = @selector( loadModelFunc_lizards: );
-	// wormtail
-	loadModelSelectors[ PM_LONG_WORM_TAIL + GLYPH_MON_OFF ] = @selector( loadModelFunc_wormtail: );
-	// Adventures
-	loadModelSelectors[ PM_ARCHEOLOGIST + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_BARBARIAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_CAVEMAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_CAVEWOMAN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_HEALER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_KNIGHT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_MONK + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_PRIEST + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_PRIESTESS + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_RANGER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_ROGUE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_SAMURAI + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_TOURIST + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_VALKYRIE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	loadModelSelectors[ PM_WIZARD + GLYPH_MON_OFF ] = @selector( loadModelFunc_Adventures: );
-	// Unique person
-	loadModelSelectors[ PM_LORD_CARNARVON + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_PELIAS + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_SHAMAN_KARNOV + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_HIPPOCRATES + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_GRAND_MASTER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ARCH_PRIEST + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ORION + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_MASTER_OF_THIEVES + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_LORD_SATO + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_TWOFLOWER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_NORN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_KING_ARTHUR + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_NEFERET_THE_GREEN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_THOTH_AMON + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_CHROMATIC_DRAGON + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_CYCLOPS + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_IXOTH + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_MASTER_KAEN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_NALZOK + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_SCORPIUS + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_MASTER_ASSASSIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_LORD_SURTUR + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_DARK_ONE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_STUDENT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_CHIEFTAIN + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_NEANDERTHAL + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ATTENDANT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_PAGE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ABBOT + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ACOLYTE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_HUNTER + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_THUG + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_NINJA + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_ROSHI + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_GUIDE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_WARRIOR + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-	loadModelSelectors[ PM_APPRENTICE + GLYPH_MON_OFF ] = @selector( loadModelFunc_Uniqueperson: );
-
-// -------------------------- Map Symbol Section ----------------------------- //
-	
-	loadModelSelectors[ S_bars + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_tree + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_upstair + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_dnstair + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_upladder + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols:);
-	loadModelSelectors[ S_dnladder + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols:);
-	loadModelSelectors[ S_altar + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_grave + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_throne + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_sink + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_fountain + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_vodbridge + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: ); 
-	loadModelSelectors[ S_hodbridge + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: ); 
-	loadModelSelectors[ S_vcdbridge + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: );
-	loadModelSelectors[ S_hcdbridge + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MapSymbols: ); 
-//  ------------------------------  Boulder ---------------------------------- //
-	
-	loadModelSelectors[ BOULDER + GLYPH_OBJ_OFF ] = @selector( loadModelFunc_Boulder: );
-// --------------------------  Trap Symbol Section --------------------------- // 
-	
-	loadModelSelectors[ S_arrow_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_dart_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_falling_rock_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	//loadModelSelectors[ S_squeaky_board + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_land_mine + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	//loadModelSelectors[ S_rolling_boulder_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_sleeping_gas_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_rust_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_bear_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_fire_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_pit + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_spiked_pit + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_hole + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_trap_door + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_teleportation_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_level_teleporter + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_magic_portal + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	//loadModelSelectors[ S_web + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	//loadModelSelectors[ S_statue_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );	
-	loadModelSelectors[ S_magic_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_anti_magic_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	loadModelSelectors[ S_polymorph_trap + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_TrapSymbol: );
-	// ------------------------- Effect Symbols Section. ------------------------- //
-	
-	// ZAP symbols ( NUM_ZAP * four directions )
-	
-	// type Magic Missile
-	loadModelSelectors[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicMissile: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicMissile: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicMissile: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicMissile: );
-	// type Magic FIRE
-	loadModelSelectors[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicFIRE: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicFIRE: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicFIRE: );	
-	loadModelSelectors[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicFIRE: );
-	// type Magic COLD
-	loadModelSelectors[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicCOLD: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicCOLD: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicCOLD: );	
-	loadModelSelectors[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicCOLD: );
-	// type Magic SLEEP
-	loadModelSelectors[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicSLEEP: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicSLEEP: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicSLEEP: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicSLEEP: );
-	// type Magic DEATH
-	loadModelSelectors[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicDEATH: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicDEATH: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicDEATH: );	
-	loadModelSelectors[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicDEATH: );
-	// type Magic LIGHTNING
-	loadModelSelectors[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicLIGHTNING: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicLIGHTNING: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicLIGHTNING: );	
-	loadModelSelectors[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicLIGHTNING: );
-	// type Magic POISONGAS
-	loadModelSelectors[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicPOISONGAS: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicPOISONGAS: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicPOISONGAS: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicPOISONGAS: );
-	// type Magic ACID
-	loadModelSelectors[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM ] = @selector( loadModelFunc_MagicACID: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM ] = @selector( loadModelFunc_MagicACID: );
-	loadModelSelectors[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT ] = @selector( loadModelFunc_MagicACID: );	
-	loadModelSelectors[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT ] = @selector( loadModelFunc_MagicACID: );
-	// dig beam
-	loadModelSelectors[ S_digbeam + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicETC: );
-	// camera flash
-	loadModelSelectors[ S_flashbeam + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicETC: );
-	// boomerang
-	//loadModelSelectors[ S_boomleft + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicETC: );
-	//loadModelSelectors[ S_boomright + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicETC: );
-
-	// magic shild
-	loadModelSelectors[ S_ss1 + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicSHILD: );
-	loadModelSelectors[ S_ss2 + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicSHILD: );
-	loadModelSelectors[ S_ss3 + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicSHILD: );
-	loadModelSelectors[ S_ss4 + GLYPH_CMAP_OFF ] = @selector( loadModelFunc_MagicSHILD: );
-	
-	// explotion symbols ( 9 postion * 7 types )
-	// type DARK
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_DARK + i ] = @selector( loadModelFunc_explotionDARK: );
 	}
-	// type NOXIOUS
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_NOXIOUS + i ] = @selector( loadModelFunc_explotionNOXIOUS: );
-	}
-	// type MUDDY
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_MUDDY + i ] = @selector( loadModelFunc_explotionMUDDY: );
-	}
-	// type WET
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_WET + i ] = @selector( loadModelFunc_explotionWET: );
-	}
-	// type MAGICAL
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_MAGICAL + i ] = @selector( loadModelFunc_explotionMAGICAL: );
-	}
-	// type FIERY
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_FIERY + i ] = @selector( loadModelFunc_explotionFIERY: );
-	}
-	// type FROSTY
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelSelectors[ NH3D_EXPLODE_FROSTY + i ] = @selector( loadModelFunc_explotionFROSTY: );
-	}
-	
-
-
 }
 
 

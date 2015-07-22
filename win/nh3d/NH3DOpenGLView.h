@@ -14,6 +14,7 @@
 @class NH3DMapItem;
 @class NH3DModelObjects;
 
+typedef NH3DModelObjects *(^LoadModelBlock)(int glyph);
 
 @interface NH3DOpenGLView : NSOpenGLView {
 	
@@ -97,8 +98,7 @@
 	
 	void	(*switchMethodArray[11])( );
 	void	(*drawFloorArray[11])( );
-	IMP		loadModelAddreses[MAX_GLYPH];
-	SEL		loadModelSelectors[MAX_GLYPH];
+	LoadModelBlock loadModelBlocks[MAX_GLYPH];
 	IMP		playerDirectionImp;
 	IMP		drawModelArrayImp;
 	IMP		panCameraImp;
@@ -114,12 +114,12 @@
 
 - (void)updateGlView;
 - (void)loadModels;
-- (id)checkLoadedModelsAt:(int)startNum
-					   to:(int)endNum
-				   offset:(int)offset
-				modelName:(NSString *)mName
-				 textured:(BOOL)flag
-				  withOut:(int)without, ... NS_RETURNS_RETAINED /*NS_FORMAT_FUNCTION(4,7)*/;
+- (NH3DModelObjects*)checkLoadedModelsAt:(int)startNum
+									  to:(int)endNum
+								  offset:(int)offset
+							   modelName:(NSString *)mName
+								textured:(BOOL)flag
+								 withOut:(int)without, ... NS_RETURNS_RETAINED;
 //- ( id )loadModelToArray:(int)glyph;
 
 @property (readonly) float cameraHead;
