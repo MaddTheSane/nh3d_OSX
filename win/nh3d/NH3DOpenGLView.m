@@ -826,7 +826,6 @@ static void floorfunc_default( id self )
 	
 	// cash method addresses.
 		IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
-		IMP updateGlViewAddress = [ self methodForSelector:@selector( updateGlView ) ];
 		
 		[[self openGLContext] makeCurrentContext];
 		
@@ -843,7 +842,7 @@ static void floorfunc_default( id self )
 
 			if ( isReady && !nowUpdating && !needsDisplayAddress( self, @selector( needsDisplay )) ) {
 			//if ( isReady && !nowUpdating ) {
-				updateGlViewAddress( self, @selector( updateGlView ));
+				[self updateGlView];
 			}
 			
 			
@@ -4041,12 +4040,12 @@ static void floorfunc_default( id self )
 {
 	int i;
 	for( i = 0;i < 11;i++ ) {
-		switchMethodArray[ i ] = ^(int x ,int z ,int lx ,int lz) {
+		switchMethodArray[ i ] = [^(int x ,int z ,int lx ,int lz) {
 			return;
-		};
-		drawFloorArray[ i ] = ^(void) {
+		} copy];
+		drawFloorArray[ i ] = [^(void) {
 			
-		};
+		} copy];
 	}
 	
 	switchMethodArray[ 0 ] = ^(int x, int z, int lx, int lz) {

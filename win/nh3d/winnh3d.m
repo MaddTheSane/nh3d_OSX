@@ -781,7 +781,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 		if ( choices != nil ) Strcat(buf,choices);
 		putstr(WIN_MESSAGE, ATR_BOLD, buf);
 		
-		if ( strcmp(choices, "yn") == 0 ) {
+		if (choices && strcmp(choices, "yn") == 0 ) {
 			ynfunc = YES;
 			result = NSRunAlertPanel(
                 [ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 
@@ -790,7 +790,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
                 @"NO", 
                 @"Cancel",nil);
 		
-		} else if ( strcmp(choices, "ynq") == 0 ) {
+		} else if (choices && strcmp(choices, "ynq") == 0 ) {
 			ynfunc = YES;
 			result = NSRunAlertPanel(
 					[ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 
@@ -798,7 +798,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 					@"YES", 
 					@"NO", 
 					@"Quit",nil);
-		} else if ( [ [ NSString stringWithCString:question encoding:NH3DTEXTENCODING ] isLike:
+		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING ] isLike:
 												NSLocalizedString(@"*what direction*",@"") ] ) {
 			// hmm... These letters from cmd.c will not there be a good method?
 			int x = u.ux; int y = u.uy; int mod = 0;
@@ -1343,11 +1343,20 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)showMainWindow
 {
+#if 1
+	int i;
+	// window fade in
+	for (i=0;i<=10;i++) {
+		[ _window setAlphaValue:((float)i)/10 ];
+		[ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:0.1 ] ];
+	}
+#else
 	// window fade in
 	[NSAnimationContext beginGrouping];
 	[NSAnimationContext currentContext].duration = 1.0;
 	_window.animator.alphaValue = 1;
 	[NSAnimationContext endGrouping];
+#endif
 }
 
 

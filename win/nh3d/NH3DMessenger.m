@@ -347,6 +347,15 @@ static const int DIALOG_CANCEL	= 129;
 	
 	_ripPanel.alphaValue = 0;
 	[_ripPanel orderFront:self];
+#if 1
+	// window fade out/in
+	for (int i=10 ; i>=0 ; i-- ) {
+		[ _window setAlphaValue: i*0.1 ];
+		[ _ripPanel setAlphaValue: (i-10)*-0.1 ];
+		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ];
+	}
+	[ _ripPanel flushWindow ];
+#else
 	// window fade out/in
 	[NSAnimationContext beginGrouping];
 	[NSAnimationContext currentContext].duration = 1.1;
@@ -356,6 +365,7 @@ static const int DIALOG_CANCEL	= 129;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[_ripPanel flushWindow];
 	});
+#endif
 }
 
 
@@ -398,6 +408,16 @@ static const int DIALOG_CANCEL	= 129;
 		ripOrMainWindow = _window;
 	}
 	
+#if 1
+	for (int i=10 ; i>=0 ; i-- ) {
+		[ ripOrMainWindow setAlphaValue: i*0.1 ];
+		[ _rawPrintPanel setAlphaValue: (i-10)*-0.1 ];
+		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ];
+	}
+	
+	[ NSApp runModalForWindow:_rawPrintPanel ];
+	[ _rawPrintPanel orderOut:self ];
+#else
 	[NSAnimationContext beginGrouping];
 	[NSAnimationContext currentContext].duration = 1.1;
 	ripOrMainWindow.animator.alphaValue = 0;
@@ -408,6 +428,7 @@ static const int DIALOG_CANCEL	= 129;
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[_rawPrintPanel orderOut:self];
 	});
+#endif
 	
 	return YES;
 }

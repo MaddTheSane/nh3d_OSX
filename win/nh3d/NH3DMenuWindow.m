@@ -173,36 +173,31 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)showTextPanel
 {
-	@autoreleasepool {
-		NSRect frameRect;
-		
-		if ( flags.tombstone && doneRip ) {
-			return;
-		}
-		
-		[ [_window attachedSheet] orderOut:nil ];
-		
-		[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
-		
-		frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
-		[ _textPanel setFrame:frameRect display:NO ];
-		
-		if ( [ [_textScrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
-			[ _textWindow scrollRangeToVisible:NSMakeRange(0,0) ];
-		}
-		
-		[ NSApp beginSheet:_textPanel
-		    modalForWindow:_window
-			 modalDelegate:nil
-		    didEndSelector:nil
-			   contextInfo:nil ];
-		//[ NSApp runModalForWindow: _textPanel ];
-    // Dialog is up here.
-
-		[ _textWindow setString:@"" ];
-		
-		[ NSApp stopSpeaking:self ];
+	NSRect frameRect;
+	
+	if ( flags.tombstone && doneRip ) {
+		return;
 	}
+	
+	[ [_window attachedSheet] orderOut:nil ];
+	[NSApp stopModalWithCode:-100];
+	
+	[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
+	
+	frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
+	[ _textPanel setFrame:frameRect display:NO ];
+	
+	if ( [ [_textScrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
+		[ _textWindow scrollRangeToVisible:NSMakeRange(0,0) ];
+	}
+	
+	[_window beginSheet:_textPanel completionHandler:nil];
+	//[ NSApp runModalForWindow: _textPanel ];
+	// Dialog is up here.
+	
+	[ _textWindow setString:@"" ];
+	
+	[ NSApp stopSpeaking:self ];
 }
 
 

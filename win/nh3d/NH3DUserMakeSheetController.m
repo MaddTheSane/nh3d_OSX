@@ -521,7 +521,6 @@ static const int DIALOG_CANCEL	= 129;
 				  didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
 					 contextInfo:nil ];
 	[ NSApp runModalForWindow: [ self window ] ];
-	
 }
 
 

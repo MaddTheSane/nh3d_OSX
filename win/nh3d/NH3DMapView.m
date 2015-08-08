@@ -1265,17 +1265,15 @@
 
 - (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
 {
-	NSEvent *event;
-	NSDate *date = nil;
 	char ch[1];
 	
 	while ( !keyUpdated ) {
 		
 		@autoreleasepool {
 		
-			date = [ NSDate dateWithTimeIntervalSinceNow:0.1 ];
+			NSDate *date = [ NSDate dateWithTimeIntervalSinceNow:0.1 ];
 			
-			event = [ NSApp  nextEventMatchingMask:mask
+			NSEvent *event = [ NSApp  nextEventMatchingMask:mask
 									 	 untilDate:date
 										    inMode:NSDefaultRunLoopMode
 										   dequeue:YES ];
