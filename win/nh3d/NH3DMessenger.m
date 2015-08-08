@@ -270,33 +270,28 @@ static const int DIALOG_CANCEL	= 129;
 											   
 	[ _questionTextField setAttributedStringValue:putString ];
 	
-	[NSApp beginSheet:_inputPanel
-	   modalForWindow:_window
-		modalDelegate:nil
-	   didEndSelector:nil
-		  contextInfo:nil];
+	[_window beginSheet:_inputPanel completionHandler:^(NSModalResponse returnCode) {
+		
+	}];
 	
 	
 	result = [NSApp runModalForWindow:_inputPanel];
-		
-	[NSApp endSheet:_inputPanel];
+	
+	[_window endSheet:_inputPanel];
     [_inputPanel orderOut:self];
 	
-	if ( result == DIALOG_CANCEL )
-	{
+	if ( result == DIALOG_CANCEL ) {
 		[ _questionTextField setStringValue:@"" ];
 		[ _inputTextField setStringValue:@"" ];
 		return -1;
 	}
-	if ( ![ _inputTextField stringValue ] )
-	{
+	if ( ![ _inputTextField stringValue ] ) {
 		[ _questionTextField setStringValue:@"" ];
 		return -1;
 	}
 	
-	if ( [ [_inputTextField stringValue] length ] > BUFSZ ) {
-		
-		NSRunAlertPanel( NSLocalizedString(@"There is too much number of the letters.",@""), 
+	if ([[_inputTextField stringValue] lengthOfBytesUsingEncoding:NH3DTEXTENCODING] > BUFSZ ) {
+		NSRunAlertPanel( NSLocalizedString(@"There is too much number of the letters.", @""),
 						@" ", 
 						@"OK", 
 						nil,nil,nil );
@@ -308,7 +303,7 @@ static const int DIALOG_CANCEL	= 129;
 	inputData = [ [_inputTextField stringValue] dataUsingEncoding:NH3DTEXTENCODING allowLossyConversion:YES ];
 	str = [ [NSString alloc] initWithData:inputData encoding:NH3DTEXTENCODING ];
 	
-	Strcpy( line,[ str cStringUsingEncoding:NH3DTEXTENCODING ] );
+	Strcpy(line, [str cStringUsingEncoding:NH3DTEXTENCODING]);
 	
 	[_questionTextField setStringValue:@""];
 	[_inputTextField setStringValue:@""];
@@ -319,12 +314,11 @@ static const int DIALOG_CANCEL	= 129;
 
 - (IBAction)closeInputPanel:(id)sender
 {
-	if ( ![ sender tag ] )
-		{
-			[ NSApp stopModalWithCode:DIALOG_OK ];
-		} else { 
-			[ NSApp stopModalWithCode:DIALOG_CANCEL ];
-		}
+	if (![sender tag]) {
+		[ NSApp stopModalWithCode:DIALOG_OK ];
+	} else {
+		[ NSApp stopModalWithCode:DIALOG_CANCEL ];
+	}
 }
 
 

@@ -109,7 +109,7 @@
 - (void)drawMask;
 
 @property (nonatomic) int keyBuffer;
-@property BOOL keyUpdated;
+@property (atomic) BOOL keyUpdated;
 @property int extendKey;
 @property BOOL getCharMode;
 

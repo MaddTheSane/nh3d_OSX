@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
         <development version="6300" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8173.3"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -363,10 +363,10 @@
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" id="372">
-                        <rect key="frame" x="12" y="124" width="156" height="31"/>
+                        <rect key="frame" x="12" y="124" width="156" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="27"/>
+                            <rect key="frame" x="2" y="2" width="152" height="26"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="480">
@@ -384,10 +384,10 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="375">
-                        <rect key="frame" x="12" y="90" width="156" height="31"/>
+                        <rect key="frame" x="12" y="90" width="156" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="27"/>
+                            <rect key="frame" x="2" y="2" width="152" height="26"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="483">
@@ -406,10 +406,10 @@
                         <font key="titleFont" size="11" name="Monaco"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="378">
-                        <rect key="frame" x="12" y="57" width="156" height="31"/>
+                        <rect key="frame" x="12" y="57" width="156" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="27"/>
+                            <rect key="frame" x="2" y="2" width="152" height="26"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="484">
@@ -443,10 +443,10 @@
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" id="390">
-                        <rect key="frame" x="12" y="23" width="156" height="31"/>
+                        <rect key="frame" x="12" y="23" width="156" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="152" height="27"/>
+                            <rect key="frame" x="2" y="2" width="152" height="26"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="485">
@@ -2506,7 +2506,7 @@ DQ
                 <outlet property="initialFirstResponder" destination="5665" id="5726"/>
             </connections>
         </window>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5366" userLabel="TextPanel" customClass="NSPanel">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5366" userLabel="TextPanel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="122" y="650" width="571" height="335"/>
@@ -2760,7 +2760,7 @@ DQ
                 <outlet property="_textPanel" destination="5366" id="5621"/>
                 <outlet property="_textScrollView" destination="5378" id="5622"/>
                 <outlet property="_textWindow" destination="5379" id="5623"/>
-                <outlet property="_window" destination="21" id="5514"/>
+                <outlet property="window" destination="21" id="x4M-LS-NnH"/>
             </connections>
         </customObject>
         <window title="NetHack3D" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="NH3DLogwinPos" animationBehavior="default" id="5650" userLabel="LogPanel" customClass="NSPanel">

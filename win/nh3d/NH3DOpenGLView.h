@@ -30,7 +30,6 @@ typedef NH3DModelObjects *(^LoadModelBlock)(int glyph);
 	GLfloat		cameraX;
 	GLfloat		cameraY;
 	GLfloat		cameraZ;
-	GLfloat		cameraHead;
 	GLfloat		cameraPitch;
 	GLfloat		cameraRoll;	
 	

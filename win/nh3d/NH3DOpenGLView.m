@@ -245,6 +245,7 @@ static NH3DMaterial		nh3dMaterialArray[] = {
 
 
 @implementation NH3DOpenGLView
+@synthesize cameraHead;
 
 
 //------------------------------------------------------------------
@@ -341,25 +342,25 @@ static inline void createLightAndFog( NH3DOpenGLView *self )
 	self->keyLightCol[0] = 2.0;
 	self->keyLightCol[3] = 1.0;
 	if ( 1.00 - gblight < 0 )  {
-		( self ) -> keyLightCol[ 1 ] = 0.0;
-		( self ) -> keyLightCol[ 2 ] = 0.0;
+		self-> keyLightCol[ 1 ] = 0.0;
+		self->keyLightCol[ 2 ] = 0.0;
 	} else {
-		( self ) -> keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
-		( self ) -> keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
+		self->keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
+		self->keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
 	}
 	
 	glPushMatrix();
 	
-	glTranslatef(( self ) -> lastCameraX,
-				 ( self ) -> lastCameraY,
-				 ( self ) -> lastCameraZ );
+	glTranslatef(self->lastCameraX,
+				 self->lastCameraY,
+				 self->lastCameraZ);
 	
 	glFogi( GL_FOG_MODE , GL_LINEAR );
 	glHint( GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST );
 	
 	glFogf( GL_FOG_START , 0.0 );
 	
-	switch ( ( self ) -> elementalLevel ) {
+	switch ( self->elementalLevel ) {
 		case 1: glClearColor( fogColor[ 0 ]+0.1, 0.0 , 0.01 ,0.0 );
 			break;
 		case 2: glClearColor( fogColor[ 0 ], 0.2 , 0.8 ,0.0 );
@@ -374,7 +375,7 @@ static inline void createLightAndFog( NH3DOpenGLView *self )
 			break;
 	}
 	
-	if ( ( self ) -> isReady && ( Blind || u.uswallow ) ) {
+	if ( self->isReady && ( Blind || u.uswallow ) ) {
 		// you blind
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
@@ -393,15 +394,15 @@ static inline void createLightAndFog( NH3DOpenGLView *self )
 		glFogf( GL_FOG_END ,  6.0 );
 		glFogfv( GL_FOG_COLOR,defaultBackGroundCol );
 		
-	} else if ( ( self ) -> isReady && Underwater ) {
+	} else if ( self->isReady && Underwater ) {
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
@@ -415,12 +416,12 @@ static inline void createLightAndFog( NH3DOpenGLView *self )
 		int i;
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
@@ -456,12 +457,12 @@ static inline void createLightAndFog( NH3DOpenGLView *self )
 		int i;
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
@@ -494,12 +495,12 @@ static inline void createLightAndFog( NH3DOpenGLView *self )
 		
 	} else {		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 10.0 );
@@ -575,10 +576,10 @@ static void floorfunc_default( id self )
 	glClearColor( 0,0,0,0 );
 	glClearDepth( 1.0 );
 	
-	gluPerspective( 76.0,			/* View angle */
-				    ( double )theFrame.size.width / ( double )theFrame.size.height, /*Aspect rasio */ 
-					0.1,			/* Near limit Distance from origin*/
-					30.0 );			/* Far limit  */	
+	gluPerspective(76.0,			/* View angle */
+				   (double)theFrame.size.width / (double)theFrame.size.height, /*Aspect rasio */
+				   0.1,				/* Near limit Distance from origin*/
+				   30.0 );			/* Far limit  */
 	
 	
 	// alpha blending
@@ -813,20 +814,11 @@ static void floorfunc_default( id self )
 }
 
 
-- (float)cameraHead
-{
-	return cameraHead;
-}
-
-
 // OpenGL update method.
 - (void)timerFired:(id)sender
 {
 	@autoreleasepool {
 	
-	// cash method addresses.
-		IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
-		
 		[[self openGLContext] makeCurrentContext];
 		
 		[viewLock lock];
@@ -840,7 +832,7 @@ static void floorfunc_default( id self )
 		while ( runnning && !TRADITIONAL_MAP ) {
 			@autoreleasepool {
 
-			if ( isReady && !nowUpdating && !needsDisplayAddress( self, @selector( needsDisplay )) ) {
+			if ( isReady && !nowUpdating && ! [self needsDisplay] ) {
 			//if ( isReady && !nowUpdating ) {
 				[self updateGlView];
 			}
@@ -902,13 +894,13 @@ static void floorfunc_default( id self )
 	int			type = [ mapItem modelDrawingType ];
 				
 	if ( type != 10 ) {
-		switchMethodArray[type]([mapItem posX ],
-									[mapItem posY ],
-									x, z);
+		switchMethodArray[type]([mapItem posX],
+								[mapItem posY],
+								x, z);
 	} else {
 		// delay drawing for alphablending.
-		NSNumber *numX = [ [ NSNumber alloc ] initWithInt:x ];
-		NSNumber *numZ = [ [ NSNumber alloc ] initWithInt:z ];
+		NSNumber *numX = @(x);
+		NSNumber *numZ = @(z);
 		
 		[ delayDrawing addObject:mapItem ];
 		[ delayDrawing addObject:numX ];
@@ -932,8 +924,10 @@ static void floorfunc_default( id self )
 		int x,z;
 		nowUpdating = YES;
 		
-		if (!Hallucination || clearCnt == 10) { glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); clearCnt=0; }
-		else clearCnt++;
+		if (!Hallucination || clearCnt == 10) {
+			glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+			clearCnt=0;
+		} else clearCnt++;
 		
 		
 		glPushMatrix();
@@ -1335,8 +1329,8 @@ static void floorfunc_default( id self )
 
 - ( void )setCameraHead:( float )head pitching:( float )pitch rolling:( float )roll
 {
-	
 	[ viewLock lock ];
+	{
 		nowUpdating = YES;
 		
 		drawMargin = 3;
@@ -1355,9 +1349,8 @@ static void floorfunc_default( id self )
 		cameraRoll = roll;
 		
 		nowUpdating = NO;
-		
+	}
 	[ viewLock unlock ];
-	
 }
 
 
@@ -1365,9 +1358,9 @@ static void floorfunc_default( id self )
 {	
 	
 	[ viewLock lock ];
-		
-		nowUpdating = YES;	
-		NSSound *footstep = [ NSSound soundNamed:@"footStep.wav" ];
+	{
+		nowUpdating = YES;
+		NSSound *footstep = [NSSound soundNamed:@"footStep.wav"];
 		
 		drawMargin = 1;
 		
@@ -1381,7 +1374,6 @@ static void floorfunc_default( id self )
 			lastCameraY = cameraY;
 			lastCameraZ = cameraZ;
 			isReady = YES;
-
 		} else 	if ( [ footstep isPlaying ] && ( (!isFloating || isRiding) && !IS_SOFT( levl[ u.ux ][ u.uy ].typ )) && !SOUND_MUTE ) {
 			[ footstep stop ];
 			[ footstep play ];
@@ -1390,11 +1382,15 @@ static void floorfunc_default( id self )
 		}
 		
 		nowUpdating = NO;
-				
+	}
 	[ viewLock unlock ];
 	
-	if ( TRADITIONAL_MAP ) [ self setHidden:YES ];
-	else if ( !TRADITIONAL_MAP && !threadRunning ) { [ [self openGLContext] setView:self ]; [ self detachOpenGLThread ]; }
+	if (TRADITIONAL_MAP) {
+		self.hidden = YES;
+	} else if (!TRADITIONAL_MAP && !threadRunning) {
+		self.openGLContext.view = self;
+		[self detachOpenGLThread];
+	}
 	
 }
 
@@ -1565,13 +1561,11 @@ static void floorfunc_default( id self )
 
 - ( GLuint )loadImageToTexture:( NSString * )filename
 {
-	NSImage				*sourcefile = [ [ NSImage alloc ] initWithContentsOfFile:[ NSString stringWithFormat:@"%@/%@",
-																				[ [ NSBundle mainBundle ] resourcePath ],
-																				 filename ]							 ];
+	NSImage				*sourcefile = [NSImage imageNamed:filename];
 	NSBitmapImageRep	*imgrep;
-	GLuint tex_id;
+	GLuint				tex_id;
 	
-	imgrep = [ [ NSBitmapImageRep alloc ] initWithData:[ sourcefile TIFFRepresentation ] ];
+	imgrep = [[NSBitmapImageRep alloc] initWithData:[sourcefile TIFFRepresentation]];
 	
 	[ viewLock lock ];
 	
@@ -1592,10 +1586,10 @@ static void floorfunc_default( id self )
 				  [ imgrep bitmapData ] ); // */
 	
 	// create automipmap texture
-	gluBuild2DMipmaps( GL_TEXTURE_2D,GL_RGBA,
-					  [ imgrep pixelsWide ],[ imgrep pixelsHigh ],
-					 [ imgrep hasAlpha ] ? GL_RGBA : GL_RGB,
-					  GL_UNSIGNED_BYTE,[ imgrep bitmapData ] );
+	gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
+					  [imgrep pixelsWide], [imgrep pixelsHigh],
+					  [imgrep hasAlpha] ? GL_RGBA : GL_RGB,
+					  GL_UNSIGNED_BYTE,[imgrep bitmapData]);
 	
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
@@ -1603,7 +1597,7 @@ static void floorfunc_default( id self )
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 
-	[ viewLock unlock ];
+	[viewLock unlock];
 	
 	return tex_id;
 }
@@ -4211,7 +4205,7 @@ static void floorfunc_default( id self )
 		glActiveTexture( GL_TEXTURE0 );
 		glEnable( GL_TEXTURE_2D );
 		
-		glBindTexture( GL_TEXTURE_2D, ( self ) -> floorCurrent );
+		glBindTexture( GL_TEXTURE_2D, self->floorCurrent );
 		
 		glMaterialf( GL_FRONT , GL_EMISSION , 10.0 );
 		
@@ -4219,7 +4213,7 @@ static void floorfunc_default( id self )
 		
 		glActiveTexture( GL_TEXTURE1 );
 		
-		glBindTexture( GL_TEXTURE_2D, ( self ) -> envelopTex );
+		glBindTexture( GL_TEXTURE_2D, self->envelopTex );
 		
 		glEnable( GL_TEXTURE_2D );
 		glEnable( GL_TEXTURE_GEN_S );
@@ -4242,7 +4236,7 @@ static void floorfunc_default( id self )
 		
 		glActiveTexture( GL_TEXTURE0 );
 		
-		glBindTexture( GL_TEXTURE_2D, ( self ) -> cellingCurrent );
+		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
 		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 		
 		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
@@ -4283,7 +4277,7 @@ static void floorfunc_default( id self )
 		glActiveTexture( GL_TEXTURE0 );
 		glEnable( GL_TEXTURE_2D );
 		
-		glBindTexture( GL_TEXTURE_2D, ( self ) -> airTex );
+		glBindTexture( GL_TEXTURE_2D, self->airTex );
 		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 		
 		glNormalPointer( GL_FLOAT , 0 ,FloorVertNorms );
@@ -4313,13 +4307,13 @@ static void floorfunc_default( id self )
 		glActiveTexture( GL_TEXTURE0 );
 		glEnable( GL_TEXTURE_2D );
 		
-		glBindTexture( GL_TEXTURE_2D, ( self ) -> waterTex );
+		glBindTexture( GL_TEXTURE_2D, self->waterTex );
 		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 		
 		glActiveTexture( GL_TEXTURE1 );
 		glEnable( GL_TEXTURE_2D );
 		
-		glBindTexture( GL_TEXTURE_2D, ( self ) -> envelopTex );
+		glBindTexture( GL_TEXTURE_2D, self->envelopTex );
 		
 		glEnable( GL_TEXTURE_GEN_S );
 		glEnable( GL_TEXTURE_GEN_T );

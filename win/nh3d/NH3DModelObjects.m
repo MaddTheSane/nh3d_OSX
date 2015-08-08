@@ -717,9 +717,9 @@ static NH3DMaterial defaultMat = {
 {
 	if (self = [super init]) {
 		
-		modelCode = [ [NSString alloc] initWithString:name ];
+		modelCode = [name copy];
 		
-		[ self initParams ];
+		[self initParams];
 		
 		slowdown = 0;
 		xspeed = 0;
@@ -757,7 +757,7 @@ static NH3DMaterial defaultMat = {
 	
 	for ( i = 0 ; i < numberOfTextures ; i++ ) {
 		GLuint texid = textures[ i ];
-		glDeleteTextures( 1 , &texid );
+		glDeleteTextures(1 , &texid);
 	}
 	
 	free(verts);
@@ -766,7 +766,7 @@ static NH3DMaterial defaultMat = {
 	free(texcoords);
 	free(particles);
 
-	[ childObjects removeAllObjects ];
+	[childObjects removeAllObjects];
 }
 
 
@@ -775,11 +775,7 @@ static NH3DMaterial defaultMat = {
 
 //--------------------------------------------
 
-
-- (NSString *)modelName 
-{
-	return modelName;
-}
+@synthesize modelName;
 
 
 - (int)verts_qty

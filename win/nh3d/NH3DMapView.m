@@ -1265,7 +1265,7 @@
 
 - (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
 {
-	char ch[1];
+	char ch[1] = {0};
 	
 	while ( !keyUpdated ) {
 		
@@ -1283,7 +1283,7 @@
 				if ( ![ [_bindController mainWindow] isKeyWindow ] ) {
 					[ NSApp sendEvent:event ];
 					continue;
-				} else
+				} else {
 					
 				
 				switch ( [ event type ] ) {
@@ -1485,7 +1485,7 @@
 						
 				} //end switch ([event type])
 			} // end if (event)
-		
+			}
 		}
 		
 	} // end while (keyUpdated == NO)
@@ -1621,19 +1621,12 @@
 	
 	// Sheet is Up.
 	@autoreleasepool {
-		
-		[NSApp beginSheet:_mapLpanel
-		   modalForWindow:_window
-			modalDelegate:nil
-		   didEndSelector:nil
-			  contextInfo:nil ];
-		
+		[_window beginSheet:_mapLpanel completionHandler:nil];
 		
 		[NSApp runModalForWindow:_mapLpanel];
 		
 		// Sheet is Over.
-		[NSApp endSheet:_mapLpanel];
-		[_mapLpanel close];
+		[_window endSheet:_mapLpanel];
 		
 		[_mapLview setImage:nil];
 	}

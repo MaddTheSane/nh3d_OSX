@@ -17,7 +17,6 @@
 	
 		IBOutlet NSPanel *_menuPanel;
 		IBOutlet NSTableView *_menuTableWindow;
-		IBOutlet NSWindow *_window;
 		IBOutlet NSTextField *_menuPanelStrings;
 		IBOutlet NSTextField *_menuPanelStringsShadow;
 		IBOutlet NSScrollView *_menuScrollview;
@@ -37,13 +36,14 @@
 		NSShadow *lightShadow;
 		NSMutableParagraphStyle  *style;
 		
-		
 		BOOL isMenu;
 		BOOL isExtendMenu;
 		int selectedRow;
 		BOOL doneRip;
 		int pickType;
 }
+@property (weak) IBOutlet NSWindow *window;
+
 
 @property BOOL isMenu;
 
@@ -54,7 +54,7 @@
 
 - (NSMutableArray *)nh3dMenu;
 
-- (void)putTextMessarge:(NSString *)contents;
+- (void)putTextMessage:(NSString *)contents;
 - (void)clearTextMessarge;
 - (void)showTextPanel;
 

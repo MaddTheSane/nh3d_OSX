@@ -17,6 +17,7 @@ static const int DIALOG_CANCEL	= 129;
 @synthesize isMenu;
 @synthesize isExtendMenu;
 @synthesize doneRip;
+@synthesize window = _window;
 
 - (id)init
 {
@@ -135,9 +136,9 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (void)putTextMessarge:(NSString *)contents
+- (void)putTextMessage:(NSString *)contents
 {
-	id textOrRip = nil;
+	NSTextView *textOrRip = nil;
 	
 	[ self prepareAttributes ];
 	
@@ -179,10 +180,16 @@ static const int DIALOG_CANCEL	= 129;
 		return;
 	}
 	
-	[ [_window attachedSheet] orderOut:nil ];
-	[NSApp stopModalWithCode:-100];
+	if (_window.attachedSheet) {
+		NSWindow *attached = _window.attachedSheet;
+		[_window endSheet:attached];
+		[attached orderOut:nil];
+	}
+	//[ [_window attachedSheet] orderOut:nil ];
+	//[NSApp stopModalWithCode:-100];
 	
-	[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
+	//Does not work!
+	//[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
 	
 	frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
 	[ _textPanel setFrame:frameRect display:NO ];
@@ -191,8 +198,10 @@ static const int DIALOG_CANCEL	= 129;
 		[ _textWindow scrollRangeToVisible:NSMakeRange(0,0) ];
 	}
 	
-	[_window beginSheet:_textPanel completionHandler:nil];
-	//[ NSApp runModalForWindow: _textPanel ];
+	[_window beginSheet:_textPanel completionHandler:^(NSModalResponse res){
+		
+	}];
+	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
 	
 	[ _textWindow setString:@"" ];
@@ -205,11 +214,11 @@ static const int DIALOG_CANCEL	= 129;
 - (void)createMenuWindow:(int)wid
 {
 	if ( nh3dMenu != nil ) {
-	 [ nh3dMenu removeAllObjects ];
-	 [ self updateMenuWindow ];
+		[ nh3dMenu removeAllObjects ];
+		[ self updateMenuWindow ];
 	} else {
-	nh3dMenu = [ [NSMutableArray alloc]init ];
-	[ self updateMenuWindow ];
+		nh3dMenu = [ [NSMutableArray alloc]init ];
+		[ self updateMenuWindow ];
 	}
 }
 
@@ -330,12 +339,9 @@ static const int DIALOG_CANCEL	= 129;
 	[ _menuPanel setFrame:frameRect display:YES ];
 	
 	[ [_window attachedSheet] orderOut:nil ];
-	[ NSApp beginSheet:_menuPanel
-			 modalForWindow:_window
-			 modalDelegate:nil
-			 didEndSelector:nil
-			 contextInfo:nil ];
-	
+	[_window beginSheet:_menuPanel completionHandler:^(NSModalResponse returnCode) {
+		
+	}];
 }
 
 - (int)selectMenu:(winid)wid how:(int)how selected:(menu_item **)selected
@@ -402,15 +408,14 @@ static const int DIALOG_CANCEL	= 129;
 
 - (IBAction)closeModalDialog: (id)sender
 {
-	if ( [ sender tag ] )
-	{
+	if ( [ sender tag ] ) {
 		[ [sender window] orderOut:self ];
 		[ NSApp stopModalWithCode:DIALOG_CANCEL ];
-		[ NSApp endSheet: [sender window] ];
+		[ _window endSheet: [sender window] ];
 	} else { 
 		[ [sender window] close ];
 		[ NSApp stopModalWithCode:DIALOG_OK ];
-		[ NSApp endSheet: [sender window] ];
+		[ _window endSheet: [sender window] ];
 	}
 }
 

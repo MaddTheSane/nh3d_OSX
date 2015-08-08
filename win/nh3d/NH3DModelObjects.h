@@ -130,7 +130,7 @@ typedef struct {
 
 @property (getter=isActive) BOOL active;
 
-- (NSString *)modelName;
+@property (readonly, copy) NSString *modelName;
 - (int)verts_qty;
 - (int)face_qty;
 - (int)normal_qty;

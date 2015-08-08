@@ -514,13 +514,21 @@ static const int DIALOG_CANCEL	= 129;
 	
 	[ self setPlayerName:[userStatusModel playerName] ];
 	
-
-	[ NSApp beginSheet			:[ self window ]
-				  modalForWindow:[ NSApp mainWindow ]
-				   modalDelegate:self
-				  didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
-					 contextInfo:nil ];
-	[ NSApp runModalForWindow: [ self window ] ];
+	[[NSApp mainWindow] beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
+		[NSApp stopModal];
+		[[self window] orderOut:self];
+		
+		// Check return code
+		if(returnCode == DIALOG_CANCEL) {
+			// Quit button was pushed
+			[ NSApp terminate:self ];
+			return;
+		} else if(returnCode == DIALOG_OK) {
+			/* direct to makePlayer method */
+		}
+	}];
+	
+	[NSApp runModalForWindow:self.window];
 }
 
 
@@ -547,7 +555,7 @@ static const int DIALOG_CANCEL	= 129;
 {
 	
 	[ self createPlayer ];
-	[ NSApp endSheet:[ self window ] returnCode:DIALOG_OK ];
+	[[NSApp mainWindow] endSheet:[ self window ] returnCode:DIALOG_OK ];
 	
 }
 
@@ -555,7 +563,7 @@ static const int DIALOG_CANCEL	= 129;
 - (IBAction)quitGame:(id)sender
 {
     // Cancel button is pushed
-    [ NSApp endSheet:[ self window ] returnCode:DIALOG_CANCEL ];
+    [[NSApp mainWindow] endSheet:[ self window ] returnCode:DIALOG_CANCEL ];
 }
 
 

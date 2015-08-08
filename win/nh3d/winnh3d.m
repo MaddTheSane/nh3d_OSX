@@ -46,15 +46,15 @@ extern char **NXArgv;
 
 //bind NetHack C routines to NH3DObjects.
 //set object's instance pointer to work.
-static NH3DBindController *_NH3DBindController;
-static NH3DUserStatusModel *_NH3DUserStatusModel;
-static NH3DMapModel *_NH3DMapModel;
-static NH3DMessenger *_NH3DMessenger;
-static NH3DMenuWindow *_NH3DMenuWindow;
-static NH3DMapView *_NH3DKeyBuffer;
-static NH3DOpenGLView *_NH3DOpenGLView;
+static __strong NH3DBindController *_NH3DBindController;
+static __strong NH3DUserStatusModel *_NH3DUserStatusModel;
+static __strong NH3DMapModel *_NH3DMapModel;
+static __strong NH3DMessenger *_NH3DMessenger;
+static __strong NH3DMenuWindow *_NH3DMenuWindow;
+static __strong NH3DMapView *_NH3DKeyBuffer;
+static __strong NH3DOpenGLView *_NH3DOpenGLView;
 
-NH3DTileCache *_NH3DTileCache;
+__strong NH3DTileCache *_NH3DTileCache;
 
 static void NDECL(wd_message);
 
@@ -566,13 +566,13 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 				[ _NH3DMessenger putMainMessarge:attr text:text ];
 				break;
 			case NHW_TEXT:
-				[ _NH3DMenuWindow putTextMessarge:
+				[ _NH3DMenuWindow putTextMessage:
 						[ NSString stringWithCString:text
 											encoding:NH3DTEXTENCODING ] ];
 				break;
 			case NHW_MENU:
 				if ( ![ _NH3DMenuWindow isMenu ] ) {
-					[ _NH3DMenuWindow putTextMessarge:
+					[ _NH3DMenuWindow putTextMessage:
 							[ NSString stringWithCString:text
 												encoding:NH3DTEXTENCODING ] ];
 				} 
@@ -618,7 +618,7 @@ void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
 		}
 		
 		if (contentsOfFile != nil) {
-			[ _NH3DMenuWindow putTextMessarge:contentsOfFile ];
+			[ _NH3DMenuWindow putTextMessage:contentsOfFile ];
 			[ _NH3DMenuWindow showTextPanel ];
 		} else {
 			if ( must_exist ) {
