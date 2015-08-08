@@ -166,12 +166,8 @@ static const int DIALOG_CANCEL	= 129;
 																	[soundNameArray objectAtIndex:i]]];
 
 					playSound = [[QTMovie alloc] initWithURL: soundURL error:NULL];
-					
-					[movieView setMovie:playSound];
-					
-					[playSound setVolume:[[soundVolumeArray objectAtIndex:i] floatValue] * 0.01];
-					
-					//[ movieView  setVolume: [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01 ];
+					movieView.movie = playSound;
+					playSound.volume = [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01;
 					[movieView play: self];
 					
 					break;

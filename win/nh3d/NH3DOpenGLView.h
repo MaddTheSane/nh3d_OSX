@@ -96,18 +96,9 @@ typedef NH3DModelObjects *(^LoadModelBlock)(int glyph);
 	// for speed funcion
 	//-------------------
 	
-	void	(*switchMethodArray[11])( );
-	void	(*drawFloorArray[11])( );
-	LoadModelBlock loadModelBlocks[MAX_GLYPH];
-	IMP		playerDirectionImp;
-	IMP		drawModelArrayImp;
-	IMP		panCameraImp;
-	IMP		dorryCameraImp;
-	IMP		floatingCameraImp;
-	IMP		shockedCameraImp;
-	IMP		drawGlViewAddress;
-	IMP		flushBufferImp;
-	
+	void	(^switchMethodArray[11])(int x, int z, int lx, int lz);
+	void	(^drawFloorArray[11])();
+	LoadModelBlock loadModelBlocks[MAX_GLYPH];	
 }
 
 - (instancetype)initWithFrame:(NSRect)theFrame;

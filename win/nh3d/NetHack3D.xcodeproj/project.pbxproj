@@ -477,7 +477,6 @@
 		2BE574C70925944F00F1BB75 /* upStair.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2BE574C50925944F00F1BB75 /* upStair.tif */; };
 		2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
-		552F3D461B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
@@ -1488,7 +1487,6 @@
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
-		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		55459F8B1B5DFF7B0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		55459F8C1B5DFFCD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
@@ -1584,7 +1582,6 @@
 				2B9ED5E108F53947004AD560 /* NH3DMapItem.m */,
 				2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */,
 				2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */,
-				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
 				2BA8D50A090365B5004618EF /* NH3DOpenGLView.h */,
 				2BA8D50B090365B5004618EF /* NH3DOpenGLView.m */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObjects.h */,
@@ -3540,7 +3537,6 @@
 				2B5CC1BC088EB7DF00940C58 /* worm.c in Sources */,
 				2B5CC1BD088EB7DF00940C58 /* worn.c in Sources */,
 				2B5CC1BE088EB7DF00940C58 /* write.c in Sources */,
-				552F3D461B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift in Sources */,
 				2B5CC1BF088EB7DF00940C58 /* zap.c in Sources */,
 				2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */,
 				2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */,

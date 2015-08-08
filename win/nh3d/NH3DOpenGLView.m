@@ -254,7 +254,7 @@ static NH3DMaterial		nh3dMaterialArray[] = {
 
 //#define NH3DOpenGLViewCast( self )  \
 //( ( struct { @defs( NH3DOpenGLView ) } * ) self )
-#define NH3DOpenGLViewCast( self ) ((NH3DOpenGLView*)self)
+//#define NH3DOpenGLViewCast( self ) ((NH3DOpenGLView*)self)
 
 
 static inline void drawNullObject( float x, float z,int tex )
@@ -300,7 +300,7 @@ static inline void drawNullObject( float x, float z,int tex )
 }
 
 
-static inline void drawFloorAndCeiling( float x, float z, int flag , id self )
+static inline void drawFloorAndCeiling( float x, float z, int flag , NH3DOpenGLView *self )
 {
 	glPushMatrix();
 	
@@ -318,19 +318,18 @@ static inline void drawFloorAndCeiling( float x, float z, int flag , id self )
 	glMaterialf( GL_FRONT , GL_SHININESS , nh3dMaterialArray[ NO_COLOR ].shininess );
 	glMaterialfv( GL_FRONT , GL_EMISSION , nh3dMaterialArray[ NO_COLOR ].emission );
 	
-	// Draw floor 
-	NH3DOpenGLViewCast( self ) -> drawFloorArray[ flag ]( self );
+	// Draw floor
+	self->drawFloorArray[flag]();
 	
 	glDisableClientState( GL_NORMAL_ARRAY );
 	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
 	glDisableClientState( GL_VERTEX_ARRAY );
 	
 	glPopMatrix();
-	
 }
 
 
-static inline void createLightAndFog( id self )
+static inline void createLightAndFog( NH3DOpenGLView *self )
 {
 	float gblight = 1.0 - ( ( float )u.uhp / ( float )u.uhpmax );
 	
@@ -339,28 +338,28 @@ static inline void createLightAndFog( id self )
 	GLfloat fogColor[ 4 ] = {gblight/4, 0.0, 0.0, 0.0};
 	GLfloat lightEmisson[ 4 ] = {0.1, 0.1, 0.1 ,1};
 	
-	NH3DOpenGLViewCast( self ) -> keyLightCol[ 0 ] = 2.0;
-	NH3DOpenGLViewCast( self ) -> keyLightCol[ 3 ] = 1.0;
+	self->keyLightCol[0] = 2.0;
+	self->keyLightCol[3] = 1.0;
 	if ( 1.00 - gblight < 0 )  {
-		NH3DOpenGLViewCast( self ) -> keyLightCol[ 1 ] = 0.0;
-		NH3DOpenGLViewCast( self ) -> keyLightCol[ 2 ] = 0.0;
+		( self ) -> keyLightCol[ 1 ] = 0.0;
+		( self ) -> keyLightCol[ 2 ] = 0.0;
 	} else {
-		NH3DOpenGLViewCast( self ) -> keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
-		NH3DOpenGLViewCast( self ) -> keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
+		( self ) -> keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
+		( self ) -> keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
 	}
 	
 	glPushMatrix();
 	
-	glTranslatef( NH3DOpenGLViewCast( self ) -> lastCameraX,
-				 NH3DOpenGLViewCast( self ) -> lastCameraY,
-				 NH3DOpenGLViewCast( self ) -> lastCameraZ );
+	glTranslatef(( self ) -> lastCameraX,
+				 ( self ) -> lastCameraY,
+				 ( self ) -> lastCameraZ );
 	
 	glFogi( GL_FOG_MODE , GL_LINEAR );
 	glHint( GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST );
 	
 	glFogf( GL_FOG_START , 0.0 );
 	
-	switch ( NH3DOpenGLViewCast( self ) -> elementalLevel ) {
+	switch ( ( self ) -> elementalLevel ) {
 		case 1: glClearColor( fogColor[ 0 ]+0.1, 0.0 , 0.01 ,0.0 );
 			break;
 		case 2: glClearColor( fogColor[ 0 ], 0.2 , 0.8 ,0.0 );
@@ -375,7 +374,7 @@ static inline void createLightAndFog( id self )
 			break;
 	}
 	
-	if ( NH3DOpenGLViewCast( self ) -> isReady && ( Blind || u.uswallow ) ) {
+	if ( ( self ) -> isReady && ( Blind || u.uswallow ) ) {
 		// you blind
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
@@ -394,15 +393,15 @@ static inline void createLightAndFog( id self )
 		glFogf( GL_FOG_END ,  6.0 );
 		glFogfv( GL_FOG_COLOR,defaultBackGroundCol );
 		
-	} else if ( NH3DOpenGLViewCast( self ) -> isReady && Underwater ) {
+	} else if ( ( self ) -> isReady && Underwater ) {
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
@@ -416,12 +415,12 @@ static inline void createLightAndFog( id self )
 		int i;
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
@@ -457,12 +456,12 @@ static inline void createLightAndFog( id self )
 		int i;
 		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
@@ -495,12 +494,12 @@ static inline void createLightAndFog( id self )
 		
 	} else {		
 		glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, ( self ) -> keyLightCol );
 		glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
 		
 		glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
 		glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-		glLightfv( GL_LIGHT1, GL_DIFFUSE, NH3DOpenGLViewCast( self ) -> keyLightCol );
+		glLightfv( GL_LIGHT1, GL_DIFFUSE, ( self ) -> keyLightCol );
 		glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
 		glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
 		glLightf( GL_LIGHT1, GL_SHININESS, 10.0 );
@@ -518,364 +517,8 @@ static inline void createLightAndFog( id self )
 }
 
 
-static void drawfunc_0( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawNullObject( ( float )x*NH3DGL_TILE_SIZE,( float )z*NH3DGL_TILE_SIZE, NH3DOpenGLViewCast( self ) -> nullTex );
-}
-
-static void drawfunc_1( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						2,self );
-}
-
-static void drawfunc_2( int x ,int z ,int lx ,int lz ,id self )
-{					
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						1,self );
-	NH3DOpenGLViewCast( self ) ->drawModelArrayImp( self,@selector( drawModelArray: ),NH3DOpenGLViewCast( self ) -> mapItemValue[ lx ][ lz ] );
-}
-
-static void drawfunc_3( int x ,int z ,int lx ,int lz ,id self )
-{					
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						2,self );
-	NH3DOpenGLViewCast( self ) ->drawModelArrayImp( self,@selector( drawModelArray: ),NH3DOpenGLViewCast( self ) -> mapItemValue[ lx ][ lz ] );
-}
-
-static void drawfunc_4( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						3,self );
-}
-
-static void drawfunc_5( int x ,int z ,int lx ,int lz ,id self )
-{					
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						4,self );}
-
-static void drawfunc_6( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						5,self );
-}
-
-static void drawfunc_7( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						6,self );
-}
-
-static void drawfunc_8( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						7,self );
-}
-
-static void drawfunc_9( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						8,self );
-}
-
-/*
-static void drawfunc_a( int x ,int z ,int lx ,int lz ,id self )
-{
-	drawNullObject( ( float )x*NH3DGL_TILE_SIZE,( float )z*NH3DGL_TILE_SIZE, NH3DOpenGLViewCast( self ) -> wallTex );
-}
-*/
-
-static void drawfunc_a( int x ,int z ,int lx ,int lz ,id self )
-{					
-	drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-						z*NH3DGL_TILE_SIZE,
-						2,self );
-	[ self drawModelArray: NH3DOpenGLViewCast( self ) -> mapItemValue[ lx ][ lz ] ];
-}
-
-
-static void drawfunc_default( int x ,int z ,int lx ,int lz ,id self )
-{
-	
-	return;
-}
-
 //---------- draw floor function ----------------
 
-static void floorfunc_0( id self )
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> floorCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_2D );
-}
-
-static void floorfunc_1( id self )
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cellingCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );	
-	
-	glDisable( GL_TEXTURE_2D );
-}
-
-static void floorfunc_2( id self )
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> floorCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cellingCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );	
-	
-	glDisable( GL_TEXTURE_2D );
-}
-
-static void floorfunc_3( id self ) // draw pool
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-
-	glAlphaFunc( GL_GREATER, 0.5 );
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> poolTex );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glActiveTexture( GL_TEXTURE1 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> envelopTex );
-	
-	glEnable( GL_TEXTURE_2D );
-	glEnable( GL_TEXTURE_GEN_S );
-	glEnable( GL_TEXTURE_GEN_T );
-
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvf( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
-	glTexEnvf( GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_PREVIOUS );
-	glTexEnvf( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_ONE_MINUS_SRC_ALPHA );
-
-	
-	glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_GEN_S );
-	glDisable( GL_TEXTURE_GEN_T );
-	glDisable( GL_TEXTURE_2D );
-	
-	glTexEnvf( GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_CONSTANT );
-	glTexEnvf( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_ALPHA );
-	
-	glActiveTexture( GL_TEXTURE0 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cellingCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );	
-	
-	glDisable( GL_TEXTURE_2D );
-}	
-
-static void floorfunc_4( id self ) // draw ice
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> floorCurrent );
-	
-	glMaterialf( GL_FRONT , GL_EMISSION , 10.0 );
-	
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glActiveTexture( GL_TEXTURE1 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> envelopTex );
-	
-	glEnable( GL_TEXTURE_2D );
-	glEnable( GL_TEXTURE_GEN_S );
-	glEnable( GL_TEXTURE_GEN_T );
-	
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD );
-		
-	glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_GEN_S );
-	glDisable( GL_TEXTURE_GEN_T );
-	glDisable( GL_TEXTURE_2D );
-	
-	glActiveTexture( GL_TEXTURE0 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cellingCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_2D );
-	
-}
-
-
-static void floorfunc_5( id self ) // draw lava
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> lavaTex );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	GLfloat emisson[ 4 ] = { 1.0, 1.0, 1.0, 1.0 };
-	glMaterialfv( GL_FRONT , GL_EMISSION , emisson );
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cellingCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT , 0 , CeilingVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_2D );
-	
-}
-
-static void floorfunc_6( id self ) // draw air
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> airTex );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT , 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_2D );
-}
-
-static void floorfunc_7( id self ) // draw cloud
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cloudTex );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_2D );
-	
-}
-
-static void floorfunc_8( id self ) // draw water
-{
-	glActiveTexture( GL_TEXTURE0 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> waterTex );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glActiveTexture( GL_TEXTURE1 );
-	glEnable( GL_TEXTURE_2D );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> envelopTex );
-	
-	glEnable( GL_TEXTURE_GEN_S );
-	glEnable( GL_TEXTURE_GEN_T );
-	
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvf( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
-	
-	GLfloat blend[ 4 ] = { 1.0, 1.0, 1.0, 0.18 };
-	glTexEnvfv( GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, blend );
-	
-	glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-	
-	
-	glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_GEN_S );
-	glDisable( GL_TEXTURE_GEN_T );
-	glDisable( GL_TEXTURE_2D );
-	
-	glActiveTexture( GL_TEXTURE0 );
-	
-	glBindTexture( GL_TEXTURE_2D, NH3DOpenGLViewCast( self ) -> cellingCurrent );
-	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-	
-	glNormalPointer( GL_FLOAT , 0 , CeilingVertNorms );
-	glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-	glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-	glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-	
-	glDisable( GL_TEXTURE_2D );
-	
-}
 
 static void floorfunc_default( id self )
 {
@@ -1185,19 +828,7 @@ static void floorfunc_default( id self )
 		IMP	needsDisplayAddress = [ self methodForSelector:@selector( needsDisplay ) ];
 		IMP updateGlViewAddress = [ self methodForSelector:@selector( updateGlView ) ];
 		
-		drawGlViewAddress = [ self methodForSelector:@selector( drawGlView:z: ) ];
-		playerDirectionImp = [ _mapModel methodForSelector:@selector( playerDirection ) ];
-		drawModelArrayImp = [ self methodForSelector:@selector( drawModelArray: ) ];
-		panCameraImp = [ self methodForSelector:@selector( panCamera ) ];
-		dorryCameraImp = [ self methodForSelector:@selector( dorryCamera ) ];
-		floatingCameraImp = [ self methodForSelector:@selector( floatingCamera ) ];
-		shockedCameraImp = [ self methodForSelector:@selector( shockedCamera ) ];
-		
-		
 		[[self openGLContext] makeCurrentContext];
-		
-		
-		flushBufferImp = [[self openGLContext] methodForSelector:@selector(flushBuffer)];
 		
 		[viewLock lock];
 		
@@ -1272,9 +903,9 @@ static void floorfunc_default( id self )
 	int			type = [ mapItem modelDrawingType ];
 				
 	if ( type != 10 ) {
-		switchMethodArray[ type ]( 	[ mapItem posX ],
-									[ mapItem posY ],
-									x,z,self );
+		switchMethodArray[type]([mapItem posX ],
+									[mapItem posY ],
+									x, z);
 	} else {
 		// delay drawing for alphablending.
 		NSNumber *numX = [ [ NSNumber alloc ] initWithInt:x ];
@@ -1308,8 +939,8 @@ static void floorfunc_default( id self )
 		
 		glPushMatrix();
 		
-		panCameraImp( self,@selector( panCamera ) );
-		dorryCameraImp( self,@selector( dorryCamera ) );
+		[self panCamera];
+		[self dorryCamera];
 		
 		if ( isFloating )
 			[self floatingCamera];
@@ -1318,32 +949,32 @@ static void floorfunc_default( id self )
 		
 		// draw models
 		// at first. normal objects
-		switch ( (int)playerDirectionImp(_mapModel, @selector( playerDirection )) ) {
+		switch ( (int)[_mapModel playerDirection]) {
 			case PL_DIRECTION_FORWARD:
 				for ( x=0 ; x < NH3DGL_MAPVIEWSIZE_COLUMN ; x++ ) {
 					for ( z=0 ; z < MAP_MARGIN+drawMargin ; z++ ) {
-						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
+						[self drawGlView:x z:z];
 					}
 				}
 				break;
 			case PL_DIRECTION_RIGHT:
 				for ( z=0 ; z < NH3DGL_MAPVIEWSIZE_ROW ; z++ ) {
 					for ( x=NH3DGL_MAPVIEWSIZE_COLUMN-1 ; x > MAP_MARGIN-drawMargin ; x-- ) {
-						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
+						[self drawGlView:x z:z];
 					}
 				}
 				break;
 			case PL_DIRECTION_BACK:
 				for ( x=0 ; x < NH3DGL_MAPVIEWSIZE_COLUMN ; x++ ) {
 					for ( z=NH3DGL_MAPVIEWSIZE_ROW-1 ; z > MAP_MARGIN-drawMargin ; z-- ) {
-						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
+						[self drawGlView:x z:z];
 					}
 				}
 				break;
 			case PL_DIRECTION_LEFT:
 				for ( z=0 ; z < NH3DGL_MAPVIEWSIZE_ROW ; z++ ) {
 					for ( x=0 ; x < MAP_MARGIN+drawMargin ; x++ ) {
-						drawGlViewAddress( self, @selector( drawGlView:z: ),x,z );
+						[self drawGlView:x z:z];
 					}
 				}
 				break;
@@ -1355,7 +986,7 @@ static void floorfunc_default( id self )
 			int lx = [ [ delayDrawing objectAtIndex:x+1 ] intValue ];
 			int lz = [ [ delayDrawing objectAtIndex:x+2 ] intValue ];
 			switchMethodArray[ [ mapItem modelDrawingType ] ]( [ mapItem posX ] ,
-															   [ mapItem posY ] ,lx,lz,self );
+															   [ mapItem posY ] ,lx,lz);
 		} // end for x
 		
 		
@@ -1368,8 +999,7 @@ static void floorfunc_default( id self )
 		
 		glPopMatrix();
 		
-		//[ [ self openGLContext ] flushBuffer ];
-		flushBufferImp([self openGLContext] , @selector(flushBuffer));
+		[[self openGLContext] flushBuffer];
 		
 		[ delayDrawing removeAllObjects ];
 		
@@ -2350,44 +1980,6 @@ static void floorfunc_default( id self )
 							modelName:@"lowerJ"
 							 textured:NO
 							  withOut:0 ];
-	
-}
-
-
-- ( id )loadModelFunc_kobolds:(int)glyph
-{
-	// kobolds
-	id ret = nil;
-	
-	switch ( glyph ) {
-		case PM_KOBOLD+GLYPH_MON_OFF :
-		case PM_LARGE_KOBOLD+GLYPH_MON_OFF :
-			ret = [ self checkLoadedModelsAt:PM_KOBOLD
-										  to:PM_LARGE_KOBOLD
-									  offset:GLYPH_MON_OFF
-								   modelName:@"lowerK"
-									textured:NO
-									 withOut:0 ];
-			break;
-			
-		case PM_KOBOLD_LORD+GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerK" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.1 atZ:-0.25 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
-			
-			break;
-			
-		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerK" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
-			
-			break;
-	}
-	
-	return ret;
 	
 }
 
@@ -4449,31 +4041,321 @@ static void floorfunc_default( id self )
 {
 	int i;
 	for( i = 0;i < 11;i++ ) {
-		switchMethodArray[ i ] = &drawfunc_default;
-		drawFloorArray[ i ] = &floorfunc_default;
+		switchMethodArray[ i ] = ^(int x ,int z ,int lx ,int lz) {
+			return;
+		};
+		drawFloorArray[ i ] = ^(void) {
+			
+		};
 	}
 	
-	switchMethodArray[ 0 ] = &drawfunc_0;
-	switchMethodArray[ 1 ] = &drawfunc_1;
-	switchMethodArray[ 2 ] = &drawfunc_2;
-	switchMethodArray[ 3 ] = &drawfunc_3;
-	switchMethodArray[ 4 ] = &drawfunc_4;
-	switchMethodArray[ 5 ] = &drawfunc_5;
-	switchMethodArray[ 6 ] = &drawfunc_6;
-	switchMethodArray[ 7 ] = &drawfunc_7;
-	switchMethodArray[ 8 ] = &drawfunc_8;
-	switchMethodArray[ 9 ] = &drawfunc_9;
-	switchMethodArray[ 10 ] = &drawfunc_a;
+	switchMethodArray[ 0 ] = ^(int x, int z, int lx, int lz) {
+		drawNullObject( ( float )x*NH3DGL_TILE_SIZE,( float )z*NH3DGL_TILE_SIZE, self-> nullTex );
+
+	};
+	switchMethodArray[ 1 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							2,self );
+	};
+	switchMethodArray[ 2 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							1,self );
+		[self drawModelArray:self->mapItemValue[lx][lz]];
+	};
+	switchMethodArray[ 3 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							2, self);
+		[self drawModelArray:self->mapItemValue[lx][lz]];
+	};
+	switchMethodArray[ 4 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							3, self);
+	};
+	switchMethodArray[ 5 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							4, self);
+	};
+	switchMethodArray[ 6 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							5, self);
+	};
+	switchMethodArray[ 7 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							6, self);
+	};
+	switchMethodArray[ 8 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							7, self);
+	};
+	switchMethodArray[ 9 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							8, self);
+	};
+	switchMethodArray[ 10 ] = ^(int x, int z, int lx, int lz) {
+		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
+							z*NH3DGL_TILE_SIZE,
+							2, self);
+		[self drawModelArray: self->mapItemValue[lx][lz]];
+	};
 	
-	drawFloorArray[ 0 ] = &floorfunc_0;
-	drawFloorArray[ 1 ] = &floorfunc_1;
-	drawFloorArray[ 2 ] = &floorfunc_2;
-	drawFloorArray[ 3 ] = &floorfunc_3;
-	drawFloorArray[ 4 ] = &floorfunc_4;
-	drawFloorArray[ 5 ] = &floorfunc_5;
-	drawFloorArray[ 6 ] = &floorfunc_6;
-	drawFloorArray[ 7 ] = &floorfunc_7;
-	drawFloorArray[ 8 ] = &floorfunc_8;
+	drawFloorArray[ 0 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, self->floorCurrent );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	drawFloorArray[ 1 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	drawFloorArray[ 2 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, self->floorCurrent);
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent);
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	//Draw pool
+	drawFloorArray[ 3 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glAlphaFunc( GL_GREATER, 0.5 );
+		glBindTexture( GL_TEXTURE_2D, self->poolTex);
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glActiveTexture( GL_TEXTURE1 );
+		
+		glBindTexture( GL_TEXTURE_2D, self->envelopTex );
+		
+		glEnable( GL_TEXTURE_2D );
+		glEnable( GL_TEXTURE_GEN_S );
+		glEnable( GL_TEXTURE_GEN_T );
+		
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
+		glTexEnvf( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
+		glTexEnvf( GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_PREVIOUS );
+		glTexEnvf( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_ONE_MINUS_SRC_ALPHA );
+		
+		
+		glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+		glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_GEN_S );
+		glDisable( GL_TEXTURE_GEN_T );
+		glDisable( GL_TEXTURE_2D );
+		
+		glTexEnvf( GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_CONSTANT );
+		glTexEnvf( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_ALPHA );
+		
+		glActiveTexture( GL_TEXTURE0 );
+		
+		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	//Draw ice
+	drawFloorArray[ 4 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, ( self ) -> floorCurrent );
+		
+		glMaterialf( GL_FRONT , GL_EMISSION , 10.0 );
+		
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glActiveTexture( GL_TEXTURE1 );
+		
+		glBindTexture( GL_TEXTURE_2D, ( self ) -> envelopTex );
+		
+		glEnable( GL_TEXTURE_2D );
+		glEnable( GL_TEXTURE_GEN_S );
+		glEnable( GL_TEXTURE_GEN_T );
+		
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD );
+		
+		glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+		glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+		
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_GEN_S );
+		glDisable( GL_TEXTURE_GEN_T );
+		glDisable( GL_TEXTURE_2D );
+		
+		glActiveTexture( GL_TEXTURE0 );
+		
+		glBindTexture( GL_TEXTURE_2D, ( self ) -> cellingCurrent );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	//Draw lava
+	drawFloorArray[ 5 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, self->lavaTex );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		GLfloat emisson[ 4 ] = { 1.0, 1.0, 1.0, 1.0 };
+		glMaterialfv( GL_FRONT , GL_EMISSION , emisson );
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT , 0 , CeilingVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	//draw air
+	drawFloorArray[ 6 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, ( self ) -> airTex );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT , 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	//draw cloud
+	drawFloorArray[ 7 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, self-> cloudTex );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
+	//draw water
+	drawFloorArray[ 8 ] = ^() {
+		glActiveTexture( GL_TEXTURE0 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, ( self ) -> waterTex );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glActiveTexture( GL_TEXTURE1 );
+		glEnable( GL_TEXTURE_2D );
+		
+		glBindTexture( GL_TEXTURE_2D, ( self ) -> envelopTex );
+		
+		glEnable( GL_TEXTURE_GEN_S );
+		glEnable( GL_TEXTURE_GEN_T );
+		
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
+		glTexEnvf( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
+		
+		GLfloat blend[ 4 ] = { 1.0, 1.0, 1.0, 0.18 };
+		glTexEnvfv( GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, blend );
+		
+		glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+		glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
+		
+		
+		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_GEN_S );
+		glDisable( GL_TEXTURE_GEN_T );
+		glDisable( GL_TEXTURE_2D );
+		
+		glActiveTexture( GL_TEXTURE0 );
+		
+		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
+		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+		
+		glNormalPointer( GL_FLOAT , 0 , CeilingVertNorms );
+		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
+		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
+		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+		
+		glDisable( GL_TEXTURE_2D );
+	};
 	
 	{
 		LoadModelBlock defaultBlock = ^(int glyph) {
@@ -4497,7 +4379,10 @@ static void floorfunc_default( id self )
 	
 	// blob class
 	LoadModelBlock blobBlock = ^(int glyph) {
-		return [self loadModelFunc_blob:glyph];
+		return [self checkLoadedModelsAt:PM_ACID_BLOB
+									  to:PM_GELATINOUS_CUBE
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerB" textured:NO withOut:0];
 	};
 	loadModelBlocks[ PM_ACID_BLOB+GLYPH_MON_OFF ] =			[blobBlock copy];
 	loadModelBlocks[ PM_QUIVERING_BLOB+GLYPH_MON_OFF ] =	[blobBlock copy];
@@ -4505,7 +4390,10 @@ static void floorfunc_default( id self )
 	
 	// cockatrice class
 	LoadModelBlock cockatriceBlock = ^(int glyph) {
-		return [self loadModelFunc_cockatrice:glyph];
+		return [self checkLoadedModelsAt:PM_CHICKATRICE
+									  to:PM_PYROLISK
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerC" textured:NO withOut:0];
 	};
 	loadModelBlocks[ PM_CHICKATRICE+GLYPH_MON_OFF ] =	[cockatriceBlock copy];
 	loadModelBlocks[ PM_COCKATRICE+GLYPH_MON_OFF ] =	[cockatriceBlock copy];
@@ -4575,7 +4463,25 @@ static void floorfunc_default( id self )
 	
 	// humanoids class
 	LoadModelBlock humanoidsBlock = ^(int glyph) {
-		return [self loadModelFunc_humanoids:glyph];
+		// humanoids class
+		NH3DModelObjects *ret =nil;
+		
+		if (glyph == PM_DWARF_KING+GLYPH_MON_OFF) {
+			ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerH" withTexture:NO];
+			[ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject];
+			[[ret childObjectAtLast] setPivotX:0.0 atY:0.2 atZ:-0.21];
+			[[ret childObjectAtLast] setCurrentMaterial:nh3dMaterialArray[NO_COLOR]];
+		} else {
+			
+			ret = [self checkLoadedModelsAt:PM_HOBBIT
+										 to:PM_MASTER_MIND_FLAYER
+									 offset:GLYPH_MON_OFF
+								  modelName:@"lowerH"
+								   textured:NO
+									withOut:PM_DWARF_KING,nil];
+		}
+		
+		return ret;
 	};
 	loadModelBlocks[PM_DWARF_KING+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
 	loadModelBlocks[PM_HOBBIT+GLYPH_MON_OFF ] =				[humanoidsBlock copy];
@@ -4605,7 +4511,38 @@ static void floorfunc_default( id self )
 	
 	// kobolds
 	LoadModelBlock koboldBlock = ^(int glyph) {
-		return [self loadModelFunc_kobolds:glyph];
+		// kobolds
+		NH3DModelObjects *ret = nil;
+		
+		switch ( glyph ) {
+			case PM_KOBOLD+GLYPH_MON_OFF :
+			case PM_LARGE_KOBOLD+GLYPH_MON_OFF :
+				ret = [self checkLoadedModelsAt:PM_KOBOLD
+											  to:PM_LARGE_KOBOLD
+										  offset:GLYPH_MON_OFF
+									   modelName:@"lowerK"
+										textured:NO
+										 withOut:0];
+				break;
+				
+			case PM_KOBOLD_LORD+GLYPH_MON_OFF :
+				ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerK" withTexture:NO];
+				[ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject];
+				[[ret childObjectAtLast] setPivotX:0.0 atY:0.1 atZ:-0.25];
+				[[ret childObjectAtLast] setCurrentMaterial:nh3dMaterialArray[NO_COLOR]];
+				
+				break;
+				
+			case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF :
+				ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerK" withTexture:NO];
+				[ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
+				[[ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
+				[[ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[NO_COLOR]];
+				
+				break;
+		}
+		
+		return ret;
 	};
 	loadModelBlocks[ PM_KOBOLD+GLYPH_MON_OFF ] =			[koboldBlock copy];
 	loadModelBlocks[ PM_LARGE_KOBOLD+GLYPH_MON_OFF ] =		[koboldBlock copy];
@@ -4715,7 +4652,13 @@ static void floorfunc_default( id self )
 	loadModelBlocks[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
 	// worms
 	LoadModelBlock wormBlock = ^(int glyph) {
-		return [self loadModelFunc_worms:glyph];
+		// worms
+		return [self checkLoadedModelsAt:PM_BABY_LONG_WORM
+									  to:PM_PURPLE_WORM
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerW"
+								textured:NO
+								 withOut:0];
 	};
 	loadModelBlocks[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
 	loadModelBlocks[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
@@ -4734,7 +4677,14 @@ static void floorfunc_default( id self )
 	loadModelBlocks[ PM_XAN+GLYPH_MON_OFF ] = [xanBlock copy];
 	// lights
 	LoadModelBlock lightsBlock = ^(int glyph) {
-		return [self loadModelFunc_lights:glyph];
+		// lights
+		
+		return [self checkLoadedModelsAt:PM_YELLOW_LIGHT
+									  to:PM_BLACK_LIGHT
+								  offset:GLYPH_MON_OFF
+							   modelName:@"lowerY"
+								textured:NO
+								 withOut:0];
 	};
 	loadModelBlocks[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
 	loadModelBlocks[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
@@ -4758,7 +4708,13 @@ static void floorfunc_default( id self )
 	loadModelBlocks[ PM_ARCHON+GLYPH_MON_OFF ] = [angelBlock copy];
 	// Bats
 	LoadModelBlock batBlock = ^(int glyph) {
-		return [self loadModelFunc_Bats:glyph];
+		// Bats
+		return [self checkLoadedModelsAt:PM_BAT
+									  to:PM_VAMPIRE_BAT
+								  offset:GLYPH_MON_OFF
+							   modelName:@"upperB"
+								textured:NO
+								 withOut:0];
 	};
 	loadModelBlocks[ PM_BAT+GLYPH_MON_OFF ] = [batBlock copy];
 	loadModelBlocks[ PM_GIANT_BAT+GLYPH_MON_OFF ] = [batBlock copy];
