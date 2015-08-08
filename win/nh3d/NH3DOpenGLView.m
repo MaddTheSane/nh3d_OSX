@@ -547,7 +547,7 @@ static void floorfunc_default( id self )
 
 
 
-- ( id ) initWithFrame: ( NSRect ) theFrame
+- ( instancetype ) initWithFrame: ( NSRect ) theFrame
 {
 	int i;
 	
@@ -566,7 +566,7 @@ static void floorfunc_default( id self )
 	/* Create a GL Context to use - i.e. init the superclass */
 	pfmt = [ [ NSOpenGLPixelFormat alloc ] initWithAttributes: attribs ];
 	self = [ super initWithFrame: theFrame pixelFormat: pfmt ];
-	[ [ self openGLContext ] makeCurrentContext ];
+	[self.openGLContext makeCurrentContext];
 	
 	[ self setFrameSize: theFrame.size ];
 	
@@ -713,7 +713,7 @@ static void floorfunc_default( id self )
 	
 	for ( i=0 ; i < NH3D_MAX_EFFECTS ;i++ ) {
 		[ effectArray[ i ] setParticleSize:8.5 ];
-		[ effectArray[ i ] setParticleType:NH3DParticleTypePoints ];
+		effectArray[ i ].particleType = NH3DParticleTypePoints ;
 		[ effectArray[ i ] setParticleColor:CLR_RED ];
 		[ effectArray[ i ] setParticleSpeedX:1.0 Y:-1.0 ];
 		[ effectArray[ i ] setParticleSlowdown:0.8 ];
@@ -819,20 +819,20 @@ static void floorfunc_default( id self )
 {
 	@autoreleasepool {
 	
-		[[self openGLContext] makeCurrentContext];
+		[self.openGLContext makeCurrentContext];
 		
 		[viewLock lock];
 		
 		if ( OPENGLVIEW_WAITSYNC )
-			[ [ self openGLContext ] setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
+			[ self.openGLContext setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
 		else 
-			[ [ self openGLContext ] setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
+			[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
 		[ viewLock unlock ];
 		
 		while ( runnning && !TRADITIONAL_MAP ) {
 			@autoreleasepool {
 
-			if ( isReady && !nowUpdating && ! [self needsDisplay] ) {
+			if ( isReady && !nowUpdating && ! self.needsDisplay ) {
 			//if ( isReady && !nowUpdating ) {
 				[self updateGlView];
 			}
@@ -856,28 +856,24 @@ static void floorfunc_default( id self )
 		return; 
 	} else {
 		NSMutableDictionary *attributes = [ [ NSMutableDictionary alloc ] init ];
-		[ attributes setObject:[ NSFont fontWithName:@"Copperplate"
-											  size: 20 ]
-					   forKey:NSFontAttributeName				 ];
-		[ attributes setObject:[ NSColor colorWithCalibratedWhite:0.5 alpha:0.6 ]
-					   forKey:NSForegroundColorAttributeName ];
+		attributes[NSFontAttributeName] = [ NSFont fontWithName:@"Copperplate"
+											  size: 20 ];
+		attributes[NSForegroundColorAttributeName] = [ NSColor colorWithCalibratedWhite:0.5 alpha:0.6 ];
 	
 		[ self lockFocusIfCanDraw ];
 	
 		[ [ NSColor clearColor ] set ];
-		[ NSBezierPath fillRect:[ self bounds ] ];
+		[ NSBezierPath fillRect: self.bounds ];
 	
 		[[NSImage imageNamed:@"nh3d"] drawAtPoint:NSMakePoint( 156.0 ,88.0 ) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.7];
 		//[ [ NSImage imageNamed:@"nh3d" ] dissolveToPoint:NSMakePoint( 156.0 ,88.0 ) fraction:0.7 ];
 		[ @"NetHack3D" drawAtPoint:NSMakePoint( 168.0 ,70.0 ) withAttributes:attributes ];
-		[ attributes setObject:[ NSFont fontWithName:@"Copperplate"
-												size: 14 ]
-						forKey:NSFontAttributeName	 ];
+		attributes[NSFontAttributeName] = [ NSFont fontWithName:@"Copperplate"
+												size: 14 ];
 		[ @"by Haruumi Yoshino 2005" drawAtPoint:NSMakePoint( 130.0 ,56.0 ) withAttributes:attributes ];
 		[ @"NetHack" drawAtPoint:NSMakePoint( 192.0 ,29.0 ) withAttributes:attributes ];
-		[ attributes setObject:[ NSFont fontWithName:@"Copperplate"
-												size: 11 ]
-						forKey:NSFontAttributeName ];
+		attributes[NSFontAttributeName] = [ NSFont fontWithName:@"Copperplate"
+												size: 11 ];
 		[ @"Copyright ( c ) Stichting Mathematisch Centrum  Amsterdam, 1985. \n   NetHack may be freely redistributed. See license for details."
 						drawAtPoint:NSMakePoint( 38.0 ,3.0 ) withAttributes:attributes ];
 	
@@ -894,8 +890,8 @@ static void floorfunc_default( id self )
 	int			type = [ mapItem modelDrawingType ];
 				
 	if ( type != 10 ) {
-		switchMethodArray[type]([mapItem posX],
-								[mapItem posY],
+		switchMethodArray[type](mapItem.posX,
+								mapItem.posY,
 								x, z);
 	} else {
 		// delay drawing for alphablending.
@@ -942,7 +938,7 @@ static void floorfunc_default( id self )
 		
 		// draw models
 		// at first. normal objects
-		switch ( (int)[_mapModel playerDirection]) {
+		switch ( (int)_mapModel.playerDirection) {
 			case PL_DIRECTION_FORWARD:
 				for ( x=0 ; x < NH3DGL_MAPVIEWSIZE_COLUMN ; x++ ) {
 					for ( z=0 ; z < MAP_MARGIN+drawMargin ; z++ ) {
@@ -974,12 +970,12 @@ static void floorfunc_default( id self )
 		}
 				
 		// next. particle objects
-		for ( x=0 ; x < [ delayDrawing count ] ; x+=3 ) {
-			NH3DMapItem *mapItem = [ delayDrawing objectAtIndex:x ];
-			int lx = [ [ delayDrawing objectAtIndex:x+1 ] intValue ];
-			int lz = [ [ delayDrawing objectAtIndex:x+2 ] intValue ];
-			switchMethodArray[ [ mapItem modelDrawingType ] ]( [ mapItem posX ] ,
-															   [ mapItem posY ] ,lx,lz);
+		for ( x=0 ; x < delayDrawing.count ; x+=3 ) {
+			NH3DMapItem *mapItem = delayDrawing[x];
+			int lx = [ delayDrawing[x+1] intValue ];
+			int lz = [ delayDrawing[x+2] intValue ];
+			switchMethodArray[ [ mapItem modelDrawingType ] ]( mapItem.posX ,
+															   mapItem.posY ,lx,lz);
 		} // end for x
 		
 		
@@ -992,7 +988,7 @@ static void floorfunc_default( id self )
 		
 		glPopMatrix();
 		
-		[[self openGLContext] flushBuffer];
+		[self.openGLContext flushBuffer];
 		
 		[ delayDrawing removeAllObjects ];
 		
@@ -1024,11 +1020,11 @@ static void floorfunc_default( id self )
 	if ( glyph != S_room + GLYPH_CMAP_OFF ) {
 		[ viewLock lock ];
 		static GLfloat rot;
-		float posx = [ mapItem posX ] * NH3DGL_TILE_SIZE;
-		float posz = [ mapItem posY ] * NH3DGL_TILE_SIZE;
+		float posx = mapItem.posX * NH3DGL_TILE_SIZE;
+		float posz = mapItem.posY * NH3DGL_TILE_SIZE;
 		
 		NSNumber *modelNum = @(glyph);
-		id model = [modelDictionary objectForKey:modelNum];
+		id model = modelDictionary[modelNum];
 		
 		if ( model == nil && !defaultTex[ glyph ] ) {
 			
@@ -1036,17 +1032,17 @@ static void floorfunc_default( id self )
 			if ( newModel != nil ) {
 				if ( glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF ) {
 					newModel.animated = YES;
-					[ newModel setAnimationRate:( ( float )( random() %5 )*0.1 )+0.5 ];
+					newModel.animationRate = ( ( float )( random() %5 )*0.1 )+0.5 ;
 					[ newModel setPivotX:0.0 atY:0.3 atZ:0.0 ];
 					[ newModel setUseEnvironment:YES ];
-					[ newModel setTexture:envelopTex ];
+					newModel.texture = envelopTex ;
 				}
 				//NSLog(@"bf retaincount %d",[ newModel retainCount ]);
-				[ modelDictionary setObject:newModel forKey:modelNum ];
+				modelDictionary[modelNum] = newModel;
 				//NSLog(@"af retaincount %d",[ newModel retainCount ]);
-				[ keyArray addObject:[NSNumber numberWithInt:glyph] ];
+				[ keyArray addObject:@(glyph) ];
 				
-				model = [modelDictionary objectForKey:modelNum];
+				model = modelDictionary[modelNum];
 			}
 		}
 		
@@ -1067,7 +1063,7 @@ static void floorfunc_default( id self )
 			
 			if ( !defaultTex[ glyph ] ) {
 				if ( NH3DGL_USETILE )
-					defaultTex[glyph] = [self createTextureFromSymbol:[mapItem tile] withColor:nil];
+					defaultTex[glyph] = [self createTextureFromSymbol:mapItem.tile withColor:nil];
 				else 
 					defaultTex[glyph] = [self createTextureFromSymbol:[mapItem symbol] withColor:[mapItem color]];
 			}
@@ -1212,9 +1208,9 @@ static void floorfunc_default( id self )
 
 - ( void )changeWallsTexture:(int)tex_id
 {
-	[ [modelDictionary objectForKey:[ NSNumber numberWithInt:S_vwall + GLYPH_CMAP_OFF ]] setTexture:tex_id ];
-	[ [modelDictionary objectForKey:[ NSNumber numberWithInt:S_hwall + GLYPH_CMAP_OFF ]] setTexture:tex_id ];
-	[ [modelDictionary objectForKey:[ NSNumber numberWithInt:S_tlcorn + GLYPH_CMAP_OFF ]] setTexture:tex_id ];	
+	[ modelDictionary[@(S_vwall + GLYPH_CMAP_OFF)] setTexture:tex_id ];
+	[ modelDictionary[@(S_hwall + GLYPH_CMAP_OFF)] setTexture:tex_id ];
+	[ modelDictionary[@(S_tlcorn + GLYPH_CMAP_OFF)] setTexture:tex_id ];	
 }
 
 - ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth
@@ -1374,7 +1370,7 @@ static void floorfunc_default( id self )
 			lastCameraY = cameraY;
 			lastCameraZ = cameraZ;
 			isReady = YES;
-		} else 	if ( [ footstep isPlaying ] && ( (!isFloating || isRiding) && !IS_SOFT( levl[ u.ux ][ u.uy ].typ )) && !SOUND_MUTE ) {
+		} else 	if ( footstep.playing && ( (!isFloating || isRiding) && !IS_SOFT( levl[ u.ux ][ u.uy ].typ )) && !SOUND_MUTE ) {
 			[ footstep stop ];
 			[ footstep play ];
 		} else if ( (!isFloating || isRiding) && !IS_SOFT( levl[ u.ux ][ u.uy ].typ ) && !SOUND_MUTE ) {
@@ -1437,7 +1433,7 @@ static void floorfunc_default( id self )
 - ( void )doEffect
 {
 	static int effectCount;
-	NH3DVertexType localPos = [ effectArray[ enemyPosition-1 ] modelShift ];
+	NH3DVertexType localPos = effectArray[ enemyPosition-1 ].modelShift ;
 	
 	[ effectArray[ enemyPosition-1 ] setPivotX:cameraX+localPos.x
 										 atY:localPos.y
@@ -1565,7 +1561,7 @@ static void floorfunc_default( id self )
 	NSBitmapImageRep	*imgrep;
 	GLuint				tex_id;
 	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:[sourcefile TIFFRepresentation]];
+	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
 	
 	[ viewLock lock ];
 	
@@ -1587,9 +1583,9 @@ static void floorfunc_default( id self )
 	
 	// create automipmap texture
 	gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
-					  [imgrep pixelsWide], [imgrep pixelsHigh],
-					  [imgrep hasAlpha] ? GL_RGBA : GL_RGB,
-					  GL_UNSIGNED_BYTE,[imgrep bitmapData]);
+					  imgrep.pixelsWide, imgrep.pixelsHigh,
+					  imgrep.alpha ? GL_RGBA : GL_RGB,
+					  GL_UNSIGNED_BYTE,imgrep.bitmapData);
 	
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
@@ -1646,7 +1642,7 @@ static void floorfunc_default( id self )
 	}
 	
 	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:[img TIFFRepresentation]];
+	imgrep = [[NSBitmapImageRep alloc] initWithData:img.TIFFRepresentation];
 	
 	
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
@@ -1659,16 +1655,16 @@ static void floorfunc_default( id self )
 	
 	// create automipmap texture
 	
-	if ([imgrep hasAlpha]) {
+	if (imgrep.alpha) {
 		gluBuild2DMipmaps( GL_TEXTURE_2D,GL_RGBA,
-						   [ imgrep pixelsWide ],[ imgrep pixelsHigh ],
+						   imgrep.pixelsWide , imgrep.pixelsHigh ,
 						   GL_RGBA,
-						   GL_UNSIGNED_BYTE,[ imgrep bitmapData ] );
+						   GL_UNSIGNED_BYTE, imgrep.bitmapData );
 	} else {
 		gluBuild2DMipmaps( GL_TEXTURE_2D,GL_RGB,
-						   [ imgrep pixelsWide ],[ imgrep pixelsHigh ],
+						   imgrep.pixelsWide , imgrep.pixelsHigh ,
 						   GL_RGB,
-						   GL_UNSIGNED_BYTE,[ imgrep bitmapData ] );
+						   GL_UNSIGNED_BYTE, imgrep.bitmapData );
 	}		
 		
 	
@@ -1707,15 +1703,14 @@ static void floorfunc_default( id self )
 		[ [ model childObjectAtLast ] setPivotX:0.478 atY:2.834 atZ:0.007 ];
 		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setPivotX:0.593 atY:1.261 atZ:0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ [ model childObjectAtLast ] childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_ORANGE ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleGravityX:0.0 Y:2.0 Z:0 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSlowdown:6.0 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleLife:0.30 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
-	[modelDictionary setObject:model
-						forKey:@(S_vwall + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_vwall + GLYPH_CMAP_OFF)] = model;
 				
 	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"hwall" withTexture:YES ];
 	[ model addTexture:@"wall_mines" ];
@@ -1726,7 +1721,7 @@ static void floorfunc_default( id self )
 		[ [ model childObjectAtLast ] setPivotX:-0.005 atY:2.834 atZ:0.483 ];
 		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setPivotX:0.593 atY:1.261 atZ:0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ [ model childObjectAtLast ] childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_ORANGE ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleGravityX:0.0 Y:2.0 Z:0 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -1734,8 +1729,7 @@ static void floorfunc_default( id self )
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleLife:0.30 ];
 			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
 		[ [ model childObjectAtLast ] setModelRotateX:0.0 rotateY:-90.0 rotateZ:0.0 ];
-	[modelDictionary setObject:model
-						forKey:@(S_hwall + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_hwall + GLYPH_CMAP_OFF)] = model;
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"corner" withTexture:YES];
 	[model addTexture:@"corner_mines"];
@@ -1743,40 +1737,27 @@ static void floorfunc_default( id self )
 	[model addTexture:@"corner_knox"];
 	[model addTexture:@"corner_rouge"];
 	
-	[modelDictionary setObject:model
-						forKey:@(S_tlcorn + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_trcorn + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_blcorn + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_brcorn + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_crwall + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_tuwall + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_tdwall + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_tlwall + GLYPH_CMAP_OFF)];
-	[modelDictionary setObject:model
-						forKey:@(S_trwall + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_tlcorn + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_trcorn + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_blcorn + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_brcorn + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_crwall + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_tuwall + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_tdwall + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_tlwall + GLYPH_CMAP_OFF)] = model;
+	modelDictionary[@(S_trwall + GLYPH_CMAP_OFF)] = model;
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vopendoor" withTexture:YES];
-	[modelDictionary setObject:model
-						forKey:@(S_vodoor + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_vodoor + GLYPH_CMAP_OFF)] = model;
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hopendoor" withTexture:YES];
-	[modelDictionary setObject:model
-						forKey:@(S_hodoor + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_hodoor + GLYPH_CMAP_OFF)] = model;
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vdoor" withTexture:YES];
-	[modelDictionary setObject:model
-						forKey:@(S_vcdoor + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_vcdoor + GLYPH_CMAP_OFF)] = model;
 	
 	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hdoor" withTexture:YES];
-	[modelDictionary setObject:model
-						 forKey:@(S_hcdoor + GLYPH_CMAP_OFF)];
+	modelDictionary[@(S_hcdoor + GLYPH_CMAP_OFF)] = model;
 			
 		
 	}
@@ -1796,7 +1777,7 @@ static void floorfunc_default( id self )
 	BOOL withoutFlag = NO;
 	
 	for ( i = startNum+offset ; i <= endNum+offset ; i++ ) {
-		if ( [ modelDictionary objectForKey:[ NSNumber numberWithInt:i ] ] != nil ) {
+		if ( modelDictionary[@(i)] != nil ) {
 			if ( without ) {
 				va_start(argumentList, without);
 				wo = va_arg(argumentList, int);
@@ -1813,10 +1794,10 @@ static void floorfunc_default( id self )
 					withoutFlag = NO;
 					continue;
 				} else																	// Increment retain count
-					return [modelDictionary objectForKey:@(i)];
+					return modelDictionary[@(i)];
 					
 			} else																	// Increment retain count
-				return [modelDictionary objectForKey:@(i)];
+				return modelDictionary[@(i)];
 		}
 	}
 	
@@ -1832,8 +1813,8 @@ static void floorfunc_default( id self )
 {
 	[ magicItem setPivotX:0.0 atY:1.2 atZ:0.0 ];
 	[ magicItem setModelScaleX:0.4 scaleY:1.0 scaleZ:0.4 ];
-	[ magicItem setParticleType:NH3DParticleTypeAura ];
-	[ magicItem setParticleColor:color ];
+	magicItem.particleType = NH3DParticleTypeAura ;
+	magicItem.particleColor = color ;
 	[ magicItem setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 	[ magicItem setParticleSpeedX:1.0 Y:1.00 ];
 	[ magicItem setParticleSlowdown:3.8 ];
@@ -1844,8 +1825,8 @@ static void floorfunc_default( id self )
 
 - (void)setParamsForMagicExplotion:(NH3DModelObjects*)magicItem color:(int)color
 {
-	[magicItem setParticleType:NH3DParticleTypeAura ];
-	[magicItem setParticleColor:color ];
+	magicItem.particleType = NH3DParticleTypeAura ;
+	magicItem.particleColor = color ;
 	[magicItem setParticleGravityX:0.0 Y:15.5 Z:0.0 ];
 	[magicItem setParticleSpeedX:1.0 Y:15.00 ];
 	[magicItem setParticleSlowdown:8.8 ];
@@ -1937,7 +1918,7 @@ static void floorfunc_default( id self )
 		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerH" withTexture:NO ];
 		[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 		[ [ret childObjectAtLast] setPivotX:0.0 atY:0.2 atZ:-0.21 ];
-		[ [ret childObjectAtLast] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+		[ret childObjectAtLast].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 	} else {
 		
 		ret = [ self checkLoadedModelsAt:PM_HOBBIT
@@ -2019,7 +2000,7 @@ static void floorfunc_default( id self )
 		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerO" withTexture:NO ];
 		[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 		[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.15 atZ:-0.15 ];
-		[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+		[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 	} else {
 		
 		ret = [ self checkLoadedModelsAt:PM_GOBLIN
@@ -2266,14 +2247,14 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperG" withTexture:NO ];
 			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			break;
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperG" withTexture:NO ];
 			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.05 atZ:-0.25 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			break;
 	}
 	
@@ -2378,7 +2359,7 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperO" withTexture:NO ];
 			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.15 atZ:-0.18 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			break;
 	}
 	
@@ -2474,7 +2455,7 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperV" withTexture:NO ];
 			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.15 atZ:-0.18 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			break;
 	}
 	
@@ -2554,14 +2535,14 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.18 atZ:0.0 ];
 			[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			break;
 			
 		case PM_NURSE + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"nurse" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:1.00 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			break;
 			
 		case PM_HIGH_PRIEST + GLYPH_MON_OFF :
@@ -2569,7 +2550,7 @@ static void floorfunc_default( id self )
 		case PM_CROESUS + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2582,10 +2563,10 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			[ [ ret childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setPivotX:-0.827 atY:1.968 atZ:1.793 ];
-			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ [ ret childObjectAtLast ] childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleGravityX:-3.5 Y:1.5 Z:0.8 ];
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:1.5 Y:2.00 ];
@@ -2594,7 +2575,7 @@ static void floorfunc_default( id self )
 			[ [ [ ret childObjectAtLast ] childObjectAtLast ] setParticleSize:6.0 ];
 			
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setPivotX:0.827 atY:-1.800 atZ:-1.793 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
@@ -2664,7 +2645,7 @@ static void floorfunc_default( id self )
 	if ( glyph == PM_JUIBLEX + GLYPH_MON_OFF ) {
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2681,7 +2662,7 @@ static void floorfunc_default( id self )
 									 withOut:0 ];
 			if ( ![ ret hasChildObject ] ) {
 				[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-				[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+				[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 				[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 				[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 				[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2691,7 +2672,7 @@ static void floorfunc_default( id self )
 				[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 				[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.52 atZ:0.0 ];
 				[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:0.7 rotateZ:0.0 ];
-				[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+				[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			}
 	}
 	return ret;		
@@ -2712,7 +2693,7 @@ static void floorfunc_default( id self )
 		
 		if ( ![ ret hasChildObject ] ) {
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2720,7 +2701,7 @@ static void floorfunc_default( id self )
 			[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
 			[ [ ret childObjectAtLast ] setParticleSize:15.0 ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2801,9 +2782,9 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.18 atZ:0.0 ];
 			[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2818,7 +2799,7 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2830,7 +2811,7 @@ static void floorfunc_default( id self )
 		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2843,7 +2824,7 @@ static void floorfunc_default( id self )
 		case PM_THOTH_AMON + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2856,7 +2837,7 @@ static void floorfunc_default( id self )
 		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperD" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2868,7 +2849,7 @@ static void floorfunc_default( id self )
 		case PM_CYCLOPS + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperH" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2880,7 +2861,7 @@ static void floorfunc_default( id self )
 		case PM_IXOTH + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperD" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2892,7 +2873,7 @@ static void floorfunc_default( id self )
 		case PM_MASTER_KAEN + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2904,7 +2885,7 @@ static void floorfunc_default( id self )
 		case PM_NALZOK + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2916,7 +2897,7 @@ static void floorfunc_default( id self )
 		case PM_SCORPIUS + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerS" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2929,7 +2910,7 @@ static void floorfunc_default( id self )
 		case PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF :
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2943,9 +2924,9 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.18 atZ:0.0 ];
 			[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2958,9 +2939,9 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
 			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
-			[ [ ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[ NO_COLOR ] ];
+			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -2981,7 +2962,7 @@ static void floorfunc_default( id self )
 				 
 				 if ( ![ ret hasChildObject ] ) {
 					 [ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-					 [ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+					 [ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 					 [ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 					 [ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
 					 [ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3056,14 +3037,14 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"sink" withTexture:YES ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:1.277 atZ:-0.812 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypePoints ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypePoints ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:-8.8 Z:1.0 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.21 ];
 			[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:-0.687 atZ:0.512 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypePoints ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypePoints ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:-5.8 Z:1.0 ];
 			[ [ ret childObjectAtLast ] setParticleLife:0.3 ];
@@ -3075,7 +3056,7 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.34 atY:2.68 atZ:0.65 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:0.1 Z:0.08 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:-130.0 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:4.2 ];
@@ -3085,7 +3066,7 @@ static void floorfunc_default( id self )
 			[ [ ret childObjectAtLast ] setPivotX:0.34 atY:-1.70 atZ:-0.65 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.98 scaleY:0.7 scaleZ:0.98 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:0.1 Z:0.00 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:-130.0 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:4.2 ];
@@ -3095,7 +3076,7 @@ static void floorfunc_default( id self )
 			[ [ ret childObjectAtLast ] setModelScaleX:0.5 scaleY:0.7 scaleZ:0.5 ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:1.35 atZ:-0.0 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:0.4 Z:0.00 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:-190.0 ];
 			[ [ ret childObjectAtLast ] setParticleSlowdown:4.2 ];
@@ -3168,7 +3149,7 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"gastrap" withTexture:YES ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.5 atZ:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.0 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:300 ];
@@ -3181,7 +3162,7 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"gastrap" withTexture:YES ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.5 atZ:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.0 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_GREEN ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:300.0 ];
@@ -3194,7 +3175,7 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"gastrap" withTexture:YES ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.5 atZ:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeBoth ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
 			[ [ ret childObjectAtLast ] setParticleSize:4.0 ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-1.0 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_ORANGE ];
@@ -3223,7 +3204,7 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:3.82 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -3233,7 +3214,7 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:0.42 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_CYAN ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -3246,7 +3227,7 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:3.82 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:-4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -3256,7 +3237,7 @@ static void floorfunc_default( id self )
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setPivotX:-0.38 atY:0.42 atZ:0.75917 ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.55 scaleY:0.8 scaleZ:0.55 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleGravityX:0 Y:4.8 Z:0 ];
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_MAGENTA ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
@@ -3268,7 +3249,7 @@ static void floorfunc_default( id self )
 			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"magicportal" withTexture:YES ];
 			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
 			[ [ ret childObjectAtLast ] setModelScaleX:0.8 scaleY:0.7 scaleZ:0.8 ];
-			[ [ ret childObjectAtLast ] setParticleType:NH3DParticleTypeAura ];
+			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
 			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_BLUE ];
 			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
@@ -3850,16 +3831,16 @@ static void floorfunc_default( id self )
 	[ viewLock lock ];
 	nowUpdating = YES;
 	
-		[ [NSUserDefaults standardUserDefaults] setBool:![ (NSCell*)sender state ] forKey:NH3DOpenGLWaitSyncKey ];
-		[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:![ (NSCell*)sender state ]]
+		[ [NSUserDefaults standardUserDefaults] setBool:! ((NSCell*)sender).state forKey:NH3DOpenGLWaitSyncKey ];
+		[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:[ NSNumber numberWithBool:! ((NSCell*)sender).state ]
 																			 forKey:NH3DOpenGLWaitSyncKey ];
 		
 	nowUpdating = NO;
 	[ viewLock unlock ];
 		if ( OPENGLVIEW_WAITSYNC )
-			[ [ self openGLContext ] setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
+			[ self.openGLContext setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
 		else 
-			[ [ self openGLContext ] setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
+			[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
 
 }	
 
@@ -3891,47 +3872,47 @@ static void floorfunc_default( id self )
 	switch ( [ sender tag ] ) {
 		case 1003 : // no wait			
 			waitRate = dRefreshRate;
-			[(NSCell*) sender setState:NSOnState ];
+			((NSCell*) sender).state = NSOnState ;
 			[ [NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:NO]
+			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@NO
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
 			
-			[ [[ sender menu ] itemWithTag:1004 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1005 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1006 ] setState:NSOffState ];
+			[[ sender menu ] itemWithTag:1004 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1005 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1006 ].state = NSOffState ;
 			break;
 		case 1004 :
 			waitRate = WAIT_FAST;
-			[ (NSCell*)sender setState:NSOnState ];
+			((NSCell*)sender).state = NSOnState ;
 			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:YES]
+			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@YES
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
 			
-			[ [[ sender menu ] itemWithTag:1003 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1005 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1006 ] setState:NSOffState ];			
+			[[ sender menu ] itemWithTag:1003 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1005 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1006 ].state = NSOffState ;			
 			break;
 		case 1005 :
 			waitRate = WAIT_NORMAL;
-			[ (NSCell*)sender setState:NSOnState ];
+			((NSCell*)sender).state = NSOnState ;
 			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:YES]
+			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@YES
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
 			
-			[ [[ sender menu ] itemWithTag:1003 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1004 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1006 ] setState:NSOffState ];			
+			[[ sender menu ] itemWithTag:1003 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1004 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1006 ].state = NSOffState ;			
 			break;
 		case 1006 :
 			waitRate = WAIT_SLOW;
-			[ (NSCell*)sender setState:NSOnState ];
+			((NSCell*)sender).state = NSOnState ;
 			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithBool:YES]
+			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@YES
 																				 forKey:NH3DOpenGLUseWaitRateKey ];
 			
-			[ [[ sender menu ] itemWithTag:1003 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1004 ] setState:NSOffState ];
-			[ [[ sender menu ] itemWithTag:1005 ] setState:NSOffState ];			
+			[[ sender menu ] itemWithTag:1003 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1004 ].state = NSOffState ;
+			[[ sender menu ] itemWithTag:1005 ].state = NSOffState ;			
 			break;
 	}
 	
@@ -3942,7 +3923,7 @@ static void floorfunc_default( id self )
 	[ viewLock unlock ];
 	
 	[ [NSUserDefaults standardUserDefaults] setFloat:waitRate forKey:NH3DOpenGLWaitRateKey ];
-	[ [[NSUserDefaultsController sharedUserDefaultsController] values] setValue:[ NSNumber numberWithFloat:waitRate]
+	[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@(waitRate)
 																		 forKey:NH3DOpenGLWaitRateKey ];
 	
 	CGDisplayModeRelease(curCfg);
@@ -3957,7 +3938,7 @@ static void floorfunc_default( id self )
 	if ( TRADITIONAL_MAP && !firstTime ) {
 		[ _mapModel setPlayerDirection:PL_DIRECTION_FORWARD ];
 		//[ self clearGLContext ];
-		[ [self openGLContext] clearDrawable ];
+		[ self.openGLContext clearDrawable ];
 		[ self setHidden:YES ];
 		//[ [self openGLContext] setView:nil ];
 		threadRunning = NO;
@@ -3965,14 +3946,14 @@ static void floorfunc_default( id self )
 	}
 	if ( !TRADITIONAL_MAP && !firstTime ) {
 		[ self setHidden:NO ];
-		[ [self openGLContext] setView:self ];
+		self.openGLContext.view = self ;
 		if ( !threadRunning )
 			[ self detachOpenGLThread ];
 	}
 	
 	[ viewLock lock ];
 	
-	NSMenu *oglFrameRateMenu = [ [[[[ self menu ] itemWithTag:1000] submenu] itemWithTag:1002] submenu ];
+	NSMenu *oglFrameRateMenu = [[ self.menu itemWithTag:1000].submenu itemWithTag:1002].submenu ;
 	
 	nowUpdating = YES;
 	hasWait = OPENGLVIEW_USEWAIT;
@@ -3981,34 +3962,34 @@ static void floorfunc_default( id self )
 		CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
 		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
 		waitRate = dRefreshRate;
-		[ [oglFrameRateMenu itemWithTag:1004 ] setState:NSOffState ];
-		[ [oglFrameRateMenu itemWithTag:1005 ] setState:NSOffState ];
-		[ [oglFrameRateMenu itemWithTag:1006 ] setState:NSOffState ];
+		[oglFrameRateMenu itemWithTag:1004 ].state = NSOffState ;
+		[oglFrameRateMenu itemWithTag:1005 ].state = NSOffState ;
+		[oglFrameRateMenu itemWithTag:1006 ].state = NSOffState ;
 		CGDisplayModeRelease(curCfg);
 	} else if ( OPENGLVIEW_WAITRATE == WAIT_FAST ) {
 		waitRate = WAIT_FAST;
-		[ [oglFrameRateMenu itemWithTag:1004 ] setState:NSOnState ];
-		[ [oglFrameRateMenu itemWithTag:1005 ] setState:NSOffState ];
-		[ [oglFrameRateMenu itemWithTag:1006 ] setState:NSOffState ];
+		[oglFrameRateMenu itemWithTag:1004 ].state = NSOnState ;
+		[oglFrameRateMenu itemWithTag:1005 ].state = NSOffState ;
+		[oglFrameRateMenu itemWithTag:1006 ].state = NSOffState ;
 	} else if ( OPENGLVIEW_WAITRATE == WAIT_NORMAL ) {
 		waitRate = WAIT_NORMAL;
-		[ [oglFrameRateMenu itemWithTag:1004 ] setState:NSOffState ];
-		[ [oglFrameRateMenu itemWithTag:1005 ] setState:NSOnState ];
-		[ [oglFrameRateMenu itemWithTag:1006 ] setState:NSOffState ];
+		[oglFrameRateMenu itemWithTag:1004 ].state = NSOffState ;
+		[oglFrameRateMenu itemWithTag:1005 ].state = NSOnState ;
+		[oglFrameRateMenu itemWithTag:1006 ].state = NSOffState ;
 		
 	} else {
 		waitRate = WAIT_SLOW;
-		[ [oglFrameRateMenu itemWithTag:1004 ] setState:NSOffState ];
-		[ [oglFrameRateMenu itemWithTag:1005 ] setState:NSOffState ];
-		[ [oglFrameRateMenu itemWithTag:1006 ] setState:NSOnState ];
+		[oglFrameRateMenu itemWithTag:1004 ].state = NSOffState ;
+		[oglFrameRateMenu itemWithTag:1005 ].state = NSOffState ;
+		[oglFrameRateMenu itemWithTag:1006 ].state = NSOnState ;
 	}
 	
 	cameraStep = waitRate / 8.5;
 	
 	if ( OPENGLVIEW_WAITSYNC )
-		[ [ self openGLContext ] setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
+		[ self.openGLContext setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
 	else 
-		[ [ self openGLContext ] setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
+		[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
 	
 	if ( useTile != NH3DGL_USETILE ) {
 		int i;
@@ -4463,7 +4444,7 @@ static void floorfunc_default( id self )
 			ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerH" withTexture:NO];
 			[ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject];
 			[[ret childObjectAtLast] setPivotX:0.0 atY:0.2 atZ:-0.21];
-			[[ret childObjectAtLast] setCurrentMaterial:nh3dMaterialArray[NO_COLOR]];
+			[ret childObjectAtLast].currentMaterial = nh3dMaterialArray[NO_COLOR];
 		} else {
 			
 			ret = [self checkLoadedModelsAt:PM_HOBBIT
@@ -4522,7 +4503,7 @@ static void floorfunc_default( id self )
 				ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerK" withTexture:NO];
 				[ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject];
 				[[ret childObjectAtLast] setPivotX:0.0 atY:0.1 atZ:-0.25];
-				[[ret childObjectAtLast] setCurrentMaterial:nh3dMaterialArray[NO_COLOR]];
+				[ret childObjectAtLast].currentMaterial = nh3dMaterialArray[NO_COLOR];
 				
 				break;
 				
@@ -4530,7 +4511,7 @@ static void floorfunc_default( id self )
 				ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerK" withTexture:NO];
 				[ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
 				[[ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
-				[[ret childObjectAtLast ] setCurrentMaterial:nh3dMaterialArray[NO_COLOR]];
+				[ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[NO_COLOR];
 				
 				break;
 		}
@@ -5251,7 +5232,7 @@ static void floorfunc_default( id self )
 	loadModelBlocks[ S_digbeam + GLYPH_CMAP_OFF ] = [^(int glyph) {
 		NH3DModelObjects *ret = [[NH3DModelObjects alloc] init];
 		[ ret setModelScaleX:0.7 scaleY:1.0 scaleZ:0.7 ];
-		[ ret setParticleType:NH3DParticleTypeAura ];
+		ret.particleType = NH3DParticleTypeAura ;
 		[ ret setParticleColor:CLR_BROWN ];
 		[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
 		[ ret setParticleSpeedX:1.0 Y:1.00 ];
@@ -5265,7 +5246,7 @@ static void floorfunc_default( id self )
 	loadModelBlocks[ S_flashbeam + GLYPH_CMAP_OFF ] = [^(int glyph) {
 		NH3DModelObjects *ret = [ [ NH3DModelObjects alloc ] init ];
 		[ ret setModelScaleX:1.4 scaleY:1.5 scaleZ:1.4 ];
-		[ ret setParticleType:NH3DParticleTypeAura ];
+		ret.particleType = NH3DParticleTypeAura ;
 		ret.particleColor = CLR_WHITE;
 		[ ret setParticleColor:CLR_WHITE ];
 		[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];

@@ -56,7 +56,7 @@ static NH3DMaterial defaultMat = {
 	if (sourcefile == nil) {
 		
 		sourcefile = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",
-															  [[NSBundle mainBundle] resourcePath],
+															  [NSBundle mainBundle].resourcePath,
 															  fileName]];
 		
 		if (sourcefile == nil) {
@@ -65,7 +65,7 @@ static NH3DMaterial defaultMat = {
 		}
 	}
 	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:[sourcefile TIFFRepresentation]];
+	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
 	
 	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 	
@@ -84,9 +84,9 @@ static NH3DMaterial defaultMat = {
 	
 	// create automipmap texture
 	gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
-						 [imgrep pixelsWide],[imgrep pixelsHigh],
-						 [imgrep hasAlpha] ? GL_RGBA : GL_RGB,
-						 GL_UNSIGNED_BYTE,[imgrep bitmapData]);
+						 imgrep.pixelsWide,imgrep.pixelsHigh,
+						 imgrep.alpha ? GL_RGBA : GL_RGB,
+						 GL_UNSIGNED_BYTE,imgrep.bitmapData);
 	
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -224,7 +224,7 @@ static NH3DMaterial defaultMat = {
 	
 	if (file_3ds == nil) return NO;
 	
-	fileRange.length = [file_3ds length];
+	fileRange.length = file_3ds.length;
 	fileRange.location = 0;
 	
 	
@@ -615,7 +615,7 @@ static NH3DMaterial defaultMat = {
 
 
 
-- (id) init // emitter init
+- (instancetype) init // emitter init
 {
 	self = [super init];
 	if (self != nil) {
@@ -653,7 +653,7 @@ static NH3DMaterial defaultMat = {
 			particles[ i ].zg = particleGravity.z;
 		}
 		
-		modelName = [[NSDate date] description];
+		modelName = [NSDate date].description;
 		modelCode = @"emitter";
 		modelType = NH3DModelTypeEmitter;
 		active = YES;
@@ -713,7 +713,7 @@ static NH3DMaterial defaultMat = {
 }
 */
 
-- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
+- (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
 {
 	if (self = [super init]) {
 		
@@ -1039,12 +1039,12 @@ static NH3DMaterial defaultMat = {
 
 - (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
 {
-	return [childObjects objectAtIndex:index];
+	return childObjects[index];
 }
 
 - (NH3DModelObjects *)childObjectAtLast
 {
-	return [childObjects lastObject];
+	return childObjects.lastObject;
 }
 
 
@@ -1085,7 +1085,7 @@ static NH3DMaterial defaultMat = {
 		[ modelobj setIsChild:YES ];
 		[ childObjects addObject:modelobj ];
 		hasChildObject = YES;
-		numberOfChildObjects = [ childObjects count ];
+		numberOfChildObjects = childObjects.count ;
 	} else {
 		NSLog(@"NH3DModelObjects:Can't add Child object '%@'. please check filename or location.",childName);
 	}
@@ -1387,7 +1387,7 @@ static NH3DMaterial defaultMat = {
 		// Draw ChildObject
 		if ( hasChildObject ) {
 			for ( i=0 ; i < numberOfChildObjects ; i++ ) {
-				[ [childObjects objectAtIndex:i] drawSelf ];
+				[ childObjects[i] drawSelf ];
 			}
 		}
 		

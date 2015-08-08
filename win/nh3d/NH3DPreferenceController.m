@@ -12,7 +12,7 @@
 
 @implementation NH3DPreferenceController
 
-- (id) init {
+- (instancetype) init {
 	self = [ super initWithWindowNibName:@"PreferencePanel" ];
 	if (self != nil) {
 		
@@ -32,7 +32,7 @@
 - (void)showPreferencePanel:(id)sender
 {
 	bindController = sender;
-	[[self window] makeKeyAndOrderFront:self];
+	[self.window makeKeyAndOrderFront:self];
 }
 
 
@@ -78,8 +78,8 @@
 	if (key == nil)
 		return;
 	
-	[[NSUserDefaults standardUserDefaults] setObject:[convertedFont fontName] forKey:key];
-	[[NSUserDefaults standardUserDefaults] setFloat:[convertedFont pointSize] forKey:sizeKey];
+	[[NSUserDefaults standardUserDefaults] setObject:convertedFont.fontName forKey:key];
+	[[NSUserDefaults standardUserDefaults] setFloat:convertedFont.pointSize forKey:sizeKey];
 }
 
 
@@ -125,7 +125,7 @@
     NSFontManager*  fontMgr;
     fontMgr = [NSFontManager sharedFontManager];
 	[fontMgr setSelectedFont:[NSFont fontWithName:familyName size:[NSFont systemFontSize]] isMultiple:NO];
-    [fontMgr setDelegate:self];
+    fontMgr.delegate = self;
 	
     // Shoe font panel
 	NSFontPanel*	fontPanel;
@@ -133,35 +133,35 @@
 	if (!fontPanel.visible) {
 		[fontPanel orderFront:self];
 	}
-	[[self window] makeFirstResponder:nil];
+	[self.window makeFirstResponder:nil];
 }
 
 
 - (IBAction)resetFontFamily:(id)sender
 {
-	NSDictionary *initialValues = [ [NSUserDefaultsController sharedUserDefaultsController] initialValues ];
+	NSDictionary *initialValues = [NSUserDefaultsController sharedUserDefaultsController].initialValues ;
 	
-	[[NSUserDefaults standardUserDefaults] setObject:[initialValues objectForKey:NH3DMsgFontKey]
+	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DMsgFontKey]
 											  forKey:NH3DMsgFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:[initialValues objectForKey:NH3DMapFontKey]
+	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DMapFontKey]
 											  forKey:NH3DMapFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:[initialValues objectForKey:NH3DBoldFontKey]
+	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DBoldFontKey]
 											  forKey:NH3DBoldFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:[initialValues objectForKey:NH3DWindowFontKey]
+	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DWindowFontKey]
 											  forKey:NH3DWindowFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:[initialValues objectForKey:NH3DInventryFontKey]
+	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DInventryFontKey]
 											  forKey:NH3DInventryFontKey];
 	
 	
-	[[NSUserDefaults standardUserDefaults] setFloat:[[initialValues objectForKey:NH3DMsgFontSizeKey] floatValue]
+	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DMsgFontSizeKey] floatValue]
 											 forKey:NH3DMsgFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[[initialValues objectForKey:NH3DMapFontSizeKey] floatValue]
+	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DMapFontSizeKey] floatValue]
 											 forKey:NH3DMapFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[[initialValues objectForKey:NH3DBoldFontSizeKey] floatValue]
+	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DBoldFontSizeKey] floatValue]
 											 forKey:NH3DBoldFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[[initialValues objectForKey:NH3DWindowFontSizeKey] floatValue]
+	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DWindowFontSizeKey] floatValue]
 											 forKey:NH3DWindowFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[[initialValues objectForKey:NH3DInventryFontSizeKey] floatValue]
+	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DInventryFontSizeKey] floatValue]
 											 forKey:NH3DInventryFontSizeKey];
 }
 
@@ -179,7 +179,7 @@
 	openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
 	NSInteger result = [openPanel runModal];
 	if (result == NSFileHandlingPanelOKButton) {
-		[[NSUserDefaults standardUserDefaults] setObject:[[openPanel URL] path] forKey:NH3DTileNameKey];
+		[[NSUserDefaults standardUserDefaults] setObject:openPanel.URL.path forKey:NH3DTileNameKey];
 	}
 }
 

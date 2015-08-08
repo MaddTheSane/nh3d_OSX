@@ -303,7 +303,7 @@ void nh3d_askname()
 	@autoreleasepool {
 		nh3d_getlin( [ NSLocalizedString(@"Who are you?",@"") cStringUsingEncoding:NH3DTEXTENCODING ],plname );
 		
-		if ( [ [ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] length ] >= PL_NSIZ-11 ) {
+		if ( [ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ].length >= PL_NSIZ-11 ) {
 			plname[ 0 ] = 0;
 			
 			NSRunAlertPanel(NSLocalizedString(@"A name is too long, and it is difficult to learn.",@""),
@@ -459,19 +459,19 @@ void nh3d_clear_nhwindow(winid wid)
 			[ _NH3DMapModel clearMapModel ];
 			break;
       case NHW_MESSAGE:
-		//	[ _NH3DMessenger clearMainMessarge ];
+		//	[ _NH3DMessenger clearMainMessage ];
 		  break; 
       case NHW_STATUS:
 		  break;   
       case NHW_MENU:
-			if ([ _NH3DMenuWindow isMenu ]) {
+			if ( _NH3DMenuWindow.isMenu ) {
 				[ _NH3DMenuWindow clearMenuWindow ];
 			} else {
-				[ _NH3DMenuWindow clearTextMessarge ];
+				[ _NH3DMenuWindow clearTextMessage ];
 			}
 		  break;
       case NHW_TEXT:
-			[ _NH3DMenuWindow clearTextMessarge ];
+			[ _NH3DMenuWindow clearTextMessage ];
 		  break;
       }
 	
@@ -486,7 +486,7 @@ void nh3d_display_nhwindow(winid wid, BOOLEAN_P block)
 		{
 			case NHW_MENU:
 			{
-				if ( [ _NH3DMenuWindow isMenu ] ) {	
+				if ( _NH3DMenuWindow.isMenu ) {	
 					[ _NH3DMenuWindow showMenuPanel:"" ];
 				} else {
 					[ _NH3DMenuWindow showTextPanel ];
@@ -524,7 +524,7 @@ void nh3d_destroy_nhwindow(winid wid)
 				
 				[ _NH3DMenuWindow clearMenuWindow ];
 				[ _NH3DMenuWindow setIsMenu:NO ];
-				[ _NH3DMenuWindow clearTextMessarge ];
+				[ _NH3DMenuWindow clearTextMessage ];
 		
 				nh3d_windowlist[ wid ].win = nil;
 				nh3d_windowlist[ wid ].type = 0;
@@ -532,7 +532,7 @@ void nh3d_destroy_nhwindow(winid wid)
 			} 
 			case NHW_TEXT:
 			{
-				[ _NH3DMenuWindow clearTextMessarge ];
+				[ _NH3DMenuWindow clearTextMessage ];
 				nh3d_windowlist[ wid ].win = nil;
 				nh3d_windowlist[ wid ].type = 0;
 				break;
@@ -563,7 +563,7 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 		switch ( nh3d_windowlist[ wid ].type )
 		{
 			case NHW_MESSAGE:
-				[ _NH3DMessenger putMainMessarge:attr text:text ];
+				[ _NH3DMessenger putMainMessage:attr text:text ];
 				break;
 			case NHW_TEXT:
 				[ _NH3DMenuWindow putTextMessage:
@@ -571,7 +571,7 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 											encoding:NH3DTEXTENCODING ] ];
 				break;
 			case NHW_MENU:
-				if ( ![ _NH3DMenuWindow isMenu ] ) {
+				if ( ! _NH3DMenuWindow.isMenu ) {
 					[ _NH3DMenuWindow putTextMessage:
 							[ NSString stringWithCString:text
 												encoding:NH3DTEXTENCODING ] ];
@@ -677,7 +677,7 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 	@autoreleasepool {
 	
 	if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
-		if ( [ _NH3DMenuWindow isMenu ] ) {
+		if ( _NH3DMenuWindow.isMenu ) {
 			ret = [ nh3d_windowlist[ wid ].win selectMenu:wid how:how selected:selected ];
 			[ nh3d_windowlist[ wid ].win setIsMenu:NO ];
 			
@@ -906,9 +906,9 @@ void nh3d_getlin(const char *prompt, char *line)
 int nh3d_get_ext_cmd()
 {
 	@autoreleasepool {
-	int ret = [ _NH3DKeyBuffer extendKey ];
+	int ret = _NH3DKeyBuffer.extendKey ;
 	if (ret != -1 ) {
-		[ _NH3DKeyBuffer setExtendKey:-1 ];
+		_NH3DKeyBuffer.extendKey = -1 ;
 		return ret;
 	} else {
 		menu_item *mi;
@@ -931,12 +931,12 @@ int nh3d_get_ext_cmd()
 		 
 		 if( ret >= 1 )
 		 {
-			 ret = [ _NH3DMenuWindow selectedRow ];
+			 ret = _NH3DMenuWindow.selectedRow ;
 		 } else {
 			 ret = -1;
 		 }
 			 
-		 [ _NH3DKeyBuffer setExtendKey:-1 ];
+		 _NH3DKeyBuffer.extendKey = -1 ;
 		 free(mi);
 		 return ret;
 	}
@@ -1070,7 +1070,7 @@ void nh3d_set_savefile_name()
 	@autoreleasepool {
 		NSString *saveString;
 		saveString = [ NSString stringWithFormat:@"%d%@",(int)getuid(),[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
-		Strcpy(SAVEF,[ saveString fileSystemRepresentation ]);
+		Strcpy(SAVEF, saveString.fileSystemRepresentation );
 	}
 }
 #endif
@@ -1226,12 +1226,12 @@ You("スコアの載らない発見モードで起動した．");
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
 		
-		[[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaultValues];
+		[NSUserDefaultsController sharedUserDefaultsController].initialValues = defaultValues;
 	});
 }
 
 
-- (id)init
+- (instancetype)init
 {
 	self = [ super init ];
 	_prefPanel = nil;
@@ -1289,7 +1289,7 @@ You("スコアの載らない発見モードで起動した．");
 	
 	if ( !iflags.window_inited ) return YES;
 	
-	if ([ _stDrawer state ] != NSDrawerClosedState) {
+	if ( _stDrawer.state != NSDrawerClosedState) {
 		[ _stDrawer close:self ];
 	} 
 	
@@ -1313,8 +1313,8 @@ You("スコアの載らない発見モードで起動した．");
 	_tileCache = [ [ NH3DTileCache alloc ] initWithNamed:TILE_FILE_NAME ];
 	_NH3DTileCache = _tileCache;
 	
-	[ [NSUserDefaults standardUserDefaults] setObject:[ NSNumber numberWithBool:NO ] forKey:NH3DTraditionalMapModeKey ];
-	[ [NSUserDefaults standardUserDefaults] setObject:[ NSNumber numberWithBool:YES ] forKey:NH3DTraditionalMapModeKey ];
+	[ [NSUserDefaults standardUserDefaults] setObject:@NO forKey:NH3DTraditionalMapModeKey ];
+	[ [NSUserDefaults standardUserDefaults] setObject:@YES forKey:NH3DTraditionalMapModeKey ];
 	
 }
 
@@ -1325,7 +1325,7 @@ You("スコアの載らない発見モードで起動した．");
 {
 	NH3DUserMakeSheetController *userMakeSheet = nil;
 	
-	if ([ [ [ _userStatus playerName ] string ] isEqualToString:@"" ]) {
+	if ([ [ _userStatus playerName ].string isEqualToString:@"" ]) {
 	
 		//NSString *pName = [ [ NSString alloc ] initWithCString:plname encoding:NH3DTEXTENCODING ];
 		[ _userStatus setPlayerName:[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
@@ -1347,7 +1347,7 @@ You("スコアの載らない発見モードで起動した．");
 	int i;
 	// window fade in
 	for (i=0;i<=10;i++) {
-		[ _window setAlphaValue:((float)i)/10 ];
+		_window.alphaValue = ((float)i)/10.0;
 		[ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:0.1 ] ];
 	}
 #else
@@ -1394,12 +1394,12 @@ You("スコアの載らない発見モードで起動した．");
 	//Wait next Event
 	[ _asciiMapView nh3dEventHandlerLoopWithMask:mask ];	
 	
-	ret = [ _asciiMapView keyBuffer ];
+	ret = _asciiMapView.keyBuffer;
 
 	if (ret == 0) {
-		*x = [ _mapModel cursX ];
-		*y = [ _mapModel cursY ];
-		*mod = [ _asciiMapView clickType ];
+		*x = _mapModel.cursX ;
+		*y = _mapModel.cursY ;
+		*mod = _asciiMapView.clickType ;
 	}
 	[ _asciiMapView setKeyUpdated:NO ];
 
@@ -1418,7 +1418,7 @@ You("スコアの載らない発見モードで起動した．");
 	//Wait next Event
 	[ _asciiMapView nh3dEventHandlerLoopWithMask:mask ];
 
-	ret = [ _asciiMapView keyBuffer ];
+	ret = _asciiMapView.keyBuffer;
 	[ _asciiMapView setKeyUpdated:NO ];
 	[ _asciiMapView setGetCharMode:NO ];
 	return ret;
@@ -1491,7 +1491,7 @@ You("スコアの載らない発見モードで起動した．");
 #ifdef CHDIR
 	
 	/* get resourcePath */
-	dir = [ [[NSBundle mainBundle] resourcePath] UTF8String ];
+	dir = [NSBundle mainBundle].resourcePath.fileSystemRepresentation;
 	
 #endif
 	
@@ -1602,7 +1602,7 @@ You("スコアの載らない発見モードで起動した．");
 	//for OSX (UTF8) File System
 		NSString *lockString;
 		lockString = [ NSString stringWithFormat:@"%d%@",(int)getuid(),[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
-		Strcpy(lock,[ lockString UTF8String ]);
+		Strcpy(lock, lockString.fileSystemRepresentation);
 #else
 		Sprintf(lock, "%d%s", (int)getuid(), plname);
 #endif

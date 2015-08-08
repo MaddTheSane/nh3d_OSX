@@ -17,14 +17,14 @@ extern id _NH3DTileCache;
 @synthesize selected;
 
 //Over wride NSObject designated initializer. this is not work!! don't use this.
-- (id)init
+- (instancetype)init
 {
 	return nil;
 }
 
 
 // This is designated initializer.
--(id)initWithParameter:(const char*)cName
+-(instancetype)initWithParameter:(const char*)cName
 			identifier:(const anything *)ident
 		   accelerator:(char)accel
 		   group_accel:(char)gaccel
@@ -58,8 +58,7 @@ extern id _NH3DTileCache;
 	NSAttributedString *aStr = nil;
 	NSMutableDictionary *strAttributes = [ [NSMutableDictionary alloc] init ];
 	
-	[ strAttributes setObject:[NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE]
-					   forKey:NSFontAttributeName ];
+	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 		
 	
 	switch ( attribute )
@@ -67,29 +66,25 @@ extern id _NH3DTileCache;
 		case ATR_NONE:
 		break;
 		case ATR_ULINE:
-			[ strAttributes setObject:[NSNumber numberWithInt:1]
-							   forKey:NSUnderlineStyleAttributeName ];
+			strAttributes[NSUnderlineStyleAttributeName] = @1;
 		break;
 		case ATR_BOLD:
-			[ strAttributes setObject:[NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE]
-							   forKey:NSFontAttributeName ];
+			strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];
 		break;
 		default:
 		break;
 	}
 	
-	if ( ![ self isSelectable ] ) {
+	if ( ! self.selectable ) {
 		
 		NSShadow *darkShadow = [ [NSShadow alloc] init ];
-		[ darkShadow setShadowColor:[NSColor blackColor] ];
-		[ darkShadow setShadowOffset:NSMakeSize(0,0) ];
-		[ darkShadow setShadowBlurRadius:6.0 ];
+		darkShadow.shadowColor = [NSColor blackColor] ;
+		darkShadow.shadowOffset = NSMakeSize(0,0) ;
+		darkShadow.shadowBlurRadius = 6.0 ;
 		
 		
-		[ strAttributes setObject:[NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE]
-						   forKey:NSFontAttributeName ];
-		[ strAttributes setObject:darkShadow
-						   forKey:NSShadowAttributeName ];
+		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];
+		strAttributes[NSShadowAttributeName] = darkShadow;
 		
 	
 	} 
@@ -100,36 +95,33 @@ extern id _NH3DTileCache;
 		 || ( ![ name isLike:NSLocalizedString(@"*called*",@"") ] && [ name isLike:NSLocalizedString(@"*holy water*",@"") ]) ) {
 		
 		NSShadow *lightShadow = [ [NSShadow alloc] init ];
-		[ lightShadow setShadowColor:[NSColor cyanColor] ];
-		[ lightShadow setShadowOffset:NSMakeSize(0, 0) ];
-		[ lightShadow setShadowBlurRadius:6.0 ];
+		lightShadow.shadowColor = [NSColor cyanColor] ;
+		lightShadow.shadowOffset = NSMakeSize(0, 0) ;
+		lightShadow.shadowBlurRadius = 6.0 ;
 				
-		[ strAttributes setObject:lightShadow
-						   forKey:NSShadowAttributeName ];
+		strAttributes[NSShadowAttributeName] = lightShadow;
 		
 		
 	} else if ( ([ name isLike:NSLocalizedString(@"*cursed*",@"") ] || [ name isLike:NSLocalizedString(@"*cursed *",@"") ])
 				&& ( ![ name isLike:NSLocalizedString(@"*uncursed*",@"") ] && ![ name isLike:NSLocalizedString(@"*called*",@"") ]) ) {
 
 		NSShadow *cursedShadow = [ [NSShadow alloc] init ];
-		[ cursedShadow setShadowColor:[NSColor redColor] ];
-		[ cursedShadow setShadowOffset:NSMakeSize(0,0) ];
-		[ cursedShadow setShadowBlurRadius:6.0 ];
+		cursedShadow.shadowColor = [NSColor redColor] ;
+		cursedShadow.shadowOffset = NSMakeSize(0,0) ;
+		cursedShadow.shadowBlurRadius = 6.0 ;
 		
-		[ strAttributes setObject:cursedShadow
-		  				   forKey:NSShadowAttributeName ];
+		strAttributes[NSShadowAttributeName] = cursedShadow;
 		
 
 	}
 
-	[ strAttributes setObject:[NSColor whiteColor]
-					   forKey:NSForegroundColorAttributeName ];
+	strAttributes[NSForegroundColorAttributeName] = [NSColor whiteColor];
 
 	aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ .",name]
 											 attributes:strAttributes];
 	
 	stringSize = [ aStr size ];
-	strLength = [ name length ];
+	strLength = name.length ;
 		
 	
 	return aStr;
@@ -144,35 +136,28 @@ extern id _NH3DTileCache;
 		NSShadow *lightShadow = [ [NSShadow alloc] init ];
 		NSMutableDictionary *strAttributes = [ [NSMutableDictionary alloc] init ];
 		
-		[ lightShadow setShadowColor:[NSColor cyanColor] ];
-		[ lightShadow setShadowOffset:NSMakeSize(0,0) ];
-		[ lightShadow setShadowBlurRadius:3.6 ];
+		lightShadow.shadowColor = [NSColor cyanColor] ;
+		lightShadow.shadowOffset = NSMakeSize(0,0) ;
+		lightShadow.shadowBlurRadius = 3.6 ;
 
-		[ strAttributes setObject:[NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 2.0]
-						   forKey:NSFontAttributeName ];
-		[ strAttributes setObject:lightShadow
-						   forKey:NSShadowAttributeName ];
-		[ strAttributes setObject:[NSColor blueColor]
-						   forKey:NSForegroundColorAttributeName ];
+		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 2.0];
+		strAttributes[NSShadowAttributeName] = lightShadow;
+		strAttributes[NSForegroundColorAttributeName] = [NSColor blueColor];
 		
 		switch ( attribute )
 		{
 			case ATR_NONE:
 				break;
 			case ATR_ULINE:
-				[ strAttributes setObject:[NSNumber numberWithInt:1]
-								   forKey:NSUnderlineStyleAttributeName ];
+				strAttributes[NSUnderlineStyleAttributeName] = @1;
 				break;
 			case ATR_BOLD:
-				[ strAttributes setObject:[NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE - 2.0]
-								   forKey:NSFontAttributeName ];
+				strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE - 2.0];
 				break;
 			case ATR_BLINK:
 			case ATR_INVERSE:
-				[ strAttributes setObject:[NSColor alternateSelectedControlTextColor]
-								   forKey:NSForegroundColorAttributeName ];
-				[ strAttributes setObject:[NSColor alternateSelectedControlColor]
-								   forKey:NSBackgroundColorAttributeName ];
+				strAttributes[NSForegroundColorAttributeName] = [NSColor alternateSelectedControlTextColor];
+				strAttributes[NSBackgroundColorAttributeName] = [NSColor alternateSelectedControlColor];
 		}
 		
 		aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c",accelerator]

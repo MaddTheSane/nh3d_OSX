@@ -100,7 +100,7 @@ typedef NH3DModelObjects *(^LoadModelBlock)(int glyph);
 	LoadModelBlock loadModelBlocks[MAX_GLYPH];	
 }
 
-- (instancetype)initWithFrame:(NSRect)theFrame;
+- (instancetype)initWithFrame:(NSRect)theFrame NS_DESIGNATED_INITIALIZER;
 
 - (void)updateGlView;
 - (void)loadModels;

@@ -18,7 +18,7 @@ static const int DIALOG_CANCEL	= 129;
 @implementation NH3DUserMakeSheetController
 @synthesize playerName;
 
-- (id) init {
+- (instancetype) init {
 	self = [ super initWithWindowNibName:@"Usermakesheet" ];
 	if (self != nil) {
 		
@@ -512,11 +512,11 @@ static const int DIALOG_CANCEL	= 129;
 	
 	_userStatus = userStatusModel;
 	
-	[ self setPlayerName:[userStatusModel playerName] ];
+	self.playerName = [userStatusModel playerName];
 	
-	[[NSApp mainWindow] beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
+	[NSApp.mainWindow beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
 		[NSApp stopModal];
-		[[self window] orderOut:self];
+		[self.window orderOut:self];
 		
 		// Check return code
 		if(returnCode == DIALOG_CANCEL) {
@@ -534,14 +534,14 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)sheetDidEnd:(NSWindow*)sheet returnCode:(int)returnCode contextInfo:(void*)contextInfo
 {
-    [ [ self window ] orderOut:self ];
-	[ NSApp stopModal ];
+    [self.window orderOut:self];
+	[NSApp stopModal];
 	//[ [ self window ] release ];
     
     // Check return code
     if(returnCode == DIALOG_CANCEL) {
         // Quit button was pushed
-		[ NSApp terminate:self ];
+		[NSApp terminate:self];
         return;
     }
     else if(returnCode == DIALOG_OK) {
@@ -555,7 +555,7 @@ static const int DIALOG_CANCEL	= 129;
 {
 	
 	[ self createPlayer ];
-	[[NSApp mainWindow] endSheet:[ self window ] returnCode:DIALOG_OK ];
+	[NSApp.mainWindow endSheet: self.window returnCode:DIALOG_OK];
 	
 }
 
@@ -563,7 +563,7 @@ static const int DIALOG_CANCEL	= 129;
 - (IBAction)quitGame:(id)sender
 {
     // Cancel button is pushed
-    [[NSApp mainWindow] endSheet:[ self window ] returnCode:DIALOG_CANCEL ];
+    [NSApp.mainWindow endSheet: self.window returnCode:DIALOG_CANCEL];
 }
 
 

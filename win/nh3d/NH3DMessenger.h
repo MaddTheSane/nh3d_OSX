@@ -63,8 +63,8 @@
 
 - (void)prepareAttributes;
 
-- (void)putMainMessarge:(int)attr text:(const char *)text;
-- (void)clearMainMessarge;
+- (void)putMainMessage:(int)attr text:(const char *)text;
+- (void)clearMainMessage;
 
 - (int)showInputPanel:(const char *)messageStr line:(char *)line;
 - (IBAction)closeInputPanel:(id)sender;
@@ -72,7 +72,7 @@
 - (void)showOutRip:(const char *)ripString;
 
 - (void)putLogMessarge:(NSString *)rawText;
-- (BOOL)showLogPanel;
+@property (readonly) BOOL showLogPanel;
 
 - (void)setLastAttackDirection:(int)direction;
 

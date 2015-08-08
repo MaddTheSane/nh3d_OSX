@@ -52,10 +52,10 @@
 
 @property BOOL doneRip;
 
-- (NSMutableArray *)nh3dMenu;
+@property (readonly, copy) NSMutableArray *nh3dMenu;
 
 - (void)putTextMessage:(NSString *)contents;
-- (void)clearTextMessarge;
+- (void)clearTextMessage;
 - (void)showTextPanel;
 
 - (void)createMenuWindow:(int)wid;

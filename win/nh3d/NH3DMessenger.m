@@ -22,9 +22,9 @@ static const int DIALOG_CANCEL	= 129;
 - (BOOL)loadSoundConfig
 {
 	@autoreleasepool {
-	NSString *bundlePath = [ [NSBundle mainBundle] bundlePath ];
+	NSString *bundlePath = [NSBundle mainBundle].bundlePath ;
 	NSString* configFile = [ NSString stringWithContentsOfFile:
-						   [NSString stringWithFormat:@"%@/nh3dSounds/%@", [bundlePath stringByDeletingLastPathComponent],@"soundconfig.txt"]
+						   [NSString stringWithFormat:@"%@/nh3dSounds/%@", bundlePath.stringByDeletingLastPathComponent,@"soundconfig.txt"]
 													 encoding:NSUTF8StringEncoding
 														error:nil ];
 	NSString* destText = nil;
@@ -39,27 +39,27 @@ static const int DIALOG_CANCEL	= 129;
 	scanner = [NSScanner scannerWithString:configFile];
 	//[scanner setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
 		
-	while (![scanner isAtEnd]) {
+	while (!scanner.atEnd) {
 		
 		[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
 		
 		if ([ destText isEqualToString:@"SOUND=MESG" ]) {
 			[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
-			[ soundMessageArray addObject:[destText description] ];
+			[ soundMessageArray addObject:destText.description ];
 			
 			[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
-			[ soundNameArray addObject:[destText description] ];
+			[ soundNameArray addObject:destText.description ];
 			
 			[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
-			[ soundVolumeArray addObject:[destText description] ];
+			[ soundVolumeArray addObject:destText.description ];
 			
 			//NSLog(@" %@ , %@ , %d",[soundMessageArray lastObject],[soundNameArray lastObject],[[soundVolumeArray lastObject] intValue]);
 		} else if ([destText isEqualToString:@"EFFECT=MESG" ]) {
 			[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
-			[ effectMessageArray addObject:[destText description] ];
+			[ effectMessageArray addObject:destText.description ];
 			
 			[ scanner scanUpToCharactersFromSet:chSet intoString:&destText ];
-			[ effectTypeArray addObject:[destText description] ];
+			[ effectTypeArray addObject:destText.description ];
 
 		}
 
@@ -72,7 +72,7 @@ static const int DIALOG_CANCEL	= 129;
 }
 
 
-- (id)init
+- (instancetype)init
 {
 	if (self = [super init]) {
 		//for view or backgrounded text field.
@@ -123,7 +123,7 @@ static const int DIALOG_CANCEL	= 129;
 	//Text attributes in View or backgrounded text field.
 	
 	darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMSGFONT
-																   size: NH3DMSGFONTSIZE];
+																   size:NH3DMSGFONTSIZE];
 	darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
 	darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 	darkShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.0 alpha:0.8];
@@ -131,14 +131,14 @@ static const int DIALOG_CANCEL	= 129;
 	//Text attributes on Panel or Window.
 	
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
-																	size: NH3DWINDOWFONTSIZE];
+																	size:NH3DWINDOWFONTSIZE];
 	lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
 	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 	lightShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.0 alpha:0.8];
 }
 
 
-- (void)putMainMessarge:(int)attr text:(const char *)text
+- (void)putMainMessage:(int)attr text:(const char *)text
 {	
 	@autoreleasepool {
 	NSMutableAttributedString* putString = nil;
@@ -153,23 +153,25 @@ static const int DIALOG_CANCEL	= 129;
 	} else {
 		
 		if ( userSound && !SOUND_MUTE ) {
-			NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
+			NSString *bundlePath = [NSBundle mainBundle].bundlePath;
 			QTMovie *playSound;
 			NSURL      *soundURL;
 			
 			for ( NSString *msgSoundStr in soundMessageArray ) {
 				
-				if ( [ [NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgSoundStr ] ) {
+				if ([[NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgSoundStr]) {
 					
 					soundURL  = [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat:@"%@/nh3dSounds/%@",
-																	[bundlePath stringByDeletingLastPathComponent],
-																	[soundNameArray objectAtIndex:i]]];
-
+																	bundlePath.stringByDeletingLastPathComponent,
+																	soundNameArray[i]]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
 					playSound = [[QTMovie alloc] initWithURL: soundURL error:NULL];
 					movieView.movie = playSound;
-					playSound.volume = [[soundVolumeArray objectAtIndex:i] floatValue] * 0.01;
+					playSound.volume = [soundVolumeArray[i] floatValue] * 0.01;
 					[movieView play: self];
-					
+#pragma clang diagnostic pop
+
 					break;
 				} else {
 					i++;
@@ -182,7 +184,7 @@ static const int DIALOG_CANCEL	= 129;
 				
 				if ([[NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgEffectStr] ) {
 					
-					switch ( [ [effectTypeArray objectAtIndex:i] intValue ] ) {
+					switch ( [ effectTypeArray[i] intValue ] ) {
 					case 1: // hit enemy attack to player
 						[ _glView setIsShocked:YES ];
 						break;
@@ -223,34 +225,32 @@ static const int DIALOG_CANCEL	= 129;
 														   attributes:darkShadowStrAttributes ];
 
 		
-		if ([msgArray count] < iflags.msg_history) {
-			 [msgArray addObject:@([putString length])];
+		if (msgArray.count < iflags.msg_history) {
+			 [msgArray addObject:@(putString.length)];
 		} else {
-			[[_messeageWindow textStorage] deleteCharactersInRange:NSMakeRange(0,[[msgArray objectAtIndex:0] intValue])];
+			[_messeageWindow.textStorage deleteCharactersInRange:NSMakeRange(0,[msgArray[0] intValue])];
 			[msgArray removeObjectAtIndex:0];
-			[msgArray addObject:@([putString length])];
+			[msgArray addObject:@(putString.length)];
 		}
 				
-		[[_messeageWindow textStorage] addAttribute:NSForegroundColorAttributeName
+		[_messeageWindow.textStorage addAttribute:NSForegroundColorAttributeName
 											   value:[NSColor colorWithCalibratedWhite:0.4 alpha:0.7]
-											   range:NSMakeRange( 0,[[_messeageWindow textStorage] length])];
+											   range:NSMakeRange( 0,_messeageWindow.textStorage.length)];
 		
-		[[_messeageWindow textStorage] appendAttributedString:putString];
+		[_messeageWindow.textStorage appendAttributedString:putString];
 		
-		[_messeageWindow scrollRangeToVisible:NSMakeRange([[_messeageWindow textStorage] length], 0)];
+		[_messeageWindow scrollRangeToVisible:NSMakeRange(_messeageWindow.textStorage.length, 0)];
 	
 	}
 	}
 }
 
 
-- (void)clearMainMessarge
+- (void)clearMainMessage
 {
 	[msgArray removeAllObjects];
 	_messeageWindow.string = @"";
 }
-
-
 
 
 - (int)showInputPanel:(const char *)messageStr line:(char *)line
@@ -268,7 +268,7 @@ static const int DIALOG_CANCEL	= 129;
 												attributes:lightShadowStrAttributes];
 	
 											   
-	[ _questionTextField setAttributedStringValue:putString ];
+	_questionTextField.attributedStringValue = putString ;
 	
 	[_window beginSheet:_inputPanel completionHandler:^(NSModalResponse returnCode) {
 		
@@ -281,32 +281,32 @@ static const int DIALOG_CANCEL	= 129;
     [_inputPanel orderOut:self];
 	
 	if ( result == DIALOG_CANCEL ) {
-		[ _questionTextField setStringValue:@"" ];
-		[ _inputTextField setStringValue:@"" ];
+		_questionTextField.stringValue = @"" ;
+		_inputTextField.stringValue = @"" ;
 		return -1;
 	}
-	if ( ![ _inputTextField stringValue ] ) {
-		[ _questionTextField setStringValue:@"" ];
+	if ( ! _inputTextField.stringValue ) {
+		_questionTextField.stringValue = @"" ;
 		return -1;
 	}
 	
-	if ([[_inputTextField stringValue] lengthOfBytesUsingEncoding:NH3DTEXTENCODING] > BUFSZ ) {
+	if ([_inputTextField.stringValue lengthOfBytesUsingEncoding:NH3DTEXTENCODING] > BUFSZ ) {
 		NSRunAlertPanel( NSLocalizedString(@"There is too much number of the letters.", @""),
 						@" ", 
 						@"OK", 
 						nil,nil,nil );
-		[ _questionTextField setStringValue:@"" ];
-		[ _inputTextField setStringValue:@"" ];
+		_questionTextField.stringValue = @"" ;
+		_inputTextField.stringValue = @"" ;
 		return -1;
 	}
 			
-	inputData = [ [_inputTextField stringValue] dataUsingEncoding:NH3DTEXTENCODING allowLossyConversion:YES ];
+	inputData = [ _inputTextField.stringValue dataUsingEncoding:NH3DTEXTENCODING allowLossyConversion:YES ];
 	str = [ [NSString alloc] initWithData:inputData encoding:NH3DTEXTENCODING ];
 	
 	Strcpy(line, [str cStringUsingEncoding:NH3DTEXTENCODING]);
 	
-	[_questionTextField setStringValue:@""];
-	[_inputTextField setStringValue:@""];
+	_questionTextField.stringValue = @"";
+	_inputTextField.stringValue = @"";
 	
 	return 0;
 		
@@ -334,18 +334,17 @@ static const int DIALOG_CANCEL	= 129;
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Optima Bold" size:11];
 	
 
-	[ _deathDescription setAttributedStringValue:
-				[[NSAttributedString alloc] initWithString:
+	_deathDescription.attributedStringValue =	[[NSAttributedString alloc] initWithString:
 								[NSString stringWithCString:ripString encoding:NH3DTEXTENCODING]
-												 attributes:lightShadowStrAttributes] ];
+												 attributes:lightShadowStrAttributes] ;
 	
 	_ripPanel.alphaValue = 0;
 	[_ripPanel orderFront:self];
 #if 1
 	// window fade out/in
 	for (int i=10 ; i>=0 ; i-- ) {
-		[ _window setAlphaValue: i*0.1 ];
-		[ _ripPanel setAlphaValue: (i-10)*-0.1 ];
+		_window.alphaValue = i*0.1 ;
+		_ripPanel.alphaValue = (i-10)*-0.1 ;
 		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ];
 	}
 	[ _ripPanel flushWindow ];
@@ -404,8 +403,8 @@ static const int DIALOG_CANCEL	= 129;
 	
 #if 1
 	for (int i=10 ; i>=0 ; i-- ) {
-		[ ripOrMainWindow setAlphaValue: i*0.1 ];
-		[ _rawPrintPanel setAlphaValue: (i-10)*-0.1 ];
+		ripOrMainWindow.alphaValue = i*0.1 ;
+		_rawPrintPanel.alphaValue = (i-10)*-0.1 ;
 		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ];
 	}
 	

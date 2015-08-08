@@ -58,8 +58,7 @@
 
 - (NSAttributedString *)dungeonNameString;
 - (void)setDungeonNameString:(NSString *)aStr;
-- (int)enemyWarnBase;
-- (void)setEnemyWarnBase:(int)aValue;
+@property  int enemyWarnBase;
 - (void)updateEnemyIndicator;
 
 //MapBufferCriate

@@ -19,7 +19,7 @@ static const int DIALOG_CANCEL	= 129;
 @synthesize doneRip;
 @synthesize window = _window;
 
-- (id)init
+- (instancetype)init
 {
 	if (self = [super init]) {
 		nh3dMenu = nil;
@@ -33,14 +33,14 @@ static const int DIALOG_CANCEL	= 129;
 		
 	//for normal text
 		darkShadow = [ [NSShadow alloc] init ];
-		[ darkShadow setShadowColor:[NSColor colorWithCalibratedWhite:0.2 alpha:0.85] ];
-		[ darkShadow setShadowOffset:NSMakeSize(2, -2) ];
-		[ darkShadow setShadowBlurRadius:4 ];
+		darkShadow.shadowColor = [NSColor colorWithCalibratedWhite:0.2 alpha:0.85] ;
+		darkShadow.shadowOffset = NSMakeSize(2, -2) ;
+		darkShadow.shadowBlurRadius = 4 ;
 	//for panel or window.
 		lightShadow = [ [NSShadow alloc] init ];
-		[ lightShadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.95] ];
-		[ lightShadow setShadowOffset:NSMakeSize(-1.5, 1.5) ];
-		[ lightShadow setShadowBlurRadius:1.8 ];
+		lightShadow.shadowColor = [NSColor colorWithCalibratedWhite:1.0 alpha:0.95] ;
+		lightShadow.shadowOffset = NSMakeSize(-1.5, 1.5) ;
+		lightShadow.shadowBlurRadius = 1.8 ;
 		
 		pickType = 0;
 		
@@ -51,12 +51,12 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)awakeFromNib {
 			
-	[ _textPanel setBackgroundColor:[NSColor clearColor] ];
+	_textPanel.backgroundColor = [NSColor clearColor] ;
     [ _textPanel setOpaque:NO ];
-	[ _menuPanel setBackgroundColor:[NSColor clearColor] ];
+	_menuPanel.backgroundColor = [NSColor clearColor] ;
     [ _menuPanel setOpaque:NO ];
 	[ _textWindow setDrawsBackground:NO ];
-	[ _menuTableWindow setBackgroundColor:[NSColor colorWithPatternImage:[NSImage imageNamed:@"ScrollParchmentBack"]] ];
+	_menuTableWindow.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"ScrollParchmentBack"]] ;
 	//[_menuTableWindow setBackgroundColor:[NSColor clearColor]];
 	[ _textScrollView setDrawsBackground:NO ];
 	[ _menuScrollview setDrawsBackground:NO ];
@@ -65,23 +65,23 @@ static const int DIALOG_CANCEL	= 129;
 	//[_menuTableWindow setAutoresizingMask:NSViewWidthSizable];
 	
 	// set DubleClicked action
-	[ _menuTableWindow setTarget:self ];
-	[ _menuTableWindow setDoubleAction:@selector(closeModalDialog:) ];
+	_menuTableWindow.target = self ;
+	_menuTableWindow.doubleAction = @selector(closeModalDialog:) ;
 	
 	// set DataCell
 	NSButtonCell* cell = [ [NSButtonCell alloc] init ];
 	NSTableColumn*	tableColumn = [ _menuTableWindow tableColumnWithIdentifier:@"name" ];
 	
-	[ cell setBezelStyle:NSRecessedBezelStyle ];
+	cell.bezelStyle = NSRecessedBezelStyle ;
 	[ cell setButtonType:NSMomentaryLightButton ];
 	[ cell setBordered:YES ];
-	[ cell setGradientType:NSGradientNone ];
-	[ cell setHighlightsBy:NSNoCellMask ];
+	cell.gradientType = NSGradientNone ;
+	cell.highlightsBy = NSNoCellMask ;
 	[ cell setWraps:YES ];
-	[ cell setLineBreakMode:NSLineBreakByCharWrapping ];
-	[ cell setControlView:_menuTableWindow ];
+	cell.lineBreakMode = NSLineBreakByCharWrapping ;
+	cell.controlView = _menuTableWindow ;
 	
-	[ tableColumn setDataCell:cell ];
+	tableColumn.dataCell = cell ;
 	
 }
 
@@ -99,28 +99,20 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)prepareAttributes
 {
-	[ style setAlignment:NSLeftTextAlignment ];
-	[ style setLineSpacing:1 ];
+	style.alignment = NSLeftTextAlignment ;
+	style.lineSpacing = 1 ;
 	
 	//Text attributes in View or backgrounded text field.
-	[ darkShadowStrAttributes setObject:[NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE]
-								 forKey:NSFontAttributeName ];
-	[ darkShadowStrAttributes setObject:darkShadow
-								 forKey:NSShadowAttributeName ];
-	[ darkShadowStrAttributes setObject:style
-								 forKey:NSParagraphStyleAttributeName ];
-	[ darkShadowStrAttributes setObject:[[NSColor brownColor] shadowWithLevel:0.8]
-								 forKey:NSForegroundColorAttributeName ];
+	darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
+	darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
+	darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+	darkShadowStrAttributes[NSForegroundColorAttributeName] = [[NSColor brownColor] shadowWithLevel:0.8];
 	
 	//Text attributes on Panel or Window.	
-	[ lightShadowStrAttributes setObject:[NSFont fontWithName:NH3DWINDOWFONT size: NH3DWINDOWFONTSIZE]
-								  forKey:NSFontAttributeName ];
-	[ lightShadowStrAttributes setObject:lightShadow
-								 forKey:NSShadowAttributeName ];
-	[ lightShadowStrAttributes setObject:style
-								 forKey:NSParagraphStyleAttributeName ];
-	[ lightShadowStrAttributes setObject:[NSColor colorWithCalibratedWhite:0.0 alpha:1.0]
-								  forKey:NSForegroundColorAttributeName ];
+	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT size: NH3DWINDOWFONTSIZE];
+	lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
+	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+	lightShadowStrAttributes[NSForegroundColorAttributeName] = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 	
 }
 
@@ -144,17 +136,15 @@ static const int DIALOG_CANCEL	= 129;
 	
 	if ( flags.tombstone && doneRip ) {
 		textOrRip = _ripTextwindow;
-		[ darkShadowStrAttributes setObject:[NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 1.0]
-									 forKey:NSFontAttributeName ];
+		darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 1.0];
 
 	} else {
 		textOrRip = _textWindow;
-		[ darkShadowStrAttributes setObject:[NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE ]
-									 forKey:NSFontAttributeName ];
+		darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE ];
 
 	}
 	
-	[ textOrRip setTypingAttributes:darkShadowStrAttributes ];
+	textOrRip.typingAttributes = darkShadowStrAttributes ;
 
 	[ textOrRip setEditable:YES ];
 	[ textOrRip insertText:contents ];
@@ -166,9 +156,9 @@ static const int DIALOG_CANCEL	= 129;
 
 
 
-- (void)clearTextMessarge
+- (void)clearTextMessage
 {
-	[ _textWindow setString:@"" ];
+	_textWindow.string = @"" ;
 }
 
 
@@ -191,10 +181,10 @@ static const int DIALOG_CANCEL	= 129;
 	//Does not work!
 	//[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
 	
-	frameRect = [ _textPanel frameRectForContentRect:[(NSView*)[_textPanel contentView] frame] ];
+	frameRect = [ _textPanel frameRectForContentRect:((NSView*)_textPanel.contentView).frame ];
 	[ _textPanel setFrame:frameRect display:NO ];
 	
-	if ( [ [_textScrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
+	if ( _textScrollView.verticalScroller.usableParts != NSNoScrollerParts ) {
 		[ _textWindow scrollRangeToVisible:NSMakeRange(0,0) ];
 	}
 	
@@ -204,7 +194,7 @@ static const int DIALOG_CANCEL	= 129;
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
 	
-	[ _textWindow setString:@"" ];
+	_textWindow.string = @"" ;
 	
 	[ NSApp stopSpeaking:self ];
 }
@@ -232,7 +222,7 @@ static const int DIALOG_CANCEL	= 129;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	return [ nh3dMenu count ];
+	return nh3dMenu.count ;
 }
 
 
@@ -240,8 +230,8 @@ static const int DIALOG_CANCEL	= 129;
         objectValueForTableColumn:(NSTableColumn *)aTableColumn
         row:(NSInteger)rowIndex
 {
-	NSString *identifier = [ aTableColumn identifier ];
-	NH3DMenuItem *aMenuItem = [ nh3dMenu objectAtIndex:rowIndex ];
+	NSString *identifier = aTableColumn.identifier ;
+	NH3DMenuItem *aMenuItem = nh3dMenu[rowIndex];
 	
 	return [ aMenuItem valueForKey:identifier ];
 }
@@ -253,8 +243,8 @@ static const int DIALOG_CANCEL	= 129;
                 forTableColumn:(NSTableColumn*)tableColumn 
                 row:(NSInteger)row
 {
-	NH3DMenuItem *aMenuItem = [ nh3dMenu objectAtIndex:row ];
-	NSString *identifier = [ tableColumn identifier ];
+	NH3DMenuItem *aMenuItem = nh3dMenu[row];
+	NSString *identifier = tableColumn.identifier ;
 		
 	if( [ identifier isEqualToString:@"name" ] ) {
 
@@ -262,18 +252,18 @@ static const int DIALOG_CANCEL	= 129;
 		
 		[ cell setImagePosition:NSImageLeft ];
 		//[ cell setImage:[aMenuItem glyph] ];
-		[ (NSCell*)cell setImage:[aMenuItem smallGlyph] ];
+		((NSCell*)cell).image = [aMenuItem smallGlyph] ;
 		
-		if ( ![aMenuItem isSelectable] ) {
+		if ( !aMenuItem.selectable ) {
 			[ cell setBordered:NO ];
 			[ cell setSelectable:NO ];
 		} else {
 			[ cell setBordered:YES ];
-			[ cell setKeyEquivalent:[NSString stringWithFormat:@"%c",*[[[aMenuItem accelerator] string] UTF8String]] ];
+			[ cell setKeyEquivalent:[NSString stringWithFormat:@"%c",*[aMenuItem accelerator].string.UTF8String] ];
 		}		
 	}
 	
-	if ( [ aMenuItem isPreSelected ] ) {
+	if ( aMenuItem.preSelected ) {
 		[ tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:YES ];
 		[ aMenuItem setPreselect:MENU_UNSELECTED ];
 	}
@@ -282,8 +272,8 @@ static const int DIALOG_CANCEL	= 129;
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
 {	
-	NH3DMenuItem *aMenuItem = [ nh3dMenu objectAtIndex:rowIndex ];
-	return [ aMenuItem isSelectable ];
+	NH3DMenuItem *aMenuItem = nh3dMenu[rowIndex];
+	return aMenuItem.selectable ;
 }
 
 
@@ -325,20 +315,20 @@ static const int DIALOG_CANCEL	= 129;
 	[ self updateMenuWindow ];
 	
 	if ( prompt != nil ) {
-	[ _menuPanelStrings setStringValue:[NSString stringWithCString:prompt encoding:NH3DTEXTENCODING] ];
+	_menuPanelStrings.stringValue = [NSString stringWithCString:prompt encoding:NH3DTEXTENCODING] ;
 	// a-ha,It is difficult each time to make AttributedString, don't you think??
-	[ _menuPanelStringsShadow setStringValue:[NSString stringWithCString:prompt encoding:NH3DTEXTENCODING] ];
+	_menuPanelStringsShadow.stringValue = [NSString stringWithCString:prompt encoding:NH3DTEXTENCODING] ;
 	} else {
-		[ _menuPanelStrings setStringValue:@"" ];
-		[ _menuPanelStringsShadow setStringValue:@"" ];
+		_menuPanelStrings.stringValue = @"" ;
+		_menuPanelStringsShadow.stringValue = @"" ;
 	}
 	
 	[ self fitMenuWindowSizeToContents:_menuPanel scrollView:_menuScrollview ];
 
-	frameRect = [ _menuPanel frameRectForContentRect:[(NSView*)[_menuPanel contentView] frame] ];
+	frameRect = [ _menuPanel frameRectForContentRect:((NSView*)_menuPanel.contentView).frame ];
 	[ _menuPanel setFrame:frameRect display:YES ];
 	
-	[ [_window attachedSheet] orderOut:nil ];
+	[ _window.attachedSheet orderOut:nil ];
 	[_window beginSheet:_menuPanel completionHandler:^(NSModalResponse returnCode) {
 		
 	}];
@@ -373,22 +363,22 @@ static const int DIALOG_CANCEL	= 129;
     // Dialog is up here.
 	
 	[ NSApp stopSpeaking:self ];
-	[ _menuPanelStrings setStringValue:@"" ];
-	[ _menuPanelStringsShadow setStringValue:@"" ];
+	_menuPanelStrings.stringValue = @"" ;
+	_menuPanelStringsShadow.stringValue = @"" ;
 
 	
 	*selected = (menu_item *) 0;
 	
 	if ( how != PICK_NONE && ret == DIALOG_OK ) {
-		ret = [ _menuTableWindow numberOfSelectedRows ];
+		ret = _menuTableWindow.numberOfSelectedRows ;
 	} else {
 		ret = -1;
 	}
 	
 	if (ret > 0) {
 		*selected = mi = ( menu_item * ) alloc( ret * sizeof( menu_item ) );
-		for (i=0; i < [ nh3dMenu count ] ; i++) {
-			aMenuItem = [ nh3dMenu objectAtIndex:i ];
+		for (i=0; i < nh3dMenu.count ; i++) {
+			aMenuItem = nh3dMenu[i];
 			if ([ _menuTableWindow isRowSelected:i ]) {
 				mi->item = [ aMenuItem identifier ];
 				mi->count = -1L;
@@ -422,15 +412,15 @@ static const int DIALOG_CANCEL	= 129;
 - (void)fitMenuWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
 {
 	NSSize contentSize,strSize;
-	NSRect windowRect = [ window frame ];
-	NSSize windowMaxSize = [ window maxSize ];
-	NSSize windowMinSize = [ window minSize ];
+	NSRect windowRect = window.frame ;
+	NSSize windowMaxSize = window.maxSize ;
+	NSSize windowMinSize = window.minSize ;
 	const CGFloat contentWidthMergin = 44.0;
 	const CGFloat contentHeightMergin = 99.0;
 	int i;
 	
 	//set height
-	windowRect.size.height = ( ([ [scrollView documentView] rowHeight ]+4.0) * [ [scrollView documentView] numberOfRows ] ) + contentHeightMergin;
+	windowRect.size.height = ( ([ scrollView.documentView rowHeight ]+4.0) * [ scrollView.documentView numberOfRows ] ) + contentHeightMergin;
 	
 	windowRect.size.height = ( windowRect.size.height > windowMaxSize.height ) ? windowMaxSize.height-16.0 : windowRect.size.height;
 
@@ -440,9 +430,9 @@ static const int DIALOG_CANCEL	= 129;
 */
 //	for 2byte letter Strings (e,g,Japanese)any size method of Cocoa, does not acquire size of a 2byte letter well for some reason. Why?
 	contentSize = NSMakeSize( 0,0 );
-	for (i=0 ; i < [ nh3dMenu count ] ; i++ ) {
-		NH3DMenuItem *aMenuItem = [nh3dMenu objectAtIndex:i];
-		unsigned len = [ [aMenuItem name]length ];
+	for (i=0 ; i < nh3dMenu.count ; i++ ) {
+		NH3DMenuItem *aMenuItem = nh3dMenu[i];
+		unsigned len = [aMenuItem name].length ;
 		strSize.width = len * ( NH3DINVFONTSIZE + 4.0 ) ;
 		//strSize = [[nh3dMenu objectAtIndex:i] stringSize];  // fmm...  does not acquire size of a 2byte letter well, too.
 		if ( strSize.width > contentSize.width ) {
@@ -467,16 +457,16 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
 {
-	NSRect windowRect = [ window frame ];
-	NSSize windowMaxSize = [ window maxSize ];
-	NSSize windowMinSize = [ window minSize ];
+	NSRect windowRect = window.frame ;
+	NSSize windowMaxSize = window.maxSize ;
+	NSSize windowMinSize = window.minSize ;
 	
 	//reset size
 	[ window setFrame:NSMakeRect( 0,0,windowMinSize.width, windowMinSize.height ) display:YES ];
 	
 	//set height
-	while  ( [ [scrollView verticalScroller] usableParts ] != NSNoScrollerParts ) {
-		windowRect = [ window frame ];
+	while  ( scrollView.verticalScroller.usableParts != NSNoScrollerParts ) {
+		windowRect = window.frame ;
 		if ( windowRect.size.height < windowMaxSize.height ) {
 			 windowRect.size.height = windowRect.size.height+32.0;
 			[ window setFrame:windowRect display:NO ];
@@ -492,26 +482,26 @@ static const int DIALOG_CANCEL	= 129;
 - (void)keyDown:(NSEvent*)event
 {
 	int i;
-	unichar key = [ [event charactersIgnoringModifiers] characterAtIndex:0 ];
+	unichar key = [ event.charactersIgnoringModifiers characterAtIndex:0 ];
 	
 	if (  ( key == NSEnterCharacter || key == NSCarriageReturnCharacter ) 
-		  && ( pickType == PICK_NONE || [_menuTableWindow numberOfSelectedRows]) ) {
+		  && ( pickType == PICK_NONE || _menuTableWindow.numberOfSelectedRows) ) {
 		[ _menuPanel  orderOut:self ];
 		[ NSApp endSheet: _menuPanel ];
 		[ NSApp stopModalWithCode:DIALOG_OK ];
 		return;
 	}
 	
-	if ( [ event keyCode ] == 53 ) {
+	if ( event.keyCode == 53 ) {
 		[ _menuPanel close ];
 		[ NSApp endSheet: _menuPanel ];
 		[ NSApp stopModalWithCode:DIALOG_CANCEL ]; 
 		return; 
 	}
 	
-	for ( i=0 ; i<[ nh3dMenu count ] ; i++ ) {
+	for ( i=0 ; i< nh3dMenu.count ; i++ ) {
 		
-		if ( [ [event charactersIgnoringModifiers] isEqualToString:[[[nh3dMenu objectAtIndex:i] accelerator] string] ] ) {
+		if ( [ event.charactersIgnoringModifiers isEqualToString:[nh3dMenu[i] accelerator].string ] ) {
 			[ _menuTableWindow selectRowIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO ];
 			
 			if ( pickType == PICK_ONE ) {

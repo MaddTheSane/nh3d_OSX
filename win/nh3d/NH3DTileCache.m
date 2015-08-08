@@ -18,18 +18,18 @@ extern int total_tiles_used;
 @synthesize tileSize_Y;
 
 
-- (id) init 
+- (instancetype) init 
 {
 	return [self initWithNamed:TILE_FILE_NAME];
 }
 
 
-- (id) initWithNamed:(NSString *)imageName   /* This is designated initializer. */
+- (instancetype) initWithNamed:(NSString *)imageName   /* This is designated initializer. */
 {
 	self = [super init];
 	if (self != nil) {
 		
-		NSImage	*tileSource = [ [NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] resourcePath],imageName] ];
+		NSImage	*tileSource = [ [NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",[NSBundle mainBundle].resourcePath,imageName] ];
 		NSData  *tiffData;
 		
 		if ( tileSource == nil ) {
@@ -44,20 +44,20 @@ extern int total_tiles_used;
 			
 		}
 		
-		tiffData = [ tileSource TIFFRepresentation ];
+		tiffData = tileSource.TIFFRepresentation ;
 		bitMap = [[NSBitmapImageRep alloc] initWithData: tiffData];
 		
 		//[ tiffData release ];
 		
-		if ( ([ bitMap pixelsWide ] % TILES_PER_LINE) && ([ bitMap pixelsHigh ] % NUMBER_OF_TILES_ROW) ) {
+		if ( ( bitMap.pixelsWide % TILES_PER_LINE) && ( bitMap.pixelsHigh % NUMBER_OF_TILES_ROW) ) {
 			NSRunCriticalAlertPanel(@"Tile Format Error!",
 									@"%@: Does not support this TILE Pattern.",
 									@"OK",nil,nil, imageName);
 				NSLog( @"%@: Does not support this TILE Pattern.",imageName );
 				return nil;
 		} else {
-			tileSize_X = [ bitMap pixelsWide ] / TILES_PER_LINE;
-			tileSize_Y = [ bitMap pixelsHigh ] / NUMBER_OF_TILES_ROW;	
+			tileSize_X = bitMap.pixelsWide / TILES_PER_LINE;
+			tileSize_Y = bitMap.pixelsHigh / NUMBER_OF_TILES_ROW;	
 		}
 		
 	}
@@ -72,13 +72,13 @@ extern int total_tiles_used;
 	NSBitmapImageRep *bmpRep = [ [NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 																		pixelsWide:tileSize_X
 																		pixelsHigh:tileSize_Y
-																	 bitsPerSample:[bitMap bitsPerSample]
-																   samplesPerPixel:[bitMap samplesPerPixel]
-																		  hasAlpha:[bitMap hasAlpha]
-																		  isPlanar:[bitMap isPlanar]
+																	 bitsPerSample:bitMap.bitsPerSample
+																   samplesPerPixel:bitMap.samplesPerPixel
+																		  hasAlpha:bitMap.alpha
+																		  isPlanar:bitMap.planar
 																	colorSpaceName:NSDeviceRGBColorSpace
-																	   bytesPerRow:[bitMap bytesPerRow]
-																	  bitsPerPixel:[bitMap bitsPerPixel] ];
+																	   bytesPerRow:bitMap.bytesPerRow
+																	  bitsPerPixel:bitMap.bitsPerPixel ];
 	
 	int tile = glyph2tile[glyph];
 	int x,y,t_x,t_y;
@@ -101,11 +101,8 @@ extern int total_tiles_used;
 	}
 	
 	[ tileImg addRepresentation:bmpRep ];
-	
-	[ tileImg setCacheMode:NSImageCacheNever ];
-
+	tileImg.cacheMode = NSImageCacheNever;
 	return tileImg;
-	
 }
 
 @end

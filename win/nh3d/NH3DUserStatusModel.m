@@ -23,7 +23,7 @@ extern id _NH3DTileCache;
 
 @implementation NH3DUserStatusModel
 
-- ( id )init
+- ( instancetype )init
 {
 	self = [ super init ];
     if ( self != nil ) {
@@ -76,20 +76,16 @@ extern id _NH3DTileCache;
 
 - ( void )prepareAttributes
 {
-
-	[ shadow setShadowColor:[ NSColor colorWithCalibratedWhite:0.1 alpha:0.8 ] ];
-	[ shadow setShadowOffset:NSMakeSize( 2, -2 ) ];
-	[ shadow setShadowBlurRadius:0.5 ];
+	shadow.shadowColor = [ NSColor colorWithCalibratedWhite:0.1 alpha:0.8 ] ;
+	shadow.shadowOffset = NSMakeSize( 2, -2 ) ;
+	shadow.shadowBlurRadius = 0.5 ;
 			
-	[ style setAlignment:NSCenterTextAlignment ];
+	style.alignment = NSCenterTextAlignment ;
 			
 	
-	[ strAttributes setObject:[ NSFont fontWithName:NH3DWINDOWFONT size: 14 ]
-					   forKey:NSFontAttributeName ];
-	[ strAttributes setObject:shadow
-					   forKey:NSShadowAttributeName ];
-	[ strAttributes setObject:style
-					   forKey:NSParagraphStyleAttributeName ];
+	strAttributes[NSFontAttributeName] = [ NSFont fontWithName:NH3DWINDOWFONT size: 14 ];
+	strAttributes[NSShadowAttributeName] = shadow;
+	strAttributes[NSParagraphStyleAttributeName] = style;
 }
 /*
 - ( id )initWithCoder:( NSCoder * )coder
@@ -152,7 +148,7 @@ extern id _NH3DTileCache;
 - ( NSAttributedString * )playerName
 {
 	int fSize;
-	switch ( [ playerName length ] )
+	switch ( playerName.length )
 	{
 		case 15:
 		case 16:
@@ -170,10 +166,8 @@ extern id _NH3DTileCache;
 			fSize = 17;
 	}
 	
-	[ strAttributes setObject:
-						[ NSFont fontWithName:NH3DWINDOWFONT
-								size:fSize ]
-								forKey:NSFontAttributeName ];
+	strAttributes[NSFontAttributeName] = [ NSFont fontWithName:NH3DWINDOWFONT
+								size:fSize ];
 	return [[NSAttributedString alloc]
 								initWithString:playerName 
 								attributes:strAttributes];
@@ -201,10 +195,8 @@ extern id _NH3DTileCache;
 
 - ( NSAttributedString * )playerClass 
 {
-	[ strAttributes setObject:
-						[ NSFont fontWithName:NH3DWINDOWFONT
-								size: 13 ]
-								forKey:NSFontAttributeName ];
+	strAttributes[NSFontAttributeName] = [ NSFont fontWithName:NH3DWINDOWFONT
+								size: 13 ];
 	return [ [ NSAttributedString alloc ] 
 								initWithString:playerClass 
 								attributes:strAttributes ];
@@ -689,7 +681,7 @@ extern id _NH3DTileCache;
 //
 
 - ( void )setPlayerName:( NSString * )aString {
-	if ( ![ playerName isEqualToString: aString ] && [ aString length ] <= PL_NSIZ-11 ) {
+	if ( ![ playerName isEqualToString: aString ] && aString.length <= PL_NSIZ-11 ) {
 		playerName = aString;
 		//strcpy( plname,[ playerName cStringUsingEncoding:NH3DTEXTENCODING ] );
 	}
@@ -1024,11 +1016,11 @@ extern id _NH3DTileCache;
 {
 	if ( stHunger || stConfuse || stSick || stIll || stBlind || stStun || stHallu )
 		{	
-		if ([stDrawer state] == NSDrawerClosedState) {
+		if (stDrawer.state == NSDrawerClosedState) {
 			[stDrawer open];
 			[[NSSound soundNamed:@"Purr"] play];
 		}
-	} else if ([stDrawer state] != NSDrawerClosedState)
+	} else if (stDrawer.state != NSDrawerClosedState)
 		[stDrawer close];
 		
 }

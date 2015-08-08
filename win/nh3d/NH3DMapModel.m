@@ -22,7 +22,7 @@
 @synthesize cursY;
 @synthesize playerDirection;
 
-- (id)init
+- (instancetype)init
 {
 
 	self = [super init];
@@ -76,7 +76,7 @@
 	if (indicatorIsActive)
 	{
 		[ self stopIndicator ];
-		[ _enemyIndicator setIntValue:0 ];
+		_enemyIndicator.intValue = 0 ;
 	} else {
 		[ self startIndicator ];
 	}
@@ -109,15 +109,15 @@
 		switch (playerDirection - direction) {
 			case -3:
 			case  1:
-				[ _glMapView setCameraHead:[_glMapView cameraHead]+90.0 pitching:0.0 rolling:0.0 ];
+				[ _glMapView setCameraHead:_glMapView.cameraHead+90.0 pitching:0.0 rolling:0.0 ];
 				break;
 			case  2:
 			case -2:
-				[ _glMapView setCameraHead:[_glMapView cameraHead]-180.0 pitching:0.0 rolling:0.0 ];
+				[ _glMapView setCameraHead:_glMapView.cameraHead-180.0 pitching:0.0 rolling:0.0 ];
 				break;
 			case  3:
 			case -1:
-				[ _glMapView setCameraHead:[_glMapView cameraHead]-90.0 pitching:0.0 rolling:0.0 ];
+				[ _glMapView setCameraHead:_glMapView.cameraHead-90.0 pitching:0.0 rolling:0.0 ];
 				break;
 		}
 
@@ -134,20 +134,16 @@
 - (void)prepareAttributes
 {
 
-            [ shadow setShadowColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.7] ];
-            [ shadow setShadowOffset:NSMakeSize(2, -2) ];
-            [ shadow setShadowBlurRadius:1.0 ];
+            shadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.7] ;
+            shadow.shadowOffset = NSMakeSize(2, -2) ;
+            shadow.shadowBlurRadius = 1.0 ;
 			
-			[ style setAlignment:NSCenterTextAlignment ];
+			style.alignment = NSCenterTextAlignment ;
 	
-			[ strAttributes setObject:
-						[NSFont fontWithName:NH3DWINDOWFONT
-										size: NH3DWINDOWFONTSIZE + 4.0]
-							   forKey:NSFontAttributeName ];
-			[ strAttributes setObject:shadow
-							   forKey:NSShadowAttributeName ];
-			[ strAttributes setObject:style
-							   forKey:NSParagraphStyleAttributeName] ;
+			strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
+										size: NH3DWINDOWFONTSIZE + 4.0];
+			strAttributes[NSShadowAttributeName] = shadow;
+			strAttributes[NSParagraphStyleAttributeName] = style ;
 
 }
 
@@ -167,7 +163,7 @@
 - (void)setDungeonNameString:(NSString *)aStr
 {	
 	dungeonNameString = [[NSAttributedString alloc] initWithString:aStr attributes:strAttributes];
-	[ _dungeonName setAttributedStringValue:dungeonNameString ];
+	_dungeonName.attributedStringValue = dungeonNameString ;
 }
 
 
@@ -192,13 +188,13 @@
 		int value = enemyWarnBase +(random() %3 + 1);
 		NSSound *alert = [ NSSound soundNamed:@"Hero" ];
 
-		if ([ _enemyIndicator intValue ] == value ) {
+		if ( _enemyIndicator.intValue == value ) {
 				value = enemyWarnBase -(random() %3 + 1);
 		}
 
-		[ _enemyIndicator setIntValue:value ];
+		_enemyIndicator.intValue = value ;
 
-		if (value >= 60 && ![ alert isPlaying ]) {
+		if (value >= 60 && ! alert.playing ) {
 			[ alert play ];
 		}
 }
@@ -299,9 +295,9 @@
 	if (playerDirection != 3) {
 		// don't this instance value direct Increment/decrement
 		// playerDirection binded by Cocoa binding.
-		[ self setPlayerDirection:playerDirection+1 ];
+		self.playerDirection = playerDirection+1 ;
 	} else { 
-		[ self setPlayerDirection:0 ];
+		self.playerDirection = 0 ;
 	}
 }
 
@@ -311,9 +307,9 @@
 	if (playerDirection) {
 		// don't this instance value direct Increment/decrement
 		// playerDirection binded by Cocoa binding.
-		[ self setPlayerDirection:playerDirection-1 ];
+		self.playerDirection = playerDirection-1 ;
 	} else {
-		[ self setPlayerDirection:3 ];
+		self.playerDirection = 3 ;
 	}
 }
 

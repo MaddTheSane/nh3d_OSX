@@ -126,7 +126,7 @@ extern id _NH3DTileCache;
 
 
 //Over wride NSObject designated initializer. Normary dont use this.
-- (id) init {
+- (instancetype) init {
 	
 	return [ self initWithParameter:' ' 
 							  glyph:S_stone+GLYPH_CMAP_OFF 
@@ -138,7 +138,7 @@ extern id _NH3DTileCache;
 
 
 // This is designated initializer.
-- (id)initWithParameter:(char)ch 
+- (instancetype)initWithParameter:(char)ch 
 				  glyph:(int)glf 
 				  color:(int)col 
 				   posX:(int)x 

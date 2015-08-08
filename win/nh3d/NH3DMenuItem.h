@@ -31,18 +31,18 @@
 }
 
 // This is designated initializer.
--(id)initWithParameter:(const char*)cName
+-(instancetype)initWithParameter:(const char*)cName
 			identifier:(const anything *)ident
 		   accelerator:(char)accel
 		   group_accel:(char)gaccel
 				 glyph:(int)glf
 			 attribute:(int)attr
-			 preSelect:(boolean)presel;
+			 preSelect:(boolean)presel NS_DESIGNATED_INITIALIZER;
 
 - (NSAttributedString *)name;
 - (NSAttributedString *)accelerator;
 - (NSImage *)glyph;
-- (NSImage *)smallGlyph;
+@property (readonly, copy) NSImage *smallGlyph;
 - (anything)identifier;
 @property (readwrite, getter=isSelectable) BOOL selectable;
 @property (readonly, getter=isPreSelected) BOOL preSelected;

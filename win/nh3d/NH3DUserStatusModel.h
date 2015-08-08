@@ -107,35 +107,35 @@
 
 - (NSAttributedString *)playerName;
 - (NSAttributedString *)playerClass;
-- (NSString *)playerRace;
-- (NSString *)playerRole;
-- (NSString *)playerAlign;
-- (NSString *)playerGender;
+@property (copy) NSString *playerRace;
+@property (copy) NSString *playerRole;
+@property (copy) NSString *playerAlign;
+@property (copy) NSString *playerGender;
 
-- (NSString *)playerStatusLine;
+@property (copy) NSString *playerStatusLine;
 
 
 - (NSString *)playerStr;
-- (int)playerDex;
-- (int)playerCon;
-- (int)playerInt;
-- (int)playerWis;
-- (int)playerCha;
-- (int)playerGold;
-- (unsigned)playerScore;
-- (unsigned)playerTime;
-- (int)playerExp;
+@property  int playerDex;
+@property  int playerCon;
+@property  int playerInt;
+@property  int playerWis;
+@property  int playerCha;
+@property  int playerGold;
+@property  unsigned int playerScore;
+@property  unsigned int playerTime;
+@property  int playerExp;
 
-- (int)playerHp;
-- (int)playerMaxhp;
+@property  int playerHp;
+@property  int playerMaxhp;
 - (float)playerWaningHp;
 - (float)playerCriticalHp;
-- (int)playerPow;
-- (int)playerMaxpow;
+@property  int playerPow;
+@property  int playerMaxpow;
 - (float)playerWaningPow;
 - (float)playerCriticalPow;
-- (int)playerAc;
-- (int)playerLv;
+@property  int playerAc;
+@property  int playerLv;
 
 - (NSImage *)playerArmour;
 - (void)setPlayerArmour:(int)glyph;
@@ -190,30 +190,10 @@
 
 - (void)setPlayerName:(NSString *)aString;
 - (void)setPlayerClass:(NSString *)aString;
-- (void)setPlayerRace:(NSString *)aString;
-- (void)setPlayerRole:(NSString *)aString;
-- (void)setPlayerAlign:(NSString *)aString;
-- (void)setPlayerGender:(NSString *)aString;
 
-- (void)setPlayerStatusLine:(NSString *)aString;
 
 - (void)setPlayerStr:(int)aValue;
-- (void)setPlayerDex:(int)aValue;
-- (void)setPlayerCon:(int)aValue;
-- (void)setPlayerInt:(int)aValue;
-- (void)setPlayerWis:(int)aValue;
-- (void)setPlayerCha:(int)aValue;
-- (void)setPlayerGold:(int)aValue;
-- (void)setPlayerScore:(unsigned)aValue;
-- (void)setPlayerTime:(unsigned)aValue;
-- (void)setPlayerExp:(int)aValue;
 
-- (void)setPlayerMaxhp:(int)aValue;
-- (void)setPlayerMaxpow:(int)aValue;
-- (void)setPlayerHp:(int)aValue;
-- (void)setPlayerPow:(int)aValue;
-- (void)setPlayerAc:(int)aValue;
-- (void)setPlayerLv:(int)aValue;
 - (void)setPlayerWaningHp:(int)maxHp;
 - (void)setPlayerCriticalHp:(int)maxHp;
 - (void)setPlayerWaningPow:(int)maxPow;

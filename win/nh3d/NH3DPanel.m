@@ -3,7 +3,7 @@
 
 @implementation NH3DPanel
 
-- (id)initWithContentRect:(NSRect)contentRect 
+- (instancetype)initWithContentRect:(NSRect)contentRect 
 				styleMask:(NSUInteger)aStyle
 				  backing:(NSBackingStoreType)bufferingType 
 					defer:(BOOL)flag
@@ -48,7 +48,7 @@
 
 - (void)keyDown:(NSEvent*)event
 {
-	[(NH3DMenuWindow*)[self delegate] keyDown:event];
+	[(NH3DMenuWindow*)self.delegate keyDown:event];
 }
 
 //

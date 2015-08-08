@@ -115,7 +115,7 @@ typedef struct {
 }
 
 
-- (instancetype)init; // init for particle emitter
+- (instancetype)init NS_DESIGNATED_INITIALIZER; // init for particle emitter
 /*
 - (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag; // 
 																// NOTICE.
@@ -124,25 +124,25 @@ typedef struct {
 																// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
 																// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
 */
-- (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag; // This is designated initializer.
+- (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_DESIGNATED_INITIALIZER; // This is designated initializer.
 
 - (void)calculateNormals;
 
 @property (getter=isActive) BOOL active;
 
 @property (readonly, copy) NSString *modelName;
-- (int)verts_qty;
-- (int)face_qty;
-- (int)normal_qty;
-- (int)texcords_qty;
+@property (readonly) int verts_qty;
+@property (readonly) int face_qty;
+@property (readonly) int normal_qty;
+@property (readonly) int texcords_qty;
 
-- (NH3DVertexType *)verts;
-- (NH3DVertexType *)norms;
+@property (readonly) NH3DVertexType *verts;
+@property (readonly) NH3DVertexType *norms;
 
-- (NH3DFaceType *)faces;
+@property (readonly) NH3DFaceType *faces;
 //- (NH3DFaceType *)texReference;
 //- (NH3DFaceType *)normReference;
-- (NH3DMapCoordType *)texcoords;
+@property (readonly) NH3DMapCoordType *texcoords;
 
 @property int texture;
 - (BOOL)addTexture:(NSString *)textureName;
@@ -154,7 +154,7 @@ typedef struct {
 
 - (void)animate;
 
-- (NH3DVertexType)particleGravity;
+@property (readonly) NH3DVertexType particleGravity;
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
@@ -171,7 +171,7 @@ typedef struct {
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
 - (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
-- (NH3DModelObjects *)childObjectAtLast;
+@property (readonly, strong) NH3DModelObjects *childObjectAtLast;
 
 @property (readonly) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;

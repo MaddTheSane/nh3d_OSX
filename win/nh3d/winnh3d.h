@@ -116,7 +116,7 @@ void nh3d_set_savefile_name();
 //- (void)showSheet:(id)aSheet modalWindow:(id)aWindow;
 - (void)showUserMakeSheet;
 - (void)showMainWindow;
-- (NSWindow*)mainWindow;
+@property (readonly, strong) NSWindow *mainWindow;
 
 - (void)didPresentError:(NSError *)error;
 

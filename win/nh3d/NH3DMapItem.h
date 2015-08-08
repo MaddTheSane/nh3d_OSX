@@ -30,25 +30,25 @@
 }
 
 // This is designated initializer.
-- (id)initWithParameter:(char)ch 
+- (instancetype)initWithParameter:(char)ch 
 				  glyph:(int)glf 
 				  color:(int)col 
 				   posX:(int)x 
 				   posY:(int)y 
-				special:(int)sp;
+				special:(int)sp NS_DESIGNATED_INITIALIZER;
 
 
 - (NSString *)symbol;
-- (int)glyph;
-- (NSColor *)color;
-- (int)material;
+@property (readonly) int glyph;
+@property (readonly, copy) NSColor *color;
+@property (readonly) int material;
 @property (readonly) int posX;
 @property (readonly) int posY;
-- (unsigned)special;
+@property (readonly) unsigned int special;
 
 @property (nonatomic, getter=isPlayer) BOOL player;
 
-- (char)cSymbol;
+@property (readonly) char cSymbol;
 
 - (void)setSymbol:(char)chr;
 
@@ -56,6 +56,6 @@
 @property (nonatomic) BOOL hasCursor;
 @property (readonly, strong) NSImage *tile;
 
-- (int)modelDrawingType;
+@property (readonly) int modelDrawingType;
 
 @end
