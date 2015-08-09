@@ -9,9 +9,9 @@
 
 #import "NH3DMapView.h"
 
-#import "NH3DMapModel.h"
 #import "NH3DMessenger.h"
 #import "winnh3d.h"
+#import "NetHack3D-Swift.h"
 
 #ifndef M
 # ifndef NHSTDC

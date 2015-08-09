@@ -12,7 +12,7 @@
 #import "NH3DMapItem.h"
 #import "NH3DUserDefaultsExtern.h"
 
-@class NH3DMapModel;
+@class MapModel;
 @class NH3DBindController;
 @class NH3DMessenger;
 
@@ -20,7 +20,7 @@
 @interface NH3DMapView : NSView
 {
 	
-	IBOutlet NH3DMapModel *_mapModel;
+	IBOutlet MapModel *_mapModel;
 	IBOutlet NH3DBindController *_bindController;
 	IBOutlet NH3DMessenger *_messenger;
 	IBOutlet NSImageView *_mapLview;

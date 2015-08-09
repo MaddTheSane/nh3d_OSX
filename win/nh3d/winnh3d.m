@@ -6,6 +6,9 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 #import "winnh3d.h"
+#import "NetHack3D-Swift.h"
+#import "NH3DMapView.h"
+#import "NH3DOpenGLView.h"
 
 #import <sys/stat.h>
 #import <signal.h>
@@ -48,7 +51,7 @@ extern char **NXArgv;
 //set object's instance pointer to work.
 static __strong NH3DBindController *_NH3DBindController;
 static __strong NH3DUserStatusModel *_NH3DUserStatusModel;
-static __strong NH3DMapModel *_NH3DMapModel;
+static __strong MapModel *_NH3DMapModel;
 static __strong NH3DMessenger *_NH3DMessenger;
 static __strong NH3DMenuWindow *_NH3DMenuWindow;
 static __strong NH3DMapView *_NH3DKeyBuffer;
@@ -1439,7 +1442,7 @@ You("スコアの載らない発見モードで起動した．");
 /*
 	Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
 */
-	[ _mapModel setDungeonNameString:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ] ];
+	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
 }
 
 
@@ -1700,7 +1703,7 @@ not_recovered:
 	Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
 */
 
-	[ _mapModel setDungeonNameString:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ] ];
+	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
 	[ _mapModel updateAllMaps ];
 
 	moveloop();   

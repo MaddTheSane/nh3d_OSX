@@ -2364,12 +2364,12 @@
                 <outlet property="_window" destination="21" id="5362"/>
             </connections>
         </customObject>
-        <customObject id="5173" userLabel="NH3DMapModel" customClass="NH3DMapModel">
+        <customObject id="5173" userLabel="NH3DMapModel" customClass="MapModel" customModule="NetHack3D" customModuleProvider="target">
             <connections>
-                <outlet property="_asciiMapView" destination="5648" id="5649"/>
-                <outlet property="_dungeonName" destination="5229" id="5233"/>
-                <outlet property="_enemyIndicator" destination="5005" id="5177"/>
-                <outlet property="_glMapView" destination="6193" id="6194"/>
+                <outlet property="asciiMapView" destination="5648" id="jYc-Na-aAa"/>
+                <outlet property="dungeonNameField" destination="5229" id="cmp-RP-JUh"/>
+                <outlet property="enemyIndicator" destination="5005" id="oGI-Fz-6R7"/>
+                <outlet property="glMapView" destination="6193" id="dHN-eE-lWP"/>
             </connections>
         </customObject>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5307" userLabel="GetLine" customClass="NSPanel">

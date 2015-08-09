@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NH3DMapItem : NSObject {
 	
 	char				symbol;
@@ -48,14 +50,16 @@
 
 @property (nonatomic, getter=isPlayer) BOOL player;
 
-@property (readonly) char cSymbol;
+@property (nonatomic, setter=setSymbol:) char cSymbol;
 
 - (void)setSymbol:(char)chr;
 
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;
-@property (readonly, strong) NSImage *tile;
+@property (readonly, strong, nullable) NSImage *tile;
 
 @property (readonly) int modelDrawingType;
 
 @end
+
+NS_ASSUME_NONNULL_END

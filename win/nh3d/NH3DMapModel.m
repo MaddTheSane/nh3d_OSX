@@ -133,18 +133,16 @@
 
 - (void)prepareAttributes
 {
-
-            shadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.7] ;
-            shadow.shadowOffset = NSMakeSize(2, -2) ;
-            shadow.shadowBlurRadius = 1.0 ;
-			
-			style.alignment = NSCenterTextAlignment ;
+	shadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.7] ;
+	shadow.shadowOffset = NSMakeSize(2, -2) ;
+	shadow.shadowBlurRadius = 1.0 ;
 	
-			strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
-										size: NH3DWINDOWFONTSIZE + 4.0];
-			strAttributes[NSShadowAttributeName] = shadow;
-			strAttributes[NSParagraphStyleAttributeName] = style ;
-
+	style.alignment = NSCenterTextAlignment ;
+	
+	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
+														 size: NH3DWINDOWFONTSIZE + 4.0];
+	strAttributes[NSShadowAttributeName] = shadow;
+	strAttributes[NSParagraphStyleAttributeName] = style ;
 }
 
 
@@ -185,18 +183,18 @@
 
 - (void)updateEnemyIndicator
 {
-		int value = enemyWarnBase +(random() %3 + 1);
-		NSSound *alert = [ NSSound soundNamed:@"Hero" ];
-
-		if ( _enemyIndicator.intValue == value ) {
-				value = enemyWarnBase -(random() %3 + 1);
-		}
-
-		_enemyIndicator.intValue = value ;
-
-		if (value >= 60 && ! alert.playing ) {
-			[ alert play ];
-		}
+	int value = enemyWarnBase +(random() %3 + 1);
+	NSSound *alert = [ NSSound soundNamed:@"Hero" ];
+	
+	if ( _enemyIndicator.intValue == value ) {
+		value = enemyWarnBase -(random() %3 + 1);
+	}
+	
+	_enemyIndicator.intValue = value ;
+	
+	if (value >= 60 && ! alert.playing ) {
+		[ alert play ];
+	}
 }
 
 

@@ -270,7 +270,7 @@ static NH3DMaterial defaultMat = {
 					i++;
                 }while(l_Name != '\0' && i<20);
 					
-					modelName = [[NSString alloc] initWithCString:mName encoding:NSUTF8StringEncoding];
+					modelName = @(mName);
 				
 				break;
 				

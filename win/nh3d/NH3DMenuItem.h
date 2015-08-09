@@ -12,6 +12,8 @@
 #import "NH3DTileCache.h"
 #import "NH3DUserDefaultsExtern.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NH3DMenuItem : NSObject {
 	
 	NSString		*name;
@@ -41,7 +43,7 @@
 
 - (NSAttributedString *)name;
 - (NSAttributedString *)accelerator;
-- (NSImage *)glyph;
+- (nullable NSImage *)glyph;
 @property (readonly, copy) NSImage *smallGlyph;
 - (anything)identifier;
 @property (readwrite, getter=isSelectable) BOOL selectable;
@@ -61,3 +63,5 @@
 
 - (void)setPreselect:(BOOLEAN_P)preselectValue;
 @end
+
+NS_ASSUME_NONNULL_END

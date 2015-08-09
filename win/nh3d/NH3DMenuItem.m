@@ -8,7 +8,7 @@
 
 #import "NH3DMenuItem.h"
 
-extern id _NH3DTileCache;
+extern NH3DTileCache *_NH3DTileCache;
 
 @implementation NH3DMenuItem
 @synthesize stringSize;
@@ -16,7 +16,7 @@ extern id _NH3DTileCache;
 @synthesize selectable;
 @synthesize selected;
 
-//Over wride NSObject designated initializer. this is not work!! don't use this.
+//Override NSObject designated initializer. this is not work!! don't use this.
 - (instancetype)init
 {
 	return nil;
@@ -32,8 +32,7 @@ extern id _NH3DTileCache;
 			 attribute:(int)attr
 			 preSelect:(boolean)presel
 {
-	self = [ super init ];
-	if ( self != nil ) {
+	if (self = [super init]) {
 		
 		name = [ [NSString alloc] initWithCString:cName
 										 encoding:NH3DTEXTENCODING ];
@@ -59,20 +58,19 @@ extern id _NH3DTileCache;
 	NSMutableDictionary *strAttributes = [ [NSMutableDictionary alloc] init ];
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
-		
 	
-	switch ( attribute )
-	{
+	
+	switch ( attribute ) {
 		case ATR_NONE:
-		break;
+			break;
 		case ATR_ULINE:
 			strAttributes[NSUnderlineStyleAttributeName] = @1;
-		break;
+			break;
 		case ATR_BOLD:
 			strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];
-		break;
+			break;
 		default:
-		break;
+			break;
 	}
 	
 	if ( ! self.selectable ) {
@@ -85,44 +83,39 @@ extern id _NH3DTileCache;
 		
 		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];
 		strAttributes[NSShadowAttributeName] = darkShadow;
-		
+	}
 	
-	} 
-
-// Set shadow for Cursed/Blessed item.	
-		
-	if ( [ name isLike:NSLocalizedString(@"*blessed*",@"") ] 
-		 || ( ![ name isLike:NSLocalizedString(@"*called*",@"") ] && [ name isLike:NSLocalizedString(@"*holy water*",@"") ]) ) {
+	// Set shadow for Cursed/Blessed item.
+	
+	if ( [ name isLike:NSLocalizedString(@"*blessed*",@"") ]
+		|| ( ![ name isLike:NSLocalizedString(@"*called*",@"") ] && [ name isLike:NSLocalizedString(@"*holy water*",@"") ]) ) {
 		
 		NSShadow *lightShadow = [ [NSShadow alloc] init ];
 		lightShadow.shadowColor = [NSColor cyanColor] ;
 		lightShadow.shadowOffset = NSMakeSize(0, 0) ;
 		lightShadow.shadowBlurRadius = 6.0 ;
-				
+		
 		strAttributes[NSShadowAttributeName] = lightShadow;
 		
 		
 	} else if ( ([ name isLike:NSLocalizedString(@"*cursed*",@"") ] || [ name isLike:NSLocalizedString(@"*cursed *",@"") ])
-				&& ( ![ name isLike:NSLocalizedString(@"*uncursed*",@"") ] && ![ name isLike:NSLocalizedString(@"*called*",@"") ]) ) {
-
-		NSShadow *cursedShadow = [ [NSShadow alloc] init ];
-		cursedShadow.shadowColor = [NSColor redColor] ;
-		cursedShadow.shadowOffset = NSMakeSize(0,0) ;
-		cursedShadow.shadowBlurRadius = 6.0 ;
+			   && ( ![ name isLike:NSLocalizedString(@"*uncursed*",@"") ] && ![ name isLike:NSLocalizedString(@"*called*",@"") ]) ) {
+		
+		NSShadow *cursedShadow = [[NSShadow alloc] init];
+		cursedShadow.shadowColor = [NSColor redColor];
+		cursedShadow.shadowOffset = NSMakeSize(0,0);
+		cursedShadow.shadowBlurRadius = 6.0;
 		
 		strAttributes[NSShadowAttributeName] = cursedShadow;
-		
-
 	}
-
-	strAttributes[NSForegroundColorAttributeName] = [NSColor whiteColor];
-
-	aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ .",name]
-											 attributes:strAttributes];
 	
-	stringSize = [ aStr size ];
-	strLength = name.length ;
-		
+	strAttributes[NSForegroundColorAttributeName] = [NSColor whiteColor];
+	
+	aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ .",name]
+										   attributes:strAttributes];
+	
+	stringSize = [aStr size];
+	strLength = name.length;
 	
 	return aStr;
 }

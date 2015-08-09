@@ -15,6 +15,8 @@
 
 #undef index
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef struct nh3d_point3 {
 	float x, y, z;
 } NH3DVertexType;
@@ -124,7 +126,7 @@ typedef struct {
 																// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
 																// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
 */
-- (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_DESIGNATED_INITIALIZER; // This is designated initializer.
+- (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_DESIGNATED_INITIALIZER; // This is designated initializer.
 
 - (void)calculateNormals;
 
@@ -171,7 +173,7 @@ typedef struct {
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
 - (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
-@property (readonly, strong) NH3DModelObjects *childObjectAtLast;
+@property (readonly, strong, nullable) NH3DModelObjects *childObjectAtLast;
 
 @property (readonly) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
@@ -193,3 +195,5 @@ typedef struct {
 
 
 @end
+
+NS_ASSUME_NONNULL_END

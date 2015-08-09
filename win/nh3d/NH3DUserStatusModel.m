@@ -18,7 +18,7 @@ static const int DIALOG_CANCEL	= 129;
 
 
 //from nh3d_win.m
-extern id _NH3DTileCache;
+extern NH3DTileCache *_NH3DTileCache;
 
 
 @implementation NH3DUserStatusModel

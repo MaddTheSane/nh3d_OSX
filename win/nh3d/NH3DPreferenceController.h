@@ -19,7 +19,7 @@
 
 }
 
-- (void)showPreferencePanel:(id)sender;
+- (IBAction)showPreferencePanel:(id)sender;
 
 - (IBAction)showFontPanelAction:(id)sender;
 - (IBAction)chooseTileFile:(id)sender;

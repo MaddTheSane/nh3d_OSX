@@ -11,6 +11,8 @@
 #import "NH3Dcommon.h"
 #import "hack.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString *NH3DMsgFontKey;
 extern NSString *NH3DMapFontKey;
 extern NSString *NH3DBoldFontKey;
@@ -164,3 +166,5 @@ typedef NS_ENUM(int, NH3DParticleType) {
 };
 
 #define MAX_TEXTURES 10
+
+NS_ASSUME_NONNULL_END

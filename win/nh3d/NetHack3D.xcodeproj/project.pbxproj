@@ -106,7 +106,6 @@
 		2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */; };
 		2B2E1EDF0919086F008805B3 /* NH3DModelObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */; };
 		2B3115DE08BD32A70041EE7D /* NH3DMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */; };
-		2B3115ED08BD48F30041EE7D /* NH3DMapModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3115EC08BD48F30041EE7D /* NH3DMapModel.m */; };
 		2B35391309159E4D002CC8AD /* ScrollParchment.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2B35391209159E4D002CC8AD /* ScrollParchment.tif */; };
 		2B35391609159FA7002CC8AD /* ScrollParchmentBack.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B35391509159FA7002CC8AD /* ScrollParchmentBack.tiff */; };
 		2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3539190915A2F4002CC8AD /* MainMenu.xib */; };
@@ -477,6 +476,8 @@
 		2BE574C70925944F00F1BB75 /* upStair.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2BE574C50925944F00F1BB75 /* upStair.tif */; };
 		2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
+		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
@@ -1492,6 +1493,8 @@
 		55459F8C1B5DFFCD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
 		55459F8D1B5DFFDD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
+		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1570,6 +1573,7 @@
 				2B6311CC08B7A27A00162523 /* winnh3d.m */,
 				2B3115DD08BD32A70041EE7D /* NH3DMessenger.h */,
 				2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */,
+				55BF8B331B76AECB0031A45A /* MapModel.swift */,
 				2B3115EB08BD48F30041EE7D /* NH3DMapModel.h */,
 				2B3115EC08BD48F30041EE7D /* NH3DMapModel.m */,
 				2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */,
@@ -1593,6 +1597,7 @@
 				2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */,
 				2B8ADFF7095FBB5500B6998D /* NH3DPreferenceController.h */,
 				2B8ADFF8095FBB5500B6998D /* NH3DPreferenceController.m */,
+				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -3445,6 +3450,7 @@
 				2B5CC15A088EB7DF00940C58 /* display.c in Sources */,
 				2B5CC15B088EB7DF00940C58 /* dlb.c in Sources */,
 				2B5CC15C088EB7DF00940C58 /* do.c in Sources */,
+				55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */,
 				2B5CC15D088EB7DF00940C58 /* do_name.c in Sources */,
 				2B5CC15E088EB7DF00940C58 /* do_wear.c in Sources */,
 				2B5CC15F088EB7DF00940C58 /* dog.c in Sources */,
@@ -3494,6 +3500,7 @@
 				2B5CC18D088EB7DF00940C58 /* pager.c in Sources */,
 				2B5CC18E088EB7DF00940C58 /* pickup.c in Sources */,
 				2B5CC18F088EB7DF00940C58 /* pline.c in Sources */,
+				55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */,
 				2B5CC190088EB7DF00940C58 /* polyself.c in Sources */,
 				2B5CC191088EB7DF00940C58 /* potion.c in Sources */,
 				2B5CC192088EB7DF00940C58 /* pray.c in Sources */,
@@ -3541,7 +3548,6 @@
 				2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */,
 				2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */,
 				2B3115DE08BD32A70041EE7D /* NH3DMessenger.m in Sources */,
-				2B3115ED08BD48F30041EE7D /* NH3DMapModel.m in Sources */,
 				2B598AD608E5B523005ECDC5 /* NH3DMenuWindow.m in Sources */,
 				2B041A8808E605B2007F87AB /* NH3DMenuItem.m in Sources */,
 				2B5469C108EF2EF5008AA81F /* unixtty.c in Sources */,

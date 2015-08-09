@@ -7,13 +7,12 @@
 //
 
 #import "NH3DMapItem.h"
-#import "NH3DMapModel.h"
 #import "NH3DTileCache.h"
 
+#import "NetHack3D-Swift.h"
+
 /*from winnh3d.m*/
-extern id _NH3DTileCache;
-
-
+extern NH3DTileCache *_NH3DTileCache;
 
 @implementation NH3DMapItem
 @synthesize player;
@@ -21,6 +20,9 @@ extern id _NH3DTileCache;
 @synthesize hasCursor;
 @synthesize posX;
 @synthesize posY;
+@synthesize glyph;
+@synthesize cSymbol = symbol;
+@synthesize modelDrawingType;
 
 - (void)checkDrawingType
 {
@@ -181,51 +183,60 @@ extern id _NH3DTileCache;
 }
 
 
-- (int)glyph
-{
-	return glyph;
-}
-
-
 - (NSColor *)color
 {
 	NSColor *aColor;
 	
-	switch ( color )
-	{
-		case 0:	aColor = [ NSColor darkGrayColor ];
+	switch (color) {
+		case 0:
+			aColor = [ NSColor darkGrayColor ];
 			break;
-		case 1: aColor = [ NSColor redColor ];
+		case 1:
+			aColor = [ NSColor redColor ];
 			break;
 		case 2:	aColor = [ NSColor greenColor ];
 			break;
-		case 3: aColor = [ NSColor brownColor ];
+		case 3:
+			aColor = [ NSColor brownColor ];
 			break;
-		case 4: aColor = [ NSColor blueColor ];
+		case 4:
+			aColor = [ NSColor blueColor ];
 			break;
-		case 5:	aColor = [ NSColor magentaColor ];
+		case 5:
+			aColor = [ NSColor magentaColor ];
 			break;
-		case 6: aColor = [ NSColor cyanColor ];
+		case 6:
+			aColor = [ NSColor cyanColor ];
 			break;
-		case 7: aColor = [ NSColor grayColor ];
+		case 7:
+			aColor = [ NSColor grayColor ];
 			break;
-		case 8: aColor = [ [NSColor grayColor] highlightWithLevel:0.5 ];
+		case 8:
+			aColor = [ [NSColor grayColor] highlightWithLevel:0.5 ];
 			break;
-		case 9: aColor = [ NSColor orangeColor ];
+		case 9:
+			aColor = [ NSColor orangeColor ];
 			break;
-		case 10: aColor = [ [NSColor greenColor] highlightWithLevel:0.5 ];
+		case 10:
+			aColor = [ [NSColor greenColor] highlightWithLevel:0.5 ];
 			break;
-		case 11: aColor = [ NSColor yellowColor ];
+		case 11:
+			aColor = [ NSColor yellowColor ];
 			break;
-		case 12: aColor = [ [NSColor blueColor] highlightWithLevel:0.5 ];
+		case 12:
+			aColor = [ [NSColor blueColor] highlightWithLevel:0.5 ];
 			break;
-		case 13: aColor = [ [NSColor magentaColor] highlightWithLevel:0.5 ];
+		case 13:
+			aColor = [ [NSColor magentaColor] highlightWithLevel:0.5 ];
 			break;
-		case 14: aColor = [ [NSColor cyanColor] highlightWithLevel:0.5 ];
+		case 14:
+			aColor = [ [NSColor cyanColor] highlightWithLevel:0.5 ];
 			break;
-		case 15: aColor = [ NSColor whiteColor ];
+		case 15:
+			aColor = [ NSColor whiteColor ];
 			break;
-		default: aColor = [ NSColor windowBackgroundColor ];
+		default:
+			aColor = [ NSColor windowBackgroundColor ];
 	}
 
 	return aColor;
@@ -276,11 +287,6 @@ extern id _NH3DTileCache;
 	[ lock unlock ];
 }
 
-- (char)cSymbol
-{
-	return symbol;
-}
-
 - (NSImage *)tile
 {	
 	
@@ -293,12 +299,6 @@ extern id _NH3DTileCache;
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	else 
 		return nil;
-}
-
-
-- (int)modelDrawingType
-{
-	return modelDrawingType;
 }
 
 @end
