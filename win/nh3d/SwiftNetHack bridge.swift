@@ -67,13 +67,23 @@ var TRADITIONAL_MAP_TILE: Bool {
 	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DTraditionalMapModeKey)
 }
 
+var TILE_FILE_NAME: String! {
+	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DTileNameKey)
+}
+
+var TILES_PER_LINE: Int {
+	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DTilesPerLineKey)
+}
+var NUMBER_OF_TILES_ROW: Int {
+	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DNumberOfTilesRowKey)
+}
+
 @noreturn func panic(str: String) {
 	fputs(" ERROR:  ", stderr)
 	fputs(str, stderr)
 	fflush(stderr)
 	abort() /* generate core dump */
 }
-
 
 var HSee_invisible: Int {
 	return u.uprops.12.intrinsic
@@ -86,16 +96,13 @@ var ESee_invisible: Int {
 private func perceives(ptr: UnsafePointer<permonst>) -> Bool {
 	return (ptr.memory.mflags1 & UInt(M1_SEE_INVIS)) != 0
 }
-/*
-
-*/
 
 var See_invisible: Bool {
 	return (HSee_invisible != 0 || ESee_invisible != 0 ||
 		perceives(youmonst.data))
 }
 
-/*** Appearance and behavior ***/
+// MARK: Appearance and behavior
 var Adornment: Int {
 	return u.uprops.9.extrinsic
 }
@@ -115,4 +122,3 @@ var BInvis: Int {
 var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
 }
-

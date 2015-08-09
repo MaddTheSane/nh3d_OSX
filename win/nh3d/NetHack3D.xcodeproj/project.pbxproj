@@ -1495,6 +1495,7 @@
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
+		55BF8B371B76F46F0031A45A /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1590,6 +1591,7 @@
 				2BA8D50B090365B5004618EF /* NH3DOpenGLView.m */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObjects.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */,
+				55BF8B371B76F46F0031A45A /* TileCache.swift */,
 				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
 				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
