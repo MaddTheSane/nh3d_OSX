@@ -652,11 +652,9 @@ void nh3d_add_menu(winid wid, int glyph, const ANY_P *identifier,
 		const char *str, BOOLEAN_P presel)
 {
 	@autoreleasepool {
-	
-		if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
-			[ nh3d_windowlist[ wid ].win addMenuItem:wid:glyph:identifier:accelerator:group_accel:attr:str:presel ];
+		if ( nh3d_windowlist[wid].win != nil && nh3d_windowlist[wid].type == NHW_MENU ) {
+			[nh3d_windowlist[wid].win addMenuItem:wid glyph:glyph identifier:identifier accelerator:accelerator groupAccel:group_accel attr:attr str:str presel:presel];
 		}
-	
 	}
 }
 
@@ -664,12 +662,10 @@ void nh3d_add_menu(winid wid, int glyph, const ANY_P *identifier,
 void nh3d_end_menu(winid wid, const char *prompt)
 {
 	@autoreleasepool {
-	
 		if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
 			[ nh3d_windowlist[ wid ].win updateMenuWindow ];
 			[ nh3d_windowlist[ wid ].win showMenuPanel:prompt ];
 		}
-	
 	}
 }
 
@@ -678,15 +674,13 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 {
 	int ret = -1;
 	@autoreleasepool {
-	
-	if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
-		if ( _NH3DMenuWindow.isMenu ) {
-			ret = [ nh3d_windowlist[ wid ].win selectMenu:wid how:how selected:selected ];
-			[ nh3d_windowlist[ wid ].win setIsMenu:NO ];
-			
+		if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {
+			if ( _NH3DMenuWindow.isMenu ) {
+				ret = [ nh3d_windowlist[ wid ].win selectMenu:wid how:how selected:selected ];
+				[nh3d_windowlist[wid].win setIsMenu:NO];
+				
+			}
 		}
-	}
-	
 	}
 	return ret;
 }
@@ -925,7 +919,7 @@ int nh3d_get_ext_cmd()
 			 sprintf( buf, "%-10s - %s ",
 					  extcmdlist[ ret ].ef_txt,
 					  extcmdlist[ ret ].ef_desc );
-			 add_menu( win, NO_GLYPH, &ident, 0, 0, 0, buf, MENU_UNSELECTED);
+			 add_menu(win, NO_GLYPH, &ident, 0, 0, 0, buf, MENU_UNSELECTED);
 		 }
 		 
 		 end_menu(win,(char*)0);
@@ -956,10 +950,8 @@ void nh3d_number_pad(int num)
 void nh3d_delay_output()
 {
 	@autoreleasepool {
-	
 		[ _NH3DMapModel updateAllMaps ];
 		[ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:0.01 ] ];
-	
 	}
 }
 
@@ -984,72 +976,72 @@ void nh3d_outrip(winid wid, int how)
 {
 	@autoreleasepool {
 		char buf[ BUFSZ ];
-    char ripString[ BUFSZ ]="\0";
-    extern const char *killed_by_prefix[ ];
+		char ripString[ BUFSZ ]="\0";
+		extern const char *killed_by_prefix[ ];
 		
 		[ _NH3DMenuWindow setDoneRip:YES ];
 		
 		Sprintf(buf, "%s\n", plname);
-    Strcat(ripString, buf);
-    
-    /* Put $ on stone */
-    Sprintf(buf, "%ld Au\n",
+		Strcat(ripString, buf);
+		
+		/* Put $ on stone */
+		Sprintf(buf, "%ld Au\n",
 #ifndef GOLDOBJ
 				u.ugold);
 #else
 		done_money);
 #endif
-Strcat(ripString, buf);
-
-/* Put together death description */
-/* English version */
-switch (killer_format) {
-		default: impossible("bad killer format?");
-		case KILLED_BY_AN:
-			Strcpy(buf, killed_by_prefix[how]);
-			Strcat(buf, an(killer));
-			break;
-		case KILLED_BY:
-			Strcpy(buf, killed_by_prefix[how]);
-			Strcat(buf, killer);
-			break;
-		case NO_KILLER_PREFIX:
-			Strcpy(buf, killer);
-			break;		
-}
-
-
-/* Japanese version 
-switch (killer_format) {
-		default: impossible("bad killer format?");
-		case KILLED_BY_AN:
+		Strcat(ripString, buf);
+		
+		/* Put together death description */
+		/* English version */
+		switch (killer_format) {
+			default: impossible("bad killer format?");
+			case KILLED_BY_AN:
+				Strcpy(buf, killed_by_prefix[how]);
+				Strcat(buf, an(killer));
+				break;
+			case KILLED_BY:
+				Strcpy(buf, killed_by_prefix[how]);
+				Strcat(buf, killer);
+				break;
+			case NO_KILLER_PREFIX:
+				Strcpy(buf, killer);
+				break;
+		}
+		
+		
+		/* Japanese version
+		 switch (killer_format) {
+		 default: impossible("bad killer format?");
+		 case KILLED_BY_AN:
 			Strcpy(buf, killed_by_prefix[ how ]);
 			Strcat(buf, an(killer));
 			break;
-		case KILLED_BY:
+		 case KILLED_BY:
 			Strcpy(buf, killed_by_prefix[ how ]);
 			Strcat(buf, killer);
 			break;
-		case NO_KILLER_PREFIX:
+		 case NO_KILLER_PREFIX:
 			Strcpy(buf, killer);
 			break;
-		case KILLED_SUFFIX:
+		 case KILLED_SUFFIX:
 			Strcpy(buf, killer);
 			Strcat(buf, "に殺された");
-}
-*/
-/**/
-/* Put death type on stone */
+		 }
+		 */
+		/**/
+		/* Put death type on stone */
 		Strcat(ripString, buf);
 		Strcat(ripString, "\n");
-
-/* Put year on stone */
+		
+		/* Put year on stone */
 		Sprintf(buf, "%4d\n", getyear());
 		Strcat(ripString, buf);
-
+		
 		[ _NH3DMapModel stopIndicator ];
 		[ _NH3DMessenger showOutRip:ripString ];
-
+		
 	}
 }
 
@@ -1063,7 +1055,7 @@ int nh3d_kbhit()
 
 void nethack3d_exit(int status)
 {
-	[ NSApp terminate:nil ];
+	[NSApp terminate:nil];
 }
 
 #ifndef GNUSTEP

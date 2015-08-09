@@ -15,32 +15,32 @@
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
 	
-		IBOutlet NSPanel *_menuPanel;
-		IBOutlet NSTableView *_menuTableWindow;
-		IBOutlet NSTextField *_menuPanelStrings;
-		IBOutlet NSTextField *_menuPanelStringsShadow;
-		IBOutlet NSScrollView *_menuScrollview;
-		
-		IBOutlet NSTextView *_textWindow;
-		
-		IBOutlet NSScrollView *_textScrollView;
-		IBOutlet NSPanel *_textPanel;
-		/* I am going to collect it.Probably. Perhaps.... */
-		IBOutlet NH3DMessenger *_messenger;
-		IBOutlet NSTextView *_ripTextwindow;
-		
-		NSMutableArray *nh3dMenu;
-		NSMutableDictionary *darkShadowStrAttributes;
-		NSMutableDictionary *lightShadowStrAttributes;
-		NSShadow *darkShadow;
-		NSShadow *lightShadow;
-		NSMutableParagraphStyle  *style;
-		
-		BOOL isMenu;
-		BOOL isExtendMenu;
-		int selectedRow;
-		BOOL doneRip;
-		int pickType;
+	IBOutlet NSPanel *_menuPanel;
+	IBOutlet NSTableView *_menuTableWindow;
+	IBOutlet NSTextField *_menuPanelStrings;
+	IBOutlet NSTextField *_menuPanelStringsShadow;
+	IBOutlet NSScrollView *_menuScrollview;
+	
+	IBOutlet NSTextView *_textWindow;
+	
+	IBOutlet NSScrollView *_textScrollView;
+	IBOutlet NSPanel *_textPanel;
+	/* I am going to collect it.Probably. Perhaps.... */
+	IBOutlet NH3DMessenger *_messenger;
+	IBOutlet NSTextView *_ripTextwindow;
+	
+	NSMutableArray *nh3dMenu;
+	NSMutableDictionary *darkShadowStrAttributes;
+	NSMutableDictionary *lightShadowStrAttributes;
+	NSShadow *darkShadow;
+	NSShadow *lightShadow;
+	NSMutableParagraphStyle  *style;
+	
+	BOOL isMenu;
+	BOOL isExtendMenu;
+	int selectedRow;
+	BOOL doneRip;
+	int pickType;
 }
 @property (weak) IBOutlet NSWindow *window;
 
@@ -72,13 +72,13 @@
 
 - (void)updateMenuWindow;
 - (void)addMenuItem:(winid)wid
-					:(int)glyph
-					:(const anything *)identifier
-					:(char)accelerator
-					:(char)group_accel
-					:(int)attr 
-					:(const char *)str
-					:(boolean)presel;
+			  glyph:(int)glyph
+		 identifier:(const anything *)identifier
+		accelerator:(char)accelerator
+		 groupAccel:(char)group_accel
+			   attr:(int)attr
+				str:(const char *)str
+			 presel:(boolean)presel;
 
 - (void)showMenuPanel:(const char *)prompt;
 - (int)selectMenu:(winid)wid how:(int)how selected:(menu_item **)selected;

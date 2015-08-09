@@ -23,6 +23,7 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize glyph;
 @synthesize cSymbol = symbol;
 @synthesize modelDrawingType;
+@synthesize special;
 
 - (void)checkDrawingType
 {
@@ -147,13 +148,10 @@ extern NH3DTileCache *_NH3DTileCache;
 				   posY:(int)y 
 				special:(int)sp
 {
-	
-	self = [ super init ];
-	if ( self != nil ) {
+	if (self = [super init]) {
+		lock = [[NSRecursiveLock alloc] init];
 		
-		lock = [ [NSRecursiveLock alloc] init ];
-		
-		[ lock lock ];
+		[lock lock];
 		
 		symbol = ch;
 		glyph = glf;
@@ -173,8 +171,6 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 	return self;
 }
-
-
 
 
 - (NSString *)symbol
@@ -245,11 +241,6 @@ extern NH3DTileCache *_NH3DTileCache;
 - (int)material
 {
 	return color;
-}
-
-- (unsigned)special
-{
-	return special;
 }
 
 

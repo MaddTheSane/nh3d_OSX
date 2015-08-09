@@ -26,8 +26,7 @@ extern int total_tiles_used;
 
 - (instancetype) initWithNamed:(NSString *)imageName   /* This is designated initializer. */
 {
-	self = [super init];
-	if (self != nil) {
+	if (self = [super init]) {
 		
 		NSImage	*tileSource = [ [NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",[NSBundle mainBundle].resourcePath,imageName] ];
 		NSData  *tiffData;

@@ -284,13 +284,13 @@ static const int DIALOG_CANCEL	= 129;
 
 
 - (void)addMenuItem:(winid)wid
-					:(int)glyph
-					:(const anything *)identifier
-					:(char)accelerator
-					:(char)group_accel
-					:(int)attr 
-					:(const char *)str
-					:(boolean)presel
+			  glyph:(int)glyph
+		 identifier:(const anything *)identifier
+		accelerator:(char)accelerator
+		 groupAccel:(char)group_accel
+			   attr:(int)attr
+				str:(const char *)str
+			 presel:(boolean)presel
 {
 	
 		NH3DMenuItem *aMenuItem = nil;

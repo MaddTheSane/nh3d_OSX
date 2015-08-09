@@ -617,12 +617,11 @@ static NH3DMaterial defaultMat = {
 
 - (instancetype) init // emitter init
 {
-	self = [super init];
-	if (self != nil) {
+	if (self = [super init]) {
 		
 		int i;
 		
-		[ self initParams ];
+		[self initParams];
 		
 		slowdown = 2.0f;
 		xspeed = 0;
@@ -637,20 +636,20 @@ static NH3DMaterial defaultMat = {
 		particles = malloc( MAX_PARTICLES * sizeof(NH3DParticle) );
 
 			
-		for( i = 0; i < MAX_PARTICLES; i++ ) {
-			particles[ i ].active = YES;
-			particles[ i ].life = 0.8f;
+		for (i = 0; i < MAX_PARTICLES; i++ ) {
+			particles[i].active = YES;
+			particles[i].life = 0.8f;
 			
-			particles[ i ].fade = (float) ( rand() % 100 ) / 1000.0f + 0.003;
-			particles[ i ].r = colors[ i * ( 12 / MAX_PARTICLES ) ][ 0 ];
-			particles[ i ].g = colors[ i * ( 12 / MAX_PARTICLES ) ][ 1 ];
-			particles[ i ].b = colors[ i * ( 12 / MAX_PARTICLES ) ][ 2 ];
-			particles[ i ].xi = ( (float) ( rand() % 50 ) - 26.0f ) * 10.0f;
-			particles[ i ].yi = ( (float) ( rand() % 50 ) - 25.0f ) * 10.0f;
-			particles[ i ].zi = ( (float) ( rand() % 50 ) - 25.0f ) * 10.0f;
-			particles[ i ].xg = particleGravity.x;
-			particles[ i ].yg = particleGravity.y;
-			particles[ i ].zg = particleGravity.z;
+			particles[i].fade = (float) ( rand() % 100 ) / 1000.0f + 0.003;
+			particles[i].r = colors[ i * ( 12 / MAX_PARTICLES ) ][ 0 ];
+			particles[i].g = colors[ i * ( 12 / MAX_PARTICLES ) ][ 1 ];
+			particles[i].b = colors[ i * ( 12 / MAX_PARTICLES ) ][ 2 ];
+			particles[i].xi = ( (float) ( rand() % 50 ) - 26.0f ) * 10.0f;
+			particles[i].yi = ( (float) ( rand() % 50 ) - 25.0f ) * 10.0f;
+			particles[i].zi = ( (float) ( rand() % 50 ) - 25.0f ) * 10.0f;
+			particles[i].xg = particleGravity.x;
+			particles[i].yg = particleGravity.y;
+			particles[i].zg = particleGravity.z;
 		}
 		
 		modelName = [NSDate date].description;
