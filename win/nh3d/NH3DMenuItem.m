@@ -19,6 +19,9 @@ extern NH3DTileCache *_NH3DTileCache;
 //Override NSObject designated initializer. this is not work!! don't use this.
 - (instancetype)init
 {
+	anything anyChar;
+	anyChar.a_char = ' ';
+	self = [self initWithParameter:"" identifier:&anyChar accelerator:0 group_accel:0 glyph:0 attribute:0 preSelect:false];
 	return nil;
 }
 
