@@ -106,8 +106,6 @@
 		2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */; };
 		2B2E1EDF0919086F008805B3 /* NH3DModelObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */; };
 		2B3115DE08BD32A70041EE7D /* NH3DMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */; };
-		2B35391309159E4D002CC8AD /* ScrollParchment.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2B35391209159E4D002CC8AD /* ScrollParchment.tif */; };
-		2B35391609159FA7002CC8AD /* ScrollParchmentBack.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B35391509159FA7002CC8AD /* ScrollParchmentBack.tiff */; };
 		2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3539190915A2F4002CC8AD /* MainMenu.xib */; };
 		2B3D4EA309526CF8006921EA /* wizardset.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA109526CF8006921EA /* wizardset.3ds */; };
 		2B3D4EA409526CF8006921EA /* wizardset.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA209526CF8006921EA /* wizardset.tif */; };
@@ -3192,8 +3190,6 @@
 				2B76D428090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff in Resources */,
 				2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */,
 				2BA134C20915131C00CB4329 /* human.tiff in Resources */,
-				2B35391309159E4D002CC8AD /* ScrollParchment.tif in Resources */,
-				2B35391609159FA7002CC8AD /* ScrollParchmentBack.tiff in Resources */,
 				2B6F3EE2091AF3E500367391 /* footStep.wav in Resources */,
 				2B6F3EE4091AF3E500367391 /* waterDrop.wav in Resources */,
 				2B6F3F8A091B59F500367391 /* waterDrop2.wav in Resources */,
@@ -3654,6 +3650,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.sbrain.portNetHack3D;
 				PRODUCT_NAME = NetHack3D;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3695,6 +3692,7 @@
 				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.sbrain.portNetHack3D;
 				PRODUCT_NAME = NetHack3D;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
@@ -3706,7 +3704,6 @@
 		2B14B32D0890124A0051A4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
@@ -3739,7 +3736,6 @@
 		2B14B32E0890124A0051A4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
