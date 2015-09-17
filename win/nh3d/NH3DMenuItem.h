@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString *)name;
 - (NSAttributedString *)accelerator;
 - (nullable NSImage *)glyph;
-@property (readonly, copy) NSImage *smallGlyph;
+@property (readonly, copy, nullable) NSImage *smallGlyph;
 - (anything)identifier;
 @property (readwrite, getter=isSelectable) BOOL selectable;
 @property (readonly, getter=isPreSelected) BOOL preSelected;

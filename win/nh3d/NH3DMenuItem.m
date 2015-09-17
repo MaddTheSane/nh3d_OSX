@@ -226,9 +226,9 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	identifier = *identifierValue;
 	if ( identifierValue->a_void == 0 ) {
-		[ self setSelectable:NO ];
+		self.selectable = NO;
 	} else {
-		[ self setSelectable:YES ];
+		self.selectable = YES;
 	}
 }
 
