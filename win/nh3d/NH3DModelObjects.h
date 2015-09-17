@@ -100,7 +100,7 @@ typedef struct {
 	
 	BOOL				hasChildObject;
 	BOOL				isChild;
-	NSUInteger			numberOfChildObjects;
+	NSInteger			numberOfChildObjects;
 	NSMutableArray		*childObjects;
 	
 	NH3DModelType		modelType;
@@ -108,12 +108,6 @@ typedef struct {
 	float				slowdown; 
 	float				xspeed;
 	float				yspeed;
-	
-	NH3DVertexType		modelShift;
-	NH3DVertexType		modelPivot;
-	NH3DVertexType		modelScale;
-	NH3DVertexType		modelRotate;
-	
 }
 
 
@@ -175,16 +169,16 @@ typedef struct {
 - (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
 @property (readonly, strong, nullable) NH3DModelObjects *childObjectAtLast;
 
-@property (readonly) NH3DVertexType modelShift;
+@property (readwrite) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
 
-@property (readonly) NH3DVertexType modelScale;
+@property (readwrite) NH3DVertexType modelScale;
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz;
 
-@property (readonly) NH3DVertexType modelRotate;
+@property (readwrite) NH3DVertexType modelRotate;
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz;
 
-@property (readonly) NH3DVertexType modelPivot;
+@property (readwrite) NH3DVertexType modelPivot;
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz;
 
 @property NH3DMaterial currentMaterial;

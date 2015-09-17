@@ -28,7 +28,7 @@ static GLfloat colors[ 16 ][ 3 ] = {
 	{ 1.0 , 0.929 , 0.929 }				// White
 };
 
-static NH3DMaterial defaultMat = {
+static const NH3DMaterial defaultMat = {
 		{ 0.5, 0.5, 0.5, 1.0 },
 		{ 1.0 , 1.0 , 1.0 , 1.0 },
 		{ 0.0 , 0.0 , 0.0 , 1.0},
@@ -46,6 +46,12 @@ static NH3DMaterial defaultMat = {
 @synthesize animationRate;
 @synthesize animationValue;
 @synthesize particleType;
+@synthesize modelShift;
+@synthesize modelScale;
+@synthesize modelRotate;
+@synthesize modelPivot;
+@synthesize hasChildObject;
+@synthesize numberOfChildObjects;
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
@@ -958,83 +964,45 @@ static NH3DMaterial defaultMat = {
 	particleSize = value;
 }
 
-- (NH3DVertexType )modelShift
-{
-	return modelShift;
-}
-
 
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz
 {
-	modelShift.x = sx;
-	modelShift.y = sy;
-	modelShift.z = sz;
-}
-
-
-- (NH3DVertexType )modelScale
-{
-	return modelScale;
+	NH3DVertexType toSet;
+	toSet.x = sx;
+	toSet.y = sy;
+	toSet.z = sz;
+	self.modelShift = toSet;
 }
 
 
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz
 {
-	modelScale.x = scx;
-	modelScale.y = scy;
-	modelScale.z = scz;
-}
-
-
-- (NH3DVertexType )modelRotate
-{
-	return modelRotate;
+	NH3DVertexType toSet;
+	toSet.x = scx;
+	toSet.y = scy;
+	toSet.z = scz;
+	self.modelScale = toSet;
 }
 
 
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz
 {
-	modelRotate.x = rx;
-	modelRotate.y = ry;
-	modelRotate.z = rz;
-}
-
-
-- (NH3DVertexType )modelPivot
-{
-	return modelPivot;
+	NH3DVertexType toSet;
+	toSet.x = rx;
+	toSet.y = ry;
+	toSet.z = rz;
+	self.modelRotate = toSet;
 }
 
 
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz
 {
-	modelPivot.x = px;
-	modelPivot.y = py;
-	modelPivot.z = pz;
+	NH3DVertexType toSet;
+	toSet.x = px;
+	toSet.y = py;
+	toSet.z = pz;
+	self.modelPivot = toSet;
 }
-
-- (BOOL)isChild
-{
-	return isChild;
-}
-
-- (void)setIsChild:(BOOL)flag
-{
-	isChild = flag;
-}	
-
-
-- (BOOL)hasChildObject
-{
-	return hasChildObject;
-}
-
-
-- (NSInteger)numberOfChildObjects
-{
-	return numberOfChildObjects;
-}
-
 
 - (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
 {
