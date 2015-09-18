@@ -41,9 +41,9 @@ class MapModel: NSObject {
 	}
 	
 	private(set) var dungeonNameString = NSAttributedString()
-	var strAttributes = [String: AnyObject]()
-	var shadow = NSShadow()
-	var style = NSMutableParagraphStyle()
+	private var strAttributes = [String: AnyObject]()
+	private var shadow = NSShadow()
+	private var style = NSMutableParagraphStyle()
 	
 	private var indicatorIsActive = false
 	

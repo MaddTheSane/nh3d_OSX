@@ -16,6 +16,7 @@
 @class NH3DBindController;
 @class NH3DMessenger;
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface NH3DMapView : NSView
 {
@@ -105,7 +106,7 @@
 - (void)reloadMap;
 - (void)enemyCheck;
 
-- (void)setCursOpacity:(float)opaq;
+@property (nonatomic) CGFloat cursorOpacity;
 - (void)drawMask;
 
 @property (nonatomic) int keyBuffer;
@@ -124,16 +125,18 @@
 //				Actions
 //-----------------------------------------------------------------------------//
 
-- (IBAction)gearMenuActions:(id)sender;
-- (IBAction)actionMenuActions:(id)sender;
-- (IBAction)magicMenuActions:(id)sender;
-- (IBAction)infoMenuActions:(id)sender;
-- (IBAction)otherMenuActions:(id)sender;
-- (IBAction)controllerActions:(id)sender;
-- (IBAction)setRestrictedView:(id)sender;
-- (IBAction)showGlobalMap:(id)sender;
-- (IBAction)setUseTileInGlobalMap:(id)sender;
-- (IBAction)closeModalDialog: (id)sender;
-- (IBAction)zoomLevelMap: (id)sender;
+- (IBAction)gearMenuActions:(nullable id)sender;
+- (IBAction)actionMenuActions:(nullable id)sender;
+- (IBAction)magicMenuActions:(nullable id)sender;
+- (IBAction)infoMenuActions:(nullable id)sender;
+- (IBAction)otherMenuActions:(nullable id)sender;
+- (IBAction)controllerActions:(nullable id)sender;
+- (IBAction)setRestrictedView:(nullable id)sender;
+- (IBAction)showGlobalMap:(nullable id)sender;
+- (IBAction)setUseTileInGlobalMap:(nullable id)sender;
+- (IBAction)closeModalDialog:(nullable id)sender;
+- (IBAction)zoomLevelMap:(nullable id)sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

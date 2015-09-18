@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)init;
 - (nullable instancetype)initWithNamed:(NSString *)imageName NS_DESIGNATED_INITIALIZER; /* This is designated initializer. */
 
-- (NSImage *)tileImageFromGlyph:(int)glyph;
+- (nullable NSImage *)tileImageFromGlyph:(int)glyph;
 @property (readonly) int tileSize_X;
 @property (readonly) int tileSize_Y;
 

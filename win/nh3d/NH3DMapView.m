@@ -35,6 +35,8 @@
 @property (strong) NSImage *trMapImage;
 @property (strong) NSImage *posCursor;
 @property (strong) NSImage *mapRestrictedBezel;
+@property int centerX;
+@property int centerY;
 @end
 
 @implementation NH3DMapView
@@ -50,6 +52,9 @@
 @synthesize isReady;
 @synthesize needClear;
 @synthesize clickType;
+@synthesize cursorOpacity = cursOpacity;
+@synthesize centerX;
+@synthesize centerY;
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
@@ -181,13 +186,13 @@
 			[self reloadMap];
 	}
 	
-	[ self drawMask ];
+	[self drawMask];
 }
 
 @synthesize bgColor;
 - (void)setBgColor:(NSColor *)colr
 {
-	bgColor = colr;
+	bgColor = [colr copy];
 	[self setNeedsDisplay:YES];
 }
 
@@ -199,7 +204,7 @@
 
 - (BOOL)resignFirstResponder
 {
-	[ self setNeedsDisplay:YES ];
+	[self setNeedsDisplay:YES];
 	return YES;
 }
 
@@ -661,7 +666,7 @@
 }
 
 
-- (void)setCursOpacity:(float)opaq
+- (void)setCursorOpacity:(CGFloat)opaq
 {
 	cursOpacity = opaq;
 	if (isReady) {
@@ -756,30 +761,6 @@
 //-----------------------------------------------------
 
 
-- (int)centerX
-{
-	return centerX;
-}
-
-
-- (void)setCenterX:(int)x
-{	 
-	centerX = x;	
-}
-
-
-- (int)centerY
-{
-	return centerY;
-}
-
-
-- (void)setCenterY:(int)y
-{	 
-	centerY = y;	
-}
-
-
 - (void)setKeyBuffer:(int)value
 {	 
 	switch ( modKeyFlag ) {
@@ -819,7 +800,6 @@
 
 - (IBAction)controllerActions:(id)sender
 {
-	 
 	keyBuffer = 0;
 	int lkey = 0;
 	

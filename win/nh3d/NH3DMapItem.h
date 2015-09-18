@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 // This is designated initializer.
-- (instancetype)initWithParameter:(char)ch 
-				  glyph:(int)glf 
-				  color:(int)col 
-				   posX:(int)x 
-				   posY:(int)y 
-				special:(int)sp NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithParameter:(char)ch
+							glyph:(int)glf
+							color:(int)col
+							 posX:(int)x
+							 posY:(int)y
+						  special:(int)sp NS_DESIGNATED_INITIALIZER;
 
 
 - (NSString *)symbol;
