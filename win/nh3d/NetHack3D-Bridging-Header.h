@@ -8,8 +8,18 @@
 #import "NH3DMapItem.h"
 #import "NH3DMapView.h"
 #import "NH3DOpenGLView.h"
+#import "NH3DModelObjects.h"
 
 static inline BOOL Swift_Invis() {
 	return ((HInvis || EInvis || \
 			 pm_invisible(youmonst.data)) && !BInvis);
+}
+
+/* from tile.c */
+extern int total_tiles_used;
+
+extern short glyph2tile[];
+static inline short glyphToTile(size_t i)
+{
+	return glyph2tile[i];
 }
