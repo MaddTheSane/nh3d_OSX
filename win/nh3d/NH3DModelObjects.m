@@ -52,6 +52,8 @@ static const NH3DMaterial defaultMat = {
 @synthesize modelPivot;
 @synthesize hasChildObject;
 @synthesize numberOfChildObjects;
+@synthesize particleLife;
+@synthesize particleSlowdown;
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {

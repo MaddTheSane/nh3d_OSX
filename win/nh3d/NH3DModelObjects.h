@@ -155,8 +155,8 @@ typedef struct {
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
 - (void)setParticleSpeedX:(float)x Y:(float)y;
-- (void)setParticleSlowdown:(float)value;
-- (void)setParticleLife:(float)value;
+@property (nonatomic) float particleSlowdown;
+@property (nonatomic) float particleLife;
 - (void)setParticleSize:(float)value;
 
 
