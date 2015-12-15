@@ -62,7 +62,7 @@ class MapModel: NSObject {
 		}
 	}
 	private var enemyWarnBaseInternal: Int32 = 0
-	var loadingStatus = 0
+	private(set) var loadingStatus = 0
 	private var indicatorTimer: NSTimer?
 	
 	var cursX: Int32 = 0

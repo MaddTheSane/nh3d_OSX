@@ -3013,6 +3013,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Haruumi Yoshino";
 			};
 			buildConfigurationList = 2B14B32C0890124A0051A4A9 /* Build configuration list for PBXProject "NetHack3D" */;
 			compatibilityVersion = "Xcode 3.2";
