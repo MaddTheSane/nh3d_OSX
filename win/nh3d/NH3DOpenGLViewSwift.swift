@@ -15,8 +15,6 @@ private let GLYPH_MON_OFF: Int32 = 0
 private let TEX_SIZE = 128
 
 private typealias LoadModelBlock = (glyph: Int32) -> NH3DModelObjects?
-
-
 private func loadModelFunc_default(glyph: Int32) -> NH3DModelObjects? {
 	return nil
 }
@@ -266,7 +264,16 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	var isReady = false
 	var isFloating = false
 	var isRiding = false
-	var isShocked = false
+	var isShocked: Bool = false {
+		willSet {
+			viewLock.lock()
+			nowUpdating = true
+		}
+		didSet {
+			nowUpdating = false
+			viewLock.unlock()
+		}
+	}
 	
 	private var floorTex = GLuint(0)
 	private var floor2Tex = GLuint(0)
@@ -282,7 +289,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	private var hellTex = GLuint(0)
 	private var nullTex = GLuint(0)
 	private var rougeTex = GLuint(0)
-	private var defaultTex = [GLuint]()
+	private var defaultTex = [GLuint](count: Int(MAX_GLYPH), repeatedValue: 0)
 	
 	private var floorCurrent = GLuint(0)
 	private var cellingCurrent  = GLuint(0)
@@ -306,8 +313,26 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	
 	var cameraStep: GLfloat = 0
 	
-	var enemyPosition: Int32 = 0
+	private var keyLightCol = [GLfloat](count: 4, repeatedValue: 0)
+	
+	var centerX: Int32 = 0
+	var centerZ: Int32 = 0
+	var playerdepth: Int32 = 0
 	var drawMargin: Int32 = 0;
+	var enemyPosition: Int32 = 0 {
+		willSet {
+			viewLock.lock()
+			nowUpdating = true
+		}
+		didSet {
+			nowUpdating = false
+			viewLock.unlock()
+		}
+	}
+	var elementalLevel: Int32 = 0
+	var waitRate: Float = 0
+	
+	var dRefreshRate: CGRefreshRate = 0
 
 	var effectArray = [NH3DModelObjects]()
 	
@@ -321,47 +346,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 
 	private var keyArray = [Int32]()
 	private var delayDrawing = [(item: NH3DMapItem, x: Int32, z: Int32)]()
-	/*
-{
-
-	
-	GLfloat		keyLightCol[4];
-	
-	int			centerX;
-	int			centerZ;
-	int			playerdepth;
-	int			drawMargin;
-	int			enemyPosition;
-	int			elementalLevel;
-	float		waitRate;
-	
-	NSRecursiveLock		*viewLock;
-	
-	CGRefreshRate   dRefreshRate;
-	
-	//NH3DModelObjects *modelArray[MAX_GLYPH];
-	NH3DModelObjects *effectArray[NH3D_MAX_EFFECTS];
-	
-	NSMutableDictionary *modelDictionary;
-	NSMutableArray		*keyArray;
-	
-	NSMutableArray *delayDrawing;
-	
-	BOOL		nowUpdating;
-	BOOL		runnning;
-	BOOL		threadRunning;
-	BOOL		hasWait;
-	BOOL		firstTime;
-	BOOL		oglParamNowChanging;
-	BOOL		useTile;
-	
-	//-------------------
-	// for speed funcion
-	//-------------------
-	
-	void	(^switchMethodArray[11])(int x, int z, int lx, int lz);
-	LoadModelBlock loadModelBlocks[MAX_GLYPH];
-}*/
 	
 	override init?(frame frameRect: NSRect, pixelFormat format: NSOpenGLPixelFormat?) {
 		super.init(frame: frameRect, pixelFormat: format)
@@ -548,6 +532,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		super.awakeFromNib()
 	}
 	
+	/// draw title.
     override func drawRect(dirtyRect: NSRect) {
 		if ( isReady || !firstTime ) {
 			return;
@@ -576,32 +561,18 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		}
     }
 	
-	/*
-- (void)drawGlView:(int)x z:(int)z
-{
-NH3DMapItem *mapItem = mapItemValue[ x ][ z ];
-int			type = [ mapItem modelDrawingType ];
-
-if ( type != 10 ) {
-switchMethodArray[type](mapItem.posX,
-mapItem.posY,
-x, z);
-} else {
-		// delay drawing for alphablending.
-		NSNumber *numX = @(x);
-		NSNumber *numZ = @(z);
-		
-		[ delayDrawing addObject:mapItem ];
-		[ delayDrawing addObject:numX ];
-		[ delayDrawing addObject:numZ ];
-		// if you want use this method from difference thread,
-		// you must do some tricky technique for using collectionclass.
-		// e.g;
-		// [ NSMutableArrayobject addObject:[ [ [ NSNumber numberWithInt:x ] retain ] autorelease ] ];
-		// [ NSDictionaryobject addObject:[ [ mapItem retain ] autorelease ] ];
+	func drawGLView(x x: Int32, z: Int32) {
+		guard let mapItem = mapItemValue[Int(x)][Int(z)] else {
+			return
+		}
+		let type = mapItem.modelDrawingType
+		if type != 10 {
+			switchMethodArray[Int(type)](x: mapItem.posX, z: mapItem.posY, lx: x, lz: z)
+		} else {
+			// delay drawing for alphablending.
+			delayDrawing.append((item: mapItem, x: x, z: z))
+		}
 	}
-}
-*/
 	
 	func loadImageToTexture(named filename: String) -> GLuint {
 		guard let sourcefile = NSImage(named: filename) else {
@@ -629,7 +600,7 @@ x, z);
 		return texID
 	}
 	
-	private final func checkLoadedModelsAt(startNum: Int32, to endNum: Int32, offset: Int32, modelName: String, textured flag: Bool, withOut without: Int32...) -> NH3DModelObjects? {
+	private final func checkLoadedModelsAt(startNum: Int32, to endNum: Int32, offset: Int32, modelName: String, textured flag: Bool, without: Int32...) -> NH3DModelObjects? {
 		var withoutFlag = false;
 		
 		for i in (startNum+offset)...(endNum+offset) {
@@ -739,188 +710,188 @@ x, z);
 	
 	/*
 	private func createLightAndFog() {
-	var gblight = 1.0 - ( Float(u.uhp) / Float(u.uhpmax) );
+		var gblight = 1.0 - ( Float(u.uhp) / Float(u.uhpmax) );
 	
 		var AmbLightPos: [ GLfloat ] = [0.0, 4.0, 0.0 ,0];
 		var keyLightPos: [ GLfloat ] = [0.01, 3.0, 0.0 ,1]
 		var fogColor: [ GLfloat ] = [gblight/4, 0.0, 0.0, 0.0]
 		var lightEmisson: [ GLfloat ] = [0.1, 0.1, 0.1 ,1]
 	
-	self->keyLightCol[0] = 2.0;
-	self->keyLightCol[3] = 1.0;
-	if ( 1.00 - gblight < 0 )  {
-	self-> keyLightCol[ 1 ] = 0.0;
-	self->keyLightCol[ 2 ] = 0.0;
-	} else {
-	self->keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
-	self->keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
-	}
+		self->keyLightCol[0] = 2.0;
+		self->keyLightCol[3] = 1.0;
+		if ( 1.00 - gblight < 0 )  {
+			self-> keyLightCol[ 1 ] = 0.0;
+			self->keyLightCol[ 2 ] = 0.0;
+		} else {
+			self->keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
+			self->keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
+		}
 	
-	glPushMatrix();
+		glPushMatrix();
 	
-	glTranslatef(self->lastCameraX,
-	self->lastCameraY,
-	self->lastCameraZ);
+		glTranslatef(self->lastCameraX,
+			self->lastCameraY,
+			self->lastCameraZ);
 	
-	glFogi( GL_FOG_MODE , GL_LINEAR );
-	glHint( GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST );
+		glFogi( GL_FOG_MODE , GL_LINEAR );
+		glHint( GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST );
 	
-	glFogf( GL_FOG_START , 0.0 );
+		glFogf( GL_FOG_START , 0.0 );
 	
-	switch elementalLevel {
-	case 1: glClearColor( fogColor[ 0 ]+0.1, 0.0 , 0.01 ,0.0 );
-	break;
-	case 2: glClearColor( fogColor[ 0 ], 0.2 , 0.8 ,0.0 );
-	break;
-	case 3: glClearColor( fogColor[ 0 ]+0.4, 0.00 , 0.0 ,0.0 );
-	break;
-	case 4: glClearColor( fogColor[ 0 ], 0.6 , 0.9 ,0.0 );
-	break;
-	case 5: glClearColor( fogColor[ 0 ], 0.6 , 0.6 ,0.0 );
-	break;
-	default: glClearColor( fogColor[ 0 ], 0.0 ,0.0 ,0.0 );
-	break;
-	}
+		switch elementalLevel {
+		case 1: glClearColor( fogColor[ 0 ]+0.1, 0.0 , 0.01 ,0.0 );
+			break;
+		case 2: glClearColor( fogColor[ 0 ], 0.2 , 0.8 ,0.0 );
+			break;
+		case 3: glClearColor( fogColor[ 0 ]+0.4, 0.00 , 0.0 ,0.0 );
+			break;
+		case 4: glClearColor( fogColor[ 0 ], 0.6 , 0.9 ,0.0 );
+			break;
+		case 5: glClearColor( fogColor[ 0 ], 0.6 , 0.6 ,0.0 );
+			break;
+		default: glClearColor( fogColor[ 0 ], 0.0 ,0.0 ,0.0 );
+			break;
+		}
 	
-	if ( self->isReady && ( Blind || u.uswallow ) ) {
-	// you blind
+		if ( self->isReady && ( Blind || u.uswallow ) ) {
+			// you're blind
 	
-	glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-	glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, keyLightAltAmb );
-	glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
+			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
+			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, keyLightAltAmb );
+			glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
 	
-	glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-	glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAltAmb );
-	glLightfv( GL_LIGHT1, GL_DIFFUSE, keyLightAltCol );
-	glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightAltspec );
+			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
+			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAltAmb );
+			glLightfv( GL_LIGHT1, GL_DIFFUSE, keyLightAltCol );
+			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightAltspec );
 	
-	glLightf( GL_LIGHT1, GL_SHININESS, 0.01 );
-	
-	
-	glClearColor( 0.0 ,0.0 ,0.0 ,0.0 );
-	glFogf( GL_FOG_END ,  6.0 );
-	glFogfv( GL_FOG_COLOR,defaultBackGroundCol );
-	
-	} else if ( self->isReady && Underwater ) {
-	
-	glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-	glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-	glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
-	
-	glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-	glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-	glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-	glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-	glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-	glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
-	
-	glClearColor( 0.0 ,0.0 ,0.8 ,0.0 );
-	glFogf( GL_FOG_END ,  6.0 );
-	glFogfv( GL_FOG_COLOR,underWaterColar );
-	
-	} else if ( IS_ROOM( levl[ u.ux ][ u.uy ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy ].typ ) ) {
-	// in room
-	int i;
-	
-	glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-	glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-	glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
-	
-	glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-	glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-	glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-	glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-	glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-	glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
-	
-	// check lit position.
-	glFogf( GL_FOG_END , 4.5 + MAP_MARGIN * NH3DGL_TILE_SIZE );
-	
-	for ( i=1 ; i<=MAP_MARGIN ; i++ ) {
-	if ( ( IS_ROOM( levl[ u.ux ][ u.uy + i ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy + i ].typ ) )
-	&& levl[ u.ux ][ u.uy + i ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-	glFogf( GL_FOG_END ,  4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	} else if ( ( IS_ROOM( levl[ u.ux ][ u.uy - i ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy - i ].typ ) )
-	&& levl[ u.ux ][ u.uy - i ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	} else if ( ( IS_ROOM( levl[ u.ux + i ][ u.uy + i ].typ ) || IS_DOOR( levl[ u.ux + i ][ u.uy ].typ ) )
-	&& levl[ u.ux + i ][ u.uy ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	
-	} else if ( ( IS_ROOM( levl[ u.ux - i ][ u.uy ].typ ) || IS_DOOR( levl[ u.ux - i ][ u.uy ].typ ) )
-	&& levl[ u.ux - i ][ u.uy ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	}
-	}
-	
-	glFogfv( GL_FOG_COLOR,fogColor );
-	
-	} else if ( levl[ u.ux ][ u.uy ].typ == CORR ) {
-	// in corr
-	int i;
-	
-	glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-	glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-	glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
-	
-	glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-	glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-	glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-	glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-	glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-	glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
-	
-	for ( i=1 ; i<=MAP_MARGIN ; i++ ) {
-	if ( 			levl[ u.ux ][ u.uy+i ].typ == CORR
-	&&   !levl[ u.ux ][ u.uy+i ].lit
-	) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	} else if ( 		  levl[ u.ux ][ u.uy-i ].typ == CORR
-	&&   !levl[ u.ux ][ u.uy-i ].lit
-	) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	} else if ( 		  levl[ u.ux + i ][ u.uy ].typ == CORR
-	&&   !levl[ u.ux + i ][ u.uy ].lit
-	) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	} else if ( 	  levl[ u.ux - i ][ u.uy ].typ == CORR
-	&&   !levl[ u.ux - i ][ u.uy ].lit
-	) {
-	glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
-	break;
-	}
-	
-	}
+			glLightf( GL_LIGHT1, GL_SHININESS, 0.01 );
 	
 	
-	} else {
-	glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-	glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-	glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
+			glClearColor( 0.0 ,0.0 ,0.0 ,0.0 );
+			glFogf( GL_FOG_END ,  6.0 );
+			glFogfv( GL_FOG_COLOR,defaultBackGroundCol );
 	
-	glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-	glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-	glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-	glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-	glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-	glLightf( GL_LIGHT1, GL_SHININESS, 10.0 );
+		} else if ( self->isReady && Underwater ) {
 	
-	glFogf( GL_FOG_END ,  4.5 + u.nv_range * NH3DGL_TILE_SIZE );
-	glFogfv( GL_FOG_COLOR,fogColor );
+			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
+			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
+			glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
 	
-	}
+			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
+			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
+			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
+			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
+			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
+			glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
 	
-	glEnable( GL_LIGHT0 );
-	glEnable( GL_LIGHT1 );
+			glClearColor( 0.0 ,0.0 ,0.8 ,0.0 );
+			glFogf( GL_FOG_END ,  6.0 );
+			glFogfv( GL_FOG_COLOR,underWaterColar );
 	
-	glPopMatrix();
+		} else if ( IS_ROOM( levl[ u.ux ][ u.uy ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy ].typ ) ) {
+			// in room
+			int i;
+	
+			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
+			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
+			glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
+	
+			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
+			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
+			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
+			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
+			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
+			glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
+	
+			// check lit position.
+			glFogf( GL_FOG_END , 4.5 + MAP_MARGIN * NH3DGL_TILE_SIZE );
+	
+			for ( i=1 ; i<=MAP_MARGIN ; i++ ) {
+				if ( ( IS_ROOM( levl[ u.ux ][ u.uy + i ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy + i ].typ ) )
+				&& levl[ u.ux ][ u.uy + i ].glyph == S_stone + GLYPH_CMAP_OFF ) {
+					glFogf( GL_FOG_END ,  4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				} else if ( ( IS_ROOM( levl[ u.ux ][ u.uy - i ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy - i ].typ ) )
+				&& levl[ u.ux ][ u.uy - i ].glyph == S_stone + GLYPH_CMAP_OFF ) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				} else if ( ( IS_ROOM( levl[ u.ux + i ][ u.uy + i ].typ ) || IS_DOOR( levl[ u.ux + i ][ u.uy ].typ ) )
+				&& levl[ u.ux + i ][ u.uy ].glyph == S_stone + GLYPH_CMAP_OFF ) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				break;
+	
+				} else if ( ( IS_ROOM( levl[ u.ux - i ][ u.uy ].typ ) || IS_DOOR( levl[ u.ux - i ][ u.uy ].typ ) )
+				&& levl[ u.ux - i ][ u.uy ].glyph == S_stone + GLYPH_CMAP_OFF ) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				}
+			}
+	
+			glFogfv( GL_FOG_COLOR,fogColor );
+	
+		} else if ( levl[ u.ux ][ u.uy ].typ == CORR ) {
+			// in corr
+			int i;
+	
+			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
+			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
+			glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
+	
+			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
+			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
+			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
+			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
+			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
+			glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
+	
+			for ( i=1 ; i<=MAP_MARGIN ; i++ ) {
+				if (levl[ u.ux ][ u.uy+i ].typ == CORR
+				&&   !levl[ u.ux ][ u.uy+i ].lit
+				) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				} else if ( 		  levl[ u.ux ][ u.uy-i ].typ == CORR
+				&&   !levl[ u.ux ][ u.uy-i ].lit
+				) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				} else if ( 		  levl[ u.ux + i ][ u.uy ].typ == CORR
+				&&   !levl[ u.ux + i ][ u.uy ].lit
+				) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				} else if ( 	  levl[ u.ux - i ][ u.uy ].typ == CORR
+				&&   !levl[ u.ux - i ][ u.uy ].lit
+				) {
+					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+					break;
+				}
+			
+			}
+	
+	
+		} else {
+			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
+			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
+			glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
+	
+			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
+			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
+			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
+			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
+			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
+			glLightf( GL_LIGHT1, GL_SHININESS, 10.0 );
+	
+			glFogf( GL_FOG_END ,  4.5 + u.nv_range * NH3DGL_TILE_SIZE );
+			glFogfv( GL_FOG_COLOR,fogColor );
+	
+		}
+	
+		glEnable( GL_LIGHT0 );
+		glEnable( GL_LIGHT1 );
+	
+		glPopMatrix();
 	
 	}*/
 	
@@ -957,50 +928,30 @@ x, z);
 */
 	
 	deinit {
+		delayDrawing.removeAll()
+		modelDictionary.removeAll()
 		
+		for i in 0..<Int(MAX_GLYPH) {
+			var texid = defaultTex[i];
+			glDeleteTextures(1, &texid)
+		}
+		
+		glDeleteTextures(1, &floorTex )
+		glDeleteTextures(1, &floor2Tex )
+		glDeleteTextures(1, &cellingTex )
+		glDeleteTextures(1, &waterTex )
+		glDeleteTextures(1, &poolTex )
+		glDeleteTextures(1, &lavaTex )
+		glDeleteTextures(1, &envelopTex )
+		glDeleteTextures(1, &minesTex )
+		glDeleteTextures(1, &airTex )
+		glDeleteTextures(1, &cloudTex )
+		glDeleteTextures(1, &hellTex )
+		glDeleteTextures(1, &nullTex )
+		glDeleteTextures(1, &rougeTex )
 	}
 	
 	/*
-
-- ( void ) dealloc
-{
-	int i,j;
-	
-	[ delayDrawing removeAllObjects ];
-
-	[ modelDictionary removeAllObjects ];
-	
-	for ( i=0 ; i<NH3D_MAX_EFFECTS ;i++ ) {
-		effectArray[i] = nil;
-	}
-	
-	for ( i=0 ; i<NH3DGL_MAPVIEWSIZE_COLUMN ;i++ ) {
-		for ( j=0 ; j<NH3DGL_MAPVIEWSIZE_ROW ; j++ ) {
-			mapItemValue [ i ][ j ] = nil;
-		}
-	}
-	
-	for ( i = 0 ; i < MAX_GLYPH ; i++ ) {
-		GLuint texid = defaultTex[ i ];
-		glDeleteTextures( 1 , &texid );
-	}
-	
-	glDeleteTextures( 1 , &floorTex );
-	glDeleteTextures( 1 , &floor2Tex );
-	glDeleteTextures( 1 , &cellingTex );
-	glDeleteTextures( 1 , &waterTex );
-	glDeleteTextures( 1 , &poolTex );
-	glDeleteTextures( 1 , &lavaTex );
-	glDeleteTextures( 1 , &envelopTex );
-	glDeleteTextures( 1 , &minesTex );
-	glDeleteTextures( 1 , &airTex );
-	glDeleteTextures( 1 , &cloudTex );
-	glDeleteTextures( 1 , &hellTex );
-	glDeleteTextures( 1 , &nullTex );
-	glDeleteTextures( 1 , &rougeTex );
-}
-
-
 -(void)detachOpenGLThread
 {
 	int i;
@@ -1074,68 +1025,7 @@ x, z);
 	[NSThread exit];
 }
 
-
-// draw title.
-- (void) drawRect:(NSRect) theRect
-{
 	
-	if ( isReady || !firstTime ) {
-		return; 
-	} else {
-		NSMutableDictionary *attributes = [ [ NSMutableDictionary alloc ] init ];
-		attributes[NSFontAttributeName] = [ NSFont fontWithName:@"Copperplate"
-											  size: 20 ];
-		attributes[NSForegroundColorAttributeName] = [ NSColor colorWithCalibratedWhite:0.5 alpha:0.6 ];
-	
-		[ self lockFocusIfCanDraw ];
-	
-		[ [ NSColor clearColor ] set ];
-		[ NSBezierPath fillRect: self.bounds ];
-	
-		[[NSImage imageNamed:@"nh3d"] drawAtPoint:NSMakePoint( 156.0 ,88.0 ) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:0.7];
-		//[ [ NSImage imageNamed:@"nh3d" ] dissolveToPoint:NSMakePoint( 156.0 ,88.0 ) fraction:0.7 ];
-		[ @"NetHack3D" drawAtPoint:NSMakePoint( 168.0 ,70.0 ) withAttributes:attributes ];
-		attributes[NSFontAttributeName] = [ NSFont fontWithName:@"Copperplate"
-												size: 14 ];
-		[ @"by Haruumi Yoshino 2005" drawAtPoint:NSMakePoint( 130.0 ,56.0 ) withAttributes:attributes ];
-		[ @"NetHack" drawAtPoint:NSMakePoint( 192.0 ,29.0 ) withAttributes:attributes ];
-		attributes[NSFontAttributeName] = [ NSFont fontWithName:@"Copperplate"
-												size: 11 ];
-		[ @"Copyright ( c ) Stichting Mathematisch Centrum  Amsterdam, 1985. \n   NetHack may be freely redistributed. See license for details."
-						drawAtPoint:NSMakePoint( 38.0 ,3.0 ) withAttributes:attributes ];
-	
-		[ self unlockFocus ];
-	
-		firstTime = NO;
-	
-	}
-}
-
-- (void)drawGlView:(int)x z:(int)z
-{
-	NH3DMapItem *mapItem = mapItemValue[ x ][ z ];
-	int			type = [ mapItem modelDrawingType ];
-				
-	if ( type != 10 ) {
-		switchMethodArray[type](mapItem.posX,
-								mapItem.posY,
-								x, z);
-	} else {
-		// delay drawing for alphablending.
-		NSNumber *numX = @(x);
-		NSNumber *numZ = @(z);
-		
-		[ delayDrawing addObject:mapItem ];
-		[ delayDrawing addObject:numX ];
-		[ delayDrawing addObject:numZ ];
-		// if you want use this method from difference thread,
-		// you must do some tricky technique for using collectionclass. 
-		// e.g;
-		// [ NSMutableArrayobject addObject:[ [ [ NSNumber numberWithInt:x ] retain ] autorelease ] ];
-		// [ NSDictionaryobject addObject:[ [ mapItem retain ] autorelease ] ];
-	}
-}
-
 // Drawing OpenGL functions.
 - ( void )updateGlView
 {
@@ -1224,22 +1114,21 @@ x, z);
 	}
 }
 
-
-- (void)setFrameSize:(NSSize) newSize
-{
-	[super setFrameSize:newSize];
+*/
 	
-	glViewport( 0, 0, newSize.width, newSize.height );
-}
+	override func setFrameSize(newSize: NSSize) {
+		super.setFrameSize(newSize)
+		
+		glViewport(0, 0, GLsizei(newSize.width), GLsizei(newSize.height))
+	}
 
+	func clearGLView() {
+		glClearColor(0, 0, 0, 0)
+		
+		glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
+	}
 
-- (void)clearGLView
-{
-	glClearColor( 0, 0, 0, 0 );
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-}
-
-
+/*
 - (void)drawModelArray:(NH3DMapItem *)mapItem
 {
 	int glyph = [ mapItem glyph ];
@@ -1633,27 +1522,6 @@ x, z);
 
 
 
-
-
-- ( void )setIsShocked:( BOOL )flag
-{
-	[ viewLock lock ];
-	nowUpdating = YES;
-	isShocked = flag;
-	nowUpdating = NO;
-	[ viewLock unlock ];
-}
-
-
-- ( void )setEnemyPosition:( int )direction
-{
-	[ viewLock lock ];
-	nowUpdating = YES;
-	enemyPosition = direction;
-	nowUpdating = NO;
-	[ viewLock unlock ];
-
-}
 
 // ---------------------------------
 
@@ -2785,7 +2653,7 @@ x, z);
 				offset: GLYPH_MON_OFF,
 				modelName: "atmark",
 				textured: false,
-				withOut: PM_ELVENKING, PM_NURSE, PM_HIGH_PRIEST, PM_MEDUSA,
+				without: PM_ELVENKING, PM_NURSE, PM_HIGH_PRIEST, PM_MEDUSA,
 				PM_CROESUS, PM_WIZARD_OF_YENDOR)
 		}
 		
