@@ -78,8 +78,8 @@ var NUMBER_OF_TILES_ROW: Int {
 	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DNumberOfTilesRowKey)
 }
 
-var OPENGLVIEW_WAITRATE: Float {
-	return NSUserDefaults.standardUserDefaults().floatForKey(NH3DOpenGLWaitRateKey)
+var OPENGLVIEW_WAITRATE: Double {
+	return NSUserDefaults.standardUserDefaults().doubleForKey(NH3DOpenGLWaitRateKey)
 }
 
 var OPENGLVIEW_WAITSYNC: Bool {
@@ -92,6 +92,10 @@ var OPENGLVIEW_USEWAIT: Bool {
 
 var OPENGLVIEW_NUMBER_OF_THREADS: Int {
 	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DOpenGLNumberOfThreadsKey)
+}
+
+var NH3DGL_USETILE: Bool {
+	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DGLTileKey)
 }
 
 @noreturn func panic(str: String) {

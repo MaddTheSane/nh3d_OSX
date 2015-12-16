@@ -255,8 +255,8 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	private var loadModelBlocks = [LoadModelBlock](count: Int(MAX_GLYPH), repeatedValue: loadModelFunc_default)
 	private var modelDictionary = [Int32: NH3DModelObjects]()
 	private let viewLock = NSRecursiveLock()
-	private typealias drawFloorFunc = () -> ()
-	private var drawFloorArray = [drawFloorFunc]()
+	private typealias DrawFloorFunc = () -> ()
+	private var drawFloorArray = [DrawFloorFunc]()
 	
 	typealias SwitchMethod = (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void
 	private var switchMethodArray = [SwitchMethod]()
@@ -330,14 +330,21 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		}
 	}
 	var elementalLevel: Int32 = 0
-	var waitRate: Float = 0
+	var waitRate: Double = 0
 	
 	var dRefreshRate: CGRefreshRate = 0
 
 	var effectArray = [NH3DModelObjects]()
 	
 	private var nowUpdating = false
-	private var runnning = false
+	private var running: Bool = false {
+		willSet {
+			viewLock.lock()
+		}
+		didSet {
+			viewLock.unlock()
+		}
+	}
 	private var threadRunning = false
 	private var hasWait = false
 	private var firstTime = true
@@ -530,6 +537,27 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		let nCenter = NSNotificationCenter.defaultCenter()
+		nCenter.addObserver(self, selector: "defaultsDidChange:", name: "NSUserDefaultsDidChangeNotification", object: nil)
+		
+		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID());
+		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
+		
+		running = true;
+		threadRunning = false;
+		
+		// set drawflag for Nh3d Titles
+		needsDisplay = true
+		
+		// setup defaults
+		defaultsDidChange(nil)
+		
+		useTile = NH3DGL_USETILE;
+		
+		// Create and detach to other thread for OpenGL update and drawing.
+		if !TRADITIONAL_MAP {
+			detachOpenGLThread()
+		}
 	}
 	
 	/// draw title.
@@ -600,7 +628,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		return texID
 	}
 	
-	private final func checkLoadedModelsAt(startNum: Int32, to endNum: Int32, offset: Int32, modelName: String, textured flag: Bool, without: Int32...) -> NH3DModelObjects? {
+	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool, without: Int32...) -> NH3DModelObjects? {
 		var withoutFlag = false;
 		
 		for i in (startNum+offset)...(endNum+offset) {
@@ -947,37 +975,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		}
 	}
 	
-	/*
-- (void)awakeFromNib
-{
-	[super awakeFromNib];
-	NSNotificationCenter *nCenter =[ NSNotificationCenter defaultCenter ];
-	[ nCenter addObserver:self
-				 selector:@selector(defaultDidChange:)
-					 name:@"NSUserDefaultsDidChangeNotification"
-				   object:nil ];
-	
-	CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
-	dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
-	CGDisplayModeRelease(curCfg);
-
-	runnning = YES;
-	threadRunning = NO;
-	
-	// set drawflag for Nh3d Titles
-	[self setNeedsDisplay:YES];
-
-	// setup from defaults
-	[self defaultDidChange:nil];
-	
-	useTile = NH3DGL_USETILE;
-	
-	// Create and detach to other thread for OpenGL update and drawing.  
-	if ( !TRADITIONAL_MAP )
-		[self detachOpenGLThread];
-}
-*/
-
 	/// OpenGL update method.
 	@objc(timerFired:) private func timerFired(sender: AnyObject) {
 		autoreleasepool {
@@ -996,7 +993,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			
 			viewLock.unlock()
 			
-			while ( runnning && !TRADITIONAL_MAP ) {
+			while running && !TRADITIONAL_MAP {
 				autoreleasepool {
 					
 					if ( isReady && !nowUpdating && !self.needsDisplay ) {
@@ -1121,6 +1118,9 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
 	}
 
+	func drawModelArray(mapItem: NH3DMapItem) {
+		
+	}
 /*
 - (void)drawModelArray:(NH3DMapItem *)mapItem
 {
@@ -1176,20 +1176,20 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 				else 
 					defaultTex[glyph] = [self createTextureFromSymbol:[mapItem symbol] withColor:[mapItem color]];
 			}
-			glActiveTexture( GL_TEXTURE0 );
-			glEnable( GL_TEXTURE_2D );
+			glActiveTexture(GLenum(GL_TEXTURE0));
+			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glEnable( GL_ALPHA_TEST );
 			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 			
 			glBindTexture( GL_TEXTURE_2D, defaultTex[ glyph ] );
-			glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GL_TEXTURE_ENV_MODE, GL_MODULATE );
 			
-			glMaterialfv( GL_FRONT , GL_AMBIENT , nh3dMaterialArray[ NO_COLOR ].ambient );
-			glMaterialfv( GL_FRONT , GL_DIFFUSE , nh3dMaterialArray[ NO_COLOR ].diffuse );
-			glMaterialfv( GL_FRONT , GL_SPECULAR , nh3dMaterialArray[ NO_COLOR ].specular );
-			glMaterialf( GL_FRONT , GL_SHININESS , nh3dMaterialArray[ NO_COLOR ].shininess );
-			glMaterialfv( GL_FRONT , GL_EMISSION , nh3dMaterialArray[ NO_COLOR ].emission );
+			glMaterialfv(GLenum(GL_FRONT), GL_AMBIENT , nh3dMaterialArray[ NO_COLOR ].ambient );
+			glMaterialfv(GLenum(GL_FRONT), GL_DIFFUSE , nh3dMaterialArray[ NO_COLOR ].diffuse );
+			glMaterialfv(GLenum(GL_FRONT), GL_SPECULAR , nh3dMaterialArray[ NO_COLOR ].specular );
+			glMaterialf(GLenum(GL_FRONT), GL_SHININESS , nh3dMaterialArray[ NO_COLOR ].shininess );
+			glMaterialfv(GLenum(GL_FRONT), GL_EMISSION , nh3dMaterialArray[ NO_COLOR ].emission );
 			
 			
 			glAlphaFunc( GL_GREATER, 0.5 );
@@ -1200,7 +1200,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			
 			glNormalPointer( GL_FLOAT, 0 ,defaultNorms );
 			glTexCoordPointer( 2,GL_FLOAT,0, defaultTexVerts );
-			glVertexPointer( 3 , GL_FLOAT , 0 , defaultVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , defaultVerts );
 			
 			
 			glDisable( GL_CULL_FACE );
@@ -1209,7 +1209,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 				angle *= -1.0;
 				glTranslatef( 0.0 ,0.0 ,f );
 				glRotatef(angle,	0, 1.0, 0);
-				glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
+				glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			}
 			glEnable( GL_CULL_FACE );
 			
@@ -1218,7 +1218,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDisableClientState( GL_VERTEX_ARRAY );
 			
 			glDisable( GL_ALPHA_TEST );
-			glDisable( GL_TEXTURE_2D );
+			glDisable(GLenum(GL_TEXTURE_2D));
 			
 			
 			glPopMatrix();
@@ -1313,15 +1313,15 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	
 	}	
 }
+*/
 
+	func changeWallsTexture(texID: Int32) {
+		modelDictionary[(S_vwall + GLYPH_CMAP_OFF)]?.texture = texID
+		modelDictionary[(S_hwall + GLYPH_CMAP_OFF)]?.texture = texID
+		modelDictionary[(S_tlcorn + GLYPH_CMAP_OFF)]?.texture = texID
+	}
 
-- ( void )changeWallsTexture:(int)tex_id
-{
-	[ modelDictionary[@(S_vwall + GLYPH_CMAP_OFF)] setTexture:tex_id ];
-	[ modelDictionary[@(S_hwall + GLYPH_CMAP_OFF)] setTexture:tex_id ];
-	[ modelDictionary[@(S_tlcorn + GLYPH_CMAP_OFF)] setTexture:tex_id ];	
-}
-
+/*
 - ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth
 {
 	
@@ -1773,7 +1773,11 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	
 }
 
-
+*/
+	private func loadModels() {
+		
+	}
+	/*
 - ( void )loadModels
 {
 	//load models first time.
@@ -1850,120 +1854,54 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		
 	}
 }
-
-
-- (id)checkLoadedModelsAt:(int)startNum
-					   to:(int)endNum
-				   offset:(int)offset
-				modelName:(NSString *)mName
-				 textured:(BOOL)flag
-				  withOut:(int)without, ...
-{
-	int i;
-	va_list argumentList;
-	int wo;
-	BOOL withoutFlag = NO;
+*/
 	
-	for ( i = startNum+offset ; i <= endNum+offset ; i++ ) {
-		if ( modelDictionary[@(i)] != nil ) {
-			if ( without ) {
-				va_start(argumentList, without);
-				wo = va_arg(argumentList, int);
-					while ( wo ) {
-						if ( i == without+offset || i == wo+offset ) {
-							withoutFlag = YES;
-							break;
-						}
-						wo = va_arg(argumentList, int);
-					}
-				va_end(argumentList);
-				
-				if ( withoutFlag ) {
-					withoutFlag = NO;
-					continue;
-				} else																	// Increment retain count
-					return modelDictionary[@(i)];
-					
-			} else																	// Increment retain count
-				return modelDictionary[@(i)];
-		}
+	private func setParamsForMagicEffect(magicItem: NH3DModelObjects, color: Int32) {
+		magicItem.setPivotX(0, atY: 1.2, atZ: 0)
+		magicItem.setModelScaleX(0.4, scaleY: 1.0, scaleZ: 0.4)
+		magicItem.particleType = .Aura
+		magicItem.particleColor = color
+		magicItem.setParticleGravityX(0, y: 6.5, z: 0)
+		magicItem.setParticleSpeedX(1, y: 1)
+		magicItem.particleSlowdown = 3.8
+		magicItem.particleLife = 0.4
+		magicItem.setParticleSize(20)
 	}
 	
-	if ( [ mName isEqualToString:@"emitter" ] ) {
-		return [[NH3DModelObjects alloc] init];
-	} else {
-		return [[NH3DModelObjects alloc] initWith3DSFile:mName withTexture:flag];
+	private func setParamsForMagicExplosion(magicItem: NH3DModelObjects, color: Int32) {
+		magicItem.particleType = .Aura
+		magicItem.particleColor = color
+		magicItem.setParticleGravityX(0, y: 15.5, z: 0)
+		magicItem.setParticleSpeedX(1, y: 15)
+		magicItem.particleSlowdown = 8.8
+		magicItem.particleLife = 0.4
+		magicItem.setParticleSize(35)
 	}
-}
-
-
-- (void)setParamsForMagicEffect:(NH3DModelObjects*)magicItem color:(int)color
-{
-	[ magicItem setPivotX:0.0 atY:1.2 atZ:0.0 ];
-	[ magicItem setModelScaleX:0.4 scaleY:1.0 scaleZ:0.4 ];
-	magicItem.particleType = NH3DParticleTypeAura ;
-	magicItem.particleColor = color ;
-	[ magicItem setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-	[ magicItem setParticleSpeedX:1.0 Y:1.00 ];
-	[ magicItem setParticleSlowdown:3.8 ];
-	[ magicItem setParticleLife:0.4 ];
-	[ magicItem setParticleSize:20.0 ];	
-}
-
-
-- (void)setParamsForMagicExplotion:(NH3DModelObjects*)magicItem color:(int)color
-{
-	magicItem.particleType = NH3DParticleTypeAura ;
-	magicItem.particleColor = color ;
-	[magicItem setParticleGravityX:0.0 Y:15.5 Z:0.0 ];
-	[magicItem setParticleSpeedX:1.0 Y:15.00 ];
-	[magicItem setParticleSlowdown:8.8 ];
-	[magicItem setParticleLife:0.4 ];
-	[magicItem setParticleSize:35.0 ];
-}
 	
+	/// insect class
+	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, modelName: "lowerA", textured: false)
+	}
 
-- ( id )loadModelFunc_insect:(int)glyph
-{
-	// insect class
-	return [self checkLoadedModelsAt:PM_GIANT_ANT
-								  to:PM_QUEEN_BEE
-							  offset:GLYPH_MON_OFF
-						   modelName:@"lowerA" textured:NO withOut:0];
-}
-
-
-- ( id )loadModelFunc_blob:(int)glyph
-{
-	// blob class
-	return [self checkLoadedModelsAt:PM_ACID_BLOB
-								  to:PM_GELATINOUS_CUBE
-							  offset:GLYPH_MON_OFF
-						   modelName:@"lowerB" textured:NO withOut:0];
-}
-
-
-- ( id )loadModelFunc_cockatrice:(int)glyph
-{
-		// cockatrice class
-	return [ self checkLoadedModelsAt:PM_CHICKATRICE
-								   to:PM_PYROLISK
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerC" textured:NO withOut:0];
-}
-
-
-- ( id )loadModelFunc_dog:(int)glyph
-{
-	// dog or canine class
-	return [ self checkLoadedModelsAt:PM_JACKAL
-								   to:PM_HELL_HOUND
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerD" textured:NO withOut:0 ];
+	/// blob class
+	private func loadModelFunc_blob(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_ACID_BLOB, to: PM_GELATINOUS_CUBE, modelName: "lowerB", textured: false)
+	}
 	
-}
+	/// cockatrice class
+	private func loadModelFunc_cockatrice(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_CHICKATRICE, to: PM_PYROLISK, modelName: "lowerC", textured: false)
+	}
+	
+	/// dog or canine class
+	private func loadModelFunc_dog(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, modelName: "lowerD", textured: false)
+	}
 
 
+
+
+/*
 - ( id )loadModelFunc_sphere:(int)glyph
 {
 	// eye or sphere class
@@ -2469,7 +2407,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 */
 	
 	/// Quantum mechanics
-	private final func loadModelFunc_Quantummechanics(glyph: Int32) -> NH3DModelObjects? {
+	private final func loadModelFunc_QuantumMechanics(glyph: Int32) -> NH3DModelObjects? {
 		return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
 	}
 	
@@ -2572,18 +2510,18 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 
 	/// Yeti and other large beasts
 	private final func loadModelFunc_Yeti(glyph: Int32) -> NH3DModelObjects? {
-		return checkLoadedModelsAt(PM_MONKEY, to: PM_SASQUATCH, offset: GLYPH_MON_OFF, modelName: "upperY", textured: false)
+		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, modelName: "upperY", textured: false)
 	}
 
 	/// Zombie
 	private final func loadModelFunc_Zombie(glyph: Int32) -> NH3DModelObjects? {
-		return checkLoadedModelsAt(PM_KOBOLD_ZOMBIE, to: PM_SKELETON, offset: GLYPH_MON_OFF, modelName: "upperZ", textured: false)
+		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, modelName: "upperZ", textured: false)
 
 	}
 	
 	/// Golems
 	private final func loadModelFunc_Golems(glyph: Int32) -> NH3DModelObjects? {
-		return checkLoadedModelsAt(PM_STRAW_GOLEM, to: PM_IRON_GOLEM, offset: GLYPH_MON_OFF, modelName: "backslash", textured: false)
+		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, modelName: "backslash", textured: false)
 	}
 	
 	/// Human or Elves
@@ -2641,9 +2579,8 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		default:
-			ret = checkLoadedModelsAt(PM_HUMAN,
+			ret = checkLoadedModels(at: PM_HUMAN,
 				to: PM_WIZARD_OF_YENDOR,
-				offset: GLYPH_MON_OFF,
 				modelName: "atmark",
 				textured: false,
 				without: PM_ELVENKING, PM_NURSE, PM_HIGH_PRIEST, PM_MEDUSA,
@@ -2655,7 +2592,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	
 	/// Ghosts
 	private final func loadModelFunc_Ghosts(glyph: Int32) -> NH3DModelObjects? {
-		return checkLoadedModelsAt(PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible", textured: false)
+		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible", textured: false)
 	}
 	/*
 
@@ -3862,14 +3799,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 }
 
 
-- ( void )setRunnning:( BOOL )flag
-{
-	[ viewLock lock ];
-	runnning = flag;
-	[ viewLock unlock ];
-}
-
-
 - ( IBAction )drawAllFrameFunction:( id )sender // wait for vSync...
 {
 	[ viewLock lock ];
@@ -3887,24 +3816,23 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
 
 }	
-
-/*
-- ( IBAction )useAntiAlias:( id )sender
-{
-	[ viewLock lock ];
-	nowUpdating = YES;
-	if ( [ sender state ] == NSOffState ) {
-		[ self turnOnSmooth ];
-		[ sender setState:NSOnState ];
-	} else {
-		[ self turnOffSmooth ];
-		[ sender setState:NSOffState ];
-	}
-	nowUpdating = NO;
-	[ viewLock unlock ];
-}
 */
-
+	#if false
+	@IBAction func useAntiAlias(sender: NSMenuItem) {
+		viewLock.lock()
+		nowUpdating = true
+		if sender.state == NSOffState {
+			turnOnSmooth()
+			sender.state = NSOnState
+		} else {
+			turnOffSmooth()
+			sender.state = NSOffState
+		}
+		nowUpdating = false
+		viewLock.unlock()
+	}
+	#endif
+/*
 - ( IBAction )setWaitRate:( id )sender
 {
 	CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
@@ -3973,416 +3901,408 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	CGDisplayModeRelease(curCfg);
 }
 
-
-- (void)defaultDidChange:(NSNotification *)notification
-{
-	
-	if ( oglParamNowChanging ) return;
-	
-	if ( TRADITIONAL_MAP && !firstTime ) {
-		[ _mapModel setPlayerDirection:PL_DIRECTION_FORWARD ];
-		//[ self clearGLContext ];
-		[ self.openGLContext clearDrawable ];
-		[ self setHidden:YES ];
-		//[ [self openGLContext] setView:nil ];
-		threadRunning = NO;
-		//[ self update ];
-	}
-	if ( !TRADITIONAL_MAP && !firstTime ) {
-		[ self setHidden:NO ];
-		self.openGLContext.view = self ;
-		if ( !threadRunning )
-			[ self detachOpenGLThread ];
-	}
-	
-	[ viewLock lock ];
-	
-	NSMenu *oglFrameRateMenu = [[ self.menu itemWithTag:1000].submenu itemWithTag:1002].submenu ;
-	
-	nowUpdating = YES;
-	hasWait = OPENGLVIEW_USEWAIT;
-	
-	if ( !hasWait ) {
-		CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
-		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
-		waitRate = dRefreshRate;
-		[oglFrameRateMenu itemWithTag:1004 ].state = NSOffState ;
-		[oglFrameRateMenu itemWithTag:1005 ].state = NSOffState ;
-		[oglFrameRateMenu itemWithTag:1006 ].state = NSOffState ;
-		CGDisplayModeRelease(curCfg);
-	} else if ( OPENGLVIEW_WAITRATE == WAIT_FAST ) {
-		waitRate = WAIT_FAST;
-		[oglFrameRateMenu itemWithTag:1004 ].state = NSOnState ;
-		[oglFrameRateMenu itemWithTag:1005 ].state = NSOffState ;
-		[oglFrameRateMenu itemWithTag:1006 ].state = NSOffState ;
-	} else if ( OPENGLVIEW_WAITRATE == WAIT_NORMAL ) {
-		waitRate = WAIT_NORMAL;
-		[oglFrameRateMenu itemWithTag:1004 ].state = NSOffState ;
-		[oglFrameRateMenu itemWithTag:1005 ].state = NSOnState ;
-		[oglFrameRateMenu itemWithTag:1006 ].state = NSOffState ;
-		
-	} else {
-		waitRate = WAIT_SLOW;
-		[oglFrameRateMenu itemWithTag:1004 ].state = NSOffState ;
-		[oglFrameRateMenu itemWithTag:1005 ].state = NSOffState ;
-		[oglFrameRateMenu itemWithTag:1006 ].state = NSOnState ;
-	}
-	
-	cameraStep = waitRate / 8.5;
-	
-	if ( OPENGLVIEW_WAITSYNC )
-		[ self.openGLContext setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
-	else 
-		[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
-	
-	if ( useTile != NH3DGL_USETILE ) {
-		int i;
-		for ( i = 0 ; i < MAX_GLYPH ; i++ ) {
-			GLuint texid = defaultTex[ i ];
-			glDeleteTextures( 1 , &texid );
-			defaultTex[ i ] = nil;
+*/
+	@objc private func defaultsDidChange(notification: NSNotification?) {
+		guard !oglParamNowChanging else {
+			return
 		}
-		useTile = NH3DGL_USETILE;
+		
+		if TRADITIONAL_MAP && !firstTime {
+			mapModel.playerDirection = PL_DIRECTION_FORWARD
+			//[ self clearGLContext ];
+			openGLContext?.clearDrawable()
+			hidden = true
+			//[ [self openGLContext] setView:nil ];
+			threadRunning = false
+			//[ self update ];
+		}
+		if !TRADITIONAL_MAP && !firstTime {
+			hidden = false
+			openGLContext?.view = self
+			if !threadRunning {
+				detachOpenGLThread()
+			}
+		}
+		
+		viewLock.lock()
+		
+		let oglFrameRateMenu = self.menu?.itemWithTag(1000)?.submenu?.itemWithTag(1002)?.submenu
+		
+		nowUpdating = true
+		hasWait = OPENGLVIEW_USEWAIT
+		
+		if !hasWait {
+			let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
+			dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+			waitRate = dRefreshRate;
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
+		} else if OPENGLVIEW_WAITRATE == WAIT_FAST {
+			waitRate = WAIT_FAST
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOnState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
+		} else if OPENGLVIEW_WAITRATE == WAIT_NORMAL {
+			waitRate = WAIT_NORMAL
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOnState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
+		} else {
+			waitRate = WAIT_SLOW
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOnState
+		}
+		
+		cameraStep = Float(waitRate / 8.5)
+		
+		do {
+			var vsType: GLint
+			if OPENGLVIEW_WAITSYNC {
+				vsType = vsincWait
+			} else {
+				vsType = vsincNoWait
+			}
+			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+		}
+		
+		if useTile != NH3DGL_USETILE {
+			for i in 0..<Int(MAX_GLYPH) {
+				var texid = defaultTex[i]
+				glDeleteTextures(1, &texid)
+				defaultTex[i] = 0
+			}
+			useTile = NH3DGL_USETILE;
+		}
+		
+		nowUpdating = false
+		viewLock.unlock()
 	}
-	
-	nowUpdating = NO;
-	[ viewLock unlock ];
-
-}
 
 
 //----------------------------//
 // cash func address
 //----------------------------//
 
-- ( void )cashMethod
-{
-	int i;
-	for( i = 0;i < 11;i++ ) {
-		switchMethodArray[ i ] = [^(int x ,int z ,int lx ,int lz) {
-			return;
-		} copy];
-		drawFloorArray[ i ] = [^(void) {
+	private func cacheMethods() {
+		do {
+			func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
+			func blankFloorMethod() {}
 			
-		} copy];
-	}
-	
-	switchMethodArray[ 0 ] = ^(int x, int z, int lx, int lz) {
-		drawNullObject( ( float )x*NH3DGL_TILE_SIZE,( float )z*NH3DGL_TILE_SIZE, self-> nullTex );
-
-	};
-	switchMethodArray[ 1 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							2,self );
-	};
-	switchMethodArray[ 2 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling( x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							1,self );
-		[self drawModelArray:self->mapItemValue[lx][lz]];
-	};
-	switchMethodArray[ 3 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							2, self);
-		[self drawModelArray:self->mapItemValue[lx][lz]];
-	};
-	switchMethodArray[ 4 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							3, self);
-	};
-	switchMethodArray[ 5 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							4, self);
-	};
-	switchMethodArray[ 6 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							5, self);
-	};
-	switchMethodArray[ 7 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							6, self);
-	};
-	switchMethodArray[ 8 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							7, self);
-	};
-	switchMethodArray[ 9 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							8, self);
-	};
-	switchMethodArray[ 10 ] = ^(int x, int z, int lx, int lz) {
-		drawFloorAndCeiling(x*NH3DGL_TILE_SIZE,
-							z*NH3DGL_TILE_SIZE,
-							2, self);
-		[self drawModelArray: self->mapItemValue[lx][lz]];
-	};
-	
-	drawFloorArray[ 0 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->floorCurrent );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	drawFloorArray[ 1 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	drawFloorArray[ 2 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->floorCurrent);
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent);
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	//Draw pool
-	drawFloorArray[ 3 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glAlphaFunc( GL_GREATER, 0.5 );
-		glBindTexture( GL_TEXTURE_2D, self->poolTex);
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glActiveTexture( GL_TEXTURE1 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->envelopTex );
-		
-		glEnable( GL_TEXTURE_2D );
-		glEnable( GL_TEXTURE_GEN_S );
-		glEnable( GL_TEXTURE_GEN_T );
-		
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-		glTexEnvf( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
-		glTexEnvf( GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_PREVIOUS );
-		glTexEnvf( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_ONE_MINUS_SRC_ALPHA );
-		
-		
-		glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-		glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_GEN_S );
-		glDisable( GL_TEXTURE_GEN_T );
-		glDisable( GL_TEXTURE_2D );
-		
-		glTexEnvf( GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_CONSTANT );
-		glTexEnvf( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_ALPHA );
-		
-		glActiveTexture( GL_TEXTURE0 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	//Draw ice
-	drawFloorArray[ 4 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->floorCurrent );
-		
-		glMaterialf( GL_FRONT , GL_EMISSION , 10.0 );
-		
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glActiveTexture( GL_TEXTURE1 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->envelopTex );
-		
-		glEnable( GL_TEXTURE_2D );
-		glEnable( GL_TEXTURE_GEN_S );
-		glEnable( GL_TEXTURE_GEN_T );
-		
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_ADD );
-		
-		glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-		glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-		
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_GEN_S );
-		glDisable( GL_TEXTURE_GEN_T );
-		glDisable( GL_TEXTURE_2D );
-		
-		glActiveTexture( GL_TEXTURE0 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 , CeilingVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	//Draw lava
-	drawFloorArray[ 5 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->lavaTex );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		GLfloat emisson[ 4 ] = { 1.0, 1.0, 1.0, 1.0 };
-		glMaterialfv( GL_FRONT , GL_EMISSION , emisson );
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT , 0 , CeilingVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	//draw air
-	drawFloorArray[ 6 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->airTex );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT , 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	//draw cloud
-	drawFloorArray[ 7 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self-> cloudTex );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	//draw water
-	drawFloorArray[ 8 ] = ^() {
-		glActiveTexture( GL_TEXTURE0 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->waterTex );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glActiveTexture( GL_TEXTURE1 );
-		glEnable( GL_TEXTURE_2D );
-		
-		glBindTexture( GL_TEXTURE_2D, self->envelopTex );
-		
-		glEnable( GL_TEXTURE_GEN_S );
-		glEnable( GL_TEXTURE_GEN_T );
-		
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-		glTexEnvf( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
-		
-		GLfloat blend[ 4 ] = { 1.0, 1.0, 1.0, 0.18 };
-		glTexEnvfv( GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, blend );
-		
-		glTexGenf( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-		glTexGenf( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP );
-		
-		
-		glNormalPointer( GL_FLOAT, 0 ,FloorVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, FloorTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , FloorVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_GEN_S );
-		glDisable( GL_TEXTURE_GEN_T );
-		glDisable( GL_TEXTURE_2D );
-		
-		glActiveTexture( GL_TEXTURE0 );
-		
-		glBindTexture( GL_TEXTURE_2D, self->cellingCurrent );
-		glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		
-		glNormalPointer( GL_FLOAT , 0 , CeilingVertNorms );
-		glTexCoordPointer( 2,GL_FLOAT,0, CeilingTexVerts );
-		glVertexPointer( 3 , GL_FLOAT , 0 , CeilingVerts );
-		glDrawArrays( GL_TRIANGLE_STRIP , 0 , 4 );
-		
-		glDisable( GL_TEXTURE_2D );
-	};
-	
-	{
-		LoadModelBlock defaultBlock = ^(int glyph) {
-			return (id)nil;
-		};
-		for ( i = 0; i < MAX_GLYPH ; i++ ) {
-			loadModelBlocks[i] = [defaultBlock copy];
+			switchMethodArray = [SwitchMethod](count: 11, repeatedValue: blankSwitchMethod)
+			drawFloorArray = [DrawFloorFunc](count: 11, repeatedValue: blankFloorMethod)
 		}
-	}
+		
+		switchMethodArray[ 0 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
+		};
+		switchMethodArray[ 1 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 2);
+		}
+		switchMethodArray[ 2 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling( x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 1);
+			
+			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
+		};
+		switchMethodArray[ 3 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 2);
+			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
+		};
+		switchMethodArray[ 4 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 3);
+		};
+		switchMethodArray[ 5 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 4);
+		};
+		switchMethodArray[ 6 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 5);
+		};
+		switchMethodArray[ 7 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 6);
+		};
+		switchMethodArray[ 8 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 7);
+		};
+		switchMethodArray[ 9 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 8);
+		};
+		switchMethodArray[ 10 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
+				z: Float(z)*NH3DGL_TILE_SIZE,
+				flag: 2);
+			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
+		};
+	
+		drawFloorArray[ 0 ] = {
+			glActiveTexture( GLenum(GL_TEXTURE0) );
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent );
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
+			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+		drawFloorArray[ 1 ] = {
+			glActiveTexture( GLenum(GL_TEXTURE0) );
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
+			glTexCoordPointer(2, GLenum(GL_FLOAT),0, CeilingTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , CeilingVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+		drawFloorArray[ 2 ] = {
+			glActiveTexture( GLenum(GL_TEXTURE0) );
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent);
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
+			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent);
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
+			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, CeilingTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , CeilingVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+		//Draw pool
+		drawFloorArray[ 3 ] = {
+			glActiveTexture( GLenum(GL_TEXTURE0) );
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glAlphaFunc( GLenum(GL_GREATER), 0.5 );
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.poolTex);
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glActiveTexture(GLenum(GL_TEXTURE1));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.envelopTex );
+			
+			glEnable(GLenum(GL_TEXTURE_2D));
+			glEnable(GLenum(GL_TEXTURE_GEN_S));
+			glEnable(GLenum(GL_TEXTURE_GEN_T));
+			
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_COMBINE))
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GLfloat(GL_INTERPOLATE))
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GLfloat(GL_PREVIOUS))
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GLfloat(GL_ONE_MINUS_SRC_ALPHA))
+			
+			
+			glTexGenf(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP))
+			glTexGenf(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms)
+			glTexCoordPointer( 2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_GEN_S));
+			glDisable(GLenum(GL_TEXTURE_GEN_T));
+			glDisable(GLenum(GL_TEXTURE_2D));
+			
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GLfloat(GL_CONSTANT))
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GLfloat(GL_SRC_ALPHA))
+			
+			glActiveTexture( GLenum(GL_TEXTURE0) );
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, CeilingVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_2D))
+		};
+		//Draw ice
+		drawFloorArray[ 4 ] = {
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent );
+			
+			glMaterialf(GLenum(GL_FRONT), GLenum(GL_EMISSION), 10.0)
+			
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glActiveTexture(GLenum(GL_TEXTURE1));
+			
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.envelopTex)
+			
+			glEnable(GLenum(GL_TEXTURE_2D))
+			glEnable(GLenum(GL_TEXTURE_GEN_S))
+			glEnable(GLenum(GL_TEXTURE_GEN_T))
+			
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_ADD))
+			
+			glTexGenf(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
+			glTexGenf(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
+			
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT),0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_GEN_S));
+			glDisable(GLenum(GL_TEXTURE_GEN_T));
+			glDisable(GLenum(GL_TEXTURE_2D));
+			
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, CeilingVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_2D))
+		};
+		//Draw lava
+		drawFloorArray[ 5 ] = {
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.lavaTex)
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			let emisson:[ GLfloat ] = [ 1.0, 1.0, 1.0, 1.0 ];
+			glMaterialfv( GLenum(GL_FRONT), GLenum(GL_EMISSION), emisson)
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms);
+			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, CeilingVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+		//draw air
+		drawFloorArray[ 6 ] = {
+			glActiveTexture(GLenum(GL_TEXTURE0));
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.airTex );
+			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			
+			glNormalPointer( GLenum(GL_FLOAT), 0 ,FloorVertNorms );
+			glTexCoordPointer(2, GLenum(GL_FLOAT),0, FloorTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+		//draw cloud
+		drawFloorArray[ 7 ] = {
+			glActiveTexture(GLenum(GL_TEXTURE0));
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cloudTex)
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
+			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+		//draw water
+		drawFloorArray[ 8 ] = {
+			glActiveTexture(GLenum(GL_TEXTURE0));
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.waterTex );
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glActiveTexture(GLenum(GL_TEXTURE1));
+			glEnable(GLenum(GL_TEXTURE_2D));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.envelopTex );
+			
+			glEnable(GLenum(GL_TEXTURE_GEN_S));
+			glEnable(GLenum(GL_TEXTURE_GEN_T));
+			
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_COMBINE))
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GLfloat(GL_INTERPOLATE))
+			
+			let blend: [GLfloat] = [ 1.0, 1.0, 1.0, 0.18 ]
+			glTexEnvfv(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_COLOR), blend)
+			
+			glTexGenf(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
+			glTexGenf(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
+			
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms);
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts);
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts);
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_GEN_S));
+			glDisable(GLenum(GL_TEXTURE_GEN_T));
+			glDisable(GLenum(GL_TEXTURE_2D));
+			
+			glActiveTexture(GLenum(GL_TEXTURE0));
+			
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			
+			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0 , CeilingVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+			
+			glDisable(GLenum(GL_TEXTURE_2D));
+		};
+
+/*
 	
 	// insect class
 	LoadModelBlock insectBlock = ^(int glyph) {
@@ -4887,10 +4807,10 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	loadModelBlocks[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = [puddingBlock copy];
 	loadModelBlocks[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = [puddingBlock copy];
 	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = [puddingBlock copy];
-	// Quantum mechanics
-	loadModelBlocks[ PM_QUANTUM_MECHANIC + GLYPH_MON_OFF ] = [ ^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperQ" withTexture:NO];
-	} copy];
+		*/
+		// Quantum mechanics
+		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = loadModelFunc_QuantumMechanics
+		/*
 	// Rust monster or disenchanter
 	LoadModelBlock rustMonsterBlock = ^(int glyph) {
 		return [self loadModelFunc_Rustmonster:glyph];
@@ -4977,43 +4897,39 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	loadModelBlocks[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
 	loadModelBlocks[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
 	loadModelBlocks[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	// Human or Elves
-	LoadModelBlock humanOrElfBlock = ^(int glyph) {
-		return [self loadModelFunc_HumanorElves:glyph];
-	};
-	loadModelBlocks[ PM_ELVENKING + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_NURSE + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_HIGH_PRIEST + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_MEDUSA + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_CROESUS + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_HUMAN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_HUMAN_WERERAT + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_HUMAN_WEREWOLF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
-	loadModelBlocks[ PM_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_WOODLAND_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_GREEN_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_GREY_ELF + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_ELF_LORD + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
-	loadModelBlocks[ PM_DOPPELGANGER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];		
-	loadModelBlocks[ PM_SHOPKEEPER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
-	loadModelBlocks[ PM_GUARD + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_PRISONER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_ORACLE + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_ALIGNED_PRIEST + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_SOLDIER + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_SERGEANT + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_LIEUTENANT + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_CAPTAIN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_WATCHMAN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_WATCH_CAPTAIN + GLYPH_MON_OFF ] = [humanOrElfBlock copy];
-	loadModelBlocks[ PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF ] = [humanOrElfBlock copy];	
-	// Ghosts
-	LoadModelBlock ghostBlock = ^(int glyph) {
-		return [self loadModelFunc_Ghosts:glyph];
-	};
-	loadModelBlocks[ PM_GHOST + GLYPH_INVIS_OFF ] = [ghostBlock copy];
-	loadModelBlocks[ PM_SHADE + GLYPH_INVIS_OFF ] = [ghostBlock copy];
+		*/
+		// Human or Elves
+		loadModelBlocks[ Int(PM_ELVENKING + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_NURSE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_HIGH_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_MEDUSA + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_CROESUS + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_HUMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_HUMAN_WERERAT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_HUMAN_WEREWOLF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_WOODLAND_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_GREEN_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_GREY_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_ELF_LORD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_DOPPELGANGER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_SHOPKEEPER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_GUARD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_PRISONER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_ORACLE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_ALIGNED_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_SOLDIER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_SERGEANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_LIEUTENANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_WATCHMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_WATCH_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[ Int(PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
+		// Ghosts
+		loadModelBlocks[ Int(PM_GHOST + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
+		loadModelBlocks[ Int(PM_SHADE + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
+		/*
 	// Major Damons
 	LoadModelBlock majorDemonBlock = ^(int glyph) {
 		return [self loadModelFunc_MajorDamons:glyph];
@@ -5379,20 +5295,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		loadModelBlocks[ NH3D_EXPLODE_FROSTY + i ] = [frostyBlock copy];
 	}
 	}
-}
-
-
-
-@end
-
-
-
 */
-	private func loadModels() {
-		
-	}
-	
-	private func cacheMethods() {
-		
 	}
 }

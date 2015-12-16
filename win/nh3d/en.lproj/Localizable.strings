@@ -47,10 +47,10 @@
 
 "Do you really want to Force Quit?" = "Do you really want to Force Quit?";
 "Quit NetHack3D" = "Quit NetHack3D";
-"NetHack3D say,'See you again.'" = "NetHack3D says, 'See you again.'";
+"NetHack3D say,'See you again.'" = "NetHack3D says, ‘See you again.’";
 "A name is too long, and it is difficult to learn." = "The name is too long, and thus difficult to learn.";
 "There is too much number of the letters." = "There are too many characters.";
-"Please input it within 1 to 20 characters." = "Please input within 1 to 20 characters.";
+"Please input it within 1 to 20 characters." = "Please input between 1 to 20 characters.";
 "Who are you?" = "Who are you?";
 "Grater than MacOS 10.4 are necessary so that NetHack3D start." = "Mac OS X 10.4 or later is necessary so that NetHack3D can start.";
 "*what direction*" = "*what direction*";

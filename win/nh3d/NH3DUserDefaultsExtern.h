@@ -45,7 +45,7 @@ extern NSString *NH3DOpenGLWaitSyncKey;
 extern NSString *NH3DOpenGLUseWaitRateKey;
 extern NSString *NH3DOpenGLNumberOfThreadsKey;
 
-#define OPENGLVIEW_WAITRATE [ [NSUserDefaults standardUserDefaults] floatForKey:NH3DOpenGLWaitRateKey ]
+#define OPENGLVIEW_WAITRATE [ [NSUserDefaults standardUserDefaults] doubleForKey:NH3DOpenGLWaitRateKey ]
 #define OPENGLVIEW_WAITSYNC	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLWaitSyncKey ]
 #define OPENGLVIEW_USEWAIT	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLUseWaitRateKey ]
 #define OPENGLVIEW_NUMBER_OF_THREADS	[ [NSUserDefaults standardUserDefaults] integerForKey:NH3DOpenGLNumberOfThreadsKey ]
@@ -116,9 +116,9 @@ extern NSString *NH3DGLTileKey;
 #define ENEMY_IS_RIGHT	3
 
 #define WAIT_NONE		0
-#define WAIT_FAST		60.0f
-#define WAIT_NORMAL		45.0f
-#define WAIT_SLOW		30.0f
+#define WAIT_FAST		60.0
+#define WAIT_NORMAL		45.0
+#define WAIT_SLOW		30.0
 
 
 
