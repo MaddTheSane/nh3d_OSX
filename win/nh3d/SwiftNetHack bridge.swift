@@ -78,6 +78,22 @@ var NUMBER_OF_TILES_ROW: Int {
 	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DNumberOfTilesRowKey)
 }
 
+var OPENGLVIEW_WAITRATE: Float {
+	return NSUserDefaults.standardUserDefaults().floatForKey(NH3DOpenGLWaitRateKey)
+}
+
+var OPENGLVIEW_WAITSYNC: Bool {
+	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DOpenGLWaitSyncKey)
+}
+
+var OPENGLVIEW_USEWAIT: Bool {
+	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DOpenGLUseWaitRateKey)
+}
+
+var OPENGLVIEW_NUMBER_OF_THREADS: Int {
+	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DOpenGLNumberOfThreadsKey)
+}
+
 @noreturn func panic(str: String) {
 	fputs(" ERROR:  ", stderr)
 	fputs(str, stderr)
@@ -121,4 +137,8 @@ var BInvis: Int {
 
 var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
+}
+
+func IS_DOOR(typ: schar) -> Bool {
+	return Int32(typ) == DOOR
 }

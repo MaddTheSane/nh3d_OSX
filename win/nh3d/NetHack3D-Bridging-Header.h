@@ -15,6 +15,23 @@ static inline BOOL Swift_Invis() {
 			 pm_invisible(youmonst.data)) && !BInvis);
 }
 
+static inline BOOL Swift_Blind() {
+	return Blind;
+}
+
+static inline BOOL Swift_Underwater() {
+	return Underwater;
+}
+
+static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
+{
+	return levl[x][y];
+}
+
+static inline BOOL Swift_IsRoom(schar type) {
+	return IS_ROOM(type);
+}
+
 /* from tile.c */
 extern int total_tiles_used;
 

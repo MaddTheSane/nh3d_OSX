@@ -708,35 +708,34 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		glPopMatrix();
 	}
 	
-	/*
 	private func createLightAndFog() {
-		var gblight = 1.0 - ( Float(u.uhp) / Float(u.uhpmax) );
+		let gblight = 1.0 - ( Float(u.uhp) / Float(u.uhpmax) );
 	
-		var AmbLightPos: [ GLfloat ] = [0.0, 4.0, 0.0 ,0];
-		var keyLightPos: [ GLfloat ] = [0.01, 3.0, 0.0 ,1]
+		let AmbLightPos: [ GLfloat ] = [0.0, 4.0, 0.0, 0];
+		let keyLightPos: [ GLfloat ] = [0.01, 3.0, 0.0, 1]
 		var fogColor: [ GLfloat ] = [gblight/4, 0.0, 0.0, 0.0]
-		var lightEmisson: [ GLfloat ] = [0.1, 0.1, 0.1 ,1]
+		let lightEmisson: [ GLfloat ] = [0.1, 0.1, 0.1, 1]
 	
-		self->keyLightCol[0] = 2.0;
-		self->keyLightCol[3] = 1.0;
+		keyLightCol[0] = 2.0;
+		keyLightCol[3] = 1.0;
 		if ( 1.00 - gblight < 0 )  {
-			self-> keyLightCol[ 1 ] = 0.0;
-			self->keyLightCol[ 2 ] = 0.0;
+			keyLightCol[ 1 ] = 0.0;
+			keyLightCol[ 2 ] = 0.0;
 		} else {
-			self->keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
-			self->keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
+			keyLightCol[ 1 ] = 2.00 - ( gblight * 2.0 );
+			keyLightCol[ 2 ] = 2.00 - ( gblight * 2.0 );
 		}
 	
 		glPushMatrix();
 	
-		glTranslatef(self->lastCameraX,
-			self->lastCameraY,
-			self->lastCameraZ);
+		glTranslatef(lastCameraX,
+			lastCameraY,
+			lastCameraZ);
 	
-		glFogi( GL_FOG_MODE , GL_LINEAR );
-		glHint( GL_MULTISAMPLE_FILTER_HINT_NV, GL_NICEST );
+		glFogi(GLenum(GL_FOG_MODE), GL_LINEAR)
+		glHint(GLenum(GL_MULTISAMPLE_FILTER_HINT_NV), GLenum(GL_NICEST))
 	
-		glFogf( GL_FOG_START , 0.0 );
+		glFogf(GLenum(GL_FOG_START), 0.0)
 	
 		switch elementalLevel {
 		case 1: glClearColor( fogColor[ 0 ]+0.1, 0.0 , 0.01 ,0.0 );
@@ -753,147 +752,136 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			break;
 		}
 	
-		if ( self->isReady && ( Blind || u.uswallow ) ) {
+		if isReady && ( Swift_Blind() || u.uswallow != 0 ) {
 			// you're blind
 	
-			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, keyLightAltAmb );
-			glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightAltAmb)
+			glLightf(GLenum(GL_LIGHT0), GLenum(GL_SHININESS), 0.01)
 	
-			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAltAmb );
-			glLightfv( GL_LIGHT1, GL_DIFFUSE, keyLightAltCol );
-			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightAltspec );
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_POSITION), keyLightPos)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_AMBIENT), keyLightAltAmb)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_DIFFUSE), keyLightAltCol)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_SPECULAR), keyLightAltspec)
 	
-			glLightf( GL_LIGHT1, GL_SHININESS, 0.01 );
+			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 0.01)
 	
 	
 			glClearColor( 0.0 ,0.0 ,0.0 ,0.0 );
-			glFogf( GL_FOG_END ,  6.0 );
-			glFogfv( GL_FOG_COLOR,defaultBackGroundCol );
+			glFogf( GLenum(GL_FOG_END) ,  6.0 );
+			glFogfv(GLenum(GL_FOG_COLOR), defaultBackGroundCol)
 	
-		} else if ( self->isReady && Underwater ) {
+		} else if isReady && Swift_Underwater() {
 	
-			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-			glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
+			glLightf(GLenum(GL_LIGHT0), GLenum(GL_SHININESS), 1.0)
 	
-			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-			glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_POSITION), keyLightPos)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_AMBIENT), keyLightAmb)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_DIFFUSE), keyLightCol)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_SPECULAR), keyLightspec)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_EMISSION), lightEmisson)
+			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 30.0)
 	
-			glClearColor( 0.0 ,0.0 ,0.8 ,0.0 );
-			glFogf( GL_FOG_END ,  6.0 );
-			glFogfv( GL_FOG_COLOR,underWaterColar );
+			glClearColor(0.0, 0.0, 0.8, 0.0)
+			glFogf(GLenum(GL_FOG_END), 6.0)
+			glFogfv(GLenum(GL_FOG_COLOR), underWaterColar)
 	
-		} else if ( IS_ROOM( levl[ u.ux ][ u.uy ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy ].typ ) ) {
+		} else if Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy).typ) {
 			// in room
-			int i;
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
+			glLightf(GLenum(GL_LIGHT0), GLenum(GL_SHININESS), 0.01)
 	
-			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-			glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
-	
-			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-			glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_POSITION), keyLightPos)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_AMBIENT), keyLightAmb)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_DIFFUSE), keyLightCol)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_SPECULAR), keyLightspec)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_EMISSION), lightEmisson)
+			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 30.0)
 	
 			// check lit position.
-			glFogf( GL_FOG_END , 4.5 + MAP_MARGIN * NH3DGL_TILE_SIZE );
+			glFogf(GLenum(GL_FOG_END) , 4.5 + Float(MAP_MARGIN) * NH3DGL_TILE_SIZE);
 	
-			for ( i=1 ; i<=MAP_MARGIN ; i++ ) {
-				if ( ( IS_ROOM( levl[ u.ux ][ u.uy + i ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy + i ].typ ) )
-				&& levl[ u.ux ][ u.uy + i ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-					glFogf( GL_FOG_END ,  4.5 + i * NH3DGL_TILE_SIZE );
+			for i in 1...MAP_MARGIN {
+				if ( ( Swift_IsRoom( Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ ) || IS_DOOR( Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ ) )
+				&& Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF ) {
+					glFogf( GLenum(GL_FOG_END) ,  4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
-				} else if ( ( IS_ROOM( levl[ u.ux ][ u.uy - i ].typ ) || IS_DOOR( levl[ u.ux ][ u.uy - i ].typ ) )
-				&& levl[ u.ux ][ u.uy - i ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				} else if ( ( Swift_IsRoom( Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ ) || IS_DOOR( Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ ) )
+				&& Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF ) {
+					glFogf( GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
-				} else if ( ( IS_ROOM( levl[ u.ux + i ][ u.uy + i ].typ ) || IS_DOOR( levl[ u.ux + i ][ u.uy ].typ ) )
-				&& levl[ u.ux + i ][ u.uy ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				} else if (Swift_IsRoom(Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ))
+				&& Swift_RoomAtLocation(u.ux + xchar(i), u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
+					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 				break;
 	
-				} else if ( ( IS_ROOM( levl[ u.ux - i ][ u.uy ].typ ) || IS_DOOR( levl[ u.ux - i ][ u.uy ].typ ) )
-				&& levl[ u.ux - i ][ u.uy ].glyph == S_stone + GLYPH_CMAP_OFF ) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				} else if (Swift_IsRoom(Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ))
+				&& Swift_RoomAtLocation(u.ux - xchar(i), u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
+					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
 				}
 			}
 	
-			glFogfv( GL_FOG_COLOR,fogColor );
+			glFogfv(GLenum(GL_FOG_COLOR), fogColor);
 	
-		} else if ( levl[ u.ux ][ u.uy ].typ == CORR ) {
+		} else if Swift_RoomAtLocation(u.ux, u.uy).typ == schar(CORR) {
 			// in corr
-			int i;
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
+			glLightf(GLenum(GL_LIGHT0), GLenum(GL_SHININESS), 0.01)
 	
-			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-			glLightf( GL_LIGHT0, GL_SHININESS, 0.01 );
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_POSITION), keyLightPos)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_AMBIENT), keyLightAmb)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_DIFFUSE), keyLightCol)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_SPECULAR), keyLightspec)
+			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_EMISSION), lightEmisson)
+			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 30.0)
 	
-			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-			glLightf( GL_LIGHT1, GL_SHININESS, 30.0 );
-	
-			for ( i=1 ; i<=MAP_MARGIN ; i++ ) {
-				if (levl[ u.ux ][ u.uy+i ].typ == CORR
-				&&   !levl[ u.ux ][ u.uy+i ].lit
-				) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+			for i in 1...MAP_MARGIN {
+				if Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ == schar(CORR)
+				&&   Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).lit == 0 {
+					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
-				} else if ( 		  levl[ u.ux ][ u.uy-i ].typ == CORR
-				&&   !levl[ u.ux ][ u.uy-i ].lit
-				) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				} else if Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ == schar(CORR)
+				&&   Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).lit == 0 {
+					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
-				} else if ( 		  levl[ u.ux + i ][ u.uy ].typ == CORR
-				&&   !levl[ u.ux + i ][ u.uy ].lit
-				) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				} else if Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ == schar(CORR)
+				&&   Swift_RoomAtLocation(u.ux + xchar(i), u.uy).lit == 0 {
+					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
-				} else if ( 	  levl[ u.ux - i ][ u.uy ].typ == CORR
-				&&   !levl[ u.ux - i ][ u.uy ].lit
-				) {
-					glFogf( GL_FOG_END , 4.5 + i * NH3DGL_TILE_SIZE );
+				} else if Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ == schar(CORR)
+					&&   Swift_RoomAtLocation(u.ux - xchar(i), u.uy).lit == 0 {
+					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
 					break;
 				}
 			
 			}
-	
-	
 		} else {
-			glLightfv( GL_LIGHT0, GL_POSITION, AmbLightPos );
-			glLightfv( GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, self->keyLightCol );
-			glLightf( GL_LIGHT0, GL_SHININESS, 1.0 );
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
+			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
+			glLightf(GLenum(GL_LIGHT0), GLenum(GL_SHININESS), 1.0)
 	
-			glLightfv( GL_LIGHT1, GL_POSITION, keyLightPos );
-			glLightfv( GL_LIGHT1, GL_AMBIENT, keyLightAmb );
-			glLightfv( GL_LIGHT1, GL_DIFFUSE, self->keyLightCol );
-			glLightfv( GL_LIGHT1, GL_SPECULAR, keyLightspec );
-			glLightfv( GL_LIGHT1, GL_EMISSION, lightEmisson );
-			glLightf( GL_LIGHT1, GL_SHININESS, 10.0 );
+			glLightfv( GLenum(GL_LIGHT1), GLenum(GL_POSITION), keyLightPos );
+			glLightfv( GLenum(GL_LIGHT1), GLenum(GL_AMBIENT), keyLightAmb );
+			glLightfv( GLenum(GL_LIGHT1), GLenum(GL_DIFFUSE), keyLightCol );
+			glLightfv( GLenum(GL_LIGHT1), GLenum(GL_SPECULAR), keyLightspec );
+			glLightfv( GLenum(GL_LIGHT1), GLenum(GL_EMISSION), lightEmisson );
+			glLightf( GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 10.0 );
 	
-			glFogf( GL_FOG_END ,  4.5 + u.nv_range * NH3DGL_TILE_SIZE );
-			glFogfv( GL_FOG_COLOR,fogColor );
+			glFogf(GLenum(GL_FOG_END),  4.5 + Float(u.nv_range) * NH3DGL_TILE_SIZE)
+			glFogfv(GLenum(GL_FOG_COLOR), fogColor)
 	
 		}
 	
-		glEnable( GL_LIGHT0 );
-		glEnable( GL_LIGHT1 );
+		glEnable(GLenum(GL_LIGHT0))
+		glEnable(GLenum(GL_LIGHT1))
 	
 		glPopMatrix();
-	
-	}*/
+	}
 	
 	
 	//---------- draw floor function ----------------
@@ -951,17 +939,15 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		glDeleteTextures(1, &rougeTex )
 	}
 	
-	/*
--(void)detachOpenGLThread
-{
-	int i;
-	threadRunning = YES;
+	func detachOpenGLThread() {
+		threadRunning = true
+		
+		for _ in 0..<OPENGLVIEW_NUMBER_OF_THREADS {
+			NSThread.detachNewThreadSelector("timerFired:", toTarget: self, withObject: self)
+		}
+	}
 	
-	for ( i=0 ; i<OPENGLVIEW_NUMBER_OF_THREADS ;i++ )
-	[ NSThread detachNewThreadSelector:@selector( timerFired: ) toTarget:self withObject:self ];
-}
-
-
+	/*
 - (void)awakeFromNib
 {
 	[super awakeFromNib];
@@ -990,42 +976,50 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	if ( !TRADITIONAL_MAP )
 		[self detachOpenGLThread];
 }
+*/
 
-
-// OpenGL update method.
-- (void)timerFired:(id)sender
-{
-	@autoreleasepool {
-	
-		[self.openGLContext makeCurrentContext];
-		
-		[viewLock lock];
-		
-		if ( OPENGLVIEW_WAITSYNC )
-			[ self.openGLContext setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
-		else 
-			[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
-		[ viewLock unlock ];
-		
-		while ( runnning && !TRADITIONAL_MAP ) {
-			@autoreleasepool {
-
-			if ( isReady && !nowUpdating && ! self.needsDisplay ) {
-			//if ( isReady && !nowUpdating ) {
-				[self updateGlView];
+	/// OpenGL update method.
+	@objc(timerFired:) private func timerFired(sender: AnyObject) {
+		autoreleasepool {
+			
+			openGLContext?.makeCurrentContext()
+			
+			viewLock.lock()
+			
+			var vsType: GLint
+			if ( OPENGLVIEW_WAITSYNC ) {
+				vsType = vsincWait
+			} else {
+				vsType = vsincNoWait
+			}
+			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+			
+			viewLock.unlock()
+			
+			while ( runnning && !TRADITIONAL_MAP ) {
+				autoreleasepool {
+					
+					if ( isReady && !nowUpdating && !self.needsDisplay ) {
+						//if ( isReady && !nowUpdating ) {
+						self.updateGLView()
+					}
+					
+					
+					if ( hasWait ) {
+						NSThread.sleepUntilDate(NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
+					}
+				}
 			}
 			
-			
-			if ( hasWait ) [ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:( 1.0 / waitRate ) ] ];
-			
-			}
 		}
-	
+		NSThread.exit()
 	}
-	[NSThread exit];
-}
-
 	
+	func updateGLView() {
+		
+	}
+	
+/*
 // Drawing OpenGL functions.
 - ( void )updateGlView
 {
@@ -1113,7 +1107,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		[viewLock unlock];
 	}
 }
-
 */
 	
 	override func setFrameSize(newSize: NSSize) {
