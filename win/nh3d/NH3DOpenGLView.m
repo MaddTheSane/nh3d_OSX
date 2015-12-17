@@ -1,11 +1,11 @@
 #import "NH3DOpenGLView.h"
 
-#import "NH3DMapModel.h"
 #import "NH3DModelObjects.h"
 #import "NH3DMapItem.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/glu.h>
+#import "NetHack3D-Swift.h"
 
 
 

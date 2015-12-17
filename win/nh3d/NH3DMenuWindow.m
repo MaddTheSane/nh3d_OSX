@@ -7,7 +7,6 @@
 //
 
 #import "NH3DMenuWindow.h"
-#import "NH3DMapModel.h"
 
 
 static const int DIALOG_OK		= 128;

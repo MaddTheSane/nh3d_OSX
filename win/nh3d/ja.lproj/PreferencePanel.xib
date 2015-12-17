@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="6300" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
+        <development version="7000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NH3DPreferenceController">
@@ -35,7 +36,7 @@
                                         <box title="マップ設定" id="19">
                                             <rect key="frame" x="12" y="160" width="242" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="eKv-KC-Jwc">
                                                 <rect key="frame" x="2" y="2" width="238" height="64"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -76,14 +77,14 @@
                                         <box title="OpenGL設定" id="32">
                                             <rect key="frame" x="12" y="7" width="242" height="147"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="mwi-HA-o6Q">
                                                 <rect key="frame" x="2" y="2" width="238" height="130"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <box title="Box" titlePosition="noTitle" id="30">
                                                         <rect key="frame" x="11" y="29" width="198" height="70"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <view key="contentView">
+                                                        <view key="contentView" id="1Hi-Go-iNH">
                                                             <rect key="frame" x="2" y="2" width="194" height="66"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </view>
@@ -329,14 +330,14 @@
                                         <box title="NetHack ビューモード" titlePosition="noTitle" id="166">
                                             <rect key="frame" x="8" y="7" width="394" height="236"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <view key="contentView">
+                                            <view key="contentView" id="Z16-je-fXj">
                                                 <rect key="frame" x="2" y="2" width="390" height="232"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <box title="Box" titlePosition="noTitle" id="168">
                                                         <rect key="frame" x="13" y="7" width="364" height="194"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <view key="contentView">
+                                                        <view key="contentView" id="jbf-Bj-tb8">
                                                             <rect key="frame" x="2" y="2" width="360" height="190"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -355,7 +356,7 @@
                                                                 <box title="タイル設定" id="171">
                                                                     <rect key="frame" x="13" y="7" width="334" height="144"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
-                                                                    <view key="contentView">
+                                                                    <view key="contentView" id="pIs-rh-AgP">
                                                                         <rect key="frame" x="2" y="2" width="330" height="127"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>

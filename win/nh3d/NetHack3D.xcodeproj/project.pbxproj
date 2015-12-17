@@ -590,8 +590,6 @@
 		2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DModelObjects.m; sourceTree = "<group>"; };
 		2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMessenger.m; sourceTree = "<group>"; };
 		2B3115DD08BD32A70041EE7D /* NH3DMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMessenger.h; sourceTree = "<group>"; };
-		2B3115EB08BD48F30041EE7D /* NH3DMapModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMapModel.h; sourceTree = "<group>"; };
-		2B3115EC08BD48F30041EE7D /* NH3DMapModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMapModel.m; sourceTree = "<group>"; };
 		2B31DB7708CD73C5008CCAAC /* bitmfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitmfile.c; sourceTree = "<group>"; };
 		2B31DB7808CD73C5008CCAAC /* gem_rsc.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rsc.uu; sourceTree = "<group>"; };
 		2B31DB7908CD73C5008CCAAC /* gem_rso.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rso.uu; sourceTree = "<group>"; };
@@ -1577,8 +1575,6 @@
 				2B3115DD08BD32A70041EE7D /* NH3DMessenger.h */,
 				2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */,
 				55BF8B331B76AECB0031A45A /* MapModel.swift */,
-				2B3115EB08BD48F30041EE7D /* NH3DMapModel.h */,
-				2B3115EC08BD48F30041EE7D /* NH3DMapModel.m */,
 				2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */,
 				2B598AD508E5B523005ECDC5 /* NH3DMenuWindow.m */,
 				2B041A8608E605B2007F87AB /* NH3DMenuItem.h */,

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="6300" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8173.3"/>
+        <development version="7000" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -202,7 +203,7 @@
                     <box title="Box" titlePosition="noTitle" id="5255">
                         <rect key="frame" x="213" y="186" width="380" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <view key="contentView">
+                        <view key="contentView" id="wGk-dn-0Bj">
                             <rect key="frame" x="2" y="2" width="376" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
@@ -212,7 +213,7 @@
                     <box title="Box" titlePosition="noTitle" id="5108">
                         <rect key="frame" x="625" y="246" width="169" height="228"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <view key="contentView">
+                        <view key="contentView" id="Thh-KY-uSO">
                             <rect key="frame" x="2" y="2" width="165" height="224"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
@@ -244,7 +245,7 @@
                     <box title="Name" titlePosition="noTitle" id="314">
                         <rect key="frame" x="625" y="508" width="169" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="F6I-v2-bRd">
                             <rect key="frame" x="2" y="2" width="165" height="32"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -273,7 +274,7 @@
                     <box title="Class" titlePosition="noTitle" id="316">
                         <rect key="frame" x="625" y="476" width="169" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="RHY-Lw-Lsv">
                             <rect key="frame" x="2" y="2" width="165" height="32"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -365,7 +366,7 @@
                     <box title="Box" titlePosition="noTitle" id="372">
                         <rect key="frame" x="12" y="124" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="TLr-7C-gwn">
                             <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -386,7 +387,7 @@
                     <box title="Box" titlePosition="noTitle" id="375">
                         <rect key="frame" x="12" y="90" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="M8w-L8-pcC">
                             <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -408,7 +409,7 @@
                     <box title="Box" titlePosition="noTitle" id="378">
                         <rect key="frame" x="12" y="57" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="9U1-ew-2lr">
                             <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -445,7 +446,7 @@
                     <box title="Box" titlePosition="noTitle" id="390">
                         <rect key="frame" x="12" y="23" width="156" height="31"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                        <view key="contentView">
+                        <view key="contentView" id="eJu-w0-Iux">
                             <rect key="frame" x="2" y="2" width="152" height="27"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -538,7 +539,7 @@
                     <box title="Box" titlePosition="noTitle" id="475">
                         <rect key="frame" x="196" y="546" width="414" height="36"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <view key="contentView">
+                        <view key="contentView" id="lwM-g0-bAT">
                             <rect key="frame" x="2" y="2" width="410" height="32"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -793,7 +794,7 @@
                     <box title="Title" titlePosition="noTitle" id="4994">
                         <rect key="frame" x="639" y="34" width="140" height="142"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <view key="contentView">
+                        <view key="contentView" id="c3G-yz-6gI">
                             <rect key="frame" x="2" y="2" width="136" height="138"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>

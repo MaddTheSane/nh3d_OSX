@@ -7,7 +7,7 @@
 #import "NH3DUserDefaultsExtern.h"
 
 
-@class NH3DMapModel;
+@class MapModel;
 @class NH3DMapItem;
 @class NH3DModelObjects;
 
@@ -15,7 +15,7 @@ typedef NH3DModelObjects *(^LoadModelBlock)(int glyph);
 
 @interface NH3DOpenGLView : NSOpenGLView {
 	
-	IBOutlet NH3DMapModel *_mapModel;
+	IBOutlet MapModel *_mapModel;
 	
 	GLfloat		lastCameraX;
 	GLfloat		lastCameraY;
