@@ -80,28 +80,20 @@ static const NH3DMaterial defaultMat = {
 	glGenTextures( 1, &tex_id );
 	glBindTexture( GL_TEXTURE_2D, tex_id );
 	
-	glTexParameterf(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE);
+	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	
-	// glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA,
-	//			[imgrep pixelsWide], [imgrep pixelsHigh],
-	//				0,
-	//				[imgrep hasAlpha] ? GL_RGBA : GL_RGB,
-	//				GL_UNSIGNED_BYTE,
-	//				[imgrep bitmapData]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	
 	// create automipmap texture
-	gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
-						 imgrep.pixelsWide,imgrep.pixelsHigh,
-						 imgrep.alpha ? GL_RGBA : GL_RGB,
-						 GL_UNSIGNED_BYTE,imgrep.bitmapData);
-	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+				 imgrep.pixelsWide, imgrep.pixelsHigh,
+				 0, imgrep.alpha ? GL_RGBA : GL_RGB,
+				 GL_UNSIGNED_BYTE, imgrep.bitmapData);
+
 	return tex_id;
 }
 

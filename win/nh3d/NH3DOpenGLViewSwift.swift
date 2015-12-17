@@ -1641,139 +1641,98 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 
 
 //---------------------------------------------------
+*/
 
-
-- ( GLuint )loadImageToTexture:( NSString * )filename
-{
-	NSImage				*sourcefile = [NSImage imageNamed:filename];
-	NSBitmapImageRep	*imgrep;
-	GLuint				tex_id;
-	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
-	
-	[ viewLock lock ];
-	
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-
-	glGenTextures( 1, &tex_id );
-	glBindTexture( GL_TEXTURE_2D, tex_id );
-	
-	glTexParameterf( GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE );
-	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
-
-	// create texture
-/*	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 
-				  [ imgrep pixelsWide ], [ imgrep pixelsHigh ], 
-				  0,
-				  [ imgrep hasAlpha ] ? GL_RGBA : GL_RGB, 
-				  GL_UNSIGNED_BYTE, 
-				  [ imgrep bitmapData ] ); // */
-	
-	// create automipmap texture
-	gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA,
-					  imgrep.pixelsWide, imgrep.pixelsHigh,
-					  imgrep.alpha ? GL_RGBA : GL_RGB,
-					  GL_UNSIGNED_BYTE,imgrep.bitmapData);
-	
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-	
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-
-	[viewLock unlock];
-	
-	return tex_id;
-}
-
-
-- ( GLuint )createTextureFromSymbol:( id )symbol withColor:( NSColor* )color
-{
-	[ viewLock lock ];
-	
-	GLuint tex_id;
-	NSImage				*img = [[NSImage alloc] initWithSize:NSMakeSize( TEX_SIZE , TEX_SIZE )];
-	NSBitmapImageRep	*imgrep;
-	NSSize				symbolsize;
-	
-	img.backgroundColor = [NSColor clearColor];
-	
-	if ( !NH3DGL_USETILE ) {
-		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-		NSString *fontName = [[NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey];
+	private func createTextureFromSymbol(symbol: AnyObject, color: NSColor) -> GLuint {
+		viewLock.lock()
+		var texID: GLuint = 0
+		let img = NSImage(size: NSSize(width: TEX_SIZE, height: TEX_SIZE))
+		var symbolSize = NSSize.zero
 		
+		img.backgroundColor = NSColor.clearColor()
 		
-		attributes[NSFontAttributeName] = [NSFont fontWithName: fontName
-														  size: TEX_SIZE];
-		attributes[NSForegroundColorAttributeName] = color;
-		attributes[NSBackgroundColorAttributeName] = [NSColor clearColor];
+		if ( !NH3DGL_USETILE ) {
+			guard let symbol = symbol as? String else {
+				assert(false)
+				return 0
+			}
+			var attributes = [String: AnyObject]()
+			let fontName = NSUserDefaults.standardUserDefaults().stringForKey(NH3DWindowFontKey)!
+			
+			
+			attributes[NSFontAttributeName] = NSFont(name: fontName,
+				size: CGFloat(TEX_SIZE))
+
+			attributes[NSForegroundColorAttributeName] = color;
+			attributes[NSBackgroundColorAttributeName] = NSColor.clearColor()
+			
+			symbolSize = (symbol as NSString).sizeWithAttributes(attributes)
+			
+			// Draw texture
+			img.lockFocus()
+			
+			(symbol as NSString).drawAtPoint(NSPoint(x: CGFloat( TEX_SIZE/2 ) - ( symbolSize.width/2 ), y: CGFloat( TEX_SIZE/2 ) - ( symbolSize.height/2 ) ), withAttributes: attributes)
+			
+			img.unlockFocus()
+		} else {
+			guard let symbol = symbol as? NSImage else {
+				assert(false)
+				return 0
+			}
+			symbolSize = symbol.size
+			
+			// Draw Tiled texture
+			img.lockFocus()
+			symbol.drawInRect(NSMakeRect( CGFloat(TEX_SIZE)/4 ,0 ,(CGFloat(TEX_SIZE)/4)*3 ,(CGFloat(TEX_SIZE)/4)*3),
+				fromRect: NSRect(origin: .zero, size: symbolSize),
+				operation: .CompositeSourceOver,
+				fraction:1.0)
+			img.unlockFocus()
+		}
 		
-		symbolsize = [symbol sizeWithAttributes:attributes];
-	
-		// Draw texture
-		[img lockFocus];
+		//var imgrep: NSBitmapImageRep?
+		guard let imgData = img.TIFFRepresentation, imgrep = NSBitmapImageRep(data: imgData) else {
+			return 0
+		}
 		
-		[symbol drawAtPoint:NSMakePoint( ( TEX_SIZE/2 ) - ( symbolsize.width/2 ) ,( TEX_SIZE/2 ) - ( symbolsize.height/2 ) )
-			  withAttributes:attributes];
+		glPixelStorei( GLenum(GL_UNPACK_ALIGNMENT), 1)
 		
-		[img unlockFocus];
+		glGenTextures( 1, &texID );
+		glBindTexture( GLenum(GL_TEXTURE_2D), texID)
 		
-	} else {
-		symbolsize = [symbol size];
-		// Draw Tiled texture 
-		[img lockFocus ];
-		[symbol drawInRect:NSMakeRect( TEX_SIZE/4 ,0 ,(TEX_SIZE/4)*3 ,(TEX_SIZE/4)*3 )
-				   fromRect:NSMakeRect( 0 ,0 ,symbolsize.width ,symbolsize.height )
-				  operation:NSCompositeSourceOver
-				   fraction:1.0];
-		[img unlockFocus];
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
+		glHint(GLenum(GL_PERSPECTIVE_CORRECTION_HINT), GLenum(GL_NICEST))
+		
+		// create automipmap texture
+
+		if imgrep.alpha {
+			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA,
+				GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
+				0, GLenum(GL_RGBA),
+				GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData);
+		} else {
+			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB,
+				GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
+				0, GLenum(GL_RGB),
+				GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData);
+
+		}
+		// setup texture status
+		
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT)
+		
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
+		
+		glAlphaFunc(GLenum(GL_GREATER), 0.5 );
+
+		
+		viewLock.unlock()
+		
+		return texID
 	}
 	
-	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:img.TIFFRepresentation];
-	
-	
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-	
-	glGenTextures( 1, &tex_id );
-	glBindTexture( GL_TEXTURE_2D, tex_id );
-	
-	glTexParameterf( GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_TRUE );
-	glHint( GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST );
-	
-	// create automipmap texture
-	
-	if (imgrep.alpha) {
-		gluBuild2DMipmaps( GL_TEXTURE_2D,GL_RGBA,
-						   imgrep.pixelsWide , imgrep.pixelsHigh ,
-						   GL_RGBA,
-						   GL_UNSIGNED_BYTE, imgrep.bitmapData );
-	} else {
-		gluBuild2DMipmaps( GL_TEXTURE_2D,GL_RGB,
-						   imgrep.pixelsWide , imgrep.pixelsHigh ,
-						   GL_RGB,
-						   GL_UNSIGNED_BYTE, imgrep.bitmapData );
-	}		
-		
-	
-	// setup texture status
-	
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
-	
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-	
-	glAlphaFunc( GL_GREATER, 0.5 );
-	
-	
-	[viewLock unlock];
-	
-	return tex_id;
-	
-}
-
-*/
 	private func loadModels() {
 		
 	}
@@ -4057,7 +4016,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent );
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
 			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
@@ -4071,7 +4030,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
 			glTexCoordPointer(2, GLenum(GL_FLOAT),0, CeilingTexVerts );
@@ -4085,7 +4044,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent);
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
 			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
@@ -4093,7 +4052,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent);
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
 			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, CeilingTexVerts );
@@ -4119,14 +4078,14 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_GEN_S));
 			glEnable(GLenum(GL_TEXTURE_GEN_T));
 			
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_COMBINE))
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GLfloat(GL_INTERPOLATE))
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GLfloat(GL_PREVIOUS))
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GLfloat(GL_ONE_MINUS_SRC_ALPHA))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_COMBINE)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GL_INTERPOLATE)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GL_PREVIOUS)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GL_ONE_MINUS_SRC_ALPHA)
 			
 			
-			glTexGenf(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP))
-			glTexGenf(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP))
+			glTexGeni(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
+			glTexGeni(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms)
 			glTexCoordPointer( 2, GLenum(GL_FLOAT), 0, FloorTexVerts)
@@ -4137,13 +4096,13 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_GEN_T));
 			glDisable(GLenum(GL_TEXTURE_2D));
 			
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GLfloat(GL_CONSTANT))
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GLfloat(GL_SRC_ALPHA))
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GL_CONSTANT)
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GL_SRC_ALPHA)
 			
-			glActiveTexture( GLenum(GL_TEXTURE0) );
+			glActiveTexture(GLenum(GL_TEXTURE0))
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
 			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
@@ -4161,7 +4120,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			
 			glMaterialf(GLenum(GL_FRONT), GLenum(GL_EMISSION), 10.0)
 			
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glActiveTexture(GLenum(GL_TEXTURE1));
 			
@@ -4171,10 +4130,10 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_GEN_S))
 			glEnable(GLenum(GL_TEXTURE_GEN_T))
 			
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_ADD))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_ADD)
 			
-			glTexGenf(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
-			glTexGenf(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
+			glTexGeni(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
+			glTexGeni(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
@@ -4189,7 +4148,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
 			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
@@ -4204,7 +4163,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.lavaTex)
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			let emisson:[ GLfloat ] = [ 1.0, 1.0, 1.0, 1.0 ];
 			glMaterialfv( GLenum(GL_FRONT), GLenum(GL_EMISSION), emisson)
@@ -4215,7 +4174,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
 			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
@@ -4230,7 +4189,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.airTex );
-			glTexEnvf( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE) );
+			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer( GLenum(GL_FLOAT), 0 ,FloorVertNorms );
 			glTexCoordPointer(2, GLenum(GL_FLOAT),0, FloorTexVerts );
@@ -4245,7 +4204,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.cloudTex)
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
 			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
@@ -4260,24 +4219,24 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.waterTex );
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glActiveTexture(GLenum(GL_TEXTURE1));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.envelopTex );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.envelopTex)
 			
 			glEnable(GLenum(GL_TEXTURE_GEN_S));
 			glEnable(GLenum(GL_TEXTURE_GEN_T));
 			
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_COMBINE))
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GLfloat(GL_INTERPOLATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_COMBINE)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GL_INTERPOLATE)
 			
 			let blend: [GLfloat] = [ 1.0, 1.0, 1.0, 0.18 ]
 			glTexEnvfv(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_COLOR), blend)
 			
-			glTexGenf(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
-			glTexGenf(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GLfloat(GL_SPHERE_MAP));
+			glTexGeni(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
+			glTexGeni(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms);
@@ -4292,7 +4251,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
-			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms)
 			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
@@ -4302,64 +4261,42 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		};
 
-/*
+		// insect class
+		loadModelBlocks[Int(PM_GIANT_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect;
+		loadModelBlocks[Int(PM_KILLER_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect;
+		loadModelBlocks[Int(PM_SOLDIER_ANT+GLYPH_MON_OFF)] =	loadModelFunc_insect;
+		loadModelBlocks[Int(PM_FIRE_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect;
+		loadModelBlocks[Int(PM_GIANT_BEETLE+GLYPH_MON_OFF)] =	loadModelFunc_insect;
+		loadModelBlocks[Int(PM_QUEEN_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect;
+		
+		// blob class
+		loadModelBlocks[Int(PM_ACID_BLOB+GLYPH_MON_OFF)] =			loadModelFunc_blob
+		loadModelBlocks[Int(PM_QUIVERING_BLOB+GLYPH_MON_OFF)] =		loadModelFunc_blob
+		loadModelBlocks[Int(PM_GELATINOUS_CUBE+GLYPH_MON_OFF)] =	loadModelFunc_blob
+		
+		// cockatrice class
+		loadModelBlocks[Int(PM_CHICKATRICE+GLYPH_MON_OFF)] =	loadModelFunc_cockatrice
+		loadModelBlocks[Int(PM_COCKATRICE+GLYPH_MON_OFF)] =		loadModelFunc_cockatrice
+		loadModelBlocks[Int(PM_PYROLISK+GLYPH_MON_OFF)] =		loadModelFunc_cockatrice
+		
+		// dog or canine class
+		loadModelBlocks[Int(PM_JACKAL+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_FOX+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_COYOTE+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_WEREJACKAL+GLYPH_MON_OFF)] =			loadModelFunc_dog;
+		loadModelBlocks[Int(PM_LITTLE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog;
+		loadModelBlocks[Int(PM_DOG+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_LARGE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog;
+		loadModelBlocks[Int(PM_DINGO+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_WOLF+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_WEREWOLF+GLYPH_MON_OFF)] =			loadModelFunc_dog;
+		loadModelBlocks[Int(PM_WARG+GLYPH_MON_OFF)] =				loadModelFunc_dog;
+		loadModelBlocks[Int(PM_WINTER_WOLF_CUB+GLYPH_MON_OFF)] =	loadModelFunc_dog;
+		loadModelBlocks[Int(PM_WINTER_WOLF+GLYPH_MON_OFF)] =		loadModelFunc_dog;
+		loadModelBlocks[Int(PM_HELL_HOUND_PUP+GLYPH_MON_OFF)] =		loadModelFunc_dog;
+		loadModelBlocks[Int(PM_HELL_HOUND+GLYPH_MON_OFF)] =			loadModelFunc_dog;
 	
-	// insect class
-	LoadModelBlock insectBlock = ^(int glyph) {
-		return [self loadModelFunc_insect:glyph];
-	};
-	loadModelBlocks[PM_GIANT_ANT+GLYPH_MON_OFF ] =		[insectBlock copy];
-	loadModelBlocks[PM_KILLER_BEE+GLYPH_MON_OFF ] =		[insectBlock copy];
-	loadModelBlocks[PM_SOLDIER_ANT+GLYPH_MON_OFF ] =	[insectBlock copy];
-	loadModelBlocks[PM_FIRE_ANT+GLYPH_MON_OFF ] =		[insectBlock copy];
-	loadModelBlocks[PM_GIANT_BEETLE+GLYPH_MON_OFF ] =	[insectBlock copy];
-	loadModelBlocks[PM_QUEEN_BEE+GLYPH_MON_OFF ] =		[insectBlock copy];
-	
-	// blob class
-	LoadModelBlock blobBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_ACID_BLOB
-									  to:PM_GELATINOUS_CUBE
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerB" textured:NO withOut:0];
-	};
-	loadModelBlocks[ PM_ACID_BLOB+GLYPH_MON_OFF ] =			[blobBlock copy];
-	loadModelBlocks[ PM_QUIVERING_BLOB+GLYPH_MON_OFF ] =	[blobBlock copy];
-	loadModelBlocks[ PM_GELATINOUS_CUBE+GLYPH_MON_OFF ] =	[blobBlock copy];
-	
-	// cockatrice class
-	LoadModelBlock cockatriceBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_CHICKATRICE
-									  to:PM_PYROLISK
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerC" textured:NO withOut:0];
-	};
-	loadModelBlocks[ PM_CHICKATRICE+GLYPH_MON_OFF ] =	[cockatriceBlock copy];
-	loadModelBlocks[ PM_COCKATRICE+GLYPH_MON_OFF ] =	[cockatriceBlock copy];
-	loadModelBlocks[ PM_PYROLISK+GLYPH_MON_OFF ] =		[cockatriceBlock copy];
-	
-	// dog or canine class
-	LoadModelBlock dogBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_JACKAL
-									  to:PM_HELL_HOUND
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerD" textured:NO withOut:0];
-	};
-	loadModelBlocks[ PM_JACKAL+GLYPH_MON_OFF ] =		[dogBlock copy];
-	loadModelBlocks[ PM_FOX+GLYPH_MON_OFF ] =			[dogBlock copy];
-	loadModelBlocks[ PM_COYOTE+GLYPH_MON_OFF ] =		[dogBlock copy];
-	loadModelBlocks[ PM_WEREJACKAL+GLYPH_MON_OFF ] =	[dogBlock copy];
-	loadModelBlocks[ PM_LITTLE_DOG+GLYPH_MON_OFF ] =	[dogBlock copy];
-	loadModelBlocks[ PM_DOG+GLYPH_MON_OFF ] =			[dogBlock copy];
-	loadModelBlocks[ PM_LARGE_DOG+GLYPH_MON_OFF ] =		[dogBlock copy];
-	loadModelBlocks[ PM_DINGO+GLYPH_MON_OFF ] =			[dogBlock copy];
-	loadModelBlocks[ PM_WOLF+GLYPH_MON_OFF ] =			[dogBlock copy];
-	loadModelBlocks[ PM_WEREWOLF+GLYPH_MON_OFF ] =		[dogBlock copy];
-	loadModelBlocks[ PM_WARG+GLYPH_MON_OFF ] =			[dogBlock copy];
-	loadModelBlocks[PM_WINTER_WOLF_CUB+GLYPH_MON_OFF] = [dogBlock copy];
-	loadModelBlocks[ PM_WINTER_WOLF+GLYPH_MON_OFF ] =	[dogBlock copy];
-	loadModelBlocks[PM_HELL_HOUND_PUP+GLYPH_MON_OFF] =	[dogBlock copy];
-	loadModelBlocks[ PM_HELL_HOUND+GLYPH_MON_OFF ] =	[dogBlock copy];
-	
+	/*
 	// eye or sphere class
 	LoadModelBlock sphereBlock = ^(int glyph) {
 		return [self checkLoadedModelsAt:PM_GAS_SPORE
