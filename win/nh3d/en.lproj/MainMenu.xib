@@ -3826,7 +3826,7 @@ DQ
                                     <items>
                                         <menuItem title="No limit." tag="1003" id="6747">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6752"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6752"/>
                                                 <binding destination="6780" name="value" keyPath="values.OpenGLViewHasWaitRate" id="6805">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -3836,17 +3836,17 @@ DQ
                                         </menuItem>
                                         <menuItem title="Fast framerate. (1/60sec.)" tag="1004" id="6748">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6753"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6753"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Normal framerate. (1/45sec.)" state="on" tag="1005" id="6749">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6754"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6754"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Slow framerate. (1/30sec.)" tag="1006" id="6750">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6755"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6755"/>
                                             </connections>
                                         </menuItem>
                                     </items>

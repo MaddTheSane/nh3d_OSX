@@ -3828,7 +3828,7 @@ DQ
                                     <items>
                                         <menuItem title="ウエイト無し" tag="1003" id="6750">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6755"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6755"/>
                                                 <binding destination="6776" name="value" keyPath="values.OpenGLViewHasWaitRate" id="6807">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -3838,17 +3838,17 @@ DQ
                                         </menuItem>
                                         <menuItem title="高速フレームレート（1/60秒）" tag="1004" id="6751">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6756"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6756"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="通常フレームレート（1/45秒）" state="on" tag="1005" id="6752">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6757"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6757"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="低速フレームレート（1/30秒）" tag="1006" id="6753">
                                             <connections>
-                                                <action selector="setWaitRate:" target="6193" id="6758"/>
+                                                <action selector="changeWaitRate:" target="6193" id="6758"/>
                                             </connections>
                                         </menuItem>
                                     </items>

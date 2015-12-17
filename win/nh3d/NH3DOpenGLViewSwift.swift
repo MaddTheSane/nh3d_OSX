@@ -427,7 +427,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// load texture
 		
-		floorTex = loadImageToTexture(named: "floor.tif") //[ self loadImageToTexture:@"floor.tif" ];
+		floorTex = loadImageToTexture(named: "floor.tif")
 		floor2Tex = loadImageToTexture(named: "floor2.tif")
 		//wallTex = [ self loadImageToTexture:@"wall.tif" ];
 		cellingTex = loadImageToTexture(named: "celling.tif")
@@ -548,7 +548,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// load cashed models
+		autoreleasepool() {
 		loadModels()
+		}
 	}
 	
 	required init?(coder: NSCoder) {
@@ -1469,8 +1471,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	[ viewLock unlock ];
 }
-
-
+*/
+	@objc(setCameraAtX:atY:atZ:) func setCameraAt(x x: Float, y: Float, z: Float) {
+		
+	}
+/*
 - ( void )setCameraAtX:( float )x atY:( float )y atZ:( float )z
 {	
 	
@@ -1510,10 +1515,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 }
-
+*/
 
 // ---------------------------------
-// effect and visual function.
+// MARK: effect and visual functions.
 // ---------------------------------
 
 /*
@@ -1529,131 +1534,136 @@ final class NH3DOpenGLView: NSOpenGLView {
 
 
 // ---------------------------------
-
-- ( void )doEffect
-{
-	static int effectCount;
-	NH3DVertexType localPos = effectArray[ enemyPosition-1 ].modelShift ;
-	
-	[ effectArray[ enemyPosition-1 ] setPivotX:cameraX+localPos.x
-										 atY:localPos.y
-										 atZ:cameraZ+localPos.z ];
-	
-	if ( effectCount < ( int )waitRate / 2 ) {
-		[ effectArray[ enemyPosition-1 ] drawSelf ];
-		effectCount++;
-	} else {
-		effectCount = 0;
-		enemyPosition = 0;
-	}
-
-}
-
-
-
-- ( void )floatingCamera
-{
-	static float fltCamera;
-	static BOOL	floatDirection;	
-	
-	fltCamera = ( floatDirection ) ? fltCamera+0.003 : fltCamera-0.003;
-	if ( fltCamera > 0.08 ) floatDirection = NO;
-	if ( fltCamera < -0.08 ) floatDirection = YES;
-	
-	glTranslatef( 0.0 ,fltCamera ,0.0 );
-	
-}
-
-- ( void )shockedCamera
-{
-	static float cameraShock;
-	static int shockCount;
-	static BOOL	shockDirection;
-	
-	//cameraShock = ( shockDirection ) ? cameraShock+( float )( ( random() %4 )*0.01 ) : cameraShock-( float )( ( random() %4 )*0.01 );
-	cameraShock = ( shockDirection ) ? cameraShock+0.04 : cameraShock-0.04;
-	if ( cameraShock > 0.08 ) shockDirection = NO;
-	if ( cameraShock < -0.08 ) shockDirection = YES;
-	
-	shockCount++;
-	
-	if ( shockCount > waitRate / 2 ) {
-		isShocked = NO;
-		shockCount = 0;
+	func doEffect() {
+		struct EffectHelper {
+			static var effectCount = 0
+		}
+		let localPos = effectArray[ enemyPosition-1 ].modelShift
+		
+		effectArray[enemyPosition - 1].setPivotX(cameraX+localPos.x,
+			atY: localPos.y,
+			atZ: cameraZ + localPos.z)
+		if EffectHelper.effectCount < Int(waitRate) / 2 {
+			effectArray[ enemyPosition-1 ].drawSelf()
+			EffectHelper.effectCount++
+		} else {
+			EffectHelper.effectCount = 0
+			enemyPosition = 0
+		}
 	}
 	
-	glTranslatef( 0.0 ,cameraShock ,0.0 );
-	
-}
-	
+	func floatingCamera() {
+		struct FloatHelp {
+			static var fltCamera: Float = 0
+			static var floatDirection = false
+		}
+		
+		FloatHelp.fltCamera = ( FloatHelp.floatDirection ) ? FloatHelp.fltCamera+0.003 : FloatHelp.fltCamera-0.003;
+		if ( FloatHelp.fltCamera > 0.08 ) {
+			FloatHelp.floatDirection = false
+		}
+		if ( FloatHelp.fltCamera < -0.08 ) {
+			FloatHelp.floatDirection = true
+		}
+		
+		glTranslatef(0.0, FloatHelp.fltCamera, 0.0)
+	}
 
-
-- ( void )dorryCamera
-{
-	GLfloat xstep,ystep,zstep;
-	
-	if ( !isReady ) {
-		glTranslatef( -cameraX,-cameraY,-cameraZ );
-	} else if ( lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ ) {
-		glTranslatef( -cameraX,-cameraY,-cameraZ );
-		if ( drawMargin != 3 ) drawMargin = 0;
-	} else {		
-		xstep = ( cameraX - lastCameraX ) / cameraStep;	
-		ystep = ( cameraY - lastCameraY ) / cameraStep;
-		zstep = ( cameraZ - lastCameraZ ) / cameraStep;
+	func shockedCamera() {
+		struct ShockHelp {
+			static var cameraShock: Float = 0
+			static var shockCount = 0
+			static var shockDirection = false
+		}
 		
-		lastCameraZ += zstep;
-		lastCameraY += ystep;
-		lastCameraX += xstep;
+		//cameraShock = ( shockDirection ) ? cameraShock+( float )( ( random() %4 )*0.01 ) : cameraShock-( float )( ( random() %4 )*0.01 );
+		ShockHelp.cameraShock = ( ShockHelp.shockDirection ) ? ShockHelp.cameraShock+0.04 : ShockHelp.cameraShock-0.04;
+		if ( ShockHelp.cameraShock > 0.08 ) {
+			ShockHelp.shockDirection = false
+		}
+		if ( ShockHelp.cameraShock < -0.08 ) {
+			ShockHelp.shockDirection = true
+		}
 		
-		if ( xstep < 0.001 && xstep > -0.001 ) lastCameraX = cameraX;
-		if ( ystep < 0.001 && ystep > -0.001 ) lastCameraY = cameraY;
-		if ( zstep < 0.001 && zstep > -0.001 ) lastCameraZ = cameraZ;
+		ShockHelp.shockCount++;
 		
-		glTranslatef( -lastCameraX,-lastCameraY,-lastCameraZ );
+		if Double(ShockHelp.shockCount) > waitRate / 2 {
+			isShocked = false;
+			ShockHelp.shockCount = 0;
+		}
 		
-	} 
-	
-}
-
-
-- ( void )panCamera
-{
-	GLfloat rollstep,pitchstep,headstep;
-	
-	if ( !isReady ) {
-		glRotatef( cameraRoll,		0,0,1 );
-		glRotatef( -cameraPitch,	1,0,0 );
-		glRotatef( -cameraHead,		0,1,0 );	
-	} else if ( lastCameraHead == cameraHead ) {
-		if ( drawMargin != 1 ) drawMargin  = 0;
-		glRotatef( cameraRoll,		0,0,1 );
-		glRotatef( -cameraPitch,	1,0,0 );
-		glRotatef( -cameraHead,		0,1,0 );
-	} else {
-		rollstep = ( cameraRoll - lastCameraRoll ) / cameraStep;
-		pitchstep = ( cameraPitch - lastCameraPitch ) / cameraStep;
-		headstep = ( cameraHead - lastCameraHead ) / cameraStep;
-		
-		lastCameraRoll += rollstep;
-		lastCameraPitch += pitchstep;
-		lastCameraHead += headstep;
-		
-		if ( (rollstep < 0.01 && rollstep > -0.01) || rollstep > 90.0 ) lastCameraRoll = cameraRoll;
-		if ( (pitchstep < 0.01 && pitchstep > -0.01) || pitchstep > 90.0 ) lastCameraPitch = cameraPitch;
-		if ( (headstep < 0.01 && headstep > -0.01) || headstep > 90.0 ) lastCameraHead = cameraHead;
-		
-		glRotatef( lastCameraRoll,		0,0,1 );
-		glRotatef( -lastCameraPitch,	1,0,0 );
-		glRotatef( -lastCameraHead,		0,1,0 );
-
+		glTranslatef(0.0, ShockHelp.cameraShock, 0.0)
 	}
 	
-}
+	func dorryCamera() {
+		if !isReady {
+			glTranslatef( -cameraX,-cameraY,-cameraZ );
+		} else if ( lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ ) {
+			glTranslatef( -cameraX,-cameraY,-cameraZ );
+			if drawMargin != 3 {
+				drawMargin = 0
+			}
+		} else {
+			let xstep = ( cameraX - lastCameraX ) / cameraStep;
+			let ystep = ( cameraY - lastCameraY ) / cameraStep;
+			let zstep = ( cameraZ - lastCameraZ ) / cameraStep;
+			
+			lastCameraZ += zstep;
+			lastCameraY += ystep;
+			lastCameraX += xstep;
+			
+			if xstep < 0.001 && xstep > -0.001 {
+				lastCameraX = cameraX
+			}
+			if ystep < 0.001 && ystep > -0.001 {
+				lastCameraY = cameraY
+			}
+			if zstep < 0.001 && zstep > -0.001 {
+				lastCameraZ = cameraZ
+			}
+			
+			glTranslatef( -lastCameraX,-lastCameraY,-lastCameraZ );
+		}
+	}
+	
+	func panCamera() {
+		if !isReady {
+			glRotatef( cameraRoll,		0,0,1 );
+			glRotatef( -cameraPitch,	1,0,0 );
+			glRotatef( -cameraHead,		0,1,0 );
+		} else if lastCameraHead == cameraHead {
+			if drawMargin != 1 {
+				drawMargin  = 0
+			}
+			glRotatef( cameraRoll,		0,0,1 );
+			glRotatef( -cameraPitch,	1,0,0 );
+			glRotatef( -cameraHead,		0,1,0 );
+		} else {
+			let rollstep = ( cameraRoll - lastCameraRoll ) / cameraStep;
+			let pitchstep = ( cameraPitch - lastCameraPitch ) / cameraStep;
+			let headstep = ( cameraHead - lastCameraHead ) / cameraStep;
+			
+			lastCameraRoll += rollstep;
+			lastCameraPitch += pitchstep;
+			lastCameraHead += headstep;
+			
+			if (rollstep < 0.01 && rollstep > -0.01) || rollstep > 90.0 {
+				lastCameraRoll = cameraRoll
+			}
+			if (pitchstep < 0.01 && pitchstep > -0.01) || pitchstep > 90.0 {
+				lastCameraPitch = cameraPitch
+			}
+			if (headstep < 0.01 && headstep > -0.01) || headstep > 90.0 {
+				lastCameraHead = cameraHead
+			}
+			
+			glRotatef( lastCameraRoll,		0,0,1 );
+			glRotatef( -lastCameraPitch,	1,0,0 );
+			glRotatef( -lastCameraHead,		0,1,0 );
+		}
+	}
 
-
-//---------------------------------------------------
-*/
+	// MARK: -
 
 	private func createTextureFromSymbol(symbol: AnyObject, color: NSColor) -> GLuint {
 		viewLock.lock()
@@ -1849,6 +1859,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		magicItem.setParticleSize(35)
 	}
 	
+	//MARK: - Load model methods. Used as closures
+	
 	/// insect class
 	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, modelName: "lowerA", textured: false)
@@ -1873,14 +1885,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private func loadModelFunc_sphere(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, modelName: "lowerE", textured: false)
 	}
-
-
+	
 	/// cat or feline class
 	private func loadModelFunc_cat(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, modelName: "lowerF", textured: false)
 	}
-
-
+	
 	/// gremlins and gagoyles class
 	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerG", textured: false)
@@ -2484,133 +2494,89 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Ghosts(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible", textured: false)
 	}
-	/*
 
-- ( id )loadModelFunc_MajorDamons:(int)glyph
-{
-	// Major Damons
-	
-	if ( glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ) {
-		return [ self checkLoadedModelsAt:PM_WATER_DEMON
-									   to:PM_BALROG
-								   offset:GLYPH_MON_OFF
-								modelName:@"and"
-								 textured:NO
-								  withOut:0 ];
-	} else {
-		return [ self checkLoadedModelsAt:PM_DJINNI
-									   to:PM_SANDESTIN
-								   offset:GLYPH_MON_OFF
-								modelName:@"and"
-								 textured:NO
-								  withOut:0 ];
-	}		
-}
-
-
-- ( id )loadModelFunc_GraterDamons:(int)glyph
-{
-	// Grater Damons 
-	id ret = nil;
-
-	if ( glyph == PM_JUIBLEX + GLYPH_MON_OFF ) {
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
-			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
-			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
-			[ [ ret childObjectAtLast ] setParticleSlowdown:8.8 ];
-			[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
-			[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
-	} else {
-							
-			ret = [ self checkLoadedModelsAt:PM_YEENOGHU
-										  to:PM_DEMOGORGON
-									  offset:GLYPH_MON_OFF
-								   modelName:@"and"
-									textured:NO
-									 withOut:0 ];
-			if ( ![ ret hasChildObject ] ) {
-				[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-				[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
-				[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
-				[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-				[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
-				[ [ ret childObjectAtLast ] setParticleSlowdown:8.8 ];
-				[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
-				[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
-				[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-				[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.52 atZ:0.0 ];
-				[ [ ret childObjectAtLast ] setModelRotateX:0.0 rotateY:0.7 rotateZ:0.0 ];
-				[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			}
+	// Major Daemons
+	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObjects? {
+		if ( glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ) {
+			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "and", textured: false)
+		} else {
+			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "and", textured: false)
+		}
 	}
-	return ret;		
-}
 
-
-- ( id )loadModelFunc_Riders:(int)glyph
-{
-	// damon "The Riders"
-	id ret = nil;
+	// Greater Daemons
+	private final func loadModelFunc_GraterDamons(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
 		
-		ret = [ self checkLoadedModelsAt:PM_DEATH
-									  to:PM_FAMINE
-								  offset:GLYPH_MON_OFF
-							   modelName:@"and"
-								textured:NO
-								 withOut:0 ];
+		if glyph == PM_JUIBLEX + GLYPH_MON_OFF {
+			ret = NH3DModelObjects(with3DSFile: "and", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura;
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
+		} else {
+			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "and", textured: false)
+			if let ret = ret where !ret.hasChildObject {
+				ret.addChildObject("emitter", type: .Emitter)
+				ret.childObjectAtLast?.particleType = .Aura
+				ret.childObjectAtLast?.particleColor = CLR_RED
+				ret.childObjectAtLast?.setParticleGravityX(0.0, y:2.5, z:0.0)
+				ret.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
+				ret.childObjectAtLast?.particleSlowdown = 8.8
+				ret.childObjectAtLast?.particleLife = 0.24
+				ret.childObjectAtLast?.setParticleSize(8.0)
+				ret.addChildObject("kingset", type: .TexturedObject)
+				ret.childObjectAtLast?.setPivotX(0.0, atY:0.52, atZ:0.0)
+				ret.childObjectAtLast?.setModelRotateX(0.0, rotateY:0.7, rotateZ:0.0)
+				ret.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			}
+		}
+		return ret;
+	}
+	
+	// daemon "The Riders"
+	private final func loadModelFunc_Riders(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
 		
-		if ( ![ ret hasChildObject ] ) {
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
-			[ [ ret childObjectAtLast ] setParticleColor:CLR_RED ];
-			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
-			[ [ ret childObjectAtLast ] setParticleSlowdown:8.8 ];
-			[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
-			[ [ ret childObjectAtLast ] setParticleSize:15.0 ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ ret childObjectAtLast ].particleType = NH3DParticleTypeAura ;
-			[ [ ret childObjectAtLast ] setParticleColor:CLR_BRIGHT_MAGENTA ];
-			[ [ ret childObjectAtLast ] setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ [ ret childObjectAtLast ] setParticleSpeedX:1.0 Y:1.00 ];
-			[ [ ret childObjectAtLast ] setParticleSlowdown:8.8 ];
-			[ [ ret childObjectAtLast ] setParticleLife:0.24 ];
-			[ [ ret childObjectAtLast ] setParticleSize:8.0 ];
+		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "and", textured: false)
+		
+		if let ret = ret where !ret.hasChildObject {
+			ret.addChildObject("emitter", type: .Emitter)
+			ret.childObjectAtLast?.particleType = .Aura
+			ret.childObjectAtLast?.particleColor = CLR_RED
+			ret.childObjectAtLast?.setParticleGravityX(0.0, y:2.5, z:0.0)
+			ret.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
+			ret.childObjectAtLast?.particleSlowdown = 8.8
+			ret.childObjectAtLast?.particleLife = 0.24
+			ret.childObjectAtLast?.setParticleSize(15.0)
+			ret.addChildObject("emitter", type: .Emitter)
+			ret.childObjectAtLast?.particleType = .Aura
+			ret.childObjectAtLast?.particleColor = CLR_BRIGHT_MAGENTA
+			ret.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret.childObjectAtLast?.particleSlowdown = 8.8
+			ret.childObjectAtLast?.particleLife = 0.24
+			ret.childObjectAtLast?.setParticleSize(8.0)
 		}
 		
 		return ret;
-}
-
-
-- ( id )loadModelFunc_seamonsters:(int)glyph
-{
-	// sea monsters
-	return [ self checkLoadedModelsAt:PM_JELLYFISH
-								   to:PM_KRAKEN
-							   offset:GLYPH_MON_OFF
-							modelName:@"semicoron"
-							 textured:NO
-							  withOut:0 ];
+	}
 	
-}
-
-
-- ( id )loadModelFunc_lizards:(int)glyph
-{
+	/// sea monsters
+	private final func loadModelFunc_seamonsters(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicoron", textured: false)
+	}
+	
 	// lizards
-	return [ self checkLoadedModelsAt:PM_NEWT
-								   to:PM_SALAMANDER
-							   offset:GLYPH_MON_OFF
-							modelName:@"coron"
-							 textured:NO
-							  withOut:0 ];
-	
-}
+	private final func loadModelFunc_lizards(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "coron", textured: false)
+	}
 
-
+/*
 - ( id )loadModelFunc_wormtail:(int)glyph
 {
 	// wormtail
@@ -3681,26 +3647,31 @@ final class NH3DOpenGLView: NSOpenGLView {
 	nowUpdating = flag;
 	[ viewLock unlock ];
 }
-
-
-- ( IBAction )drawAllFrameFunction:( id )sender // wait for vSync...
-{
-	[ viewLock lock ];
-	nowUpdating = YES;
-	
-		[ [NSUserDefaults standardUserDefaults] setBool:! ((NSCell*)sender).state forKey:NH3DOpenGLWaitSyncKey ];
-		[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:[ NSNumber numberWithBool:! ((NSCell*)sender).state ]
-																			 forKey:NH3DOpenGLWaitSyncKey ];
-		
-	nowUpdating = NO;
-	[ viewLock unlock ];
-		if ( OPENGLVIEW_WAITSYNC )
-			[ self.openGLContext setValues:&vsincWait forParameter:NSOpenGLCPSwapInterval ];
-		else 
-			[ self.openGLContext setValues:&vsincNoWait forParameter:NSOpenGLCPSwapInterval ];
-
-}	
 */
+	
+	/// wait for vSync...
+	@IBAction func drawAllFrameFunction(sender: AnyObject) {
+		viewLock.lock()
+		nowUpdating = true
+		
+		do {
+			let hi: Int = sender.state
+			NSUserDefaults.standardUserDefaults().setBool(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue(hi != NSOnState, forKey:NH3DOpenGLWaitSyncKey)
+		}
+		
+		nowUpdating = false
+		viewLock.unlock()
+		
+		var vsType: GLint
+		if OPENGLVIEW_WAITSYNC {
+			vsType = vsincWait
+		} else {
+			vsType = vsincNoWait
+		}
+		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+	}
+	
 	#if false
 	@IBAction func useAntiAlias(sender: NSMenuItem) {
 		viewLock.lock()
@@ -3716,6 +3687,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		viewLock.unlock()
 	}
 	#endif
+	
+	@IBAction func changeWaitRate(sender: NSMenuItem) {
+		
+	}
 /*
 - ( IBAction )setWaitRate:( id )sender
 {
@@ -4280,7 +4255,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_LARGE_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
 		loadModelBlocks[Int(PM_GIANT_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
 		
-	// nymphs
+		// nymphs
 		loadModelBlocks[Int(PM_WOOD_NYMPH+GLYPH_MON_OFF)] =		loadModelFunc_nymphs;
 		loadModelBlocks[Int(PM_WATER_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
 		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
@@ -4509,10 +4484,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	loadModelBlocks[ PM_ETTIN + GLYPH_MON_OFF ] = [giantsBlock copy];
 	loadModelBlocks[ PM_TITAN + GLYPH_MON_OFF ] = [giantsBlock copy];
 	loadModelBlocks[ PM_MINOTAUR + GLYPH_MON_OFF ] = [giantsBlock copy];
-	// Jabberwock
-	loadModelBlocks[ PM_JABBERWOCK + GLYPH_MON_OFF ] = [^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperJ" withTexture:NO];
-	} copy];
+		*/
+		// Jabberwock
+		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+			return NH3DModelObjects(with3DSFile: "upperJ", withTexture: false)
+		}
+/*
 	// Kops
 	LoadModelBlock kopBlock = ^(int glyph) {
 		return [self checkLoadedModelsAt:PM_KEYSTONE_KOP
@@ -4712,82 +4689,62 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// Ghosts
 		loadModelBlocks[ Int(PM_GHOST + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
 		loadModelBlocks[ Int(PM_SHADE + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
-		/*
-	// Major Damons
-	LoadModelBlock majorDemonBlock = ^(int glyph) {
-		return [self loadModelFunc_MajorDamons:glyph];
-	};
-	loadModelBlocks[ PM_WATER_DEMON + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_HORNED_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_SUCCUBUS + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_INCUBUS + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_ERINYS + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_BARBED_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_MARILITH + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_VROCK + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_HEZROU + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_BONE_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_ICE_DEVIL + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_NALFESHNEE + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_PIT_FIEND + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_BALROG + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_DJINNI + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	loadModelBlocks[ PM_SANDESTIN + GLYPH_MON_OFF ] = [majorDemonBlock copy];
-	// Grater Damons 
-	LoadModelBlock greaterDemonBlock = ^(int glyph) {
-		return [self loadModelFunc_GraterDamons:glyph];
-	};
-	loadModelBlocks[ PM_JUIBLEX + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_YEENOGHU + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_ORCUS + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_GERYON + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_DISPATER + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_BAALZEBUB + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_ASMODEUS + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	loadModelBlocks[ PM_DEMOGORGON + GLYPH_MON_OFF ] = [greaterDemonBlock copy];
-	// damon "The Riders"
-	LoadModelBlock riderDemonBlock = ^(int glyph) {
-		return [self loadModelFunc_Riders:glyph];
-	};
-	loadModelBlocks[ PM_DEATH + GLYPH_MON_OFF ] = [riderDemonBlock copy];
-	loadModelBlocks[ PM_PESTILENCE + GLYPH_MON_OFF ] = [riderDemonBlock copy];
-	loadModelBlocks[ PM_FAMINE + GLYPH_MON_OFF ] = [riderDemonBlock copy];
+
+		// Major Daemons
+	loadModelBlocks[Int(PM_WATER_DEMON + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_HORNED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_SUCCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_INCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_ERINYS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_BARBED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_MARILITH + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_VROCK + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_HEZROU + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_BONE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_ICE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_NALFESHNEE + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_PIT_FIEND + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_BALROG + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_DJINNI + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	loadModelBlocks[Int(PM_SANDESTIN + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+	
+	// Greater Daemons
+	loadModelBlocks[Int(PM_JUIBLEX + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_YEENOGHU + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_ORCUS + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_GERYON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_DISPATER + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_BAALZEBUB + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_ASMODEUS + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+	loadModelBlocks[Int(PM_DEMOGORGON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons
+	
+	// daemon "The Riders"
+	loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+	loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+	loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+	
 	// sea monsters
-	LoadModelBlock seaMonsterBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_JELLYFISH
-									  to:PM_KRAKEN
-								  offset:GLYPH_MON_OFF
-							   modelName:@"semicoron"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_JELLYFISH + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
-	loadModelBlocks[ PM_PIRANHA + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
-	loadModelBlocks[ PM_SHARK + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
-	loadModelBlocks[ PM_GIANT_EEL + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
-	loadModelBlocks[ PM_ELECTRIC_EEL + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
-	loadModelBlocks[ PM_KRAKEN + GLYPH_MON_OFF ] = [seaMonsterBlock copy];
+	loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] = loadModelFunc_seamonsters
+	loadModelBlocks[Int(PM_PIRANHA + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+	loadModelBlocks[Int(PM_SHARK + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+	loadModelBlocks[Int(PM_GIANT_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+	loadModelBlocks[Int(PM_ELECTRIC_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+	loadModelBlocks[Int(PM_KRAKEN + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+	
 	// lizards
-	LoadModelBlock lizardBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_NEWT
-									  to:PM_SALAMANDER
-								  offset:GLYPH_MON_OFF
-							   modelName:@"coron"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_NEWT + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_GECKO + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_IGUANA + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_BABY_CROCODILE + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_LIZARD + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_CHAMELEON + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_CROCODILE + GLYPH_MON_OFF ] = [lizardBlock copy];
-	loadModelBlocks[ PM_SALAMANDER + GLYPH_MON_OFF ] = [lizardBlock copy];
+	loadModelBlocks[Int(PM_NEWT + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_GECKO + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_IGUANA + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_BABY_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_LIZARD + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_CHAMELEON + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+	loadModelBlocks[Int(PM_SALAMANDER + GLYPH_MON_OFF)] = loadModelFunc_lizards;
 	// wormtail
-	loadModelBlocks[ PM_LONG_WORM_TAIL + GLYPH_MON_OFF ] = [^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"wormtail" withTexture:NO];
-	} copy];;
+	loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+			return NH3DModelObjects(with3DSFile: "wormtail", withTexture: false)
+		}
+		/*
 	// Adventures
 	LoadModelBlock adventurerBlock = ^(int glyph) {
 		return [self loadModelFunc_Adventures:glyph];
@@ -4870,12 +4827,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	loadModelBlocks[ S_vodbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; 
 	loadModelBlocks[ S_hodbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; 
 	loadModelBlocks[ S_vcdbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy];
-	loadModelBlocks[ S_hcdbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; 
+	loadModelBlocks[ S_hcdbridge + GLYPH_CMAP_OFF ] = [mapSymbolBlock copy]; */
 //  ------------------------------  Boulder ---------------------------------- //
-	
-	loadModelBlocks[ BOULDER + GLYPH_OBJ_OFF ] = [^(int glyph) {
-		return [self loadModelFunc_Boulder:glyph];
-	} copy];
+		loadModelBlocks[Int(BOULDER + GLYPH_OBJ_OFF)] = { _ in
+			return NH3DModelObjects(with3DSFile: "boulder", withTexture: true)
+		}
+		/*
 // --------------------------  Trap Symbol Section --------------------------- // 
 	
 	LoadModelBlock trapSymbolBlock = ^(int glyph) {
