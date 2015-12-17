@@ -1,5 +1,6 @@
 /* NH3DOpenGLView */
 
+#if 0
 #import <Cocoa/Cocoa.h>
 #include <OpenGL/gltypes.h>
 #import "NH3Dcommon.h"
@@ -148,3 +149,4 @@ typedef NH3DModelObjects *(^LoadModelBlock)(int glyph);
 - (void)cashMethod;
 
 @end
+#endif

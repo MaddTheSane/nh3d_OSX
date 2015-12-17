@@ -9,7 +9,7 @@
 
 
 #import "NH3DMessenger.h"
-#import "NH3DOpenGLView.h"
+#import "NetHack3D-Swift.h"
 
 static const int DIALOG_OK		= 128;
 static const int DIALOG_CANCEL	= 129;

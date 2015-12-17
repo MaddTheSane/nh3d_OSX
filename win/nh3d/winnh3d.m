@@ -8,7 +8,7 @@
 #import "winnh3d.h"
 #import "NetHack3D-Swift.h"
 #import "NH3DMapView.h"
-#import "NH3DOpenGLView.h"
+#import "NetHack3D-Swift.h"
 
 #import <sys/stat.h>
 #import <signal.h>
@@ -371,7 +371,7 @@ void nh3d_get_nh_event()
 
 void nh3d_exit_nhwindows(const char *str)
 {
-	[ _NH3DOpenGLView setRunnning:NO ];
+	[ _NH3DOpenGLView setRunning:NO ];
 }
 
 
@@ -1291,7 +1291,7 @@ You("スコアの載らない発見モードで起動した．");
 	raw_print([ NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING ]);
 	ret = [ _messenger showLogPanel ];
 	
-	if (ret == YES) { clearlocks(); [ _glMapView setRunnning:NO ]; }
+	if (ret == YES) { clearlocks(); [ _glMapView setRunning:NO ]; }
 	
 	return ret;
 	

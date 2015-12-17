@@ -20,13 +20,13 @@ class MapModel: NSObject {
 				
 				switch (playerDirection - newValue) {
 				case -3, 1:
-					glMapView.setCameraHead(glMapView.cameraHead + 90, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead + 90, pitching: 0, rolling: 0)
 					
 				case  2, -2:
-					glMapView.setCameraHead(glMapView.cameraHead - 180, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead - 180, pitching: 0, rolling: 0)
 					
 				case  3, -1:
-					glMapView.setCameraHead(glMapView.cameraHead - 90, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead - 90, pitching: 0, rolling: 0)
 					
 				default:
 					break
@@ -164,7 +164,7 @@ class MapModel: NSObject {
 				
 				//set player pos for asciiview,openGlview
 				asciiMapView.setCenterAtX(x2, y: y2, depth: Int32(depth(&u.uz)))
-				glMapView.setCenterAtX(x2, z: y2, depth: Int32(depth(&u.uz)))
+				glMapView.setCenterAt(x: x2, z: y2, depth: Int32(depth(&u.uz)))
 			}
 			
 			if TRADITIONAL_MAP {
@@ -188,7 +188,7 @@ class MapModel: NSObject {
 				
 				//set player pos for asciiview,openGlview
 				asciiMapView.setCenterAtX(x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
-				glMapView.setCenterAtX(x + MAP_MARGIN, z: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
+				glMapView.setCenterAt(x: x + MAP_MARGIN, z: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 			}
 			
 			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].hasCursor = true

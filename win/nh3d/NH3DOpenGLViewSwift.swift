@@ -252,7 +252,7 @@ private var nh3dMaterialArray: [NH3DMaterial] = [
 ];
 
 
-final class NH3DOpenGLViewSwift: NSOpenGLView {
+final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
 	private var loadModelBlocks = [LoadModelBlock](count: Int(MAX_GLYPH), repeatedValue: loadModelFunc_default)
@@ -340,7 +340,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	private var effectArray = [NH3DModelObjects]()
 	
 	private var nowUpdating = false
-	private var running: Bool = false {
+	var running: Bool = false {
 		willSet {
 			viewLock.lock()
 		}
@@ -457,6 +457,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		
 		// init Effect models
 		enemyPosition = 0;
+		effectArray.reserveCapacity(12)
 
 		do {
 			let effect = NH3DModelObjects() // hit enemy front left
@@ -477,7 +478,66 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			effectArray.append(effect)
 		}
 		
+		//right direction
+		do {
+			let effect = NH3DModelObjects() // hit enemy front left
+			effect.setModelShiftX(1, shiftY: 1.8, shiftZ: -1)
+			effect.setParticleGravityX(3, y: -0.5, z: 3)
+			effectArray.append(effect)
+		}
+		do {
+			let effect = NH3DModelObjects() // hit enemy front
+			effect.setModelShiftX(1, shiftY: 1.8, shiftZ: 0)
+			effect.setParticleGravityX(3, y: -0.5, z: 0)
+			effectArray.append(effect)
+		}
+		do {
+			let effect = NH3DModelObjects() // hit enemy front right
+			effect.setModelShiftX(1, shiftY: 1.8, shiftZ: 1)
+			effect.setParticleGravityX(3, y: -0.5, z: -3)
+			effectArray.append(effect)
+		}
+
+		//back direction
+		do {
+			let effect = NH3DModelObjects() // hit enemy front left
+			effect.setModelShiftX(1, shiftY: 1.8, shiftZ: 1)
+			effect.setParticleGravityX(-3, y: -0.5, z: -3)
+			effectArray.append(effect)
+		}
+		do {
+			let effect = NH3DModelObjects() // hit enemy front
+			effect.setModelShiftX(1, shiftY: 1.8, shiftZ: 1)
+			effect.setParticleGravityX(-3, y: -0.5, z: -3)
+			effectArray.append(effect)
+		}
+		do {
+			let effect = NH3DModelObjects() // hit enemy front right
+			effect.setModelShiftX(1, shiftY: 1.8, shiftZ: 1)
+			effect.setParticleGravityX(0, y: -0.5, z: -3)
+			effectArray.append(effect)
+		}
 		
+		//left direction
+		do {
+			let effect = NH3DModelObjects() // hit enemy front left
+			effect.setModelShiftX(-1, shiftY: 1.8, shiftZ: 1)
+			effect.setParticleGravityX(-3, y: -0.5, z: -3)
+			effectArray.append(effect)
+		}
+		do {
+			let effect = NH3DModelObjects() // hit enemy front
+			effect.setModelShiftX(-1, shiftY: 1.8, shiftZ: 0)
+			effect.setParticleGravityX(-3, y: -0.5, z: 0)
+			effectArray.append(effect)
+		}
+		do {
+			let effect = NH3DModelObjects() // hit enemy front right
+			effect.setModelShiftX(-1, shiftY: 1.8, shiftZ: -1)
+			effect.setParticleGravityX(-3, y: -0.5, z: 3)
+			effectArray.append(effect)
+		}
+
 		for effect in effectArray {
 			effect.setParticleSize(8.5)
 			effect.particleType = .Points
@@ -489,49 +549,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		
 		// load cashed models
 		loadModels()
-
-		/*
-- ( instancetype ) initWithFrame: ( NSRect ) theFrame
-{
-	//reight direction
-	effectArray[ 3 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front left
-	[ effectArray[ 3 ] setModelShiftX:1.0 shiftY:1.8 shiftZ:-1.0 ];
-	[ effectArray[ 3 ] setParticleGravityX:3.0 Y:-0.5 Z:3.0 ];
-
-	effectArray[ 4 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front
-	[ effectArray[ 4 ] setModelShiftX:1.0 shiftY:1.8 shiftZ:0.0 ];
-	[ effectArray[ 4 ] setParticleGravityX:3.0 Y:-0.5 Z:0.0 ];
-	
-	effectArray[ 5 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front right
-	[ effectArray[ 5 ] setModelShiftX:1.0 shiftY:1.8 shiftZ:1.0 ];
-	[ effectArray[ 5 ] setParticleGravityX:3.0 Y:-0.5 Z:-3.0 ];
-	
-	//back direction
-	effectArray[ 6 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front left
-	[ effectArray[ 6 ] setModelShiftX:1.0 shiftY:1.8 shiftZ:1.0 ];
-	[ effectArray[ 6 ] setParticleGravityX:-3.0 Y:-0.5 Z:-3.0 ];
-	
-	effectArray[ 7 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front
-	[ effectArray[ 7 ] setModelShiftX:0.0 shiftY:1.8 shiftZ:1.0 ];
-	[ effectArray[ 7 ] setParticleGravityX:0.0 Y:-0.5 Z:-3.0 ];
-	
-	effectArray[ 8 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front right
-	[ effectArray[ 8 ] setModelShiftX:-1.0 shiftY:1.8 shiftZ:1.0 ];
-	[ effectArray[ 8 ] setParticleGravityX:3.0 Y:-0.5 Z:-3.0 ];
-
-	//left direction
-	effectArray[ 9 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front left
-	[ effectArray[ 9 ] setModelShiftX:-1.0 shiftY:1.8 shiftZ:1.0 ];
-	[ effectArray[ 9 ] setParticleGravityX:-3.0 Y:-0.5 Z:-3.0 ];
-	
-	effectArray[ 10 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front
-	[ effectArray[ 10 ] setModelShiftX:-1.0 shiftY:1.8 shiftZ:0.0 ];
-	[ effectArray[ 10 ] setParticleGravityX:-3.0 Y:-0.5 Z:0.0 ];
-	effectArray[ 11 ] = [ [ NH3DModelObjects alloc ] init ]; // hit enemy front right
-	[ effectArray[ 11 ] setModelShiftX:-1.0 shiftY:1.8 shiftZ:-1.0 ];
-	[ effectArray[ 11 ] setParticleGravityX:-3.0 Y:-0.5 Z:3.0 ];
-
-}*/
 	}
 	
 	required init?(coder: NSCoder) {
@@ -1253,8 +1270,11 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	}
 	
 }
-
-
+*/
+	func updateMap() {
+		
+	}
+	/*
 - (void)updateMap
 {
 	
@@ -1305,6 +1325,9 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		modelDictionary[(S_tlcorn + GLYPH_CMAP_OFF)]?.texture = texID
 	}
 
+	@objc(setCenterAtX:z:depth:) func setCenterAt(x x: Int32, z: Int32, depth: Int32) {
+		
+	}
 /*
 - ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth
 {
@@ -1414,8 +1437,13 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	[ self setCameraAtX:( float )x*NH3DGL_TILE_SIZE atY:1.8 atZ:( float )z*NH3DGL_TILE_SIZE ];
 	
 }
+*/
 
-
+	@objc(setCameraHead:pitching:rolling:) func setCamera(head head: Float, pitching pitch: Float, rolling roll: Float) {
+		
+	}
+	
+/*
 - ( void )setCameraHead:( float )head pitching:( float )pitch rolling:( float )roll
 {
 	[ viewLock lock ];

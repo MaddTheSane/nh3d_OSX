@@ -78,7 +78,7 @@
                             <outlet property="menu" destination="6240" id="6243"/>
                         </connections>
                     </customView>
-                    <customView id="6193" customClass="NH3DOpenGLView">
+                    <customView id="6193" customClass="NH3DOpenGLView" customModule="NetHack3D" customModuleProvider="target">
                         <rect key="frame" x="183" y="222" width="440" height="320"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>

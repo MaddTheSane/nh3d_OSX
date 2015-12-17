@@ -7,7 +7,6 @@
 #import "NH3DUserDefaultsExtern.h"
 #import "NH3DMapItem.h"
 #import "NH3DMapView.h"
-#import "NH3DOpenGLView.h"
 #import "NH3DModelObjects.h"
 
 static inline BOOL Swift_Invis() {

@@ -390,7 +390,6 @@
 		2BA046CD08EF5831004057D1 /* logfile in Resources */ = {isa = PBXBuildFile; fileRef = 2BA046CC08EF5831004057D1 /* logfile */; };
 		2BA134C20915131C00CB4329 /* human.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BA134C10915131C00CB4329 /* human.tiff */; };
 		2BA7A40609774D3100122932 /* nh3dmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* nh3dmain.m */; };
-		2BA8D50C090365B5004618EF /* NH3DOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8D50B090365B5004618EF /* NH3DOpenGLView.m */; };
 		2BACF9E60902568F0095C8A4 /* makedefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E40891ADF000D38098 /* makedefs.c */; };
 		2BACFA02090259400095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
 		2BACFA03090259490095C8A4 /* monst.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC110088EB7DF00940C58 /* monst.c */; };
@@ -3558,7 +3557,6 @@
 				2B9ED5D608F51D15004AD560 /* NH3DMapView.m in Sources */,
 				2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */,
 				2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */,
-				2BA8D50C090365B5004618EF /* NH3DOpenGLView.m in Sources */,
 				2BCAAB520912FC5000AF1C59 /* NH3DTileCache.m in Sources */,
 				2B2E1EDF0919086F008805B3 /* NH3DModelObjects.m in Sources */,
 				2B5458DB095D23F3007A1049 /* NH3DUserMakeSheetController.m in Sources */,
