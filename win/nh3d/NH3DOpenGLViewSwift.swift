@@ -357,8 +357,8 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	private var keyArray = [Int32]()
 	private var delayDrawing = [(item: NH3DMapItem, x: Int32, z: Int32)]()
 	
-	override init?(frame frameRect: NSRect, pixelFormat format: NSOpenGLPixelFormat?) {
-		super.init(frame: frameRect, pixelFormat: format)
+	override convenience init?(frame frameRect: NSRect, pixelFormat format: NSOpenGLPixelFormat?) {
+		self.init(frame: frameRect)
 	}
 
 	override init(frame frameRect: NSRect) {
@@ -921,30 +921,10 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	private func floorfunc_default() {
 		return;
 	}
-
-	/*
-@implementation NH3DOpenGLView
-@synthesize cameraHead;
-
-
-//------------------------------------------------------------------
-// for speed up functions. (replace 'switch' method)
-//------------------------------------------------------------------
-
-
-//#define NH3DOpenGLViewCast( self )  \
-//( ( struct { @defs( NH3DOpenGLView ) } * ) self )
-//#define NH3DOpenGLViewCast( self ) ((NH3DOpenGLView*)self)
-
-
-
-
-- ( BOOL )isOpaque
-{
-	return ( !firstTime ) ? YES : NO ;
-}
-
-*/
+	
+	override var opaque: Bool {
+		return !firstTime
+	}
 	
 	deinit {
 		delayDrawing.removeAll()
@@ -1015,6 +995,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		NSThread.exit()
 	}
 	
+	/// Drawing OpenGL function.
 	func updateGLView() {
 		
 	}
@@ -1860,125 +1841,91 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, modelName: "lowerD", textured: false)
 	}
 
+	/// eye or sphere class
+	private func loadModelFunc_sphere(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, modelName: "lowerE", textured: false)
+	}
 
 
-
-/*
-- ( id )loadModelFunc_sphere:(int)glyph
-{
-	// eye or sphere class
-	return [ self checkLoadedModelsAt:PM_GAS_SPORE
-								   to:PM_SHOCKING_SPHERE
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerE" textured:NO withOut:0 ];
-	
-}
+	/// cat or feline class
+	private func loadModelFunc_cat(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, modelName: "lowerF", textured: false)
+	}
 
 
-- ( id )loadModelFunc_cat:(int)glyph
-{	
-	// cat or feline class
-	return [ self checkLoadedModelsAt:PM_KITTEN
-								   to:PM_TIGER
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerF" textured:NO withOut:0 ];
-	
-}
+	/// gremlins and gagoyles class
+	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerG", textured: false)
+	}
+
+	/// humanoids class
+	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil
+		if glyph == PM_DWARF_KING+GLYPH_MON_OFF {
+			ret = NH3DModelObjects(with3DSFile:"lowerH", withTexture: false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0, atY: 0.2, atZ: -0.21)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+		} else {
+			ret = checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerH", textured: false, without: PM_DWARF_KING)
+		}
+		return ret
+	}
+
+	/// imp and minor demons
+	private func loadModelFunc_imp(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_MANES, to: PM_TENGU, modelName: "lowerI", textured: false)
+	}
 
 
-- ( id )loadModelFunc_gremlins:(int)glyph
-{
-	// gremlins and gagoyles class
-	return [ self checkLoadedModelsAt:PM_GREMLIN
-								   to:PM_WINGED_GARGOYLE
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerG" textured:NO withOut:0 ];
-	
-}
+	/// jellys
+	private func loadModelFunc_jellys(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_BLUE_JELLY, to: PM_OCHRE_JELLY, modelName: "lowerJ", textured: false)
+	}
 
-
-- ( id )loadModelFunc_humanoids:(int)glyph
-{
-	// humanoids class
-	id ret =nil;
-	
-	if ( glyph ==  PM_DWARF_KING+GLYPH_MON_OFF ) {
-		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerH" withTexture:NO ];
-		[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-		[ [ret childObjectAtLast] setPivotX:0.0 atY:0.2 atZ:-0.21 ];
-		[ret childObjectAtLast].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-	} else {
+	// kobolds
+	private func loadModelFunc_kobolds(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil
 		
-		ret = [ self checkLoadedModelsAt:PM_HOBBIT
-									  to:PM_MASTER_MIND_FLAYER
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerH"
-								textured:NO
-								 withOut:PM_DWARF_KING,nil ];
+		switch glyph {
+		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF :
+			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, modelName: "lowerK", textured: false)
+			
+		case PM_KOBOLD_LORD+GLYPH_MON_OFF :
+			ret = NH3DModelObjects(with3DSFile:"lowerK", withTexture: false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0, atY: 0.1, atZ: -0.25)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			
+		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF :
+			ret = NH3DModelObjects(with3DSFile:"lowerK", withTexture: false)
+			ret?.addChildObject("wizardset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0, atY: -0.01, atZ: -0.15)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			
+		default:
+			break;
+		}
+		
+		return ret;
 	}
 	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_imp:(int)glyph
-{
-	// imp and minor demons
-	return [ self checkLoadedModelsAt:PM_MANES
-								   to:PM_TENGU
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerI"
-							 textured:NO
-							  withOut:0 ];
-}
-
-
-- ( id )loadModelFunc_jellys:(int)glyph
-{
-	// jellys
-	return [ self checkLoadedModelsAt:PM_BLUE_JELLY
-								   to:PM_OCHRE_JELLY
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerJ"
-							 textured:NO
-							  withOut:0 ];
+	/// leprechaun
+	//private func loadModelFunc_leprechaun(glyph: Int32) -> NH3DModelObjects? {
+	//	return NH3DModelObjects(with3DSFile: "lowerL", withTexture: false)
+	//}
 	
-}
-
-
-- ( id )loadModelFunc_leprechaun:(int)glyph
-{
-	// leprechaun
-		return [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerL" withTexture:NO ];
-	
-}
-
-
-- ( id )loadModelFunc_mimics:(int)glyph
-{
 	// mimics
-	return [ self checkLoadedModelsAt:PM_SMALL_MIMIC
-								   to:PM_GIANT_MIMIC
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerM"
-							 textured:NO
-							  withOut:0 ];
+	private func loadModelFunc_mimics(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_SMALL_MIMIC, to: PM_GIANT_MIMIC, modelName: "lowerM", textured: false)
+	}
 	
-}
+	/// nymphs
+	private func loadModelFunc_nymphs(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, modelName: "lowerN", textured: false)
+	}
 
-
-- ( id )loadModelFunc_nymphs:(int)glyph
-{
-	// nymphs
-	return [ self checkLoadedModelsAt:PM_WOOD_NYMPH
-								   to:PM_MOUNTAIN_NYMPH
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerN"
-							 textured:NO
-							  withOut:0 ];	
-}
-
-
+/*
 - ( id )loadModelFunc_orc:(int)glyph
 {
 	// orc class
@@ -2369,101 +2316,54 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 */
 	
 	/// Quantum mechanics
-	private final func loadModelFunc_QuantumMechanics(glyph: Int32) -> NH3DModelObjects? {
-		return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
+	//private final func loadModelFunc_QuantumMechanics(glyph: Int32) -> NH3DModelObjects? {
+	//	return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
+	//}
+	
+	/// Rust monster or disenchanter
+	private final func loadModelFunc_Rustmonster(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_RUST_MONSTER, to: PM_DISENCHANTER, modelName: "upperR", textured: false)
 	}
-	
-/*
-- ( id )loadModelFunc_Rustmonster:(int)glyph
-{
-	// Rust monster or disenchanter
-	return [ self checkLoadedModelsAt:PM_RUST_MONSTER
-								   to:PM_DISENCHANTER
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperR"
-							 textured:NO
-							  withOut:0 ];
-	
-}
 
+	/// Snakes
+	private final func loadModelFunc_Snakes(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GARTER_SNAKE, to: PM_COBRA, modelName: "upperS", textured: false)
+	}
 
-- ( id )loadModelFunc_Snakes:(int)glyph
-{
-	// Snakes
-	return [ self checkLoadedModelsAt:PM_GARTER_SNAKE
-								   to:PM_COBRA
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperS"
-							 textured:NO
-							  withOut:0 ];
-	
-}
+	/// Trolls
+	private final func loadModelFunc_Trolls(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_TROLL, to: PM_OLOG_HAI, modelName: "upperT", textured: false)
+	}
 
+	/// Umber hulk
+	private final func loadModelFunc_Umberhulk(glyph: Int32) -> NH3DModelObjects? {
+		return NH3DModelObjects(with3DSFile: "upperU", withTexture: false)
+	}
 
-- ( id )loadModelFunc_Trolls:(int)glyph
-{
-	// Trolls
-	return [ self checkLoadedModelsAt:PM_TROLL
-								   to:PM_OLOG_HAI
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperT"
-							 textured:NO
-							  withOut:0 ];
-	
-}
-
-
-- ( id )loadModelFunc_Umberhulk:(int)glyph
-{
-	// Umber hulk	
-	return [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperU" withTexture:NO ];
-
-}
-
-
-- ( id )loadModelFunc_Vampires:(int)glyph
-{
-	// Vampires
-	id ret = nil;
-	switch ( glyph ) {
-		case PM_VAMPIRE + GLYPH_MON_OFF :
-		case PM_VAMPIRE_LORD + GLYPH_MON_OFF :
-			
-			ret = [ self checkLoadedModelsAt:PM_VAMPIRE
-										  to:PM_VAMPIRE_LORD
-									  offset:GLYPH_MON_OFF
-								   modelName:@"upperV"
-									textured:NO
-									 withOut:0 ];
-			
-			break;
+	/// Vampires
+	private final func loadModelFunc_Vampires(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		switch glyph {
+		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF :
+			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, modelName: "upperV", textured: false)
 			
 		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperV" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-			[ [ ret childObjectAtLast ] setPivotX:0.0 atY:0.15 atZ:-0.18 ];
-			[ ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			break;
+			ret =  NH3DModelObjects(with3DSFile: "upperV", withTexture: false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0, atY: 0.15, atZ: -0.18)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			
+		default:
+			break
+		}
+		
+		return ret;
 	}
 	
-	return ret;
-	
-}
-
-
-- ( id )loadModelFunc_Wraiths:(int)glyph
-{
-	// Wraiths
-	return [ self checkLoadedModelsAt:PM_BARROW_WIGHT
-								   to:PM_NAZGUL
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperW"
-							 textured:NO
-							  withOut:0 ];
-	
-}
-*/
-	
+	/// Wraiths
+	private final func loadModelFunc_Wraiths(glyph: Int32) -> NH3DModelObjects? {
+	return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, modelName: "upperW", textured: false)
+	}
 	
 	/// Xorn
 	private final func loadModelFunc_Xorn(glyph: Int32) -> NH3DModelObjects? {
@@ -3739,12 +3639,6 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 }
 
 
-- ( id )loadModelFunc_default:(int)glyph
-{
-	return nil;
-}
-
-
 /*
 - ( id )loadModelToArray:(int)glyph
 {
@@ -3958,7 +3852,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		
 		switchMethodArray[ 0 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
-		};
+		}
 		switchMethodArray[ 1 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
@@ -3970,49 +3864,49 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 				flag: 1);
 			
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
-		};
+		}
 		switchMethodArray[ 3 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
-		};
+		}
 		switchMethodArray[ 4 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 3);
-		};
+		}
 		switchMethodArray[ 5 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 4);
-		};
+		}
 		switchMethodArray[ 6 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 5);
-		};
+		}
 		switchMethodArray[ 7 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 6);
-		};
+		}
 		switchMethodArray[ 8 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 7);
-		};
+		}
 		switchMethodArray[ 9 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 8);
-		};
+		}
 		switchMethodArray[ 10 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
-		};
+		}
 	
 		drawFloorArray[ 0 ] = {
 			glActiveTexture( GLenum(GL_TEXTURE0) );
@@ -4027,7 +3921,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 		drawFloorArray[ 1 ] = {
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
@@ -4041,7 +3935,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 		drawFloorArray[ 2 ] = {
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
@@ -4063,7 +3957,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 		//Draw pool
 		drawFloorArray[ 3 ] = {
 			glActiveTexture( GLenum(GL_TEXTURE0) );
@@ -4113,7 +4007,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glDisable(GLenum(GL_TEXTURE_2D))
-		};
+		}
 		//Draw ice
 		drawFloorArray[ 4 ] = {
 			glActiveTexture(GLenum(GL_TEXTURE0))
@@ -4159,7 +4053,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glDisable(GLenum(GL_TEXTURE_2D))
-		};
+		}
 		//Draw lava
 		drawFloorArray[ 5 ] = {
 			glActiveTexture(GLenum(GL_TEXTURE0))
@@ -4185,7 +4079,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 		//draw air
 		drawFloorArray[ 6 ] = {
 			glActiveTexture(GLenum(GL_TEXTURE0));
@@ -4200,7 +4094,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 		//draw cloud
 		drawFloorArray[ 7 ] = {
 			glActiveTexture(GLenum(GL_TEXTURE0));
@@ -4215,7 +4109,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 		//draw water
 		drawFloorArray[ 8 ] = {
 			glActiveTexture(GLenum(GL_TEXTURE0));
@@ -4262,7 +4156,7 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
-		};
+		}
 
 		// insect class
 		loadModelBlocks[Int(PM_GIANT_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect;
@@ -4298,152 +4192,71 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 		loadModelBlocks[Int(PM_WINTER_WOLF+GLYPH_MON_OFF)] =		loadModelFunc_dog;
 		loadModelBlocks[Int(PM_HELL_HOUND_PUP+GLYPH_MON_OFF)] =		loadModelFunc_dog;
 		loadModelBlocks[Int(PM_HELL_HOUND+GLYPH_MON_OFF)] =			loadModelFunc_dog;
-	
-	/*
-	// eye or sphere class
-	LoadModelBlock sphereBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_GAS_SPORE
-									  to:PM_SHOCKING_SPHERE
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerE" textured:NO withOut:0];
-	};
-	loadModelBlocks[PM_GAS_SPORE+GLYPH_MON_OFF] =		[sphereBlock copy];
-	loadModelBlocks[PM_FLOATING_EYE+GLYPH_MON_OFF] =	[sphereBlock copy];
-	loadModelBlocks[PM_FREEZING_SPHERE+GLYPH_MON_OFF] =	[sphereBlock copy];
-	loadModelBlocks[PM_FLAMING_SPHERE+GLYPH_MON_OFF] =	[sphereBlock copy];
-	loadModelBlocks[PM_SHOCKING_SPHERE+GLYPH_MON_OFF] =	[sphereBlock copy];
-	
-	// cat or feline class
-	LoadModelBlock catBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_KITTEN
-									  to:PM_TIGER
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerF" textured:NO withOut:0];
-	};
-	loadModelBlocks[ PM_KITTEN+GLYPH_MON_OFF ] =	[catBlock copy];
-	loadModelBlocks[ PM_HOUSECAT+GLYPH_MON_OFF ] =	[catBlock copy];
-	loadModelBlocks[ PM_JAGUAR+GLYPH_MON_OFF ] =	[catBlock copy];
-	loadModelBlocks[ PM_LYNX+GLYPH_MON_OFF ] =		[catBlock copy];
-	loadModelBlocks[ PM_PANTHER+GLYPH_MON_OFF ] =	[catBlock copy];
-	loadModelBlocks[ PM_LARGE_CAT+GLYPH_MON_OFF ] = [catBlock copy];
-	loadModelBlocks[ PM_TIGER+GLYPH_MON_OFF ] =		[catBlock copy];
-	
-	// gremlins and gagoyles class
-	LoadModelBlock gremlinsBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_GREMLIN
-									  to:PM_WINGED_GARGOYLE
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerG" textured:NO withOut:0];
-	};
-	loadModelBlocks[PM_GREMLIN+GLYPH_MON_OFF] =			[gremlinsBlock copy];
-	loadModelBlocks[PM_GARGOYLE+GLYPH_MON_OFF] =		[gremlinsBlock copy];
-	loadModelBlocks[PM_WINGED_GARGOYLE+GLYPH_MON_OFF] =	[gremlinsBlock copy];
-	
-	// humanoids class
-	LoadModelBlock humanoidsBlock = ^(int glyph) {
+		
+		// eye or sphere class
+		loadModelBlocks[Int(PM_GAS_SPORE+GLYPH_MON_OFF)] =			loadModelFunc_sphere;
+		loadModelBlocks[Int(PM_FLOATING_EYE+GLYPH_MON_OFF)] =		loadModelFunc_sphere;
+		loadModelBlocks[Int(PM_FREEZING_SPHERE+GLYPH_MON_OFF)] =	loadModelFunc_sphere;
+		loadModelBlocks[Int(PM_FLAMING_SPHERE+GLYPH_MON_OFF)] =		loadModelFunc_sphere;
+		loadModelBlocks[Int(PM_SHOCKING_SPHERE+GLYPH_MON_OFF)] =	loadModelFunc_sphere;
+		
+		// cat or feline class
+		loadModelBlocks[Int(PM_KITTEN+GLYPH_MON_OFF)] =		loadModelFunc_cat
+		loadModelBlocks[Int(PM_HOUSECAT+GLYPH_MON_OFF)] =	loadModelFunc_cat
+		loadModelBlocks[Int(PM_JAGUAR+GLYPH_MON_OFF)] =		loadModelFunc_cat
+		loadModelBlocks[Int(PM_LYNX+GLYPH_MON_OFF)] =		loadModelFunc_cat
+		loadModelBlocks[Int(PM_PANTHER+GLYPH_MON_OFF)] =	loadModelFunc_cat
+		loadModelBlocks[Int(PM_LARGE_CAT+GLYPH_MON_OFF)] =	loadModelFunc_cat
+		loadModelBlocks[Int(PM_TIGER+GLYPH_MON_OFF)] =		loadModelFunc_cat
+		
+		// gremlins and gagoyles class
+		loadModelBlocks[Int(PM_GREMLIN+GLYPH_MON_OFF)] =			loadModelFunc_gremlins;
+		loadModelBlocks[Int(PM_GARGOYLE+GLYPH_MON_OFF)] =			loadModelFunc_gremlins;
+		loadModelBlocks[Int(PM_WINGED_GARGOYLE+GLYPH_MON_OFF)] =	loadModelFunc_gremlins;
+		
 		// humanoids class
-		NH3DModelObjects *ret =nil;
+		loadModelBlocks[Int(PM_DWARF_KING+GLYPH_MON_OFF)] =			loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_HOBBIT+GLYPH_MON_OFF)] =				loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_DWARF+GLYPH_MON_OFF)] =				loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_BUGBEAR+GLYPH_MON_OFF)] =			loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_DWARF_LORD+GLYPH_MON_OFF)] =			loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_MIND_FLAYER+GLYPH_MON_OFF)] =		loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF)] =	loadModelFunc_humanoids
 		
-		if (glyph == PM_DWARF_KING+GLYPH_MON_OFF) {
-			ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerH" withTexture:NO];
-			[ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject];
-			[[ret childObjectAtLast] setPivotX:0.0 atY:0.2 atZ:-0.21];
-			[ret childObjectAtLast].currentMaterial = nh3dMaterialArray[NO_COLOR];
-		} else {
-			
-			ret = [self checkLoadedModelsAt:PM_HOBBIT
-										 to:PM_MASTER_MIND_FLAYER
-									 offset:GLYPH_MON_OFF
-								  modelName:@"lowerH"
-								   textured:NO
-									withOut:PM_DWARF_KING,nil];
-		}
+		// imp and minor demons
+		loadModelBlocks[Int(PM_MANES+GLYPH_MON_OFF)] =		loadModelFunc_imp;
+		loadModelBlocks[Int(PM_HOMUNCULUS+GLYPH_MON_OFF)] =	loadModelFunc_imp;
+		loadModelBlocks[Int(PM_IMP+GLYPH_MON_OFF)] =		loadModelFunc_imp;
+		loadModelBlocks[Int(PM_LEMURE+GLYPH_MON_OFF)] =		loadModelFunc_imp;
+		loadModelBlocks[Int(PM_QUASIT+GLYPH_MON_OFF)] =		loadModelFunc_imp;
+		loadModelBlocks[Int(PM_TENGU+GLYPH_MON_OFF)] =		loadModelFunc_imp;
 		
-		return ret;
-	};
-	loadModelBlocks[PM_DWARF_KING+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
-	loadModelBlocks[PM_HOBBIT+GLYPH_MON_OFF ] =				[humanoidsBlock copy];
-	loadModelBlocks[PM_DWARF+GLYPH_MON_OFF ] =				[humanoidsBlock copy];
-	loadModelBlocks[PM_BUGBEAR+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
-	loadModelBlocks[PM_DWARF_LORD+GLYPH_MON_OFF ] =			[humanoidsBlock copy];
-	loadModelBlocks[PM_MIND_FLAYER+GLYPH_MON_OFF ] =		[humanoidsBlock copy];
-	loadModelBlocks[PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF ] =	[humanoidsBlock copy];
-	// imp and minor demons
-	LoadModelBlock impBlock = ^(int glyph) {
-		return [self loadModelFunc_imp:glyph];
-	};
-	loadModelBlocks[ PM_MANES+GLYPH_MON_OFF ] =			[impBlock copy];
-	loadModelBlocks[ PM_HOMUNCULUS+GLYPH_MON_OFF ] =	[impBlock copy];
-	loadModelBlocks[ PM_IMP+GLYPH_MON_OFF ] =			[impBlock copy];
-	loadModelBlocks[ PM_LEMURE+GLYPH_MON_OFF ] =		[impBlock copy];
-	loadModelBlocks[ PM_QUASIT+GLYPH_MON_OFF ] =		[impBlock copy];
-	loadModelBlocks[ PM_TENGU+GLYPH_MON_OFF ] =			[impBlock copy];
-	
-	// jellys
-	LoadModelBlock jellyBlock = ^(int glyph) {
-		return [self loadModelFunc_jellys:glyph];
-	};
-	loadModelBlocks[ PM_BLUE_JELLY+GLYPH_MON_OFF ] =	[jellyBlock copy];
-	loadModelBlocks[ PM_SPOTTED_JELLY+GLYPH_MON_OFF ] =	[jellyBlock copy];
-	loadModelBlocks[ PM_OCHRE_JELLY+GLYPH_MON_OFF ] =	[jellyBlock copy];
-	
-	// kobolds
-	LoadModelBlock koboldBlock = ^(int glyph) {
+		// jellys
+		loadModelBlocks[Int(PM_BLUE_JELLY+GLYPH_MON_OFF)] =		loadModelFunc_jellys;
+		loadModelBlocks[Int(PM_SPOTTED_JELLY+GLYPH_MON_OFF)] =	loadModelFunc_jellys;
+		loadModelBlocks[Int(PM_OCHRE_JELLY+GLYPH_MON_OFF)] =	loadModelFunc_jellys;
+		
 		// kobolds
-		NH3DModelObjects *ret = nil;
+		loadModelBlocks[Int(PM_KOBOLD+GLYPH_MON_OFF)] =			loadModelFunc_kobolds;
+		loadModelBlocks[Int(PM_LARGE_KOBOLD+GLYPH_MON_OFF)] =	loadModelFunc_kobolds;
+		loadModelBlocks[Int(PM_KOBOLD_LORD+GLYPH_MON_OFF)] =	loadModelFunc_kobolds;
+		loadModelBlocks[Int(PM_KOBOLD_SHAMAN+GLYPH_MON_OFF)] =	loadModelFunc_kobolds
 		
-		switch ( glyph ) {
-			case PM_KOBOLD+GLYPH_MON_OFF :
-			case PM_LARGE_KOBOLD+GLYPH_MON_OFF :
-				ret = [self checkLoadedModelsAt:PM_KOBOLD
-											  to:PM_LARGE_KOBOLD
-										  offset:GLYPH_MON_OFF
-									   modelName:@"lowerK"
-										textured:NO
-										 withOut:0];
-				break;
-				
-			case PM_KOBOLD_LORD+GLYPH_MON_OFF :
-				ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerK" withTexture:NO];
-				[ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject];
-				[[ret childObjectAtLast] setPivotX:0.0 atY:0.1 atZ:-0.25];
-				[ret childObjectAtLast].currentMaterial = nh3dMaterialArray[NO_COLOR];
-				
-				break;
-				
-			case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF :
-				ret = [[NH3DModelObjects alloc] initWith3DSFile:@"lowerK" withTexture:NO];
-				[ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-				[[ret childObjectAtLast ] setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
-				[ret childObjectAtLast ].currentMaterial = nh3dMaterialArray[NO_COLOR];
-				
-				break;
+		// leprechaun
+		loadModelBlocks[Int(PM_LEPRECHAUN+GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+			return NH3DModelObjects(with3DSFile: "lowerL", withTexture: false)
 		}
 		
-		return ret;
-	};
-	loadModelBlocks[ PM_KOBOLD+GLYPH_MON_OFF ] =			[koboldBlock copy];
-	loadModelBlocks[ PM_LARGE_KOBOLD+GLYPH_MON_OFF ] =		[koboldBlock copy];
-	loadModelBlocks[ PM_KOBOLD_LORD+GLYPH_MON_OFF ] =		[koboldBlock copy];
-	loadModelBlocks[ PM_KOBOLD_SHAMAN + GLYPH_MON_OFF ] =	[koboldBlock copy];
-	// leprechaun
-	loadModelBlocks[ PM_LEPRECHAUN+GLYPH_MON_OFF ] = [^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"lowerL" withTexture:NO];
-	} copy];
-	// mimics
-	LoadModelBlock mimicBlock = ^(int glyph) {
-		return [self loadModelFunc_mimics:glyph];
-	};
-	loadModelBlocks[ PM_SMALL_MIMIC+GLYPH_MON_OFF ] = [mimicBlock copy];
-	loadModelBlocks[ PM_LARGE_MIMIC+GLYPH_MON_OFF ] = [mimicBlock copy];
-	loadModelBlocks[ PM_GIANT_MIMIC+GLYPH_MON_OFF ] = [mimicBlock copy];
+		// mimics
+		loadModelBlocks[Int(PM_SMALL_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
+		loadModelBlocks[Int(PM_LARGE_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
+		loadModelBlocks[Int(PM_GIANT_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
+		
 	// nymphs
-	LoadModelBlock nymphBlock = ^(int glyph) {
-		return [self loadModelFunc_nymphs:glyph];
-	};
-	loadModelBlocks[ PM_WOOD_NYMPH+GLYPH_MON_OFF ] = [nymphBlock copy];
-	loadModelBlocks[ PM_WATER_NYMPH+GLYPH_MON_OFF ] = [nymphBlock copy];
-	loadModelBlocks[ PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF ] = [nymphBlock copy];
+		loadModelBlocks[Int(PM_WOOD_NYMPH+GLYPH_MON_OFF)] =		loadModelFunc_nymphs;
+		loadModelBlocks[Int(PM_WATER_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
+		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
+/*
 	// orc class
 	LoadModelBlock orcBlock = ^(int glyph) {
 		return [self loadModelFunc_orc:glyph];
@@ -4749,7 +4562,9 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = [puddingBlock copy];
 		*/
 		// Quantum mechanics
-		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = loadModelFunc_QuantumMechanics
+		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = { (_: Int32) -> NH3DModelObjects? in
+			return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
+		}
 		/*
 	// Rust monster or disenchanter
 	LoadModelBlock rustMonsterBlock = ^(int glyph) {
