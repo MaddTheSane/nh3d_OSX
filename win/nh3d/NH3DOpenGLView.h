@@ -1,10 +1,7 @@
 /* NH3DOpenGLView */
 
 #import <Cocoa/Cocoa.h>
-//#import <OpenGL/gl.h>
-//#import <OpenGL/glext.h>
-//#import <OpenGL/glu.h>
-//#import <OpenGL/OpenGL.h>
+#include <OpenGL/gltypes.h>
 #import "NH3Dcommon.h"
 
 #import "NH3DUserDefaultsExtern.h"

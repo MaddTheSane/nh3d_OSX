@@ -11,27 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NH3DMapItem : NSObject {
-	
-	char				symbol;
-	int					glyph;
-	int					color;
-	int					posX;
-	int					posY;
-	unsigned			special;
-	
-	BOOL				player;
-	BOOL				hasAlternateSymbol;
-	BOOL				hasCursor;
-	
-	//NSImage				*tile;
-	
-	int					modelDrawingType;
-	
-	NSRecursiveLock		*lock;
-}
+@interface NH3DMapItem : NSObject
 
-// This is designated initializer.
+/// This is the designated initializer.
 - (instancetype)initWithParameter:(char)ch
 							glyph:(int)glf
 							color:(int)col

@@ -7,8 +7,11 @@
 //
 
 import Cocoa
-import OpenGL
-import GLKit
+import OpenGL.GL
+import OpenGL.GL.Ext
+import OpenGL.GL.GLU
+import GLKit.GLKMatrix4
+import GLKit.GLKMathUtils
 
 
 private let GLYPH_MON_OFF: Int32 = 0
@@ -332,9 +335,9 @@ final class NH3DOpenGLViewSwift: NSOpenGLView {
 	var elementalLevel: Int32 = 0
 	var waitRate: Double = 0
 	
-	var dRefreshRate: CGRefreshRate = 0
+	private var dRefreshRate: CGRefreshRate = 0
 
-	var effectArray = [NH3DModelObjects]()
+	private var effectArray = [NH3DModelObjects]()
 	
 	private var nowUpdating = false
 	private var running: Bool = false {

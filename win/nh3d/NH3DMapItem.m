@@ -14,7 +14,10 @@
 /*from winnh3d.m*/
 extern NH3DTileCache *_NH3DTileCache;
 
-@implementation NH3DMapItem
+@implementation NH3DMapItem {
+	NSRecursiveLock *lock;
+}
+
 @synthesize player;
 @synthesize hasAlternateSymbol;
 @synthesize hasCursor;
@@ -24,6 +27,7 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize cSymbol = symbol;
 @synthesize modelDrawingType;
 @synthesize special;
+@synthesize material = color;
 
 - (void)checkDrawingType
 {
@@ -128,7 +132,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 
 
-//Over wride NSObject designated initializer. Normary dont use this.
+/// Override NSObject designated initializer. Normary don't use this.
 - (instancetype) init {
 	
 	return [ self initWithParameter:' ' 
@@ -238,34 +242,26 @@ extern NH3DTileCache *_NH3DTileCache;
 	return aColor;
 }
 
-- (int)material
-{
-	return color;
-}
-
 
 - (void)setPlayer:(BOOL)flag
 {
 	[ lock lock ];
 	player = flag;
-	[ self checkDrawingType ];	
+	[ self checkDrawingType ];
 	[ lock unlock ];
-	 
 }
 
 
 - (void)setSymbol:(char)chr
 {
-	[ lock lock ]; 
+	[ lock lock ];
 	symbol = chr;
 	[ self checkDrawingType ];
 	[ lock unlock ];
-	 
 }
 
 - (void)setHasAlternateSymbol:(BOOL)flag
 {
-	 
 	[ lock lock ];
 	hasAlternateSymbol = flag;
 	[ lock unlock ];
@@ -273,7 +269,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setHasCursor:(BOOL)flag
 {
-	[ lock lock ]; 
+	[ lock lock ];
 	hasCursor = flag;
 	[ lock unlock ];
 }
