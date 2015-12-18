@@ -594,7 +594,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			lockFocusIfCanDraw()
 			
 			NSColor.clearColor().set()
-			NSBezierPath.fillRect(self.bounds)
+			NSBezierPath.fillRect(bounds)
 			
 			NSImage(named: "nh3d")?.drawAtPoint(NSPoint(x: 156, y: 88), fromRect: .zero, operation: .CompositeSourceOver, fraction: 0.7)
 			("NetHack3D" as NSString).drawAtPoint(NSPoint(x: 168.0, y: 70.0), withAttributes: attributes)
@@ -2942,7 +2942,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObjects? = nil;
 		
 		switch glyph {
-			
 		case S_arrow_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObjects(with3DSFile: "arrowtrap", withTexture: true)
 			
@@ -3107,375 +3106,402 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return ret
 	}
 	
-/*
-// ------------------------- Effect Symbols Section. ------------------------- //
+
+// MARK: - Effect Symbols Section.
 
 // ZAP symbols ( NUM_ZAP * four directions )
 
 
-- ( id )loadModelFunc_MagicMissile:(int)glyph
-{
-	// type Magic Missile
-	id ret = nil;
-	
-	switch ( glyph ) {
+	/// type Magic Missile
+	private final func loadModelFunc_MagicMissile(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
 		
+		switch glyph {
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
-			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 0.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_WHITE)
+				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
-			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(0.0, rotateY: 0.0, rotateZ: -90.0)
+				setParamsForMagicEffect(ret, color: CLR_WHITE)
+				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
-			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: -45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_WHITE)
+				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_WHITE ];
-			//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_WHITE)
+				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
-	}
-	
-	return ret;
-
-}
-
-
-- ( id )loadModelFunc_MagicFIRE:(int)glyph
-{
-	// type Magic FIRE
-	id ret = nil;
-	
-	switch ( glyph ) {
+		default:
+			break
+		}
 		
+		return ret;
+	}
+
+
+	// type Magic FIRE
+	private final func loadModelFunc_MagicFIRE(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 0.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_ORANGE)
+			}
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(0.0, rotateY: 0.0, rotateZ: -90.0)
+				setParamsForMagicEffect(ret, color: CLR_ORANGE)
+			}
 			
-		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT:	
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
-			break;
+		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT:
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: -45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_ORANGE)
+			}
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_ORANGE ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_ORANGE)
+			}
+			
+		default:
+			break
+		}
+		
+		return ret;
 	}
-	
-	return ret;
-	
-}
 
-
-- ( id )loadModelFunc_MagicCOLD:(int)glyph
-{
-	// type Magic COLD
-	id ret = nil;
-	
-	switch ( glyph ) {
+	/// type Magic COLD
+	private final func loadModelFunc_MagicCOLD(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
-			// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 0.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(0.0, rotateY: 0.0, rotateZ: -90.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
-		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT:	
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
-			break;
+		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT:
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: -45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_CYAN ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
+		default:
+			break
 		}
-	
-	return ret;
-}
+		
+		return ret;
+	}
 
+	/// type Magic SLEEP
+	private final func loadModelFunc_MagicSLEEP(glyph: Int32) -> NH3DModelObjects? {
+		let ret = NH3DModelObjects()
+		ret.setPivotX(0.0, atY:1.2, atZ:0.0)
+		ret.setModelScaleX(1.0, scaleY:1.0, scaleZ:1.0)
+		ret.particleType = .Aura
+		ret.particleColor = CLR_MAGENTA
+		//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
+		ret.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+		ret.setParticleSpeedX(1.0, y: 1.00)
+		ret.particleSlowdown = 3.8
+		ret.particleLife = 0.4
+		ret.setParticleSize(20.0)
+		
+		return ret;
+	}
 
-- ( id )loadModelFunc_MagicSLEEP:(int)glyph
-{
-	// type Magic SLEEP
-	id ret = [ [ NH3DModelObjects alloc ] init ];
-	[ ret setPivotX:0.0 atY:1.2 atZ:0.0 ];
-	[ ret setModelScaleX:1.0 scaleY:1.0 scaleZ:1.0 ];
-	[ ret setParticleType:NH3DParticleTypeAura ];
-	[ ret setParticleColor:CLR_MAGENTA ];
-	//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-	[ ret setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-	[ ret setParticleSpeedX:1.0 Y:1.00 ];
-	[ ret setParticleSlowdown:3.8 ];
-	[ ret setParticleLife:0.4 ];
-	[ ret setParticleSize:20.0 ];
-	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_MagicDEATH:(int)glyph
-{
-	// type Magic DEATH
-	id ret = nil;
-	
-	switch ( glyph ) {
+	/// type Magic DEATH
+	private final func loadModelFunc_MagicDEATH(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
-			// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 0.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_GRAY)
+				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(0.0, rotateY: 0.0, rotateZ: -90.0)
+				setParamsForMagicEffect(ret, color: CLR_GRAY)
+				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
-		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT:	
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
-			break;
+		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT:
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: -45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_GRAY)
+				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_GRAY ];
-			break;
-	}
-	
-	return ret;
-	
-}
-
-
-- ( id )loadModelFunc_MagicLIGHTNING:(int)glyph
-{
-	// type Magic LIGHTNING
-	id ret = nil;
-	
-	switch ( glyph ) {
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_GRAY)
+				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
+			}
+			
+		default:
+			break
+		}
 		
+		return ret;
+	}
+
+	// type Magic LIGHTNING
+	private final func loadModelFunc_MagicLIGHTNING(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
-			// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
-			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 0.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_YELLOW)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
-			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(0.0, rotateY: 0.0, rotateZ: -90.0)
+				setParamsForMagicEffect(ret, color: CLR_YELLOW)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
-		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT:	
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
-			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
-			break;
+		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT:
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: -45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_YELLOW)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_YELLOW ];
-			[ ret setModelScaleX:0.2 scaleY:1.0 scaleZ:0.2 ];
-			break;
-	}	
-	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_MagicPOISONGAS:(int)glyph
-{
-	// type Magic POISONGAS
-	id ret = [ [ NH3DModelObjects alloc ] init ];
-	[ ret setPivotX:0.0 atY:1.2 atZ:0.0 ];
-	[ ret setModelScaleX:1.0 scaleY:1.0 scaleZ:1.0 ];
-	[ ret setParticleType:NH3DParticleTypeAura ];
-	[ ret setParticleColor:CLR_GREEN ];
-	//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
-	[ ret setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-	[ ret setParticleSpeedX:1.0 Y:1.00 ];
-	[ ret setParticleSlowdown:3.8 ];
-	[ ret setParticleLife:0.4 ];
-	[ ret setParticleSize:20.0 ];
-	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_MagicACID:(int)glyph
-{
-	// type Magic ACID
-	id ret = nil;
-	
-	switch ( glyph ) {
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_YELLOW)
+				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
+			}
+			
+		default:
+			break
+		}
+		ret?.setModelScaleX(0.2, scaleY: 1.0, scaleZ: 0.2)
 		
+		return ret;
+	}
+
+	/// type Magic POISONGAS
+	private final func loadModelFunc_MagicPOISONGAS(glyph: Int32) -> NH3DModelObjects? {
+		let ret = NH3DModelObjects()
+		ret.setPivotX(0.0, atY: 1.2, atZ: 0.0)
+		ret.setModelScaleX(1.0, scaleY: 1.0, scaleZ:1.0)
+		ret.particleType = .Aura
+		ret.particleColor = CLR_GREEN
+		//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
+		ret.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+		ret.setParticleSpeedX(1.0, y: 1.00)
+		ret.particleSlowdown = 3.8
+		ret.particleLife = 0.4
+		ret.setParticleSize(20.0)
+		
+		return ret;
+	}
+
+
+	/// type Magic ACID
+	private final func loadModelFunc_MagicACID(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:0.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
-			// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 0.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
+				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:0.0 rotateY:0.0 rotateZ:-90.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
-			break;
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(0.0, rotateY: 0.0, rotateZ: -90.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
+				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
-		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT:	
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:-45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
-			break;
+		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT:
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: -45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
+				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
+			}
 			
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelRotateX:-90.0 rotateY:45.0 rotateZ:0.0 ];
-			[ self setParamsForMagicEffect:ret color:CLR_BRIGHT_GREEN ];
-			break;
-	}	
-	
-	return ret;
-}
+			ret = NH3DModelObjects()
+			if let ret = ret {
+				ret.setModelRotateX(-90.0, rotateY: 45.0, rotateZ: 0.0)
+				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
+				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
+			}
+			
+		default:
+			break
+		}
+		
+		return ret;
+	}
 
-
-- ( id )loadModelFunc_MagicETC:(int)glyph
-{
-	id ret = nil;
-	
-	switch ( glyph ) {
-		// dig beam
+	private final func loadModelFunc_MagicETC(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
+			// dig beam
 		case S_digbeam + GLYPH_CMAP_OFF:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelScaleX:0.7 scaleY:1.0 scaleZ:0.7 ];
-			[ ret setParticleType:NH3DParticleTypeAura ];
-			[ ret setParticleColor:CLR_BROWN ];
-			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-			[ ret setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret setParticleSlowdown:3.8 ];
-			[ ret setParticleLife:0.4 ];
-			[ ret setParticleSize:20.0 ];
-			break;
+			ret = NH3DModelObjects()
+			ret?.setModelScaleX(0.7, scaleY:1.0, scaleZ:0.7)
+			ret?.particleType = .Aura
+			ret?.particleColor = CLR_BROWN
+			ret?.setParticleGravityX(0.0, y:6.5, z:0.0)
+			ret?.setParticleSpeedX(1.0, y:1.00)
+			ret?.particleSlowdown = 3.8
+			ret?.particleLife = 0.4
+			ret?.setParticleSize(20.0)
 			
 			// camera flash
 		case S_flashbeam + GLYPH_CMAP_OFF:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setModelScaleX:1.4 scaleY:1.5 scaleZ:1.4 ];
-			[ ret setParticleType:NH3DParticleTypeAura ];
-			[ ret setParticleColor:CLR_WHITE ];
-			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-			[ ret setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret setParticleSlowdown:3.8 ];
-			[ ret setParticleLife:0.4 ];
-			[ ret setParticleSize:20.0 ];
-			break;
+			ret = NH3DModelObjects()
+			ret?.particleType = .Aura
+			ret?.particleColor = CLR_WHITE
+			ret?.setParticleGravityX(0.0, y:6.5, z:0.0)
+			ret?.setParticleSpeedX(1.0, y:1.00)
+			ret?.particleSlowdown = 3.8
+			ret?.particleLife = 0.4
+			ret?.setParticleSize(20.0)
 			
 			// boomerang
 			//case S_boomleft + GLYPH_CMAP_OFF :
 			//case S_boomright + GLYPH_CMAP_OFF :
+		default:
+			break
+		}
+		
+		return ret;
 	}
-	
-	return ret;
-}
 
-
-- ( id )loadModelFunc_MagicSHILD:(int)glyph
-{
 	// magic shild
-	id ret = nil;
-	
-	switch ( glyph ) {
+	private final func loadModelFunc_MagicSHILD(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		
+		switch glyph {
 		case S_ss1 + GLYPH_CMAP_OFF:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:NH3DParticleTypeAura ];
-			[ ret setParticleColor:CLR_BRIGHT_BLUE ];
-			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-			[ ret setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret setParticleSlowdown:3.8 ];
-			[ ret setParticleLife:0.4 ];
-			[ ret setParticleSize:20.0 ];
+			ret = NH3DModelObjects()
+			ret?.particleType = .Aura
+			ret?.particleColor = CLR_BRIGHT_BLUE
+			ret?.setParticleGravityX(0.0, y: 6.5, z: 0.0)
+			ret?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.particleSlowdown = 3.8
+			ret?.particleLife = 0.4
+			ret?.setParticleSize(20.0)
 			break;
 			
 		case S_ss2 + GLYPH_CMAP_OFF:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:NH3DParticleTypeAura ];
-			[ ret setParticleColor:CLR_BRIGHT_CYAN ];
-			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-			[ ret setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret setParticleSlowdown:8.8 ];
-			[ ret setParticleLife:0.4 ];
-			[ ret setParticleSize:10.0 ];
+			ret = NH3DModelObjects()
+			ret?.particleType = .Aura
+			ret?.particleColor = CLR_BRIGHT_CYAN
+			ret?.setParticleGravityX(0.0, y: 6.5, z: 0.0)
+			ret?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.particleSlowdown = 8.8
+			ret?.particleLife = 0.4
+			ret?.setParticleSize(10.0)
 			break;
 			
 		case S_ss3 + GLYPH_CMAP_OFF:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:NH3DParticleTypeAura ];
-			[ ret setParticleColor:CLR_WHITE ];
-			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-			[ ret setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret setParticleSlowdown:3.8 ];
-			[ ret setParticleLife:0.4 ];
-			[ ret setParticleSize:20.0 ];
+			ret = NH3DModelObjects()
+			ret?.particleType = .Aura
+			ret?.particleColor = CLR_WHITE
+			ret?.setParticleGravityX(0.0, y: 6.5, z: 0.0)
+			ret?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.particleSlowdown = 3.8
+			ret?.particleLife = 0.4
+			ret?.setParticleSize(20.0)
 			break;
 			
 		case S_ss4 + GLYPH_CMAP_OFF:
-			ret = [ [ NH3DModelObjects alloc ] init ];
-			[ ret setParticleType:NH3DParticleTypeAura ];
-			[ ret setParticleColor:CLR_BLUE ];
-			[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-			[ ret setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret setParticleSlowdown:8.8 ];
-			[ ret setParticleLife:0.4 ];
-			[ ret setParticleSize:10.0 ];
-			break;
+			ret = NH3DModelObjects()
+			ret?.particleType = .Aura
+			ret?.particleColor = CLR_BLUE
+			ret?.setParticleGravityX(0.0, y: 6.5, z: 0.0)
+			ret?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.particleSlowdown = 8.8
+			ret?.particleLife = 0.4
+			ret?.setParticleSize(10.0)
+			break
+			
+		default:
+			break
+		}
+		
+		return ret;
 	}
-	
-	return ret;
-}
-
+/*
 // explotion symbols ( 9 postion * 7 types )
 - ( id )loadModelFunc_explotionDARK:(int)glyph
 {
@@ -3808,10 +3834,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 
 
-//----------------------------//
-// cash func address
-//----------------------------//
-
+	/// cache func address
 	private func cacheMethods() {
 		do {
 			func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
@@ -3821,65 +3844,65 @@ final class NH3DOpenGLView: NSOpenGLView {
 			drawFloorArray = [DrawFloorFunc](count: 11, repeatedValue: blankFloorMethod)
 		}
 		
-		switchMethodArray[ 0 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 0 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
 		}
-		switchMethodArray[ 1 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 1 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 		}
-		switchMethodArray[ 2 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 2 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling( x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 1);
 			
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
-		switchMethodArray[ 3 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 3 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
-		switchMethodArray[ 4 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 4 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 3);
 		}
-		switchMethodArray[ 5 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 5 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 4);
 		}
-		switchMethodArray[ 6 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 6 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 5);
 		}
-		switchMethodArray[ 7 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 7 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 6);
 		}
-		switchMethodArray[ 8 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 8 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 7);
 		}
-		switchMethodArray[ 9 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 9 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 8);
 		}
-		switchMethodArray[ 10 ] = { (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[ 10 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
 	
-		drawFloorArray[ 0 ] = {
+		drawFloorArray[ 0 ] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3893,7 +3916,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
-		drawFloorArray[ 1 ] = {
+		drawFloorArray[ 1 ] = {[unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3907,7 +3930,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
-		drawFloorArray[ 2 ] = {
+		drawFloorArray[ 2 ] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3930,7 +3953,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//Draw pool
-		drawFloorArray[ 3 ] = {
+		drawFloorArray[ 3 ] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3980,7 +4003,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw ice
-		drawFloorArray[ 4 ] = {
+		drawFloorArray[ 4 ] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -4026,7 +4049,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw lava
-		drawFloorArray[ 5 ] = {
+		drawFloorArray[ 5 ] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -4052,7 +4075,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//draw air
-		drawFloorArray[ 6 ] = {
+		drawFloorArray[ 6 ] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -4067,7 +4090,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//draw cloud
-		drawFloorArray[ 7 ] = {
+		drawFloorArray[ 7 ] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -4082,7 +4105,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//draw water
-		drawFloorArray[ 8 ] = {
+		drawFloorArray[ 8 ] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -4214,7 +4237,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_KOBOLD_SHAMAN+GLYPH_MON_OFF)] =	loadModelFunc_kobolds
 		
 		// leprechaun
-		loadModelBlocks[Int(PM_LEPRECHAUN+GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+		loadModelBlocks[Int(PM_LEPRECHAUN+GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "lowerL", withTexture: false)
 		}
 		
@@ -4229,17 +4252,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
 /*
 	// orc class
-	LoadModelBlock orcBlock = ^(int glyph) {
-		return [self loadModelFunc_orc:glyph];
-	};
-	loadModelBlocks[ PM_ORC_SHAMAN + GLYPH_MON_OFF ] =	[orcBlock copy];
-	loadModelBlocks[ PM_GOBLIN+GLYPH_MON_OFF ] =		[orcBlock copy];
-	loadModelBlocks[ PM_HOBGOBLIN+GLYPH_MON_OFF ] =		[orcBlock copy];
-	loadModelBlocks[ PM_ORC+GLYPH_MON_OFF ] =			[orcBlock copy];
-	loadModelBlocks[ PM_HILL_ORC+GLYPH_MON_OFF ] =		[orcBlock copy];
-	loadModelBlocks[ PM_MORDOR_ORC+GLYPH_MON_OFF ] =	[orcBlock copy];
-	loadModelBlocks[ PM_URUK_HAI+GLYPH_MON_OFF ] =		[orcBlock copy];
-	loadModelBlocks[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] =	[orcBlock copy];
+	loadModelBlocks[ PM_ORC_SHAMAN + GLYPH_MON_OFF ] =	loadModelFunc_orc;
+	loadModelBlocks[ PM_GOBLIN+GLYPH_MON_OFF ] =		loadModelFunc_orc;
+	loadModelBlocks[ PM_HOBGOBLIN+GLYPH_MON_OFF ] =		loadModelFunc_orc;
+	loadModelBlocks[ PM_ORC+GLYPH_MON_OFF ] =			loadModelFunc_orc;
+	loadModelBlocks[ PM_HILL_ORC+GLYPH_MON_OFF ] =		loadModelFunc_orc;
+	loadModelBlocks[ PM_MORDOR_ORC+GLYPH_MON_OFF ] =	loadModelFunc_orc;
+	loadModelBlocks[ PM_URUK_HAI+GLYPH_MON_OFF ] =		loadModelFunc_orc;
+	loadModelBlocks[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] =	loadModelFunc_orc;
 	// piercers
 	LoadModelBlock piercersBlock = ^(int glyph) {
 		return [self loadModelFunc_piercers:glyph];
@@ -4350,10 +4370,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	};
 	loadModelBlocks[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
 	loadModelBlocks[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
-	// zruty
-	loadModelBlocks[ PM_ZRUTY+GLYPH_MON_OFF ] = [^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"lowerZ" withTexture:NO];
-	} copy];
+		*/
+		// zruty
+		loadModelBlocks[Int(PM_ZRUTY+GLYPH_MON_OFF)] = { _ in
+			return NH3DModelObjects(with3DSFile: "lowerZ", withTexture: false)
+		};
+		/*
 	// Angels
 	LoadModelBlock angelBlock = ^(int glyph) {
 		return [self checkLoadedModelsAt:PM_COUATL
@@ -4454,7 +4476,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	loadModelBlocks[ PM_MINOTAUR + GLYPH_MON_OFF ] = [giantsBlock copy];
 		*/
 		// Jabberwock
-		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "upperJ", withTexture: false)
 		}
 /*
@@ -4535,7 +4557,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = [puddingBlock copy];
 		*/
 		// Quantum mechanics
-		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = { (_: Int32) -> NH3DModelObjects? in
+		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = { _ in
 			return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
 		}
 		/*
@@ -4559,15 +4581,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 	LoadModelBlock trollBlock = ^(int glyph) {
 		return [self loadModelFunc_Trolls:glyph];
 	};
-	loadModelBlocks[ PM_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
-	loadModelBlocks[ PM_ICE_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
-	loadModelBlocks[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
-	loadModelBlocks[ PM_WATER_TROLL + GLYPH_MON_OFF ] = [trollBlock copy];
-	loadModelBlocks[ PM_OLOG_HAI + GLYPH_MON_OFF ] = [trollBlock copy];
-	// Umber hulk
-	loadModelBlocks[ PM_UMBER_HULK + GLYPH_MON_OFF ] = [^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperU" withTexture:NO];
-	} copy];
+	loadModelBlocks[ PM_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
+	loadModelBlocks[ PM_ICE_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
+	loadModelBlocks[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
+	loadModelBlocks[ PM_WATER_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
+	loadModelBlocks[ PM_OLOG_HAI + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
+		*/
+		// Umber hulk
+		loadModelBlocks[Int(PM_UMBER_HULK + GLYPH_MON_OFF)] = { _ in
+			return NH3DModelObjects(with3DSFile:"upperU", withTexture:false)
+		};
+		/*
 	// Vampires
 	LoadModelBlock vampireBlock = ^(int glyph) {
 		return [self loadModelFunc_Vampires:glyph];
@@ -4579,13 +4603,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 	LoadModelBlock wraithBlock = ^(int glyph) {
 		return [self loadModelFunc_Wraiths:glyph];
 	};
-	loadModelBlocks[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = [wraithBlock copy];
-	loadModelBlocks[ PM_WRAITH + GLYPH_MON_OFF ] = [wraithBlock copy];
-	loadModelBlocks[ PM_NAZGUL + GLYPH_MON_OFF ] = [wraithBlock copy];
-	// Xorn
-	loadModelBlocks[ PM_XORN + GLYPH_MON_OFF ] = [^(int glyph) {
-		return [[NH3DModelObjects alloc] initWith3DSFile:@"upperX" withTexture:NO];
-	} copy];
+	loadModelBlocks[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
+	loadModelBlocks[ PM_WRAITH + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
+	loadModelBlocks[ PM_NAZGUL + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
+		*/
+		// Xorn
+		loadModelBlocks[Int(PM_XORN + GLYPH_MON_OFF)] = { _ in
+			return NH3DModelObjects(with3DSFile:"upperX", withTexture:false)
+		}
+		/*
 	// Yeti and other large beasts
 	LoadModelBlock yetiBlock = ^(int glyph) {
 		return [self loadModelFunc_Yeti:glyph];
@@ -4654,62 +4680,63 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[ Int(PM_WATCHMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
 		loadModelBlocks[ Int(PM_WATCH_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
 		loadModelBlocks[ Int(PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
+		
 		// Ghosts
 		loadModelBlocks[ Int(PM_GHOST + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
 		loadModelBlocks[ Int(PM_SHADE + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
 
 		// Major Daemons
-	loadModelBlocks[Int(PM_WATER_DEMON + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_HORNED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_SUCCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_INCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_ERINYS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_BARBED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_MARILITH + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_VROCK + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_HEZROU + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_BONE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_ICE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_NALFESHNEE + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_PIT_FIEND + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_BALROG + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_DJINNI + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	loadModelBlocks[Int(PM_SANDESTIN + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
-	
-	// Greater Daemons
-	loadModelBlocks[Int(PM_JUIBLEX + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_YEENOGHU + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_ORCUS + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_GERYON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_DISPATER + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_BAALZEBUB + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_ASMODEUS + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
-	loadModelBlocks[Int(PM_DEMOGORGON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons
-	
-	// daemon "The Riders"
-	loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] = loadModelFunc_Riders;
-	loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
-	loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
-	
-	// sea monsters
-	loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] = loadModelFunc_seamonsters
-	loadModelBlocks[Int(PM_PIRANHA + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
-	loadModelBlocks[Int(PM_SHARK + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
-	loadModelBlocks[Int(PM_GIANT_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
-	loadModelBlocks[Int(PM_ELECTRIC_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
-	loadModelBlocks[Int(PM_KRAKEN + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
-	
-	// lizards
-	loadModelBlocks[Int(PM_NEWT + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_GECKO + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_IGUANA + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_BABY_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_LIZARD + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_CHAMELEON + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	loadModelBlocks[Int(PM_SALAMANDER + GLYPH_MON_OFF)] = loadModelFunc_lizards;
-	// wormtail
-	loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+		loadModelBlocks[Int(PM_WATER_DEMON + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_HORNED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_SUCCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_INCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_ERINYS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_BARBED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_MARILITH + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_VROCK + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_HEZROU + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_BONE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_ICE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_NALFESHNEE + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_PIT_FIEND + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_BALROG + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_DJINNI + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		loadModelBlocks[Int(PM_SANDESTIN + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
+		
+		// Greater Daemons
+		loadModelBlocks[Int(PM_JUIBLEX + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_YEENOGHU + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_ORCUS + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_GERYON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_DISPATER + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_BAALZEBUB + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_ASMODEUS + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons;
+		loadModelBlocks[Int(PM_DEMOGORGON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons
+		
+		// daemon "The Riders"
+		loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+		loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+		
+		// sea monsters
+		loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] = loadModelFunc_seamonsters
+		loadModelBlocks[Int(PM_PIRANHA + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+		loadModelBlocks[Int(PM_SHARK + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+		loadModelBlocks[Int(PM_GIANT_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+		loadModelBlocks[Int(PM_ELECTRIC_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+		loadModelBlocks[Int(PM_KRAKEN + GLYPH_MON_OFF)] = loadModelFunc_seamonsters;
+		
+		// lizards
+		loadModelBlocks[Int(PM_NEWT + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_GECKO + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_IGUANA + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_BABY_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_LIZARD + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_CHAMELEON + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		loadModelBlocks[Int(PM_SALAMANDER + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		// wormtail
+		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
 			return NH3DModelObjects(with3DSFile: "wormtail", withTexture: false)
 		}
 		/*
@@ -4776,166 +4803,142 @@ final class NH3DOpenGLView: NSOpenGLView {
 	loadModelBlocks[ PM_WARRIOR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
 	loadModelBlocks[ PM_APPRENTICE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
 */
-// -------------------------- Map Symbol Section ----------------------------- //
-	
-	loadModelBlocks[Int(S_bars + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_tree + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_upstair + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_dnstair + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_upladder + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_dnladder + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_altar + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_grave + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_throne + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_sink + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_fountain + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_vodbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_hodbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_vcdbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-	loadModelBlocks[Int(S_hcdbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
-//  ------------------------------  Boulder ---------------------------------- //
+		// -------------------------- Map Symbol Section ----------------------------- //
+		
+		loadModelBlocks[Int(S_bars + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_tree + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_upstair + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_dnstair + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_upladder + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_dnladder + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_altar + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_grave + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_throne + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_sink + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_fountain + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_vodbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_hodbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_vcdbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		loadModelBlocks[Int(S_hcdbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
+		//  ------------------------------  Boulder ---------------------------------- //
 		loadModelBlocks[Int(BOULDER + GLYPH_OBJ_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "boulder", withTexture: true)
 		}
-		/*
-// --------------------------  Trap Symbol Section --------------------------- // 
-	
-	LoadModelBlock trapSymbolBlock = ^(int glyph) {
-		return [self loadModelFunc_TrapSymbol :glyph];
-	};
-	loadModelBlocks[ S_arrow_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_dart_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_falling_rock_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	//loadModelBlocks[ S_squeaky_board + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_land_mine + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	//loadModelBlocks[ S_rolling_boulder_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_sleeping_gas_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_rust_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_fire_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_bear_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_pit + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_spiked_pit + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_hole + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_trap_door + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_teleportation_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_level_teleporter + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_magic_portal + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	//loadModelBlocks[ S_web + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	//loadModelBlocks[ S_statue_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_magic_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_anti_magic_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	loadModelBlocks[ S_polymorph_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
-	// ------------------------- Effect Symbols Section. ------------------------- //
-	
-	// ZAP symbols ( NUM_ZAP * four directions )
-	
-	// type Magic Missile
-	LoadModelBlock magicMissileBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicMissile:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM ] = [magicMissileBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM ] = [magicMissileBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT ] = [magicMissileBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT ] = [magicMissileBlock copy];
-	// type Magic FIRE
-	LoadModelBlock magicFireBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicFIRE:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM ] = [magicFireBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM ] = [magicFireBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT ] = [magicFireBlock copy];	
-	loadModelBlocks[ NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT ] = [magicFireBlock copy];
-	// type Magic COLD
-	LoadModelBlock magicColdBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicCOLD:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM ] = [magicColdBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM ] = [magicColdBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT ] = [magicColdBlock copy];	
-	loadModelBlocks[ NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT ] = [magicColdBlock copy];
-	// type Magic SLEEP
-	LoadModelBlock magicSleepBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicSLEEP:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM ] = [magicSleepBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM ] = [magicSleepBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT ] = [magicSleepBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT ] = [magicSleepBlock copy];
-	// type Magic DEATH
-	LoadModelBlock magicDeathBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicDEATH:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM ] = [magicDeathBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM ] = [magicDeathBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT ] = [magicDeathBlock copy];	
-	loadModelBlocks[ NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT ] = [magicDeathBlock copy];
-	// type Magic LIGHTNING
-	LoadModelBlock magicLightningBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicLIGHTNING:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM ] = [magicLightningBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM ] = [magicLightningBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT ] = [magicLightningBlock copy];	
-	loadModelBlocks[ NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT ] = [magicLightningBlock copy];
-	// type Magic POISONGAS
-	LoadModelBlock magicPoisonGasBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicPOISONGAS:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM ] = [magicPoisonGasBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM ] = [magicPoisonGasBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT ] = [magicPoisonGasBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT ] = [magicPoisonGasBlock copy];
-	// type Magic ACID
-	LoadModelBlock magicAcidBlock = ^(int glyph) {
-		return [self loadModelFunc_MagicACID:glyph];
-	};
-	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM ] = [magicAcidBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM ] = [magicAcidBlock copy];
-	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT ] = [magicAcidBlock copy];	
-	loadModelBlocks[ NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT ] = [magicAcidBlock copy];
-	// dig beam
-	loadModelBlocks[ S_digbeam + GLYPH_CMAP_OFF ] = [^(int glyph) {
-		NH3DModelObjects *ret = [[NH3DModelObjects alloc] init];
-		[ ret setModelScaleX:0.7 scaleY:1.0 scaleZ:0.7 ];
-		ret.particleType = NH3DParticleTypeAura ;
-		[ ret setParticleColor:CLR_BROWN ];
-		[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-		[ ret setParticleSpeedX:1.0 Y:1.00 ];
-		[ ret setParticleSlowdown:3.8 ];
-		[ ret setParticleLife:0.4 ];
-		[ ret setParticleSize:20.0 ];
-
-		return ret;
-	} copy];
-	// camera flash
-	loadModelBlocks[ S_flashbeam + GLYPH_CMAP_OFF ] = [^(int glyph) {
-		NH3DModelObjects *ret = [ [ NH3DModelObjects alloc ] init ];
-		[ ret setModelScaleX:1.4 scaleY:1.5 scaleZ:1.4 ];
-		ret.particleType = NH3DParticleTypeAura ;
-		ret.particleColor = CLR_WHITE;
-		[ ret setParticleColor:CLR_WHITE ];
-		[ ret setParticleGravityX:0.0 Y:6.5 Z:0.0 ];
-		[ ret setParticleSpeedX:1.0 Y:1.00 ];
-		[ ret setParticleSlowdown:3.8 ];
-		[ ret setParticleLife:0.4 ];
-		[ ret setParticleSize:20.0 ];
-
-		return ret;
-	} copy];
-	// boomerang
-	//loadModelBlocks[ S_boomleft + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
-	//loadModelBlocks[ S_boomright + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
-
-	// magic shild
-	{
-		LoadModelBlock magicShildBlock = ^(int glyph) {
-			return [self loadModelFunc_MagicSHILD:glyph];
-		};
-		loadModelBlocks[ S_ss1 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
-		loadModelBlocks[ S_ss2 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
-		loadModelBlocks[ S_ss3 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
-		loadModelBlocks[ S_ss4 + GLYPH_CMAP_OFF ] = [magicShildBlock copy];
-	}
+		// --------------------------  Trap Symbol Section --------------------------- //
+		
+		loadModelBlocks[Int(S_arrow_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_dart_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_falling_rock_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		//loadModelBlocks[Int(S_squeaky_board + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_land_mine + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		//loadModelBlocks[ S_rolling_boulder_trap + GLYPH_CMAP_OFF ] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_sleeping_gas_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_rust_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_fire_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_bear_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_pit + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_spiked_pit + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_hole + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_trap_door + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_teleportation_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_level_teleporter + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_magic_portal + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		//loadModelBlocks[Int(S_web + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		//loadModelBlocks[Int(S_statue_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_magic_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_anti_magic_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_polymorph_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		// ------------------------- Effect Symbols Section. ------------------------- //
+		
+		// ZAP symbols ( NUM_ZAP * four directions )
+		
+		// type Magic Missile
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicMissile;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicMissile;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicMissile;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicMissile
+		
+		// type Magic FIRE
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicFIRE;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicFIRE;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicFIRE;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicFIRE
+		
+		// type Magic COLD
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicCOLD;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicCOLD;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicCOLD;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicCOLD
+		
+		// type Magic SLEEP
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicSLEEP;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicSLEEP;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicSLEEP;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicSLEEP
+		
+		// type Magic DEATH
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicDEATH;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicDEATH;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicDEATH;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicDEATH
+		
+		// type Magic LIGHTNING
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicLIGHTNING;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicLIGHTNING;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicLIGHTNING;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicLIGHTNING;
+		
+		// type Magic POISONGAS
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicPOISONGAS;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicPOISONGAS;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicPOISONGAS;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicPOISONGAS
+		
+		// type Magic ACID
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicACID;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicACID;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicACID;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicACID
+		
+		// dig beam
+		loadModelBlocks[Int(S_digbeam + GLYPH_CMAP_OFF)] = { _ in
+			let ret = NH3DModelObjects();
+			ret.setModelScaleX(0.7, scaleY:1.0, scaleZ:0.7)
+			ret.particleType = .Aura
+			ret.particleColor = CLR_BROWN;
+			ret.setParticleGravityX(0.0, y: 6.5, z: 0.0)
+			ret.setParticleSpeedX(1.0, y:1.00)
+			ret.particleSlowdown = 3.8
+			ret.particleLife = 0.4
+			ret.setParticleSize(20.0)
+			
+			return ret;
+		}
+		// camera flash
+		loadModelBlocks[Int(S_flashbeam + GLYPH_CMAP_OFF)] = { _ in
+			let ret = NH3DModelObjects();
+			ret.setModelScaleX(1.4, scaleY:1.5, scaleZ:1.4)
+			ret.particleType = .Aura
+			ret.particleColor = CLR_WHITE;
+			//[ ret setParticleColor:CLR_WHITE ];
+			ret.setParticleGravityX(0.0, y: 6.5, z: 0.0)
+			ret.setParticleSpeedX(1.0, y:1.00)
+			ret.particleSlowdown = 3.8
+			ret.particleLife = 0.4
+			ret.setParticleSize(20.0)
+			
+			return ret;
+		}
+		// boomerang
+		//loadModelBlocks[ S_boomleft + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+		//loadModelBlocks[ S_boomright + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+		
+		// magic shild
+		loadModelBlocks[Int(S_ss1 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
+		loadModelBlocks[Int(S_ss2 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
+		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
+		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
+	/*
 	// explotion symbols ( 9 postion * 7 types )
 	// type DARK
 	{
