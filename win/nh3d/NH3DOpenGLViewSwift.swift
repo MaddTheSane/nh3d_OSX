@@ -261,12 +261,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private typealias DrawFloorFunc = () -> ()
 	private var drawFloorArray = [DrawFloorFunc]()
 	
-	typealias SwitchMethod = (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void
+	private typealias SwitchMethod = (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void
 	private var switchMethodArray = [SwitchMethod]()
 	
-	var isReady = false
-	var isFloating = false
-	var isRiding = false
+	private var isReady = false
+	private(set) var isFloating = false
+	private(set) var isRiding = false
 	var isShocked: Bool = false {
 		willSet {
 			viewLock.lock()
@@ -299,29 +299,29 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](count: Int(NH3DGL_MAPVIEWSIZE_COLUMN), repeatedValue:[NH3DMapItem?](count: Int(NH3DGL_MAPVIEWSIZE_ROW), repeatedValue: nil))
 
-	var lastCameraX: GLfloat = 5.0;
+	private var lastCameraX: GLfloat = 5.0;
 	var lastCameraY: GLfloat = 1.8;
 	var lastCameraZ: GLfloat = 5.0;
 	
-	var lastCameraHead: GLfloat = 0;
-	var lastCameraPitch: GLfloat = 0;
-	var lastCameraRoll: GLfloat = 0;
+	private(set) var lastCameraHead: GLfloat = 0;
+	private(set) var lastCameraPitch: GLfloat = 0;
+	private(set) var lastCameraRoll: GLfloat = 0;
 	
-	var cameraX: GLfloat = 5.0;
-	var cameraY: GLfloat = 1.8;
-	var cameraZ: GLfloat = 5.0;
-	var cameraHead: GLfloat = 0.0;
-	var cameraPitch: GLfloat = 0.0;
-	var cameraRoll: GLfloat = 0.0;
+	private(set) var cameraX: GLfloat = 5.0;
+	private(set) var cameraY: GLfloat = 1.8;
+	private(set) var cameraZ: GLfloat = 5.0;
+	private(set) var cameraHead: GLfloat = 0.0;
+	private(set) var cameraPitch: GLfloat = 0.0;
+	private(set) var cameraRoll: GLfloat = 0.0;
 	
 	var cameraStep: GLfloat = 0
 	
 	private var keyLightCol = [GLfloat](count: 4, repeatedValue: 0)
 	
-	var centerX: Int32 = 0
-	var centerZ: Int32 = 0
-	var playerdepth: Int32 = 0
-	var drawMargin: Int32 = 0;
+	private(set) var centerX: Int32 = 0
+	private(set) var centerZ: Int32 = 0
+	private(set) var playerdepth: Int32 = 0
+	private(set) var drawMargin: Int32 = 0;
 	var enemyPosition: Int32 = 0 {
 		willSet {
 			viewLock.lock()
@@ -333,7 +333,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	var elementalLevel: Int32 = 0
-	var waitRate: Double = 0
+	private(set) var waitRate: Double = 0
 	
 	private var dRefreshRate: CGRefreshRate = 0
 
