@@ -1016,9 +1016,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Drawing OpenGL function.
 	func updateGLView() {
-		
-	}
-	
 /*
 // Drawing OpenGL functions.
 - ( void )updateGlView
@@ -1108,6 +1105,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 }
 */
+	}
 	
 	override func setFrameSize(newSize: NSSize) {
 		super.setFrameSize(newSize)
@@ -1122,8 +1120,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 
 	func drawModelArray(mapItem: NH3DMapItem) {
-		
-	}
 /*
 - (void)drawModelArray:(NH3DMapItem *)mapItem
 {
@@ -1273,9 +1269,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 }
 */
+	}
+	
 	func updateMap() {
 		
-	}
 	/*
 - (void)updateMap
 {
@@ -1320,7 +1317,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}	
 }
 */
-
+	}
+	
 	func changeWallsTexture(texID: Int32) {
 		modelDictionary[(S_vwall + GLYPH_CMAP_OFF)]?.texture = texID
 		modelDictionary[(S_hwall + GLYPH_CMAP_OFF)]?.texture = texID
@@ -1329,7 +1327,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 
 	@objc(setCenterAtX:z:depth:) func setCenterAt(x x: Int32, z: Int32, depth: Int32) {
 		
-	}
 /*
 - ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth
 {
@@ -1440,11 +1437,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 }
 */
-
-	@objc(setCameraHead:pitching:rolling:) func setCamera(head head: Float, pitching pitch: Float, rolling roll: Float) {
-		
 	}
 	
+	@objc(setCameraHead:pitching:rolling:) func setCamera(head head: Float, pitching pitch: Float, rolling roll: Float) {
+		
 /*
 - ( void )setCameraHead:( float )head pitching:( float )pitch rolling:( float )roll
 {
@@ -1472,9 +1468,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 	[ viewLock unlock ];
 }
 */
-	@objc(setCameraAtX:atY:atZ:) func setCameraAt(x x: Float, y: Float, z: Float) {
-		
 	}
+	
+	@objc(setCameraAtX:atY:atZ:) func setCameraAt(x x: Float, y: Float, z: Float) {
 /*
 - ( void )setCameraAtX:( float )x atY:( float )y atZ:( float )z
 {	
@@ -1516,7 +1512,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 }
 */
-
+	}
+	
 // ---------------------------------
 // MARK: effect and visual functions.
 // ---------------------------------
@@ -1756,8 +1753,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func loadModels() {
-		
-	}
 	/*
 - ( void )loadModels
 {
@@ -1836,7 +1831,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 }
 */
-	
+	}
+
 	private func setParamsForMagicEffect(magicItem: NH3DModelObjects, color: Int32) {
 		magicItem.setPivotX(0, atY: 1.2, atZ: 0)
 		magicItem.setModelScaleX(0.4, scaleY: 1.0, scaleZ: 0.4)
@@ -1962,245 +1958,105 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private func loadModelFunc_nymphs(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, modelName: "lowerN", textured: false)
 	}
-
-/*
-- ( id )loadModelFunc_orc:(int)glyph
-{
-	// orc class
-	id ret = nil;
 	
-	if ( glyph ==  PM_ORC_SHAMAN + GLYPH_MON_OFF ) {
-		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerO" withTexture:NO ];
-		[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-		[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.15 atZ:-0.15 ];
-		ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-	} else {
+	/// orc class
+	private func loadModelFunc_orc(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil
 		
-		ret = [ self checkLoadedModelsAt:PM_GOBLIN
-									  to:PM_ORC_CAPTAIN
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerO"
-								textured:NO
-								 withOut:PM_ORC_SHAMAN,nil ];
+		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF {
+			ret = NH3DModelObjects(with3DSFile: "lowerO", withTexture: false)
+			ret?.addChildObject("wizardset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.15, atZ: -0.15)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			
+		} else {
+			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, modelName: "lowerO", textured: false, without: PM_ORC_SHAMAN)
+		}
+		
+		return nil
 	}
 	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_piercers:(int)glyph
-{
-	// piercers
-	return [ self checkLoadedModelsAt:PM_ROCK_PIERCER
-								   to:PM_GLASS_PIERCER
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerP"
-							 textured:NO
-							  withOut:0 ];
+	/// piercers
+	private final func loadModelFunc_piercers(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_ROCK_PIERCER, to: PM_GLASS_PIERCER, modelName: "lowerP", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_quadrupeds:(int)glyph
-{
-	// quadrupeds
-	return [ self checkLoadedModelsAt:PM_ROTHE
-								   to:PM_MASTODON
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerQ"
-							 textured:NO
-							  withOut:0 ];
+	/// quadrupeds
+	private final func loadModelFunc_quadrupeds(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_ROTHE, to: PM_MASTODON, modelName: "lowerQ", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_rodents:(int)glyph
-{
-	// rodents
-	return [ self checkLoadedModelsAt:PM_SEWER_RAT
-								   to:PM_WOODCHUCK
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerR"
-							 textured:NO
-							  withOut:0 ];
-		
-}
-
-
-- ( id )loadModelFunc_spiders:(int)glyph
-{
-	// spiders
-	return [ self checkLoadedModelsAt:PM_CAVE_SPIDER
-								   to:PM_SCORPION
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerS"
-							 textured:NO
-							  withOut:0 ];
+	/// rodents
+	private final func loadModelFunc_rodents(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_SEWER_RAT, to: PM_WOODCHUCK, modelName: "lowerR", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_trapper:(int)glyph
-{
-	// trapper
-	return [ self checkLoadedModelsAt:PM_LURKER_ABOVE
-								   to:PM_TRAPPER
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerT"
-							 textured:NO
-							  withOut:0 ];
+	/// spiders
+	private final func loadModelFunc_spiders(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_CAVE_SPIDER, to: PM_SCORPION, modelName: "lowerS", textured: false)
+	}
 	
+	/// trapper
+	private final func loadModelFunc_trapper(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_LURKER_ABOVE, to: PM_TRAPPER, modelName: "lowerT", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_unicorns:(int)glyph
-{
-	// unicorns and horses
-	return [ self checkLoadedModelsAt:PM_WHITE_UNICORN
-								   to:PM_WARHORSE
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerU"
-							 textured:NO
-							  withOut:0 ];
-		
-}
-
-
-- ( id )loadModelFunc_vortices:(int)glyph
-{
-	// vortices
-	return [ self checkLoadedModelsAt:PM_FOG_CLOUD
-								   to:PM_FIRE_VORTEX
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerV"
-							 textured:NO
-							  withOut:0 ];
-}
-
-
-- ( id )loadModelFunc_worms:(int)glyph
-{
-	// worms
-	return [ self checkLoadedModelsAt:PM_BABY_LONG_WORM
-								   to:PM_PURPLE_WORM
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerW"
-							 textured:NO
-							  withOut:0 ];
+	/// unicorns and horses
+	private final func loadModelFunc_unicorns(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_WHITE_UNICORN, to: PM_WARHORSE, modelName: "lowerU", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_xan:(int)glyph
-{
-	// xan
-	return [ self checkLoadedModelsAt:PM_GRID_BUG
-								   to:PM_XAN
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerX"
-							 textured:NO
-							  withOut:0 ];	
-}
-
-
-- ( id )loadModelFunc_lights:(int)glyph
-{
-	// lights
+	/// vortices
+	private final func loadModelFunc_vortices(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_FOG_CLOUD, to: PM_FIRE_VORTEX, modelName: "lowerV", textured: false)
+	}
 	
-	return [ self checkLoadedModelsAt:PM_YELLOW_LIGHT
-								   to:PM_BLACK_LIGHT
-							   offset:GLYPH_MON_OFF
-							modelName:@"lowerY"
-							 textured:NO
-							  withOut:0 ];
+	/// worms
+	private final func loadModelFunc_worms(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_BABY_LONG_WORM, to: PM_PURPLE_WORM, modelName: "lowerW", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_zruty:(int)glyph
-{
-	// zruty
-		return [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerZ" withTexture:NO ];
-
-}
-
-
-- ( id )loadModelFunc_Angels:(int)glyph
-{
-	// Angels
-	return [ self checkLoadedModelsAt:PM_COUATL
-								   to:PM_ARCHON
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperA"
-							 textured:NO
-							  withOut:0 ];
-}
-
-
-- ( id )loadModelFunc_Bats:(int)glyph
-{
-	// Bats
-	return [ self checkLoadedModelsAt:PM_BAT
-								   to:PM_VAMPIRE_BAT
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperB"
-							 textured:NO
-							  withOut:0 ];
-}
-
-
-- ( id )loadModelFunc_Centaurs:(int)glyph
-{
-	// Centaurs
-	return [ self checkLoadedModelsAt:PM_PLAINS_CENTAUR
-								   to:PM_MOUNTAIN_CENTAUR
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperC"
-							 textured:NO
-							  withOut:0 ];
+	/// xan
+	private final func loadModelFunc_xan(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GRID_BUG, to: PM_XAN, modelName: "lowerX", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_Dragons:(int)glyph
-{
-	// Dragons
-	return [ self checkLoadedModelsAt:PM_BABY_GRAY_DRAGON
-								   to:PM_YELLOW_DRAGON
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperD"
-							 textured:NO
-							  withOut:0 ];
+	/// lights
+	private final func loadModelFunc_lights(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_YELLOW_LIGHT, to: PM_BLACK_LIGHT, modelName: "lowerY", textured: false)
+	}
 	
-}
-
-
-- ( id )loadModelFunc_Elementals:(int)glyph
-{
-	// Elementals
-	return [ self checkLoadedModelsAt:PM_STALKER
-								   to:PM_WATER_ELEMENTAL
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperE"
-							 textured:NO
-							  withOut:0 ];
-}
-
-
-- ( id )loadModelFunc_Fungi:(int)glyph
-{
-	// Fungi
-	return [ self checkLoadedModelsAt:PM_LICHEN
-								   to:PM_VIOLET_FUNGUS
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperF"
-							 textured:NO
-							  withOut:0 ];
+	/// Angels
+	private final func loadModelFunc_Angels(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, modelName: "upperA", textured: false)
+	}
 	
-}
+	/// Bats
+	private final func loadModelFunc_Bats(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_BAT, to: PM_VAMPIRE_BAT, modelName: "upperB", textured: false)
+	}
+	
+	/// Centaurs
+	private final func loadModelFunc_Centaurs(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_PLAINS_CENTAUR, to: PM_MOUNTAIN_CENTAUR, modelName: "upperC", textured: false)
+	}
+	
+	/// Dragons
+	private final func loadModelFunc_Dragons(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_BABY_GRAY_DRAGON, to: PM_YELLOW_DRAGON, modelName: "upperD", textured: false)
+	}
+	
+	/// Elementals
+	private final func loadModelFunc_Elementals(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_STALKER, to: PM_WATER_ELEMENTAL, modelName: "upperE", textured: false)
+	}
+	
+	/// Fungi
+	private final func loadModelFunc_Fungi(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, modelName: "upperF", textured: false)
+	}
 
-
+/*
 - ( id )loadModelFunc_Gnomes:(int)glyph
 {
 	// gnomes
@@ -2233,125 +2089,57 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	return ret;
 	
-}
+}*/
 
 
-- ( id )loadModelFunc_giantHumanoids:(int)glyph
-{
-	// Giant Humanoids
-	return [ self checkLoadedModelsAt:PM_GIANT
-								   to:PM_MINOTAUR
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperH"
-							 textured:NO
-							  withOut:0 ];
-	
-}
-
-
-- ( id )loadModelFunc_Jabberwock:(int)glyph
-{
-	// Jabberwock
-	return [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperJ" withTexture:NO ];
-
-}
-
-
-- ( id )loadModelFunc_Kops:(int)glyph
-{
-	// Kops
-	return [ self checkLoadedModelsAt:PM_KEYSTONE_KOP
-								   to:PM_KOP_KAPTAIN
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperK"
-							 textured:NO
-							  withOut:0 ];
-	
-}
-
-
-- ( id )loadModelFunc_Liches:(int)glyph
-{
-	
-	// Liches
-	return [ self checkLoadedModelsAt:PM_LICH
-								   to:PM_ARCH_LICH
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperL"
-							 textured:NO
-							  withOut:0 ];
-	
-}
-
-
-- ( id )loadModelFunc_Mummies:(int)glyph
-{
-	// Mummies
-	return [ self checkLoadedModelsAt:PM_KOBOLD_MUMMY
-								   to:PM_GIANT_MUMMY
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperM"
-							 textured:NO
-							  withOut:0 ];
-	
-}
-
-
-- ( id )loadModelFunc_Nagas:(int)glyph
-{
-	// Nagas
-	return [ self checkLoadedModelsAt:PM_RED_NAGA_HATCHLING
-								   to:PM_GUARDIAN_NAGA
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperN"
-							 textured:NO
-							  withOut:0 ];
-	
-	
-}
-
-
-- ( id )loadModelFunc_Ogres:(int)glyph
-{
-	// Ogres
-	id ret = nil;
-	switch ( glyph ) {
-		
-		case PM_OGRE + GLYPH_MON_OFF :
-		case PM_OGRE_LORD + GLYPH_MON_OFF :
-			
-			ret = [ self checkLoadedModelsAt:PM_OGRE
-										  to:PM_OGRE_LORD
-									  offset:GLYPH_MON_OFF
-								   modelName:@"upperO"
-									textured:NO
-									 withOut:0 ];
-			break;
-			
-		case PM_OGRE_KING + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperO" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:0.15 atZ:-0.18 ];
-			ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			break;
+	/// Giant Humanoids
+	private final func loadModelFunc_giantHumanoids(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, modelName: "upperH", textured: false)
 	}
 	
-	return ret;	
-}
-
-
-- ( id )loadModelFunc_Puddings:(int)glyph
-{
-	// Puddings
-	return [ self checkLoadedModelsAt:PM_GRAY_OOZE
-								   to:PM_GREEN_SLIME
-							   offset:GLYPH_MON_OFF
-							modelName:@"upperP"
-							 textured:NO
-							  withOut:0 ];
+	/// Kops
+	private final func loadModelFunc_Kops(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_KEYSTONE_KOP, to: PM_KOP_KAPTAIN, modelName: "upperK", textured: false)
+	}
 	
-}
-*/
+	/// Liches
+	private final func loadModelFunc_Liches(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_LICH, to: PM_ARCH_LICH, modelName: "upperL", textured: false)
+	}
+	
+	/// Mummies
+	private final func loadModelFunc_Mummies(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_KOBOLD_MUMMY, to: PM_GIANT_MUMMY, modelName: "upperM", textured: false)
+	}
+	
+	/// Nagas
+	private final func loadModelFunc_Nagas(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_RED_NAGA_HATCHLING, to: PM_GUARDIAN_NAGA, modelName: "upperN", textured: false)
+	}
+
+	/// Ogres
+	private final func loadModelFunc_Ogres(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil
+		switch glyph {
+		case PM_OGRE + GLYPH_MON_OFF, PM_OGRE_LORD + GLYPH_MON_OFF:
+			ret = checkLoadedModels(at: PM_OGRE, to: PM_OGRE_LORD, modelName: "upperO", textured: false)
+			
+		case PM_OGRE_KING + GLYPH_MON_OFF :
+			ret = NH3DModelObjects(with3DSFile: "upperO", withTexture: false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: 0.15, atZ: -0.18)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+
+		default:
+			break
+		}
+		return ret
+	}
+
+	/// Puddings
+	private final func loadModelFunc_Puddings(glyph: Int32) -> NH3DModelObjects? {
+		return checkLoadedModels(at: PM_GRAY_OOZE, to: PM_GREEN_SLIME, modelName: "upperP", textured: false)
+	}
 	
 	/// Quantum mechanics
 	//private final func loadModelFunc_QuantumMechanics(glyph: Int32) -> NH3DModelObjects? {
@@ -2374,9 +2162,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 
 	/// Umber hulk
-	private final func loadModelFunc_Umberhulk(glyph: Int32) -> NH3DModelObjects? {
-		return NH3DModelObjects(with3DSFile: "upperU", withTexture: false)
-	}
+	//private final func loadModelFunc_Umberhulk(glyph: Int32) -> NH3DModelObjects? {
+	//	return NH3DModelObjects(with3DSFile: "upperU", withTexture: false)
+	//}
 
 	/// Vampires
 	private final func loadModelFunc_Vampires(glyph: Int32) -> NH3DModelObjects? {
@@ -2400,13 +2188,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Wraiths
 	private final func loadModelFunc_Wraiths(glyph: Int32) -> NH3DModelObjects? {
-	return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, modelName: "upperW", textured: false)
+		return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, modelName: "upperW", textured: false)
 	}
 	
 	/// Xorn
-	private final func loadModelFunc_Xorn(glyph: Int32) -> NH3DModelObjects? {
-		return NH3DModelObjects(with3DSFile: "upperX", withTexture: false)
-	}
+	//private final func loadModelFunc_Xorn(glyph: Int32) -> NH3DModelObjects? {
+	//	return NH3DModelObjects(with3DSFile: "upperX", withTexture: false)
+	//}
 
 	/// Yeti and other large beasts
 	private final func loadModelFunc_Yeti(glyph: Int32) -> NH3DModelObjects? {
@@ -2416,7 +2204,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// Zombie
 	private final func loadModelFunc_Zombie(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, modelName: "upperZ", textured: false)
-
 	}
 	
 	/// Golems
@@ -2495,7 +2282,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible", textured: false)
 	}
 
-	// Major Daemons
+	/// Major Daemons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObjects? {
 		if ( glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ) {
 			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "and", textured: false)
@@ -2504,7 +2291,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 
-	// Greater Daemons
+	/// Greater Daemons
 	private final func loadModelFunc_GraterDamons(glyph: Int32) -> NH3DModelObjects? {
 		var ret: NH3DModelObjects? = nil;
 		
@@ -2538,7 +2325,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return ret;
 	}
 	
-	// daemon "The Riders"
+	/// daemon "The Riders"
 	private final func loadModelFunc_Riders(glyph: Int32) -> NH3DModelObjects? {
 		var ret: NH3DModelObjects? = nil;
 		
@@ -2571,41 +2358,24 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicoron", textured: false)
 	}
 	
-	// lizards
+	/// lizards
 	private final func loadModelFunc_lizards(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "coron", textured: false)
 	}
-
-/*
-- ( id )loadModelFunc_wormtail:(int)glyph
-{
-	// wormtail
-	return [ [ NH3DModelObjects alloc ] initWith3DSFile:@"wormtail" withTexture:NO ];
-}
-
-
-- ( id )loadModelFunc_Adventures:(int)glyph
-{
-	// Adventures
-	id ret = nil;
 	
-	if ( glyph == PM_WIZARD + GLYPH_MON_OFF ) {
-		ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-		[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-		[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
-	} else {		
-		ret = [ self checkLoadedModelsAt:PM_ARCHEOLOGIST
-									  to:PM_VALKYRIE
-								  offset:GLYPH_MON_OFF
-							   modelName:@"atmark"
-								textured:NO
-								 withOut:0 ];
+	/// Adventures
+	private final func loadModelFunc_Adventures(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil
+		if ( glyph == PM_WIZARD + GLYPH_MON_OFF ) {
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("wizardset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
+		} else {
+			ret = checkLoadedModels(at: PM_ARCHEOLOGIST, to: PM_VALKYRIE, modelName: "atmark", textured: false)
+		}
+		return ret
 	}
-	
-	return ret;	
-	
-}
-
+/*
 
 - ( id )loadModelFunc_Uniqueperson:(int)glyph
 {
@@ -3666,7 +3436,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
 	}
 	
-	#if false
 	@IBAction func useAntiAlias(sender: NSMenuItem) {
 		viewLock.lock()
 		nowUpdating = true
@@ -3680,11 +3449,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		nowUpdating = false
 		viewLock.unlock()
 	}
-	#endif
 	
 	@IBAction func changeWaitRate(sender: NSMenuItem) {
-		
-	}
 /*
 - ( IBAction )setWaitRate:( id )sender
 {
@@ -3753,8 +3519,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	CGDisplayModeRelease(curCfg);
 }
-
 */
+	}
 	@objc private func defaultsDidChange(notification: NSNotification?) {
 		guard !oglParamNowChanging else {
 			return
@@ -4262,114 +4028,69 @@ final class NH3DOpenGLView: NSOpenGLView {
 	loadModelBlocks[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] =	loadModelFunc_orc;
 	// piercers
 	LoadModelBlock piercersBlock = ^(int glyph) {
-		return [self loadModelFunc_piercers:glyph];
+		return [self loadModelFunc_piercers :glyph];
 	};
-	loadModelBlocks[ PM_ROCK_PIERCER+GLYPH_MON_OFF ] = [piercersBlock copy];
-	loadModelBlocks[ PM_IRON_PIERCER+GLYPH_MON_OFF ] = [piercersBlock copy];
-	loadModelBlocks[ PM_GLASS_PIERCER+GLYPH_MON_OFF ] = [piercersBlock copy];
-	// quadrupeds
-	LoadModelBlock quadrupedsBlock = ^(int glyph) {
-		return [self loadModelFunc_quadrupeds:glyph];
-	};
-	loadModelBlocks[ PM_ROTHE+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	loadModelBlocks[ PM_MUMAK+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	loadModelBlocks[ PM_LEOCROTTA+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	loadModelBlocks[ PM_WUMPUS+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	loadModelBlocks[ PM_TITANOTHERE+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	loadModelBlocks[ PM_BALUCHITHERIUM+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	loadModelBlocks[ PM_MASTODON+GLYPH_MON_OFF ] = [quadrupedsBlock copy];
-	// rodents
-	LoadModelBlock rodentsBlock = ^(int glyph) {
-		return [self loadModelFunc_rodents:glyph];
-	};
-	loadModelBlocks[ PM_SEWER_RAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
-	loadModelBlocks[ PM_GIANT_RAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
-	loadModelBlocks[ PM_RABID_RAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
-	loadModelBlocks[ PM_WERERAT+GLYPH_MON_OFF ] = [rodentsBlock copy];
-	loadModelBlocks[ PM_ROCK_MOLE+GLYPH_MON_OFF ] = [rodentsBlock copy];
-	loadModelBlocks[ PM_WOODCHUCK+GLYPH_MON_OFF ] = [rodentsBlock copy];
-	// spiders
-	LoadModelBlock spiderBlock = ^(int glyph) {
-		return [self loadModelFunc_spiders:glyph];
-	};
-	loadModelBlocks[ PM_CAVE_SPIDER+GLYPH_MON_OFF ] = [spiderBlock copy];
-	loadModelBlocks[ PM_CENTIPEDE+GLYPH_MON_OFF ] = [spiderBlock copy];
-	loadModelBlocks[ PM_GIANT_SPIDER+GLYPH_MON_OFF ] = [spiderBlock copy];
-	loadModelBlocks[ PM_SCORPION+GLYPH_MON_OFF ] = [spiderBlock copy];
-	// trapper
-	LoadModelBlock trapperBlock = ^(int glyph) {
-		return [self loadModelFunc_trapper:glyph];
-	};
-	loadModelBlocks[ PM_LURKER_ABOVE+GLYPH_MON_OFF ] = [trapperBlock copy];
-	loadModelBlocks[ PM_TRAPPER+GLYPH_MON_OFF ] = [trapperBlock copy];
-	// unicorns and horses
-	LoadModelBlock unicornBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_WHITE_UNICORN
-									  to:PM_WARHORSE
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerU"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_WHITE_UNICORN+GLYPH_MON_OFF ] = [unicornBlock copy];
-	loadModelBlocks[ PM_GRAY_UNICORN+GLYPH_MON_OFF ] = [unicornBlock copy];
-	loadModelBlocks[ PM_BLACK_UNICORN+GLYPH_MON_OFF ] = [unicornBlock copy];
-	loadModelBlocks[ PM_PONY+GLYPH_MON_OFF ] = [unicornBlock copy];
-	loadModelBlocks[ PM_HORSE+GLYPH_MON_OFF ] = [unicornBlock copy];
-	loadModelBlocks[ PM_WARHORSE+GLYPH_MON_OFF ] = [unicornBlock copy];
-	// vortices
-	LoadModelBlock vortexBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_FOG_CLOUD
-									  to:PM_FIRE_VORTEX
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerV"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_FOG_CLOUD+GLYPH_MON_OFF ] = [vortexBlock copy];
-	loadModelBlocks[ PM_DUST_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
-	loadModelBlocks[ PM_ICE_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
-	loadModelBlocks[ PM_ENERGY_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
-	loadModelBlocks[ PM_STEAM_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
-	loadModelBlocks[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = [vortexBlock copy];
-	// worms
-	LoadModelBlock wormBlock = ^(int glyph) {
-		// worms
-		return [self checkLoadedModelsAt:PM_BABY_LONG_WORM
-									  to:PM_PURPLE_WORM
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerW"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
-	loadModelBlocks[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
-	loadModelBlocks[ PM_LONG_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
-	loadModelBlocks[ PM_PURPLE_WORM+GLYPH_MON_OFF ] = [wormBlock copy];
-	// xan
-	LoadModelBlock xanBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_GRID_BUG
-									  to:PM_XAN
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerX"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_GRID_BUG+GLYPH_MON_OFF ] = [xanBlock copy];
-	loadModelBlocks[ PM_XAN+GLYPH_MON_OFF ] = [xanBlock copy];
-	// lights
-	LoadModelBlock lightsBlock = ^(int glyph) {
-		// lights
+	loadModelBlocks[ PM_ROCK_PIERCER+GLYPH_MON_OFF ] = loadModelFunc_piercers
+	loadModelBlocks[ PM_IRON_PIERCER+GLYPH_MON_OFF ] = loadModelFunc_piercers
+	loadModelBlocks[ PM_GLASS_PIERCER+GLYPH_MON_OFF ] = loadModelFunc_piercers
 		
-		return [self checkLoadedModelsAt:PM_YELLOW_LIGHT
-									  to:PM_BLACK_LIGHT
-								  offset:GLYPH_MON_OFF
-							   modelName:@"lowerY"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
-	loadModelBlocks[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = [lightsBlock copy];
+	// quadrupeds
+	loadModelBlocks[ PM_ROTHE+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+	loadModelBlocks[ PM_MUMAK+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+	loadModelBlocks[ PM_LEOCROTTA+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+	loadModelBlocks[ PM_WUMPUS+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+	loadModelBlocks[ PM_TITANOTHERE+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+	loadModelBlocks[ PM_BALUCHITHERIUM+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+	loadModelBlocks[ PM_MASTODON+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+		
+	// rodents
+	loadModelBlocks[ PM_SEWER_RAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
+	loadModelBlocks[ PM_GIANT_RAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
+	loadModelBlocks[ PM_RABID_RAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
+	loadModelBlocks[ PM_WERERAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
+	loadModelBlocks[ PM_ROCK_MOLE+GLYPH_MON_OFF ] = loadModelFunc_rodents
+	loadModelBlocks[ PM_WOODCHUCK+GLYPH_MON_OFF ] = loadModelFunc_rodents
+		
+	// spiders
+	loadModelBlocks[ PM_CAVE_SPIDER+GLYPH_MON_OFF ] = loadModelFunc_spiders
+	loadModelBlocks[ PM_CENTIPEDE+GLYPH_MON_OFF ] = loadModelFunc_spiders
+	loadModelBlocks[ PM_GIANT_SPIDER+GLYPH_MON_OFF ] = loadModelFunc_spiders
+	loadModelBlocks[ PM_SCORPION+GLYPH_MON_OFF ] = loadModelFunc_spiders
+		
+	// trapper
+	loadModelBlocks[ PM_LURKER_ABOVE+GLYPH_MON_OFF ] = loadModelFunc_trapper
+	loadModelBlocks[ PM_TRAPPER+GLYPH_MON_OFF ] = loadModelFunc_trapper
+		
+	// unicorns and horses
+	loadModelBlocks[ PM_WHITE_UNICORN+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+	loadModelBlocks[ PM_GRAY_UNICORN+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+	loadModelBlocks[ PM_BLACK_UNICORN+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+	loadModelBlocks[ PM_PONY+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+	loadModelBlocks[ PM_HORSE+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+	loadModelBlocks[ PM_WARHORSE+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+		
+	// vortices
+	loadModelBlocks[ PM_FOG_CLOUD+GLYPH_MON_OFF ] = loadModelFunc_vortex
+	loadModelBlocks[ PM_DUST_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
+	loadModelBlocks[ PM_ICE_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
+	loadModelBlocks[ PM_ENERGY_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
+	loadModelBlocks[ PM_STEAM_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
+	loadModelBlocks[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
+		
+	// worms
+	loadModelBlocks[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
+	loadModelBlocks[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
+	loadModelBlocks[ PM_LONG_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
+	loadModelBlocks[ PM_PURPLE_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
+		
+	// xan
+	loadModelBlocks[ PM_GRID_BUG+GLYPH_MON_OFF ] = loadModelFunc_xan
+	loadModelBlocks[ PM_XAN+GLYPH_MON_OFF ] = loadModelFunc_xan
+		
+	// lights
+	loadModelBlocks[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = loadModelFunc_lights
+	loadModelBlocks[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = loadModelFunc_lights
+		
 		*/
 		// zruty
 		loadModelBlocks[Int(PM_ZRUTY+GLYPH_MON_OFF)] = { _ in
@@ -4377,103 +4098,75 @@ final class NH3DOpenGLView: NSOpenGLView {
 		};
 		/*
 	// Angels
-	LoadModelBlock angelBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_COUATL
-									  to:PM_ARCHON
-								  offset:GLYPH_MON_OFF
-							   modelName:@"upperA"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_COUATL+GLYPH_MON_OFF ] = [angelBlock copy];
-	loadModelBlocks[ PM_ALEAX+GLYPH_MON_OFF ] = [angelBlock copy];
-	loadModelBlocks[ PM_ANGEL+GLYPH_MON_OFF ] = [angelBlock copy];
-	loadModelBlocks[ PM_KI_RIN+GLYPH_MON_OFF ] = [angelBlock copy];
-	loadModelBlocks[ PM_ARCHON+GLYPH_MON_OFF ] = [angelBlock copy];
+	loadModelBlocks[ PM_COUATL+GLYPH_MON_OFF ] = loadModelFunc_Angels
+	loadModelBlocks[ PM_ALEAX+GLYPH_MON_OFF ] = loadModelFunc_Angels
+	loadModelBlocks[ PM_ANGEL+GLYPH_MON_OFF ] = loadModelFunc_Angels
+	loadModelBlocks[ PM_KI_RIN+GLYPH_MON_OFF ] = loadModelFunc_Angels
+	loadModelBlocks[ PM_ARCHON+GLYPH_MON_OFF ] = loadModelFunc_Angels
+		
 	// Bats
-	LoadModelBlock batBlock = ^(int glyph) {
-		// Bats
-		return [self checkLoadedModelsAt:PM_BAT
-									  to:PM_VAMPIRE_BAT
-								  offset:GLYPH_MON_OFF
-							   modelName:@"upperB"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_BAT+GLYPH_MON_OFF ] = [batBlock copy];
-	loadModelBlocks[ PM_GIANT_BAT+GLYPH_MON_OFF ] = [batBlock copy];
-	loadModelBlocks[ PM_RAVEN+GLYPH_MON_OFF ] = [batBlock copy];
-	loadModelBlocks[ PM_VAMPIRE_BAT+GLYPH_MON_OFF ] = [batBlock copy];
+	loadModelBlocks[ PM_BAT+GLYPH_MON_OFF ] = loadModelFunc_Bats
+	loadModelBlocks[ PM_GIANT_BAT+GLYPH_MON_OFF ] = loadModelFunc_Bats
+	loadModelBlocks[ PM_RAVEN+GLYPH_MON_OFF ] = loadModelFunc_Bats
+	loadModelBlocks[ PM_VAMPIRE_BAT+GLYPH_MON_OFF ] = loadModelFunc_Bats
+		
 	// Centaurs
-	LoadModelBlock centaurBlock = ^(int glyph) {
-		return [self loadModelFunc_Centaurs:glyph];
-	};
-	loadModelBlocks[ PM_PLAINS_CENTAUR+GLYPH_MON_OFF ] = [centaurBlock copy];
-	loadModelBlocks[ PM_FOREST_CENTAUR+GLYPH_MON_OFF ] = [centaurBlock copy];
-	loadModelBlocks[ PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF ] = [centaurBlock copy];
+	loadModelBlocks[ PM_PLAINS_CENTAUR+GLYPH_MON_OFF ] = loadModelFunc_Centaurs
+	loadModelBlocks[ PM_FOREST_CENTAUR+GLYPH_MON_OFF ] = loadModelFunc_Centaurs
+	loadModelBlocks[ PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF ] = loadModelFunc_Centaurs
+		
 	// Dragons
-	LoadModelBlock dragonBlock = ^(int glyph) {
-		return [self loadModelFunc_Dragons:glyph];
-	};
-	loadModelBlocks[ PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_RED_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_GRAY_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_SILVER_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_RED_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_WHITE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_ORANGE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BLACK_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_BLUE_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_GREEN_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
-	loadModelBlocks[ PM_YELLOW_DRAGON+GLYPH_MON_OFF ] = [dragonBlock copy];
+	loadModelBlocks[ PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_RED_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_GRAY_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_SILVER_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_RED_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_WHITE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_ORANGE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BLACK_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_BLUE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_GREEN_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+	loadModelBlocks[ PM_YELLOW_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+		
 	// Elementals
-	LoadModelBlock elementalsBlock = ^(int glyph) {
-		return [self loadModelFunc_Elementals:glyph];
-	};
-	loadModelBlocks[ PM_STALKER+GLYPH_MON_OFF ] = [elementalsBlock copy];
-	loadModelBlocks[ PM_AIR_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
-	loadModelBlocks[ PM_FIRE_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
-	loadModelBlocks[ PM_EARTH_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
-	loadModelBlocks[ PM_WATER_ELEMENTAL+GLYPH_MON_OFF ] = [elementalsBlock copy];
+	loadModelBlocks[ PM_STALKER+GLYPH_MON_OFF ] = loadModelFunc_Elementals
+	loadModelBlocks[ PM_AIR_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
+	loadModelBlocks[ PM_FIRE_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
+	loadModelBlocks[ PM_EARTH_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
+	loadModelBlocks[ PM_WATER_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
+		
 	// Fungi
-	LoadModelBlock fungusBlock = ^(int glyph) {
-		return [self loadModelFunc_Fungi:glyph];
-	};
-	loadModelBlocks[ PM_LICHEN+GLYPH_MON_OFF ] = [fungusBlock copy];
-	loadModelBlocks[ PM_BROWN_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
-	loadModelBlocks[ PM_YELLOW_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
-	loadModelBlocks[ PM_GREEN_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
-	loadModelBlocks[ PM_RED_MOLD+GLYPH_MON_OFF ] = [fungusBlock copy];
-	loadModelBlocks[ PM_SHRIEKER+GLYPH_MON_OFF ] = [fungusBlock copy];
-	loadModelBlocks[ PM_VIOLET_FUNGUS+GLYPH_MON_OFF ] = [fungusBlock copy];
+	loadModelBlocks[ PM_LICHEN+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+	loadModelBlocks[ PM_BROWN_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+	loadModelBlocks[ PM_YELLOW_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+	loadModelBlocks[ PM_GREEN_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+	loadModelBlocks[ PM_RED_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+	loadModelBlocks[ PM_SHRIEKER+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+	loadModelBlocks[ PM_VIOLET_FUNGUS+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+		
 	// Gnomes
-	LoadModelBlock gnomeBlock = ^(int glyph) {
-		return [self loadModelFunc_Gnomes:glyph];
-	};
-	loadModelBlocks[ PM_GNOME+GLYPH_MON_OFF ] = [gnomeBlock copy];
-	loadModelBlocks[ PM_GNOME_LORD+GLYPH_MON_OFF ] = [gnomeBlock copy];
-	loadModelBlocks[ PM_GNOMISH_WIZARD + GLYPH_MON_OFF ] = [gnomeBlock copy];
-	loadModelBlocks[ PM_GNOME_KING + GLYPH_MON_OFF ] = [gnomeBlock copy];
+	loadModelBlocks[ PM_GNOME+GLYPH_MON_OFF ] = loadModelFunc_Gnomes
+	loadModelBlocks[ PM_GNOME_LORD+GLYPH_MON_OFF ] = loadModelFunc_Gnomes
+	loadModelBlocks[ PM_GNOMISH_WIZARD + GLYPH_MON_OFF ] = loadModelFunc_Gnomes
+	loadModelBlocks[ PM_GNOME_KING + GLYPH_MON_OFF ] = loadModelFunc_Gnomes
+		
 	// Giant Humanoids
-	LoadModelBlock giantsBlock = ^(int glyph) {
-		return [self loadModelFunc_giantHumanoids:glyph];
-	};
-	loadModelBlocks[ PM_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_STONE_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_HILL_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_FIRE_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_FROST_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_STORM_GIANT + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_ETTIN + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_TITAN + GLYPH_MON_OFF ] = [giantsBlock copy];
-	loadModelBlocks[ PM_MINOTAUR + GLYPH_MON_OFF ] = [giantsBlock copy];
+	loadModelBlocks[ PM_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_STONE_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_HILL_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_FIRE_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_FROST_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_STORM_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_ETTIN + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_TITAN + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
+	loadModelBlocks[ PM_MINOTAUR + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
 		*/
 		// Jabberwock
 		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { _ in
@@ -4481,80 +4174,47 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 /*
 	// Kops
-	LoadModelBlock kopBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_KEYSTONE_KOP
-									  to:PM_KOP_KAPTAIN
-								  offset:GLYPH_MON_OFF
-							   modelName:@"upperK"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_KEYSTONE_KOP + GLYPH_MON_OFF ] = [kopBlock copy];
-	loadModelBlocks[ PM_KOP_SERGEANT + GLYPH_MON_OFF ] = [kopBlock copy];
-	loadModelBlocks[ PM_KOP_LIEUTENANT + GLYPH_MON_OFF ] = [kopBlock copy];
-	loadModelBlocks[ PM_KOP_KAPTAIN + GLYPH_MON_OFF ] = [kopBlock copy];
+	loadModelBlocks[ PM_KEYSTONE_KOP + GLYPH_MON_OFF ] = loadModelFunc_Kops
+	loadModelBlocks[ PM_KOP_SERGEANT + GLYPH_MON_OFF ] = loadModelFunc_Kops
+	loadModelBlocks[ PM_KOP_LIEUTENANT + GLYPH_MON_OFF ] = loadModelFunc_Kops
+	loadModelBlocks[ PM_KOP_KAPTAIN + GLYPH_MON_OFF ] = loadModelFunc_Kops
+		
 	// Liches
-	LoadModelBlock lichBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_LICH
-									  to:PM_ARCH_LICH
-								  offset:GLYPH_MON_OFF
-							   modelName:@"upperL"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_LICH + GLYPH_MON_OFF ] = [lichBlock copy];
-	loadModelBlocks[ PM_DEMILICH + GLYPH_MON_OFF ] = [lichBlock copy];
-	loadModelBlocks[ PM_MASTER_LICH + GLYPH_MON_OFF ] = [lichBlock copy];
-	loadModelBlocks[ PM_ARCH_LICH + GLYPH_MON_OFF ] = [lichBlock copy];
+	loadModelBlocks[ PM_LICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
+	loadModelBlocks[ PM_DEMILICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
+	loadModelBlocks[ PM_MASTER_LICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
+	loadModelBlocks[ PM_ARCH_LICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
+		
 	// Mummies
-	LoadModelBlock mummyBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_KOBOLD_MUMMY
-									  to:PM_GIANT_MUMMY
-								  offset:GLYPH_MON_OFF
-							   modelName:@"upperM"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_KOBOLD_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_GNOME_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_ORC_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_DWARF_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_ELF_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_HUMAN_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_ETTIN_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
-	loadModelBlocks[ PM_GIANT_MUMMY + GLYPH_MON_OFF ] = [mummyBlock copy];
+	loadModelBlocks[ PM_KOBOLD_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_GNOME_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_ORC_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_DWARF_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_ELF_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_HUMAN_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_ETTIN_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+	loadModelBlocks[ PM_GIANT_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+		
 	// Nagas
-	LoadModelBlock nagaBlock = ^(int glyph) {
-		return [self checkLoadedModelsAt:PM_RED_NAGA_HATCHLING
-									  to:PM_GUARDIAN_NAGA
-								  offset:GLYPH_MON_OFF
-							   modelName:@"upperN"
-								textured:NO
-								 withOut:0];
-	};
-	loadModelBlocks[ PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_RED_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_BLACK_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_GOLDEN_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
-	loadModelBlocks[ PM_GUARDIAN_NAGA + GLYPH_MON_OFF ] = [nagaBlock copy];
+	loadModelBlocks[ PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_RED_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_BLACK_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_GOLDEN_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+	loadModelBlocks[ PM_GUARDIAN_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+		
 	// Ogres
-	LoadModelBlock ogresBlock = ^(int glyph) {
-		return [self loadModelFunc_Ogres:glyph];
-	};
-	loadModelBlocks[ PM_OGRE + GLYPH_MON_OFF ] = [ogresBlock copy];
-	loadModelBlocks[ PM_OGRE_LORD + GLYPH_MON_OFF ] = [ogresBlock copy];
-	loadModelBlocks[ PM_OGRE_KING + GLYPH_MON_OFF ] = [ogresBlock copy];
+	loadModelBlocks[ PM_OGRE + GLYPH_MON_OFF ] = loadModelFunc_Ogres
+	loadModelBlocks[ PM_OGRE_LORD + GLYPH_MON_OFF ] = loadModelFunc_Ogres
+	loadModelBlocks[ PM_OGRE_KING + GLYPH_MON_OFF ] = loadModelFunc_Ogres
+		
 	// Puddings
-	LoadModelBlock puddingBlock = ^(int glyph) {
-		return [self loadModelFunc_Puddings:glyph];
-	};
-	loadModelBlocks[ PM_GRAY_OOZE + GLYPH_MON_OFF ] = [puddingBlock copy];
-	loadModelBlocks[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = [puddingBlock copy];
-	loadModelBlocks[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = [puddingBlock copy];
-	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = [puddingBlock copy];
+	loadModelBlocks[ PM_GRAY_OOZE + GLYPH_MON_OFF ] = loadModelFunc_Puddings
+	loadModelBlocks[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = loadModelFunc_Puddings
+	loadModelBlocks[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = loadModelFunc_Puddings
+	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = loadModelFunc_Puddings
 		*/
 		// Quantum mechanics
 		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = { _ in
@@ -4562,25 +4222,18 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		/*
 	// Rust monster or disenchanter
-	LoadModelBlock rustMonsterBlock = ^(int glyph) {
-		return [self loadModelFunc_Rustmonster:glyph];
-	};
-	loadModelBlocks[ PM_RUST_MONSTER + GLYPH_MON_OFF ] = [rustMonsterBlock copy];
-	loadModelBlocks[ PM_DISENCHANTER + GLYPH_MON_OFF ] = [rustMonsterBlock copy];
+	loadModelBlocks[ PM_RUST_MONSTER + GLYPH_MON_OFF ] = loadModelFunc_Rustmonster
+	loadModelBlocks[ PM_DISENCHANTER + GLYPH_MON_OFF ] = loadModelFunc_Rustmonster
+		
 	// Snakes
-	LoadModelBlock snakeBlock = ^(int glyph) {
-		return [self loadModelFunc_Snakes:glyph];
-	};
-	loadModelBlocks[ PM_GARTER_SNAKE + GLYPH_MON_OFF ] = [snakeBlock copy];
-	loadModelBlocks[ PM_SNAKE + GLYPH_MON_OFF ] = [snakeBlock copy];
-	loadModelBlocks[ PM_WATER_MOCCASIN + GLYPH_MON_OFF ] = [snakeBlock copy];
-	loadModelBlocks[ PM_PIT_VIPER + GLYPH_MON_OFF ] = [snakeBlock copy];
-	loadModelBlocks[ PM_PYTHON + GLYPH_MON_OFF ] = [snakeBlock copy];
-	loadModelBlocks[ PM_COBRA + GLYPH_MON_OFF ] = [snakeBlock copy];
+	loadModelBlocks[ PM_GARTER_SNAKE + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+	loadModelBlocks[ PM_SNAKE + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+	loadModelBlocks[ PM_WATER_MOCCASIN + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+	loadModelBlocks[ PM_PIT_VIPER + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+	loadModelBlocks[ PM_PYTHON + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+	loadModelBlocks[ PM_COBRA + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+		
 	// Trolls
-	LoadModelBlock trollBlock = ^(int glyph) {
-		return [self loadModelFunc_Trolls:glyph];
-	};
 	loadModelBlocks[ PM_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
 	loadModelBlocks[ PM_ICE_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
 	loadModelBlocks[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
@@ -4593,16 +4246,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		};
 		/*
 	// Vampires
-	LoadModelBlock vampireBlock = ^(int glyph) {
-		return [self loadModelFunc_Vampires:glyph];
-	};
-	loadModelBlocks[ PM_VAMPIRE + GLYPH_MON_OFF ] = [vampireBlock copy];
-	loadModelBlocks[ PM_VAMPIRE_LORD + GLYPH_MON_OFF ] = [vampireBlock copy];
-	loadModelBlocks[ PM_VLAD_THE_IMPALER + GLYPH_MON_OFF ] = [vampireBlock copy];
+	loadModelBlocks[ PM_VAMPIRE + GLYPH_MON_OFF ] = loadModelFunc_Vampires
+	loadModelBlocks[ PM_VAMPIRE_LORD + GLYPH_MON_OFF ] = loadModelFunc_Vampires
+	loadModelBlocks[ PM_VLAD_THE_IMPALER + GLYPH_MON_OFF ] = loadModelFunc_Vampires
+		
 	// Wraiths
-	LoadModelBlock wraithBlock = ^(int glyph) {
-		return [self loadModelFunc_Wraiths:glyph];
-	};
 	loadModelBlocks[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
 	loadModelBlocks[ PM_WRAITH + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
 	loadModelBlocks[ PM_NAZGUL + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
@@ -4613,44 +4261,35 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		/*
 	// Yeti and other large beasts
-	LoadModelBlock yetiBlock = ^(int glyph) {
-		return [self loadModelFunc_Yeti:glyph];
-	};
-	loadModelBlocks[ PM_MONKEY + GLYPH_MON_OFF ] = [yetiBlock copy];
-	loadModelBlocks[ PM_APE + GLYPH_MON_OFF ] = [yetiBlock copy];
-	loadModelBlocks[ PM_OWLBEAR + GLYPH_MON_OFF ] = [yetiBlock copy];
-	loadModelBlocks[ PM_YETI + GLYPH_MON_OFF ] = [yetiBlock copy];
-	loadModelBlocks[ PM_CARNIVOROUS_APE + GLYPH_MON_OFF ] = [yetiBlock copy];
-	loadModelBlocks[ PM_SASQUATCH + GLYPH_MON_OFF ] = [yetiBlock copy];
+	loadModelBlocks[ PM_MONKEY + GLYPH_MON_OFF ] = loadModelFunc_Yeti
+	loadModelBlocks[ PM_APE + GLYPH_MON_OFF ] = loadModelFunc_Yeti
+	loadModelBlocks[ PM_OWLBEAR + GLYPH_MON_OFF ] = loadModelFunc_Yeti
+	loadModelBlocks[ PM_YETI + GLYPH_MON_OFF ] = loadModelFunc_Yeti
+	loadModelBlocks[ PM_CARNIVOROUS_APE + GLYPH_MON_OFF ] = loadModelFunc_Yeti
+	loadModelBlocks[ PM_SASQUATCH + GLYPH_MON_OFF ] = loadModelFunc_Yeti
 	// Zombie
-	LoadModelBlock zombieBlock = ^(int glyph) {
-		return [self loadModelFunc_Zombie:glyph];
-	};
-	loadModelBlocks[ PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_GNOME_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_ORC_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_DWARF_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_ELF_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_HUMAN_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_ETTIN_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_GIANT_ZOMBIE + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_GHOUL + GLYPH_MON_OFF ] = [zombieBlock copy];
-	loadModelBlocks[ PM_SKELETON + GLYPH_MON_OFF ] = [zombieBlock copy];
+	loadModelBlocks[ PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_GNOME_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_ORC_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_DWARF_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_ELF_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_HUMAN_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_ETTIN_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_GIANT_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_GHOUL + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
+	loadModelBlocks[ PM_SKELETON + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
 	// Golems
-	LoadModelBlock golemBlock = ^(int glyph) {
-		return [self loadModelFunc_Golems:glyph];
-	};
-	loadModelBlocks[ PM_STRAW_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_PAPER_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_ROPE_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_GOLD_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_LEATHER_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_WOOD_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_FLESH_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_CLAY_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
-	loadModelBlocks[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = [golemBlock copy];
+	loadModelBlocks[ PM_STRAW_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_PAPER_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_ROPE_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_GOLD_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_LEATHER_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_WOOD_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_FLESH_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_CLAY_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
+	loadModelBlocks[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
 		*/
 		// Human or Elves
 		loadModelBlocks[ Int(PM_ELVENKING + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
@@ -4741,67 +4380,61 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		/*
 	// Adventures
-	LoadModelBlock adventurerBlock = ^(int glyph) {
-		return [self loadModelFunc_Adventures:glyph];
-	};
-	loadModelBlocks[ PM_ARCHEOLOGIST + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_BARBARIAN + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_CAVEMAN + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_CAVEWOMAN + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_HEALER + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_KNIGHT + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_MONK + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_PRIEST + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_PRIESTESS + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_RANGER + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_ROGUE + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_SAMURAI + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_TOURIST + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_VALKYRIE + GLYPH_MON_OFF ] = [adventurerBlock copy];
-	loadModelBlocks[ PM_WIZARD + GLYPH_MON_OFF ] = [adventurerBlock copy];
+	loadModelBlocks[ PM_ARCHEOLOGIST + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_BARBARIAN + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_CAVEMAN + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_CAVEWOMAN + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_HEALER + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_KNIGHT + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_MONK + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_PRIEST + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_PRIESTESS + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_RANGER + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_ROGUE + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_SAMURAI + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_TOURIST + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_VALKYRIE + GLYPH_MON_OFF ] = loadModelFunc_Adventures
+	loadModelBlocks[ PM_WIZARD + GLYPH_MON_OFF ] = loadModelFunc_Adventures
 	// Unique person
-	LoadModelBlock uniquePersonBlock = ^(int glyph) {
-		return [self loadModelFunc_Uniqueperson:glyph];
-	};
-	loadModelBlocks[ PM_LORD_CARNARVON + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_PELIAS + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_SHAMAN_KARNOV + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_HIPPOCRATES + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_GRAND_MASTER + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ARCH_PRIEST + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ORION + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_MASTER_OF_THIEVES + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_LORD_SATO + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_TWOFLOWER + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_NORN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_KING_ARTHUR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_NEFERET_THE_GREEN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_THOTH_AMON + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_CHROMATIC_DRAGON + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_CYCLOPS + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_IXOTH + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_MASTER_KAEN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_NALZOK + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_SCORPIUS + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_MASTER_ASSASSIN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_LORD_SURTUR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_DARK_ONE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_STUDENT + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_CHIEFTAIN + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_NEANDERTHAL + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ATTENDANT + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_PAGE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ABBOT + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ACOLYTE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_HUNTER + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_THUG + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_NINJA + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_ROSHI + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_GUIDE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_WARRIOR + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
-	loadModelBlocks[ PM_APPRENTICE + GLYPH_MON_OFF ] = [uniquePersonBlock copy];
+	loadModelBlocks[ PM_LORD_CARNARVON + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_PELIAS + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_SHAMAN_KARNOV + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_HIPPOCRATES + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_GRAND_MASTER + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ARCH_PRIEST + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ORION + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_MASTER_OF_THIEVES + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_LORD_SATO + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_TWOFLOWER + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_NORN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_KING_ARTHUR + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_NEFERET_THE_GREEN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_THOTH_AMON + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_CHROMATIC_DRAGON + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_CYCLOPS + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_IXOTH + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_MASTER_KAEN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_NALZOK + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_SCORPIUS + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_MASTER_ASSASSIN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_LORD_SURTUR + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_DARK_ONE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_STUDENT + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_CHIEFTAIN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_NEANDERTHAL + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ATTENDANT + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_PAGE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ABBOT + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ACOLYTE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_HUNTER + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_THUG + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_NINJA + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_ROSHI + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_GUIDE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_WARRIOR + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
+	loadModelBlocks[ PM_APPRENTICE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
 */
 		// -------------------------- Map Symbol Section ----------------------------- //
 		
