@@ -2056,42 +2056,35 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, modelName: "upperF", textured: false)
 	}
 
-/*
-- ( id )loadModelFunc_Gnomes:(int)glyph
-{
-	// gnomes
-	id ret = nil;
-	switch ( glyph ) {
-		case PM_GNOME+GLYPH_MON_OFF :
-		case PM_GNOME_LORD+GLYPH_MON_OFF :
-			ret = [ self checkLoadedModelsAt:PM_GNOME
-										  to:PM_GNOME_LORD
-									  offset:GLYPH_MON_OFF
-								   modelName:@"upperG"
-									textured:NO
-									 withOut:0 ];
+	/// gnomes
+	private final func loadModelFunc_Gnomes(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		switch glyph {
+		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF :
+			ret = checkLoadedModels(at:PM_GNOME,
+				to:PM_GNOME_LORD,
+				modelName:"upperG",
+				textured:false);
 			
-			break;
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperG" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.01 atZ:-0.15 ];
-			ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			break;
+			ret = NH3DModelObjects(with3DSFile:"upperG", withTexture:false)
+			ret?.addChildObject("wizardset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY:-0.01, atZ:-0.15)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperG" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.05 atZ:-0.25 ];
-			ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
+			ret = NH3DModelObjects(with3DSFile:"upperG", withTexture:false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.05, atZ: -0.25)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			
+		default:
 			break;
+		}
+		
+		return ret;
 	}
 	
-	return ret;
-	
-}*/
-
-
 	/// Giant Humanoids
 	private final func loadModelFunc_giantHumanoids(glyph: Int32) -> NH3DModelObjects? {
 		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, modelName: "upperH", textured: false)
@@ -2363,7 +2356,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "coron", textured: false)
 	}
 	
-	/// Adventures
+	/// Adventurers
 	private final func loadModelFunc_Adventures(glyph: Int32) -> NH3DModelObjects? {
 		var ret: NH3DModelObjects? = nil
 		if ( glyph == PM_WIZARD + GLYPH_MON_OFF ) {
@@ -2375,226 +2368,200 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		return ret
 	}
-/*
 
-- ( id )loadModelFunc_Uniqueperson:(int)glyph
-{
 	// Unique person
-	id ret = nil;
-	
-	switch ( glyph ) {
+	private final func loadModelFunc_Uniqueperson(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil
 		
+		switch glyph {
 		case PM_KING_ARTHUR + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.18 atZ:0.0 ];
-			[ ret?.childObjectAtLast?. setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
-			ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_BRIGHT_CYAN ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break;
-			
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.18, atZ: 0.0)
+			ret?.childObjectAtLast?.setModelRotateX(0.0, rotateY: 11.7, rotateZ: 0.0)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura ;
+			ret?.childObjectAtLast?.particleColor = CLR_BRIGHT_CYAN
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_BRIGHT_CYAN ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("wizardset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_BRIGHT_CYAN
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;
-			
+			ret = NH3DModelObjects(with3DSFile: "and", withTexture: true)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_THOTH_AMON + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;
-			
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperD" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break;
+			ret = NH3DModelObjects(with3DSFile: "upperD", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_CYCLOPS + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperH" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break;
+			ret = NH3DModelObjects(with3DSFile: "upperH", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_IXOTH + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperD" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break;
+			ret = NH3DModelObjects(with3DSFile: "upperD", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_MASTER_KAEN + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;		
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_NALZOK + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"and" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;		
+			ret = NH3DModelObjects(with3DSFile: "and", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_SCORPIUS + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"lowerS" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;	
+			ret = NH3DModelObjects(with3DSFile: "lowerS", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
-		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF :
-		case PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break ;		
+		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF, PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF :
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_LORD_SURTUR + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"upperH" withTexture:NO ];
-			[ ret addChildObject:@"kingset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.18 atZ:0.0 ];
-			[ ret?.childObjectAtLast?. setModelRotateX:0.0 rotateY:11.7 rotateZ:0.0 ];
-			ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break;
+			ret = NH3DModelObjects(with3DSFile: "upperH", withTexture: false)
+			ret?.addChildObject("kingset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.18, atZ: 0.0)
+			ret?.childObjectAtLast?.setModelRotateX(0.0, rotateY: 11.7, rotateZ: 0.0)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		case PM_DARK_ONE + GLYPH_MON_OFF :
-			ret = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"atmark" withTexture:NO ];
-			[ ret addChildObject:@"wizardset" type:NH3DModelTypeTexturedObject ];
-			[ ret?.childObjectAtLast?. setPivotX:0.0 atY:-0.28 atZ:-0.15 ];
-			ret?.childObjectAtLast?..currentMaterial = nh3dMaterialArray[ NO_COLOR ] ;
-			[ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-			[ ret?.childObjectAtLast?. setParticleColor:CLR_RED ];
-			[ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-			[ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-			[ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-			[ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-			[ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-			break;
+			ret = NH3DModelObjects(with3DSFile: "atmark", withTexture: false)
+			ret?.addChildObject("wizardset", type: .TexturedObject)
+			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
+			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.childObjectAtLast?.particleType = .Aura
+			ret?.childObjectAtLast?.particleColor = CLR_RED
+			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+			ret?.childObjectAtLast?.particleSlowdown = 8.8
+			ret?.childObjectAtLast?.particleLife = 0.24
+			ret?.childObjectAtLast?.setParticleSize(8.0)
 			
 		default:
 			
-			if ( glyph >=PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF ) { 
-				 ret = [ self checkLoadedModelsAt:PM_LORD_CARNARVON
-											   to:PM_NORN
-										   offset:GLYPH_MON_OFF
-										modelName:@"atmark"
-										 textured:NO
-										  withOut:PM_KING_ARTHUR, nil];
-				 
-				 if ( ![ ret hasChildObject ] ) {
-					 [ ret addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-					 ret?.childObjectAtLast?..particleType = NH3DParticleTypeAura ;
-					 [ ret?.childObjectAtLast?. setParticleColor:CLR_BRIGHT_CYAN ];
-					 [ ret?.childObjectAtLast?. setParticleGravityX:0.0 Y:2.5 Z:0.0 ];
-					 [ ret?.childObjectAtLast?. setParticleSpeedX:1.0 Y:1.00 ];
-					 [ ret?.childObjectAtLast?. setParticleSlowdown:8.8 ];
-					 [ ret?.childObjectAtLast?. setParticleLife:0.24 ];
-					 [ ret?.childObjectAtLast?. setParticleSize:8.0 ];
-				 }
+			if glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF {
+				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
+					to: PM_NORN,
+					modelName:"atmark",
+					textured:false,
+					without:PM_KING_ARTHUR)
+				
+				if let ret = ret where !ret.hasChildObject {
+					ret.addChildObject("emitter", type: .Emitter)
+					ret.childObjectAtLast?.particleType = .Aura
+					ret.childObjectAtLast?.particleColor = CLR_BRIGHT_CYAN
+					ret.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+					ret.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
+					ret.childObjectAtLast?.particleSlowdown = 8.8
+					ret.childObjectAtLast?.particleLife = 0.24
+					ret.childObjectAtLast?.setParticleSize(8.0)
+				}
 			} else {
-				 
-			ret = [ self checkLoadedModelsAt:PM_STUDENT
-										  to:PM_APPRENTICE
-									  offset:GLYPH_MON_OFF
-								   modelName:@"atmark"
-									textured:NO
-									 withOut:0 ];
+				
+				ret = checkLoadedModels(at:PM_STUDENT,
+					to:PM_APPRENTICE,
+					modelName:"atmark",
+					textured:false)
 			}
-			
-			break;
+		}
+		
+		return ret;
+		
 	}
-	
-	return ret;
-	
-}
 
-	*/
 	// MARK: - Map Symbol Section
 
 	///  Map Symbols
@@ -3598,8 +3565,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		nowUpdating = false
 		viewLock.unlock()
 	}
-
-
+	
 	/// cache func address
 	private func cacheMethods() {
 		do {
@@ -4016,314 +3982,313 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_WOOD_NYMPH+GLYPH_MON_OFF)] =		loadModelFunc_nymphs;
 		loadModelBlocks[Int(PM_WATER_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
 		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs;
-/*
-	// orc class
-	loadModelBlocks[ PM_ORC_SHAMAN + GLYPH_MON_OFF ] =	loadModelFunc_orc;
-	loadModelBlocks[ PM_GOBLIN+GLYPH_MON_OFF ] =		loadModelFunc_orc;
-	loadModelBlocks[ PM_HOBGOBLIN+GLYPH_MON_OFF ] =		loadModelFunc_orc;
-	loadModelBlocks[ PM_ORC+GLYPH_MON_OFF ] =			loadModelFunc_orc;
-	loadModelBlocks[ PM_HILL_ORC+GLYPH_MON_OFF ] =		loadModelFunc_orc;
-	loadModelBlocks[ PM_MORDOR_ORC+GLYPH_MON_OFF ] =	loadModelFunc_orc;
-	loadModelBlocks[ PM_URUK_HAI+GLYPH_MON_OFF ] =		loadModelFunc_orc;
-	loadModelBlocks[ PM_ORC_CAPTAIN+GLYPH_MON_OFF ] =	loadModelFunc_orc;
-	// piercers
-	LoadModelBlock piercersBlock = ^(int glyph) {
-		return [self loadModelFunc_piercers :glyph];
-	};
-	loadModelBlocks[ PM_ROCK_PIERCER+GLYPH_MON_OFF ] = loadModelFunc_piercers
-	loadModelBlocks[ PM_IRON_PIERCER+GLYPH_MON_OFF ] = loadModelFunc_piercers
-	loadModelBlocks[ PM_GLASS_PIERCER+GLYPH_MON_OFF ] = loadModelFunc_piercers
 		
-	// quadrupeds
-	loadModelBlocks[ PM_ROTHE+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
-	loadModelBlocks[ PM_MUMAK+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
-	loadModelBlocks[ PM_LEOCROTTA+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
-	loadModelBlocks[ PM_WUMPUS+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
-	loadModelBlocks[ PM_TITANOTHERE+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
-	loadModelBlocks[ PM_BALUCHITHERIUM+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
-	loadModelBlocks[ PM_MASTODON+GLYPH_MON_OFF ] = loadModelFunc_quadrupeds
+		// orc class
+		loadModelBlocks[Int(PM_ORC_SHAMAN + GLYPH_MON_OFF)] =	loadModelFunc_orc;
+		loadModelBlocks[Int(PM_GOBLIN+GLYPH_MON_OFF)] =		loadModelFunc_orc;
+		loadModelBlocks[Int(PM_HOBGOBLIN+GLYPH_MON_OFF)] =		loadModelFunc_orc;
+		loadModelBlocks[Int(PM_ORC+GLYPH_MON_OFF)] =			loadModelFunc_orc;
+		loadModelBlocks[Int(PM_HILL_ORC+GLYPH_MON_OFF)] =		loadModelFunc_orc;
+		loadModelBlocks[Int(PM_MORDOR_ORC+GLYPH_MON_OFF)] =	loadModelFunc_orc;
+		loadModelBlocks[Int(PM_URUK_HAI+GLYPH_MON_OFF)] =		loadModelFunc_orc;
+		loadModelBlocks[Int(PM_ORC_CAPTAIN+GLYPH_MON_OFF)] =	loadModelFunc_orc;
 		
-	// rodents
-	loadModelBlocks[ PM_SEWER_RAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
-	loadModelBlocks[ PM_GIANT_RAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
-	loadModelBlocks[ PM_RABID_RAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
-	loadModelBlocks[ PM_WERERAT+GLYPH_MON_OFF ] = loadModelFunc_rodents
-	loadModelBlocks[ PM_ROCK_MOLE+GLYPH_MON_OFF ] = loadModelFunc_rodents
-	loadModelBlocks[ PM_WOODCHUCK+GLYPH_MON_OFF ] = loadModelFunc_rodents
+		// piercers
+		loadModelBlocks[Int(PM_ROCK_PIERCER+GLYPH_MON_OFF)] = loadModelFunc_piercers
+		loadModelBlocks[Int(PM_IRON_PIERCER+GLYPH_MON_OFF)] = loadModelFunc_piercers
+		loadModelBlocks[Int(PM_GLASS_PIERCER+GLYPH_MON_OFF)] = loadModelFunc_piercers
 		
-	// spiders
-	loadModelBlocks[ PM_CAVE_SPIDER+GLYPH_MON_OFF ] = loadModelFunc_spiders
-	loadModelBlocks[ PM_CENTIPEDE+GLYPH_MON_OFF ] = loadModelFunc_spiders
-	loadModelBlocks[ PM_GIANT_SPIDER+GLYPH_MON_OFF ] = loadModelFunc_spiders
-	loadModelBlocks[ PM_SCORPION+GLYPH_MON_OFF ] = loadModelFunc_spiders
+		// quadrupeds
+		loadModelBlocks[Int(PM_ROTHE+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
+		loadModelBlocks[Int(PM_MUMAK+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
+		loadModelBlocks[Int(PM_LEOCROTTA+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
+		loadModelBlocks[Int(PM_WUMPUS+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
+		loadModelBlocks[Int(PM_TITANOTHERE+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
+		loadModelBlocks[Int(PM_BALUCHITHERIUM+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
+		loadModelBlocks[Int(PM_MASTODON+GLYPH_MON_OFF)] = loadModelFunc_quadrupeds
 		
-	// trapper
-	loadModelBlocks[ PM_LURKER_ABOVE+GLYPH_MON_OFF ] = loadModelFunc_trapper
-	loadModelBlocks[ PM_TRAPPER+GLYPH_MON_OFF ] = loadModelFunc_trapper
+		// rodents
+		loadModelBlocks[Int(PM_SEWER_RAT+GLYPH_MON_OFF)] = loadModelFunc_rodents
+		loadModelBlocks[Int(PM_GIANT_RAT+GLYPH_MON_OFF)] = loadModelFunc_rodents
+		loadModelBlocks[Int(PM_RABID_RAT+GLYPH_MON_OFF)] = loadModelFunc_rodents
+		loadModelBlocks[Int(PM_WERERAT+GLYPH_MON_OFF)] = loadModelFunc_rodents
+		loadModelBlocks[Int(PM_ROCK_MOLE+GLYPH_MON_OFF)] = loadModelFunc_rodents
+		loadModelBlocks[Int(PM_WOODCHUCK+GLYPH_MON_OFF)] = loadModelFunc_rodents
 		
-	// unicorns and horses
-	loadModelBlocks[ PM_WHITE_UNICORN+GLYPH_MON_OFF ] = loadModelFunc_unicorn
-	loadModelBlocks[ PM_GRAY_UNICORN+GLYPH_MON_OFF ] = loadModelFunc_unicorn
-	loadModelBlocks[ PM_BLACK_UNICORN+GLYPH_MON_OFF ] = loadModelFunc_unicorn
-	loadModelBlocks[ PM_PONY+GLYPH_MON_OFF ] = loadModelFunc_unicorn
-	loadModelBlocks[ PM_HORSE+GLYPH_MON_OFF ] = loadModelFunc_unicorn
-	loadModelBlocks[ PM_WARHORSE+GLYPH_MON_OFF ] = loadModelFunc_unicorn
+		// spiders
+		loadModelBlocks[Int(PM_CAVE_SPIDER+GLYPH_MON_OFF)] = loadModelFunc_spiders
+		loadModelBlocks[Int(PM_CENTIPEDE+GLYPH_MON_OFF)] = loadModelFunc_spiders
+		loadModelBlocks[Int(PM_GIANT_SPIDER+GLYPH_MON_OFF)] = loadModelFunc_spiders
+		loadModelBlocks[Int(PM_SCORPION+GLYPH_MON_OFF)] = loadModelFunc_spiders
 		
-	// vortices
-	loadModelBlocks[ PM_FOG_CLOUD+GLYPH_MON_OFF ] = loadModelFunc_vortex
-	loadModelBlocks[ PM_DUST_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
-	loadModelBlocks[ PM_ICE_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
-	loadModelBlocks[ PM_ENERGY_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
-	loadModelBlocks[ PM_STEAM_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
-	loadModelBlocks[ PM_FIRE_VORTEX+GLYPH_MON_OFF ] = loadModelFunc_vortex
+		// trapper
+		loadModelBlocks[Int(PM_LURKER_ABOVE+GLYPH_MON_OFF)] = loadModelFunc_trapper
+		loadModelBlocks[Int(PM_TRAPPER+GLYPH_MON_OFF)] = loadModelFunc_trapper
 		
-	// worms
-	loadModelBlocks[ PM_BABY_LONG_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
-	loadModelBlocks[ PM_BABY_PURPLE_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
-	loadModelBlocks[ PM_LONG_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
-	loadModelBlocks[ PM_PURPLE_WORM+GLYPH_MON_OFF ] = loadModelFunc_worms
+		// unicorns and horses
+		loadModelBlocks[Int(PM_WHITE_UNICORN+GLYPH_MON_OFF)] = loadModelFunc_unicorns
+		loadModelBlocks[Int(PM_GRAY_UNICORN+GLYPH_MON_OFF)] = loadModelFunc_unicorns
+		loadModelBlocks[Int(PM_BLACK_UNICORN+GLYPH_MON_OFF)] = loadModelFunc_unicorns
+		loadModelBlocks[Int(PM_PONY+GLYPH_MON_OFF)] = loadModelFunc_unicorns
+		loadModelBlocks[Int(PM_HORSE+GLYPH_MON_OFF)] = loadModelFunc_unicorns
+		loadModelBlocks[Int(PM_WARHORSE+GLYPH_MON_OFF)] = loadModelFunc_unicorns
 		
-	// xan
-	loadModelBlocks[ PM_GRID_BUG+GLYPH_MON_OFF ] = loadModelFunc_xan
-	loadModelBlocks[ PM_XAN+GLYPH_MON_OFF ] = loadModelFunc_xan
+		// vortices
+		loadModelBlocks[Int(PM_FOG_CLOUD+GLYPH_MON_OFF)] = loadModelFunc_vortices
+		loadModelBlocks[Int(PM_DUST_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
+		loadModelBlocks[Int(PM_ICE_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
+		loadModelBlocks[Int(PM_ENERGY_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
+		loadModelBlocks[Int(PM_STEAM_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
+		loadModelBlocks[Int(PM_FIRE_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
 		
-	// lights
-	loadModelBlocks[ PM_YELLOW_LIGHT+GLYPH_MON_OFF ] = loadModelFunc_lights
-	loadModelBlocks[ PM_BLACK_LIGHT+GLYPH_MON_OFF ] = loadModelFunc_lights
+		// worms
+		loadModelBlocks[Int(PM_BABY_LONG_WORM+GLYPH_MON_OFF)] = loadModelFunc_worms
+		loadModelBlocks[Int(PM_BABY_PURPLE_WORM+GLYPH_MON_OFF)] = loadModelFunc_worms
+		loadModelBlocks[Int(PM_LONG_WORM+GLYPH_MON_OFF)] = loadModelFunc_worms
+		loadModelBlocks[Int(PM_PURPLE_WORM+GLYPH_MON_OFF)] = loadModelFunc_worms
 		
-		*/
+		// xan
+		loadModelBlocks[Int(PM_GRID_BUG+GLYPH_MON_OFF)] = loadModelFunc_xan
+		loadModelBlocks[Int(PM_XAN+GLYPH_MON_OFF)] = loadModelFunc_xan
+		
+		// lights
+		loadModelBlocks[Int(PM_YELLOW_LIGHT+GLYPH_MON_OFF)] = loadModelFunc_lights
+		loadModelBlocks[Int(PM_BLACK_LIGHT+GLYPH_MON_OFF)] = loadModelFunc_lights
+		
 		// zruty
 		loadModelBlocks[Int(PM_ZRUTY+GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "lowerZ", withTexture: false)
 		};
-		/*
-	// Angels
-	loadModelBlocks[ PM_COUATL+GLYPH_MON_OFF ] = loadModelFunc_Angels
-	loadModelBlocks[ PM_ALEAX+GLYPH_MON_OFF ] = loadModelFunc_Angels
-	loadModelBlocks[ PM_ANGEL+GLYPH_MON_OFF ] = loadModelFunc_Angels
-	loadModelBlocks[ PM_KI_RIN+GLYPH_MON_OFF ] = loadModelFunc_Angels
-	loadModelBlocks[ PM_ARCHON+GLYPH_MON_OFF ] = loadModelFunc_Angels
 		
-	// Bats
-	loadModelBlocks[ PM_BAT+GLYPH_MON_OFF ] = loadModelFunc_Bats
-	loadModelBlocks[ PM_GIANT_BAT+GLYPH_MON_OFF ] = loadModelFunc_Bats
-	loadModelBlocks[ PM_RAVEN+GLYPH_MON_OFF ] = loadModelFunc_Bats
-	loadModelBlocks[ PM_VAMPIRE_BAT+GLYPH_MON_OFF ] = loadModelFunc_Bats
+		// Angels
+		loadModelBlocks[Int(PM_COUATL+GLYPH_MON_OFF)] = loadModelFunc_Angels
+		loadModelBlocks[Int(PM_ALEAX+GLYPH_MON_OFF)] = loadModelFunc_Angels
+		loadModelBlocks[Int(PM_ANGEL+GLYPH_MON_OFF)] = loadModelFunc_Angels
+		loadModelBlocks[Int(PM_KI_RIN+GLYPH_MON_OFF)] = loadModelFunc_Angels
+		loadModelBlocks[Int(PM_ARCHON+GLYPH_MON_OFF)] = loadModelFunc_Angels
 		
-	// Centaurs
-	loadModelBlocks[ PM_PLAINS_CENTAUR+GLYPH_MON_OFF ] = loadModelFunc_Centaurs
-	loadModelBlocks[ PM_FOREST_CENTAUR+GLYPH_MON_OFF ] = loadModelFunc_Centaurs
-	loadModelBlocks[ PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF ] = loadModelFunc_Centaurs
+		// Bats
+		loadModelBlocks[Int(PM_BAT+GLYPH_MON_OFF)] = loadModelFunc_Bats
+		loadModelBlocks[Int(PM_GIANT_BAT+GLYPH_MON_OFF)] = loadModelFunc_Bats
+		loadModelBlocks[Int(PM_RAVEN+GLYPH_MON_OFF)] = loadModelFunc_Bats
+		loadModelBlocks[Int(PM_VAMPIRE_BAT+GLYPH_MON_OFF)] = loadModelFunc_Bats
 		
-	// Dragons
-	loadModelBlocks[ PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_RED_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_GRAY_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_SILVER_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_RED_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_WHITE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_ORANGE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BLACK_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_BLUE_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_GREEN_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
-	loadModelBlocks[ PM_YELLOW_DRAGON+GLYPH_MON_OFF ] = loadModelFunc_Dragons
+		// Centaurs
+		loadModelBlocks[Int(PM_PLAINS_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
+		loadModelBlocks[Int(PM_FOREST_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
+		loadModelBlocks[Int(PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
 		
-	// Elementals
-	loadModelBlocks[ PM_STALKER+GLYPH_MON_OFF ] = loadModelFunc_Elementals
-	loadModelBlocks[ PM_AIR_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
-	loadModelBlocks[ PM_FIRE_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
-	loadModelBlocks[ PM_EARTH_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
-	loadModelBlocks[ PM_WATER_ELEMENTAL+GLYPH_MON_OFF ] = loadModelFunc_Elementals
+		// Dragons
+		loadModelBlocks[Int(PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_RED_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_GRAY_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_SILVER_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_RED_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_WHITE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_ORANGE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BLACK_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_BLUE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_GREEN_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		loadModelBlocks[Int(PM_YELLOW_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
 		
-	// Fungi
-	loadModelBlocks[ PM_LICHEN+GLYPH_MON_OFF ] = loadModelFunc_Fungi
-	loadModelBlocks[ PM_BROWN_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
-	loadModelBlocks[ PM_YELLOW_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
-	loadModelBlocks[ PM_GREEN_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
-	loadModelBlocks[ PM_RED_MOLD+GLYPH_MON_OFF ] = loadModelFunc_Fungi
-	loadModelBlocks[ PM_SHRIEKER+GLYPH_MON_OFF ] = loadModelFunc_Fungi
-	loadModelBlocks[ PM_VIOLET_FUNGUS+GLYPH_MON_OFF ] = loadModelFunc_Fungi
+		// Elementals
+		loadModelBlocks[Int(PM_STALKER+GLYPH_MON_OFF)] = loadModelFunc_Elementals
+		loadModelBlocks[Int(PM_AIR_ELEMENTAL+GLYPH_MON_OFF)] = loadModelFunc_Elementals
+		loadModelBlocks[Int(PM_FIRE_ELEMENTAL+GLYPH_MON_OFF)] = loadModelFunc_Elementals
+		loadModelBlocks[Int(PM_EARTH_ELEMENTAL+GLYPH_MON_OFF)] = loadModelFunc_Elementals
+		loadModelBlocks[Int(PM_WATER_ELEMENTAL+GLYPH_MON_OFF)] = loadModelFunc_Elementals
 		
-	// Gnomes
-	loadModelBlocks[ PM_GNOME+GLYPH_MON_OFF ] = loadModelFunc_Gnomes
-	loadModelBlocks[ PM_GNOME_LORD+GLYPH_MON_OFF ] = loadModelFunc_Gnomes
-	loadModelBlocks[ PM_GNOMISH_WIZARD + GLYPH_MON_OFF ] = loadModelFunc_Gnomes
-	loadModelBlocks[ PM_GNOME_KING + GLYPH_MON_OFF ] = loadModelFunc_Gnomes
+		// Fungi
+		loadModelBlocks[Int(PM_LICHEN+GLYPH_MON_OFF)] = loadModelFunc_Fungi
+		loadModelBlocks[Int(PM_BROWN_MOLD+GLYPH_MON_OFF)] = loadModelFunc_Fungi
+		loadModelBlocks[Int(PM_YELLOW_MOLD+GLYPH_MON_OFF)] = loadModelFunc_Fungi
+		loadModelBlocks[Int(PM_GREEN_MOLD+GLYPH_MON_OFF)] = loadModelFunc_Fungi
+		loadModelBlocks[Int(PM_RED_MOLD+GLYPH_MON_OFF)] = loadModelFunc_Fungi
+		loadModelBlocks[Int(PM_SHRIEKER+GLYPH_MON_OFF)] = loadModelFunc_Fungi
+		loadModelBlocks[Int(PM_VIOLET_FUNGUS+GLYPH_MON_OFF)] = loadModelFunc_Fungi
 		
-	// Giant Humanoids
-	loadModelBlocks[ PM_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_STONE_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_HILL_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_FIRE_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_FROST_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_STORM_GIANT + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_ETTIN + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_TITAN + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-	loadModelBlocks[ PM_MINOTAUR + GLYPH_MON_OFF ] = loadModelFunc_giantHumanoids
-		*/
+		// Gnomes
+		loadModelBlocks[Int(PM_GNOME+GLYPH_MON_OFF)] = loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME_LORD+GLYPH_MON_OFF)] = loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOMISH_WIZARD + GLYPH_MON_OFF)] = loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME_KING + GLYPH_MON_OFF)] = loadModelFunc_Gnomes
+		
+		// Giant Humanoids
+		loadModelBlocks[Int(PM_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_STONE_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_HILL_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_FIRE_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_FROST_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_STORM_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_ETTIN + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_TITAN + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		loadModelBlocks[Int(PM_MINOTAUR + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
+		
 		// Jabberwock
 		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "upperJ", withTexture: false)
 		}
-/*
-	// Kops
-	loadModelBlocks[ PM_KEYSTONE_KOP + GLYPH_MON_OFF ] = loadModelFunc_Kops
-	loadModelBlocks[ PM_KOP_SERGEANT + GLYPH_MON_OFF ] = loadModelFunc_Kops
-	loadModelBlocks[ PM_KOP_LIEUTENANT + GLYPH_MON_OFF ] = loadModelFunc_Kops
-	loadModelBlocks[ PM_KOP_KAPTAIN + GLYPH_MON_OFF ] = loadModelFunc_Kops
 		
-	// Liches
-	loadModelBlocks[ PM_LICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
-	loadModelBlocks[ PM_DEMILICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
-	loadModelBlocks[ PM_MASTER_LICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
-	loadModelBlocks[ PM_ARCH_LICH + GLYPH_MON_OFF ] = loadModelFunc_Liches
+		// Kops
+		loadModelBlocks[Int(PM_KEYSTONE_KOP + GLYPH_MON_OFF)] = loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_SERGEANT + GLYPH_MON_OFF)] = loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_LIEUTENANT + GLYPH_MON_OFF)] = loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_KAPTAIN + GLYPH_MON_OFF)] = loadModelFunc_Kops
 		
-	// Mummies
-	loadModelBlocks[ PM_KOBOLD_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_GNOME_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_ORC_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_DWARF_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_ELF_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_HUMAN_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_ETTIN_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
-	loadModelBlocks[ PM_GIANT_MUMMY + GLYPH_MON_OFF ] = loadModelFunc_Mummies
+		// Liches
+		loadModelBlocks[Int(PM_LICH + GLYPH_MON_OFF)] = loadModelFunc_Liches
+		loadModelBlocks[Int(PM_DEMILICH + GLYPH_MON_OFF)] = loadModelFunc_Liches
+		loadModelBlocks[Int(PM_MASTER_LICH + GLYPH_MON_OFF)] = loadModelFunc_Liches
+		loadModelBlocks[Int(PM_ARCH_LICH + GLYPH_MON_OFF)] = loadModelFunc_Liches
 		
-	// Nagas
-	loadModelBlocks[ PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_RED_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_BLACK_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_GOLDEN_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
-	loadModelBlocks[ PM_GUARDIAN_NAGA + GLYPH_MON_OFF ] = loadModelFunc_Nagas
+		// Mummies
+		loadModelBlocks[Int(PM_KOBOLD_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_GNOME_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_ORC_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_DWARF_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_ELF_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_HUMAN_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_ETTIN_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_GIANT_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
 		
-	// Ogres
-	loadModelBlocks[ PM_OGRE + GLYPH_MON_OFF ] = loadModelFunc_Ogres
-	loadModelBlocks[ PM_OGRE_LORD + GLYPH_MON_OFF ] = loadModelFunc_Ogres
-	loadModelBlocks[ PM_OGRE_KING + GLYPH_MON_OFF ] = loadModelFunc_Ogres
+		// Nagas
+		loadModelBlocks[Int(PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_BLACK_NAGA_HATCHLING + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_GOLDEN_NAGA_HATCHLING + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_GUARDIAN_NAGA_HATCHLING + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_RED_NAGA + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_BLACK_NAGA + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_GOLDEN_NAGA + GLYPH_MON_OFF)] = loadModelFunc_Nagas
+		loadModelBlocks[Int(PM_GUARDIAN_NAGA + GLYPH_MON_OFF)] = loadModelFunc_Nagas
 		
-	// Puddings
-	loadModelBlocks[ PM_GRAY_OOZE + GLYPH_MON_OFF ] = loadModelFunc_Puddings
-	loadModelBlocks[ PM_BROWN_PUDDING + GLYPH_MON_OFF ] = loadModelFunc_Puddings
-	loadModelBlocks[ PM_BLACK_PUDDING + GLYPH_MON_OFF ] = loadModelFunc_Puddings
-	loadModelBlocks[ PM_GREEN_SLIME + GLYPH_MON_OFF ] = loadModelFunc_Puddings
-		*/
+		// Ogres
+		loadModelBlocks[Int(PM_OGRE + GLYPH_MON_OFF)] = loadModelFunc_Ogres
+		loadModelBlocks[Int(PM_OGRE_LORD + GLYPH_MON_OFF)] = loadModelFunc_Ogres
+		loadModelBlocks[Int(PM_OGRE_KING + GLYPH_MON_OFF)] = loadModelFunc_Ogres
+		
+		// Puddings
+		loadModelBlocks[Int(PM_GRAY_OOZE + GLYPH_MON_OFF)] = loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_BROWN_PUDDING + GLYPH_MON_OFF)] = loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_BLACK_PUDDING + GLYPH_MON_OFF)] = loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_GREEN_SLIME + GLYPH_MON_OFF)] = loadModelFunc_Puddings
+		
 		// Quantum mechanics
 		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = { _ in
 			return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
 		}
-		/*
-	// Rust monster or disenchanter
-	loadModelBlocks[ PM_RUST_MONSTER + GLYPH_MON_OFF ] = loadModelFunc_Rustmonster
-	loadModelBlocks[ PM_DISENCHANTER + GLYPH_MON_OFF ] = loadModelFunc_Rustmonster
 		
-	// Snakes
-	loadModelBlocks[ PM_GARTER_SNAKE + GLYPH_MON_OFF ] = loadModelFunc_Snakes
-	loadModelBlocks[ PM_SNAKE + GLYPH_MON_OFF ] = loadModelFunc_Snakes
-	loadModelBlocks[ PM_WATER_MOCCASIN + GLYPH_MON_OFF ] = loadModelFunc_Snakes
-	loadModelBlocks[ PM_PIT_VIPER + GLYPH_MON_OFF ] = loadModelFunc_Snakes
-	loadModelBlocks[ PM_PYTHON + GLYPH_MON_OFF ] = loadModelFunc_Snakes
-	loadModelBlocks[ PM_COBRA + GLYPH_MON_OFF ] = loadModelFunc_Snakes
+		// Rust monster or disenchanter
+		loadModelBlocks[Int(PM_RUST_MONSTER + GLYPH_MON_OFF)] = loadModelFunc_Rustmonster
+		loadModelBlocks[Int(PM_DISENCHANTER + GLYPH_MON_OFF)] = loadModelFunc_Rustmonster
 		
-	// Trolls
-	loadModelBlocks[ PM_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
-	loadModelBlocks[ PM_ICE_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
-	loadModelBlocks[ PM_ROCK_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
-	loadModelBlocks[ PM_WATER_TROLL + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
-	loadModelBlocks[ PM_OLOG_HAI + GLYPH_MON_OFF ] = loadModelFunc_Trolls;
-		*/
+		// Snakes
+		loadModelBlocks[Int(PM_GARTER_SNAKE + GLYPH_MON_OFF)] = loadModelFunc_Snakes
+		loadModelBlocks[Int(PM_SNAKE + GLYPH_MON_OFF)] = loadModelFunc_Snakes
+		loadModelBlocks[Int(PM_WATER_MOCCASIN + GLYPH_MON_OFF)] = loadModelFunc_Snakes
+		loadModelBlocks[Int(PM_PIT_VIPER + GLYPH_MON_OFF)] = loadModelFunc_Snakes
+		loadModelBlocks[Int(PM_PYTHON + GLYPH_MON_OFF)] = loadModelFunc_Snakes
+		loadModelBlocks[Int(PM_COBRA + GLYPH_MON_OFF)] = loadModelFunc_Snakes
+		
+		// Trolls
+		loadModelBlocks[Int(PM_TROLL + GLYPH_MON_OFF)] = loadModelFunc_Trolls;
+		loadModelBlocks[Int(PM_ICE_TROLL + GLYPH_MON_OFF)] = loadModelFunc_Trolls;
+		loadModelBlocks[Int(PM_ROCK_TROLL + GLYPH_MON_OFF)] = loadModelFunc_Trolls;
+		loadModelBlocks[Int(PM_WATER_TROLL + GLYPH_MON_OFF)] = loadModelFunc_Trolls;
+		loadModelBlocks[Int(PM_OLOG_HAI + GLYPH_MON_OFF)] = loadModelFunc_Trolls;
+		
 		// Umber hulk
 		loadModelBlocks[Int(PM_UMBER_HULK + GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile:"upperU", withTexture:false)
 		};
-		/*
-	// Vampires
-	loadModelBlocks[ PM_VAMPIRE + GLYPH_MON_OFF ] = loadModelFunc_Vampires
-	loadModelBlocks[ PM_VAMPIRE_LORD + GLYPH_MON_OFF ] = loadModelFunc_Vampires
-	loadModelBlocks[ PM_VLAD_THE_IMPALER + GLYPH_MON_OFF ] = loadModelFunc_Vampires
 		
-	// Wraiths
-	loadModelBlocks[ PM_BARROW_WIGHT + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
-	loadModelBlocks[ PM_WRAITH + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
-	loadModelBlocks[ PM_NAZGUL + GLYPH_MON_OFF ] = loadModelFunc_Wraiths;
-		*/
+		// Vampires
+		loadModelBlocks[Int(PM_VAMPIRE + GLYPH_MON_OFF)] = loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VAMPIRE_LORD + GLYPH_MON_OFF)] = loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VLAD_THE_IMPALER + GLYPH_MON_OFF)] = loadModelFunc_Vampires
+		
+		// Wraiths
+		loadModelBlocks[Int(PM_BARROW_WIGHT + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
+		loadModelBlocks[Int(PM_WRAITH + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
+		loadModelBlocks[Int(PM_NAZGUL + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
+		
 		// Xorn
 		loadModelBlocks[Int(PM_XORN + GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile:"upperX", withTexture:false)
 		}
-		/*
-	// Yeti and other large beasts
-	loadModelBlocks[ PM_MONKEY + GLYPH_MON_OFF ] = loadModelFunc_Yeti
-	loadModelBlocks[ PM_APE + GLYPH_MON_OFF ] = loadModelFunc_Yeti
-	loadModelBlocks[ PM_OWLBEAR + GLYPH_MON_OFF ] = loadModelFunc_Yeti
-	loadModelBlocks[ PM_YETI + GLYPH_MON_OFF ] = loadModelFunc_Yeti
-	loadModelBlocks[ PM_CARNIVOROUS_APE + GLYPH_MON_OFF ] = loadModelFunc_Yeti
-	loadModelBlocks[ PM_SASQUATCH + GLYPH_MON_OFF ] = loadModelFunc_Yeti
-	// Zombie
-	loadModelBlocks[ PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_GNOME_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_ORC_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_DWARF_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_ELF_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_HUMAN_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_ETTIN_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_GIANT_ZOMBIE + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_GHOUL + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	loadModelBlocks[ PM_SKELETON + GLYPH_MON_OFF ] = loadModelFunc_Zombie;
-	// Golems
-	loadModelBlocks[ PM_STRAW_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_PAPER_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_ROPE_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_GOLD_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_LEATHER_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_WOOD_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_FLESH_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_CLAY_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_STONE_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_GLASS_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-	loadModelBlocks[ PM_IRON_GOLEM + GLYPH_MON_OFF ] = loadModelFunc_Golems;
-		*/
+		
+		// Yeti and other large beasts
+		loadModelBlocks[Int(PM_MONKEY + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_APE + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_OWLBEAR + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_YETI + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_CARNIVOROUS_APE + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		
+		// Zombie
+		loadModelBlocks[Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_GNOME_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_ORC_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_DWARF_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_ELF_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_HUMAN_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_ETTIN_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_GIANT_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_GHOUL + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		loadModelBlocks[Int(PM_SKELETON + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
+		
+		// Golems
+		loadModelBlocks[Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_PAPER_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_ROPE_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_GOLD_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_LEATHER_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_WOOD_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_FLESH_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_CLAY_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_STONE_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_GLASS_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_IRON_GOLEM + GLYPH_MON_OFF)] = loadModelFunc_Golems;
+		
 		// Human or Elves
-		loadModelBlocks[ Int(PM_ELVENKING + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_NURSE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_HIGH_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_MEDUSA + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_CROESUS + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_HUMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_HUMAN_WERERAT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_HUMAN_WEREWOLF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_WOODLAND_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_GREEN_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_GREY_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_ELF_LORD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_DOPPELGANGER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_SHOPKEEPER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_GUARD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_PRISONER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_ORACLE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_ALIGNED_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_SOLDIER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_SERGEANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_LIEUTENANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_WATCHMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_WATCH_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
-		loadModelBlocks[ Int(PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
+		loadModelBlocks[Int(PM_ELVENKING + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_NURSE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_HIGH_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_MEDUSA + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_CROESUS + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_HUMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_HUMAN_WERERAT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_HUMAN_WEREWOLF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_WOODLAND_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_GREEN_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_GREY_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_ELF_LORD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_DOPPELGANGER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_SHOPKEEPER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_GUARD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_PRISONER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_ORACLE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_ALIGNED_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_SOLDIER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_SERGEANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_LIEUTENANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_WATCHMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_WATCH_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
+		loadModelBlocks[Int(PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
 		
 		// Ghosts
 		loadModelBlocks[ Int(PM_GHOST + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
 		loadModelBlocks[ Int(PM_SHADE + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
-
+		
 		// Major Daemons
 		loadModelBlocks[Int(PM_WATER_DEMON + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
 		loadModelBlocks[Int(PM_HORNED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons;
@@ -4378,64 +4343,63 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
 			return NH3DModelObjects(with3DSFile: "wormtail", withTexture: false)
 		}
-		/*
-	// Adventures
-	loadModelBlocks[ PM_ARCHEOLOGIST + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_BARBARIAN + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_CAVEMAN + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_CAVEWOMAN + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_HEALER + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_KNIGHT + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_MONK + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_PRIEST + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_PRIESTESS + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_RANGER + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_ROGUE + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_SAMURAI + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_TOURIST + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_VALKYRIE + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	loadModelBlocks[ PM_WIZARD + GLYPH_MON_OFF ] = loadModelFunc_Adventures
-	// Unique person
-	loadModelBlocks[ PM_LORD_CARNARVON + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_PELIAS + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_SHAMAN_KARNOV + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_HIPPOCRATES + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_GRAND_MASTER + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ARCH_PRIEST + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ORION + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_MASTER_OF_THIEVES + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_LORD_SATO + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_TWOFLOWER + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_NORN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_KING_ARTHUR + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_NEFERET_THE_GREEN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_THOTH_AMON + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_CHROMATIC_DRAGON + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_CYCLOPS + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_IXOTH + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_MASTER_KAEN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_NALZOK + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_SCORPIUS + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_MASTER_ASSASSIN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_LORD_SURTUR + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_DARK_ONE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_STUDENT + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_CHIEFTAIN + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_NEANDERTHAL + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ATTENDANT + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_PAGE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ABBOT + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ACOLYTE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_HUNTER + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_THUG + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_NINJA + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_ROSHI + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_GUIDE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_WARRIOR + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-	loadModelBlocks[ PM_APPRENTICE + GLYPH_MON_OFF ] = loadModelFunc_Uniqueperson
-*/
+		// Adventures
+		loadModelBlocks[Int(PM_ARCHEOLOGIST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_BARBARIAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_CAVEMAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_CAVEWOMAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_HEALER + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_KNIGHT + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_MONK + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_PRIEST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_PRIESTESS + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_RANGER + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_ROGUE + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_SAMURAI + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_TOURIST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_VALKYRIE + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		loadModelBlocks[Int(PM_WIZARD + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		
+		// Unique person
+		loadModelBlocks[Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_PELIAS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_SHAMAN_KARNOV+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_HIPPOCRATES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_GRAND_MASTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ARCH_PRIEST+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ORION+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_MASTER_OF_THIEVES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_LORD_SATO+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_TWOFLOWER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_NORN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_KING_ARTHUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_NEFERET_THE_GREEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_MINION_OF_HUHETOTL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_THOTH_AMON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_CHROMATIC_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_CYCLOPS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_IXOTH+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_MASTER_KAEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_NALZOK+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_SCORPIUS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_MASTER_ASSASSIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ASHIKAGA_TAKAUJI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_LORD_SURTUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_DARK_ONE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_STUDENT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_CHIEFTAIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_NEANDERTHAL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ATTENDANT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_PAGE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ABBOT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ACOLYTE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_HUNTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_THUG+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_NINJA+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_ROSHI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_GUIDE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_WARRIOR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+		loadModelBlocks[Int(PM_APPRENTICE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
 		// -------------------------- Map Symbol Section ----------------------------- //
 		
 		loadModelBlocks[Int(S_bars + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols;
