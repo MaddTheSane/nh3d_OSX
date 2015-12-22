@@ -3238,132 +3238,118 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		return ret;
 	}
-/*
-// explotion symbols ( 9 postion * 7 types )
-- ( id )loadModelFunc_explotionDARK:(int)glyph
-{
-	id	ret;
 	
-	//  type DARK
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_DARK
-								  to:NH3D_EXPLODE_DARK + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
+	// MARK: explotion symbols ( 9 postion * 7 types )
 	
-	[ self setParamsForMagicExplotion:ret color:CLR_GRAY ];
+	/// type DARK
+	private final func loadModelFunc_explotionDARK(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_DARK,
+			to: NH3D_EXPLODE_DARK + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_GRAY)
+		}
+		
+		return ret;
+	}
 	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_explotionNOXIOUS:(int)glyph
-{
-	id	ret;	
-	//  type NOXIOUS
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_NOXIOUS
-								  to:NH3D_EXPLODE_NOXIOUS + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
+	/// type NOXIOUS
+	private final func loadModelFunc_explotionNOXIOUS(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_NOXIOUS,
+			to: NH3D_EXPLODE_NOXIOUS + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_GREEN)
+		}
+		
+		return ret;
+	}
 	
-	[ self setParamsForMagicExplotion:ret color:CLR_GREEN ];
+	/// type MUDDY
+	private final func loadModelFunc_explotionMUDDY(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_MUDDY,
+			to: NH3D_EXPLODE_MUDDY + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_BROWN)
+		}
+		
+		return ret;
+	}
 	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_explotionMUDDY:(int)glyph
-{
-	id	ret;	
-	//  type MUDDY
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_MUDDY
-								  to:NH3D_EXPLODE_MUDDY + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
+	/// type WET
+	private final func loadModelFunc_explotionWET(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_WET,
+			to: NH3D_EXPLODE_WET + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_BLUE)
+		}
+			
+		return ret;
+	}
 	
-	[ self setParamsForMagicExplotion:ret color:CLR_BROWN ];
+	/// type MAGICAL
+	private final func loadModelFunc_explotionMAGICAL(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_MAGICAL,
+			to: NH3D_EXPLODE_MAGICAL + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_BRIGHT_MAGENTA)
+		}
+		
+		return ret;
+	}
 	
-	return ret;
+	/// type FIERY
+	private final func loadModelFunc_explotionFIERY(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_FIERY,
+			to: NH3D_EXPLODE_FIERY + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_ORANGE)
+		}
+		
+		return ret;
+	}
 	
-}
-
-
-- ( id )loadModelFunc_explotionWET:(int)glyph
-{
-	id	ret;	
-	//  type WET
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_WET
-								  to:NH3D_EXPLODE_WET + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
-	
-	[ self setParamsForMagicExplotion:ret color:CLR_BLUE ];
-	
-	return ret;
-}
-
-
-- ( id )loadModelFunc_explotionMAGICAL:(int)glyph
-{
-	id	ret;	
-	//  type MAGICAL
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_MAGICAL
-								  to:NH3D_EXPLODE_MAGICAL + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
-
-	[ self setParamsForMagicExplotion:ret color:CLR_BRIGHT_MAGENTA ];
-	
-	return ret;
-	
-}
-
-
-- ( id )loadModelFunc_explotionFIERY:(int)glyph
-{
-	id	ret;	
-	//  type FIERY
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_FIERY
-								  to:NH3D_EXPLODE_FIERY + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
-
-	[ self setParamsForMagicExplotion:ret color:CLR_ORANGE ];
-	
-	return ret;
-	
-}
-
-
-- ( id )loadModelFunc_explotionFROSTY:(int)glyph
-{
-	id	ret;	
 	//  type FROSTY
-	ret = [ self checkLoadedModelsAt:NH3D_EXPLODE_FROSTY
-								  to:NH3D_EXPLODE_FROSTY + MAXEXPCHARS
-							  offset:0
-						   modelName:@"emitter"
-							textured:NO
-							 withOut:0 ];
+	private final func loadModelFunc_explotionFROSTY(glyph: Int32) -> NH3DModelObjects? {
+		var ret: NH3DModelObjects? = nil;
+		ret = checkLoadedModels(at: NH3D_EXPLODE_FROSTY,
+			to: NH3D_EXPLODE_FROSTY + MAXEXPCHARS,
+			offset: 0,
+			modelName: "emitter",
+			textured: false)
+		if let ret = ret {
+			setParamsForMagicExplosion(ret, color: CLR_BRIGHT_CYAN)
+		}
+		
+		return ret;
+	}
 
-	[ self setParamsForMagicExplotion:ret color:CLR_BRIGHT_CYAN ];
-	
-	return ret;
-	
-}
-
-
+/*
 /*
 - ( id )loadModelToArray:(int)glyph
 {
@@ -3418,76 +3404,72 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	@IBAction func changeWaitRate(sender: NSMenuItem) {
-/*
-- ( IBAction )setWaitRate:( id )sender
-{
-	CGDisplayModeRef curCfg = CGDisplayCopyDisplayMode(kCGDirectMainDisplay);
-	dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
-	
-	[ viewLock lock ];
-		nowUpdating = YES;
-		oglParamNowChanging = YES;
-	switch ( [ sender tag ] ) {
-		case 1003 : // no wait			
+		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
+		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+		
+		viewLock.lock()
+		nowUpdating = true
+		oglParamNowChanging = true
+		switch sender.tag {
+		case 1003 : // no wait
 			waitRate = dRefreshRate;
-			((NSCell*) sender).state = NSOnState ;
-			[ [NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@NO
-																				 forKey:NH3DOpenGLUseWaitRateKey ];
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (false as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
 			
-			[[ sender menu ] itemWithTag:1004 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1005 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1006 ].state = NSOffState ;
-			break;
+			sender.menu?.itemWithTag(1004)?.state = NSOffState
+			sender.menu?.itemWithTag(1005)?.state = NSOffState
+			sender.menu?.itemWithTag(1006)?.state = NSOffState
+			
 		case 1004 :
 			waitRate = WAIT_FAST;
-			((NSCell*)sender).state = NSOnState ;
-			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@YES
-																				 forKey:NH3DOpenGLUseWaitRateKey ];
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
 			
-			[[ sender menu ] itemWithTag:1003 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1005 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1006 ].state = NSOffState ;			
-			break;
+			sender.menu?.itemWithTag(1003)?.state = NSOffState
+			sender.menu?.itemWithTag(1005)?.state = NSOffState
+			sender.menu?.itemWithTag(1006)?.state = NSOffState
+			
 		case 1005 :
 			waitRate = WAIT_NORMAL;
-			((NSCell*)sender).state = NSOnState ;
-			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@YES
-																				 forKey:NH3DOpenGLUseWaitRateKey ];
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
 			
-			[[ sender menu ] itemWithTag:1003 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1004 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1006 ].state = NSOffState ;			
-			break;
+			sender.menu?.itemWithTag(1003)?.state = NSOffState
+			sender.menu?.itemWithTag(1004)?.state = NSOffState
+			sender.menu?.itemWithTag(1006)?.state = NSOffState
+			
 		case 1006 :
 			waitRate = WAIT_SLOW;
-			((NSCell*)sender).state = NSOnState ;
-			[ [NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DOpenGLUseWaitRateKey ];
-			[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@YES
-																				 forKey:NH3DOpenGLUseWaitRateKey ];
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
 			
-			[[ sender menu ] itemWithTag:1003 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1004 ].state = NSOffState ;
-			[[ sender menu ] itemWithTag:1005 ].state = NSOffState ;			
-			break;
+			sender.menu?.itemWithTag(1003)?.state = NSOffState
+			sender.menu?.itemWithTag(1004)?.state = NSOffState
+			sender.menu?.itemWithTag(1005)?.state = NSOffState
+			
+		default:
+			break
+		}
+		
+		cameraStep = Float(waitRate / 8.5)
+		
+		nowUpdating = false;
+		oglParamNowChanging = false;
+		viewLock.unlock()
+		
+		NSUserDefaults.standardUserDefaults().setDouble(waitRate, forKey:NH3DOpenGLWaitRateKey)
+		NSUserDefaultsController.sharedUserDefaultsController().values.setValue((waitRate as NSNumber),
+			forKey: NH3DOpenGLWaitRateKey)
 	}
 	
-	cameraStep = waitRate / 8.5;
-	
-	nowUpdating = NO;
-	oglParamNowChanging = NO;
-	[ viewLock unlock ];
-	
-	[ [NSUserDefaults standardUserDefaults] setFloat:waitRate forKey:NH3DOpenGLWaitRateKey ];
-	[ [NSUserDefaultsController sharedUserDefaultsController].values setValue:@(waitRate)
-																		 forKey:NH3DOpenGLWaitRateKey ];
-	
-	CGDisplayModeRelease(curCfg);
-}
-*/
-	}
 	@objc private func defaultsDidChange(notification: NSNotification?) {
 		guard !oglParamNowChanging else {
 			return
@@ -3576,65 +3558,65 @@ final class NH3DOpenGLView: NSOpenGLView {
 			drawFloorArray = [DrawFloorFunc](count: 11, repeatedValue: blankFloorMethod)
 		}
 		
-		switchMethodArray[ 0 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[0] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
 		}
-		switchMethodArray[ 1 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[1] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 		}
-		switchMethodArray[ 2 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[2] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling( x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 1);
 			
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
-		switchMethodArray[ 3 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[3] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
-		switchMethodArray[ 4 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[4] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 3);
 		}
-		switchMethodArray[ 5 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[5] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 4);
 		}
-		switchMethodArray[ 6 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[6] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 5);
 		}
-		switchMethodArray[ 7 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[7] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 6);
 		}
-		switchMethodArray[ 8 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[8] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 7);
 		}
-		switchMethodArray[ 9 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[9] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 8);
 		}
-		switchMethodArray[ 10 ] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
+		switchMethodArray[10] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
 				z: Float(z)*NH3DGL_TILE_SIZE,
 				flag: 2);
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
-	
-		drawFloorArray[ 0 ] = { [unowned self] in
+		
+		drawFloorArray[0] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3648,7 +3630,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
-		drawFloorArray[ 1 ] = {[unowned self] in
+		drawFloorArray[1] = {[unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3662,7 +3644,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
-		drawFloorArray[ 2 ] = { [unowned self] in
+		drawFloorArray[2] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3685,7 +3667,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//Draw pool
-		drawFloorArray[ 3 ] = { [unowned self] in
+		drawFloorArray[3] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3735,7 +3717,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw ice
-		drawFloorArray[ 4 ] = { [unowned self] in
+		drawFloorArray[4] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3781,7 +3763,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw lava
-		drawFloorArray[ 5 ] = { [unowned self] in
+		drawFloorArray[5] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3807,7 +3789,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//draw air
-		drawFloorArray[ 6 ] = { [unowned self] in
+		drawFloorArray[6] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3822,7 +3804,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//draw cloud
-		drawFloorArray[ 7 ] = { [unowned self] in
+		drawFloorArray[7] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3837,7 +3819,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		//draw water
-		drawFloorArray[ 8 ] = { [unowned self] in
+		drawFloorArray[8] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3883,7 +3865,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
-
+		
 		// insect class
 		loadModelBlocks[Int(PM_GIANT_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect;
 		loadModelBlocks[Int(PM_KILLER_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect;
@@ -3985,11 +3967,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// orc class
 		loadModelBlocks[Int(PM_ORC_SHAMAN + GLYPH_MON_OFF)] =	loadModelFunc_orc;
-		loadModelBlocks[Int(PM_GOBLIN+GLYPH_MON_OFF)] =		loadModelFunc_orc;
+		loadModelBlocks[Int(PM_GOBLIN+GLYPH_MON_OFF)] =			loadModelFunc_orc;
 		loadModelBlocks[Int(PM_HOBGOBLIN+GLYPH_MON_OFF)] =		loadModelFunc_orc;
 		loadModelBlocks[Int(PM_ORC+GLYPH_MON_OFF)] =			loadModelFunc_orc;
 		loadModelBlocks[Int(PM_HILL_ORC+GLYPH_MON_OFF)] =		loadModelFunc_orc;
-		loadModelBlocks[Int(PM_MORDOR_ORC+GLYPH_MON_OFF)] =	loadModelFunc_orc;
+		loadModelBlocks[Int(PM_MORDOR_ORC+GLYPH_MON_OFF)] =		loadModelFunc_orc;
 		loadModelBlocks[Int(PM_URUK_HAI+GLYPH_MON_OFF)] =		loadModelFunc_orc;
 		loadModelBlocks[Int(PM_ORC_CAPTAIN+GLYPH_MON_OFF)] =	loadModelFunc_orc;
 		
@@ -4058,7 +4040,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// zruty
 		loadModelBlocks[Int(PM_ZRUTY+GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "lowerZ", withTexture: false)
-		};
+		}
 		
 		// Angels
 		loadModelBlocks[Int(PM_COUATL+GLYPH_MON_OFF)] = loadModelFunc_Angels
@@ -4180,7 +4162,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_GREEN_SLIME + GLYPH_MON_OFF)] = loadModelFunc_Puddings
 		
 		// Quantum mechanics
-		loadModelBlocks[ Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF) ] = { _ in
+		loadModelBlocks[Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "upperQ", withTexture: false)
 		}
 		
@@ -4339,10 +4321,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_CHAMELEON + GLYPH_MON_OFF)] = loadModelFunc_lizards;
 		loadModelBlocks[Int(PM_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards;
 		loadModelBlocks[Int(PM_SALAMANDER + GLYPH_MON_OFF)] = loadModelFunc_lizards;
+		
 		// wormtail
-		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { (_: Int32) -> NH3DModelObjects? in
+		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { _ in
 			return NH3DModelObjects(with3DSFile: "wormtail", withTexture: false)
 		}
+		
 		// Adventures
 		loadModelBlocks[Int(PM_ARCHEOLOGIST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
 		loadModelBlocks[Int(PM_BARBARIAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
@@ -4535,71 +4519,29 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(S_ss2 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
 		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
 		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
-	/*
-	// explotion symbols ( 9 postion * 7 types )
-	// type DARK
-	{
-	LoadModelBlock DarkBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionDARK:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_DARK + i ] = [DarkBlock copy];
-	}
-	}
-	// type NOXIOUS
-	{
-	LoadModelBlock NOXIOUSBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionNOXIOUS:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_NOXIOUS + i ] = [NOXIOUSBlock copy];
-	}
-	}
-	// type MUDDY
-	{
-	LoadModelBlock MUDDYBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionMUDDY:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_MUDDY + i ] = [MUDDYBlock copy];
-	}
-	}
-	// type WET
-	{
-	LoadModelBlock wetBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionWET:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_WET + i ] = [wetBlock copy];
-	}
-	}
-	// type MAGICAL
-	{
-	LoadModelBlock magicalBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionMAGICAL:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_MAGICAL + i ] = [magicalBlock copy];
-	}
-	}
-	// type FIERY
-	{
-	LoadModelBlock fieryBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionFIERY:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_FIERY + i ] = [fieryBlock copy];
-	}
-	}
-	// type FROSTY
-	{
-	LoadModelBlock frostyBlock = ^(int glyph) {
-		return [self loadModelFunc_explotionFROSTY:glyph];
-	};
-	for ( i=0 ; i < MAXEXPCHARS ; i++ ) {
-		loadModelBlocks[ NH3D_EXPLODE_FROSTY + i ] = [frostyBlock copy];
-	}
-	}
-*/
+		
+		// explosion symbols ( 9 postion * 7 types )
+		for i in 0..<MAXEXPCHARS {
+			// type DARK
+			loadModelBlocks[Int(NH3D_EXPLODE_DARK + i)] = loadModelFunc_explotionDARK;
+			
+			// type NOXIOUS
+			loadModelBlocks[Int(NH3D_EXPLODE_NOXIOUS + i)] = loadModelFunc_explotionNOXIOUS;
+			
+			// type MUDDY
+			loadModelBlocks[Int(NH3D_EXPLODE_MUDDY + i)] = loadModelFunc_explotionMUDDY;
+			
+			// type WET
+			loadModelBlocks[Int(NH3D_EXPLODE_WET + i)] = loadModelFunc_explotionWET
+			
+			// type MAGICAL
+			loadModelBlocks[Int(NH3D_EXPLODE_MAGICAL + i)] = loadModelFunc_explotionMAGICAL;
+			
+			// type FIERY
+			loadModelBlocks[Int(NH3D_EXPLODE_FIERY + i)] = loadModelFunc_explotionFIERY;
+			
+			// type FROSTY
+			loadModelBlocks[Int(NH3D_EXPLODE_FROSTY + i)] = loadModelFunc_explotionFROSTY
+		}
 	}
 }
