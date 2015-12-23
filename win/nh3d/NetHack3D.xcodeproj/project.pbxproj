@@ -1388,8 +1388,6 @@
 		2BA7A3B209774ABC00122932 /* unixmain.c */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.c; path = unixmain.c; sourceTree = "<group>"; };
 		2BA7A3B309774ABC00122932 /* unixres.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixres.c; sourceTree = "<group>"; };
 		2BA7A3B409774ABC00122932 /* unixunix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixunix.c; sourceTree = "<group>"; };
-		2BA8D50A090365B5004618EF /* NH3DOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DOpenGLView.h; sourceTree = "<group>"; };
-		2BA8D50B090365B5004618EF /* NH3DOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DOpenGLView.m; sourceTree = "<group>"; };
 		2BACF9B70902550D0095C8A4 /* makedefs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = makedefs; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BACF9BC090255260095C8A4 /* lev_comp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lev_comp; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BACF9C90902555E0095C8A4 /* dgn_comp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dgn_comp; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1585,8 +1583,6 @@
 				2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */,
 				2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */,
 				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
-				2BA8D50A090365B5004618EF /* NH3DOpenGLView.h */,
-				2BA8D50B090365B5004618EF /* NH3DOpenGLView.m */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObjects.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */,
 				55BF8B371B76F46F0031A45A /* TileCache.swift */,
