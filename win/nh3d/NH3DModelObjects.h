@@ -8,7 +8,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
-//#import <OpenGL/gl.h>
+#include <OpenGL/gltypes.h>
 #import "NH3Dcommon.h"
 
 #import "NH3DUserDefaultsExtern.h"
@@ -82,8 +82,8 @@ typedef struct {
 	
 	NH3DMaterial		currentMaterial;
 	
-	int					texture;
-	int					textures[MAX_TEXTURES];
+	GLuint				texture;
+	GLuint				textures[MAX_TEXTURES];
 	int					numberOfTextures;
 	BOOL				useEnvironment;
 	
@@ -140,7 +140,7 @@ typedef struct {
 //- (NH3DFaceType *)normReference;
 @property (readonly) NH3DMapCoordType *texcoords;
 
-@property int texture;
+@property GLuint texture;
 - (BOOL)addTexture:(NSString *)textureName;
 @property BOOL useEnvironment;
 
@@ -150,7 +150,7 @@ typedef struct {
 
 - (void)animate;
 
-@property (readonly) NH3DVertexType particleGravity;
+@property (nonatomic) NH3DVertexType particleGravity;
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;

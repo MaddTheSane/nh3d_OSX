@@ -43,3 +43,15 @@ static inline short glyphToTile(size_t i)
 	extern short glyph2tile[];
 	return glyph2tile[i];
 }
+
+static inline BOOL Swift_Hallucination() {
+	return Hallucination;
+}
+
+static inline BOOL Swift_Flying() {
+	return Flying;
+}
+
+static inline BOOL Swift_Levitation() {
+	return Levitation;
+}

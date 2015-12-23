@@ -54,6 +54,7 @@ static const NH3DMaterial defaultMat = {
 @synthesize numberOfChildObjects;
 @synthesize particleLife;
 @synthesize particleSlowdown;
+@synthesize particleGravity;
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
@@ -782,7 +783,6 @@ static const NH3DMaterial defaultMat = {
 	return verts_qty;
 }
 
-
 - (int)face_qty
 {
 	return face_qty;
@@ -837,13 +837,13 @@ static const NH3DMaterial defaultMat = {
 }
 
 
-- (int)texture
+- (GLuint)texture
 {
 	return textures[texture];
 }
 
 
-- (void)setTexture:(int)tex_id
+- (void)setTexture:(GLuint)tex_id
 {
 	texture = tex_id;
 }
@@ -879,12 +879,10 @@ static const NH3DMaterial defaultMat = {
 	animationValue += animationRate;
 }
 
-
-- (NH3DVertexType)particleGravity
+- (void)setParticleGravity:(NH3DVertexType)aParticleGravity
 {
-	return particleGravity;
+	[self setParticleGravityX:aParticleGravity.x Y:aParticleGravity.y Z:aParticleGravity.z];
 }
-
 
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity
 {
