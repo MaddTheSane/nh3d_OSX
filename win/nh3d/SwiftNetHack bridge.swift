@@ -116,6 +116,10 @@ var NH3DGL_USETILE: Bool {
 	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DGLTileKey)
 }
 
+var SOUND_MUTE: Bool {
+	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DSoundMuteKey)
+}
+
 @noreturn func panic(str: String) {
 	fputs(" ERROR:  ", stderr)
 	fputs(str, stderr)
@@ -164,3 +168,48 @@ var Invisible: Bool {
 func IS_DOOR(typ: schar) -> Bool {
 	return Int32(typ) == DOOR
 }
+
+func Is_rogue_level(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_rogue_level) != 0
+}
+
+func Is_knox(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_knox_level) != 0
+}
+
+func Is_sanctum(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_sanctum_level) != 0
+}
+
+func Is_stronghold(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_stronghold_level) != 0
+}
+
+func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return x.memory.dnum == dungeon_topology.d_sokoban_dnum
+}
+
+func Is_earthlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_earth_level) != 0
+}
+
+func Is_waterlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_water_level) != 0
+}
+
+func Is_firelevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_fire_level) != 0
+}
+
+func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_air_level) != 0
+}
+
+func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+	return on_level(x, &dungeon_topology.d_astral_level) != 0
+}
+
+//Is_firelevel
+
+//#define In_sokoban(x)		((x)->dnum == sokoban_dnum)
+//Is_sanctum( &u.uz ) != 0 || Is_stronghold(

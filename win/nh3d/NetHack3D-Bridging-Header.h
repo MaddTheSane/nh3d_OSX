@@ -27,6 +27,10 @@ static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
 	return levl[x][y];
 }
 
+static inline BOOL Swift_IsSoft(schar type) {
+	return IS_SOFT(type);
+}
+
 static inline BOOL Swift_IsRoom(schar type) {
 	return IS_ROOM(type);
 }
@@ -34,8 +38,8 @@ static inline BOOL Swift_IsRoom(schar type) {
 /* from tile.c */
 extern int total_tiles_used;
 
-extern short glyph2tile[];
 static inline short glyphToTile(size_t i)
 {
+	extern short glyph2tile[];
 	return glyph2tile[i];
 }

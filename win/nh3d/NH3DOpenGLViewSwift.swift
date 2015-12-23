@@ -1326,192 +1326,171 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 
 	@objc(setCenterAtX:z:depth:) func setCenterAt(x x: Int32, z: Int32, depth: Int32) {
+		viewLock.lock()
+		nowUpdating = true;
 		
-/*
-- ( void )setCenterAtX:( int )x z:( int )z depth:( int )depth
-{
-	
-	[ viewLock lock ];
-	nowUpdating = YES;
-	
-	centerX = x;
-	centerZ = z;
-	
-	if ( playerdepth != depth ) {
-		elementalLevel = 0;
-		isReady = NO;
+		centerX = x;
+		centerZ = z;
 		
-		// Clear modelDictionary
-		//@synchronized( modelDictionary ) {
-		//	@synchronized( keyArray ) {
-				[ modelDictionary removeObjectsForKeys:keyArray ];
-				[ keyArray removeAllObjects ];
-		//	}
-		//}
-		
-		// Setup speciallevels
-		if ( In_mines( &u.uz ) ) {
-			[ self changeWallsTexture:1 ];			
-			floorCurrent = minesTex;
-			cellingCurrent = cellingTex;
+		if playerdepth != depth {
 			elementalLevel = 0;
+			isReady = false;
 			
-		} else 	if ( In_hell( &u.uz ) ) {
-			[ self changeWallsTexture:2 ];
-			floorCurrent = hellTex;
-			cellingCurrent = cellingTex;
-			elementalLevel = 0;
+			// Clear modelDictionary
+			//@synchronized( modelDictionary ) {
+			//	@synchronized( keyArray ) {
+			for key in keyArray{
+				modelDictionary.removeValueForKey(key)
+			}
+			keyArray.removeAll()
+			//	}
+			//}
 			
-			//glPolygonMode( GL_FRONT_AND_BACK,GL_FILL );
+			// Setup speciallevels
+			if In_mines( &u.uz ) != 0 {
+				changeWallsTexture(1)
+				floorCurrent = minesTex;
+				cellingCurrent = cellingTex;
+				elementalLevel = 0;
+				
+			} else if In_hell( &u.uz ) != 0 {
+				changeWallsTexture(2)
+				floorCurrent = hellTex;
+				cellingCurrent = cellingTex;
+				elementalLevel = 0;
+				
+				//glPolygonMode( GL_FRONT_AND_BACK,GL_FILL );
+				
+			} else if Is_knox( &u.uz ) || Is_sanctum( &u.uz ) || Is_stronghold( &u.uz ) {
+				changeWallsTexture(3)
+				floorCurrent = floor2Tex;
+				cellingCurrent = floor2Tex;
+				elementalLevel = 0;
+				
+			} else if In_sokoban( &u.uz ) {
+				changeWallsTexture(0)
+				floorCurrent = floorTex;
+				cellingCurrent = floorTex;
+				elementalLevel = 0;
+				/* not yat */
+				
+			} else if Is_earthlevel( &u.uz ) {
+				changeWallsTexture(3)
+				floorCurrent = floor2Tex;
+				cellingCurrent = floor2Tex;
+				
+				elementalLevel = 1;
+				
+			} else if Is_waterlevel( &u.uz ) {
+				changeWallsTexture(3)
+				floorCurrent = floor2Tex;
+				cellingCurrent = floor2Tex;
+				
+				elementalLevel = 2;
+				
+			} else if Is_firelevel( &u.uz ) {
+				changeWallsTexture(3)
+				floorCurrent = floor2Tex;
+				cellingCurrent = floor2Tex;
+				
+				elementalLevel = 3;
+				
+			} else if Is_airlevel( &u.uz ) {
+				changeWallsTexture(3)
+				floorCurrent = floor2Tex;
+				cellingCurrent = floor2Tex;
+				
+				elementalLevel = 4;
+				
+			} else if Is_astralevel( &u.uz ) {
+				changeWallsTexture(3)
+				floorCurrent = floor2Tex;
+				cellingCurrent = floor2Tex;
+				
+				elementalLevel = 5;
+				
+			} else if Is_rogue_level(&u.uz) {
+				changeWallsTexture(4)
+				floorCurrent = rougeTex;
+				cellingCurrent = rougeTex;
+				
+			} else if floorCurrent != floorTex {
+				changeWallsTexture(0)
+				floorCurrent = floorTex;
+				cellingCurrent = cellingTex;
+				elementalLevel = 0;
+			}
 			
-		} else 	if ( Is_knox( &u.uz ) || Is_sanctum( &u.uz ) || Is_stronghold( &u.uz ) ) {
-			[ self changeWallsTexture:3 ];
-			floorCurrent = floor2Tex;
-			cellingCurrent = floor2Tex;
-			elementalLevel = 0;
-	
-		} else 	if ( In_sokoban( &u.uz ) ) {
-			[ self changeWallsTexture:0 ];
-			floorCurrent = floorTex;
-			cellingCurrent = floorTex;
-			elementalLevel = 0;
-			/* not yat */
-	
-		} else if ( Is_earthlevel( &u.uz )  ) {
-			[ self changeWallsTexture:3 ];
-			floorCurrent = floor2Tex;
-			cellingCurrent = floor2Tex;
-			
-			elementalLevel = 1;	
-			
-		} else if ( Is_waterlevel( &u.uz )  ) {
-			[ self changeWallsTexture:3 ];
-			floorCurrent = floor2Tex;
-			cellingCurrent = floor2Tex;
-			
-			elementalLevel = 2;	
-			
-		} else if ( Is_firelevel( &u.uz )  ) {
-			[ self changeWallsTexture:3 ];
-			floorCurrent = floor2Tex;
-			cellingCurrent = floor2Tex;
-			
-			elementalLevel = 3;
-			
-		} else if ( Is_airlevel( &u.uz )  ) {
-			[ self changeWallsTexture:3 ];
-			floorCurrent = floor2Tex;
-			cellingCurrent = floor2Tex;
-			
-			elementalLevel = 4;
-			
-		} else if ( Is_astralevel( &u.uz )  ) {
-			[ self changeWallsTexture:3 ];
-			floorCurrent = floor2Tex;
-			cellingCurrent = floor2Tex;
-			
-			elementalLevel = 5;
-		
-		} else if ( Is_rogue_level( &u.uz ) ) {
-			[ self changeWallsTexture:4 ];
-			floorCurrent = rougeTex;
-			cellingCurrent = rougeTex;
-			
-		} else if ( floorCurrent != floorTex ) {
-			[ self changeWallsTexture:0 ];
-			floorCurrent = floorTex;
-			cellingCurrent = cellingTex;
-			elementalLevel = 0;
-			
+			playerdepth = depth;
+		} else {
+			playerdepth = depth;
 		}
 		
-		playerdepth = depth;
+		viewLock.unlock()
 		
-	} else {
-		playerdepth = depth;
+		setCameraAt(x: Float(x) * NH3DGL_TILE_SIZE, y: 1.8, z: Float(z) * NH3DGL_TILE_SIZE)
 	}
 	
-	[ viewLock unlock ];
-	
-	[ self setCameraAtX:( float )x*NH3DGL_TILE_SIZE atY:1.8 atZ:( float )z*NH3DGL_TILE_SIZE ];
-	
-}
-*/
-	}
-	
-	@objc(setCameraHead:pitching:rolling:) func setCamera(head head: Float, pitching pitch: Float, rolling roll: Float) {
-		
-/*
-- ( void )setCameraHead:( float )head pitching:( float )pitch rolling:( float )roll
-{
-	[ viewLock lock ];
-	{
-		nowUpdating = YES;
-		
-		drawMargin = 3;
-		
-		if ( head >= 360 ) { 
-			head -= 360;
-			lastCameraHead -= 360;
+	@objc(setCameraHead:pitching:rolling:) func setCamera(var head head: Float, pitching pitch: Float, rolling roll: Float) {
+		viewLock.lock()
+		do {
+			nowUpdating = true;
+			
+			drawMargin = 3;
+			
+			if head >= 360 {
+				head -= 360;
+				lastCameraHead -= 360;
+			}
+			if head < 0 {
+				head += 360;
+				lastCameraHead += 360;
+			}
+			
+			cameraHead = head;
+			cameraPitch = pitch;
+			cameraRoll = roll;
+			
+			nowUpdating = false;
 		}
-		if ( head < 0 ) {
-			head += 360;
-			lastCameraHead += 360;
-		}
-		
-		cameraHead = head;
-		cameraPitch = pitch;
-		cameraRoll = roll;
-		
-		nowUpdating = NO;
-	}
-	[ viewLock unlock ];
-}
-*/
+		viewLock.unlock()
 	}
 	
 	@objc(setCameraAtX:atY:atZ:) func setCameraAt(x x: Float, y: Float, z: Float) {
-/*
-- ( void )setCameraAtX:( float )x atY:( float )y atZ:( float )z
-{	
-	
-	[ viewLock lock ];
-	{
-		nowUpdating = YES;
-		NSSound *footstep = [NSSound soundNamed:@"footStep.wav"];
-		
-		drawMargin = 1;
-		
-		cameraX = x;
-		cameraY = y;
-		cameraZ = z;
-		
-		
-		if ( !isReady ) {
-			lastCameraX = cameraX;
-			lastCameraY = cameraY;
-			lastCameraZ = cameraZ;
-			isReady = YES;
-		} else 	if ( footstep.playing && ( (!isFloating || isRiding) && !IS_SOFT( levl[ u.ux ][ u.uy ].typ )) && !SOUND_MUTE ) {
-			[ footstep stop ];
-			[ footstep play ];
-		} else if ( (!isFloating || isRiding) && !IS_SOFT( levl[ u.ux ][ u.uy ].typ ) && !SOUND_MUTE ) {
-			[ footstep play ];
+		viewLock.lock()
+		do {
+			nowUpdating = true
+			let footstep = NSSound(named: "footStep.wav")!
+			
+			drawMargin = 1;
+			
+			cameraX = x;
+			cameraY = y;
+			cameraZ = z;
+			
+			
+			if !isReady {
+				lastCameraX = cameraX;
+				lastCameraY = cameraY;
+				lastCameraZ = cameraZ;
+				isReady = true;
+			} else 	if ( footstep.playing && ( (!isFloating || isRiding) && !Swift_IsSoft( Swift_RoomAtLocation(u.ux, u.uy).typ )) && !SOUND_MUTE ) {
+				footstep.stop()
+				footstep.play()
+			} else if ( (!isFloating || isRiding) && !Swift_IsSoft( Swift_RoomAtLocation(u.ux, u.uy).typ ) && !SOUND_MUTE ) {
+				footstep.play()
+			}
+			
+			nowUpdating = false;
 		}
+		viewLock.unlock()
 		
-		nowUpdating = NO;
-	}
-	[ viewLock unlock ];
-	
-	if (TRADITIONAL_MAP) {
-		self.hidden = YES;
-	} else if (!TRADITIONAL_MAP && !threadRunning) {
-		self.openGLContext.view = self;
-		[self detachOpenGLThread];
-	}
-	
-}
-*/
+		if (TRADITIONAL_MAP) {
+			self.hidden = true;
+		} else if (!TRADITIONAL_MAP && !threadRunning) {
+			self.openGLContext?.view = self;
+			detachOpenGLThread()
+		}
 	}
 	
 // ---------------------------------
@@ -1744,93 +1723,91 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
 		
-		glAlphaFunc(GLenum(GL_GREATER), 0.5 );
-
+		glAlphaFunc(GLenum(GL_GREATER), 0.5)
 		
 		viewLock.unlock()
 		
 		return texID
 	}
 	
+	///load models first time.
 	private func loadModels() {
-	/*
-- ( void )loadModels
-{
-	//load models first time.
-	@autoreleasepool {
-	NH3DModelObjects *model;
-	
-//  -------------------------- Map Symbols Section. -------------------------- //
-	
-	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vwall" withTexture:YES];
-	[ model addTexture:@"wall_mines" ];
-	[ model addTexture:@"wall_hell" ];
-	[ model addTexture:@"wall_knox" ];
-	[ model addTexture:@"wall_rouge" ];
-		[ model addChildObject:@"touch" type:NH3DModelTypeTexturedObject ];
-		[ [ model childObjectAtLast ] setPivotX:0.478 atY:2.834 atZ:0.007 ];
-		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setPivotX:0.593 atY:1.261 atZ:0 ];
-			[ [ model childObjectAtLast ] childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_ORANGE ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleGravityX:0.0 Y:2.0 Z:0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSlowdown:6.0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleLife:0.30 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
-	modelDictionary[@(S_vwall + GLYPH_CMAP_OFF)] = model;
-				
-	model = [ [ NH3DModelObjects alloc ] initWith3DSFile:@"hwall" withTexture:YES ];
-	[ model addTexture:@"wall_mines" ];
-	[ model addTexture:@"wall_hell" ];
-	[ model addTexture:@"wall_knox" ];
-	[ model addTexture:@"wall_rouge" ];
-		[ model addChildObject:@"touch" type:NH3DModelTypeTexturedObject ];
-		[ [ model childObjectAtLast ] setPivotX:-0.005 atY:2.834 atZ:0.483 ];
-		[ [ model childObjectAtLast ] addChildObject:@"emitter" type:NH3DModelTypeEmitter ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setPivotX:0.593 atY:1.261 atZ:0 ];
-			[ [ model childObjectAtLast ] childObjectAtLast ].particleType = NH3DParticleTypeBoth ;
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleColor:CLR_ORANGE ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleGravityX:0.0 Y:2.0 Z:0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSpeedX:0.0 Y:0.1 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSlowdown:6.0 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleLife:0.30 ];
-			[ [ [ model childObjectAtLast ] childObjectAtLast ] setParticleSize:10.0 ];
-		[ [ model childObjectAtLast ] setModelRotateX:0.0 rotateY:-90.0 rotateZ:0.0 ];
-	modelDictionary[@(S_hwall + GLYPH_CMAP_OFF)] = model;
-	
-	model = [[NH3DModelObjects alloc] initWith3DSFile:@"corner" withTexture:YES];
-	[model addTexture:@"corner_mines"];
-	[model addTexture:@"corner_hell"];
-	[model addTexture:@"corner_knox"];
-	[model addTexture:@"corner_rouge"];
-	
-	modelDictionary[@(S_tlcorn + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_trcorn + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_blcorn + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_brcorn + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_crwall + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_tuwall + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_tdwall + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_tlwall + GLYPH_CMAP_OFF)] = model;
-	modelDictionary[@(S_trwall + GLYPH_CMAP_OFF)] = model;
-	
-	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vopendoor" withTexture:YES];
-	modelDictionary[@(S_vodoor + GLYPH_CMAP_OFF)] = model;
-	
-	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hopendoor" withTexture:YES];
-	modelDictionary[@(S_hodoor + GLYPH_CMAP_OFF)] = model;
-	
-	model = [[NH3DModelObjects alloc] initWith3DSFile:@"vdoor" withTexture:YES];
-	modelDictionary[@(S_vcdoor + GLYPH_CMAP_OFF)] = model;
-	
-	model = [[NH3DModelObjects alloc] initWith3DSFile:@"hdoor" withTexture:YES];
-	modelDictionary[@(S_hcdoor + GLYPH_CMAP_OFF)] = model;
-			
+		var model: NH3DModelObjects? = nil
 		
-	}
-}
-*/
+		//  -------------------------- Map Symbols Section. -------------------------- //
+		
+		model = NH3DModelObjects(with3DSFile: "vwall", withTexture: true)
+		model?.addTexture("wall_mines")
+		model?.addTexture("wall_hell")
+		model?.addTexture("wall_knox")
+		model?.addTexture("wall_rouge")
+		do {
+			model?.addChildObject("touch", type: .TexturedObject)
+			model?.childObjectAtLast?.setPivotX(0.478, atY: 2.834, atZ: 0.007)
+			model?.childObjectAtLast?.addChildObject("emitter", type: .Emitter)
+			do {
+				model?.childObjectAtLast?.childObjectAtLast?.setPivotX(0.593, atY: 1.261, atZ: 0)
+				model?.childObjectAtLast?.childObjectAtLast?.particleType = .Both ;
+				model?.childObjectAtLast?.childObjectAtLast?.particleColor = CLR_ORANGE
+				model?.childObjectAtLast?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.0, z: 0)
+				model?.childObjectAtLast?.childObjectAtLast?.setParticleSpeedX(0.0, y: 0.1)
+				model?.childObjectAtLast?.childObjectAtLast?.particleSlowdown = 6.0
+				model?.childObjectAtLast?.childObjectAtLast?.particleLife = 0.30
+				model?.childObjectAtLast?.childObjectAtLast?.setParticleSize(10.0)
+			}
+		}
+		modelDictionary[S_vwall + GLYPH_CMAP_OFF] = model;
+		
+		model = NH3DModelObjects(with3DSFile: "hwall", withTexture: true)
+		model?.addTexture("wall_mines")
+		model?.addTexture("wall_hell")
+		model?.addTexture("wall_knox")
+		model?.addTexture("wall_rouge")
+		do {
+			model?.addChildObject("touch", type: .TexturedObject)
+			model?.childObjectAtLast?.setPivotX(-0.005, atY: 2.834, atZ: 0.483)
+			model?.childObjectAtLast?.addChildObject("emitter", type: .Emitter)
+			do {
+				model?.childObjectAtLast?.childObjectAtLast?.setPivotX(0.593, atY:1.261, atZ:0)
+				model?.childObjectAtLast?.childObjectAtLast?.particleType = .Both
+				model?.childObjectAtLast?.childObjectAtLast?.particleColor = CLR_ORANGE
+				model?.childObjectAtLast?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.0, z: 0)
+				model?.childObjectAtLast?.childObjectAtLast?.setParticleSpeedX(0.0, y: 0.1)
+				model?.childObjectAtLast?.childObjectAtLast?.particleSlowdown = 6.0
+				model?.childObjectAtLast?.childObjectAtLast?.particleLife = 0.30
+				model?.childObjectAtLast?.childObjectAtLast?.setParticleSize(10.0)
+			}
+			model?.childObjectAtLast?.setModelRotateX(0.0, rotateY: -90.0, rotateZ: 0.0)
+		}
+		modelDictionary[S_hwall + GLYPH_CMAP_OFF] = model;
+		
+		model = NH3DModelObjects(with3DSFile: "corner", withTexture: true)
+		model?.addTexture("corner_mines")
+		model?.addTexture("corner_hell")
+		model?.addTexture("corner_knox")
+		model?.addTexture("corner_rouge")
+		
+		modelDictionary[S_tlcorn + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_trcorn + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_blcorn + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_brcorn + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_crwall + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_tuwall + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_tdwall + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_tlwall + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model;
+		
+		model = NH3DModelObjects(with3DSFile: "vopendoor", withTexture: true)
+		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model;
+		
+		model = NH3DModelObjects(with3DSFile: "hopendoor", withTexture: true)
+		modelDictionary[S_hodoor + GLYPH_CMAP_OFF] = model;
+		
+		model = NH3DModelObjects(with3DSFile: "vdoor", withTexture: true)
+		modelDictionary[S_vcdoor + GLYPH_CMAP_OFF] = model;
+		
+		model = NH3DModelObjects(with3DSFile: "hdoor", withTexture: true)
+		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model;
 	}
 
 	private func setParamsForMagicEffect(magicItem: NH3DModelObjects, color: Int32) {
@@ -2846,7 +2823,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 
 // MARK: - Effect Symbols Section.
 
-// ZAP symbols ( NUM_ZAP * four directions )
+// MARK: ZAP symbols ( NUM_ZAP * four directions )
 
 
 	/// type Magic Missile
@@ -3100,8 +3077,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		return ret;
 	}
-
-
+	
 	/// type Magic ACID
 	private final func loadModelFunc_MagicACID(glyph: Int32) -> NH3DModelObjects? {
 		var ret: NH3DModelObjects? = nil;
@@ -3239,7 +3215,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return ret;
 	}
 	
-	// MARK: explotion symbols ( 9 postion * 7 types )
+	// MARK: explosion symbols ( 9 postion * 7 types )
 	
 	/// type DARK
 	private final func loadModelFunc_explotionDARK(glyph: Int32) -> NH3DModelObjects? {
