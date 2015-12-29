@@ -148,20 +148,19 @@ extern NH3DTileCache *_NH3DTileCache;
 - ( NSAttributedString * )playerName
 {
 	int fSize;
-	switch ( playerName.length )
-	{
+	switch ( playerName.length ) {
 		case 15:
 		case 16:
 			fSize = 16;
-		break;
+			break;
 		case 17:
 		case 18:
 			fSize = 14;
-		break;
+			break;
 		case 19:
 		case 20:
 			fSize = 12;
-		break;
+			break;
 		default:
 			fSize = 17;
 	}
