@@ -52,5 +52,5 @@
 "There is too much number of the letters." = "There are too many characters.";
 "Please input it within 1 to 20 characters." = "Please input between 1 to 20 characters.";
 "Who are you?" = "Who are you?";
-"Grater than MacOS 10.4 are necessary so that NetHack3D start." = "Mac OS X 10.4 or later is necessary so that NetHack3D can start.";
+"Grater than MacOS 10.4 are necessary so that NetHack3D start." = "Mac OS X 10.4 or later is necessary for NetHack3D to start.";
 "*what direction*" = "*what direction*";

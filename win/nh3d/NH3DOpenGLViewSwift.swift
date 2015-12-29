@@ -436,19 +436,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// load texture
 		
-		floorTex = loadImageToTexture(named: "floor.tif")
-		floor2Tex = loadImageToTexture(named: "floor2.tif")
+		floorTex = loadImageToTexture(named: "floor")
+		floor2Tex = loadImageToTexture(named: "floor2")
 		//wallTex = [ self loadImageToTexture:@"wall.tif" ];
-		cellingTex = loadImageToTexture(named: "celling.tif")
-		waterTex = loadImageToTexture(named: "water.tif")
-		poolTex = loadImageToTexture(named: "poolColor.tif")
-		lavaTex = loadImageToTexture(named: "lava.tif")
-		minesTex = loadImageToTexture(named: "rockwall.tif")
-		airTex = loadImageToTexture(named: "air.tif")
-		cloudTex = loadImageToTexture(named: "cloud.tif")
-		hellTex = loadImageToTexture(named: "hell.tif")
-		nullTex = loadImageToTexture(named: "null.tif")
-		rougeTex = loadImageToTexture(named: "rouge.tif")
+		cellingTex = loadImageToTexture(named: "celling")
+		waterTex = loadImageToTexture(named: "water")
+		poolTex = loadImageToTexture(named: "poolColor")
+		lavaTex = loadImageToTexture(named: "lava")
+		minesTex = loadImageToTexture(named: "rockwall")
+		airTex = loadImageToTexture(named: "air")
+		cloudTex = loadImageToTexture(named: "cloud")
+		hellTex = loadImageToTexture(named: "hell")
+		nullTex = loadImageToTexture(named: "null")
+		rougeTex = loadImageToTexture(named: "rouge")
 		
 		floorCurrent = floorTex
 		cellingCurrent = cellingTex
@@ -457,7 +457,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		glActiveTexture(GLenum(GL_TEXTURE1))
 		
-		envelopTex = loadImageToTexture(named: "envlop.tif")
+		envelopTex = loadImageToTexture(named: "envlop")
 		
 		glActiveTexture(GLenum(GL_TEXTURE0))
 		
