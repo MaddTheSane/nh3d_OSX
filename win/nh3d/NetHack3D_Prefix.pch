@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <TargetConditionals.h>
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>

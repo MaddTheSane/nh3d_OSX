@@ -3288,6 +3288,8 @@ DQ
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="42" y="453" width="739" height="523"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
+            <value key="minSize" type="size" width="739" height="523"/>
+            <value key="maxSize" type="size" width="739" height="523"/>
             <view key="contentView" id="6434">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="523"/>
                 <autoresizingMask key="autoresizingMask"/>

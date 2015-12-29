@@ -1593,16 +1593,20 @@
 	}
 	
 	// Sheet is Up.
-	@autoreleasepool {
-		[_window beginSheet:_mapLpanel completionHandler:nil];
+	//@try {
+		[_window beginSheet:_mapLpanel completionHandler:^(NSModalResponse returnCode) {
+			[_mapLview setImage:nil];
+		}];
 		
 		[NSApp runModalForWindow:_mapLpanel];
 		
 		// Sheet is Over.
 		[_window endSheet:_mapLpanel];
-		
-		[_mapLview setImage:nil];
-	}
+	//}
+	//} @catch(NSException *e) {
+	//	NSLog(@"%@", e);
+	//	NSBeep();
+	//}
 }
 
 

@@ -3284,11 +3284,13 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        <window title="map" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6441" userLabel="mapPanel" customClass="NSPanel">
+        <window title="map" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6441" userLabel="mapPanel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="35" y="457" width="739" height="523"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
+            <value key="minSize" type="size" width="739" height="523"/>
+            <value key="maxSize" type="size" width="739" height="523"/>
             <view key="contentView" id="6442">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="523"/>
                 <autoresizingMask key="autoresizingMask"/>

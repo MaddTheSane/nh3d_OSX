@@ -222,43 +222,52 @@ chdirx(dir, wr)
 const char *dir;
 boolean wr;
 {
-	if (dir) {
+	if (dir					/* User specified directory? */
+# ifdef HACKDIR
+		&& strcmp(dir, HACKDIR)		/* and not the default? */
+# endif
+		) {
 # ifdef SECURE
-	    (void) setgid(getgid());
-	    (void) setuid(getuid());		/* Ron Wessels */
+		(void) setgid(getgid());
+		(void) setuid(getuid());		/* Ron Wessels */
 # endif
 	} else {
-	    /* non-default data files is a sign that scores may not be
-		* compatible, or perhaps that a binary not fitting this
-		* system's layout is being used.
-		*/
+		/* non-default data files is a sign that scores may not be
+		 * compatible, or perhaps that a binary not fitting this
+		 * system's layout is being used.
+		 */
 # ifdef VAR_PLAYGROUND
-	    int len = strlen(VAR_PLAYGROUND);
+		int len = strlen(VAR_PLAYGROUND);
 		
-	    fqn_prefix[ SCOREPREFIX ] = (char *)alloc(len+2);
-	    Strcpy(fqn_prefix[ SCOREPREFIX ], VAR_PLAYGROUND);
-	    if (fqn_prefix[ SCOREPREFIX ][ len-1 ] != '/') {
-			fqn_prefix[ SCOREPREFIX ][ len ] = '/';
-			fqn_prefix[ SCOREPREFIX ][ len+1 ] = '\0';
-	    }
+		fqn_prefix[SCOREPREFIX] = (char *)alloc(len+2);
+		Strcpy(fqn_prefix[SCOREPREFIX], VAR_PLAYGROUND);
+		if (fqn_prefix[SCOREPREFIX][len-1] != '/') {
+			fqn_prefix[SCOREPREFIX][len] = '/';
+			fqn_prefix[SCOREPREFIX][len+1] = '\0';
+		}
 # endif
 	}
 	
-	if (dir && chdir(dir) < 0) {
-		perror(dir);
-		error("Cannot chdir to %s.", dir);
-	}
+# ifdef HACKDIR
+	if (dir == (const char *)0)
+		dir = HACKDIR;
+# endif
+		
+		if (dir && chdir(dir) < 0) {
+			perror(dir);
+			error("Cannot chdir to %s.", dir);
+		}
 	
 	/* warn the player if we can't write the record file */
 	/* perhaps we should also test whether . is writable */
 	/* unfortunately the access system-call is worthless */
 	if (wr) {
 # ifdef VAR_PLAYGROUND
-		fqn_prefix[ LEVELPREFIX ] = fqn_prefix[ SCOREPREFIX ];
-		fqn_prefix[ SAVEPREFIX ] = fqn_prefix[ SCOREPREFIX ];
-		fqn_prefix[ BONESPREFIX ] = fqn_prefix[ SCOREPREFIX ];
-		fqn_prefix[ LOCKPREFIX ] = fqn_prefix[ SCOREPREFIX ];
-		fqn_prefix[ TROUBLEPREFIX ] = fqn_prefix[ SCOREPREFIX ];
+		fqn_prefix[LEVELPREFIX] = fqn_prefix[SCOREPREFIX];
+		fqn_prefix[SAVEPREFIX] = fqn_prefix[SCOREPREFIX];
+		fqn_prefix[BONESPREFIX] = fqn_prefix[SCOREPREFIX];
+		fqn_prefix[LOCKPREFIX] = fqn_prefix[SCOREPREFIX];
+		fqn_prefix[TROUBLEPREFIX] = fqn_prefix[SCOREPREFIX];
 # endif
 		check_recordfile(dir);
 	}
@@ -266,7 +275,7 @@ boolean wr;
 #endif /* CHDIR */
 
 #ifdef PORT_HELP
-void 
+void
 port_help()
 {
 	display_file(PORT_HELP, TRUE);
@@ -1704,3 +1713,36 @@ not_recovered:
 
 
 @end
+
+FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
+{
+	FILE *file = NULL;
+	static NSURL *resDir;
+	@autoreleasepool {
+		if (!resDir) {
+			resDir = [[NSBundle mainBundle] resourceURL];
+		}
+		NSString *aFile = @(filename);
+		NSURL *toRet = [resDir URLByAppendingPathComponent:aFile];
+		file = fopen(toRet.fileSystemRepresentation, mode);
+	}
+	return file;
+}
+
+const char *NH3DSaveDir()
+{
+	static NSURL *dir;
+	if (dir == nil) {
+		@autoreleasepool {
+			NSFileManager *fm = [NSFileManager defaultManager];
+			NSURL *aURL = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
+			aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
+			if (![aURL checkResourceIsReachableAndReturnError:NULL]) {
+				[fm createDirectoryAtURL:aURL withIntermediateDirectories:YES attributes:nil error:NULL];
+			}
+			dir = aURL;
+		}
+	}
+	return dir.fileSystemRepresentation;
+}
+
