@@ -473,6 +473,7 @@
 		2BE574C70925944F00F1BB75 /* upStair.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2BE574C50925944F00F1BB75 /* upStair.tif */; };
 		2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -1488,6 +1489,8 @@
 		55459F8B1B5DFF7B0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		55459F8C1B5DFFCD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
 		55459F8D1B5DFFDD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
+		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
+		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -2374,6 +2377,7 @@
 		2B578FFD08AB66570080498F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */,
 				2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */,
 				2BE376270A22E29D00B3CDF4 /* trBase.tif */,
 				2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */,
@@ -3127,6 +3131,7 @@
 				2B5CC09D088EB5A600940C58 /* Ran-goal.lev in Resources */,
 				2B5CC09E088EB5A600940C58 /* Ran-loca.lev in Resources */,
 				2B5CC09F088EB5A600940C58 /* Ran-strt.lev in Resources */,
+				554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */,
 				2B5CC0A2088EB5A600940C58 /* Rog-fila.lev in Resources */,
 				2B5CC0A3088EB5A600940C58 /* Rog-filb.lev in Resources */,
 				2B5CC0A4088EB5A600940C58 /* Rog-goal.lev in Resources */,
@@ -3600,6 +3605,15 @@
 				55459F8C1B5DFFCD0098F5BC /* ja */,
 			);
 			name = Usermakesheet.xib;
+			sourceTree = "<group>";
+		};
+		554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				554F7EC61C332FF700212F9F /* en */,
+				554F7EC81C332FF900212F9F /* ja */,
+			);
+			name = readme_NetHack3D.rtf;
 			sourceTree = "<group>";
 		};
 		55FC95411B5CD59700B0FFB4 /* Localizable.strings */ = {
