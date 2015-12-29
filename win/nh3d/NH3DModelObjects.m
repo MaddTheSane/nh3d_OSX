@@ -211,13 +211,13 @@ static const NH3DMaterial defaultMat = {
 	unsigned char l_Name = 0;
 	unsigned short l_Counts = 0;
 	unsigned short l_Face_Flag = 0;
-	unsigned long l_ChunkLength = 0;
+	unsigned int l_ChunkLength = 0;
 			
 	NSRange fileRange = {0,0};
 	
 	// Open 3DS file and Create NSData object
-	NSData *file_3ds = [[NSData alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"3ds"]
-													  options:NSMappedRead
+	NSData *file_3ds = [[NSData alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:name withExtension:@"3ds"]
+													  options:NSDataReadingMappedIfSafe
 														error:nil];
 	//NSLog(@"Model %@ loading...",name);
 	
@@ -233,7 +233,7 @@ static const NH3DMaterial defaultMat = {
 	{		
 		float floatBuffer = 0.0;	// float value buffer
 		unsigned short shortBuffer = 0; // short value buffer
-		unsigned long longBuffer = 0; // long value buffer
+		unsigned int longBuffer = 0; // long value buffer
 		
 		//NSLog(@"Read start %d/%d",fileRange.location,fileRange.length);
 		
@@ -244,10 +244,10 @@ static const NH3DMaterial defaultMat = {
 		
 		//NSLog(@"ChunkID: %x",l_ChunkIdent);
 		
-		[file_3ds getBytes:&longBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned long))];
-		fileRange.location = fileRange.location + sizeof(unsigned long);
+		[file_3ds getBytes:&longBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned int))];
+		fileRange.location = fileRange.location + sizeof(unsigned int);
 		
-		l_ChunkLength = NSSwapLittleLongToHost(longBuffer);
+		l_ChunkLength = NSSwapLittleIntToHost(longBuffer);
 		
 		//NSLog(@"Chunk_length: %d",l_ChunkLength);
 		
