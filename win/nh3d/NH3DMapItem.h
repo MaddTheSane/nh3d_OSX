@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 						  special:(int)sp NS_DESIGNATED_INITIALIZER;
 
 
-- (NSString *)symbol;
+@property (readonly, copy) NSString *symbol;
 @property (readonly) int glyph;
 @property (readonly, copy) NSColor *color;
 @property (readonly) int material;
@@ -32,9 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, getter=isPlayer) BOOL player;
 
-@property (nonatomic, setter=setSymbol:) char cSymbol;
-
-- (void)setSymbol:(char)chr;
+@property (nonatomic, setter=setCSymbol:) char cSymbol;
 
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;

@@ -294,11 +294,11 @@
 		float drawMargin = fontsize/4;
 		
 		if ( [ [mapItem symbol] isEqualToString:@"-" ] && mapItem.hasAlternateSymbol ) {
-			[ mapItem setSymbol:'|' ];
-			[ mapItem setHasAlternateSymbol:NO ];
+			mapItem.cSymbol = '|';
+			mapItem.hasAlternateSymbol = NO;
 		} else if ( [ [mapItem symbol] isEqualToString:@"|" ] && mapItem.hasAlternateSymbol ) {
-			[ mapItem setSymbol:'-' ];
-			[ mapItem setHasAlternateSymbol:NO ];
+			mapItem.cSymbol = '-';
+			mapItem.hasAlternateSymbol = NO;
 		}
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: fontsize];
@@ -519,7 +519,7 @@
 						case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
-							[ mapItemValue[x][y] setSymbol:'-' ];
+							(mapItemValue[x][y]).cSymbol = '-';
 							[ mapItemValue[x][y] setHasAlternateSymbol:YES ];
 							break;
 						case S_hwall+GLYPH_CMAP_OFF:			/* hwall */
@@ -539,7 +539,7 @@
 						case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
-							[ mapItemValue[x][y] setSymbol:'|' ];
+							(mapItemValue[x][y]).cSymbol = '|';
 							[ mapItemValue[x][y] setHasAlternateSymbol:YES ];
 							break;
 					}
@@ -547,10 +547,10 @@
 				break;
 			default:
 				if ( [ [mapItemValue[x][y] symbol] isEqualToString:@"-" ] && mapItemValue[x][y].hasAlternateSymbol ) {
-						[ mapItemValue[x][y] setSymbol:'|' ];
+						(mapItemValue[x][y]).cSymbol = '|';
 						[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
 					} else if ( [ [mapItemValue[x][y] symbol] isEqualToString:@"|" ] && mapItemValue[x][y].hasAlternateSymbol ) {
-						[ mapItemValue[x][y] setSymbol:'-' ];
+						(mapItemValue[x][y]).cSymbol = '-';
 						[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
 					}
 
@@ -1515,10 +1515,10 @@
 				
 				
 				if ([[mapcell symbol] isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
-					[mapcell setSymbol:'|'];
+					mapcell.cSymbol = '|';
 					mapcell.hasAlternateSymbol = NO;
 				} else if ( [ [mapcell symbol] isEqualToString:@"|" ] && mapcell.hasAlternateSymbol ) {
-					[mapcell setSymbol:'-'];
+					mapcell.cSymbol = '-';
 					mapcell.hasAlternateSymbol = NO;
 				}
 				

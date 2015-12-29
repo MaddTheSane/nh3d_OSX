@@ -82,7 +82,7 @@ typedef struct {
 	
 	NH3DMaterial		currentMaterial;
 	
-	GLuint				texture;
+	int					texture;
 	GLuint				textures[MAX_TEXTURES];
 	int					numberOfTextures;
 	BOOL				useEnvironment;
@@ -140,7 +140,8 @@ typedef struct {
 //- (NH3DFaceType *)normReference;
 @property (readonly) NH3DMapCoordType *texcoords;
 
-@property GLuint texture;
+- (GLuint)texture;
+- (void)setTexture:(int)tex_id;
 - (BOOL)addTexture:(NSString *)textureName;
 @property BOOL useEnvironment;
 

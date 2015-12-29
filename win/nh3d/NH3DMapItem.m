@@ -194,7 +194,8 @@ extern NH3DTileCache *_NH3DTileCache;
 		case 1:
 			aColor = [ NSColor redColor ];
 			break;
-		case 2:	aColor = [ NSColor greenColor ];
+		case 2:
+			aColor = [ NSColor greenColor ];
 			break;
 		case 3:
 			aColor = [ NSColor brownColor ];
@@ -252,7 +253,7 @@ extern NH3DTileCache *_NH3DTileCache;
 }
 
 
-- (void)setSymbol:(char)chr
+- (void)setCSymbol:(char)chr
 {
 	[ lock lock ];
 	symbol = chr;

@@ -82,7 +82,7 @@
                         <rect key="frame" x="183" y="222" width="440" height="320"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
-                            <outlet property="_mapModel" destination="5173" id="6423"/>
+                            <outlet property="mapModel" destination="5173" id="cHD-BG-nRG"/>
                             <outlet property="menu" destination="6569" id="6659"/>
                         </connections>
                     </customView>

@@ -843,7 +843,7 @@ static const NH3DMaterial defaultMat = {
 }
 
 
-- (void)setTexture:(GLuint)tex_id
+- (void)setTexture:(int)tex_id
 {
 	texture = tex_id;
 }
@@ -1070,7 +1070,7 @@ static const NH3DMaterial defaultMat = {
 		glRotatef(modelRotate.z , 0, 0, 1);
 		glScalef( modelScale.x ,modelScale.y ,modelScale.z );
 		
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		
 		glMaterialfv(GL_FRONT , GL_AMBIENT , currentMaterial.ambient );
 		glMaterialfv(GL_FRONT , GL_DIFFUSE , currentMaterial.diffuse );

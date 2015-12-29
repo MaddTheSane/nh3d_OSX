@@ -27,8 +27,8 @@ static const int DIALOG_CANCEL	= 129;
 						   [NSString stringWithFormat:@"%@/nh3dSounds/%@", bundlePath.stringByDeletingLastPathComponent,@"soundconfig.txt"]
 													 encoding:NSUTF8StringEncoding
 														error:nil ];
-	NSString* destText = nil;
-	NSScanner* scanner = nil;
+	NSString* destText;
+	NSScanner* scanner;
 	NSCharacterSet* chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	
 	
@@ -67,8 +67,8 @@ static const int DIALOG_CANCEL	= 129;
 	
 	[scanner scanCharactersFromSet:chSet intoString:nil];
 	
-	}
 	return YES;
+	}
 }
 
 
@@ -102,7 +102,6 @@ static const int DIALOG_CANCEL	= 129;
 	}
 	return self;
 }
-
 
 
 - (void)awakeFromNib 
