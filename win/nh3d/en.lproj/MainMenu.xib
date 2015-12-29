@@ -299,68 +299,68 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <imageView toolTip="STR" id="344" userLabel="STR Status Icon">
+                    <imageView toolTip="Strength (STR)" id="344" userLabel="STR Status Icon">
                         <rect key="frame" x="635" y="363" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6848"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.strUpdate" id="4977"/>
+                            <binding destination="4761" name="value" keyPath="selection.strUpdate" id="gLb-Qf-OZ8"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="DEX" id="350" userLabel="DEX Status Icon">
+                    <imageView toolTip="Dexterity (DEX)" id="350" userLabel="DEX Status Icon">
                         <rect key="frame" x="709" y="363" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6849"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.dexUpdate" id="4978"/>
+                            <binding destination="4761" name="value" keyPath="selection.dexUpdate" id="4978"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="Con" id="353" userLabel="CON Status Icon">
+                    <imageView toolTip="Constitution (Con)" id="353" userLabel="CON Status Icon">
                         <rect key="frame" x="635" y="327" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6850"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.conUpdate" id="4979"/>
+                            <binding destination="4761" name="value" keyPath="selection.conUpdate" id="4979"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="INT" id="356" userLabel="INT Status Icon">
+                    <imageView toolTip="Intellegence (INT)" id="356" userLabel="INT Status Icon">
                         <rect key="frame" x="709" y="327" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6851"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.intUpdate" id="4980"/>
+                            <binding destination="4761" name="value" keyPath="selection.intUpdate" id="4980"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="Wis" id="359" userLabel="WIS Status Icon">
+                    <imageView toolTip="Wisdom (Wis)" id="359" userLabel="WIS Status Icon">
                         <rect key="frame" x="635" y="291" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6852"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.wisUpdate" id="4981"/>
+                            <binding destination="4761" name="value" keyPath="selection.wisUpdate" id="4981"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="Cha" id="362" userLabel="CHA Status Icon">
+                    <imageView toolTip="Charisma (Cha)" id="362" userLabel="CHA Status Icon">
                         <rect key="frame" x="709" y="291" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6853"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.chaUpdate" id="4982"/>
+                            <binding destination="4761" name="value" keyPath="selection.chaUpdate" id="4982"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="HitPoint" id="365" userLabel="HP Status Icon">
+                    <imageView toolTip="Hit Points" id="365" userLabel="HP Status Icon">
                         <rect key="frame" x="635" y="435" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6854"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.hpUpdate" id="4983"/>
+                            <binding destination="4761" name="value" keyPath="selection.hpUpdate" id="4983"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="MagicPower" id="368" userLabel="MP Status Icon">
+                    <imageView toolTip="Magic Power" id="368" userLabel="MP Status Icon">
                         <rect key="frame" x="635" y="401" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6855"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.powUpdate" id="4984"/>
+                            <binding destination="4761" name="value" keyPath="selection.powUpdate" id="4984"/>
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" id="372">
@@ -427,20 +427,20 @@
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <imageView toolTip="Armor Class" id="380" userLabel="AC Status Icon">
+                    <imageView toolTip="Armor Class (AC)" id="380" userLabel="AC Status Icon">
                         <rect key="frame" x="635" y="255" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6856"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.acUpdate" id="4985"/>
+                            <binding destination="4761" name="value" keyPath="selection.acUpdate" id="4985"/>
                         </connections>
                     </imageView>
-                    <imageView toolTip="Level" id="383" userLabel="Level Status Iccon">
+                    <imageView toolTip="Player Level" id="383" userLabel="Level Status Iccon">
                         <rect key="frame" x="709" y="255" width="32" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6857"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.lvUpdate" id="4986"/>
+                            <binding destination="4761" name="value" keyPath="selection.lvUpdate" id="4986"/>
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" id="390">
@@ -724,7 +724,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Lowful0" id="6858"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.lowfulIcon" id="4996"/>
+                            <binding destination="4761" name="value" keyPath="selection.lowfulIcon" id="4996"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Neutral" id="387" userLabel="Neutral Icon">
@@ -732,7 +732,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Newtral0" id="6859"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.newtralIcon" id="4997"/>
+                            <binding destination="4761" name="value" keyPath="selection.newtralIcon" id="4997"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Chaotic" id="388" userLabel="Chaotic Icon">
@@ -740,7 +740,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Chaos0" id="6860"/>
                         <connections>
-                            <binding destination="4761" name="valuePath" keyPath="selection.chaosIcon" id="4998"/>
+                            <binding destination="4761" name="value" keyPath="selection.chaosIcon" id="4998"/>
                         </connections>
                     </imageView>
                     <matrix verticalHuggingPriority="750" tag="50" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" id="5972">
@@ -1278,7 +1278,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Rader On/OFF" verticalHuggingPriority="750" id="5249">
+                    <button toolTip="Radar On/OFF" verticalHuggingPriority="750" id="5249">
                         <rect key="frame" x="227" y="195" width="14" height="14"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="6909">
@@ -1532,14 +1532,14 @@
                             </column>
                         </cells>
                     </matrix>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="6214">
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="6214" userLabel="Message Scroll View">
                         <rect key="frame" x="197" y="32" width="400" height="110"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" id="rlo-zh-kH1">
                             <rect key="frame" x="0.0" y="0.0" width="400" height="110"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" selectable="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6215">
+                                <textView editable="NO" selectable="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6215" userLabel="Message Window">
                                     <rect key="frame" x="0.0" y="-50" width="400" height="110"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.94509803999999997" green="0.84313726" blue="0.67450982000000004" alpha="1" colorSpace="deviceRGB"/>
@@ -2285,7 +2285,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hallu0" id="6940"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stHallu" id="5193"/>
+                        <binding destination="4761" name="value" keyPath="selection.stHallu" id="5193"/>
                     </connections>
                 </imageView>
                 <imageView toolTip="Stunned" id="5017" userLabel="Stunned">
@@ -2293,7 +2293,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Stun0" id="6939"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stStun" id="5192"/>
+                        <binding destination="4761" name="value" keyPath="selection.stStun" id="5192"/>
                     </connections>
                 </imageView>
                 <imageView toolTip="Blind" id="5016" userLabel="Blind">
@@ -2301,7 +2301,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blind0" id="6938"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stBlind" id="5191"/>
+                        <binding destination="4761" name="value" keyPath="selection.stBlind" id="5191"/>
                     </connections>
                 </imageView>
                 <imageView toolTip="Ill" id="5015" userLabel="Ill">
@@ -2309,7 +2309,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Ill0" id="6937"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stIll" id="5190"/>
+                        <binding destination="4761" name="value" keyPath="selection.stIll" id="5190"/>
                     </connections>
                 </imageView>
                 <imageView toolTip="Sick" id="5014" userLabel="Sick">
@@ -2317,7 +2317,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Sick0" id="6936"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stSick" id="5189"/>
+                        <binding destination="4761" name="value" keyPath="selection.stSick" id="5189"/>
                     </connections>
                 </imageView>
                 <imageView toolTip="Confused" id="5013" userLabel="Confused">
@@ -2325,7 +2325,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Confuse0" id="6935"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stConfuse" id="5188"/>
+                        <binding destination="4761" name="value" keyPath="selection.stConfuse" id="5188"/>
                     </connections>
                 </imageView>
                 <imageView toolTip="Hunger" id="5012" userLabel="Hungry">
@@ -2333,7 +2333,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hunger0" id="6934"/>
                     <connections>
-                        <binding destination="4761" name="valuePath" keyPath="selection.stHunger" id="5466"/>
+                        <binding destination="4761" name="value" keyPath="selection.stHunger" id="5466"/>
                     </connections>
                 </imageView>
             </subviews>

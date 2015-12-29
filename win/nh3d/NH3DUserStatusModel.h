@@ -165,28 +165,28 @@
 - (void)updatePlayerInventory;
 
 
-- (NSString *)strUpdate;
-- (NSString *)dexUpdate;
-- (NSString *)conUpdate;
-- (NSString *)intUpdate;
-- (NSString *)wisUpdate;
-- (NSString *)chaUpdate;
-- (NSString *)hpUpdate;
-- (NSString *)powUpdate;
-- (NSString *)acUpdate;
-- (NSString *)lvUpdate;
+- (NSImage *)strUpdate;
+- (NSImage *)dexUpdate;
+- (NSImage *)conUpdate;
+- (NSImage *)intUpdate;
+- (NSImage *)wisUpdate;
+- (NSImage *)chaUpdate;
+- (NSImage *)hpUpdate;
+- (NSImage *)powUpdate;
+- (NSImage *)acUpdate;
+- (NSImage *)lvUpdate;
 
-- (NSString *)lowfulIcon;
-- (NSString *)newtralIcon;
-- (NSString *)chaosIcon;
+- (NSImage *)lowfulIcon;
+- (NSImage *)newtralIcon;
+- (NSImage *)chaosIcon;
 
-- (NSString *)stHunger;
-- (NSString *)stConfuse;
-- (NSString *)stSick;
-- (NSString *)stIll;
-- (NSString *)stBlind;
-- (NSString *)stStun;
-- (NSString *)stHallu;
+- (NSImage *)stHunger;
+- (NSImage *)stConfuse;
+- (NSImage *)stSick;
+- (NSImage *)stIll;
+- (NSImage *)stBlind;
+- (NSImage *)stStun;
+- (NSImage *)stHallu;
 
 - (void)setPlayerName:(NSString *)aString;
 - (void)setPlayerClass:(NSString *)aString;
