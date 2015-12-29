@@ -32,22 +32,20 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize playerScore;
 @synthesize playerTime;
 @synthesize playerExp;
-@synthesize playerAc;
 
 @synthesize playerHp;
 @synthesize playerMaxhp;
 @synthesize playerPow;
 @synthesize playerMaxpow;
+@synthesize playerAc;
+@synthesize playerLv;
 
-
-- ( instancetype )init
+- (instancetype)init
 {
-	self = [ super init ];
-    if ( self != nil ) {
-					
-		shadow = [ [ NSShadow alloc ] init ];
-		style = [ [ NSMutableParagraphStyle alloc ] init ];
-		strAttributes = [ [ NSMutableDictionary alloc ] init ];
+    if (self = [super init]) {
+		shadow = [[NSShadow alloc] init];
+		style = [[NSMutableParagraphStyle alloc] init];
+		strAttributes = [[NSMutableDictionary alloc] init];
 		
 		[ self setPlayerCriticalHp: 0 ];
 		[ self setPlayerCriticalPow:0 ];
@@ -85,8 +83,6 @@ extern NH3DTileCache *_NH3DTileCache;
 		[ self setAcUpdate:NO ];
 				
 		firstTime = YES;
-
-   
     }
     return self;
 }
@@ -162,7 +158,7 @@ extern NH3DTileCache *_NH3DTileCache;
 //
 //
 
-- ( NSAttributedString * )playerName
+- (NSAttributedString *)playerName
 {
 	int fSize;
 	switch ( playerName.length ) {
@@ -208,29 +204,17 @@ extern NH3DTileCache *_NH3DTileCache;
 	return playerGender;
 }
 
-- ( NSAttributedString * )playerClass 
+- (NSAttributedString *)playerClass
 {
-	strAttributes[NSFontAttributeName] = [ NSFont fontWithName:NH3DWINDOWFONT
-								size: 13 ];
+	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
+														 size: 13];
 	return [[NSAttributedString alloc] initWithString:playerClass
 										   attributes:strAttributes];
 }
 
-
 - (NSString*)playerStatusLine
 {
 	return playerStatusLine;
-}
-
-
-- (int)playerMaxhp 
-{
-	return playerMaxhp;
-}
-
-- (int)playerMaxpow
-{
-	return playerMaxpow;
 }
 
 - (float)playerWaningHp 
@@ -253,18 +237,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	return playerCriticalPow;
 }
 
-- (int)playerAc 
-{
-	return playerAc;
-}
-
-- (int)playerLv 
-{
-	return playerLv;
-}
-
-
-- ( NSImage * )playerArmour
+- (NSImage*)playerArmour
 {
 	return playerArmour;
 }
@@ -278,7 +251,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerCloak
+- (NSImage*)playerCloak
 {
 	return playerCloak;
 }
@@ -292,7 +265,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerHelmet
+- (NSImage*)playerHelmet
 {
 	return playerHelmet;
 }
@@ -308,7 +281,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerShield
+- (NSImage*)playerShield
 {
 	return playerShield;
 }
@@ -322,7 +295,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerGloves
+- (NSImage*)playerGloves
 {
 	return playerGloves;
 }
@@ -336,7 +309,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerShoes
+- (NSImage*)playerShoes
 {
 	return playerShoes;
 }
@@ -350,7 +323,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerRingL
+- (NSImage*)playerRingL
 {
 	return playerRingL;
 }
@@ -364,7 +337,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerRingR
+- (NSImage*)playerRingR
 {
 	return playerRingR;
 }
@@ -378,7 +351,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerWeapon
+- (NSImage*)playerWeapon
 {
 	return playerWeapon ;
 }
@@ -392,7 +365,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerSubWeapon
+- (NSImage*)playerSubWeapon
 {
 	return playerSubWeapon;
 }
@@ -406,7 +379,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerAmulet
+- (NSImage*)playerAmulet
 {
 	return playerAmulet;
 }
@@ -420,7 +393,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- ( NSImage * )playerBlindFold
+- (NSImage*)playerBlindFold
 {
 	return playerBlindFold;
 }
@@ -536,26 +509,6 @@ extern NH3DTileCache *_NH3DTileCache;
 		strStr = [ NSString stringWithFormat:@"%d",playerStr ];
 	}
 	return strStr;
-}
-
-- (int)playerDex {
-	return playerDex;
-}
-
-- (int)playerCon {
-	return playerCon;
-}
-
-- (int)playerInt {
-	return playerInt;
-}
-
-- (int)playerWis {
-	return playerWis;
-}
-
-- (int)playerCha {
-	return playerCha;
 }
 
 - (NSImage *)strUpdate

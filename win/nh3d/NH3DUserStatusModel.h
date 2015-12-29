@@ -106,7 +106,9 @@
 //for cocoa binding
 
 - (NSAttributedString *)playerName;
+- (void)setPlayerName:(NSString *)aString;
 - (NSAttributedString *)playerClass;
+- (void)setPlayerClass:(NSString *)aString;
 @property (copy) NSString *playerRace;
 @property (copy) NSString *playerRole;
 @property (copy) NSString *playerAlign;
@@ -116,26 +118,26 @@
 
 
 - (NSString *)playerStr;
-@property  int playerDex;
-@property  int playerCon;
-@property  int playerInt;
-@property  int playerWis;
-@property  int playerCha;
+@property (nonatomic) int playerDex;
+@property (nonatomic) int playerCon;
+@property (nonatomic) int playerInt;
+@property (nonatomic) int playerWis;
+@property (nonatomic) int playerCha;
 @property  int playerGold;
 @property  unsigned int playerScore;
 @property  unsigned int playerTime;
 @property  int playerExp;
 
 @property  int playerHp;
-@property  int playerMaxhp;
+@property (nonatomic) int playerMaxhp;
 - (float)playerWaningHp;
 - (float)playerCriticalHp;
 @property  int playerPow;
-@property  int playerMaxpow;
+@property (nonatomic) int playerMaxpow;
 - (float)playerWaningPow;
 - (float)playerCriticalPow;
-@property  int playerAc;
-@property  int playerLv;
+@property (nonatomic) int playerAc;
+@property (nonatomic) int playerLv;
 
 - (NSImage *)playerArmour;
 - (void)setPlayerArmour:(int)glyph;
@@ -187,9 +189,6 @@
 - (NSImage *)stBlind;
 - (NSImage *)stStun;
 - (NSImage *)stHallu;
-
-- (void)setPlayerName:(NSString *)aString;
-- (void)setPlayerClass:(NSString *)aString;
 
 
 - (void)setPlayerStr:(int)aValue;
