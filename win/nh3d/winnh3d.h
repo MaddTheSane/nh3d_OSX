@@ -70,7 +70,7 @@ void nh3d_mark_synch();
 void nh3d_wait_synch();
 void nh3d_cliparound(int x, int y);
 void nh3d_cliparound_window(winid wid, int x, int y);
-void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph);
+void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph, int under);
 void nh3d_raw_print(const char *str);
 void nh3d_raw_print_bold(const char *str);
 int nh3d_nhgetch();
@@ -84,7 +84,7 @@ void nh3d_number_pad(int num);
 void nh3d_delay_output();
 void nh3d_start_screen();
 void nh3d_end_screen();
-void nh3d_outrip(winid wid, int how);
+void nh3d_outrip(winid wid, int how, time_t when);
 //int nh3d_kbhit();
 
 
@@ -123,7 +123,7 @@ void nh3d_set_savefile_name();
 
 - (void)didPresentError:(NSError *)error;
 
-- (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph;
+- (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph bkglyph:(int)bkglyph;
 - (int)nhPosKeyAtX:(int *)x atY:(int *)y keyMod:(int *)mod;
 - (int)nhGetKey;
 - (void)updateAll;

@@ -165,12 +165,12 @@ char *argv[ ];
 			case 'I':
 			case 'i':
 				if (!strncmpi(argv[ 0 ]+1, "IBM", 3))
-					switch_graphics(IBM_GRAPHICS);
+					switch_symbols(H_IBM);
 				break;
 				/*  case 'D': */
 			case 'd':
 				if (!strncmpi(argv[ 0 ]+1, "DEC", 3))
-					switch_graphics(DEC_GRAPHICS);
+					switch_symbols(H_DEC);
 				break;
 			case 'p': /* profession (role) */
 				if (argv[ 0 ][ 2 ]) {
@@ -723,10 +723,10 @@ void nh3d_cliparound_window(winid wid, int x, int y)
 }
 
 
-void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph)
+void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph, int under)
 {
 	@autoreleasepool {
-		[ _NH3DBindController printGlyph:wid xPos:x yPos:y glyph:glyph ];
+		[_NH3DBindController printGlyph:wid xPos:x yPos:y glyph:glyph bkglyph:under];
 	}
 }
 
@@ -981,76 +981,37 @@ void nh3d_end_screen()
 }
 
 
-void nh3d_outrip(winid wid, int how)
+void nh3d_outrip(winid wid, int how, time_t when)
 {
 	@autoreleasepool {
 		char buf[ BUFSZ ];
-		char ripString[ BUFSZ ]="\0";
+		NSMutableString *ripString = [[NSMutableString alloc] initWithCapacity:100];
 		extern const char *killed_by_prefix[ ];
 		
 		[ _NH3DMenuWindow setDoneRip:YES ];
 		
 		Sprintf(buf, "%s\n", plname);
-		Strcat(ripString, buf);
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
+		//Strcat(ripString, buf);
 		
 		/* Put $ on stone */
-		Sprintf(buf, "%ld Au\n",
-#ifndef GOLDOBJ
-				u.ugold);
-#else
-		done_money);
-#endif
-		Strcat(ripString, buf);
+		Sprintf(buf, "%ld Gold\n", done_money);
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		/* Put together death description */
-		/* English version */
-		switch (killer_format) {
-			default: impossible("bad killer format?");
-			case KILLED_BY_AN:
-				Strcpy(buf, killed_by_prefix[how]);
-				Strcat(buf, an(killer));
-				break;
-			case KILLED_BY:
-				Strcpy(buf, killed_by_prefix[how]);
-				Strcat(buf, killer);
-				break;
-			case NO_KILLER_PREFIX:
-				Strcpy(buf, killer);
-				break;
-		}
+		formatkiller(buf, BUFSZ, how);
 		
-		
-		/* Japanese version
-		 switch (killer_format) {
-		 default: impossible("bad killer format?");
-		 case KILLED_BY_AN:
-			Strcpy(buf, killed_by_prefix[ how ]);
-			Strcat(buf, an(killer));
-			break;
-		 case KILLED_BY:
-			Strcpy(buf, killed_by_prefix[ how ]);
-			Strcat(buf, killer);
-			break;
-		 case NO_KILLER_PREFIX:
-			Strcpy(buf, killer);
-			break;
-		 case KILLED_SUFFIX:
-			Strcpy(buf, killer);
-			Strcat(buf, "に殺された");
-		 }
-		 */
-		/**/
 		/* Put death type on stone */
-		Strcat(ripString, buf);
-		Strcat(ripString, "\n");
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
+		[ripString appendString:@"\n"];
 		
 		/* Put year on stone */
-		Sprintf(buf, "%4d\n", getyear());
-		Strcat(ripString, buf);
+		long year = yyyymmdd(when) / 10000L;
+		Sprintf(buf, "%4ld\n", year);
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		[ _NH3DMapModel stopIndicator ];
-		[ _NH3DMessenger showOutRip:ripString ];
-		
+		[ _NH3DMessenger showOutRipString:[ripString copy]];
 	}
 }
 
@@ -1102,6 +1063,7 @@ struct window_procs nh3d_procs = {
 	nh3d_destroy_nhwindow,
 	nh3d_curs,
 	nh3d_putstr,
+	genl_putmixed,
 	nh3d_display_file,
 	nh3d_start_menu,
 	nh3d_add_menu,
@@ -1371,7 +1333,7 @@ You("スコアの載らない発見モードで起動した．");
 }
 
 
-- (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph
+- (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph bkglyph:(int)bkglyph
 {
 	switch (nh3d_windowlist[ wid ].type) {
 	case NHW_MAP:
@@ -1672,10 +1634,10 @@ You("スコアの載らない発見モードで起動した．");
 				(void) delete_savefile();
 			else {
 				(void) chmod(fq_save,FCMASK); /* back to readable */
-				compress(fq_save);
+				//compress(fq_save);
 			}
 		}
-		flags.move = 0;
+		//flags.move = 0;
 		[ _userStatus setPlayerName:[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
 	} else {
 	
@@ -1685,8 +1647,8 @@ not_recovered:
 	
 		newgame();
 		wd_message();
-		flags.move = 0;
-		set_wear();
+		//flags.move = 0;
+		set_wear(NULL);
 		(void) pickup(1);
 	}
 
@@ -1700,7 +1662,7 @@ not_recovered:
 	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
 	[ _mapModel updateAllMaps ];
 
-	moveloop();   
+	moveloop(false);
 
 }
 

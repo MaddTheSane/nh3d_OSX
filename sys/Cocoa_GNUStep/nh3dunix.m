@@ -11,7 +11,7 @@
 /* This file collects some Unix dependencies */
 
 #import "hack.h"	/* mainly for index() which depends on BSD */
-
+#import "dlb.h"
 
 #import <sys/errno.h>
 #import <sys/stat.h>
@@ -19,6 +19,7 @@
 #import <sys/fcntl.h>
 #endif
 #import <signal.h>
+#include <pwd.h>
 
 /*#ifdef NH3D_GRAPHICS
 #import <sys/errno.h>
@@ -34,6 +35,11 @@ extern void NDECL(sco_mapoff);
 extern void NDECL(linux_mapon);
 extern void NDECL(linux_mapoff);
 #endif
+
+static void NDECL(wd_message);
+static boolean wiz_error_flag = FALSE;
+static struct passwd *NDECL(get_unix_pw);
+
 
 #ifndef NHSTDC
 extern int errno;
@@ -386,3 +392,105 @@ gid_t
 }
 
 #endif	/* GETRES_SUPPORT */
+
+void
+sethanguphandler(handler)
+void FDECL((*handler), (int));
+{
+#ifdef SA_RESTART
+    /* don't want reads to restart.  If SA_RESTART is defined, we know
+     * sigaction exists and can be used to ensure reads won't restart.
+     * If it's not defined, assume reads do not restart.  If reads restart
+     * and a signal occurs, the game won't do anything until the read
+     * succeeds (or the stream returns EOF, which might not happen if
+     * reading from, say, a window manager). */
+    struct sigaction sact;
+    
+    (void) memset((genericptr_t) &sact, 0, sizeof sact);
+    sact.sa_handler = (SIG_RET_TYPE) handler;
+    (void) sigaction(SIGHUP, &sact, (struct sigaction *) 0);
+#ifdef SIGXCPU
+    (void) sigaction(SIGXCPU, &sact, (struct sigaction *) 0);
+#endif
+#else /* !SA_RESTART */
+    (void) signal(SIGHUP, (SIG_RET_TYPE) handler);
+#ifdef SIGXCPU
+    (void) signal(SIGXCPU, (SIG_RET_TYPE) handler);
+#endif
+#endif /* ?SA_RESTART */
+}
+
+/* validate wizard mode if player has requested access to it */
+boolean
+authorize_wizard_mode()
+{
+    struct passwd *pw = get_unix_pw();
+    if (pw && sysopt.wizards && sysopt.wizards[0]) {
+        if (check_user_string(sysopt.wizards))
+            return TRUE;
+    }
+    wiz_error_flag = TRUE; /* not being allowed into wizard mode */
+    return FALSE;
+}
+
+boolean
+check_user_string(optstr)
+char *optstr;
+{
+    struct passwd *pw = get_unix_pw();
+    int pwlen;
+    char *eop, *w;
+    if (optstr[0] == '*')
+        return TRUE; /* allow any user */
+    if (!pw)
+        return FALSE;
+    pwlen = strlen(pw->pw_name);
+    eop = eos(optstr);
+    w = optstr;
+    while (w + pwlen <= eop) {
+        if (!*w)
+            break;
+        if (isspace(*w)) {
+            w++;
+            continue;
+        }
+        if (!strncmp(w, pw->pw_name, pwlen)) {
+            if (!w[pwlen] || isspace(w[pwlen]))
+                return TRUE;
+        }
+        while (*w && !isspace(*w))
+            w++;
+    }
+    return FALSE;
+}
+
+static struct passwd *
+get_unix_pw()
+{
+    char *user;
+    unsigned uid;
+    static struct passwd *pw = (struct passwd *) 0;
+    
+    if (pw)
+        return pw; /* cache answer */
+    
+    uid = (unsigned) getuid();
+    user = getlogin();
+    if (user) {
+        pw = getpwnam(user);
+        if (pw && ((unsigned) pw->pw_uid != uid))
+            pw = 0;
+    }
+    if (pw == 0) {
+        user = nh_getenv("USER");
+        if (user) {
+            pw = getpwnam(user);
+            if (pw && ((unsigned) pw->pw_uid != uid))
+                pw = 0;
+        }
+        if (pw == 0) {
+            pw = getpwuid(uid);
+        }
+    }
+    return pw;
+}

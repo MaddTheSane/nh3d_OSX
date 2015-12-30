@@ -1,5 +1,216 @@
+#
+# This file is generated automatically.  Do not edit.
+# Your changes will be lost.  See sys/unix/NewInstall.unx.
+# Identify this file:
+MAKEFILE_SRC=1
+
+###
+### Start hints/macosx10.10 PRE
+###
+# (new segment at source line 6 )
+# Mac OS X (Darwin) hints file
+# This is for Mac OS X 10.10 or later.  If this doesn't work for some other
+# version of Mac OS X, make a new file for that OS, don't change this one.
+# And let us know about it.
+# Useful info: http://www.opensource.apple.com/darwinsource/index.html
+
+# This hints file can build several different types of installations.
+# Edit the next section to match the type of build you need.
+
+# 1. Which window system(s) should be included in this binary?
+WANT_WIN_TTY=1
+#WANT_WIN_X11=1
+#WANT_WIN_QT=1
+
+# 1a. What is the default window system?
+WANT_DEFAULT=tty
+#WANT_DEFAULT=x11
+#WANT_DEFAULT=qt
+
+# 1b. If you set WANT_WIN_QT, you need to
+#  A) set QTDIR either here or in the environment to point to the Qt2 or Qt3
+#     library installation root.  (Qt4 will not work; Qt3 does not presently
+#     compile under Leopard (MacOSX 10.5) out-of-the-box.)
+#  B) set XPMLIB to point to the Xpm library
+ifdef WANT_WIN_QT
+QTDIR=/Developer/Qt
+LIBXPM= -L/opt/X11/lib -lXpm
+endif	# WANT_WIN_QT
+
+# 2. Is this a build for a binary that will be shared among different users
+#    or will it be private to you?
+#    If it is shared:
+#	- it will be owned by the user and group listed
+#	- if the user does not exist, you MUST create it before installing
+#	  NetHack
+#	- if the group does not exist, it will be created.
+#	  NB: if the group already exists and is being used for something
+#	   besides games, you probably want to specify a new group instead
+#	  NB: the group will be created locally; if your computer is centrally
+#	   administered this may not be what you (or your admin) want.
+#	   Consider a non-shared install (WANT_SHARE_INSTALL=0) instead.
+#	- 'make install' must be run as "sudo make install"    
+#WANT_SHARE_INSTALL=1
+GAMEUID  = $(USER)
+GAMEGRP  = games
+# build to run in the source tree - primarily for development.  Build with "make all"
+#WANT_SOURCE_INSTALL=1
+
+CC=gcc
+
+# At the moment this is just for debugging, but in the future it could be
+# useful for other things.  Requires SYSCF and an ANSI compiler.
+#WANT_WIN_CHAIN=1
+
+#
+# You shouldn't need to change anything below here.
+#
+
+#CFLAGS+=-W -Wimplicit -Wreturn-type -Wunused -Wformat -Wswitch -Wshadow -Wcast-qual -Wwrite-strings -DGCC_WARN
+CFLAGS+=-Wall -Wextra -Wno-missing-field-initializers -Wimplicit -Wreturn-type -Wunused -Wformat -Wswitch -Wshadow -Wwrite-strings -DGCC_WARN -ansi -pedantic
+# As of LLVM build 2336.1.00, this gives dozens of spurious messages, so
+# leave it out by default.
+#CFLAGS+=-Wunreachable-code
+
+# XXX -g vs -O should go here, -I../include goes in the makefile
+CFLAGS+=-g -I../include
+# older binaries use NOCLIPPING, but that disables SIGWINCH
+#CFLAGS+=-DNOCLIPPING
+CFLAGS+= -DNOMAIL -DNOTPARMDECL -DHACKDIR=\"$(HACKDIR)\"
+CFLAGS+= -DDEFAULT_WINDOW_SYS=\"$(WANT_DEFAULT)\" -DDLB
+
+CFLAGS+= -DGREPPATH=\"/usr/bin/grep\"
+
+ifdef WANT_WIN_CHAIN
+CFLAGS+= -DWINCHAIN
+HINTSRC=$(CHAINSRC)
+HINTOBJ=$(CHAINOBJ)
+endif
+
+ifdef WANT_WIN_TTY
+WINSRC = $(WINTTYSRC)
+WINOBJ = $(WINTTYOBJ)
+WINLIB = $(WINTTYLIB)
+WINTTYLIB=-lncurses
+else	# !WANT_WIN_TTY
+CFLAGS += -DNOTTYGRAPHICS
+endif	# !WANT_WIN_TTY
+
+ifdef WANT_WIN_X11
+WINSRC += $(WINX11SRC)
+WINOBJ += $(WINX11OBJ)
+WINLIB += $(WINX11LIB)
+LFLAGS=-L/opt/X11/lib
+VARDATND = x11tiles NetHack.ad pet_mark.xbm pilemark.xbm
+POSTINSTALL+= bdftopcf win/X11/nh10.bdf > $(HACKDIR)/nh10.pcf; (cd $(HACKDIR); mkfontdir);
+CFLAGS += -DX11_GRAPHICS -I/opt/X11/include
+endif	# WANT_WIN_X11
+
+ifdef WANT_WIN_QT
+CFLAGS += -DQT_GRAPHICS -DNOUSER_SOUNDS
+CFLAGS += -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4
+LINK=g++
+WINSRC += $(WINQTSRC)
+WINLIB += $(WINQTLIB) $(LIBXPM)
+WINLIB += -framework Carbon -framework QuickTime -lz -framework OpenGL
+WINLIB += -framework AGL
+ifdef WANT_WIN_X11
+	# prevent duplicate tile.o in WINOBJ
+WINOBJ = $(sort $(WINQTOBJ) $(WINX11OBJ))
+ifdef WANT_WIN_TTY
+WINOBJ += $(WINTTYOBJ)
+endif	# WANT_WIN_TTY
+else	# !WANT_WIN_X11
+WINOBJ += $(WINQTOBJ)
+endif	# !WANT_WIN_X11
+
+# XXX if /Developer/qt exists and QTDIR not set, use that
+ifndef QTDIR
+$(error QTDIR not defined in the environment or Makefile)
+endif	# QTDIR
+# XXX make sure QTDIR points to something reasonable
+else	# !WANT_WIN_QT
+LINK=$(CC)
+endif	# !WANT_WIN_QT
+
+ifdef WANT_SHARE_INSTALL
+# if $GAMEUID is root, we install into roughly proper Mac locations, otherwise
+# we install into ~/nethackdir
+ifeq ($(GAMEUID),root)
+PREFIX:=/Library/NetHack
+SHELLDIR=/usr/local/bin
+HACKDIR=$(PREFIX)/nethackdir
+CHOWN=chown
+CHGRP=chgrp
+# We run sgid so the game has access to both HACKDIR and user preferences.
+GAMEPERM = 02755
+else	# ! root
+PREFIX:=/Users/$(GAMEUID)
+SHELLDIR=$(PREFIX)/bin
+HACKDIR=$(PREFIX)/Library/NetHack/nethackdir
+CHOWN=/usr/bin/true
+CHGRP=/usr/bin/true
+GAMEPERM = 0500
+endif	# ! root
+VARFILEPERM = 0664
+VARDIRPERM = 0775
+ROOTCHECK= [[ `id -u` == 0 ]] || ( echo "Must run install with sudo."; exit 1)
+# XXX it's nice we don't write over sysconf, but we've already erased it
+# make sure we have group GAMEUID and group GAMEGRP
+PREINSTALL= . sys/unix/hints/macosx.sh user2 $(GAMEUID); . sys/unix/hints/macosx.sh group2 $(GAMEGRP); mkdir $(SHELLDIR); chown $(GAMEUID) $(SHELLDIR)
+POSTINSTALL+= cp -n sys/unix/sysconf $(HACKDIR)/sysconf; $(CHOWN) $(GAMEUID) $(HACKDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(HACKDIR)/sysconf; chmod $(VARFILEPERM) $(HACKDIR)/sysconf;
+CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
+else ifdef WANT_SOURCE_INSTALL
+PREFIX=$(abspath $(NHSROOT))
+# suppress nethack.sh
+#SHELLDIR=
+HACKDIR=$(PREFIX)/playground
+CHOWN=/usr/bin/true
+CHGRP=/usr/bin/true
+GAMEPERM = 0700
+VARFILEPERM = 0600
+VARDIRPERM = 0700
+# We can use "make all" to build the whole thing - but it misses some things:
+MOREALL=$(MAKE) install
+CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
+else	# !WANT_SOURCE_INSTALL
+PREFIX:=$(wildcard ~)
+SHELLDIR=$(PREFIX)/bin
+HACKDIR=$(PREFIX)/nethackdir
+CHOWN=/usr/bin/true
+CHGRP=/usr/bin/true
+GAMEPERM = 0700
+VARFILEPERM = 0600
+VARDIRPERM = 0700
+ifdef WANT_WIN_X11
+# install nethack.rc as ~/.nethackrc if no ~/.nethackrc exists
+PREINSTALL= cp -n win/X11/nethack.rc ~/.nethackrc
+endif	# WANT_WIN_X11
+POSTINSTALL+= cp -n sys/unix/sysconf $(HACKDIR)/sysconf; $(CHOWN) $(GAMEUID) $(HACKDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(HACKDIR)/sysconf; chmod $(VARFILEPERM) $(HACKDIR)/sysconf;
+CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
+endif	# !WANT_SOURCE_INSTALL
+
+INSTDIR=$(HACKDIR)
+VARDIR=$(HACKDIR)
+
+
+# ~/Library/Preferences/NetHack Defaults
+# OPTIONS=name:player,number_pad,menustyle:partial,!time,showexp
+# OPTIONS=hilite_pet,toptenwin,msghistory:200,windowtype:Qt
+#
+# Install.Qt mentions a patch for macos - it's not there (it seems to be in the Qt binary
+# package under the docs directory).
+
+### End hints/macosx10.10 PRE
+
+###
+### Start Makefile.src
+###
 #	NetHack Makefile.
-#	SCCS Id: @(#)Makefile.src	3.4	2002/03/02
+# NetHack 3.6  Makefile.src	$NHDT-Date: 1447313972 2015/11/12 07:39:32 $  $NHDT-Branch: master $:$NHDT-Revision: 1.45 $
+
+# Root of source tree:
+NHSROOT=..
 
 # newer makes predefine $(MAKE) to 'make' and do smarter processing of
 # recursive make calls if $(MAKE) is used
@@ -35,16 +246,16 @@ SHELL=/bin/sh
 # for Atari
 # SHELL=E:/GEMINI2/MUPFEL.TTP
 
-# Normally, the C compiler driver is used for linking:
-LINK=$(CC)
+# Usually, the C compiler driver is used for linking:
+#LINK=$(CC)
 
 # Pick the SYSSRC and SYSOBJ lines corresponding to your desired operating
 # system.
 #
 # for UNIX systems
-#SYSSRC = ../sys/share/ioctl.c ../sys/share/unixtty.c ../sys/unix/unixmain.c \
+SYSSRC = ../sys/share/ioctl.c ../sys/share/unixtty.c ../sys/unix/unixmain.c \
 	../sys/unix/unixunix.c ../sys/unix/unixres.c
-#SYSOBJ = ioctl.o unixmain.o unixtty.o unixunix.o unixres.o
+SYSOBJ = ioctl.o unixmain.o unixtty.o unixunix.o unixres.o
 #
 # for Systos
 # SYSSRC = ../sys/atari/tos.c ../sys/share/pcmain.c ../sys/share/pcsys.c \
@@ -56,9 +267,9 @@ LINK=$(CC)
 #SYSOBJ = bemain.o unixtty.o ioctl.o
 #
 # for MacOSX(Cocoa)
-SYSSRC = ../sys/share/ioctl.c ../sys/share/unixtty.c ../sys/Cocoa_GNUStep/nh3dmain.m \
-	../sys/Cocoa_GNUStep/nh3dres.m ../sys/Cocoa_GNUStep/nh3dunix.m
-SYSOBJ = nh3dmain.o nh3dres.o nh3dunix.o ioctl.o unixtty.o
+# SYSSRC = ../sys/Cocoa_GNUStep/nh3dmain.m ../sys/Cocoa_GNUStep/nh3dres.m ../sys/Cocoa_GNUStep/nh3dunix.m \
+#	../sys/share/ioctl.c ../sys/share/unixtty.c
+# SYSOBJ = nh3dmain.o nh3dres.o nh3dunix.o ioctl.o unixtty.o
 
 
 # if you are using gcc as your compiler:
@@ -74,7 +285,7 @@ SYSOBJ = nh3dmain.o nh3dres.o nh3dunix.o ioctl.o unixtty.o
 #
 #	If you are using GCC 2.2.2 or higher on a DPX/2, just use:
 #
-CC = gcc
+# CC = gcc -ansi
 #
 #	For HP/UX 10.20 with GCC:
 # CC = gcc -D_POSIX_SOURCE
@@ -129,7 +340,7 @@ CC = gcc
 
 # flags for Linux
 #   compile normally
-# CFLAGS = -Wall -g -O2 -fomit-frame-pointer -I../include `gnome-config --cflags gnome`
+# CFLAGS = -O2 -fomit-frame-pointer -I../include
 # LFLAGS = -L/usr/X11R6/lib
 #   OR compile backwards compatible a.out format
 # CFLAGS = -O2 -b i486-linuxaout -fomit-frame-pointer -I../include
@@ -157,46 +368,43 @@ GNOMEINC=-I/usr/lib/glib/include -I/usr/lib/gnome-libs/include -I../win/gnome
 # When including the NH3D interface, you need to include NH3D specific
 # directories.
 # For Linux?
-#GNUSTEPDIR = /usr/lib/GNUstep/System/Library
-#NH3DINC=-I../win/nh3d -I$(GNUSTEPDIR)/Headers -fconstant-string-class=NSConstantString
-# For MacOSX (Cocoa10.4)
+GNUSTEPDIR = /usr/lib/GNUstep/System/Library
+
+OBJCFLAG = $(CFLAGS) -fconstant-string-class=NSConstantString
+
+NH3DINC=-I../win/nh3d -I$(GNUSTEPDIR)/Headers
+
+# For MacOSX (Cocoa 10.4)
 MACOSXDIR = /System/Library
-#OSXARCH = -arch ppc
-OSXARCH = -arch x86_64
-#OSXVECTOR = -faltivec -mtune=G5 -ftree-vectorize
-OSXVECTOR = -msse3 -ftree-vectorize
-CFLAGS = $(OSXARCH) $(OSXVECTOR) -I../include -Os
-OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -mdynamic-no-pic -Wreturn-type -Wunused-variable -fmessage-length=0 -fvisibility=hidden
+# OSXARCH = -arch ppc
+OSXARCH = -arch i386
+# OSXVECTOR = -faltivec -mtune=G5 -ftree-vectorize
+# OSXVECTOR = -msse3 -ftree-vectorize
+# CFLAGS = $(OSXARCH) $(OSXVECTOR) -I../include -Os
+# OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -fasm-blocks -Wreturn-type -Wunused-variable -fmessage-length=0 -fvisibility=hidden
 
-LFLAGS = $(OSXARCH)
-
-NH3DINC = -I../win/nh3d -I$(MACOSXDIR)/Frameworks -I/usr/include
+# NH3DINC=-I../win/nh3d -I$(MACOSXDIR)/Frameworks -I/usr/include
 
 # flags for debugging:
 # CFLAGS = -g -I../include
 
-# CFLAGS = -W -g -O -I../include
-# LFLAGS = 
+CFLAGS = -O -I../include
+LFLAGS = -arch x86_64
 
 # The Qt and Be window systems are written in C++, while the rest of
 # NetHack is standard C.  If using Qt, uncomment the LINK line here to get
 # the C++ libraries linked in.
-# CXXFLAGS = $(CFLAGS) -I. -I$(QTDIR)/include
-# CXX=g++
+CXXFLAGS = $(CFLAGS) -I. -I$(QTDIR)/include
+CXX=g++
 #LINK=g++
 #	For cross-compiling, eg. with gcc on Linux (see also CC further up):
 #CXX=arm-linux-g++
 #LINK=arm-linux-gcc
 
-# flags for IPv6 support
-#   for Linux + glibc-2.1.x / Solaris users
-# CFLAGS += -DINET6
-#   for KAME users
-# CFLAGS += -DINET6
-# LFLAGS += -L/usr/local/v6/lib -linet6
-#   for Linux libinet users
-# CFLAGS  = -DINET6 -I/usr/inet6/include $(CFLAGS)
-# LFLAGS += -L/usr/inet6/lib -linet6
+# file for regular expression matching
+REGEXOBJ = posixregex.o
+#REGEXOBJ = pmatchregex.o
+#REGEXOBJ = cppregex.o
 
 # Set the WINSRC, WINOBJ, and WINLIB lines to correspond to your desired
 # combination of windowing systems.  Also set windowing systems in config.h.
@@ -232,7 +440,7 @@ WINGNOMESRC = ../win/gnome/gnaskstr.c ../win/gnome/gnbind.c \
 	../win/gnome/gnworn.c
 WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 	gnmesg.o gnopts.o gnplayer.o gnsignal.o gnstatus.o gntext.o \
-	gnyesno.o gnworn.o
+	gnyesno.o gnworn.o tile.o
 #
 # Files for a NH3D port
 #
@@ -241,12 +449,11 @@ WINNH3DSRC = ../win/nh3d/NH3DMapItem.m ../win/nh3d/NH3DMapModel.m \
 	../win/nh3d/NH3DMessenger.m ../win/nh3d/NH3DModelObjects.m ../win/nh3d/NH3DOpenGLView.m \
 	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DPreferenceController.m ../win/nh3d/NH3DTileCache.m \
 	../win/nh3d/NH3DUserMakeSheetController.m ../win/nh3d/NH3DUserStatusModel.m \
-	../win/nh3d/winnh3d.m \
-#	../win/nh3d/compat/Cocoa-compat.m
+	../win/nh3d/winnh3d.m ../win/nh3d/compat/Cocoa-compat.m
 WINNH3DOBJ = NH3DMapItem.o NH3DMapModel.o NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DMessenger.o NH3DModelObjects.o NH3DOpenGLView.o NH3DPanel.o NH3DPreferenceController.o \
-	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
-#	Cocoa-compat.o
+	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o Cocoa-compat.o \
+	tile.o
 #
 # Files for a Gem port
 WINGEMSRC = ../win/gem/wingem.c ../win/gem/wingem1.c ../win/gem/load_img.c \
@@ -262,8 +469,8 @@ WINBEOBJ =
 
 #
 #
-WINSRC = $(WINNH3DSRC)
-WINOBJ = $(WINNH3DOBJ)
+#WINSRC = $(WINTTYSRC)
+#WINOBJ = $(WINTTYOBJ)
 
 # on some systems the termcap library is in -ltermcap or -lcurses
 # on 386 Xenix, the -ltermlib tputs() seems not to work; use -lcurses instead
@@ -278,14 +485,14 @@ WINOBJ = $(WINNH3DOBJ)
 # WINTTYLIB = -ltermcap
 # WINTTYLIB = -lcurses
 # WINTTYLIB = -lcurses16
- WINTTYLIB = -lncurses
-# WINTTYLIB = -ltermlib
+# WINTTYLIB = -lncurses
+#WINTTYLIB = -ltermlib
 #
 # libraries for X11
 # If USE_XPM is defined in config.h, you will also need -lXpm here.
-# WINX11LIB = -lXaw -lXmu -lXext -lXt -lX11
+WINX11LIB = -lXaw -lXmu -lXext -lXt -lX11
 # WINX11LIB = -lXaw -lXmu -lXt -lX11
-WINX11LIB = -lXaw -lXmu -lXext -lXt -lXpm -lX11 -lm
+# WINX11LIB = -lXaw -lXmu -lXext -lXt -lXpm -lX11 -lm
 # WINX11LIB = -lXaw -lXmu -lXpm -lXext -lXt -lX11 -lSM -lICE -lm # BSD/OS 2.0
 #
 # libraries for Qt
@@ -299,9 +506,9 @@ WINGNOMELIB = -lgnomeui -lgnome -lart_lgpl -lgtk -lgdk -lpopt
 #
 # libraries for NH3D
 # For Linux?
-#WINNH3DLIB = -L$(GNUSTEPDIR)/Libraries -lgnustep-gui -lgnustep-base -lobjc -lGL -lGLU
+WINNH3DLIB = -L$(GNUSTEPDIR)/Libraries -lgnustep-gui -lgnustep-base -lobjc -lGL -lGLU
 # For MacOSX_PPC
-WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -framework AppKit -framework OpenGL -framework Cocoa -framework Foundation -framework QTKit $(OSXARCH)
+# WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -framework AppKit -framework OpenGL -framework Cocoa -framework Foundation $(OSXARCH)
 #
 # libraries for Gem port
 WINGEMLIB = -le_gem -lgem
@@ -309,7 +516,7 @@ WINGEMLIB = -le_gem -lgem
 # libraries for BeOS 
 WINBELIB = -lbe
 
-WINLIB = $(WINNH3DLIB)
+#WINLIB = $(WINTTYLIB)
 
 # any other strange libraries your system needs (for Sysunix only -- the more
 # specialized targets should already be right)
@@ -336,16 +543,14 @@ WINLIB = $(WINNH3DLIB)
 # IRIX 4.0.x needs -lsun if NIS (YP) is being used for passwd file lookup
 # LIBS = -lsun
 #
-# FreeBSD-2.2 needs -lxpg4 to use locale
-# LIBS = -lxpg4
+# If ZLIB_COMP is defined in config.h this is necessary to link with zlib.
+# LIBS = -lz
 #
-# LIBS =
+LIBS =
 
 # make NetHack
-#JP by issei(96/5/27)
-#GAME     = jnethack
+GAME     = nethack
 # GAME     = nethack.prg
-GAME = NetHack3D
 
 # if you defined RANDOM in unixconf.h/tosconf.h since your system did not come
 # with a reasonable random number generator
@@ -383,13 +588,16 @@ HACKCSRC = allmain.c alloc.c apply.c artifact.c attrib.c ball.c bones.c \
 	   options.c pager.c pickup.c pline.c polyself.c potion.c pray.c \
 	   priest.c quest.c questpgr.c read.c rect.c region.c restore.c rip.c \
 	   rnd.c role.c rumors.c save.c shk.c shknam.c sit.c sounds.c sp_lev.c \
-	   spell.c steal.c steed.c teleport.c timeout.c topten.c track.c trap.c \
+	   spell.c steal.c steed.c sys.c teleport.c timeout.c topten.c track.c \
+	   trap.c \
 	   u_init.c uhitm.c vault.c version.c vision.c weapon.c were.c wield.c \
 	   windows.c wizard.c worm.c worn.c write.c zap.c
 
 # all operating-system-dependent .c (for dependencies and such)
 SYSCSRC = ../sys/atari/tos.c ../sys/share/pcmain.c ../sys/share/pcsys.c \
-	../sys/share/pctty.c ../sys/share/pcunix.c ../sys/share/random.c \
+	../sys/share/pctty.c ../sys/share/pcunix.c \
+	../sys/share/pmatchregex.c ../sys/share/posixregex.c \
+	../sys/share/random.c \
 	../sys/share/ioctl.c ../sys/share/unixtty.c ../sys/unix/unixmain.c \
 	../sys/unix/unixunix.c ../sys/unix/unixres.c ../sys/be/bemain.c
 
@@ -401,25 +609,31 @@ WINCSRC = $(WINTTYSRC) $(WINX11SRC) $(WINGNOMESRC) $(WINGEMSRC) $(WINNH3DSRC)
 # all windowing-system-dependent .cpp (for dependencies and such)
 WINCXXSRC = $(WINQTSRC) $(WINBESRC)
 
+# Files for window system chaining.  Requires SYSCF; include via HINTSRC/HINTOBJ
+CHAINSRC=../win/chain/wc_chainin.c ../win/chain/wc_chainout.c \
+	../win/chain/wc_trace.c
+CHAINOBJ=wc_chainin.o wc_chainout.o wc_trace.o
+
 # .c files for this version (for date.h)
-VERSOURCES = $(HACKCSRC) $(JSRC) $(SYSSRC) $(WINSRC) $(GENCSRC)
+VERSOURCES = $(HACKCSRC) $(SYSSRC) $(WINSRC) $(CHAINSRC) $(GENCSRC)
 
 # .c files for all versions using this Makefile (for lint and tags)
-CSOURCES = $(HACKCSRC) $(JSRC) $(SYSSRC) $(WINCSRC) $(GENCSRC)
+CSOURCES = $(HACKCSRC) $(SYSCSRC) $(WINCSRC) $(CHAINSRC) $(GENCSRC)
 
 
 # all .h files except date.h, onames.h, pm.h, and vis_tab.h which would
 # cause dependency loops if run through "make depend"
 # and dgn_comp.h, dgn_file.h, lev_comp.h, special level & dungeon files.
 #
-HACKINCL = align.h amiconf.h artifact.h artilist.h attrib.h beconf.h color.h \
-	config.h config1.h coord.h decl.h def_os2.h display.h dlb.h dungeon.h \
-	edog.h emin.h engrave.h epri.h eshk.h extern.h flag.h func_tab.h \
-	global.h hack.h lev.h macconf.h mfndpos.h micro.h mkroom.h \
+HACKINCL = align.h amiconf.h artifact.h artilist.h attrib.h beconf.h botl.h \
+	color.h config.h config1.h context.h coord.h decl.h def_os2.h \
+	display.h dlb.h dungeon.h engrave.h extern.h flag.h func_tab.h \
+	global.h hack.h lev.h lint.h macconf.h mextra.h mfndpos.h micro.h \
+	mkroom.h \
 	monattk.h mondata.h monflag.h monst.h monsym.h obj.h objclass.h \
 	os2conf.h patchlevel.h pcconf.h permonst.h prop.h rect.h region.h rm.h \
-	sp_lev.h spell.h system.h tcap.h timeout.h tosconf.h tradstdc.h \
-	trampoli.h trap.h unixconf.h vault.h vision.h vmsconf.h wintty.h \
+	sp_lev.h spell.h sys.h system.h tcap.h timeout.h tosconf.h tradstdc.h \
+	trampoli.h trap.h unixconf.h vision.h vmsconf.h wintty.h \
 	winX.h winprocs.h wintype.h you.h youprop.h
 
 HSOURCES = $(HACKINCL) date.h onames.h pm.h vis_tab.h\
@@ -440,10 +654,11 @@ HOBJ = $(FIRSTOBJ) allmain.o alloc.o apply.o artifact.o attrib.o ball.o \
 	pager.o pickup.o pline.o polyself.o potion.o pray.o priest.o \
 	quest.o questpgr.o read.o rect.o region.o restore.o rip.o rnd.o \
 	role.o rumors.o save.o shk.o shknam.o sit.o sounds.o sp_lev.o spell.o \
+	sys.o \
 	steal.o steed.o teleport.o timeout.o topten.o track.o trap.o u_init.o \
 	uhitm.o vault.o vision.o vis_tab.o weapon.o were.o wield.o windows.o \
 	wizard.o worm.o worn.o write.o zap.o \
-	$(RANDOBJ) $(JOBJ) $(SYSOBJ) $(WINOBJ) version.o
+	$(REGEXOBJ) $(RANDOBJ) $(SYSOBJ) $(WINOBJ) $(HINTOBJ) version.o
 # the .o files from the HACKCSRC, SYSSRC, and WINSRC lists
 
 $(GAME):	$(SYSTEM)
@@ -547,9 +762,6 @@ monstr.c: $(MAKEDEFS)
 vis_tab.c: ../include/vis_tab.h
 tile.c: ../win/share/tilemap.c $(HACK_H)
 	@( cd ../util ; $(MAKE) ../src/tile.c )
-#JP by issei(94/07/13)
-#../include/jdata.h: $(MAKEDEFS) ../dat/jtrnsobj.dat ../dat/jtrnsmon.dat
-#	@( cd ../util ; $(MAKE) ../include/jdata.h )
 
 ../win/gnome/gn_rip.h: ../win/X11/rip.xpm
 	cp ../win/X11/rip.xpm ../win/gnome/gn_rip.h
@@ -592,9 +804,11 @@ spotless: clean
 
 
 depend: ../sys/unix/depend.awk \
-		$(SYSCSRC) $(WINCSRC) $(WINCXXSRC) $(GENCSRC) $(HACKCSRC)
+		$(SYSCSRC) $(WINCSRC) $(WINCXXSRC) $(CHAINSRC) $(GENCSRC) \
+		$(HACKCSRC)
 	$(AWK) -f ../sys/unix/depend.awk ../include/*.h \
-		$(SYSCSRC) $(WINCSRC) $(WINCXXSRC) $(GENCSRC) $(HACKCSRC) >makedep
+		$(SYSCSRC) $(WINCSRC) $(WINCXXSRC) $(CHAINSRC) $(GENCSRC) \
+		$(HACKCSRC) >makedep
 	@echo '/^# DO NOT DELETE THIS LINE OR CHANGE ANYTHING BEYOND IT/+2,$$d' >eddep
 	@echo '$$r makedep' >>eddep
 	@echo 'w' >>eddep
@@ -615,22 +829,23 @@ $(CONFIG_H): ../include/config.h ../include/config1.h ../include/tradstdc.h \
 		../include/system.h ../include/unixconf.h ../include/os2conf.h \
 		../include/micro.h ../include/pcconf.h ../include/tosconf.h \
 		../include/amiconf.h ../include/macconf.h ../include/beconf.h \
-		../include/wceconf.h ../include/ntconf.h ../include/nhlan.h
+		../include/wceconf.h ../include/ntconf.h
 	touch $(CONFIG_H)
 # hack.h timestamp
-$(HACK_H): ../include/hack.h $(CONFIG_H) ../include/align.h \
+$(HACK_H): ../include/hack.h $(CONFIG_H) ../include/lint.h ../include/align.h \
 		../include/dungeon.h ../include/monsym.h ../include/mkroom.h \
 		../include/objclass.h ../include/youprop.h ../include/prop.h \
 		../include/permonst.h ../include/monattk.h \
 		../include/monflag.h ../include/mondata.h ../include/pm.h \
-		../include/wintype.h ../include/decl.h ../include/quest.h \
-		../include/spell.h ../include/color.h ../include/obj.h \
-		../include/you.h ../include/attrib.h ../include/monst.h \
-		../include/skills.h ../include/onames.h ../include/timeout.h \
-		../include/trap.h ../include/flag.h ../include/rm.h \
-		../include/vision.h ../include/display.h ../include/engrave.h \
-		../include/rect.h ../include/region.h ../include/winprocs.h \
-		../include/wintty.h ../include/trampoli.h
+		../include/wintype.h ../include/context.h ../include/decl.h \
+		../include/quest.h ../include/spell.h ../include/color.h \
+		../include/obj.h ../include/you.h ../include/attrib.h \
+		../include/monst.h ../include/mextra.h ../include/skills.h \
+		../include/onames.h ../include/timeout.h ../include/trap.h \
+		../include/flag.h ../include/rm.h ../include/vision.h \
+		../include/display.h ../include/engrave.h ../include/rect.h \
+		../include/region.h ../include/winprocs.h ../include/botl.h \
+		../include/sys.h ../include/wintty.h ../include/trampoli.h
 	touch $(HACK_H)
 #
 tos.o: ../sys/atari/tos.c $(HACK_H) ../include/tcap.h
@@ -644,6 +859,10 @@ pctty.o: ../sys/share/pctty.c $(HACK_H)
 	$(CC) $(CFLAGS) -c ../sys/share/pctty.c
 pcunix.o: ../sys/share/pcunix.c $(HACK_H)
 	$(CC) $(CFLAGS) -c ../sys/share/pcunix.c
+pmatchregex.o: ../sys/share/pmatchregex.c $(HACK_H)
+	$(CC) $(CFLAGS) -c ../sys/share/pmatchregex.c
+posixregex.o: ../sys/share/posixregex.c $(HACK_H)
+	$(CC) $(CFLAGS) -c ../sys/share/posixregex.c
 random.o: ../sys/share/random.c $(HACK_H)
 	$(CC) $(CFLAGS) -c ../sys/share/random.c
 ioctl.o: ../sys/share/ioctl.c $(HACK_H) ../include/tcap.h
@@ -657,11 +876,11 @@ unixunix.o: ../sys/unix/unixunix.c $(HACK_H)
 unixres.o: ../sys/unix/unixres.c $(CONFIG_H)
 	$(CC) $(CFLAGS) -c ../sys/unix/unixres.c
 nh3dmain.o: ../sys/Cocoa_GNUStep/nh3dmain.m
-	$(CC) $(OBJCFLAG) -c ../sys/Cocoa_GNUStep/nh3dmain.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../sys/Cocoa_GNUStep/nh3dmain.m
 nh3dres.o: ../sys/Cocoa_GNUStep/nh3dres.m $(CONFIG_H)
-	$(CC) $(OBJCFLAG) -c ../sys/Cocoa_GNUStep/nh3dres.m
-nh3dunix.o: ../sys/Cocoa_GNUStep/nh3dunix.m $(HACK_H)
-	$(CC) $(OBJCFLAG) -c ../sys/Cocoa_GNUStep/nh3dunix.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../sys/Cocoa_GNUStep/nh3dres.m
+nh3dunix.o: ../sys/Cocoa_GNUStep/nh3dres.m $(HACK_H)
+	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../sys/Cocoa_GNUStep/nh3dres.m
 bemain.o: ../sys/be/bemain.c $(HACK_H) ../include/dlb.h
 	$(CC) $(CFLAGS) -c ../sys/be/bemain.c
 getline.o: ../win/tty/getline.c $(HACK_H) ../include/func_tab.h
@@ -670,17 +889,15 @@ termcap.o: ../win/tty/termcap.c $(HACK_H) ../include/tcap.h
 	$(CC) $(CFLAGS) -c ../win/tty/termcap.c
 topl.o: ../win/tty/topl.c $(HACK_H) ../include/tcap.h
 	$(CC) $(CFLAGS) -c ../win/tty/topl.c
-wintty.o: ../win/tty/wintty.c $(HACK_H) ../include/dlb.h \
-		../include/patchlevel.h ../include/tcap.h
+wintty.o: ../win/tty/wintty.c $(HACK_H) ../include/dlb.h ../include/tcap.h
 	$(CC) $(CFLAGS) -c ../win/tty/wintty.c
 Window.o: ../win/X11/Window.c ../include/xwindowp.h ../include/xwindow.h \
-		$(CONFIG_H)
+		$(CONFIG_H) ../include/lint.h
 	$(CC) $(CFLAGS) -c ../win/X11/Window.c
-dialogs.o: ../win/X11/dialogs.c $(CONFIG_H)
+dialogs.o: ../win/X11/dialogs.c $(CONFIG_H) ../include/lint.h
 	$(CC) $(CFLAGS) -c ../win/X11/dialogs.c
 winX.o: ../win/X11/winX.c $(HACK_H) ../include/winX.h ../include/dlb.h \
-		../include/patchlevel.h ../win/X11/nh72icon \
-		../win/X11/nh56icon ../win/X11/nh32icon
+		../win/X11/nh72icon ../win/X11/nh56icon ../win/X11/nh32icon
 	$(CC) $(CFLAGS) -c ../win/X11/winX.c
 winmap.o: ../win/X11/winmap.c ../include/xwindow.h $(HACK_H) ../include/dlb.h \
 		../include/winX.h ../include/tile2x11.h
@@ -752,56 +969,6 @@ load_img.o: ../win/gem/load_img.c ../include/load_img.h
 gr_rect.o: ../win/gem/gr_rect.c ../include/gr_rect.h
 	$(CC) $(CFLAGS) -c ../win/gem/gr_rect.c
 tile.o: tile.c $(HACK_H)
-gtk.o: ../win/gtk/gtk.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtk.c
-gtkgetlin.o: ../win/gtk/gtkgetlin.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkgetlin.c
-gtkstatus.o: ../win/gtk/gtkstatus.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkstatus.c
-gtkmenu.o: ../win/gtk/gtkmenu.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkmenu.c
-gtkyn.o: ../win/gtk/gtkyn.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkyn.c
-gtkmap.o: ../win/gtk/gtkmap.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkmap.c
-gtkmessage.o: ../win/gtk/gtkmessage.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkmessage.c
-gtkmisc.o: ../win/gtk/gtkmisc.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/gtkmisc.c
-xshmmap.o: ../win/gtk/xshmmap.c ../include/hack.h ../include/winGTK.h
-	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
-xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
-	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
-NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapItem.m
-NH3DMapModel.o: ../win/nh3d/NH3DMapModel.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapModel.m
-NH3DMapView.o: ../win/nh3d/NH3DMapView.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapView.m
-NH3DMenuItem.o: ../win/nh3d/NH3DMenuItem.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuItem.m
-NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
-NH3DMessenger.o: ../win/nh3d/NH3DMessenger.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMessenger.m
-NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObjects.m
-NH3DOpenGLView.o: ../win/nh3d/NH3DOpenGLView.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DOpenGLView.m
-NH3DPanel.o: ../win/nh3d/NH3DPanel.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
-NH3DPreferenceController.o: ../win/nh3d/NH3DPreferenceController.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPreferenceController.m
-NH3DTileCache.o: ../win/nh3d/NH3DTileCache.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCache.m
-NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserMakeSheetController.m
-NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserStatusModel.m
-winnh3d.o: ../win/nh3d/winnh3d.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/winnh3d.m
-Cocoa-compat.o: ../win/nh3d/compat/Cocoa-compat.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/compat/Cocoa-compat.m
 qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \
 		../include/dlb.h ../include/patchlevel.h ../include/tile2x11.h \
 		../include/qt_win.h ../include/qt_clust.h ../include/qt_kde0.h \
@@ -811,11 +978,17 @@ qt_clust.o: ../win/Qt/qt_clust.cpp ../include/qt_clust.h
 	$(CXX) $(CXXFLAGS) -c ../win/Qt/qt_clust.cpp
 qttableview.o: ../win/Qt/qttableview.cpp ../include/qttableview.h
 	$(CXX) $(CXXFLAGS) -c ../win/Qt/qttableview.cpp
+wc_chainin.o: ../win/chain/wc_chainin.c $(HACK_H)
+	$(CC) $(CFLAGS) -c ../win/chain/wc_chainin.c
+wc_chainout.o: ../win/chain/wc_chainout.c $(HACK_H)
+	$(CC) $(CFLAGS) -c ../win/chain/wc_chainout.c
+wc_trace.o: ../win/chain/wc_trace.c $(HACK_H) ../include/func_tab.h
+	$(CC) $(CFLAGS) -c ../win/chain/wc_trace.c
 monstr.o: monstr.c $(CONFIG_H)
 vis_tab.o: vis_tab.c $(CONFIG_H) ../include/vis_tab.h
 allmain.o: allmain.c $(HACK_H)
 alloc.o: alloc.c $(CONFIG_H)
-apply.o: apply.c $(HACK_H) ../include/edog.h
+apply.o: apply.c $(HACK_H)
 artifact.o: artifact.c $(HACK_H) ../include/artifact.h ../include/artilist.h
 attrib.o: attrib.c $(HACK_H)
 ball.o: ball.c $(HACK_H)
@@ -825,25 +998,26 @@ cmd.o: cmd.c $(HACK_H) ../include/func_tab.h
 dbridge.o: dbridge.c $(HACK_H)
 decl.o: decl.c $(HACK_H)
 detect.o: detect.c $(HACK_H) ../include/artifact.h
-dig.o: dig.c $(HACK_H) ../include/edog.h
+dig.o: dig.c $(HACK_H)
 display.o: display.c $(HACK_H)
 dlb.o: dlb.c $(CONFIG_H) ../include/dlb.h
 do.o: do.c $(HACK_H) ../include/lev.h
 do_name.o: do_name.c $(HACK_H)
 do_wear.o: do_wear.c $(HACK_H)
-dog.o: dog.c $(HACK_H) ../include/edog.h
-dogmove.o: dogmove.c $(HACK_H) ../include/mfndpos.h ../include/edog.h
-dokick.o: dokick.c $(HACK_H) ../include/eshk.h
-dothrow.o: dothrow.c $(HACK_H) ../include/edog.h
+dog.o: dog.c $(HACK_H)
+dogmove.o: dogmove.c $(HACK_H) ../include/mfndpos.h
+dokick.o: dokick.c $(HACK_H)
+dothrow.o: dothrow.c $(HACK_H)
 drawing.o: drawing.c $(HACK_H) ../include/tcap.h
-dungeon.o: dungeon.c $(HACK_H) ../include/dgn_file.h ../include/dlb.h
+dungeon.o: dungeon.c $(HACK_H) ../include/dgn_file.h ../include/dlb.h \
+		../include/lev.h
 eat.o: eat.c $(HACK_H)
-end.o: end.c $(HACK_H) ../include/eshk.h ../include/dlb.h
+end.o: end.c $(HACK_H) ../include/lev.h ../include/dlb.h
 engrave.o: engrave.c $(HACK_H) ../include/lev.h
 exper.o: exper.c $(HACK_H)
 explode.o: explode.c $(HACK_H)
 extralev.o: extralev.c $(HACK_H)
-files.o: files.c $(HACK_H) ../include/dlb.h
+files.o: files.c $(HACK_H) ../include/dlb.h #zlib.h
 fountain.o: fountain.c $(HACK_H)
 hack.o: hack.c $(HACK_H)
 hacklib.o: hacklib.c $(HACK_H)
@@ -851,29 +1025,26 @@ invent.o: invent.c $(HACK_H)
 light.o: light.c $(HACK_H) ../include/lev.h
 lock.o: lock.c $(HACK_H)
 mail.o: mail.c $(HACK_H) ../include/mail.h
-makemon.o: makemon.c $(HACK_H) ../include/epri.h ../include/emin.h \
-		../include/edog.h
+makemon.o: makemon.c $(HACK_H)
 mapglyph.o: mapglyph.c $(HACK_H)
 mcastu.o: mcastu.c $(HACK_H)
-mhitm.o: mhitm.c $(HACK_H) ../include/artifact.h ../include/edog.h
-mhitu.o: mhitu.c $(HACK_H) ../include/artifact.h ../include/edog.h
-minion.o: minion.c $(HACK_H) ../include/emin.h ../include/epri.h
+mhitm.o: mhitm.c $(HACK_H) ../include/artifact.h
+mhitu.o: mhitu.c $(HACK_H) ../include/artifact.h
+minion.o: minion.c $(HACK_H)
 mklev.o: mklev.c $(HACK_H)
 mkmap.o: mkmap.c $(HACK_H) ../include/sp_lev.h
 mkmaze.o: mkmaze.c $(HACK_H) ../include/sp_lev.h ../include/lev.h
 mkobj.o: mkobj.c $(HACK_H)
 mkroom.o: mkroom.c $(HACK_H)
-mon.o: mon.c $(HACK_H) ../include/mfndpos.h ../include/edog.h
-mondata.o: mondata.c $(HACK_H) ../include/eshk.h ../include/epri.h
-monmove.o: monmove.c $(HACK_H) ../include/mfndpos.h ../include/artifact.h \
-		../include/epri.h
+mon.o: mon.c $(HACK_H) ../include/mfndpos.h
+mondata.o: mondata.c $(HACK_H)
+monmove.o: monmove.c $(HACK_H) ../include/mfndpos.h ../include/artifact.h
 monst.o: monst.c $(CONFIG_H) ../include/permonst.h ../include/align.h \
 		../include/monattk.h ../include/monflag.h ../include/monsym.h \
-		../include/dungeon.h ../include/eshk.h ../include/vault.h \
-		../include/epri.h ../include/color.h
+		../include/color.h
 mplayer.o: mplayer.c $(HACK_H)
 mthrowu.o: mthrowu.c $(HACK_H)
-muse.o: muse.c $(HACK_H) ../include/edog.h
+muse.o: muse.c $(HACK_H)
 music.o: music.c $(HACK_H) #interp.c
 o_init.o: o_init.c $(HACK_H) ../include/lev.h
 objects.o: objects.c $(CONFIG_H) ../include/obj.h ../include/objclass.h \
@@ -883,12 +1054,11 @@ options.o: options.c $(CONFIG_H) ../include/objclass.h ../include/flag.h \
 		$(HACK_H) ../include/tcap.h
 pager.o: pager.c $(HACK_H) ../include/dlb.h
 pickup.o: pickup.c $(HACK_H)
-pline.o: pline.c $(HACK_H) ../include/epri.h ../include/edog.h
+pline.o: pline.c $(HACK_H)
 polyself.o: polyself.c $(HACK_H)
 potion.o: potion.c $(HACK_H)
-pray.o: pray.c $(HACK_H) ../include/epri.h
-priest.o: priest.c $(HACK_H) ../include/mfndpos.h ../include/eshk.h \
-		../include/epri.h ../include/emin.h
+pray.o: pray.c $(HACK_H)
+priest.o: priest.c $(HACK_H) ../include/mfndpos.h
 quest.o: quest.c $(HACK_H) ../include/qtext.h
 questpgr.o: questpgr.c $(HACK_H) ../include/dlb.h ../include/qtext.h
 read.o: read.c $(HACK_H)
@@ -900,14 +1070,15 @@ rnd.o: rnd.c $(HACK_H)
 role.o: role.c $(HACK_H)
 rumors.o: rumors.c $(HACK_H) ../include/lev.h ../include/dlb.h
 save.o: save.c $(HACK_H) ../include/lev.h
-shk.o: shk.c $(HACK_H) ../include/eshk.h
-shknam.o: shknam.c $(HACK_H) ../include/eshk.h
+shk.o: shk.c $(HACK_H)
+shknam.o: shknam.c $(HACK_H)
 sit.o: sit.c $(HACK_H) ../include/artifact.h
-sounds.o: sounds.c $(HACK_H) ../include/edog.h
+sounds.o: sounds.c $(HACK_H)
 sp_lev.o: sp_lev.c $(HACK_H) ../include/dlb.h ../include/sp_lev.h
 spell.o: spell.c $(HACK_H)
 steal.o: steal.c $(HACK_H)
 steed.o: steed.c $(HACK_H)
+sys.o: sys.c $(HACK_H)
 teleport.o: teleport.c $(HACK_H)
 timeout.o: timeout.c $(HACK_H) ../include/lev.h
 topten.o: topten.c $(HACK_H) ../include/dlb.h ../include/patchlevel.h
@@ -915,14 +1086,15 @@ track.o: track.c $(HACK_H)
 trap.o: trap.c $(HACK_H)
 u_init.o: u_init.c $(HACK_H)
 uhitm.o: uhitm.c $(HACK_H)
-vault.o: vault.c $(HACK_H) ../include/vault.h
-version.o: version.c $(HACK_H) ../include/date.h ../include/patchlevel.h
+vault.o: vault.c $(HACK_H)
+version.o: version.c $(HACK_H) ../include/dlb.h ../include/date.h \
+		../include/patchlevel.h
 vision.o: vision.c $(HACK_H) ../include/vis_tab.h
 weapon.o: weapon.c $(HACK_H)
 were.o: were.c $(HACK_H)
 wield.o: wield.c $(HACK_H)
 windows.o: windows.c $(HACK_H) ../include/wingem.h ../include/winGnome.h
-wizard.o: wizard.c $(HACK_H) ../include/qtext.h ../include/epri.h
+wizard.o: wizard.c $(HACK_H) ../include/qtext.h
 worm.o: worm.c $(HACK_H) ../include/lev.h
 worn.o: worn.c $(HACK_H)
 write.o: write.c $(HACK_H)
@@ -930,3 +1102,146 @@ zap.o: zap.c $(HACK_H)
 # DEPENDENCIES MUST END AT END OF FILE
 # IF YOU PUT STUFF HERE IT WILL GO AWAY
 # see make depend above
+### End Makefile.src
+
+###
+### Start hints/macosx10.10 POST
+###
+# (new segment at source line 200 )
+ifdef MAKEFILE_TOP
+###
+### Packaging
+###
+# Notes:
+# 1) The Apple developer utilities must be installed in the default location.
+# 2) Do a normal build before trying to package the game.
+# 3) This matches the 3.4.3 Term package, but there are some things that should
+#    be changed.
+
+ifdef WANT_WIN_TTY
+DEVUTIL=/Developer/Applications/Utilities
+SVS=$(shell $(NHSROOT)/util/makedefs --svs)
+SVSDOT=$(shell $(NHSROOT)/util/makedefs --svs .)
+
+PKGROOT_UG	= PKGROOT/$(PREFIX)
+PKGROOT_UGLN	= PKGROOT/$(HACKDIR)
+PKGROOT_BIN	= PKGROOT/$(SHELLDIR)
+build_tty_pkg:
+ifneq (,$(WANT_WIN_X11)$(WANT_WIN_QT))
+	-echo build_tty_pkg only works for a tty-only build
+	exit 1
+else
+	rm -rf NetHack-$(SVS)-mac-Term.pkg NetHack-$(SVS)-mac-Term.dmg
+	$(MAKE) build_package_root
+	rm -rf RESOURCES
+	mkdir RESOURCES
+	#enscript --language=rtf -o - < dat/license >RESOURCES/License.rtf
+	sys/unix/hints/macosx.sh descplist > RESOURCES/Description.plist
+	sys/unix/hints/macosx.sh infoplist > Info.plist
+
+	mkdir PKGROOT/Applications
+	#osacompile -o NetHackQt/NetHackQt.app/nethackdir/NetHackRecover.app \
+	#	 win/macosx/NetHackRecover.applescript
+	#cp win/macosx/recover.pl NetHackQt/NetHackQt.app/nethackdir
+	osacompile -o PKGROOT/Applications/NetHackRecover.app \
+		 win/macosx/NetHackRecover.applescript
+	cp win/macosx/recover.pl $(PKGROOT_UGLN)
+
+	osacompile -o PKGROOT/Applications/NetHackTerm.app \
+		 win/macosx/NetHackTerm.applescript
+
+	# XXX integrate into Makefile.doc
+	(cd doc; cat Guidebook.mn | ../util/makedefs --grep --input - --output - \
+	| tbl tmac.n - | groff | pstopdf -i -o Guidebook.pdf)
+	cp doc/Guidebook.pdf $(PKGROOT_UG)/doc/NetHackGuidebook.pdf
+
+	osacompile -o PKGROOT/Applications/NetHackGuidebook.app \
+		 win/macosx/NetHackGuidebook.applescript
+
+	mkdir -p PKG
+	pkgbuild --root PKGROOT --identifier org.nethack.term --scripts PKGSCRIPTS PKG/NH-Term.pkg
+	productbuild --synthesize --product Info.plist --package PKG/NH-Term.pkg Distribution.xml
+	productbuild --distribution Distribution.xml --resources RESOURCES --package-path PKG NetHack-$(SVS)-mac-Term.pkg
+	hdiutil create -verbose -srcfolder NetHack-$(SVS)-mac-Term.pkg NetHack-$(SVS)-mac-Term.dmg
+
+build_package_root:
+	cd src/..       # make sure we are at TOP
+	rm -rf PKGROOT
+	mkdir -p $(PKGROOT_UG)/lib $(PKGROOT_BIN) $(PKGROOT_UG)/man/man6 $(PKGROOT_UG)/doc $(PKGROOT_UGLN)
+	install -p src/nethack $(PKGROOT_BIN)
+	# XXX should this be called nethackrecover?
+	install -p util/recover $(PKGROOT_BIN)
+	install -p doc/nethack.6 $(PKGROOT_UG)/man/man6
+	install -p doc/recover.6 $(PKGROOT_UG)/man/man6
+	install -p doc/Guidebook $(PKGROOT_UG)/doc
+	install -p dat/nhdat $(PKGROOT_UGLN)
+	sed 's/^GDBPATH/#GDBPATH/' sys/unix/sysconf | sed 's/^GREPPATH=\/bin\/grep/GREPPATH=\/usr\/bin\/grep/' | sed 's/^PANICTRACE_GDB=[12]/PANICTRACE_GDB=0/' > $(PKGROOT_UGLN)/sysconf
+	cd dat; install -p $(DATNODLB) ../$(PKGROOT_UGLN)
+# XXX these files should be somewhere else for good Mac form
+	touch $(PKGROOT_UGLN)/perm $(PKGROOT_UGLN)/record $(PKGROOT_UGLN)/logfile $(PKGROOT_UGLN)/xlogfile
+	mkdir $(PKGROOT_UGLN)/save
+# XXX what about a news file?
+
+	mkdir -p PKGSCRIPTS
+	echo '#!/bin/sh'                              >  PKGSCRIPTS/postinstall
+	echo $(CHOWN) -R $(GAMEUID) $(HACKDIR)        >> PKGSCRIPTS/postinstall
+	echo $(CHGRP) -R $(GAMEGRP) $(HACKDIR)        >> PKGSCRIPTS/postinstall
+	echo $(CHOWN) $(GAMEUID) $(SHELLDIR)/nethack  >> PKGSCRIPTS/postinstall
+	echo $(CHGRP) $(GAMEGRP) $(SHELLDIR)/nethack  >> PKGSCRIPTS/postinstall
+	echo $(CHOWN) $(GAMEUID) $(SHELLDIR)/recover  >> PKGSCRIPTS/postinstall
+	echo $(CHGRP) $(GAMEGRP) $(SHELLDIR)/recover  >> PKGSCRIPTS/postinstall
+	echo chmod $(VARDIRPERM)  $(HACKDIR)          >> PKGSCRIPTS/postinstall
+	echo chmod $(VARDIRPERM)  $(HACKDIR)/save     >> PKGSCRIPTS/postinstall
+	echo chmod $(FILEPERM)    $(HACKDIR)/nhdat    >> PKGSCRIPTS/postinstall
+	echo chmod $(VARFILEPERM) $(HACKDIR)/perm     >> PKGSCRIPTS/postinstall
+	echo chmod $(VARFILEPERM) $(HACKDIR)/record   >> PKGSCRIPTS/postinstall
+	echo chmod $(VARFILEPERM) $(HACKDIR)/logfile  >> PKGSCRIPTS/postinstall
+	echo chmod $(VARFILEPERM) $(HACKDIR)/xlogfile >> PKGSCRIPTS/postinstall
+	echo chmod $(VARFILEPERM) $(HACKDIR)/sysconf  >> PKGSCRIPTS/postinstall
+	echo chmod $(GAMEPERM)   $(SHELLDIR)/nethack  >> PKGSCRIPTS/postinstall
+	echo chmod $(EXEPERM)    $(SHELLDIR)/recover  >> PKGSCRIPTS/postinstall
+	chmod 0775 PKGSCRIPTS/postinstall
+
+endif	# end of build_tty_pkg
+endif	# WANT_WIN_TTY for packaging
+
+ifdef WANT_WIN_QT
+# XXX untested and incomplete (see below)
+build_qt_pkg:
+ifneq (,$(WANT_WIN_X11)$(WANT_WIN_TTY))
+	-echo build_qt_pkg only works for a qt-only build
+	exit 1
+else
+	$(MAKE) build_package_root
+	rm -rf NetHackQt
+	mkdir -p NetHackQt/NetHackQt.app/nethackdir/save
+	mkdir NetHackQt/Documentation
+	cp doc/Guidebook.txt doc/nethack.txt doc/recover.txt NetHackQt/Documentation
+
+	osacompile -o NetHackQt/NetHackQt.app/nethackdir/NetHackRecover.app \
+		 win/macosx/NetHackRecover.applescript
+	cp win/macosx/recover.pl NetHackQt/NetHackQt.app/nethackdir
+
+	mkdir -p NetHackQt/NetHackQt.app/Contents/Frameworks
+	cp $(QTDIR)/libqt-mt.3.dylib NetHackQt/NetHackQt.app/Contents/Frameworks
+
+	mkdir NetHackQt/NetHackQt.app/Contents/MacOS
+	mv PKGROOT/nethack NetHackQt/NetHackQt.app/Contents/MacOS
+
+	mv PKGROOT/lib/nethackdir NetHackQt/NetHackQt.app/nethackdir
+
+# XXX still missing:
+#NetHackQt/NetHackQt.app
+# /Contents
+#	Info.plist
+#	Resources/nethack.icns
+#NetHackQt/Documentation
+#NetHackQtRecover.txt
+#NetHack Defaults.txt
+#changes.patch XXX is this still needed?  why isn't it part of the tree?
+#  doesn't go here
+	hdiutil create -verbose -srcfolder NetHackQt NetHack-$(SVS)-macosx-qt.dmg
+endif	# end of build_qt_pkg
+endif	# WANT_WIN_QT for packaging
+endif	# MAKEFILE_TOP
+### End hints/macosx10.10 POST

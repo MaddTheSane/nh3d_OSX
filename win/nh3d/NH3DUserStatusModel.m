@@ -956,11 +956,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	[ self setPlayerInt:ACURR( A_INT ) ];
 	[ self setPlayerWis:ACURR( A_WIS ) ];
 	[ self setPlayerCha:ACURR( A_CHA ) ];
-#ifndef GOLDOBJ
-	[ self setPlayerGold:u.ugold ];
-#else
 	[ self setPlayerGold:u.umoney0 ];
-#endif
 #ifdef SCORE_ON_BOTL
 	[ self setPlayerScore:botl_score( ) ];
 #endif

@@ -70,6 +70,7 @@
 - (IBAction)closeInputPanel:(id)sender;
 
 - (void)showOutRip:(const char *)ripString;
+- (void)showOutRipString:(NSString *)ripString;
 
 - (void)putLogMessarge:(NSString *)rawText;
 @property (readonly) BOOL showLogPanel;

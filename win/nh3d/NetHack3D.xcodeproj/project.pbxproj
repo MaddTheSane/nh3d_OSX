@@ -460,6 +460,20 @@
 		2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
+		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
+		5560A2A21C347F0700BF77F7 /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A01C347F0700BF77F7 /* symbols */; };
+		5560A2A31C347F0700BF77F7 /* tribute in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A11C347F0700BF77F7 /* tribute */; };
+		5560A2AB1C34818300BF77F7 /* bigrm-6.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A61C34818300BF77F7 /* bigrm-6.lev */; };
+		5560A2AC1C34818300BF77F7 /* bigrm-7.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A71C34818300BF77F7 /* bigrm-7.lev */; };
+		5560A2AD1C34818300BF77F7 /* bigrm-8.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A81C34818300BF77F7 /* bigrm-8.lev */; };
+		5560A2AE1C34818300BF77F7 /* bigrm-9.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A91C34818300BF77F7 /* bigrm-9.lev */; };
+		5560A2AF1C34818300BF77F7 /* bigrm-10.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2AA1C34818300BF77F7 /* bigrm-10.lev */; };
+		5560A2B21C3481AB00BF77F7 /* medusa-3.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B01C3481AB00BF77F7 /* medusa-3.lev */; };
+		5560A2B31C3481AB00BF77F7 /* medusa-4.lev in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B11C3481AB00BF77F7 /* medusa-4.lev */; };
+		5560A2B71C3481CC00BF77F7 /* bogusmon in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B41C3481CC00BF77F7 /* bogusmon */; };
+		5560A2B81C3481CC00BF77F7 /* engrave in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B51C3481CC00BF77F7 /* engrave */; };
+		5560A2B91C3481CC00BF77F7 /* epitaph in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B61C3481CC00BF77F7 /* epitaph */; };
+		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -648,14 +662,8 @@
 		2B31DBC108CD73C5008CCAAC /* termcap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = termcap.c; sourceTree = "<group>"; };
 		2B31DBC208CD73C5008CCAAC /* topl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = topl.c; sourceTree = "<group>"; };
 		2B31DBC308CD73C5008CCAAC /* wintty.c */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.c; path = wintty.c; sourceTree = "<group>"; };
-		2B31DBC508CD73C5008CCAAC /* dgncomp.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dgncomp.dsp; sourceTree = "<group>"; };
-		2B31DBC608CD73C5008CCAAC /* dgnstuff.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dgnstuff.dsp; sourceTree = "<group>"; };
 		2B31DBC708CD73C5008CCAAC /* dgnstuff.mak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = dgnstuff.mak; sourceTree = "<group>"; };
-		2B31DBC808CD73C5008CCAAC /* dlb_main.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dlb_main.dsp; sourceTree = "<group>"; };
-		2B31DBC908CD73C5008CCAAC /* levcomp.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = levcomp.dsp; sourceTree = "<group>"; };
-		2B31DBCA08CD73C5008CCAAC /* levstuff.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = levstuff.dsp; sourceTree = "<group>"; };
 		2B31DBCB08CD73C5008CCAAC /* levstuff.mak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = levstuff.mak; sourceTree = "<group>"; };
-		2B31DBCC08CD73C5008CCAAC /* makedefs.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = makedefs.dsp; sourceTree = "<group>"; };
 		2B31DBCD08CD73C5008CCAAC /* mhaskyn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mhaskyn.c; sourceTree = "<group>"; };
 		2B31DBCE08CD73C5008CCAAC /* mhaskyn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mhaskyn.h; sourceTree = "<group>"; };
 		2B31DBCF08CD73C5008CCAAC /* mhdlg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mhdlg.c; sourceTree = "<group>"; };
@@ -685,25 +693,17 @@
 		2B31DBE708CD73C5008CCAAC /* mnselcnt.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mnselcnt.uu; sourceTree = "<group>"; };
 		2B31DBE808CD73C5008CCAAC /* mnunsel.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mnunsel.uu; sourceTree = "<group>"; };
 		2B31DBE908CD73C5008CCAAC /* mswproc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mswproc.c; sourceTree = "<group>"; };
-		2B31DBEA08CD73C5008CCAAC /* nethack.dsw */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethack.dsw; sourceTree = "<group>"; };
-		2B31DBEB08CD73C5008CCAAC /* nethackw.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethackw.dsp; sourceTree = "<group>"; };
 		2B31DBEC08CD73C5008CCAAC /* petmark.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = petmark.uu; sourceTree = "<group>"; };
-		2B31DBED08CD73C5008CCAAC /* recover.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = recover.dsp; sourceTree = "<group>"; };
 		2B31DBEE08CD73C5008CCAAC /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		2B31DBEF08CD73C5008CCAAC /* rip.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rip.uu; sourceTree = "<group>"; };
 		2B31DBF008CD73C5008CCAAC /* splash.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = splash.uu; sourceTree = "<group>"; };
-		2B31DBF108CD73C5008CCAAC /* tile2bmp.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tile2bmp.dsp; sourceTree = "<group>"; };
-		2B31DBF208CD73C5008CCAAC /* tilemap.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tilemap.dsp; sourceTree = "<group>"; };
-		2B31DBF308CD73C5008CCAAC /* tiles.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tiles.dsp; sourceTree = "<group>"; };
 		2B31DBF408CD73C5008CCAAC /* tiles.mak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = tiles.mak; sourceTree = "<group>"; };
-		2B31DBF508CD73C5008CCAAC /* uudecode.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = uudecode.dsp; sourceTree = "<group>"; };
 		2B31DBF608CD73C5008CCAAC /* winhack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winhack.c; sourceTree = "<group>"; };
 		2B31DBF708CD73C5008CCAAC /* winhack.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = winhack.rc; sourceTree = "<group>"; };
 		2B31DBF808CD73C5008CCAAC /* winMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winMS.h; sourceTree = "<group>"; };
 		2B31DBFA08CD73C5008CCAAC /* dialogs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dialogs.c; sourceTree = "<group>"; };
 		2B31DBFB08CD73C5008CCAAC /* ibm.bdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ibm.bdf; sourceTree = "<group>"; };
 		2B31DBFC08CD73C5008CCAAC /* Install.X11 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Install.X11; sourceTree = "<group>"; };
-		2B31DBFD08CD73C5008CCAAC /* JNetHack.ad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JNetHack.ad; sourceTree = "<group>"; };
 		2B31DBFE08CD73C5008CCAAC /* NetHack.ad */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NetHack.ad; sourceTree = "<group>"; };
 		2B31DBFF08CD73C5008CCAAC /* nethack.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethack.rc; sourceTree = "<group>"; };
 		2B31DC0008CD73C5008CCAAC /* nh10.bdf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nh10.bdf; sourceTree = "<group>"; };
@@ -800,7 +800,6 @@
 		2B31DCD308CD73D4008CCAAC /* moveinit.pat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moveinit.pat; sourceTree = "<group>"; };
 		2B31DCD408CD73D4008CCAAC /* msdos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msdos.c; sourceTree = "<group>"; };
 		2B31DCD508CD73D4008CCAAC /* msdoshlp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = msdoshlp.txt; sourceTree = "<group>"; };
-		2B31DCD608CD73D4008CCAAC /* NHAccess.nh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NHAccess.nh; sourceTree = "<group>"; };
 		2B31DCD708CD73D4008CCAAC /* nhico.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nhico.uu; sourceTree = "<group>"; };
 		2B31DCD808CD73D4008CCAAC /* nhpif.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nhpif.uu; sourceTree = "<group>"; };
 		2B31DCD908CD73D4008CCAAC /* ovlinit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ovlinit.c; sourceTree = "<group>"; };
@@ -926,10 +925,8 @@
 		2B31DD6908CD73D5008CCAAC /* console.rc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = console.rc; sourceTree = "<group>"; };
 		2B31DD6A08CD73D5008CCAAC /* defaults.nh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = defaults.nh; sourceTree = "<group>"; };
 		2B31DD6B08CD73D5008CCAAC /* Install.nt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Install.nt; sourceTree = "<group>"; };
-		2B31DD6C08CD73D5008CCAAC /* Makefile.bcc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.bcc; sourceTree = "<group>"; };
 		2B31DD6D08CD73D5008CCAAC /* Makefile.gcc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.gcc; sourceTree = "<group>"; };
 		2B31DD6E08CD73D5008CCAAC /* Makefile.msc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.msc; sourceTree = "<group>"; };
-		2B31DD6F08CD73D5008CCAAC /* mapimail.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mapimail.c; sourceTree = "<group>"; };
 		2B31DD7008CD73D5008CCAAC /* nethack.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethack.def; sourceTree = "<group>"; };
 		2B31DD7108CD73D5008CCAAC /* nh340key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nh340key.c; sourceTree = "<group>"; };
 		2B31DD7208CD73D5008CCAAC /* nhdefkey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nhdefkey.c; sourceTree = "<group>"; };
@@ -1243,18 +1240,13 @@
 		2B5CC1D1088EB7ED00940C58 /* display.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = display.h; sourceTree = "<group>"; };
 		2B5CC1D2088EB7ED00940C58 /* dlb.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = dlb.h; sourceTree = "<group>"; };
 		2B5CC1D3088EB7ED00940C58 /* dungeon.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = dungeon.h; sourceTree = "<group>"; };
-		2B5CC1D4088EB7ED00940C58 /* edog.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = edog.h; sourceTree = "<group>"; };
-		2B5CC1D5088EB7ED00940C58 /* emin.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = emin.h; sourceTree = "<group>"; };
 		2B5CC1D6088EB7ED00940C58 /* engrave.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = engrave.h; sourceTree = "<group>"; };
-		2B5CC1D7088EB7ED00940C58 /* epri.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = epri.h; sourceTree = "<group>"; };
-		2B5CC1D8088EB7ED00940C58 /* eshk.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = eshk.h; sourceTree = "<group>"; };
 		2B5CC1D9088EB7ED00940C58 /* extern.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = extern.h; sourceTree = "<group>"; };
 		2B5CC1DA088EB7ED00940C58 /* flag.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = flag.h; sourceTree = "<group>"; };
 		2B5CC1DB088EB7ED00940C58 /* func_tab.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = func_tab.h; sourceTree = "<group>"; };
 		2B5CC1DC088EB7ED00940C58 /* gem_rsc.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = gem_rsc.h; sourceTree = "<group>"; };
 		2B5CC1DD088EB7ED00940C58 /* global.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		2B5CC1DE088EB7ED00940C58 /* hack.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = hack.h; sourceTree = "<group>"; };
-		2B5CC1DF088EB7ED00940C58 /* jdata.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = jdata.h; sourceTree = "<group>"; };
 		2B5CC1E0088EB7ED00940C58 /* lev.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = lev.h; sourceTree = "<group>"; };
 		2B5CC1E1088EB7ED00940C58 /* lev_comp.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = lev_comp.h; sourceTree = "<group>"; };
 		2B5CC1E2088EB7ED00940C58 /* load_img.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = load_img.h; sourceTree = "<group>"; };
@@ -1275,7 +1267,6 @@
 		2B5CC1F1088EB7ED00940C58 /* monst.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = monst.h; sourceTree = "<group>"; };
 		2B5CC1F2088EB7ED00940C58 /* monsym.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = monsym.h; sourceTree = "<group>"; };
 		2B5CC1F3088EB7ED00940C58 /* mttypriv.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = mttypriv.h; sourceTree = "<group>"; };
-		2B5CC1F4088EB7ED00940C58 /* nhlan.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = nhlan.h; sourceTree = "<group>"; };
 		2B5CC1F5088EB7ED00940C58 /* ntconf.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = ntconf.h; sourceTree = "<group>"; };
 		2B5CC1F6088EB7ED00940C58 /* obj.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = obj.h; sourceTree = "<group>"; };
 		2B5CC1F7088EB7ED00940C58 /* objclass.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = objclass.h; sourceTree = "<group>"; };
@@ -1301,7 +1292,6 @@
 		2B5CC20B088EB7ED00940C58 /* spell.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = spell.h; sourceTree = "<group>"; };
 		2B5CC20C088EB7ED00940C58 /* system.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = system.h; sourceTree = "<group>"; };
 		2B5CC20D088EB7ED00940C58 /* tcap.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = tcap.h; sourceTree = "<group>"; };
-		2B5CC20E088EB7ED00940C58 /* tile.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = tile.h; sourceTree = "<group>"; };
 		2B5CC20F088EB7ED00940C58 /* tile2x11.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = tile2x11.h; sourceTree = "<group>"; };
 		2B5CC210088EB7ED00940C58 /* timeout.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = timeout.h; sourceTree = "<group>"; };
 		2B5CC211088EB7ED00940C58 /* tosconf.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = tosconf.h; sourceTree = "<group>"; };
@@ -1309,7 +1299,6 @@
 		2B5CC213088EB7ED00940C58 /* trampoli.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = trampoli.h; sourceTree = "<group>"; };
 		2B5CC214088EB7ED00940C58 /* trap.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = trap.h; sourceTree = "<group>"; };
 		2B5CC215088EB7ED00940C58 /* unixconf.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = unixconf.h; sourceTree = "<group>"; };
-		2B5CC216088EB7ED00940C58 /* vault.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = vault.h; sourceTree = "<group>"; };
 		2B5CC217088EB7ED00940C58 /* vis_tab.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = vis_tab.h; sourceTree = "<group>"; };
 		2B5CC218088EB7ED00940C58 /* vision.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = vision.h; sourceTree = "<group>"; };
 		2B5CC219088EB7ED00940C58 /* vmsconf.h */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.h; path = vmsconf.h; sourceTree = "<group>"; };
@@ -1463,6 +1452,25 @@
 		55459F8D1B5DFFDD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
+		5560A2991C347D5B00BF77F7 /* sys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sys.c; sourceTree = "<group>"; };
+		5560A29B1C347E0900BF77F7 /* sys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sys.h; sourceTree = "<group>"; };
+		5560A29C1C347E7100BF77F7 /* mextra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mextra.h; sourceTree = "<group>"; };
+		5560A29D1C347E8B00BF77F7 /* lint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lint.h; sourceTree = "<group>"; };
+		5560A29E1C347EB400BF77F7 /* context.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = context.h; sourceTree = "<group>"; };
+		5560A29F1C347ED100BF77F7 /* botl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = botl.h; sourceTree = "<group>"; };
+		5560A2A01C347F0700BF77F7 /* symbols */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = symbols; sourceTree = "<group>"; };
+		5560A2A11C347F0700BF77F7 /* tribute */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tribute; sourceTree = "<group>"; };
+		5560A2A61C34818300BF77F7 /* bigrm-6.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bigrm-6.lev"; sourceTree = "<group>"; };
+		5560A2A71C34818300BF77F7 /* bigrm-7.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bigrm-7.lev"; sourceTree = "<group>"; };
+		5560A2A81C34818300BF77F7 /* bigrm-8.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bigrm-8.lev"; sourceTree = "<group>"; };
+		5560A2A91C34818300BF77F7 /* bigrm-9.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bigrm-9.lev"; sourceTree = "<group>"; };
+		5560A2AA1C34818300BF77F7 /* bigrm-10.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "bigrm-10.lev"; sourceTree = "<group>"; };
+		5560A2B01C3481AB00BF77F7 /* medusa-3.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "medusa-3.lev"; sourceTree = "<group>"; };
+		5560A2B11C3481AB00BF77F7 /* medusa-4.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "medusa-4.lev"; sourceTree = "<group>"; };
+		5560A2B41C3481CC00BF77F7 /* bogusmon */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bogusmon; sourceTree = "<group>"; };
+		5560A2B51C3481CC00BF77F7 /* engrave */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = engrave; sourceTree = "<group>"; };
+		5560A2B61C3481CC00BF77F7 /* epitaph */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = epitaph; sourceTree = "<group>"; };
+		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1601,7 +1609,8 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				5560A2A51C347F8C00BF77F7 /* Other Sources */,
+				29B97315FDCFA39411CA2CEA /* NetHack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -1609,7 +1618,7 @@
 			name = NetHack3D;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+		29B97315FDCFA39411CA2CEA /* NetHack */ = {
 			isa = PBXGroup;
 			children = (
 				2B31DC8308CD73D4008CCAAC /* sys */,
@@ -1618,10 +1627,11 @@
 				2B5CC1C0088EB7ED00940C58 /* include */,
 				2B5CC0D9088EB7DF00940C58 /* src */,
 				2B5CBF73088EB5A500940C58 /* dat */,
-				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 			);
-			name = "Other Sources";
-			sourceTree = "<group>";
+			name = NetHack;
+			path = ../..;
+			sourceTree = SOURCE_ROOT;
+			usesTabs = 0;
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
@@ -1814,8 +1824,7 @@
 				2B31DBC408CD73C5008CCAAC /* win32 */,
 				2B31DBF908CD73C5008CCAAC /* X11 */,
 			);
-			name = win;
-			path = ..;
+			path = win;
 			sourceTree = "<group>";
 		};
 		2B31DB7608CD73C5008CCAAC /* gem */ = {
@@ -1929,14 +1938,8 @@
 		2B31DBC408CD73C5008CCAAC /* win32 */ = {
 			isa = PBXGroup;
 			children = (
-				2B31DBC508CD73C5008CCAAC /* dgncomp.dsp */,
-				2B31DBC608CD73C5008CCAAC /* dgnstuff.dsp */,
 				2B31DBC708CD73C5008CCAAC /* dgnstuff.mak */,
-				2B31DBC808CD73C5008CCAAC /* dlb_main.dsp */,
-				2B31DBC908CD73C5008CCAAC /* levcomp.dsp */,
-				2B31DBCA08CD73C5008CCAAC /* levstuff.dsp */,
 				2B31DBCB08CD73C5008CCAAC /* levstuff.mak */,
-				2B31DBCC08CD73C5008CCAAC /* makedefs.dsp */,
 				2B31DBCD08CD73C5008CCAAC /* mhaskyn.c */,
 				2B31DBCE08CD73C5008CCAAC /* mhaskyn.h */,
 				2B31DBCF08CD73C5008CCAAC /* mhdlg.c */,
@@ -1966,18 +1969,11 @@
 				2B31DBE708CD73C5008CCAAC /* mnselcnt.uu */,
 				2B31DBE808CD73C5008CCAAC /* mnunsel.uu */,
 				2B31DBE908CD73C5008CCAAC /* mswproc.c */,
-				2B31DBEA08CD73C5008CCAAC /* nethack.dsw */,
-				2B31DBEB08CD73C5008CCAAC /* nethackw.dsp */,
 				2B31DBEC08CD73C5008CCAAC /* petmark.uu */,
-				2B31DBED08CD73C5008CCAAC /* recover.dsp */,
 				2B31DBEE08CD73C5008CCAAC /* resource.h */,
 				2B31DBEF08CD73C5008CCAAC /* rip.uu */,
 				2B31DBF008CD73C5008CCAAC /* splash.uu */,
-				2B31DBF108CD73C5008CCAAC /* tile2bmp.dsp */,
-				2B31DBF208CD73C5008CCAAC /* tilemap.dsp */,
-				2B31DBF308CD73C5008CCAAC /* tiles.dsp */,
 				2B31DBF408CD73C5008CCAAC /* tiles.mak */,
-				2B31DBF508CD73C5008CCAAC /* uudecode.dsp */,
 				2B31DBF608CD73C5008CCAAC /* winhack.c */,
 				2B31DBF708CD73C5008CCAAC /* winhack.rc */,
 				2B31DBF808CD73C5008CCAAC /* winMS.h */,
@@ -1991,7 +1987,6 @@
 				2B31DBFA08CD73C5008CCAAC /* dialogs.c */,
 				2B31DBFB08CD73C5008CCAAC /* ibm.bdf */,
 				2B31DBFC08CD73C5008CCAAC /* Install.X11 */,
-				2B31DBFD08CD73C5008CCAAC /* JNetHack.ad */,
 				2B31DBFE08CD73C5008CCAAC /* NetHack.ad */,
 				2B31DBFF08CD73C5008CCAAC /* nethack.rc */,
 				2B31DC0008CD73C5008CCAAC /* nh10.bdf */,
@@ -2031,8 +2026,7 @@
 				2B31DD3408CD73D5008CCAAC /* wince */,
 				2B31DD6808CD73D5008CCAAC /* winnt */,
 			);
-			name = sys;
-			path = ../../sys;
+			path = sys;
 			sourceTree = "<group>";
 		};
 		2B31DC8408CD73D4008CCAAC /* amiga */ = {
@@ -2143,7 +2137,6 @@
 				2B31DCD308CD73D4008CCAAC /* moveinit.pat */,
 				2B31DCD408CD73D4008CCAAC /* msdos.c */,
 				2B31DCD508CD73D4008CCAAC /* msdoshlp.txt */,
-				2B31DCD608CD73D4008CCAAC /* NHAccess.nh */,
 				2B31DCD708CD73D4008CCAAC /* nhico.uu */,
 				2B31DCD808CD73D4008CCAAC /* nhpif.uu */,
 				2B31DCD908CD73D4008CCAAC /* ovlinit.c */,
@@ -2193,6 +2186,7 @@
 				2B31DCF908CD73D4008CCAAC /* pcsys.c */,
 				2B31DCFA08CD73D4008CCAAC /* pctty.c */,
 				2B31DCFB08CD73D4008CCAAC /* pcunix.c */,
+				5560A2BA1C348C4900BF77F7 /* posixregex.c */,
 				2B31DCFC08CD73D4008CCAAC /* random.c */,
 				2B31DCFD08CD73D4008CCAAC /* sounds */,
 				2B31DD0A08CD73D4008CCAAC /* tclib.c */,
@@ -2326,10 +2320,8 @@
 				2B31DD6908CD73D5008CCAAC /* console.rc */,
 				2B31DD6A08CD73D5008CCAAC /* defaults.nh */,
 				2B31DD6B08CD73D5008CCAAC /* Install.nt */,
-				2B31DD6C08CD73D5008CCAAC /* Makefile.bcc */,
 				2B31DD6D08CD73D5008CCAAC /* Makefile.gcc */,
 				2B31DD6E08CD73D5008CCAAC /* Makefile.msc */,
-				2B31DD6F08CD73D5008CCAAC /* mapimail.c */,
 				2B31DD7008CD73D5008CCAAC /* nethack.def */,
 				2B31DD7108CD73D5008CCAAC /* nh340key.c */,
 				2B31DD7208CD73D5008CCAAC /* nhdefkey.c */,
@@ -2369,10 +2361,6 @@
 		2B5CBF73088EB5A500940C58 /* dat */ = {
 			isa = PBXGroup;
 			children = (
-				2B89F1280A22FE3F00387832 /* oracles */,
-				2B89F1290A22FE3F00387832 /* rumors */,
-				2B25C9A708F28B47009163CD /* dungeon.pdf */,
-				2B0D0DA308F1C20600F7A7E8 /* options */,
 				2B5CBF74088EB5A500940C58 /* air.lev */,
 				2B5CBF75088EB5A500940C58 /* Arc-fila.lev */,
 				2B5CBF76088EB5A500940C58 /* Arc-filb.lev */,
@@ -2394,7 +2382,13 @@
 				2B5CBF86088EB5A500940C58 /* bigrm-3.lev */,
 				2B5CBF87088EB5A500940C58 /* bigrm-4.lev */,
 				2B5CBF88088EB5A500940C58 /* bigrm-5.lev */,
+				5560A2A61C34818300BF77F7 /* bigrm-6.lev */,
+				5560A2A71C34818300BF77F7 /* bigrm-7.lev */,
+				5560A2A81C34818300BF77F7 /* bigrm-8.lev */,
+				5560A2A91C34818300BF77F7 /* bigrm-9.lev */,
+				5560A2AA1C34818300BF77F7 /* bigrm-10.lev */,
 				2B5CBF89088EB5A500940C58 /* bigroom.des */,
+				5560A2B41C3481CC00BF77F7 /* bogusmon */,
 				2B5CBF8A088EB5A500940C58 /* castle.des */,
 				2B5CBF8B088EB5A500940C58 /* castle.lev */,
 				2B5CBF8C088EB5A600940C58 /* Cav-fila.lev */,
@@ -2408,8 +2402,11 @@
 				2B5CBF94088EB5A600940C58 /* data.base */,
 				2B5CBF95088EB5A600940C58 /* dungeon */,
 				2B5CBF96088EB5A600940C58 /* dungeon.def */,
+				2B25C9A708F28B47009163CD /* dungeon.pdf */,
 				2B5CBF98088EB5A600940C58 /* earth.lev */,
 				2B5CBF99088EB5A600940C58 /* endgame.des */,
+				5560A2B51C3481CC00BF77F7 /* engrave */,
+				5560A2B61C3481CC00BF77F7 /* epitaph */,
 				2B5CBF9A088EB5A600940C58 /* fakewiz1.lev */,
 				2B5CBF9B088EB5A600940C58 /* fakewiz2.lev */,
 				2B5CBF9C088EB5A600940C58 /* fire.lev */,
@@ -2436,6 +2433,8 @@
 				2B5CBFC1088EB5A600940C58 /* Makefile */,
 				2B5CBFC2088EB5A600940C58 /* medusa-1.lev */,
 				2B5CBFC3088EB5A600940C58 /* medusa-2.lev */,
+				5560A2B01C3481AB00BF77F7 /* medusa-3.lev */,
+				5560A2B11C3481AB00BF77F7 /* medusa-4.lev */,
 				2B5CBFC4088EB5A600940C58 /* medusa.des */,
 				2B5CBFC5088EB5A600940C58 /* minefill.lev */,
 				2B5CBFC6088EB5A600940C58 /* minend-1.lev */,
@@ -2456,8 +2455,10 @@
 				2B5CBFD5088EB5A600940C58 /* Mon-strt.lev */,
 				2B5CBFD6088EB5A600940C58 /* Monk.des */,
 				2B5CBFDA088EB5A600940C58 /* opthelp */,
+				2B0D0DA308F1C20600F7A7E8 /* options */,
 				2B5CBFDC088EB5A600940C58 /* oracle.des */,
 				2B5CBFDD088EB5A600940C58 /* oracle.lev */,
+				2B89F1280A22FE3F00387832 /* oracles */,
 				2B5CBFDE088EB5A600940C58 /* oracles.txt */,
 				2B5CBFDF088EB5A600940C58 /* orcus.lev */,
 				2B5CBFE0088EB5A600940C58 /* Pri-fila.lev */,
@@ -2466,9 +2467,9 @@
 				2B5CBFE3088EB5A600940C58 /* Pri-loca.lev */,
 				2B5CBFE4088EB5A600940C58 /* Pri-strt.lev */,
 				2B5CBFE5088EB5A600940C58 /* Priest.des */,
+				2B5CBFE8088EB5A600940C58 /* quest_levs */,
 				2B5CBFE6088EB5A600940C58 /* quest.dat */,
 				2B5CBFE7088EB5A600940C58 /* quest.txt */,
-				2B5CBFE8088EB5A600940C58 /* quest_levs */,
 				2B5CBFE9088EB5A600940C58 /* Ran-fila.lev */,
 				2B5CBFEA088EB5A600940C58 /* Ran-filb.lev */,
 				2B5CBFEB088EB5A600940C58 /* Ran-goal.lev */,
@@ -2481,6 +2482,7 @@
 				2B5CBFF3088EB5A600940C58 /* Rog-loca.lev */,
 				2B5CBFF4088EB5A600940C58 /* Rog-strt.lev */,
 				2B5CBFF5088EB5A600940C58 /* Rogue.des */,
+				2B89F1290A22FE3F00387832 /* rumors */,
 				2B5CBFF6088EB5A600940C58 /* rumors.fal */,
 				2B5CBFF7088EB5A600940C58 /* rumors.tru */,
 				2B5CBFF8088EB5A600940C58 /* Sam-fila.lev */,
@@ -2500,6 +2502,7 @@
 				2B5CC006088EB5A600940C58 /* soko4-2.lev */,
 				2B5CC007088EB5A600940C58 /* sokoban.des */,
 				2B5CC008088EB5A600940C58 /* spec_levs */,
+				5560A2A01C347F0700BF77F7 /* symbols */,
 				2B5CC009088EB5A600940C58 /* Tou-fila.lev */,
 				2B5CC00A088EB5A600940C58 /* Tou-filb.lev */,
 				2B5CC00B088EB5A600940C58 /* Tou-goal.lev */,
@@ -2510,6 +2513,7 @@
 				2B5CC010088EB5A600940C58 /* tower1.lev */,
 				2B5CC011088EB5A600940C58 /* tower2.lev */,
 				2B5CC012088EB5A600940C58 /* tower3.lev */,
+				5560A2A11C347F0700BF77F7 /* tribute */,
 				2B5CC013088EB5A600940C58 /* Val-fila.lev */,
 				2B5CC014088EB5A600940C58 /* Val-filb.lev */,
 				2B5CC015088EB5A600940C58 /* Val-goal.lev */,
@@ -2530,8 +2534,7 @@
 				2B5CC024088EB5A600940C58 /* wizhelp */,
 				2B5CC025088EB5A600940C58 /* yendor.des */,
 			);
-			name = dat;
-			path = ../../dat;
+			path = dat;
 			sourceTree = "<group>";
 		};
 		2B5CC0D9088EB7DF00940C58 /* src */ = {
@@ -2568,6 +2571,7 @@
 				2B5CC0F6088EB7DF00940C58 /* explode.c */,
 				2B5CC0F7088EB7DF00940C58 /* extralev.c */,
 				2B5CC0F8088EB7DF00940C58 /* files.c */,
+				5560A2991C347D5B00BF77F7 /* sys.c */,
 				2B5CC0F9088EB7DF00940C58 /* fountain.c */,
 				2B5CC0FA088EB7DF00940C58 /* hack.c */,
 				2B5CC0FB088EB7DF00940C58 /* hacklib.c */,
@@ -2648,8 +2652,7 @@
 				2B5CC14B088EB7DF00940C58 /* write.c */,
 				2B5CC14C088EB7DF00940C58 /* zap.c */,
 			);
-			name = src;
-			path = ../../src;
+			path = src;
 			sourceTree = "<group>";
 		};
 		2B5CC1C0088EB7ED00940C58 /* include */ = {
@@ -2663,9 +2666,11 @@
 				2B5CC1C5088EB7ED00940C58 /* attrib.h */,
 				2B5CC1C6088EB7ED00940C58 /* beconf.h */,
 				2B5CC1C7088EB7ED00940C58 /* bitmfile.h */,
+				5560A29F1C347ED100BF77F7 /* botl.h */,
 				2B5CC1C8088EB7ED00940C58 /* color.h */,
 				2B5CC1C9088EB7ED00940C58 /* config.h */,
 				2B5CC1CA088EB7ED00940C58 /* config1.h */,
+				5560A29E1C347EB400BF77F7 /* context.h */,
 				2B5CC1CB088EB7ED00940C58 /* coord.h */,
 				2B5CC1CC088EB7ED00940C58 /* date.h */,
 				2B5CC1CD088EB7ED00940C58 /* decl.h */,
@@ -2675,20 +2680,16 @@
 				2B5CC1D1088EB7ED00940C58 /* display.h */,
 				2B5CC1D2088EB7ED00940C58 /* dlb.h */,
 				2B5CC1D3088EB7ED00940C58 /* dungeon.h */,
-				2B5CC1D4088EB7ED00940C58 /* edog.h */,
-				2B5CC1D5088EB7ED00940C58 /* emin.h */,
 				2B5CC1D6088EB7ED00940C58 /* engrave.h */,
-				2B5CC1D7088EB7ED00940C58 /* epri.h */,
-				2B5CC1D8088EB7ED00940C58 /* eshk.h */,
 				2B5CC1D9088EB7ED00940C58 /* extern.h */,
 				2B5CC1DA088EB7ED00940C58 /* flag.h */,
 				2B5CC1DB088EB7ED00940C58 /* func_tab.h */,
 				2B5CC1DC088EB7ED00940C58 /* gem_rsc.h */,
 				2B5CC1DD088EB7ED00940C58 /* global.h */,
 				2B5CC1DE088EB7ED00940C58 /* hack.h */,
-				2B5CC1DF088EB7ED00940C58 /* jdata.h */,
-				2B5CC1E0088EB7ED00940C58 /* lev.h */,
 				2B5CC1E1088EB7ED00940C58 /* lev_comp.h */,
+				2B5CC1E0088EB7ED00940C58 /* lev.h */,
+				5560A29D1C347E8B00BF77F7 /* lint.h */,
 				2B5CC1E2088EB7ED00940C58 /* load_img.h */,
 				2B5CC1E3088EB7ED00940C58 /* mac-carbon.h */,
 				2B5CC1E4088EB7ED00940C58 /* mac-qt.h */,
@@ -2698,6 +2699,7 @@
 				2B5CC1E8088EB7ED00940C58 /* mactty.h */,
 				2B5CC1E9088EB7ED00940C58 /* macwin.h */,
 				2B5CC1EA088EB7ED00940C58 /* mail.h */,
+				5560A29C1C347E7100BF77F7 /* mextra.h */,
 				2B5CC1EB088EB7ED00940C58 /* mfndpos.h */,
 				2B5CC1EC088EB7ED00940C58 /* micro.h */,
 				2B5CC1ED088EB7ED00940C58 /* mkroom.h */,
@@ -2707,7 +2709,6 @@
 				2B5CC1F1088EB7ED00940C58 /* monst.h */,
 				2B5CC1F2088EB7ED00940C58 /* monsym.h */,
 				2B5CC1F3088EB7ED00940C58 /* mttypriv.h */,
-				2B5CC1F4088EB7ED00940C58 /* nhlan.h */,
 				2B5CC1F5088EB7ED00940C58 /* ntconf.h */,
 				2B5CC1F6088EB7ED00940C58 /* obj.h */,
 				2B5CC1F7088EB7ED00940C58 /* objclass.h */,
@@ -2731,9 +2732,9 @@
 				2B5CC209088EB7ED00940C58 /* skills.h */,
 				2B5CC20A088EB7ED00940C58 /* sp_lev.h */,
 				2B5CC20B088EB7ED00940C58 /* spell.h */,
+				5560A29B1C347E0900BF77F7 /* sys.h */,
 				2B5CC20C088EB7ED00940C58 /* system.h */,
 				2B5CC20D088EB7ED00940C58 /* tcap.h */,
-				2B5CC20E088EB7ED00940C58 /* tile.h */,
 				2B5CC20F088EB7ED00940C58 /* tile2x11.h */,
 				2B5CC210088EB7ED00940C58 /* timeout.h */,
 				2B5CC211088EB7ED00940C58 /* tosconf.h */,
@@ -2741,7 +2742,6 @@
 				2B5CC213088EB7ED00940C58 /* trampoli.h */,
 				2B5CC214088EB7ED00940C58 /* trap.h */,
 				2B5CC215088EB7ED00940C58 /* unixconf.h */,
-				2B5CC216088EB7ED00940C58 /* vault.h */,
 				2B5CC217088EB7ED00940C58 /* vis_tab.h */,
 				2B5CC218088EB7ED00940C58 /* vision.h */,
 				2B5CC219088EB7ED00940C58 /* vmsconf.h */,
@@ -2758,8 +2758,7 @@
 				2B5CC224088EB7ED00940C58 /* you.h */,
 				2B5CC225088EB7ED00940C58 /* youprop.h */,
 			);
-			name = include;
-			path = ../../include;
+			path = include;
 			sourceTree = "<group>";
 		};
 		2B6F3EDE091AF3E500367391 /* Sound */ = {
@@ -2835,8 +2834,15 @@
 				2BEB62E60891ADF000D38098 /* panic.c */,
 				2BEB62E80891ADF000D38098 /* recover.c */,
 			);
-			name = util;
-			path = ../../util;
+			path = util;
+			sourceTree = "<group>";
+		};
+		5560A2A51C347F8C00BF77F7 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
+			);
+			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2994,6 +3000,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5560A2B21C3481AB00BF77F7 /* medusa-3.lev in Resources */,
 				2B5CC026088EB5A600940C58 /* air.lev in Resources */,
 				2B5CC027088EB5A600940C58 /* Arc-fila.lev in Resources */,
 				2B5CC028088EB5A600940C58 /* Arc-filb.lev in Resources */,
@@ -3009,6 +3016,7 @@
 				2B5CC033088EB5A600940C58 /* Bar-loca.lev in Resources */,
 				2B5CC034088EB5A600940C58 /* Bar-strt.lev in Resources */,
 				2B5CC036088EB5A600940C58 /* bigrm-1.lev in Resources */,
+				5560A2AB1C34818300BF77F7 /* bigrm-6.lev in Resources */,
 				2B5CC037088EB5A600940C58 /* bigrm-2.lev in Resources */,
 				2B5CC038088EB5A600940C58 /* bigrm-3.lev in Resources */,
 				2B5CC039088EB5A600940C58 /* bigrm-4.lev in Resources */,
@@ -3073,6 +3081,7 @@
 				2B5CC094088EB5A600940C58 /* Pri-goal.lev in Resources */,
 				2B5CC095088EB5A600940C58 /* Pri-loca.lev in Resources */,
 				2B5CC096088EB5A600940C58 /* Pri-strt.lev in Resources */,
+				5560A2B81C3481CC00BF77F7 /* engrave in Resources */,
 				2B5CC098088EB5A600940C58 /* quest.dat in Resources */,
 				2B5CC099088EB5A600940C58 /* quest.txt in Resources */,
 				2B5CC09A088EB5A600940C58 /* quest_levs in Resources */,
@@ -3090,6 +3099,7 @@
 				2B5CC0A8088EB5A600940C58 /* rumors.fal in Resources */,
 				2B5CC0A9088EB5A600940C58 /* rumors.tru in Resources */,
 				2B5CC0AA088EB5A600940C58 /* Sam-fila.lev in Resources */,
+				5560A2B71C3481CC00BF77F7 /* bogusmon in Resources */,
 				2B5CC0AB088EB5A600940C58 /* Sam-filb.lev in Resources */,
 				2B5CC0AC088EB5A600940C58 /* Sam-goal.lev in Resources */,
 				2B5CC0AD088EB5A600940C58 /* Sam-loca.lev in Resources */,
@@ -3107,6 +3117,7 @@
 				2B5CC0BB088EB5A600940C58 /* Tou-fila.lev in Resources */,
 				2B5CC0BC088EB5A600940C58 /* Tou-filb.lev in Resources */,
 				2B5CC0BD088EB5A600940C58 /* Tou-goal.lev in Resources */,
+				5560A2B31C3481AB00BF77F7 /* medusa-4.lev in Resources */,
 				2B5CC0BE088EB5A600940C58 /* Tou-loca.lev in Resources */,
 				2B5CC0BF088EB5A600940C58 /* Tou-strt.lev in Resources */,
 				2B5CC0C2088EB5A600940C58 /* tower1.lev in Resources */,
@@ -3134,6 +3145,7 @@
 				2B5469C208EF2F01008AA81F /* Sysunix in Resources */,
 				2BA021C808EF4B62004057D1 /* perm in Resources */,
 				2BA046CD08EF5831004057D1 /* logfile in Resources */,
+				5560A2A21C347F0700BF77F7 /* symbols in Resources */,
 				2B0D0DA408F1C20600F7A7E8 /* options in Resources */,
 				2BCFB08A08F88696007DB83D /* nh3dCursor.tiff in Resources */,
 				2BCFB0A508F8992B007DB83D /* nh3dPosCursor.tiff in Resources */,
@@ -3191,6 +3203,7 @@
 				2B26130209233E7900CA7A64 /* upperD.3ds in Resources */,
 				2B26130309233E7900CA7A64 /* upperE.3ds in Resources */,
 				2B26130409233E7900CA7A64 /* upperF.3ds in Resources */,
+				5560A2A31C347F0700BF77F7 /* tribute in Resources */,
 				2B26130509233E7900CA7A64 /* upperG.3ds in Resources */,
 				2B26130609233E7900CA7A64 /* upperH.3ds in Resources */,
 				2B26130709233E7900CA7A64 /* upperI.3ds in Resources */,
@@ -3232,6 +3245,7 @@
 				2BAF3B72092A041100C7BD42 /* opulent_throne.tif in Resources */,
 				2BAF3B73092A041100C7BD42 /* grave.3ds in Resources */,
 				2BAF3B74092A041100C7BD42 /* grave.tif in Resources */,
+				5560A2AF1C34818300BF77F7 /* bigrm-10.lev in Resources */,
 				2BAF3B75092A041100C7BD42 /* sink.3ds in Resources */,
 				2BAF3B76092A041100C7BD42 /* sink.tif in Resources */,
 				2BAF3B77092A041100C7BD42 /* vdoor.3ds in Resources */,
@@ -3244,6 +3258,7 @@
 				2B123B5E09319B6B00E894EE /* bridge.tif in Resources */,
 				2B123B5F09319B6B00E894EE /* bridgeUP.3ds in Resources */,
 				2B123B6009319B6B00E894EE /* bridgeUP.tif in Resources */,
+				5560A2B91C3481CC00BF77F7 /* epitaph in Resources */,
 				2B123B6109319B6B00E894EE /* dartstrap.3ds in Resources */,
 				2B123B6209319B6B00E894EE /* dartstrap.tif in Resources */,
 				2B123B6309319B6B00E894EE /* gastrap.3ds in Resources */,
@@ -3268,7 +3283,9 @@
 				2BE4C32E093CB52D00ACEEEE /* tree.tif in Resources */,
 				2BD3BC880943D24500F782A6 /* beartrap.3ds in Resources */,
 				2BD3BC890943D24500F782A6 /* wall_hell.tif in Resources */,
+				5560A2AC1C34818300BF77F7 /* bigrm-7.lev in Resources */,
 				2BD3BC8D0943D2B100F782A6 /* beartrap.tif in Resources */,
+				5560A2AE1C34818300BF77F7 /* bigrm-9.lev in Resources */,
 				2BD3BC970943DA5100F782A6 /* corner_hell.tif in Resources */,
 				2BD3BD300944523C00F782A6 /* wall_knox.tif in Resources */,
 				2BD3BD50094453F000F782A6 /* corner_knox.tif in Resources */,
@@ -3293,6 +3310,7 @@
 				2B5181E40973EBD600C91C6E /* downladder.3ds in Resources */,
 				2B5181E50973EBD600C91C6E /* downladder.tif in Resources */,
 				2B5181E60973EBD600C91C6E /* upladder.3ds in Resources */,
+				5560A2AD1C34818300BF77F7 /* bigrm-8.lev in Resources */,
 				2B5181E70973EBD600C91C6E /* upladder.tif in Resources */,
 				2BE376360A22E29D00B3CDF4 /* icon_O.tiff in Resources */,
 				2BE376410A22E29D00B3CDF4 /* trBase.tif in Resources */,
@@ -3476,6 +3494,7 @@
 				2B5CC1B5088EB7DF00940C58 /* vis_tab.c in Sources */,
 				2B5CC1B6088EB7DF00940C58 /* vision.c in Sources */,
 				2B5CC1B7088EB7DF00940C58 /* weapon.c in Sources */,
+				5560A29A1C347D5B00BF77F7 /* sys.c in Sources */,
 				2B5CC1B8088EB7DF00940C58 /* were.c in Sources */,
 				2B5CC1B9088EB7DF00940C58 /* wield.c in Sources */,
 				2B5CC1BA088EB7DF00940C58 /* windows.c in Sources */,
@@ -3493,6 +3512,7 @@
 				2B5469C308EF2F40008AA81F /* ioctl.c in Sources */,
 				2B9ED5D608F51D15004AD560 /* NH3DMapView.m in Sources */,
 				2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */,
+				5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */,
 				2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */,
 				2BCAAB520912FC5000AF1C59 /* NH3DTileCache.m in Sources */,
 				2B2E1EDF0919086F008805B3 /* NH3DModelObjects.m in Sources */,
@@ -3584,7 +3604,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NetHack3D_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					NOTTYGRAPHICS,
+				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_THREADSAFE_STATICS = YES;
@@ -3628,7 +3651,10 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NetHack3D_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					NOTTYGRAPHICS,
+				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
