@@ -339,25 +339,15 @@ static const int DIALOG_CANCEL	= 129;
 	
 	_ripPanel.alphaValue = 0;
 	[_ripPanel orderFront:self];
-#if 1
-	// window fade out/in
-	for (int i=10 ; i>=0 ; i-- ) {
-		_window.alphaValue = i*0.1 ;
-		_ripPanel.alphaValue = (i-10)*-0.1 ;
-		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ];
-	}
-	[ _ripPanel flushWindow ];
-#else
 	// window fade out/in
 	[NSAnimationContext beginGrouping];
 	[NSAnimationContext currentContext].duration = 1.1;
 	_window.animator.alphaValue = 0;
 	_ripPanel.animator.alphaValue = 1;
 	[NSAnimationContext endGrouping];
-	dispatch_async(dispatch_get_main_queue(), ^{
+	[NSAnimationContext currentContext].completionHandler = ^{
 		[_ripPanel flushWindow];
-	});
-#endif
+	};
 }
 
 
@@ -400,27 +390,16 @@ static const int DIALOG_CANCEL	= 129;
 		ripOrMainWindow = _window;
 	}
 	
-#if 1
-	for (int i=10 ; i>=0 ; i-- ) {
-		ripOrMainWindow.alphaValue = i*0.1 ;
-		_rawPrintPanel.alphaValue = (i-10)*-0.1 ;
-		[ NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1] ];
-	}
+	[NSAnimationContext currentContext].completionHandler = ^{
+		[NSApp runModalForWindow:_rawPrintPanel];
+		[_rawPrintPanel orderOut:self];
+	};
 	
-	[ NSApp runModalForWindow:_rawPrintPanel ];
-	[ _rawPrintPanel orderOut:self ];
-#else
 	[NSAnimationContext beginGrouping];
 	[NSAnimationContext currentContext].duration = 1.1;
 	ripOrMainWindow.animator.alphaValue = 0;
 	_rawPrintPanel.animator.alphaValue = 1;
 	[NSAnimationContext endGrouping];
-	
-	[NSApp runModalForWindow:_rawPrintPanel];
-	dispatch_async(dispatch_get_main_queue(), ^{
-		[_rawPrintPanel orderOut:self];
-	});
-#endif
 	
 	return YES;
 }

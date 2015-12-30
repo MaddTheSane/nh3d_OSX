@@ -1347,20 +1347,13 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)showMainWindow
 {
-#if 1
-	int i;
 	// window fade in
-	for (i=0;i<=10;i++) {
-		_window.alphaValue = ((float)i)/10.0;
-		[ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:0.1 ] ];
-	}
-#else
-	// window fade in
-	[NSAnimationContext beginGrouping];
-	[NSAnimationContext currentContext].duration = 1.0;
-	_window.animator.alphaValue = 1;
-	[NSAnimationContext endGrouping];
-#endif
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+		context.duration = 1.0;
+		_window.animator.alphaValue = 1;
+	} completionHandler:^{
+		
+	}];
 }
 
 

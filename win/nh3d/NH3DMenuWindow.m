@@ -195,9 +195,8 @@ static const int DIALOG_CANCEL	= 129;
 	
 	_textWindow.string = @"" ;
 	
-	[ NSApp stopSpeaking:self ];
+	[ _textWindow stopSpeaking:self ];
 }
-
 
 
 - (void)createMenuWindow:(int)wid
