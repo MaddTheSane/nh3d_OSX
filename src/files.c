@@ -1274,7 +1274,6 @@ char *lockname;
 # pragma unused(filename,lockname)
 	return (char*)0;
 #else
-
 # if defined(UNIX) || defined(VMS) || defined(AMIGA) || defined(WIN32) || defined(MSDOS)
 #  ifdef NO_FILE_LINKS
 	Strcpy(lockname, LOCKDIR);

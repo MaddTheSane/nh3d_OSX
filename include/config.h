@@ -48,6 +48,7 @@
 /* #define GNOME_GRAPHICS */	/* Gnome interface */
 /* #define MSWIN_GRAPHICS */	/* Windows NT, CE, Graphics */
 #define NH3D_GRAPHICS		/* MacOSXCocoa/GNUStep Graphics with OpenGL */
+
 /*
  * Define the default window system.  This should be one that is compiled
  * into your system (see defines above).  Known window systems are:
@@ -198,7 +199,7 @@ extern const char *NH3DSaveDir();
  *	a tar-like file, thus making a neater installation.  See *conf.h
  *	for detailed configuration.
  */
-/*#define DLB	*/	/* not supported on all platforms */
+/* #define DLB */	/* not supported on all platforms */
 
 /*
  *	Defining INSURANCE slows down level changes, but allows games that
