@@ -1328,7 +1328,7 @@
 		2B5E0E1708B09A520012CAC4 /* base.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = base.tiff; sourceTree = "<group>"; };
 		2B60A6AC0907B9D50055BEC1 /* NH3DModelObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DModelObjects.h; sourceTree = "<group>"; };
 		2B6311CB08B7A27A00162523 /* winnh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winnh3d.h; sourceTree = "<group>"; };
-		2B6311CC08B7A27A00162523 /* winnh3d.m */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.objc; path = winnh3d.m; sourceTree = "<group>"; };
+		2B6311CC08B7A27A00162523 /* winnh3d.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = winnh3d.m; sourceTree = "<group>"; };
 		2B6474FD096D5DDB005A4652 /* NH3Dcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3Dcommon.h; sourceTree = "<group>"; };
 		2B6474FE096D5DF0005A4652 /* Cocoa-compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Cocoa-compat.h"; path = "compat/Cocoa-compat.h"; sourceTree = "<group>"; };
 		2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Cocoa-compat.m"; path = "compat/Cocoa-compat.m"; sourceTree = "<group>"; };

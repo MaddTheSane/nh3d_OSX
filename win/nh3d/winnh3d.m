@@ -1036,7 +1036,7 @@ void nh3d_outrip(winid wid, int how)
 			break;
 		 case KILLED_SUFFIX:
 			Strcpy(buf, killer);
-			Strcat(buf, "¤Ë»¦¤µ¤ì¤¿");
+			Strcat(buf, "ã«æ®ºã•ã‚ŒãŸ");
 		 }
 		 */
 		/**/
@@ -1153,7 +1153,7 @@ wd_message()
 		
 		pline("Only user \"%s\" may access debug (wizard) mode.",
 		/*
-		pline("¡Ö%s¡×¤Î¤ß¤¬¥Ç¥Ğ¥Ã¥°(wizard)¥â¡¼¥É¤ò»ÈÍÑ¤Ç¤­¤ë¡¥",
+		pline("ã€Œ%sã€ã®ã¿ãŒãƒ‡ãƒãƒƒã‚°(wizard)ãƒ¢ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã§ãã‚‹ï¼",
 		*/
 # ifndef KR1ED
 			  WIZARD);
@@ -1163,7 +1163,7 @@ wd_message()
 
 pline("Entering discovery mode instead.");
 /*
-pline("¤«¤ï¤ê¤ËÈ¯¸«¥â¡¼¥É¤Ø°Ü¹Ô¤¹¤ë¡¥");
+pline("ã‹ã‚ã‚Šã«ç™ºè¦‹ãƒ¢ãƒ¼ãƒ‰ã¸ç§»è¡Œã™ã‚‹ï¼");
  */
 	} else
 #endif
@@ -1171,7 +1171,7 @@ if (discover)
 
 You("are in non-scoring discovery mode.");
 /*
-You("¥¹¥³¥¢¤ÎºÜ¤é¤Ê¤¤È¯¸«¥â¡¼¥É¤Çµ¯Æ°¤·¤¿¡¥");
+You("ã‚¹ã‚³ã‚¢ã®è¼‰ã‚‰ãªã„ç™ºè¦‹ãƒ¢ãƒ¼ãƒ‰ã§èµ·å‹•ã—ãŸï¼");
 */
 }
 
@@ -1434,7 +1434,7 @@ You("¥¹¥³¥¢¤ÎºÜ¤é¤Ê¤¤È¯¸«¥â¡¼¥É¤Çµ¯Æ°¤·¤¿¡¥");
 	
 	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
 /*
-	Sprintf(buf, "%s  ÃÏ²¼%d³¬", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
+	Sprintf(buf, "%s  åœ°ä¸‹%déš", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
 */
 	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
 }
@@ -1654,7 +1654,7 @@ You("¥¹¥³¥¢¤ÎºÜ¤é¤Ê¤¤È¯¸«¥â¡¼¥É¤Çµ¯Æ°¤·¤¿¡¥");
 		pline("Restoring save file...");
 	
 	/*
-		pline("¥»¡¼¥Ö¥Õ¥¡¥¤¥ë¤òÉü¸µÃæ¡¥¡¥¡¥");
+		pline("ã‚»ãƒ¼ãƒ–ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å¾©å…ƒä¸­ï¼ï¼ï¼");
 	 */
 		mark_synch();	/* flush output */
 		if(!dorecover(fd))
@@ -1667,7 +1667,7 @@ You("¥¹¥³¥¢¤ÎºÜ¤é¤Ê¤¤È¯¸«¥â¡¼¥É¤Çµ¯Æ°¤·¤¿¡¥");
 		
 		if(yn("Do you want to keep the save file?") == 'n')
 		/*
-			if(yn("¥»¡¼¥Ö¥Õ¥¡¥¤¥ë¤ò»Ä¤·¤Æ¤ª¤­¤Ş¤¹¤«¡©") == 'n')
+			if(yn("ã‚»ãƒ¼ãƒ–ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ®‹ã—ã¦ãŠãã¾ã™ã‹ï¼Ÿ") == 'n')
 		 */
 				(void) delete_savefile();
 			else {
@@ -1694,7 +1694,7 @@ not_recovered:
 	
 	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
 /*
-	Sprintf(buf, "%s  ÃÏ²¼%d³¬", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
+	Sprintf(buf, "%s  åœ°ä¸‹%déš", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
 */
 
 	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
