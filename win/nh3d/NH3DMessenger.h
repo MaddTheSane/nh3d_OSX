@@ -72,7 +72,9 @@
 - (void)showOutRip:(const char *)ripString;
 - (void)showOutRipString:(NSString *)ripString;
 
-- (void)putLogMessarge:(NSString *)rawText;
+- (void)putLogMessarge:(NSString *)rawText UNAVAILABLE_ATTRIBUTE;
+- (void)putLogMessage:(NSString *)rawText;
+- (void)putLogMessage:(NSString *)rawText bold:(BOOL)bold;
 @property (readonly) BOOL showLogPanel;
 
 - (void)setLastAttackDirection:(int)direction;

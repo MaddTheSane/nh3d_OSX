@@ -354,8 +354,12 @@ static const int DIALOG_CANCEL	= 129;
 	[self showOutRipString:[[NSString alloc] initWithCString:ripString encoding:NH3DTEXTENCODING]];
 }
 
+- (void)putLogMessage:(NSString *)rawText
+{
+	[self putLogMessage:rawText bold:NO];
+}
 
-- (void)putLogMessarge:(NSString *)rawText
+- (void)putLogMessage:(NSString *)rawText bold:(BOOL)bold
 {
 	NSAttributedString *putStr = nil ;
 
@@ -365,7 +369,7 @@ static const int DIALOG_CANCEL	= 129;
 	[self prepareAttributes];
 	style.alignment = NSLeftTextAlignment;
 	
-	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Courier Bold" size:12];
+	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:bold ? @"Courier Bold" : @"Courier" size:12];
 	
 	putStr = [[NSAttributedString alloc] initWithString:[rawText stringByAppendingString:@"\n"]
 											 attributes:lightShadowStrAttributes];

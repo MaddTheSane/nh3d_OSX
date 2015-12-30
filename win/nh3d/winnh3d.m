@@ -734,7 +734,12 @@ void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph, int under)
 void nh3d_raw_print(const char *str)
 {
 	@autoreleasepool {
-		[ _NH3DMessenger putLogMessarge:[ NSString stringWithCString:str encoding:NH3DTEXTENCODING ] ];
+		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
+//#if DEBUG
+#if 1
+		NSLog(@"%@", aStr);
+#endif
+		[_NH3DMessenger putLogMessage: aStr];
 	}
 }
 
@@ -742,7 +747,12 @@ void nh3d_raw_print(const char *str)
 void nh3d_raw_print_bold(const char *str)
 {
 	@autoreleasepool {
-		[ _NH3DMessenger putLogMessarge:[ NSString stringWithCString:str encoding:NH3DTEXTENCODING ] ];
+		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
+		//#if DEBUG
+#if 1
+		NSLog(@"%@", aStr);
+#endif
+		[_NH3DMessenger putLogMessage: aStr bold:YES];
 	}
 }
 

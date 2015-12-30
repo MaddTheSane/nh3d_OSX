@@ -851,7 +851,7 @@ cl_eos() /* free after Robert Viduya */
 
 #include <curses.h>
 
-#if !defined(LINUX) && !defined(__FreeBSD__) && !defined(NOTPARMDECL)
+#if !defined(LINUX) && !defined(__FreeBSD__) && !defined(NOTPARMDECL) && !defined(__APPLE__)
 extern char *tparm();
 #endif
 

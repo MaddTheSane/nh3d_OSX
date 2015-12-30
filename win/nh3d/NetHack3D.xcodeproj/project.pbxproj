@@ -474,6 +474,7 @@
 		5560A2B81C3481CC00BF77F7 /* engrave in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B51C3481CC00BF77F7 /* engrave */; };
 		5560A2B91C3481CC00BF77F7 /* epitaph in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B61C3481CC00BF77F7 /* epitaph */; };
 		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
+		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -1471,6 +1472,7 @@
 		5560A2B51C3481CC00BF77F7 /* engrave */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = engrave; sourceTree = "<group>"; };
 		5560A2B61C3481CC00BF77F7 /* epitaph */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = epitaph; sourceTree = "<group>"; };
 		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
+		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -2778,6 +2780,7 @@
 		2BA0209208EF3D68004057D1 /* Cocoa_GNUStep */ = {
 			isa = PBXGroup;
 			children = (
+				5560A2BC1C34927200BF77F7 /* sysconf */,
 				2BCB3EA30A291D82009C988D /* Makefile.dat */,
 				2BCB3EA40A291D82009C988D /* Makefile.doc */,
 				2BCB3EA50A291D82009C988D /* Makefile.src */,
@@ -3212,6 +3215,7 @@
 				2B26130A09233E7900CA7A64 /* upperL.3ds in Resources */,
 				2B26130B09233E7900CA7A64 /* upperM.3ds in Resources */,
 				2B26130C09233E7900CA7A64 /* upperN.3ds in Resources */,
+				5560A2BD1C34927200BF77F7 /* sysconf in Resources */,
 				2B26130D09233E7900CA7A64 /* upperO.3ds in Resources */,
 				2B26130E09233E7900CA7A64 /* upperP.3ds in Resources */,
 				2B26130F09233E7900CA7A64 /* upperQ.3ds in Resources */,
