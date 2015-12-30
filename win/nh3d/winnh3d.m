@@ -739,7 +739,7 @@ void nh3d_raw_print(const char *str)
 #if 1
 		NSLog(@"%@", aStr);
 #endif
-		[_NH3DMessenger putLogMessage: aStr];
+		[_NH3DMessenger putLogMessage:aStr bold:NO];
 	}
 }
 
@@ -752,7 +752,7 @@ void nh3d_raw_print_bold(const char *str)
 #if 1
 		NSLog(@"%@", aStr);
 #endif
-		[_NH3DMessenger putLogMessage: aStr bold:YES];
+		[_NH3DMessenger putLogMessage:aStr bold:YES];
 	}
 }
 
