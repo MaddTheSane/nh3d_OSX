@@ -218,7 +218,7 @@ register char *s;
 /*
 	register char *lp;
 */
-	register unsigned char *lp;
+	register char *lp;
 /*	
 #ifdef SJIS_FILESYSTEM
 	lp = (unsigned char *)ic2str( s );

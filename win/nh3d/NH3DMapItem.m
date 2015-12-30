@@ -31,24 +31,23 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)checkDrawingType
 {
-	
 	if ( glyph ==  S_stone+GLYPH_CMAP_OFF &&
-		 (!IS_ROOM( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) && !IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) )
-		 ) {	
-	// draw type is corrwall object (10 = stone wall type / 0 = black wall type) 
-		modelDrawingType = 0 ;	
+		(!IS_ROOM( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) && !IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) )
+		) {
+		// draw type is corrwall object (10 = stone wall type / 0 = black wall type)
+		modelDrawingType = 0 ;
 	} else if ( player ) {
-	// draw type is playerpositon
+		// draw type is playerpositon
 		modelDrawingType = 1;
 		
 	} else {
 		
 		switch (glyph) {
 			case S_stone + GLYPH_CMAP_OFF:
-				modelDrawingType = (    IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) 
-									 || IS_STWALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ )
-									 || IS_DOOR( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) ) ? 0 : 1 ;
-				break;				
+				modelDrawingType = (    IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ )
+									|| IS_STWALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ )
+									|| IS_DOOR( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) ) ? 0 : 1 ;
+				break;
 			case S_room + GLYPH_CMAP_OFF:
 			case S_corr + GLYPH_CMAP_OFF:
 			case S_litcorr  + GLYPH_CMAP_OFF:
@@ -56,19 +55,19 @@ extern NH3DTileCache *_NH3DTileCache;
 				break;
 			case S_pool + GLYPH_CMAP_OFF: modelDrawingType = 4;
 				break;
-			
+				
 			case S_ice + GLYPH_CMAP_OFF: modelDrawingType = 5;
 				break;
-			
+				
 			case S_lava + GLYPH_CMAP_OFF: modelDrawingType = 6;
 				break;
-			
+				
 			case S_air + GLYPH_CMAP_OFF: modelDrawingType = 7;
 				break;
-
+				
 			case S_cloud + GLYPH_CMAP_OFF: modelDrawingType = 8;
 				break;
-
+				
 			case S_water + GLYPH_CMAP_OFF: modelDrawingType = 9;
 				break;
 				
@@ -121,15 +120,11 @@ extern NH3DTileCache *_NH3DTileCache;
 				
 			default :
 				modelDrawingType = ( (glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_DARK_ONE + GLYPH_MON_OFF)
-									 || (glyph >= GLYPH_EXPLODE_OFF && glyph < GLYPH_SWALLOW_OFF) ) ? 10 : 3 ;
+									|| (glyph >= GLYPH_EXPLODE_OFF && glyph < GLYPH_SWALLOW_OFF) ) ? 10 : 3 ;
 				break;
 		}
 	}
-				
 }
-
-
-
 
 
 /// Override NSObject designated initializer. Normary don't use this.
@@ -146,11 +141,11 @@ extern NH3DTileCache *_NH3DTileCache;
 
 // This is designated initializer.
 - (instancetype)initWithParameter:(char)ch 
-				  glyph:(int)glf 
-				  color:(int)col 
-				   posX:(int)x 
-				   posY:(int)y 
-				special:(int)sp
+							glyph:(int)glf
+							color:(int)col
+							 posX:(int)x
+							 posY:(int)y
+						  special:(int)sp
 {
 	if (self = [super init]) {
 		lock = [[NSRecursiveLock alloc] init];
