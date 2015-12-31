@@ -1838,7 +1838,7 @@ winid where;
             if (i != f && !nhfilter.roles[i])
                 break;
         if (i == SIZE(roles)) {
-            constrainer = "nhfilter";
+            constrainer = "filter";
             forcedvalue = "role";
         }
         break;
@@ -1857,7 +1857,7 @@ winid where;
                        && (allowmask & ~nhfilter.mask) == races[f].selfmask) {
                 /* if there is only one race choice available due to user
                    options disallowing others, race menu entry is disabled */
-                constrainer = "nhfilter";
+                constrainer = "filter";
                 forcedvalue = "race";
             }
         }
@@ -1879,7 +1879,7 @@ winid where;
                        && (allowmask & ~nhfilter.mask) == genders[f].allow) {
                 /* if there is only one gender choice available due to user
                    options disallowing other, gender menu entry is disabled */
-                constrainer = "nhfilter";
+                constrainer = "filter";
                 forcedvalue = "gender";
             }
         }
@@ -1914,7 +1914,7 @@ winid where;
             && (ROLE_ALIGNMASK & ~nhfilter.mask) == aligns[f].allow) {
             /* if there is only one alignment choice available due to user
                options disallowing others, algn menu entry is disabled */
-            constrainer = "nhfilter";
+            constrainer = "filter";
             forcedvalue = "alignment";
         }
         if (a >= 0)
