@@ -334,45 +334,60 @@ void nh3d_get_nh_event()
 {
 	NSSound *soundEffect = nil;
 	
-	
 	@autoreleasepool {
-	if ( SOUND_MUTE ) return;
-	
+		if (SOUND_MUTE) return;
+		
 		int se = random() %150;
-	
+		
 		switch (se) {
-			case 1:  soundEffect = [ NSSound soundNamed:@"waterDrop.wav" ];
-					 [ soundEffect play ];
+			case 1:
+				soundEffect = [NSSound soundNamed:@"waterDrop"];
+				[soundEffect play];
 				break;
-			case 8:  soundEffect = [ NSSound soundNamed:@"hearnoise.wav" ];
-					 [ soundEffect play ];
+				
+			case 8:
+				soundEffect = [NSSound soundNamed:@"hearnoise"];
+				[soundEffect play];
 				break;
-			case 13: soundEffect = [ NSSound soundNamed:@"waterDrop5.wav" ];
-					[ soundEffect play ];
+			case 13:
+				soundEffect = [NSSound soundNamed:@"waterDrop5"];
+				[soundEffect play];
 				break;
-			case 18:  soundEffect = [ NSSound soundNamed:@"hearnoise.wav" ];
-					 [ soundEffect play ];
+				
+			case 18:
+				soundEffect = [NSSound soundNamed:@"hearnoise"];
+				[soundEffect play];
 				break;
-			case 25:  soundEffect = [ NSSound soundNamed:@"waterDrop2.wav" ];
-					 [ soundEffect play ];
+				
+			case 25:
+				soundEffect = [NSSound soundNamed:@"waterDrop2"];
+				[soundEffect play];
 				break;
-			case 32: soundEffect = [ NSSound soundNamed:@"waterDrop4.wav" ];
-					[ soundEffect play ];
+				
+			case 32:
+				soundEffect = [NSSound soundNamed:@"waterDrop4"];
+				[soundEffect play];
 				break;
-			case 48:  soundEffect = [ NSSound soundNamed:@"hearnoise.wav" ];
-					 [ soundEffect play ];
+				
+			case 48:
+				soundEffect = [NSSound soundNamed:@"hearnoise"];
+				[soundEffect play];
 				break;
-			case 57:  soundEffect = [ NSSound soundNamed:@"waterDrop4.wav" ];
-					 [ soundEffect play ];
+				
+			case 57:
+				soundEffect = [NSSound soundNamed:@"waterDrop4"];
+				[soundEffect play];
 				break;
-			case 80: soundEffect = [ NSSound soundNamed:@"waterDrop3.wav" ];
-					[ soundEffect play ];
-				break;	
+				
+			case 80:
+				soundEffect = [NSSound soundNamed:@"waterDrop3"];
+				[soundEffect play];
+				break;
+				
 			default:
 				soundEffect = nil;
-			break;
+				break;
 		}
-		
 	}
 }
 
