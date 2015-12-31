@@ -22,11 +22,13 @@ static const int DIALOG_CANCEL	= 129;
 - (BOOL)loadSoundConfig
 {
 	@autoreleasepool {
-	NSString *bundlePath = [NSBundle mainBundle].bundlePath ;
-	NSString* configFile = [ NSString stringWithContentsOfFile:
-						   [NSString stringWithFormat:@"%@/nh3dSounds/%@", bundlePath.stringByDeletingLastPathComponent,@"soundconfig.txt"]
-													 encoding:NSUTF8StringEncoding
-														error:nil ];
+	NSURL *bundleURL = [NSBundle mainBundle].bundleURL;
+	NSString* configFile = [NSString stringWithContentsOfURL:
+							[[bundleURL.URLByDeletingLastPathComponent
+							  URLByAppendingPathComponent:@"nh3dSounds"]
+							 URLByAppendingPathComponent:@"soundconfig.txt"]
+												 encoding:NSUTF8StringEncoding
+													   error:nil];
 	NSString* destText;
 	NSScanner* scanner;
 	NSCharacterSet* chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
@@ -152,17 +154,15 @@ static const int DIALOG_CANCEL	= 129;
 	} else {
 		
 		if ( userSound && !SOUND_MUTE ) {
-			NSString *bundlePath = [NSBundle mainBundle].bundlePath;
+			NSURL *bundleURL = [NSBundle mainBundle].bundleURL;
 			QTMovie *playSound;
 			NSURL      *soundURL;
 			
 			for ( NSString *msgSoundStr in soundMessageArray ) {
 				
 				if ([[NSString stringWithCString:text encoding:NH3DTEXTENCODING] isLike:msgSoundStr]) {
+					soundURL = [[bundleURL.URLByDeletingLastPathComponent URLByAppendingPathComponent:@"nh3dSounds"] URLByAppendingPathComponent:soundNameArray[i]];
 					
-					soundURL  = [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat:@"%@/nh3dSounds/%@",
-																	bundlePath.stringByDeletingLastPathComponent,
-																	soundNameArray[i]]];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
 					playSound = [[QTMovie alloc] initWithURL: soundURL error:NULL];

@@ -44,13 +44,13 @@
 	NSShadow *lightShadow;
 	NSMutableParagraphStyle *style;
 	
-	NSMutableArray *msgArray;
-	NSMutableArray *soundMessageArray;
-	NSMutableArray *soundNameArray;
-	NSMutableArray *soundVolumeArray;
+	NSMutableArray<NSNumber*> *msgArray;
+	NSMutableArray<NSString*> *soundMessageArray;
+	NSMutableArray<NSString*> *soundNameArray;
+	NSMutableArray<NSString*> *soundVolumeArray;
 	
-	NSMutableArray *effectMessageArray;
-	NSMutableArray *effectTypeArray;
+	NSMutableArray<NSString*> *effectMessageArray;
+	NSMutableArray<NSString*> *effectTypeArray;
 	
 	
 	BOOL ripFlag;
