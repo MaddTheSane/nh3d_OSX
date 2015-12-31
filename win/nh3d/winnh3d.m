@@ -326,7 +326,6 @@ void nh3d_askname()
 			NSString *pcName = [ [ NSString alloc ] initWithCString:plname encoding:NH3DTEXTENCODING ];
 			[ _NH3DUserStatusModel setPlayerName:pcName ];
 		}
-	
 	}
 }
 
