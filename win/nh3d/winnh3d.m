@@ -1499,7 +1499,27 @@ You("スコアの載らない発見モードで起動した．");
 #ifdef CHDIR
 	
 	/* get resourcePath */
-	dir = [NSBundle mainBundle].resourcePath.fileSystemRepresentation;
+	//dir = [NSBundle mainBundle].resourcePath.fileSystemRepresentation;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSURL *aURL = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
+	aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
+	if (![aURL checkResourceIsReachableAndReturnError:NULL]) {
+		[fm createDirectoryAtURL:aURL withIntermediateDirectories:YES attributes:@{NSFilePosixPermissions:@(S_IRWXU)} error:NULL];
+	}
+	{
+		//Make sure the rest of the directory structure is okay
+		NSURL *permURL = [aURL URLByAppendingPathComponent:@"perm"];
+		NSURL *logURL = [aURL URLByAppendingPathComponent:@"logfile"];
+		if (![permURL checkResourceIsReachableAndReturnError:NULL]) {
+			//touch perm
+			[@"" writeToURL:permURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+		}
+		if (![logURL checkResourceIsReachableAndReturnError:NULL]) {
+			//touch logfile
+			[@"" writeToURL:logURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+		}
+	}
+	dir = aURL.fileSystemRepresentation;
 	
 #endif
 	
@@ -1609,7 +1629,7 @@ You("スコアの載らない発見モードで起動した．");
 #ifndef GNUSTEP
 	//for OSX (UTF8) File System
 		NSString *lockString;
-		lockString = [ NSString stringWithFormat:@"%d%@",(int)getuid(),[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
+		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(),[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(lock, lockString.fileSystemRepresentation);
 #else
 		Sprintf(lock, "%d%s", (int)getuid(), plname);
@@ -1731,21 +1751,3 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 	}
 	return file;
 }
-
-const char *NH3DSaveDir()
-{
-	static NSURL *dir;
-	if (dir == nil) {
-		@autoreleasepool {
-			NSFileManager *fm = [NSFileManager defaultManager];
-			NSURL *aURL = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
-			aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
-			if (![aURL checkResourceIsReachableAndReturnError:NULL]) {
-				[fm createDirectoryAtURL:aURL withIntermediateDirectories:YES attributes:nil error:NULL];
-			}
-			dir = aURL;
-		}
-	}
-	return dir.fileSystemRepresentation;
-}
-
