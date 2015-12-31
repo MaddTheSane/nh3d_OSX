@@ -734,7 +734,12 @@ void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph)
 void nh3d_raw_print(const char *str)
 {
 	@autoreleasepool {
-		[ _NH3DMessenger putLogMessarge:[ NSString stringWithCString:str encoding:NH3DTEXTENCODING ] ];
+		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
+//#if DEBUG
+#if 1
+		NSLog(@"%@", aStr);
+#endif
+		[_NH3DMessenger putLogMessage:aStr bold:NO];
 	}
 }
 
@@ -742,7 +747,12 @@ void nh3d_raw_print(const char *str)
 void nh3d_raw_print_bold(const char *str)
 {
 	@autoreleasepool {
-		[ _NH3DMessenger putLogMessarge:[ NSString stringWithCString:str encoding:NH3DTEXTENCODING ] ];
+		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
+//#if DEBUG
+#if 1
+		NSLog(@"%@", aStr);
+#endif
+		[_NH3DMessenger putLogMessage:aStr bold:YES];
 	}
 }
 
@@ -985,13 +995,13 @@ void nh3d_outrip(winid wid, int how)
 {
 	@autoreleasepool {
 		char buf[ BUFSZ ];
-		char ripString[ BUFSZ ]="\0";
+		NSMutableString *ripString = [[NSMutableString alloc] initWithCapacity:100];
 		extern const char *killed_by_prefix[ ];
 		
 		[ _NH3DMenuWindow setDoneRip:YES ];
 		
 		Sprintf(buf, "%s\n", plname);
-		Strcat(ripString, buf);
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		/* Put $ on stone */
 		Sprintf(buf, "%ld Au\n",
@@ -1000,7 +1010,7 @@ void nh3d_outrip(winid wid, int how)
 #else
 		done_money);
 #endif
-		Strcat(ripString, buf);
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		/* Put together death description */
 		/* English version */
@@ -1041,16 +1051,15 @@ void nh3d_outrip(winid wid, int how)
 		 */
 		/**/
 		/* Put death type on stone */
-		Strcat(ripString, buf);
-		Strcat(ripString, "\n");
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
+		[ripString appendString:@"\n"];
 		
 		/* Put year on stone */
 		Sprintf(buf, "%4d\n", getyear());
-		Strcat(ripString, buf);
+		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
-		[ _NH3DMapModel stopIndicator ];
-		[ _NH3DMessenger showOutRip:ripString ];
-		
+		[_NH3DMapModel stopIndicator];
+		[_NH3DMessenger showOutRipString:[ripString copy]];
 	}
 }
 
@@ -1291,7 +1300,8 @@ You("スコアの載らない発見モードで起動した．");
 {
 	BOOL ret;
 	
-	if ( !iflags.window_inited ) return YES;
+	if ( !iflags.window_inited )
+		return YES;
 	
 	if ( _stDrawer.state != NSDrawerClosedState) {
 		[ _stDrawer close:self ];
@@ -1300,10 +1310,12 @@ You("スコアの載らない発見モードで起動した．");
 	raw_print([ NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING ]);
 	ret = [ _messenger showLogPanel ];
 	
-	if (ret == YES) { clearlocks(); [ _glMapView setRunning:NO ]; }
+	if (ret == YES) {
+		clearlocks();
+		[_glMapView setRunning:NO];
+	}
 	
 	return ret;
-	
 }
 
 
@@ -1317,9 +1329,8 @@ You("スコアの載らない発見モードで起動した．");
 	_tileCache = [ [ NH3DTileCache alloc ] initWithNamed:TILE_FILE_NAME ];
 	_NH3DTileCache = _tileCache;
 	
-	[ [NSUserDefaults standardUserDefaults] setObject:@NO forKey:NH3DTraditionalMapModeKey ];
-	[ [NSUserDefaults standardUserDefaults] setObject:@YES forKey:NH3DTraditionalMapModeKey ];
-	
+	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey ];
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey ];
 }
 
 
@@ -1700,8 +1711,7 @@ not_recovered:
 	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
 	[ _mapModel updateAllMaps ];
 
-	moveloop();   
-
+	moveloop();
 }
 
 

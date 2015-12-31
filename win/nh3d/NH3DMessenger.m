@@ -320,22 +320,21 @@ static const int DIALOG_CANCEL	= 129;
 	}
 }
 
-
-- (void)showOutRip:(const char *)ripString
+- (void)showOutRipString:(NSString *)ripString
 {
 	ripFlag = YES;
-
+	
 	
 	[self prepareAttributes];
 	style.alignment = NSCenterTextAlignment;
-
+	
 	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Optima Bold" size:11];
 	
-
+	
 	_deathDescription.attributedStringValue =	[[NSAttributedString alloc] initWithString:
-								[NSString stringWithCString:ripString encoding:NH3DTEXTENCODING]
-												 attributes:lightShadowStrAttributes] ;
+												 ripString
+																			  attributes:lightShadowStrAttributes];
 	
 	_ripPanel.alphaValue = 0;
 	[_ripPanel orderFront:self];
@@ -350,8 +349,12 @@ static const int DIALOG_CANCEL	= 129;
 	};
 }
 
+- (void)showOutRip:(const char *)ripString
+{
+	[self showOutRipString:[[NSString alloc] initWithCString:ripString encoding:NH3DTEXTENCODING]];
+}
 
-- (void)putLogMessarge:(NSString *)rawText
+- (void)putLogMessage:(NSString *)rawText bold:(BOOL)bold
 {
 	NSAttributedString *putStr = nil ;
 
@@ -361,7 +364,7 @@ static const int DIALOG_CANCEL	= 129;
 	[self prepareAttributes];
 	style.alignment = NSLeftTextAlignment;
 	
-	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:@"Courier Bold" size:12];
+	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:bold ? @"Courier Bold" : @"Courier" size:12];
 	
 	putStr = [[NSAttributedString alloc] initWithString:[rawText stringByAppendingString:@"\n"]
 											 attributes:lightShadowStrAttributes];
