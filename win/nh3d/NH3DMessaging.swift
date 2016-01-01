@@ -18,9 +18,7 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 		throw NSError(domain: "notneeded", code: 0, userInfo: nil)
 	}
 	
-	guard let configFile = try? String(contentsOfURL: soundConfURL, encoding: NSUTF8StringEncoding) else {
-		throw NSError(domain: "notneeded", code: 0, userInfo: nil)
-	}
+	let configFile = try String(contentsOfURL: soundConfURL, encoding: NSUTF8StringEncoding)
 	
 	let chSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
 	let scanner = NSScanner(string: configFile)
@@ -28,7 +26,7 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 	var effects1 = Array<NH3DMessaging.Effect>()
 	
 	autoreleasepool() {
-		var destText: NSString? = ""
+		var destText: NSString?
 		while !scanner.atEnd {
 			scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
 			
@@ -44,7 +42,7 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 				soundName = (destText ?? "") as String
 				
 				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				volume = Float((destText ?? "1") as String) ?? 1
+				volume = Float((destText ?? "100") as String) ?? 100
 				
 				sounds1.append(NH3DMessaging.SoundMesg(message: soundMessage, name: soundName, volume: volume))
 			} else if destText == "EFFECT=MESG" {
@@ -53,7 +51,7 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 				soundMessage = (destText ?? "") as String
 				
 				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				let effectType = Int32((destText ?? "0") as String) ?? 0
+				let effectType = Int32((destText ?? "1") as String) ?? 1
 				
 				effects1.append(NH3DMessaging.Effect(message: soundMessage, type: effectType))
 			}
@@ -109,7 +107,7 @@ class NH3DMessaging: NSObject {
 	private var style = NSMutableParagraphStyle()
 	
 	private var ripFlag = false
-	private var userSound: Bool
+	private let userSound: Bool
 	
 	var lastAttackDirection: Int32 = 0
 	
@@ -176,9 +174,9 @@ class NH3DMessaging: NSObject {
 			return
 		}
 		
-		guard let textStr = String(CString:text,
-			encoding:NH3DTEXTENCODING) else {
-				return
+		guard let textStr = String(CString: text, encoding: NH3DTEXTENCODING) else {
+			NSBeep()
+			return
 		}
 		
 		if userSound && !SOUND_MUTE {
@@ -204,10 +202,9 @@ class NH3DMessaging: NSObject {
 					switch msgEffect.type {
 					case 1: // hit enemy attack to player
 						glView.isShocked = true
-						break;
+						
 					case 2: // hit player attack to enemy
 						glView.enemyPosition = lastAttackDirection
-						break;
 						
 					default:
 						break;
@@ -248,13 +245,13 @@ class NH3DMessaging: NSObject {
 			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 		
 		messageWindow.textStorage?.appendAttributedString(putString)
-		messageWindow.scrollRangeToVisible(NSRange(location: messageWindow.textStorage!.length, length: 0))
+		messageWindow.scrollToEndOfDocument(self)
+			//scrollRangeToVisible(NSRange(location: messageWindow.textStorage!.length, length: 0))
 	}
 
 	func clearMainMessage() {
 		msgArray.removeAll()
-		messageWindow.string = "";
-
+		messageWindow.string = ""
 	}
 
 	func showInputPanel(messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
@@ -302,7 +299,7 @@ class NH3DMessaging: NSObject {
 		}
 		
 		guard let inputData = inputTextField.stringValue.dataUsingEncoding(NH3DTEXTENCODING, allowLossyConversion:true),
-			str = String(data:inputData, encoding: NH3DTEXTENCODING),
+			str = String(data: inputData, encoding: NH3DTEXTENCODING),
 			cStr = str.cStringUsingEncoding(NH3DTEXTENCODING) else {
 				questionTextField.stringValue = ""
 				inputTextField.stringValue = ""
@@ -325,17 +322,22 @@ class NH3DMessaging: NSObject {
 		}
 	}
 	
+	func showOutRip(ripString: UnsafePointer<CChar>) {
+		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died. Nothing eventful happened, though"
+		showOutRip(conv)
+	}
+	
 	@objc(showOutRipString:) func showOutRip(ripString: String) {
 		ripFlag = true;
 		
 		prepareAttributes()
-		style.alignment = NSCenterTextAlignment;
+		style.alignment = .Center
 		
-		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: "Optima Bold", size: 11)
 		
 		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
-			attributes:lightShadowStrAttributes)
+			attributes: lightShadowStrAttributes)
 		
 		ripPanel.alphaValue = 0;
 		ripPanel.orderFront(self)
@@ -351,18 +353,15 @@ class NH3DMessaging: NSObject {
 	}
 	
 	func putLogMessage(rawText: String, bold: Bool) {
-		var putStr: NSAttributedString
-		
 		#if DEBUG
-			NSLog(" %@",rawText);
+			NSLog(" %@", rawText);
 		#endif
 		prepareAttributes()
-		style.alignment = NSLeftTextAlignment;
+		style.alignment = .Left
 		
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
 		
-		putStr = NSAttributedString(string: rawText + "\n",
-			attributes: lightShadowStrAttributes)
+		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		
 		rawPrintWindow.editable = true;
 		rawPrintWindow.textStorage?.appendAttributedString(putStr)
@@ -379,7 +378,7 @@ class NH3DMessaging: NSObject {
 		rawPrintPanel.makeKeyAndOrderFront(self)
 		// window fade out/in
 		
-		if ( ripFlag ) {
+		if ripFlag {
 			ripOrMainWindow = ripPanel;
 			NSApp.runModalForWindow(ripPanel)
 		} else {
