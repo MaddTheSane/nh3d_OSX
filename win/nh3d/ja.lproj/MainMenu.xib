@@ -2350,19 +2350,18 @@
                 <outlet property="_window" destination="21" id="5091"/>
             </connections>
         </customObject>
-        <customObject id="5161" userLabel="NH3DMessenger" customClass="NH3DMessenger">
+        <customObject id="5161" userLabel="NH3DMessenger" customClass="NH3DMessaging" customModule="NetHack3D" customModuleProvider="target">
             <connections>
-                <outlet property="_deathDescription" destination="5323" id="5365"/>
-                <outlet property="_glView" destination="6193" id="6465"/>
-                <outlet property="_inputPanel" destination="5307" id="5345"/>
-                <outlet property="_inputTextField" destination="5309" id="5346"/>
-                <outlet property="_messeageScrollView" destination="6214" id="6423"/>
-                <outlet property="_messeageWindow" destination="6215" id="6216"/>
-                <outlet property="_questionTextField" destination="5311" id="5360"/>
-                <outlet property="_rawPrintPanel" destination="5650" id="5655"/>
-                <outlet property="_rawPrintWindow" destination="5653" id="5656"/>
-                <outlet property="_ripPanel" destination="5320" id="5343"/>
-                <outlet property="_window" destination="21" id="5362"/>
+                <outlet property="deathDescription" destination="5323" id="5365"/>
+                <outlet property="glView" destination="6193" id="6465"/>
+                <outlet property="inputPanel" destination="5307" id="5345"/>
+                <outlet property="inputTextField" destination="5309" id="5346"/>
+                <outlet property="messageScrollView" destination="6214" id="6423"/>
+                <outlet property="questionTextField" destination="5311" id="5360"/>
+                <outlet property="rawPrintPanel" destination="5650" id="5655"/>
+                <outlet property="rawPrintScrollView" destination="5652" id="uSg-08-faP"/>
+                <outlet property="ripPanel" destination="5320" id="5343"/>
+                <outlet property="window" destination="21" id="5362"/>
             </connections>
         </customObject>
         <customObject id="5173" userLabel="NH3DMapModel" customClass="MapModel" customModule="NetHack3D" customModuleProvider="target">

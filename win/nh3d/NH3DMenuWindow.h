@@ -9,7 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DMenuItem.h"
-#import "NH3DMessenger.h"
+
+@class NH3DMessaging;
 
 #import "NH3DUserDefaultsExtern.h"
 
@@ -26,7 +27,7 @@
 	IBOutlet NSScrollView *_textScrollView;
 	IBOutlet NSPanel *_textPanel;
 	/* I am going to collect it.Probably. Perhaps.... */
-	IBOutlet NH3DMessenger *_messenger;
+	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSTextView *_ripTextwindow;
 	
 	NSMutableArray *nh3dMenu;

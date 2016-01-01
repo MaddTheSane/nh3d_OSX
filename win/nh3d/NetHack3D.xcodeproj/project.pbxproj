@@ -104,7 +104,6 @@
 		2B26131D09233E7900CA7A64 /* wormtail.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B2612D909233E7900CA7A64 /* wormtail.3ds */; };
 		2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */; };
 		2B2E1EDF0919086F008805B3 /* NH3DModelObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */; };
-		2B3115DE08BD32A70041EE7D /* NH3DMessenger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */; };
 		2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3539190915A2F4002CC8AD /* MainMenu.xib */; };
 		2B3D4EA309526CF8006921EA /* wizardset.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA109526CF8006921EA /* wizardset.3ds */; };
 		2B3D4EA409526CF8006921EA /* wizardset.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA209526CF8006921EA /* wizardset.tif */; };
@@ -464,6 +463,8 @@
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
+		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
+		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
@@ -573,8 +574,6 @@
 		2B29B1DD08E0EDFD00951AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2B2BBF58093F487100DCBBBB /* nh3d.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nh3d.icns; sourceTree = "<group>"; };
 		2B2E1EDE0919086F008805B3 /* NH3DModelObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DModelObjects.m; sourceTree = "<group>"; };
-		2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMessenger.m; sourceTree = "<group>"; };
-		2B3115DD08BD32A70041EE7D /* NH3DMessenger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMessenger.h; sourceTree = "<group>"; };
 		2B31DB7708CD73C5008CCAAC /* bitmfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitmfile.c; sourceTree = "<group>"; };
 		2B31DB7808CD73C5008CCAAC /* gem_rsc.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rsc.uu; sourceTree = "<group>"; };
 		2B31DB7908CD73C5008CCAAC /* gem_rso.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rso.uu; sourceTree = "<group>"; };
@@ -1468,6 +1467,8 @@
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
 		55BF8B371B76F46F0031A45A /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
+		55C1693B1C3520F300C1365E /* NH3DMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DMessaging.swift; sourceTree = "<group>"; };
+		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1522,6 +1523,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
 				55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */,
 				2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
@@ -1544,8 +1546,7 @@
 				2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */,
 				2B6311CB08B7A27A00162523 /* winnh3d.h */,
 				2B6311CC08B7A27A00162523 /* winnh3d.m */,
-				2B3115DD08BD32A70041EE7D /* NH3DMessenger.h */,
-				2B3115DC08BD32A70041EE7D /* NH3DMessenger.m */,
+				55C1693B1C3520F300C1365E /* NH3DMessaging.swift */,
 				55BF8B331B76AECB0031A45A /* MapModel.swift */,
 				2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */,
 				2B598AD508E5B523005ECDC5 /* NH3DMenuWindow.m */,
@@ -1646,6 +1647,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55F544C01C3614A100A1A1EE /* AVFoundation.framework */,
 				55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */,
 				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
 				2B02FB1F09497C03008FEDB0 /* OpenGL.framework */,
@@ -3407,6 +3409,7 @@
 				2B5CC16C088EB7DF00940C58 /* fountain.c in Sources */,
 				2B5CC16D088EB7DF00940C58 /* hack.c in Sources */,
 				2B5CC16E088EB7DF00940C58 /* hacklib.c in Sources */,
+				55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */,
 				2B5CC16F088EB7DF00940C58 /* invent.c in Sources */,
 				2B5CC171088EB7DF00940C58 /* light.c in Sources */,
 				2B5CC172088EB7DF00940C58 /* lock.c in Sources */,
@@ -3486,7 +3489,6 @@
 				2B5CC1BF088EB7DF00940C58 /* zap.c in Sources */,
 				2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */,
 				2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */,
-				2B3115DE08BD32A70041EE7D /* NH3DMessenger.m in Sources */,
 				2B598AD608E5B523005ECDC5 /* NH3DMenuWindow.m in Sources */,
 				2B041A8808E605B2007F87AB /* NH3DMenuItem.m in Sources */,
 				2B5469C108EF2EF5008AA81F /* unixtty.c in Sources */,

@@ -52,7 +52,7 @@ extern char **NXArgv;
 static __strong NH3DBindController *_NH3DBindController;
 static __strong NH3DUserStatusModel *_NH3DUserStatusModel;
 static __strong MapModel *_NH3DMapModel;
-static __strong NH3DMessenger *_NH3DMessenger;
+static __strong NH3DMessaging *_NH3DMessenger;
 static __strong NH3DMenuWindow *_NH3DMenuWindow;
 static __strong NH3DMapView *_NH3DKeyBuffer;
 static __strong NH3DOpenGLView *_NH3DOpenGLView;

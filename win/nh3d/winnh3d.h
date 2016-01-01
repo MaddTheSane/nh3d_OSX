@@ -29,7 +29,6 @@
 
 
 #import "NH3DUserStatusModel.h"
-#import "NH3DMessenger.h"
 #import "NH3DMenuWindow.h"
 #import "NH3DTileCache.h"
 #import "NH3DUserMakeSheetController.h"
@@ -87,6 +86,8 @@ void nh3d_end_screen();
 void nh3d_outrip(winid wid, int how);
 //int nh3d_kbhit();
 
+@class NH3DMessaging;
+@class NH3DOpenGLView;
 
 void nh3d_create_nhwindow_by_id( int type, winid i);
 void nethack3d_exit(int status);
@@ -98,7 +99,7 @@ void nh3d_set_savefile_name();
 	IBOutlet NSWindow *_window;
 	IBOutlet NSMenu  *_mainMenu;
 	IBOutlet NH3DUserStatusModel *_userStatus;
-	IBOutlet NH3DMessenger *_messenger;
+	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet MapModel *_mapModel;
 	IBOutlet NH3DOpenGLView *_glMapView;
 	IBOutlet NH3DMapView *_asciiMapView;

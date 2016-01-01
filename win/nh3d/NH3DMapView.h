@@ -14,7 +14,7 @@
 
 @class MapModel;
 @class NH3DBindController;
-@class NH3DMessenger;
+@class NH3DMessaging;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 	
 	IBOutlet MapModel *_mapModel;
 	IBOutlet NH3DBindController *_bindController;
-	IBOutlet NH3DMessenger *_messenger;
+	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSImageView *_mapLview;
 	IBOutlet NSPanel	*_mapLpanel;
 	NSColor	*bgColor;
