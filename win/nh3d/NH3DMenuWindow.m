@@ -203,9 +203,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 // Display TableMenu Items.
 - (void)tableView:(NSTableView*)tableView 
-                willDisplayCell:(id)cell 
-                forTableColumn:(NSTableColumn*)tableColumn 
-                row:(NSInteger)row
+  willDisplayCell:(id)cell
+   forTableColumn:(NSTableColumn*)tableColumn
+			  row:(NSInteger)row
 {
 	NH3DMenuItem *aMenuItem = nh3dMenu[row];
 	NSString *identifier = tableColumn.identifier ;

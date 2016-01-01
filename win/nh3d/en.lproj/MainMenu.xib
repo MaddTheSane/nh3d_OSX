@@ -2121,6 +2121,13 @@
                                     <action selector="infoMenuActions:" target="5648" id="5910"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="85V-Xl-zoL"/>
+                            <menuItem title="Map…" id="ske-b7-lNY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showGlobalMap:" target="5648" id="D5p-b9-OKo"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -2597,6 +2604,8 @@ DQ
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="168" y="433" width="434" height="327"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
+            <value key="minSize" type="size" width="282" height="100"/>
+            <value key="maxSize" type="size" width="600" height="675"/>
             <view key="contentView" id="5497">
                 <rect key="frame" x="0.0" y="0.0" width="434" height="327"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -3261,7 +3270,7 @@ DQ
         </menu>
         <menu title="Menu" id="6240" userLabel="viewOption">
             <items>
-                <menuItem title="Use Sight restriction." tag="1" id="6241">
+                <menuItem title="Use Sight Restriction" tag="1" id="6241">
                     <connections>
                         <action selector="setRestrictedView:" target="5648" id="6244"/>
                         <binding destination="6780" name="value" keyPath="values.ASCIIMapisRestricted" id="6783"/>
@@ -3270,12 +3279,12 @@ DQ
                 <menuItem isSeparatorItem="YES" id="6449">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
-                <menuItem title="View Level Map." tag="2" id="6450">
+                <menuItem title="View Level Map" tag="2" id="6450">
                     <connections>
                         <action selector="showGlobalMap:" target="5648" id="6452"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Use Tile in LevelMap." tag="3" id="6451">
+                <menuItem title="Use Tiles in Level Map" tag="3" id="6451">
                     <connections>
                         <action selector="setUseTileInGlobalMap:" target="5648" id="6453"/>
                         <binding destination="6780" name="value" keyPath="values.LevelMapisUseTile" id="6786"/>
