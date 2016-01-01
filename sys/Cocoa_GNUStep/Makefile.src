@@ -237,13 +237,13 @@ WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 #
 WINNH3DSRC = ../win/nh3d/NH3DMapItem.m ../win/nh3d/NH3DMapModel.m \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
-	../win/nh3d/NH3DMessenger.m ../win/nh3d/NH3DModelObjects.m ../win/nh3d/NH3DOpenGLView.m \
+	../win/nh3d/NH3DMessenger.m ../win/nh3d/NH3DModelObject.m ../win/nh3d/NH3DOpenGLView.m \
 	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DPreferenceController.m ../win/nh3d/NH3DTileCache.m \
 	../win/nh3d/NH3DUserMakeSheetController.m ../win/nh3d/NH3DUserStatusModel.m \
 	../win/nh3d/winnh3d.m \
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DOBJ = NH3DMapItem.o NH3DMapModel.o NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
-	NH3DMessenger.o NH3DModelObjects.o NH3DOpenGLView.o NH3DPanel.o NH3DPreferenceController.o \
+	NH3DMessenger.o NH3DModelObject.o NH3DOpenGLView.o NH3DPanel.o NH3DPreferenceController.o \
 	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
 #	Cocoa-compat.o
 #
@@ -783,8 +783,8 @@ NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
 NH3DMessenger.o: ../win/nh3d/NH3DMessenger.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMessenger.m
-NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObjects.m
+NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObject.m
 NH3DOpenGLView.o: ../win/nh3d/NH3DOpenGLView.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DOpenGLView.m
 NH3DPanel.o: ../win/nh3d/NH3DPanel.m

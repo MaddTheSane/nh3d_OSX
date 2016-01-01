@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NH3DTileCache : NSObject {
-	
+@private
 	NSBitmapImageRep	*bitMap;
 		
 	int					tileSize_X;

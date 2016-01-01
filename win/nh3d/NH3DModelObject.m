@@ -1,12 +1,12 @@
 //
-//  NH3DModelObjects.m
+//  NH3DModelObject.m
 //  NetHack3D
 //
 //  Created by Haruumi Yoshino on 05/11/02.
 //  Copyright 2005 Haruumi Yoshino. All rights reserved.
 //
 
-#import "NH3DModelObjects.h"
+#import "NH3DModelObject.h"
 
 
 static GLfloat colors[ 16 ][ 3 ] = {
@@ -37,7 +37,7 @@ static const NH3DMaterial defaultMat = {
 };
 
 
-@implementation NH3DModelObjects
+@implementation NH3DModelObject
 @synthesize currentMaterial;
 @synthesize isChild;
 @synthesize animated = animate;
@@ -996,12 +996,12 @@ static const NH3DMaterial defaultMat = {
 	self.modelPivot = toSet;
 }
 
-- (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
+- (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
 {
 	return childObjects[index];
 }
 
-- (NH3DModelObjects *)childObjectAtLast
+- (NH3DModelObject *)childObjectAtLast
 {
 	return childObjects.lastObject;
 }
@@ -1009,30 +1009,30 @@ static const NH3DMaterial defaultMat = {
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type
 {
-	NH3DModelObjects *modelobj = nil;
+	NH3DModelObject *modelobj = nil;
 	
 	switch (type) {
 		
 		case NH3DModelTypeObject:
-			modelobj = [[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:NO];
+			modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName withTexture:NO];
 //			if (modelobj == nil) {
-//				modelobj = [[NH3DModelObjects alloc] initWithOBJFile:childName withTexture:NO];
+//				modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName withTexture:NO];
 //			}
 			
 			break;
 		case NH3DModelTypeTexturedObject:
-			modelobj = [[NH3DModelObjects alloc] initWith3DSFile:childName withTexture:YES];
+			modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName withTexture:YES];
 //			if (modelobj == nil) {
-//				modelobj = [[NH3DModelObjects alloc] initWithOBJFile:childName withTexture:YES];
+//				modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName withTexture:YES];
 //			}
 				
 			break;
 		case NH3DModelTypeEmitter:
-			modelobj = [[NH3DModelObjects alloc] init];
+			modelobj = [[NH3DModelObject alloc] init];
 			
 			break;
 		default :
-			NSLog(@"NH3DModelObjects:Can't add Child object '%@'. There is not an appointed type '%d'.",childName,type);
+			NSLog(@"NH3DModelObject:Can't add Child object '%@'. There is not an appointed type '%d'.",childName,type);
 			break;
 	}
 	
@@ -1046,7 +1046,7 @@ static const NH3DMaterial defaultMat = {
 		hasChildObject = YES;
 		numberOfChildObjects = childObjects.count ;
 	} else {
-		NSLog(@"NH3DModelObjects:Can't add Child object '%@'. please check filename or location.",childName);
+		NSLog(@"NH3DModelObject:Can't add Child object '%@'. please check filename or location.",childName);
 	}
 }
 

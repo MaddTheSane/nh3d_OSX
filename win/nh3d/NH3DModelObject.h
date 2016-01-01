@@ -1,5 +1,5 @@
 /*
- *  NH3DModelObjects.h"
+ *  NH3DModelObject.h"
  *  NetHack3D
  *
  *  Created by Haruumi Yoshino on 05/10/20.
@@ -63,8 +63,8 @@ typedef struct {
 } NH3DParticle;
 
 
-@interface NH3DModelObjects : NSObject <NSFastEnumeration> {
-	
+@interface NH3DModelObject : NSObject <NSFastEnumeration> {
+@private
 	BOOL				active;
 	NSString			*modelName;					/* model name from data */
 	NSString			*modelCode;					/* model name from filename */
@@ -167,8 +167,8 @@ typedef struct {
 @property BOOL isChild;
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
-- (NH3DModelObjects *)childObjectAtIndex:(NSUInteger)index;
-@property (readonly, strong, nullable) NH3DModelObjects *childObjectAtLast;
+- (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
+@property (readonly, strong, nullable) NH3DModelObject *childObjectAtLast;
 
 @property (readwrite) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
