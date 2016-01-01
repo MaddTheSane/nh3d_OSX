@@ -28,7 +28,7 @@
 	return YES;
 }
 
-- (void)showPreferencePanel:(id)sender
+- (void)showPreferencePanel:(NH3DBindController*)sender
 {
 	bindController = sender;
 	[self.window makeKeyAndOrderFront:self];

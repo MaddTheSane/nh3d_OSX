@@ -19,7 +19,7 @@
 
 }
 
-- (IBAction)showPreferencePanel:(id)sender;
+- (void)showPreferencePanel:(NH3DBindController*)sender;
 
 - (IBAction)showFontPanelAction:(id)sender;
 - (IBAction)chooseTileFile:(id)sender;
