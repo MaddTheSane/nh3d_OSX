@@ -39,7 +39,7 @@
 	
 	BOOL isMenu;
 	BOOL isExtendMenu;
-	int selectedRow;
+	NSInteger selectedRow;
 	BOOL doneRip;
 	int pickType;
 }
@@ -53,7 +53,7 @@
 
 @property BOOL doneRip;
 
-@property (readonly, copy) NSMutableArray *nh3dMenu;
+@property (readonly, strong) NSMutableArray *nh3dMenu;
 
 - (void)putTextMessage:(NSString *)contents;
 - (void)clearTextMessage;
