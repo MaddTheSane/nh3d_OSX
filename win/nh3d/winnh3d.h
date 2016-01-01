@@ -19,6 +19,7 @@
 
 @class MapModel;
 @class NH3DMapView;
+@class NH3DPreferenceController;
 
 #import "NH3DUserDefaultsExtern.h"
 
@@ -32,7 +33,6 @@
 #import "NH3DMenuWindow.h"
 #import "NH3DTileCache.h"
 #import "NH3DUserMakeSheetController.h"
-#import "NH3DPreferenceController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

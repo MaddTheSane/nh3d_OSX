@@ -374,7 +374,6 @@
 		2B89E8340957180300978B9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		2B89F12A0A22FE3F00387832 /* oracles in Resources */ = {isa = PBXBuildFile; fileRef = 2B89F1280A22FE3F00387832 /* oracles */; };
 		2B89F12B0A22FE3F00387832 /* rumors in Resources */ = {isa = PBXBuildFile; fileRef = 2B89F1290A22FE3F00387832 /* rumors */; };
-		2B8ADFF9095FBB5500B6998D /* NH3DPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B8ADFF8095FBB5500B6998D /* NH3DPreferenceController.m */; };
 		2B8AE3610960779400B6998D /* PreferencePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B8AE3600960779400B6998D /* PreferencePanel.xib */; };
 		2B9854BC08F96D84005E0966 /* asciiMapBase.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */; };
 		2B9A4740096DD7530074B10D /* bridge_opt.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B9A473E096DD7530074B10D /* bridge_opt.3ds */; };
@@ -465,6 +464,7 @@
 		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
+		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1335,8 +1335,6 @@
 		2B7D1356094FB6A200A49F3D /* corner_rouge.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = corner_rouge.tif; sourceTree = "<group>"; };
 		2B89F1280A22FE3F00387832 /* oracles */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oracles; sourceTree = "<group>"; };
 		2B89F1290A22FE3F00387832 /* rumors */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rumors; sourceTree = "<group>"; };
-		2B8ADFF7095FBB5500B6998D /* NH3DPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DPreferenceController.h; sourceTree = "<group>"; };
-		2B8ADFF8095FBB5500B6998D /* NH3DPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPreferenceController.m; sourceTree = "<group>"; };
 		2B8ADFFE095FBC7C00B6998D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
 		2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = asciiMapBase.tiff; sourceTree = "<group>"; };
 		2B9A473E096DD7530074B10D /* bridge_opt.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = bridge_opt.3ds; sourceTree = "<group>"; };
@@ -1464,6 +1462,7 @@
 		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DPreferenceController.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1559,8 +1558,7 @@
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
 				2B5458D9095D23F3007A1049 /* NH3DUserMakeSheetController.h */,
 				2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */,
-				2B8ADFF7095FBB5500B6998D /* NH3DPreferenceController.h */,
-				2B8ADFF8095FBB5500B6998D /* NH3DPreferenceController.m */,
+				55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */,
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
 			);
@@ -3458,6 +3456,7 @@
 				2B5CC1B0088EB7DF00940C58 /* trap.c in Sources */,
 				2B5CC1B1088EB7DF00940C58 /* u_init.c in Sources */,
 				2B5CC1B2088EB7DF00940C58 /* uhitm.c in Sources */,
+				55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */,
 				2B5CC1B3088EB7DF00940C58 /* vault.c in Sources */,
 				2B5CC1B4088EB7DF00940C58 /* version.c in Sources */,
 				2B5CC1B5088EB7DF00940C58 /* vis_tab.c in Sources */,
@@ -3483,7 +3482,6 @@
 				2BCAAB520912FC5000AF1C59 /* NH3DTileCache.m in Sources */,
 				2B2E1EDF0919086F008805B3 /* NH3DModelObjects.m in Sources */,
 				2B5458DB095D23F3007A1049 /* NH3DUserMakeSheetController.m in Sources */,
-				2B8ADFF9095FBB5500B6998D /* NH3DPreferenceController.m in Sources */,
 				2BA7A40609774D3100122932 /* nh3dmain.m in Sources */,
 				2B5E5194097D4E94002F1588 /* nh3dres.m in Sources */,
 				2B5E5195097D4E94002F1588 /* nh3dunix.m in Sources */,
@@ -3557,6 +3555,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = nh3d;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -3601,6 +3600,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = nh3d;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
