@@ -313,9 +313,9 @@ void nh3d_player_selection()
 void nh3d_askname()
 {		
 	@autoreleasepool {
-		nh3d_getlin( [ NSLocalizedString(@"Who are you?",@"") cStringUsingEncoding:NH3DTEXTENCODING ],plname );
+		nh3d_getlin([NSLocalizedString(@"Who are you?", @"") cStringUsingEncoding:NH3DTEXTENCODING], plname);
 		
-		if ( [ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ].length >= PL_NSIZ-11 ) {
+		if ([NSString stringWithCString:plname encoding:NH3DTEXTENCODING].length >= PL_NSIZ-11 ) {
 			plname[ 0 ] = 0;
 			
 			NSRunAlertPanel(NSLocalizedString(@"A name is too long, and it is difficult to learn.",@""),
@@ -1643,7 +1643,7 @@ You("スコアの載らない発見モードで起動した．");
 #ifndef GNUSTEP
 	//for OSX (UTF8) File System
 		NSString *lockString;
-		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(),[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(lock, lockString.fileSystemRepresentation);
 #else
 		Sprintf(lock, "%d%s", (int)getuid(), plname);

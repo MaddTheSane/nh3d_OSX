@@ -28,9 +28,9 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 	var effects1 = Array<NH3DMessaging.Effect>()
 	
 	autoreleasepool() {
-		var destText: NSString?
+		var destText: NSString? = ""
 		while !scanner.atEnd {
-			scanner.scanCharactersFromSet(chSet, intoString: &destText)
+			scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
 			
 			if destText == "SOUND=MESG" {
 				let soundMessage: String
@@ -144,7 +144,7 @@ class NH3DMessaging: NSObject {
 		
 		//Text attributes on Panel or Window.
 		
-		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name:NH3DWINDOWFONT,
+		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT,
 			size: NH3DWINDOWFONTSIZE)
 		lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
 		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
@@ -155,7 +155,7 @@ class NH3DMessaging: NSObject {
 		do {
 			(soundArray, effectArray) = try loadSoundConfig()
 			userSound = true
-		} catch {
+		} catch _ {
 			userSound = false
 		}
 		super.init()
@@ -183,10 +183,9 @@ class NH3DMessaging: NSObject {
 		
 		if userSound && !SOUND_MUTE {
 			let bundleURL = NSBundle.mainBundle().bundleURL
-			//var soundURL: NSURL?
 			
 			for soundEntry in soundArray {
-				if (textStr as NSString).isLike(soundEntry.message) ?? false {
+				if (textStr as NSString).isLike(soundEntry.message) {
 					guard let soundURL = bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent(soundEntry.name) else {
 						continue
 					}
@@ -201,7 +200,7 @@ class NH3DMessaging: NSObject {
 			}
 			
 			for msgEffect in effectArray {
-				if (textStr as NSString).isLike(msgEffect.message) ?? false {
+				if (textStr as NSString).isLike(msgEffect.message) {
 					switch msgEffect.type {
 					case 1: // hit enemy attack to player
 						glView.isShocked = true
@@ -265,12 +264,12 @@ class NH3DMessaging: NSObject {
 		var result = 0;
 
 		prepareAttributes()
-		style.alignment = NSCenterTextAlignment;
+		style.alignment = .Center
 
 		let putString = NSAttributedString(string: questionStr,
-			attributes:lightShadowStrAttributes)
+			attributes: lightShadowStrAttributes)
 		
-		questionTextField.attributedStringValue = putString ;
+		questionTextField.attributedStringValue = putString
 		
 		window.beginSheet(inputPanel) { (returnCode) -> Void in
 			//do nothing?
@@ -281,7 +280,7 @@ class NH3DMessaging: NSObject {
 		window.endSheet(inputPanel)
 		inputPanel.orderOut(self)
 		
-		if ( result == DIALOG_CANCEL ) {
+		if result == DIALOG_CANCEL {
 			questionTextField.stringValue = ""
 			inputTextField.stringValue = ""
 			return -1;
@@ -291,7 +290,7 @@ class NH3DMessaging: NSObject {
 			return -1;
 		}
 		
-		if (inputTextField.stringValue.lengthOfBytesUsingEncoding(NH3DTEXTENCODING) > Int(BUFSZ) ) {
+		if inputTextField.stringValue.lengthOfBytesUsingEncoding(NH3DTEXTENCODING) > Int(BUFSZ) {
 			let alert = NSAlert()
 			alert.messageText = NSLocalizedString("There is too much number of the letters.", comment:"")
 			alert.informativeText = " "
@@ -320,9 +319,9 @@ class NH3DMessaging: NSObject {
 	
 	@IBAction func closeInputPanel(sender: NSButton?) {
 		if sender?.tag != 0 {
-			NSApp.stopModalWithCode(DIALOG_OK)
-		} else {
 			NSApp.stopModalWithCode(DIALOG_CANCEL)
+		} else {
+			NSApp.stopModalWithCode(DIALOG_OK)
 		}
 	}
 	
