@@ -42,7 +42,7 @@ private let keyLightAltAmb: [GLfloat] = [0.08 ,0.08 ,0.08 ,1];
 private let keyLightAltspec: [GLfloat] = [0.04 ,0.09 ,0.18 ,1];
 
 private let defaultBackGroundCol: [GLfloat] = [0.00 ,0.00 ,0.00 ,0] ;
-private let underWaterColar: [GLfloat] = [0.00 ,0.00 ,0.80 ,1.0] ;
+private let underwaterColor: [GLfloat] = [0.00 ,0.00 ,0.80 ,1.0] ;
 
 private let vsincWait: GLint = 1;
 private let vsincNoWait: GLint = 0;
@@ -847,7 +847,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glClearColor(0.0, 0.0, 0.8, 0.0)
 			glFogf(GLenum(GL_FOG_END), 6.0)
-			glFogfv(GLenum(GL_FOG_COLOR), underWaterColar)
+			glFogfv(GLenum(GL_FOG_COLOR), underwaterColor)
 			
 		} else if Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy).typ) {
 			// in room
