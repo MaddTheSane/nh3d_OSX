@@ -2553,7 +2553,7 @@ DQ
                             <font key="font" size="13" name="Copperplate"/>
                         </buttonCell>
                         <connections>
-                            <action selector="startSpeaking:" target="-1" id="5430"/>
+                            <action selector="startSpeaking:" target="5379" id="dfa-DR-gAt"/>
                         </connections>
                     </button>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="5378">

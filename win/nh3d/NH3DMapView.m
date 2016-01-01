@@ -57,8 +57,7 @@
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
-		
-	if (self = [ super initWithFrame:frameRect ]) {
+	if (self = [super initWithFrame:frameRect]) {
 		self.bgColor = [NSColor colorWithCalibratedWhite:0.15 alpha:1.0];
 			
 		isReady = NO;
@@ -98,7 +97,7 @@
 }
 
 
--( void )awakeFromNib
+- (void)awakeFromNib
 {
 	[super awakeFromNib];
 	NSNotificationCenter *nCenter = [NSNotificationCenter defaultCenter];
@@ -111,9 +110,8 @@
 
 - (void)defaultDidChange:(NSNotification *)notification
 {
-	if ( TRADITIONAL_MAP ) {
-		
-		if ( isReady ) {
+	if (TRADITIONAL_MAP) {
+		if (isReady) {
 			[ self lockFocusIfCanDraw ];
 			NSEraseRect( self.bounds );
 			[ [NSColor windowBackgroundColor] set ];
@@ -124,7 +122,7 @@
 		self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0) ;
 		
 		self.mapBezel = nil;
-		self.mapBase = [ NSImage imageNamed:@"trBase" ];
+		self.mapBase = [NSImage imageNamed:@"trBase"];
 		
 		[ self makeTraditionalMap ];
 		
@@ -133,8 +131,7 @@
 		[ [_bindController mainWindow] displayIfNeeded ];
 		
 	} else if ( !TRADITIONAL_MAP ) {
-		
-		if ( isReady ) {
+		if (isReady) {
 			[ self lockFocusIfCanDraw ];
 			NSEraseRect( self.bounds );
 			[ [NSColor windowBackgroundColor] set ];
@@ -142,24 +139,21 @@
 			[ self unlockFocus ];
 		}
 		
+		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);
 		
-		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0) ;
-		
-		self.mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
-		self.mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
+		self.mapBezel = [ NSImage imageNamed:@"asciiMapMask"];
+		self.mapBase = [ NSImage imageNamed:@"asciiMapBase"];
 		
 		self.trMapImage = nil;
 		
 		[ self updateMap ];
 		[ self setNeedsDisplay:YES ];
-		[ [_bindController mainWindow] displayIfNeeded ];
+		[[_bindController mainWindow] displayIfNeeded];
 	}
-
 }
 
 - (void) dealloc {
 	int x,y;
-	
 	
 	for ( x=0 ; x<MAPVIEWSIZE_COLUMN ; x++ ) {
 		for ( y=0 ; y<MAPVIEWSIZE_ROW ; y++ ) {
@@ -209,7 +203,7 @@
 
 - (BOOL)becomeFirstResponder
 {
-	[ self setNeedsDisplay:YES ];
+	[self setNeedsDisplay:YES];
 	return YES;
 }
 
@@ -217,24 +211,20 @@
  - (void)resetCursorRects
 {
 	NSRect rect = self.bounds ;
-	NSCursor* cursor = [ [NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
-												hotSpot:NSMakePoint(7, 7) ];
-	[ self addCursorRect:rect cursor:cursor ];
-	
+	NSCursor* cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
+											   hotSpot:NSMakePoint(7, 7)];
+	[self addCursorRect:rect cursor:cursor];
 }
-
-
 
 - (void)setCenterAtX:(int)x y:(int)y depth:(int)depth
 {
-	if ( depth != plDepth && ( TRADITIONAL_MAP || trMapImage != nil ))
+	if (depth != plDepth && (TRADITIONAL_MAP || trMapImage != nil))
 		[self makeTraditionalMap];
 	plDepth = depth;
 	centerX = x;
 	centerY = y;
 	isReady = YES;
 }
-
 
 - (void)makeTraditionalMap
 {
@@ -340,8 +330,6 @@
 	
 	[_mapModel mapArrayAtX:x atY:y];
 }
-
-
 
 - (void)updateMap
 {
@@ -802,8 +790,8 @@
 	keyBuffer = 0;
 	int lkey = 0;
 	
-	if ( [ sender tag ] < 50 ) {
-		switch ( _mapModel.playerDirection ) {
+	if ([ sender tag ] < 50) {
+		switch (_mapModel.playerDirection) {
 			case PL_DIRECTION_FORWARD:
 				switch ( [ sender tag ] ) {
 					case 1:
@@ -1569,26 +1557,20 @@
 	} // end for x
 	
 	// draw direction symbol
-	[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (float)(cusx + 8) ,
-															   imgSize.height - (drawSize.height * (float)cusy))
+	[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
+															   imgSize.height - (drawSize.height * (CGFloat)cusy))
 										  fromRect:NSZeroRect
 										 operation:NSCompositeSourceOver
 										  fraction:0.5];
-	/*
-	[ [NSImage imageNamed:@"direction"] dissolveToPoint:NSMakePoint(drawSize.width * (float)(cusx + 8) ,
-																   imgSize.height - (drawSize.height * (float)cusy))
-											   fraction:0.5 ];
-	 */
 	
-	[ mapImage unlockFocus ];
+	[mapImage unlockFocus];
 	//[ putImg setCacheMode:NSImageCacheNever ];
 	
-	_mapLview.image = mapImage ;
+	_mapLview.image = mapImage;
 	
 	// Scroll to Cursor Postion (shift 7 tiles added to Right)
-	[ _mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
-									   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7))) ];
-	
+	[_mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
+									   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)))];
 	}
 	
 	// Sheet is Up.
@@ -1613,7 +1595,6 @@
 {
 	[NSApp stopModal];
 }
-
 
 - (IBAction)zoomLevelMap:(id)sender
 {
@@ -1651,9 +1632,7 @@
 	_mapLview.frame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height);
 	_mapLview.image = newImg;
 	
-
 	[_mapLview setNeedsDisplay];
 }
-
 
 @end

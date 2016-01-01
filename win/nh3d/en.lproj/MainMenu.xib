@@ -2553,17 +2553,6 @@ DQ
                             <action selector="closeModalDialog:" target="5507" id="5624"/>
                         </connections>
                     </button>
-                    <button id="5429">
-                        <rect key="frame" x="54" y="289" width="80" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" title="Speech" bezelStyle="regularSquare" alignment="center" borderStyle="border" inset="2" id="6950">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="13" name="Copperplate"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="startSpeaking:" target="-1" id="5430"/>
-                        </connections>
-                    </button>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="5378">
                         <rect key="frame" x="44" y="46" width="496" height="239"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2593,6 +2582,17 @@ DQ
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <button id="5429">
+                        <rect key="frame" x="42" y="291" width="80" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Speak" bezelStyle="regularSquare" alignment="center" borderStyle="border" inset="2" id="6950">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="13" name="Copperplate"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="startSpeaking:" target="5379" id="ITu-gH-h6g"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>

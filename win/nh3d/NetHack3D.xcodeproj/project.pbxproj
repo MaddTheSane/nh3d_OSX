@@ -383,7 +383,6 @@
 		2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5E108F53947004AD560 /* NH3DMapItem.m */; };
 		2BA021C808EF4B62004057D1 /* perm in Resources */ = {isa = PBXBuildFile; fileRef = 2BA021C708EF4B62004057D1 /* perm */; };
 		2BA046CD08EF5831004057D1 /* logfile in Resources */ = {isa = PBXBuildFile; fileRef = 2BA046CC08EF5831004057D1 /* logfile */; };
-		2BA134C20915131C00CB4329 /* human.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BA134C10915131C00CB4329 /* human.tiff */; };
 		2BA7A40609774D3100122932 /* nh3dmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* nh3dmain.m */; };
 		2BACF9E60902568F0095C8A4 /* makedefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E40891ADF000D38098 /* makedefs.c */; };
 		2BACFA02090259400095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
@@ -435,8 +434,6 @@
 		2BCAABCC0913A71200AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD70913A7B100AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD80913A7B100AF1C59 /* tiletext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBE08CD73C5008CCAAC /* tiletext.c */; };
-		2BCFB08A08F88696007DB83D /* nh3dCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BCFB08908F88696007DB83D /* nh3dCursor.tiff */; };
-		2BCFB0A508F8992B007DB83D /* nh3dPosCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BCFB0A408F8992B007DB83D /* nh3dPosCursor.tiff */; };
 		2BCFB25708F950DB007DB83D /* base48.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BCFB25608F950DB007DB83D /* base48.tiff */; };
 		2BCFB25D08F95590007DB83D /* asciiMapMask.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BCFB25C08F95590007DB83D /* asciiMapMask.tiff */; };
 		2BD3BC880943D24500F782A6 /* beartrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3BC860943D24500F782A6 /* beartrap.3ds */; };
@@ -940,8 +937,6 @@
 		2B31DD7808CD73D5008CCAAC /* porthelp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = porthelp; sourceTree = "<group>"; };
 		2B31DD7908CD73D5008CCAAC /* win32api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win32api.h; sourceTree = "<group>"; };
 		2B31DD7A08CD73D5008CCAAC /* winnt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winnt.c; sourceTree = "<group>"; };
-		2B35391209159E4D002CC8AD /* ScrollParchment.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ScrollParchment.tif; sourceTree = "<group>"; };
-		2B35391509159FA7002CC8AD /* ScrollParchmentBack.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ScrollParchmentBack.tiff; sourceTree = "<group>"; };
 		2B3D4EA109526CF8006921EA /* wizardset.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = wizardset.3ds; sourceTree = "<group>"; };
 		2B3D4EA209526CF8006921EA /* wizardset.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = wizardset.tif; sourceTree = "<group>"; };
 		2B3D4EA509526D7C006921EA /* nurse.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = nurse.3ds; sourceTree = "<group>"; };
@@ -1352,7 +1347,6 @@
 		2B9ED5E108F53947004AD560 /* NH3DMapItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMapItem.m; sourceTree = "<group>"; };
 		2BA021C708EF4B62004057D1 /* perm */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = perm; sourceTree = "<group>"; };
 		2BA046CC08EF5831004057D1 /* logfile */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = logfile; sourceTree = "<group>"; };
-		2BA134C10915131C00CB4329 /* human.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = human.tiff; sourceTree = "<group>"; };
 		2BA7A3A409774ABC00122932 /* cpp1.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp1.shr; sourceTree = "<group>"; };
 		2BA7A3A509774ABC00122932 /* cpp2.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp2.shr; sourceTree = "<group>"; };
 		2BA7A3A609774ABC00122932 /* cpp3.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp3.shr; sourceTree = "<group>"; };
@@ -1412,8 +1406,6 @@
 		2BCB3EA60A291D82009C988D /* Makefile.top */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.top; sourceTree = "<group>"; };
 		2BCB3EA70A291D82009C988D /* Makefile.utl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.utl; sourceTree = "<group>"; };
 		2BCB3EA80A291D82009C988D /* setup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup.sh; sourceTree = "<group>"; };
-		2BCFB08908F88696007DB83D /* nh3dCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = nh3dCursor.tiff; sourceTree = "<group>"; };
-		2BCFB0A408F8992B007DB83D /* nh3dPosCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = nh3dPosCursor.tiff; sourceTree = "<group>"; };
 		2BCFB25608F950DB007DB83D /* base48.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = base48.tiff; sourceTree = "<group>"; };
 		2BCFB25C08F95590007DB83D /* asciiMapMask.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = asciiMapMask.tiff; sourceTree = "<group>"; };
 		2BD3B6E1090247C70091BDD5 /* winnh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winnh3d.h; sourceTree = "<group>"; };
@@ -2354,13 +2346,8 @@
 				2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */,
 				2BE376270A22E29D00B3CDF4 /* trBase.tif */,
 				2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */,
-				2B35391509159FA7002CC8AD /* ScrollParchmentBack.tiff */,
-				2B35391209159E4D002CC8AD /* ScrollParchment.tif */,
-				2BA134C10915131C00CB4329 /* human.tiff */,
 				2B76D427090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff */,
 				2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */,
-				2BCFB08908F88696007DB83D /* nh3dCursor.tiff */,
-				2BCFB0A408F8992B007DB83D /* nh3dPosCursor.tiff */,
 				2BCFB25608F950DB007DB83D /* base48.tiff */,
 				2BCFB25C08F95590007DB83D /* asciiMapMask.tiff */,
 				2B5E0E1708B09A520012CAC4 /* base.tiff */,
@@ -2371,10 +2358,6 @@
 		2B5CBF73088EB5A500940C58 /* dat */ = {
 			isa = PBXGroup;
 			children = (
-				2B89F1280A22FE3F00387832 /* oracles */,
-				2B89F1290A22FE3F00387832 /* rumors */,
-				2B25C9A708F28B47009163CD /* dungeon.pdf */,
-				2B0D0DA308F1C20600F7A7E8 /* options */,
 				2B5CBF74088EB5A500940C58 /* air.lev */,
 				2B5CBF75088EB5A500940C58 /* Arc-fila.lev */,
 				2B5CBF76088EB5A500940C58 /* Arc-filb.lev */,
@@ -2410,6 +2393,7 @@
 				2B5CBF94088EB5A600940C58 /* data.base */,
 				2B5CBF95088EB5A600940C58 /* dungeon */,
 				2B5CBF96088EB5A600940C58 /* dungeon.def */,
+				2B25C9A708F28B47009163CD /* dungeon.pdf */,
 				2B5CBF98088EB5A600940C58 /* earth.lev */,
 				2B5CBF99088EB5A600940C58 /* endgame.des */,
 				2B5CBF9A088EB5A600940C58 /* fakewiz1.lev */,
@@ -2458,8 +2442,10 @@
 				2B5CBFD5088EB5A600940C58 /* Mon-strt.lev */,
 				2B5CBFD6088EB5A600940C58 /* Monk.des */,
 				2B5CBFDA088EB5A600940C58 /* opthelp */,
+				2B0D0DA308F1C20600F7A7E8 /* options */,
 				2B5CBFDC088EB5A600940C58 /* oracle.des */,
 				2B5CBFDD088EB5A600940C58 /* oracle.lev */,
+				2B89F1280A22FE3F00387832 /* oracles */,
 				2B5CBFDE088EB5A600940C58 /* oracles.txt */,
 				2B5CBFDF088EB5A600940C58 /* orcus.lev */,
 				2B5CBFE0088EB5A600940C58 /* Pri-fila.lev */,
@@ -2468,9 +2454,9 @@
 				2B5CBFE3088EB5A600940C58 /* Pri-loca.lev */,
 				2B5CBFE4088EB5A600940C58 /* Pri-strt.lev */,
 				2B5CBFE5088EB5A600940C58 /* Priest.des */,
+				2B5CBFE8088EB5A600940C58 /* quest_levs */,
 				2B5CBFE6088EB5A600940C58 /* quest.dat */,
 				2B5CBFE7088EB5A600940C58 /* quest.txt */,
-				2B5CBFE8088EB5A600940C58 /* quest_levs */,
 				2B5CBFE9088EB5A600940C58 /* Ran-fila.lev */,
 				2B5CBFEA088EB5A600940C58 /* Ran-filb.lev */,
 				2B5CBFEB088EB5A600940C58 /* Ran-goal.lev */,
@@ -2483,6 +2469,7 @@
 				2B5CBFF3088EB5A600940C58 /* Rog-loca.lev */,
 				2B5CBFF4088EB5A600940C58 /* Rog-strt.lev */,
 				2B5CBFF5088EB5A600940C58 /* Rogue.des */,
+				2B89F1290A22FE3F00387832 /* rumors */,
 				2B5CBFF6088EB5A600940C58 /* rumors.fal */,
 				2B5CBFF7088EB5A600940C58 /* rumors.tru */,
 				2B5CBFF8088EB5A600940C58 /* Sam-fila.lev */,
@@ -2767,13 +2754,13 @@
 		2B6F3EDE091AF3E500367391 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				2B0964E0091D4A98004965B2 /* waterDrop5.wav */,
+				2B6F3EDF091AF3E500367391 /* footStep.wav */,
 				2B0964CD091D465D004965B2 /* hearnoise.wav */,
-				2B0964CE091D465D004965B2 /* waterDrop4.wav */,
+				2B6F3EE1091AF3E500367391 /* waterDrop.wav */,
 				2B6F3F87091B59F500367391 /* waterDrop2.wav */,
 				2B6F3F88091B59F500367391 /* waterDrop3.wav */,
-				2B6F3EDF091AF3E500367391 /* footStep.wav */,
-				2B6F3EE1091AF3E500367391 /* waterDrop.wav */,
+				2B0964CE091D465D004965B2 /* waterDrop4.wav */,
+				2B0964E0091D4A98004965B2 /* waterDrop5.wav */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -3137,14 +3124,11 @@
 				2BA021C808EF4B62004057D1 /* perm in Resources */,
 				2BA046CD08EF5831004057D1 /* logfile in Resources */,
 				2B0D0DA408F1C20600F7A7E8 /* options in Resources */,
-				2BCFB08A08F88696007DB83D /* nh3dCursor.tiff in Resources */,
-				2BCFB0A508F8992B007DB83D /* nh3dPosCursor.tiff in Resources */,
 				2BCFB25708F950DB007DB83D /* base48.tiff in Resources */,
 				2BCFB25D08F95590007DB83D /* asciiMapMask.tiff in Resources */,
 				2B9854BC08F96D84005E0966 /* asciiMapBase.tiff in Resources */,
 				2B76D428090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff in Resources */,
 				2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */,
-				2BA134C20915131C00CB4329 /* human.tiff in Resources */,
 				2B6F3EE2091AF3E500367391 /* footStep.wav in Resources */,
 				2B6F3EE4091AF3E500367391 /* waterDrop.wav in Resources */,
 				2B6F3F8A091B59F500367391 /* waterDrop2.wav in Resources */,
