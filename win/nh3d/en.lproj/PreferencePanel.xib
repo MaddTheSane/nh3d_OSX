@@ -52,14 +52,14 @@
                                                         </buttonCell>
                                                         <cells>
                                                             <column>
-                                                                <buttonCell type="check" title="Use SightRestriction in 2DMap." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="17">
+                                                                <buttonCell type="check" title="Use sight restriction on 2D map" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="17">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                     <connections>
                                                                         <binding destination="34" name="value" keyPath="values.ASCIIMapisRestricted" id="36"/>
                                                                     </connections>
                                                                 </buttonCell>
-                                                                <buttonCell type="check" title="Use TiledGraphics in LevelMap." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="18">
+                                                                <buttonCell type="check" title="Use tiled graphics on level map" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="1" inset="2" id="18">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="system"/>
                                                                     <connections>
@@ -103,7 +103,7 @@
                                                         </buttonCell>
                                                         <cells>
                                                             <column>
-                                                                <buttonCell type="check" title="Wait on vSync." bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="25">
+                                                                <buttonCell type="check" title="Wait for vSync" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="25">
                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                     <font key="font" metaFont="smallSystem"/>
                                                                     <connections>
@@ -116,10 +116,8 @@
                                                     <textField verticalHuggingPriority="750" id="27">
                                                         <rect key="frame" x="37" y="20" width="145" height="11"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="278">
+                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Slow          Midium         Fast" id="278">
                                                             <font key="font" metaFont="miniSystem"/>
-                                                            <string key="title">Slow          Midium         Fast
-</string>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
@@ -138,7 +136,7 @@
                                                     <button id="26">
                                                         <rect key="frame" x="19" y="53" width="183" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <buttonCell key="cell" type="check" title="Enable Framerate limit." bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="280">
+                                                        <buttonCell key="cell" type="check" title="Enable Framerate limit" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="280">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -149,7 +147,7 @@
                                                     <button id="262">
                                                         <rect key="frame" x="10" y="104" width="237" height="18"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <buttonCell key="cell" type="check" title="Use TiledGraphics for Alt. Objects" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="281">
+                                                        <buttonCell key="cell" type="check" title="Use tiled graphics for Alt. Objects" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="281">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
                                                         </buttonCell>
@@ -174,15 +172,15 @@
                                             </buttonCell>
                                             <cells>
                                                 <column>
-                                                    <buttonCell type="check" title="UseMipMapTexture." bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" inset="2" id="66">
+                                                    <buttonCell type="check" title="Use MipMap Texture" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" inset="2" id="66">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
-                                                    <buttonCell type="check" title="UseHWAcceleration." bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="1" inset="2" id="68">
+                                                    <buttonCell type="check" title="Use HW Acceleration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="1" inset="2" id="68">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
-                                                    <buttonCell type="check" title="UseTriLinearTexture." bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="2" inset="2" id="69">
+                                                    <buttonCell type="check" title="Use TriLinear Texture" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="2" inset="2" id="69">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
@@ -190,11 +188,11 @@
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
-                                                    <buttonCell type="check" title="EnableEnvironment." bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="4" inset="2" id="71">
+                                                    <buttonCell type="check" title="Enable Environment" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="4" inset="2" id="71">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
-                                                    <buttonCell type="check" title="EnableParticles." bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="5" inset="2" id="72">
+                                                    <buttonCell type="check" title="Enable Particles" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" enabled="NO" state="on" tag="5" inset="2" id="72">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
                                                     </buttonCell>
@@ -221,7 +219,7 @@
                                             </formCell>
                                             <cells>
                                                 <column>
-                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="justified" title="MessageFont:" id="114">
+                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="justified" title="Message Font:" id="114">
                                                         <font key="font" metaFont="system"/>
                                                         <font key="titleFont" metaFont="system"/>
                                                         <connections>
@@ -230,7 +228,7 @@
                                                             <binding destination="34" name="fontSize" keyPath="values.MainFontSize" previousBinding="120" id="121"/>
                                                         </connections>
                                                     </formCell>
-                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="1" title="WindowFont:" id="115">
+                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="1" title="Window Font:" id="115">
                                                         <font key="font" metaFont="system"/>
                                                         <font key="titleFont" metaFont="system"/>
                                                         <connections>
@@ -239,7 +237,7 @@
                                                             <binding destination="34" name="fontSize" keyPath="values.WindowFontSize" previousBinding="123" id="124"/>
                                                         </connections>
                                                     </formCell>
-                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="2" title="MapFont:" id="116">
+                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="2" title="Map Font:" id="116">
                                                         <font key="font" metaFont="system"/>
                                                         <font key="titleFont" metaFont="system"/>
                                                         <connections>
@@ -248,7 +246,7 @@
                                                             <binding destination="34" name="fontSize" keyPath="values.FixedWidthFontSize" previousBinding="126" id="127"/>
                                                         </connections>
                                                     </formCell>
-                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="3" title="BoldFont:" id="117">
+                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="3" title="Bold Font:" id="117">
                                                         <font key="font" metaFont="system"/>
                                                         <font key="titleFont" metaFont="system"/>
                                                         <connections>
@@ -257,7 +255,7 @@
                                                             <binding destination="34" name="fontSize" keyPath="values.BoldFontSize" previousBinding="129" id="130"/>
                                                         </connections>
                                                     </formCell>
-                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="4" title="MenuItemFont:" id="118">
+                                                    <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" tag="4" title="Menu Item Font:" id="118">
                                                         <font key="font" metaFont="system"/>
                                                         <font key="titleFont" metaFont="system"/>
                                                         <connections>
@@ -320,9 +318,9 @@
                                             </cells>
                                         </matrix>
                                         <button verticalHuggingPriority="750" id="96">
-                                            <rect key="frame" x="112" y="31" width="193" height="32"/>
+                                            <rect key="frame" x="111" y="31" width="196" height="32"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="push" title="Use Default Font Setting" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="276">
+                                            <buttonCell key="cell" type="push" title="Use Default Font Settings" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="276">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -355,7 +353,7 @@
                                                                 <button id="165">
                                                                     <rect key="frame" x="14" y="163" width="258" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
-                                                                    <buttonCell key="cell" type="check" title="Use Tiled Graphics." bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="282">
+                                                                    <buttonCell key="cell" type="check" title="Use Tiled Graphics" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="282">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -461,13 +459,13 @@
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                 <size key="cellSize" width="269" height="19"/>
                                                                                 <size key="intercellSpacing" width="1" height="8"/>
-                                                                                <formCell key="prototype" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" title="Field:" id="301">
+                                                                                <formCell key="prototype" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" title="Field:" id="301">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <font key="titleFont" metaFont="smallSystem"/>
                                                                                 </formCell>
                                                                                 <cells>
                                                                                     <column>
-                                                                                        <formCell scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" title="Tile file Name" stringValue="nhtiles.tiff" id="202">
+                                                                                        <formCell controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="justified" title="Tile file:" stringValue="nhtiles.tiff" id="202">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <font key="titleFont" metaFont="smallSystem"/>
                                                                                             <connections>
@@ -553,7 +551,7 @@ Tiles Row:</string>
                                                                             <button verticalHuggingPriority="750" id="252">
                                                                                 <rect key="frame" x="12" y="8" width="131" height="32"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
-                                                                                <buttonCell key="cell" type="push" title="change it" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="295">
+                                                                                <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="295">
                                                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                     <font key="font" metaFont="system"/>
                                                                                 </buttonCell>
@@ -580,7 +578,7 @@ Tiles Row:</string>
                                         <button id="156">
                                             <rect key="frame" x="18" y="212" width="217" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <buttonCell key="cell" type="check" title="Traditional NetHack Mode." bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="277">
+                                            <buttonCell key="cell" type="check" title="Traditional NetHack Mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="277">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
