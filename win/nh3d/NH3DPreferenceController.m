@@ -13,7 +13,7 @@
 @implementation NH3DPreferenceController
 
 - (instancetype) init {
-	self = [ super initWithWindowNibName:@"PreferencePanel" ];
+	self = [super initWithWindowNibName:@"PreferencePanel"];
 	if (self != nil) {
 		
 
@@ -23,8 +23,7 @@
 
 - (BOOL)windowShouldClose:(id)sender
 {
-	
-	[ bindController endPreferencePanel ];
+	[bindController endPreferencePanel];
 	
 	return YES;
 }
@@ -34,7 +33,6 @@
 	bindController = sender;
 	[self.window makeKeyAndOrderFront:self];
 }
-
 
 - (void)changeFont:(id)sender
 {
@@ -81,7 +79,6 @@
 	[[NSUserDefaults standardUserDefaults] setObject:convertedFont.fontName forKey:key];
 	[[NSUserDefaults standardUserDefaults] setFloat:convertedFont.pointSize forKey:sizeKey];
 }
-
 
 - (IBAction)showFontPanelAction:(id)sender
 {
@@ -136,45 +133,42 @@
 	[self.window makeFirstResponder:nil];
 }
 
-
 - (IBAction)resetFontFamily:(id)sender
 {
-	NSDictionary *initialValues = [NSUserDefaultsController sharedUserDefaultsController].initialValues ;
+	NSDictionary *initialValues = [NSUserDefaultsController sharedUserDefaultsController].initialValues;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DMsgFontKey]
-											  forKey:NH3DMsgFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DMapFontKey]
-											  forKey:NH3DMapFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DBoldFontKey]
-											  forKey:NH3DBoldFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DWindowFontKey]
-											  forKey:NH3DWindowFontKey];
-	[[NSUserDefaults standardUserDefaults] setObject:initialValues[NH3DInventryFontKey]
-											  forKey:NH3DInventryFontKey];
+	[defaults setObject:initialValues[NH3DMsgFontKey]
+				 forKey:NH3DMsgFontKey];
+	[defaults setObject:initialValues[NH3DMapFontKey]
+				 forKey:NH3DMapFontKey];
+	[defaults setObject:initialValues[NH3DBoldFontKey]
+				 forKey:NH3DBoldFontKey];
+	[defaults setObject:initialValues[NH3DWindowFontKey]
+				 forKey:NH3DWindowFontKey];
+	[defaults setObject:initialValues[NH3DInventryFontKey]
+				 forKey:NH3DInventryFontKey];
 	
 	
-	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DMsgFontSizeKey] floatValue]
-											 forKey:NH3DMsgFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DMapFontSizeKey] floatValue]
-											 forKey:NH3DMapFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DBoldFontSizeKey] floatValue]
-											 forKey:NH3DBoldFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DWindowFontSizeKey] floatValue]
-											 forKey:NH3DWindowFontSizeKey];
-	[[NSUserDefaults standardUserDefaults] setFloat:[initialValues[NH3DInventryFontSizeKey] floatValue]
-											 forKey:NH3DInventryFontSizeKey];
+	[defaults setObject:initialValues[NH3DMsgFontSizeKey]
+				 forKey:NH3DMsgFontSizeKey];
+	[defaults setObject:initialValues[NH3DMapFontSizeKey]
+				 forKey:NH3DMapFontSizeKey];
+	[defaults setObject:initialValues[NH3DBoldFontSizeKey]
+				 forKey:NH3DBoldFontSizeKey];
+	[defaults setObject:initialValues[NH3DWindowFontSizeKey]
+				 forKey:NH3DWindowFontSizeKey];
+	[defaults setObject:initialValues[NH3DInventryFontSizeKey]
+				 forKey:NH3DInventryFontSizeKey];
 }
-
 
 - (IBAction)chooseTileFile:(id)sender
 {
 	NSOpenPanel* openPanel;
-	//NSArray *fileTypes = [ NSArray arrayWithObjects:@"jpg",@"jpeg",@"png",@"tiff",@"tif",@"gif",@"bmp",nil ];
-	//NSArray *fileTypes = [ NSArray arrayWithObjects:@"tiff",@"tif",nil ];
 	
 	openPanel = [NSOpenPanel openPanel];
-	[openPanel setCanChooseDirectories:NO];
-	[openPanel setAllowsMultipleSelection:NO];
+	openPanel.canChooseDirectories = NO;
+	openPanel.allowsMultipleSelection = NO;
 	openPanel.allowedFileTypes = [NSImage imageTypes];
 	openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
 	NSInteger result = [openPanel runModal];
@@ -183,21 +177,19 @@
 	}
 }
 
-
 - (IBAction)resetTileSettings:(id)sender
 {
-	[[NSUserDefaults standardUserDefaults] setObject:@"nhtiles.tiff" forKey:NH3DTileNameKey];
-	[[NSUserDefaults standardUserDefaults] setObject:@(16) forKey:NH3DTileSizeWidthKey];
-	[[NSUserDefaults standardUserDefaults] setObject:@(16) forKey:NH3DTileSizeHeightKey];
-	[[NSUserDefaults standardUserDefaults] setObject:@(40) forKey:NH3DTilesPerLineKey];
-	[[NSUserDefaults standardUserDefaults] setObject:@(30) forKey:NH3DNumberOfTilesRowKey];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:@"nhtiles.tiff" forKey:NH3DTileNameKey];
+	[defaults setInteger:16 forKey:NH3DTileSizeWidthKey];
+	[defaults setInteger:16 forKey:NH3DTileSizeHeightKey];
+	[defaults setInteger:40 forKey:NH3DTilesPerLineKey];
+	[defaults setInteger:30 forKey:NH3DNumberOfTilesRowKey];
 }
-
 
 - (IBAction)applyTileSettings:(id)sender;
 {
 	[bindController setTile];
 }
-
 
 @end

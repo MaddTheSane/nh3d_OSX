@@ -208,8 +208,3 @@ func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_astral_level) != 0
 }
-
-//Is_firelevel
-
-//#define In_sokoban(x)		((x)->dnum == sokoban_dnum)
-//Is_sanctum( &u.uz ) != 0 || Is_stronghold(
