@@ -461,7 +461,6 @@
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
-		55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
@@ -1459,10 +1458,11 @@
 		55BF8B371B76F46F0031A45A /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
 		55C1693B1C3520F300C1365E /* NH3DMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DMessaging.swift; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DPreferenceController.swift; sourceTree = "<group>"; };
+		55FEB81A1C373C33008B3A8C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		55FEB8201C373C9C008B3A8C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1514,12 +1514,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
-				55FC95381B5CCE0A00B0FFB4 /* QTKit.framework in Frameworks */,
-				2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
-				2B02FB3509497C21008FEDB0 /* Cocoa.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
+				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
+				2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */,
+				2B02FB3509497C21008FEDB0 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1569,6 +1568,8 @@
 			isa = PBXGroup;
 			children = (
 				2B02FB1D09497BDB008FEDB0 /* AppKit.framework */,
+				55FEB81A1C373C33008B3A8C /* Carbon.framework */,
+				55FEB8201C373C9C008B3A8C /* CoreFoundation.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 			);
 			name = "Other Frameworks";
@@ -1638,7 +1639,6 @@
 			isa = PBXGroup;
 			children = (
 				55F544C01C3614A100A1A1EE /* AVFoundation.framework */,
-				55FC95371B5CCE0A00B0FFB4 /* QTKit.framework */,
 				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
 				2B02FB1F09497C03008FEDB0 /* OpenGL.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,

@@ -839,6 +839,9 @@ static const NH3DMaterial defaultMat = {
 
 - (GLuint)texture
 {
+	if (texture > numberOfTextures) {
+		return texture;
+	}
 	return textures[texture];
 }
 
@@ -847,7 +850,6 @@ static const NH3DMaterial defaultMat = {
 {
 	texture = tex_id;
 }
-
 
 - (BOOL)addTexture:(NSString *)textureName
 {
@@ -859,20 +861,7 @@ static const NH3DMaterial defaultMat = {
 		NSLog(@"Model %@ :Can't add new Texture %@. reach to limit of texture numbers",modelCode,textureName);
 		return NO;
 	}
-}		
-
-
-- (BOOL)useEnvironment
-{
-	return useEnvironment;
 }
-
-
-- (void)setUseEnvironment:(BOOL)flag
-{
-	useEnvironment = flag;
-}
-
 
 - (void)animate
 {
