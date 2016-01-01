@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSImageView *_mapLview;
 	IBOutlet NSPanel	*_mapLpanel;
+@private
 	NSColor	*bgColor;
 	int	centerX;
 	int centerY;
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 	// ----------------------------------------------------------//
 	int extendKey;
 	
+@package
 	IBOutlet NSButton *_num1;
 	IBOutlet NSButton *_num2;
 	IBOutlet NSButton *_num3;
@@ -64,7 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 	
 	IBOutlet NSButton *_help1;
 	IBOutlet NSButton *_help2;
-	
+
+@private
 	NSPoint downPoint;
 	int		clickType;
 	int		viewCursX;

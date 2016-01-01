@@ -30,6 +30,7 @@
 	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSTextView *_ripTextwindow;
 	
+@private
 	NSMutableArray *nh3dMenu;
 	NSMutableDictionary *darkShadowStrAttributes;
 	NSMutableDictionary *lightShadowStrAttributes;

@@ -22,7 +22,8 @@
 	IBOutlet NSMatrix *chooseAlign;
 	IBOutlet NSMatrix *chooseGender;
 	
-	// for UserMakeSeet	
+@private
+	// for UserMakeSeet
 	BOOL done_race;
 	BOOL done_role;
 	BOOL done_name;

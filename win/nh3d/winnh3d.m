@@ -1204,7 +1204,10 @@ You("スコアの載らない発見モードで起動した．");
 //--------------------------------------------------------------//
 
 
-@implementation NH3DBindController
+@implementation NH3DBindController {
+	NH3DPreferenceController *_prefPanel;
+	NH3DTileCache			*_tileCache;
+}
 
 
 // for UserDefaults

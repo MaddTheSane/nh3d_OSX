@@ -19,6 +19,7 @@
 	IBOutlet NSDrawer *stDrawer;
 	IBOutlet NSWindow *window;
 	
+@private
 	NSMutableDictionary *strAttributes;
 	NSShadow *shadow;
 	NSMutableParagraphStyle  *style;

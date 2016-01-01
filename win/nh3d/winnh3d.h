@@ -105,9 +105,6 @@ void nh3d_set_savefile_name();
 	IBOutlet NH3DMapView *_asciiMapView;
 	IBOutlet NH3DMenuWindow *_menuWindow;
 	IBOutlet NSDrawer *_stDrawer;
-	
-	NH3DPreferenceController *_prefPanel;
-	NH3DTileCache			*_tileCache;
 }
 
 // App delegates
