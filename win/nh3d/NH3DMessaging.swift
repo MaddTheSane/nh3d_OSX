@@ -187,8 +187,11 @@ class NH3DMessaging: NSObject {
 					guard let soundURL = bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent(soundEntry.name) else {
 						continue
 					}
+					guard soundURL.checkResourceIsReachableAndReturnError(nil) else {
+						break
+					}
 					guard let playSound = try? AVAudioPlayer(contentsOfURL: soundURL) else {
-						continue
+						break
 					}
 					playSound.volume = soundEntry.volume * 0.01
 					playSound.play()
