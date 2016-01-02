@@ -455,6 +455,10 @@
 		2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
+		5558498E1C37A48E00C33719 /* SwiftAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5558497A1C37A45000C33719 /* SwiftAdditions.framework */; };
+		5558498F1C37A48E00C33719 /* SwiftAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5558497A1C37A45000C33719 /* SwiftAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		555849921C37A48E00C33719 /* ALAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5558498A1C37A45000C33719 /* ALAdditions.framework */; };
+		555849931C37A48E00C33719 /* ALAdditions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5558498A1C37A45000C33719 /* ALAdditions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -465,6 +469,108 @@
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		555849791C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 550FBABE19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
+		5558497B1C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 550FBAC919A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditionsTests;
+		};
+		5558497D1C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55706D8F1A1EC2440000FD93;
+			remoteInfo = SwiftIOKitAdditions;
+		};
+		5558497F1C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55706D991A1EC2440000FD93;
+			remoteInfo = SwiftIOKitAdditionsTests;
+		};
+		555849811C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55403A011A745003007A488E;
+			remoteInfo = ForceFeedbackAdditions;
+		};
+		555849831C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55403A0B1A745003007A488E;
+			remoteInfo = ForceFeedbackAdditionsTests;
+		};
+		555849851C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55E11DE11AE7114000815555;
+			remoteInfo = SwiftAudioAdditions;
+		};
+		555849871C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55E11DEB1AE7114000815555;
+			remoteInfo = SwiftAudioAdditionsTests;
+		};
+		555849891C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 559714501B17B17B0015AED0;
+			remoteInfo = ALAdditions;
+		};
+		5558498B1C37A45000C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5597145A1B17B17B0015AED0;
+			remoteInfo = ALAdditionsTests;
+		};
+		555849901C37A48E00C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 550FBABD19A7ADC500EFBD3D;
+			remoteInfo = SwiftAdditions;
+		};
+		555849941C37A48E00C33719 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5597144F1B17B17B0015AED0;
+			remoteInfo = ALAdditions;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		555849961C37A48E00C33719 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5558498F1C37A48E00C33719 /* SwiftAdditions.framework in Embed Frameworks */,
+				555849931C37A48E00C33719 /* ALAdditions.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -1451,6 +1557,7 @@
 		55459F8D1B5DFFDD0098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
+		5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftAdditions.xcodeproj; path = Vendor/SwiftAdditions/SwiftAdditions.xcodeproj; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1514,10 +1621,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5558498E1C37A48E00C33719 /* SwiftAdditions.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
 				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
 				2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */,
+				555849921C37A48E00C33719 /* ALAdditions.framework in Frameworks */,
 				2B02FB3509497C21008FEDB0 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1592,6 +1701,7 @@
 		29B97314FDCFA39411CA2CEA /* NetHack3D */ = {
 			isa = PBXGroup;
 			children = (
+				5558498D1C37A45500C33719 /* Third-party */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -2826,6 +2936,31 @@
 			path = ../../util;
 			sourceTree = "<group>";
 		};
+		5558496B1C37A45000C33719 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5558497A1C37A45000C33719 /* SwiftAdditions.framework */,
+				5558497C1C37A45000C33719 /* SwiftAdditionsTests.xctest */,
+				5558497E1C37A45000C33719 /* SwiftIOKitAdditions.framework */,
+				555849801C37A45000C33719 /* SwiftIOKitAdditionsTests.xctest */,
+				555849821C37A45000C33719 /* ForceFeedbackAdditions.framework */,
+				555849841C37A45000C33719 /* ForceFeedbackAdditionsTests.xctest */,
+				555849861C37A45000C33719 /* SwiftAudioAdditions.framework */,
+				555849881C37A45000C33719 /* SwiftAudioAdditionsTests.xctest */,
+				5558498A1C37A45000C33719 /* ALAdditions.framework */,
+				5558498C1C37A45000C33719 /* ALAdditionsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5558498D1C37A45500C33719 /* Third-party */ = {
+			isa = PBXGroup;
+			children = (
+				5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */,
+			);
+			name = "Third-party";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2932,10 +3067,13 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				555849961C37A48E00C33719 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				555849911C37A48E00C33719 /* PBXTargetDependency */,
+				555849951C37A48E00C33719 /* PBXTargetDependency */,
 			);
 			name = NetHack3D;
 			productInstallPath = "$(HOME)/Applications";
@@ -2963,6 +3101,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NetHack3D */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5558496B1C37A45000C33719 /* Products */;
+					ProjectRef = 5558496A1C37A45000C33719 /* SwiftAdditions.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NetHack3D */,
@@ -2975,6 +3119,79 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5558497A1C37A45000C33719 /* SwiftAdditions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftAdditions.framework;
+			remoteRef = 555849791C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5558497C1C37A45000C33719 /* SwiftAdditionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftAdditionsTests.xctest;
+			remoteRef = 5558497B1C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5558497E1C37A45000C33719 /* SwiftIOKitAdditions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftIOKitAdditions.framework;
+			remoteRef = 5558497D1C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555849801C37A45000C33719 /* SwiftIOKitAdditionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftIOKitAdditionsTests.xctest;
+			remoteRef = 5558497F1C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555849821C37A45000C33719 /* ForceFeedbackAdditions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ForceFeedbackAdditions.framework;
+			remoteRef = 555849811C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555849841C37A45000C33719 /* ForceFeedbackAdditionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ForceFeedbackAdditionsTests.xctest;
+			remoteRef = 555849831C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555849861C37A45000C33719 /* SwiftAudioAdditions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftAudioAdditions.framework;
+			remoteRef = 555849851C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		555849881C37A45000C33719 /* SwiftAudioAdditionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftAudioAdditionsTests.xctest;
+			remoteRef = 555849871C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5558498A1C37A45000C33719 /* ALAdditions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ALAdditions.framework;
+			remoteRef = 555849891C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5558498C1C37A45000C33719 /* ALAdditionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ALAdditionsTests.xctest;
+			remoteRef = 5558498B1C37A45000C33719 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -3490,6 +3707,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		555849911C37A48E00C33719 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftAdditions;
+			targetProxy = 555849901C37A48E00C33719 /* PBXContainerItemProxy */;
+		};
+		555849951C37A48E00C33719 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ALAdditions;
+			targetProxy = 555849941C37A48E00C33719 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
@@ -3559,6 +3789,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
@@ -3604,6 +3835,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;

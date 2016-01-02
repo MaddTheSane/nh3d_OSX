@@ -1,0 +1,3 @@
+[submodule "win/nh3d/Vendor/SwiftAdditions"]
+	path = win/nh3d/Vendor/SwiftAdditions
+	url = https://github.com/MaddTheSane/SwiftMacTypes.git
