@@ -1393,7 +1393,7 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)didPresentError:(NSError *)error
 {
-	int result;
+	NSInteger result;
 	NSAlert *alert = [ NSAlert alertWithError:error ];
 	result = [ alert runModal ];
 }

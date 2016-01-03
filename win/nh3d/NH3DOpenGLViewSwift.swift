@@ -749,11 +749,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
 		
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient );
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse );
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular );
-		glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess );
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission );
+		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
+		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
+		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
+		glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
+		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
 		
 		// Draw floor
 		drawFloorArray[Int(flag)]()
@@ -978,7 +978,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glDeleteTextures(1, &rougeTex )
 	}
 	
-	func detachOpenGLThread() {
+	private func detachOpenGLThread() {
 		threadRunning = true
 		
 		for _ in 0..<OPENGLVIEW_NUMBER_OF_THREADS {
@@ -1006,14 +1006,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			while _running && !TRADITIONAL_MAP {
 				autoreleasepool {
-					
-					if ( isReady && !nowUpdating && !self.needsDisplay ) {
+					if isReady && !nowUpdating && !self.needsDisplay {
 						//if ( isReady && !nowUpdating ) {
 						self.updateGLView()
 					}
 					
-					
-					if ( hasWait ) {
+					if hasWait {
 						NSThread.sleepUntilDate(NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
 					}
 				}
@@ -1234,11 +1232,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glDisable(GLenum(GL_ALPHA_TEST))
 					glDisable(GLenum(GL_TEXTURE_2D))
 					
-					
 					glPopMatrix();
-					
 			} else { // Draw model
-				
 				guard let model = model else {
 					return
 				}
@@ -3623,7 +3618,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
-		drawFloorArray[1] = {[unowned self] in
+		drawFloorArray[1] = { [unowned self] in
 			glActiveTexture( GLenum(GL_TEXTURE0) );
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
@@ -3638,16 +3633,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D));
 		}
 		drawFloorArray[2] = { [unowned self] in
-			glActiveTexture( GLenum(GL_TEXTURE0) );
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent);
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
 			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts );
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent);
 			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
