@@ -7,10 +7,10 @@
 //
 
 #import "NH3DMenuWindow.h"
+#include <Carbon/Carbon.h>
 
-
-static const int DIALOG_OK		= 128;
-static const int DIALOG_CANCEL	= 129;
+#define DIALOG_OK		 128
+#define DIALOG_CANCEL	 129
 
 @implementation NH3DMenuWindow
 @synthesize isMenu;
@@ -51,9 +51,9 @@ static const int DIALOG_CANCEL	= 129;
 
 - (void)awakeFromNib {
 			
-	_textPanel.backgroundColor = [NSColor clearColor] ;
+	_textPanel.backgroundColor = [NSColor clearColor];
     [_textPanel setOpaque:NO];
-	_menuPanel.backgroundColor = [NSColor clearColor] ;
+	_menuPanel.backgroundColor = [NSColor clearColor];
     [_menuPanel setOpaque:NO];
 	[_textWindow setDrawsBackground:NO];
 	_menuTableWindow.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"ScrollParchmentBack"]];
@@ -277,10 +277,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	NSRect frameRect;
 	[self updateMenuWindow];
 	
-	if ( prompt != nil ) {
-	_menuPanelStrings.stringValue = [NSString stringWithCString:prompt encoding:NH3DTEXTENCODING] ;
-	// a-ha,It is difficult each time to make AttributedString, don't you think??
-	_menuPanelStringsShadow.stringValue = [NSString stringWithCString:prompt encoding:NH3DTEXTENCODING];
+	if (prompt != nil) {
+		NSString *promptStr = [[NSString alloc] initWithCString:prompt encoding:NH3DTEXTENCODING];
+		_menuPanelStrings.stringValue = promptStr;
+		// a-ha,It is difficult each time to make AttributedString, don't you think??
+		_menuPanelStringsShadow.stringValue = promptStr;
 	} else {
 		_menuPanelStrings.stringValue = @"";
 		_menuPanelStringsShadow.stringValue = @"";
@@ -363,7 +364,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		[NSApp stopModalWithCode:DIALOG_CANCEL];
 		[_window endSheet: [sender window]];
 	} else { 
-		[[sender window] close ];
+		[[sender window] close];
 		[NSApp stopModalWithCode:DIALOG_OK];
 		[_window endSheet: [sender window]];
 	}
@@ -448,7 +449,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		return;
 	}
 	
-	if (event.keyCode == 53) {
+	if (event.keyCode == kVK_Escape) {
 		[_menuPanel close];
 		[NSApp endSheet: _menuPanel];
 		[NSApp stopModalWithCode:DIALOG_CANCEL];

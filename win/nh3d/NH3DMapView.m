@@ -1225,7 +1225,7 @@
 //TODO: re-do this to work with OS X's run-loop!
 - (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
 {
-	char ch[1] = {0};
+	char ch[3] = {0};
 	
 	while (!keyUpdated) {
 		@autoreleasepool {
