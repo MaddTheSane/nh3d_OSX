@@ -209,6 +209,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="5108">
                         <rect key="frame" x="625" y="246" width="169" height="228"/>
@@ -219,6 +220,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <button toolTip="What is here?" horizontalHuggingPriority="750" verticalHuggingPriority="750" tag="71" id="275">
                         <rect key="frame" x="597" y="183" width="21" height="23"/>
@@ -270,6 +272,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box title="Class" titlePosition="noTitle" id="316">
                         <rect key="frame" x="625" y="476" width="169" height="36"/>
@@ -298,6 +301,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <imageView toolTip="Strength (STR)" id="344" userLabel="STR Status Icon">
                         <rect key="frame" x="635" y="363" width="32" height="32"/>
@@ -383,6 +387,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="375">
                         <rect key="frame" x="12" y="90" width="156" height="28"/>
@@ -426,6 +431,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <imageView toolTip="Armor Class (AC)" id="380" userLabel="AC Status Icon">
                         <rect key="frame" x="635" y="255" width="32" height="32"/>
@@ -463,6 +469,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" id="455">
                         <rect key="frame" x="667" y="346" width="27" height="17"/>
@@ -556,6 +563,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" id="453">
                         <rect key="frame" x="667" y="380" width="21" height="18"/>
@@ -801,9 +809,9 @@
                                 <button tag="8" id="280">
                                     <rect key="frame" x="48" y="87" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" title="8" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="8" imageScaling="proportionallyDown" inset="2" id="6980">
+                                    <buttonCell key="cell" type="bevel" title="8" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" continuous="YES" borderStyle="border" tag="8" imageScaling="proportionallyDown" inset="2" id="6980">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5791"/>
@@ -813,9 +821,9 @@
                                 <button tag="2" id="281">
                                     <rect key="frame" x="48" y="7" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" title="2" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="2" imageScaling="proportionallyDown" inset="2" id="6981">
+                                    <buttonCell key="cell" type="bevel" title="2" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" continuous="YES" borderStyle="border" tag="2" imageScaling="proportionallyDown" inset="2" id="6981">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5796"/>
@@ -825,9 +833,9 @@
                                 <button tag="4" id="282">
                                     <rect key="frame" x="4" y="48" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" title="4" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="4" imageScaling="proportionallyDown" inset="2" id="6982">
+                                    <buttonCell key="cell" type="bevel" title="4" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" continuous="YES" borderStyle="border" tag="4" imageScaling="proportionallyDown" inset="2" id="6982">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5789"/>
@@ -837,9 +845,9 @@
                                 <button tag="6" id="283">
                                     <rect key="frame" x="91" y="48" width="40" height="42"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" title="6" bezelStyle="regularSquare" alignment="center" continuous="YES" borderStyle="border" tag="6" imageScaling="proportionallyDown" inset="2" id="6983">
+                                    <buttonCell key="cell" type="bevel" title="6" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" continuous="YES" borderStyle="border" tag="6" imageScaling="proportionallyDown" inset="2" id="6983">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5794"/>
@@ -849,9 +857,9 @@
                                 <button tag="9" id="284">
                                     <rect key="frame" x="92" y="91" width="28" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" title="9" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="9" imageScaling="proportionallyDown" inset="2" id="6984">
+                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="9" imageScaling="proportionallyDown" inset="2" id="6984">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="miniSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5792"/>
@@ -863,7 +871,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" id="6986">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="miniSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5795"/>
@@ -875,7 +883,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="3" imageScaling="proportionallyDown" inset="2" id="6987">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="miniSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5797"/>
@@ -885,9 +893,9 @@
                                 <button toolTip="Rest" verticalHuggingPriority="750" tag="5" id="452">
                                     <rect key="frame" x="56" y="56" width="24" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="roundTextured" title="5" bezelStyle="texturedRounded" alignment="center" borderStyle="border" tag="5" imageScaling="proportionallyDown" id="6988">
+                                    <buttonCell key="cell" type="roundTextured" title="5" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" borderStyle="border" tag="5" imageScaling="proportionallyDown" id="6988">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="miniSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5793"/>
@@ -897,9 +905,9 @@
                                 <button tag="7" id="285">
                                     <rect key="frame" x="15" y="91" width="28" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <buttonCell key="cell" type="bevel" title="7" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="7" imageScaling="proportionallyDown" inset="2" id="6985">
+                                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" continuous="YES" borderStyle="border" tag="7" imageScaling="proportionallyDown" inset="2" id="6985">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label"/>
+                                        <font key="font" metaFont="miniSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5790"/>
@@ -910,6 +918,7 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <levelIndicator verticalHuggingPriority="750" id="5005">
                         <rect key="frame" x="248" y="194" width="330" height="16"/>
