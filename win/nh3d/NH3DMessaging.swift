@@ -157,6 +157,7 @@ class NH3DMessaging: NSObject {
 			userSound = false
 		}
 		super.init()
+		msgArray.reserveCapacity(Int(iflags.msg_history))
 	}
 	
 	override func awakeFromNib() {

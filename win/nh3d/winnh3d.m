@@ -100,6 +100,9 @@ NSString *NH3DNumberOfTilesRowKey = @"NumberOfTilesRow";
 
 NSString *NH3DSoundMuteKey = @"SoundMute";
 
+NSString * const NHUseNumPad = @"Use Num Pad";
+NSString * const NHMaxMessages = @"Max messages";
+
 static void
 process_options(argc, argv)
 int argc;
@@ -1251,7 +1254,10 @@ You("スコアの載らない発見モードで起動した．");
 						  NH3DInventryFontSizeKey: @13.0f,
 						  NH3DWindowFontSizeKey: @13.0f,
 						  
-						  NH3DSoundMuteKey: @NO
+						  NH3DSoundMuteKey: @NO,
+						  
+						  NHUseNumPad: @NO,
+						  NHMaxMessages: @30,
 						  };
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
@@ -1482,6 +1488,15 @@ You("スコアの載らない発見モードで起動した．");
 	_prefPanel = nil;
 }
 
+/// Loads Nethack-specific preferences
+- (void)loadNethackOptions
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	iflags.num_pad = [defaults boolForKey:NHUseNumPad];
+	iflags.msg_history = [defaults integerForKey:NHMaxMessages];
+}
+
 // ---------------------------------------------------------------------------- //
 // START NETHACK 3D
 // ---------------------------------------------------------------------------- //
@@ -1601,6 +1616,7 @@ You("スコアの載らない発見モードで起動した．");
 
 	initoptions();
 	init_nhwindows(&argc,argv);
+	[_NH3DBindController loadNethackOptions];
 
 #endif // GNUSTEP
 /*

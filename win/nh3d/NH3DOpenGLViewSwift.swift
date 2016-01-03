@@ -17,6 +17,8 @@ import GLKit.GLKMathUtils
 private let GLYPH_MON_OFF: Int32 = 0
 private let TEX_SIZE = 128
 
+private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
+private func blankFloorMethod() {}
 private typealias LoadModelBlock = (glyph: Int32) -> NH3DModelObject?
 private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
 	return nil
@@ -258,11 +260,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private var loadModelBlocks = [LoadModelBlock](count: Int(MAX_GLYPH), repeatedValue: loadModelFunc_default)
 	private var modelDictionary = [Int32: NH3DModelObject]()
 	private let viewLock = NSRecursiveLock()
+	
 	private typealias DrawFloorFunc = () -> ()
-	private var drawFloorArray = [DrawFloorFunc]()
+	private var drawFloorArray = [DrawFloorFunc](count: 11, repeatedValue: blankFloorMethod)
 	
 	private typealias SwitchMethod = (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void
-	private var switchMethodArray = [SwitchMethod]()
+	private var switchMethodArray = [SwitchMethod](count: 11, repeatedValue: blankSwitchMethod)
 	
 	private var isReady = false
 	private(set) var isFloating = false
@@ -3538,14 +3541,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// cache func address
 	private func cacheMethods() {
-		do {
-			func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
-			func blankFloorMethod() {}
-			
-			switchMethodArray = [SwitchMethod](count: 11, repeatedValue: blankSwitchMethod)
-			drawFloorArray = [DrawFloorFunc](count: 11, repeatedValue: blankFloorMethod)
-		}
-		
 		switchMethodArray[0] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
 		}

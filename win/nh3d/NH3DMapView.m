@@ -957,8 +957,7 @@
 				break;
 		}
 	} else {
-		
-		switch ( [ sender selectedTag ] ) {
+		switch ([sender selectedTag]) {
 			//ButtonMatrix 1 (window rightside)
 			case 51: lkey = lastKeyBuffer;
 				break;
@@ -985,11 +984,10 @@
 		}
 	}
 	
-	self.keyBuffer = lkey ;
-	lastKeyBuffer = keyBuffer;	
+	self.keyBuffer = lkey;
+	lastKeyBuffer = keyBuffer;
 	[ self setNeedClear:YES ];
 	[ self setKeyUpdated:YES ];
-	
 }
 
 
@@ -1045,7 +1043,7 @@
 {
 	 
 	keyBuffer = 0;
-	switch ( [ sender tag ] ) {
+	switch ([sender tag]) {
 		case 0: keyBuffer = lastKeyBuffer;	/* Again */
 			break;
 		case 1: keyBuffer = 'F';	/* Fight */
@@ -1109,7 +1107,7 @@
 - (IBAction)magicMenuActions:(id)sender
 {
 	keyBuffer = 0;
-	switch ( [ sender tag ] ) {
+	switch ([sender tag]) {
 		case 0: keyBuffer = 'q';	/* Quaff Potion */
 			break;
 		case 1: keyBuffer = 'r';	/* Read Scroll/Book */
@@ -1231,10 +1229,10 @@
 		@autoreleasepool {
 			NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.1];
 			
-			NSEvent *event = [NSApp  nextEventMatchingMask:mask
-												 untilDate:date
-													inMode:NSDefaultRunLoopMode
-												   dequeue:YES];
+			NSEvent *event = [NSApp nextEventMatchingMask:mask
+												untilDate:date
+												   inMode:NSDefaultRunLoopMode
+												  dequeue:YES];
 			
 			if (event) {
 				if (![_bindController mainWindow].keyWindow ) {
@@ -1292,7 +1290,7 @@
 										break;
 									default:
 										modKeyFlag = MODKEY_COMMAND;
-										self.keyBuffer = (int)ch[0] ;
+										self.keyBuffer = (int)ch[0];
 										break;
 								}
 							} else {
@@ -1307,7 +1305,7 @@
 										
 									case '2':
 										if (iflags.num_pad) {
-											[ _num2 performClick:self ];
+											[ _num2 performClick:self];
 										} else {
 											self.keyBuffer = (int)ch[0];
 										}
