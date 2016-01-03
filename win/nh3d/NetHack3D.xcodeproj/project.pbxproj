@@ -1457,9 +1457,9 @@
 		55C183361C39C4C300602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		55C183391C39C4D600602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Usermakesheet.strings; sourceTree = "<group>"; };
 		55C1833B1C39C4DC00602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
-		55C183431C39CF2400602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		55C183441C39D96F00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
-		55C183451C39D97800602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
+		55C183461C39E43900602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		55C183471C39E44D00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Usermakesheet.strings; sourceTree = "<group>"; };
+		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -3509,7 +3509,7 @@
 			children = (
 				55C183311C39C4A200602251 /* Base */,
 				55C183361C39C4C300602251 /* en */,
-				55C183431C39CF2400602251 /* ja */,
+				55C183461C39E43900602251 /* ja */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -3519,7 +3519,7 @@
 			children = (
 				55C183331C39C4A200602251 /* Base */,
 				55C1833B1C39C4DC00602251 /* en */,
-				55C183441C39D96F00602251 /* ja */,
+				55C183481C39E46A00602251 /* ja */,
 			);
 			name = PreferencePanel.xib;
 			sourceTree = "<group>";
@@ -3529,7 +3529,7 @@
 			children = (
 				55C183321C39C4A200602251 /* Base */,
 				55C183391C39C4D600602251 /* en */,
-				55C183451C39D97800602251 /* ja */,
+				55C183471C39E44D00602251 /* ja */,
 			);
 			name = Usermakesheet.xib;
 			sourceTree = "<group>";

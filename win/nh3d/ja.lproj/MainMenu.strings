@@ -1,0 +1,1302 @@
+
+/* Class = "NSWindow"; title = "NetHack3D"; ObjectID = "21"; */
+"21.title" = "NetHack3D";
+
+/* Class = "NSMenu"; title = "Nethack3d"; ObjectID = "29"; */
+"29.title" = "Nethack3d";
+
+/* Class = "NSMenuItem"; title = "ヘルプ"; ObjectID = "103"; */
+"103.title" = "ヘルプ";
+
+/* Class = "NSMenu"; title = "ヘルプ"; ObjectID = "106"; */
+"106.title" = "ヘルプ";
+
+/* Class = "NSMenuItem"; title = "NetHack3Dのヘルプ"; ObjectID = "111"; */
+"111.title" = "NetHack3Dのヘルプ";
+
+/* Class = "NSButton"; ibShadowedToolTip = "ここはなんだろう？"; ObjectID = "275"; */
+"275.ibShadowedToolTip" = "ここはなんだろう？";
+
+/* Class = "NSButton"; ibShadowedToolTip = "あれはなんだろう？"; ObjectID = "293"; */
+"293.ibShadowedToolTip" = "あれはなんだろう？";
+
+/* Class = "NSBox"; title = "Name"; ObjectID = "314"; */
+"314.title" = "Name";
+
+/* Class = "NSBox"; title = "Class"; ObjectID = "316"; */
+"316.title" = "Class";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "腕力"; ObjectID = "344"; */
+"344.ibShadowedToolTip" = "腕力";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "器用"; ObjectID = "350"; */
+"350.ibShadowedToolTip" = "器用";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "体力"; ObjectID = "353"; */
+"353.ibShadowedToolTip" = "体力";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "知識"; ObjectID = "356"; */
+"356.ibShadowedToolTip" = "知識";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "知恵"; ObjectID = "359"; */
+"359.ibShadowedToolTip" = "知恵";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "魅力"; ObjectID = "362"; */
+"362.ibShadowedToolTip" = "魅力";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "生命"; ObjectID = "365"; */
+"365.ibShadowedToolTip" = "生命";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "魔力"; ObjectID = "368"; */
+"368.ibShadowedToolTip" = "魔力";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "372"; */
+"372.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "375"; */
+"375.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "378"; */
+"378.title" = "Box";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "アーマークラス"; ObjectID = "380"; */
+"380.ibShadowedToolTip" = "アーマークラス";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "レベル"; ObjectID = "383"; */
+"383.ibShadowedToolTip" = "レベル";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "秩序"; ObjectID = "386"; */
+"386.ibShadowedToolTip" = "秩序";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "中立"; ObjectID = "387"; */
+"387.ibShadowedToolTip" = "中立";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "混沌"; ObjectID = "388"; */
+"388.ibShadowedToolTip" = "混沌";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "390"; */
+"390.title" = "Box";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "再行動"; ObjectID = "417"; */
+"417.ibShadowedToolTip" = "再行動";
+
+/* Class = "NSButtonCell"; title = "a"; ObjectID = "417"; */
+"417.title" = "a";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rest"; ObjectID = "452"; */
+"452.ibShadowedToolTip" = "Rest";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "453"; */
+"453.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "455"; */
+"455.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "457"; */
+"457.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "459"; */
+"459.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "461"; */
+"461.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "463"; */
+"463.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "465"; */
+"465.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "467"; */
+"467.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "469"; */
+"469.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "471"; */
+"471.ibShadowedToolTip" = "STR";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "475"; */
+"475.title" = "Box";
+
+/* Class = "NSMenuItem"; title = "ここはなんだろう？"; ObjectID = "498"; */
+"498.title" = "ここはなんだろう？";
+
+/* Class = "NSMenuItem"; title = "あれはなんだろう？"; ObjectID = "500"; */
+"500.title" = "あれはなんだろう？";
+
+/* Class = "NSMenuItem"; title = "あれは ..."; ObjectID = "501"; */
+"501.title" = "あれは ...";
+
+/* Class = "NSMenuItem"; title = "ゲーム"; ObjectID = "520"; */
+"520.title" = "ゲーム";
+
+/* Class = "NSMenu"; title = "ゲーム"; ObjectID = "521"; */
+"521.title" = "ゲーム";
+
+/* Class = "NSMenuItem"; title = "行動"; ObjectID = "523"; */
+"523.title" = "行動";
+
+/* Class = "NSMenu"; title = "行動"; ObjectID = "524"; */
+"524.title" = "行動";
+
+/* Class = "NSMenuItem"; title = "再行動"; ObjectID = "525"; */
+"525.title" = "再行動";
+
+/* Class = "NSMenuItem"; title = "Gear"; ObjectID = "526"; */
+"526.title" = "Gear";
+
+/* Class = "NSMenu"; title = "Gear"; ObjectID = "527"; */
+"527.title" = "Gear";
+
+/* Class = "NSMenuItem"; title = "装備品をいろいろ外す"; ObjectID = "528"; */
+"528.title" = "装備品をいろいろ外す";
+
+/* Class = "NSMenuItem"; title = "魔法"; ObjectID = "529"; */
+"529.title" = "魔法";
+
+/* Class = "NSMenu"; title = "魔法"; ObjectID = "530"; */
+"530.title" = "魔法";
+
+/* Class = "NSMenuItem"; title = "薬などを飲む"; ObjectID = "531"; */
+"531.title" = "薬などを飲む";
+
+/* Class = "NSMenuItem"; title = "情報"; ObjectID = "4842"; */
+"4842.title" = "情報";
+
+/* Class = "NSMenu"; title = "情報"; ObjectID = "4843"; */
+"4843.title" = "情報";
+
+/* Class = "NSMenuItem"; title = "物に名付ける"; ObjectID = "4844"; */
+"4844.title" = "物に名付ける";
+
+/* Class = "NSMenuItem"; title = "NetHack3D"; ObjectID = "4845"; */
+"4845.title" = "NetHack3D";
+
+/* Class = "NSMenu"; title = "NetHack3D"; ObjectID = "4846"; */
+"4846.title" = "NetHack3D";
+
+/* Class = "NSMenuItem"; title = "NetHack3Dについて..."; ObjectID = "4847"; */
+"4847.title" = "NetHack3Dについて...";
+
+/* Class = "NSMenuItem"; title = "ゲームオプション…"; ObjectID = "4850"; */
+"4850.title" = "ゲームオプション…";
+
+/* Class = "NSMenuItem"; title = "セーブせずに終了..."; ObjectID = "4851"; */
+"4851.title" = "セーブせずに終了...";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "4853"; */
+"4853.title" = "Services";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "4854"; */
+"4854.title" = "Services";
+
+/* Class = "NSMenuItem"; title = "NetHack3Dを隠す"; ObjectID = "4856"; */
+"4856.title" = "NetHack3Dを隠す";
+
+/* Class = "NSMenuItem"; title = "他を隠す"; ObjectID = "4857"; */
+"4857.title" = "他を隠す";
+
+/* Class = "NSMenuItem"; title = "すべて表示"; ObjectID = "4858"; */
+"4858.title" = "すべて表示";
+
+/* Class = "NSMenuItem"; title = "ファイル"; ObjectID = "4863"; */
+"4863.title" = "ファイル";
+
+/* Class = "NSMenu"; title = "ファイル"; ObjectID = "4864"; */
+"4864.title" = "ファイル";
+
+/* Class = "NSMenuItem"; title = "保存と終了"; ObjectID = "4867"; */
+"4867.title" = "保存と終了";
+
+/* Class = "NSMenuItem"; title = "ページ設定…"; ObjectID = "4873"; */
+"4873.title" = "ページ設定…";
+
+/* Class = "NSMenuItem"; title = "プリント…"; ObjectID = "4877"; */
+"4877.title" = "プリント…";
+
+/* Class = "NSMenuItem"; title = "ウインドウ"; ObjectID = "4881"; */
+"4881.title" = "ウインドウ";
+
+/* Class = "NSMenu"; title = "ウインドウ"; ObjectID = "4882"; */
+"4882.title" = "ウインドウ";
+
+/* Class = "NSMenuItem"; title = "拡大/縮小"; ObjectID = "4883"; */
+"4883.title" = "拡大/縮小";
+
+/* Class = "NSMenuItem"; title = "しまう"; ObjectID = "4884"; */
+"4884.title" = "しまう";
+
+/* Class = "NSMenuItem"; title = "すべてを手前に移動"; ObjectID = "4886"; */
+"4886.title" = "すべてを手前に移動";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "4994"; */
+"4994.title" = "Title";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Hunger"; ObjectID = "5012"; */
+"5012.ibShadowedToolTip" = "Hunger";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Confused"; ObjectID = "5013"; */
+"5013.ibShadowedToolTip" = "Confused";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Sick"; ObjectID = "5014"; */
+"5014.ibShadowedToolTip" = "Sick";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Ill"; ObjectID = "5015"; */
+"5015.ibShadowedToolTip" = "Ill";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Blind"; ObjectID = "5016"; */
+"5016.ibShadowedToolTip" = "Blind";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Stunned"; ObjectID = "5017"; */
+"5017.ibShadowedToolTip" = "Stunned";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Hallucinating"; ObjectID = "5018"; */
+"5018.ibShadowedToolTip" = "Hallucinating";
+
+/* Class = "NSMenuItem"; title = "バージョン"; ObjectID = "5027"; */
+"5027.title" = "バージョン";
+
+/* Class = "NSMenuItem"; title = "コンパイルの表示 ..."; ObjectID = "5028"; */
+"5028.title" = "コンパイルの表示 ...";
+
+/* Class = "NSMenuItem"; title = "歴史 ..."; ObjectID = "5029"; */
+"5029.title" = "歴史 ...";
+
+/* Class = "NSMenuItem"; title = "武器装備"; ObjectID = "5031"; */
+"5031.title" = "武器装備";
+
+/* Class = "NSMenuItem"; title = "武器交換"; ObjectID = "5032"; */
+"5032.title" = "武器交換";
+
+/* Class = "NSMenuItem"; title = "二刀流"; ObjectID = "5033"; */
+"5033.title" = "二刀流";
+
+/* Class = "NSMenuItem"; title = "矢弾の補充"; ObjectID = "5034"; */
+"5034.title" = "矢弾の補充";
+
+/* Class = "NSMenuItem"; title = "防具の装備"; ObjectID = "5035"; */
+"5035.title" = "防具の装備";
+
+/* Class = "NSMenuItem"; title = "鎧を外す"; ObjectID = "5036"; */
+"5036.title" = "鎧を外す";
+
+/* Class = "NSMenuItem"; title = "アクセサリの装備"; ObjectID = "5039"; */
+"5039.title" = "アクセサリの装備";
+
+/* Class = "NSMenuItem"; title = "アクセサリを外す"; ObjectID = "5040"; */
+"5040.title" = "アクセサリを外す";
+
+/* Class = "NSMenuItem"; title = "使用する"; ObjectID = "5042"; */
+"5042.title" = "使用する";
+
+/* Class = "NSMenuItem"; title = "話す"; ObjectID = "5043"; */
+"5043.title" = "話す";
+
+/* Class = "NSMenuItem"; title = "ドアを閉じる"; ObjectID = "5044"; */
+"5044.title" = "ドアを閉じる";
+
+/* Class = "NSMenuItem"; title = "複数置く"; ObjectID = "5045"; */
+"5045.title" = "複数置く";
+
+/* Class = "NSMenuItem"; title = "降りる"; ObjectID = "5046"; */
+"5046.title" = "降りる";
+
+/* Class = "NSMenuItem"; title = "置く"; ObjectID = "5047"; */
+"5047.title" = "置く";
+
+/* Class = "NSMenuItem"; title = "食べる"; ObjectID = "5048"; */
+"5048.title" = "食べる";
+
+/* Class = "NSMenuItem"; title = "文字を書く"; ObjectID = "5049"; */
+"5049.title" = "文字を書く";
+
+/* Class = "NSMenuItem"; title = "戦う"; ObjectID = "5050"; */
+"5050.title" = "戦う";
+
+/* Class = "NSMenuItem"; title = "射撃"; ObjectID = "5051"; */
+"5051.title" = "射撃";
+
+/* Class = "NSMenuItem"; title = "拾う"; ObjectID = "5052"; */
+"5052.title" = "拾う";
+
+/* Class = "NSMenuItem"; title = "こじ開ける"; ObjectID = "5053"; */
+"5053.title" = "こじ開ける";
+
+/* Class = "NSMenuItem"; title = "ジャンプ"; ObjectID = "5054"; */
+"5054.title" = "ジャンプ";
+
+/* Class = "NSMenuItem"; title = "キック"; ObjectID = "5055"; */
+"5055.title" = "キック";
+
+/* Class = "NSMenuItem"; title = "あさる"; ObjectID = "5056"; */
+"5056.title" = "あさる";
+
+/* Class = "NSMenuItem"; title = "ドアを開く"; ObjectID = "5057"; */
+"5057.title" = "ドアを開く";
+
+/* Class = "NSMenuItem"; title = "支払う"; ObjectID = "5058"; */
+"5058.title" = "支払う";
+
+/* Class = "NSMenuItem"; title = "休息"; ObjectID = "5059"; */
+"5059.title" = "休息";
+
+/* Class = "NSMenuItem"; title = "騎乗/降りる"; ObjectID = "5060"; */
+"5060.title" = "騎乗/降りる";
+
+/* Class = "NSMenuItem"; title = "探す"; ObjectID = "5061"; */
+"5061.title" = "探す";
+
+/* Class = "NSMenuItem"; title = "座る"; ObjectID = "5062"; */
+"5062.title" = "座る";
+
+/* Class = "NSMenuItem"; title = "投げる"; ObjectID = "5063"; */
+"5063.title" = "投げる";
+
+/* Class = "NSMenuItem"; title = "罠を外す"; ObjectID = "5064"; */
+"5064.title" = "罠を外す";
+
+/* Class = "NSMenuItem"; title = "登る"; ObjectID = "5065"; */
+"5065.title" = "登る";
+
+/* Class = "NSMenuItem"; title = "顔をぬぐう"; ObjectID = "5066"; */
+"5066.title" = "顔をぬぐう";
+
+/* Class = "NSMenuItem"; title = "巻物/魔法書を読む"; ObjectID = "5067"; */
+"5067.title" = "巻物/魔法書を読む";
+
+/* Class = "NSMenuItem"; title = "杖を振る"; ObjectID = "5068"; */
+"5068.title" = "杖を振る";
+
+/* Class = "NSMenuItem"; title = "呪文を唱える"; ObjectID = "5069"; */
+"5069.title" = "呪文を唱える";
+
+/* Class = "NSMenuItem"; title = "浸す"; ObjectID = "5070"; */
+"5070.title" = "浸す";
+
+/* Class = "NSMenuItem"; title = "こする"; ObjectID = "5071"; */
+"5071.title" = "こする";
+
+/* Class = "NSMenuItem"; title = "呼び出す"; ObjectID = "5072"; */
+"5072.title" = "呼び出す";
+
+/* Class = "NSMenuItem"; title = "捧げる"; ObjectID = "5073"; */
+"5073.title" = "捧げる";
+
+/* Class = "NSMenuItem"; title = "祈る"; ObjectID = "5074"; */
+"5074.title" = "祈る";
+
+/* Class = "NSMenuItem"; title = "テレポート"; ObjectID = "5075"; */
+"5075.title" = "テレポート";
+
+/* Class = "NSMenuItem"; title = "怪物の行動"; ObjectID = "5076"; */
+"5076.title" = "怪物の行動";
+
+/* Class = "NSMenuItem"; title = "アンデッドを追い払う"; ObjectID = "5077"; */
+"5077.title" = "アンデッドを追い払う";
+
+/* Class = "NSMenuItem"; title = "持ち物"; ObjectID = "5078"; */
+"5078.title" = "持ち物";
+
+/* Class = "NSMenuItem"; title = "行動を見る"; ObjectID = "5079"; */
+"5079.title" = "行動を見る";
+
+/* Class = "NSMenuItem"; title = "発見した物"; ObjectID = "5080"; */
+"5080.title" = "発見した物";
+
+/* Class = "NSMenuItem"; title = "呪文リスト（見る/調整）"; ObjectID = "5081"; */
+"5081.title" = "呪文リスト（見る/調整）";
+
+/* Class = "NSMenuItem"; title = "持ち物リストの調整"; ObjectID = "5082"; */
+"5082.title" = "持ち物リストの調整";
+
+/* Class = "NSMenuItem"; title = "スキルを上げる"; ObjectID = "5085"; */
+"5085.title" = "スキルを上げる";
+
+/* Class = "NSMenuItem"; title = "クリーチャに名付ける"; ObjectID = "5086"; */
+"5086.title" = "クリーチャに名付ける";
+
+/* Class = "NSMenuItem"; title = "種類に名付ける"; ObjectID = "5087"; */
+"5087.title" = "種類に名付ける";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5108"; */
+"5108.title" = "Box";
+
+/* Class = "NSButton"; ibShadowedToolTip = "レーダーのオン/オフ"; ObjectID = "5249"; */
+"5249.ibShadowedToolTip" = "レーダーのオン/オフ";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5255"; */
+"5255.title" = "Box";
+
+/* Class = "NSWindow"; title = "さようなら..."; ObjectID = "5320"; */
+"5320.title" = "さようなら...";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5437"; */
+"5437.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5451"; */
+"5451.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5453"; */
+"5453.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5455"; */
+"5455.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5457"; */
+"5457.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5459"; */
+"5459.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5461"; */
+"5461.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5464"; */
+"5464.title" = "Box";
+
+/* Class = "NSWindow"; title = "NetHack3D"; ObjectID = "5650"; */
+"5650.title" = "NetHack3D";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5744"; */
+"5744.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5746"; */
+"5746.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5748"; */
+"5748.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5750"; */
+"5750.title" = "Box";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "5915"; */
+"5915.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "情報"; ObjectID = "5918"; */
+"5918.title" = "情報";
+
+/* Class = "NSMenu"; title = "情報"; ObjectID = "5919"; */
+"5919.title" = "情報";
+
+/* Class = "NSMenuItem"; title = "装備"; ObjectID = "5921"; */
+"5921.title" = "装備";
+
+/* Class = "NSMenu"; title = "装備"; ObjectID = "5922"; */
+"5922.title" = "装備";
+
+/* Class = "NSMenuItem"; title = "ゲーム"; ObjectID = "5924"; */
+"5924.title" = "ゲーム";
+
+/* Class = "NSMenu"; title = "ゲーム"; ObjectID = "5925"; */
+"5925.title" = "ゲーム";
+
+/* Class = "NSMenuItem"; title = "行動"; ObjectID = "5927"; */
+"5927.title" = "行動";
+
+/* Class = "NSMenu"; title = "行動"; ObjectID = "5928"; */
+"5928.title" = "行動";
+
+/* Class = "NSMenuItem"; title = "魔法"; ObjectID = "5930"; */
+"5930.title" = "魔法";
+
+/* Class = "NSMenu"; title = "魔法"; ObjectID = "5931"; */
+"5931.title" = "魔法";
+
+/* Class = "NSMenuItem"; title = "ヘルプ"; ObjectID = "5933"; */
+"5933.title" = "ヘルプ";
+
+/* Class = "NSMenu"; title = "ヘルプ"; ObjectID = "5934"; */
+"5934.title" = "ヘルプ";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "射撃"; ObjectID = "5957"; */
+"5957.ibShadowedToolTip" = "射撃";
+
+/* Class = "NSButtonCell"; title = "f"; ObjectID = "5957"; */
+"5957.title" = "f";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "キック"; ObjectID = "5960"; */
+"5960.ibShadowedToolTip" = "キック";
+
+/* Class = "NSButtonCell"; title = "k"; ObjectID = "5960"; */
+"5960.title" = "k";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "呪文を唱える"; ObjectID = "5961"; */
+"5961.ibShadowedToolTip" = "呪文を唱える";
+
+/* Class = "NSButtonCell"; title = "Z"; ObjectID = "5961"; */
+"5961.title" = "Z";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "投げる"; ObjectID = "5962"; */
+"5962.ibShadowedToolTip" = "投げる";
+
+/* Class = "NSButtonCell"; title = "t"; ObjectID = "5962"; */
+"5962.title" = "t";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "ドアを開く"; ObjectID = "5963"; */
+"5963.ibShadowedToolTip" = "ドアを開く";
+
+/* Class = "NSButtonCell"; title = "o"; ObjectID = "5963"; */
+"5963.title" = "o";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "探す"; ObjectID = "5974"; */
+"5974.ibShadowedToolTip" = "探す";
+
+/* Class = "NSButtonCell"; title = "s"; ObjectID = "5974"; */
+"5974.title" = "s";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "拾う"; ObjectID = "5975"; */
+"5975.ibShadowedToolTip" = "拾う";
+
+/* Class = "NSButtonCell"; title = ","; ObjectID = "5975"; */
+"5975.title" = ",";
+
+/* Class = "NSMenuItem"; title = "バージョン..."; ObjectID = "6006"; */
+"6006.title" = "バージョン...";
+
+/* Class = "NSMenuItem"; title = "コンパイルの表示 ..."; ObjectID = "6007"; */
+"6007.title" = "コンパイルの表示 ...";
+
+/* Class = "NSMenuItem"; title = "歴史 ..."; ObjectID = "6008"; */
+"6008.title" = "歴史 ...";
+
+/* Class = "NSMenuItem"; title = "装備品をいろいろ外す"; ObjectID = "6009"; */
+"6009.title" = "装備品をいろいろ外す";
+
+/* Class = "NSMenuItem"; title = "武器装備"; ObjectID = "6011"; */
+"6011.title" = "武器装備";
+
+/* Class = "NSMenuItem"; title = "武器交換"; ObjectID = "6012"; */
+"6012.title" = "武器交換";
+
+/* Class = "NSMenuItem"; title = "二刀流"; ObjectID = "6013"; */
+"6013.title" = "二刀流";
+
+/* Class = "NSMenuItem"; title = "矢弾の補充"; ObjectID = "6014"; */
+"6014.title" = "矢弾の補充";
+
+/* Class = "NSMenuItem"; title = "防具の装備"; ObjectID = "6016"; */
+"6016.title" = "防具の装備";
+
+/* Class = "NSMenuItem"; title = "防具を外す"; ObjectID = "6017"; */
+"6017.title" = "防具を外す";
+
+/* Class = "NSMenuItem"; title = "アクセサリの装備"; ObjectID = "6018"; */
+"6018.title" = "アクセサリの装備";
+
+/* Class = "NSMenuItem"; title = "アクセサリを外す"; ObjectID = "6019"; */
+"6019.title" = "アクセサリを外す";
+
+/* Class = "NSMenuItem"; title = "再行動"; ObjectID = "6020"; */
+"6020.title" = "再行動";
+
+/* Class = "NSMenuItem"; title = "戦う"; ObjectID = "6022"; */
+"6022.title" = "戦う";
+
+/* Class = "NSMenuItem"; title = "射撃"; ObjectID = "6023"; */
+"6023.title" = "射撃";
+
+/* Class = "NSMenuItem"; title = "投げる"; ObjectID = "6024"; */
+"6024.title" = "投げる";
+
+/* Class = "NSMenuItem"; title = "キック"; ObjectID = "6025"; */
+"6025.title" = "キック";
+
+/* Class = "NSMenuItem"; title = "休息"; ObjectID = "6027"; */
+"6027.title" = "休息";
+
+/* Class = "NSMenuItem"; title = "話す"; ObjectID = "6028"; */
+"6028.title" = "話す";
+
+/* Class = "NSMenuItem"; title = "食べる"; ObjectID = "6029"; */
+"6029.title" = "食べる";
+
+/* Class = "NSMenuItem"; title = "探す"; ObjectID = "6030"; */
+"6030.title" = "探す";
+
+/* Class = "NSMenuItem"; title = "罠を外す"; ObjectID = "6031"; */
+"6031.title" = "罠を外す";
+
+/* Class = "NSMenuItem"; title = "こじ開ける"; ObjectID = "6032"; */
+"6032.title" = "こじ開ける";
+
+/* Class = "NSMenuItem"; title = "複数置く"; ObjectID = "6034"; */
+"6034.title" = "複数置く";
+
+/* Class = "NSMenuItem"; title = "置く"; ObjectID = "6035"; */
+"6035.title" = "置く";
+
+/* Class = "NSMenuItem"; title = "拾う"; ObjectID = "6036"; */
+"6036.title" = "拾う";
+
+/* Class = "NSMenuItem"; title = "あさる"; ObjectID = "6037"; */
+"6037.title" = "あさる";
+
+/* Class = "NSMenuItem"; title = "ドアを閉じる"; ObjectID = "6039"; */
+"6039.title" = "ドアを閉じる";
+
+/* Class = "NSMenuItem"; title = "ドアを開く"; ObjectID = "6040"; */
+"6040.title" = "ドアを開く";
+
+/* Class = "NSMenuItem"; title = "降りる"; ObjectID = "6041"; */
+"6041.title" = "降りる";
+
+/* Class = "NSMenuItem"; title = "登る"; ObjectID = "6042"; */
+"6042.title" = "登る";
+
+/* Class = "NSMenuItem"; title = "ジャンプ"; ObjectID = "6044"; */
+"6044.title" = "ジャンプ";
+
+/* Class = "NSMenuItem"; title = "座る"; ObjectID = "6045"; */
+"6045.title" = "座る";
+
+/* Class = "NSMenuItem"; title = "乗る"; ObjectID = "6046"; */
+"6046.title" = "乗る";
+
+/* Class = "NSMenuItem"; title = "支払う"; ObjectID = "6047"; */
+"6047.title" = "支払う";
+
+/* Class = "NSMenuItem"; title = "顔をぬぐう"; ObjectID = "6048"; */
+"6048.title" = "顔をぬぐう";
+
+/* Class = "NSMenuItem"; title = "使用する"; ObjectID = "6050"; */
+"6050.title" = "使用する";
+
+/* Class = "NSMenuItem"; title = "文字を書く"; ObjectID = "6051"; */
+"6051.title" = "文字を書く";
+
+/* Class = "NSMenuItem"; title = "薬などを飲む"; ObjectID = "6052"; */
+"6052.title" = "薬などを飲む";
+
+/* Class = "NSMenuItem"; title = "巻物/魔法書を読む"; ObjectID = "6053"; */
+"6053.title" = "巻物/魔法書を読む";
+
+/* Class = "NSMenuItem"; title = "杖を振る"; ObjectID = "6054"; */
+"6054.title" = "杖を振る";
+
+/* Class = "NSMenuItem"; title = "呪文を唱える"; ObjectID = "6055"; */
+"6055.title" = "呪文を唱える";
+
+/* Class = "NSMenuItem"; title = "浸す"; ObjectID = "6057"; */
+"6057.title" = "浸す";
+
+/* Class = "NSMenuItem"; title = "こする"; ObjectID = "6058"; */
+"6058.title" = "こする";
+
+/* Class = "NSMenuItem"; title = "呼び出す"; ObjectID = "6059"; */
+"6059.title" = "呼び出す";
+
+/* Class = "NSMenuItem"; title = "捧げる"; ObjectID = "6060"; */
+"6060.title" = "捧げる";
+
+/* Class = "NSMenuItem"; title = "祈る"; ObjectID = "6061"; */
+"6061.title" = "祈る";
+
+/* Class = "NSMenuItem"; title = "テレポート"; ObjectID = "6063"; */
+"6063.title" = "テレポート";
+
+/* Class = "NSMenuItem"; title = "怪物の行動"; ObjectID = "6064"; */
+"6064.title" = "怪物の行動";
+
+/* Class = "NSMenuItem"; title = "アンデッドを追い払う"; ObjectID = "6065"; */
+"6065.title" = "アンデッドを追い払う";
+
+/* Class = "NSMenuItem"; title = "持ち物"; ObjectID = "6066"; */
+"6066.title" = "持ち物";
+
+/* Class = "NSMenuItem"; title = "行動を見る"; ObjectID = "6068"; */
+"6068.title" = "行動を見る";
+
+/* Class = "NSMenuItem"; title = "発見した物"; ObjectID = "6069"; */
+"6069.title" = "発見した物";
+
+/* Class = "NSMenuItem"; title = "呪文リスト（見る/調整）"; ObjectID = "6070"; */
+"6070.title" = "呪文リスト（見る/調整）";
+
+/* Class = "NSMenuItem"; title = "持ち物リストの調整"; ObjectID = "6071"; */
+"6071.title" = "持ち物リストの調整";
+
+/* Class = "NSMenuItem"; title = "物に名付ける"; ObjectID = "6073"; */
+"6073.title" = "物に名付ける";
+
+/* Class = "NSMenuItem"; title = "種類に名付ける"; ObjectID = "6074"; */
+"6074.title" = "種類に名付ける";
+
+/* Class = "NSMenuItem"; title = "クリーチャに名付ける"; ObjectID = "6075"; */
+"6075.title" = "クリーチャに名付ける";
+
+/* Class = "NSMenuItem"; title = "スキルを上げる"; ObjectID = "6077"; */
+"6077.title" = "スキルを上げる";
+
+/* Class = "NSMenuItem"; title = "NetHack3Dのヘルプ"; ObjectID = "6078"; */
+"6078.title" = "NetHack3Dのヘルプ";
+
+/* Class = "NSMenuItem"; title = "ここはなんだろう？"; ObjectID = "6080"; */
+"6080.title" = "ここはなんだろう？";
+
+/* Class = "NSMenuItem"; title = "あれはなんだろう？"; ObjectID = "6081"; */
+"6081.title" = "あれはなんだろう？";
+
+/* Class = "NSMenuItem"; title = "あれは ..."; ObjectID = "6082"; */
+"6082.title" = "あれは ...";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "6240"; */
+"6240.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "視界制限"; ObjectID = "6241"; */
+"6241.title" = "視界制限";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "指輪（左手）"; ObjectID = "6342"; */
+"6342.ibShadowedToolTip" = "指輪（左手）";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "予備の武器"; ObjectID = "6343"; */
+"6343.ibShadowedToolTip" = "予備の武器";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "武器"; ObjectID = "6344"; */
+"6344.ibShadowedToolTip" = "武器";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "かぶと"; ObjectID = "6345"; */
+"6345.ibShadowedToolTip" = "かぶと";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "クローク類"; ObjectID = "6346"; */
+"6346.ibShadowedToolTip" = "クローク類";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "よろい"; ObjectID = "6347"; */
+"6347.ibShadowedToolTip" = "よろい";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "靴"; ObjectID = "6348"; */
+"6348.ibShadowedToolTip" = "靴";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "指輪（右手）"; ObjectID = "6349"; */
+"6349.ibShadowedToolTip" = "指輪（右手）";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "グローブ"; ObjectID = "6350"; */
+"6350.ibShadowedToolTip" = "グローブ";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "盾"; ObjectID = "6351"; */
+"6351.ibShadowedToolTip" = "盾";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "首飾り"; ObjectID = "6352"; */
+"6352.ibShadowedToolTip" = "首飾り";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "グローブ"; ObjectID = "6353"; */
+"6353.ibShadowedToolTip" = "グローブ";
+
+/* Class = "NSWindow"; title = "map"; ObjectID = "6441"; */
+"6441.title" = "map";
+
+/* Class = "NSMenuItem"; title = "全体マップを表示"; ObjectID = "6450"; */
+"6450.title" = "全体マップを表示";
+
+/* Class = "NSMenuItem"; title = "全体マップにタイルを使う"; ObjectID = "6451"; */
+"6451.title" = "全体マップにタイルを使う";
+
+/* Class = "NSMenuItem"; title = "全体マップを表示"; ObjectID = "6472"; */
+"6472.title" = "全体マップを表示";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "6569"; */
+"6569.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "ヘルプ"; ObjectID = "6570"; */
+"6570.title" = "ヘルプ";
+
+/* Class = "NSMenu"; title = "ヘルプ"; ObjectID = "6571"; */
+"6571.title" = "ヘルプ";
+
+/* Class = "NSMenuItem"; title = "NetHack3Dのヘルプ"; ObjectID = "6572"; */
+"6572.title" = "NetHack3Dのヘルプ";
+
+/* Class = "NSMenuItem"; title = "ここはなんだろう？"; ObjectID = "6574"; */
+"6574.title" = "ここはなんだろう？";
+
+/* Class = "NSMenuItem"; title = "あれはなんだろう？"; ObjectID = "6575"; */
+"6575.title" = "あれはなんだろう？";
+
+/* Class = "NSMenuItem"; title = "あれは ..."; ObjectID = "6576"; */
+"6576.title" = "あれは ...";
+
+/* Class = "NSMenuItem"; title = "装備"; ObjectID = "6577"; */
+"6577.title" = "装備";
+
+/* Class = "NSMenu"; title = "装備"; ObjectID = "6578"; */
+"6578.title" = "装備";
+
+/* Class = "NSMenuItem"; title = "武器交換"; ObjectID = "6579"; */
+"6579.title" = "武器交換";
+
+/* Class = "NSMenuItem"; title = "装備品をいろいろ外す"; ObjectID = "6580"; */
+"6580.title" = "装備品をいろいろ外す";
+
+/* Class = "NSMenuItem"; title = "武器装備"; ObjectID = "6582"; */
+"6582.title" = "武器装備";
+
+/* Class = "NSMenuItem"; title = "二刀流"; ObjectID = "6583"; */
+"6583.title" = "二刀流";
+
+/* Class = "NSMenuItem"; title = "矢弾の補充"; ObjectID = "6584"; */
+"6584.title" = "矢弾の補充";
+
+/* Class = "NSMenuItem"; title = "防具の装備"; ObjectID = "6586"; */
+"6586.title" = "防具の装備";
+
+/* Class = "NSMenuItem"; title = "防具を外す"; ObjectID = "6587"; */
+"6587.title" = "防具を外す";
+
+/* Class = "NSMenuItem"; title = "アクセサリの装備"; ObjectID = "6588"; */
+"6588.title" = "アクセサリの装備";
+
+/* Class = "NSMenuItem"; title = "アクセサリを外す"; ObjectID = "6589"; */
+"6589.title" = "アクセサリを外す";
+
+/* Class = "NSMenuItem"; title = "魔法"; ObjectID = "6590"; */
+"6590.title" = "魔法";
+
+/* Class = "NSMenu"; title = "魔法"; ObjectID = "6591"; */
+"6591.title" = "魔法";
+
+/* Class = "NSMenuItem"; title = "薬などを飲む"; ObjectID = "6592"; */
+"6592.title" = "薬などを飲む";
+
+/* Class = "NSMenuItem"; title = "巻物/魔法書を読む"; ObjectID = "6593"; */
+"6593.title" = "巻物/魔法書を読む";
+
+/* Class = "NSMenuItem"; title = "杖を振る"; ObjectID = "6594"; */
+"6594.title" = "杖を振る";
+
+/* Class = "NSMenuItem"; title = "呪文を唱える"; ObjectID = "6595"; */
+"6595.title" = "呪文を唱える";
+
+/* Class = "NSMenuItem"; title = "浸す"; ObjectID = "6597"; */
+"6597.title" = "浸す";
+
+/* Class = "NSMenuItem"; title = "こする"; ObjectID = "6598"; */
+"6598.title" = "こする";
+
+/* Class = "NSMenuItem"; title = "呼び出す"; ObjectID = "6599"; */
+"6599.title" = "呼び出す";
+
+/* Class = "NSMenuItem"; title = "捧げる"; ObjectID = "6600"; */
+"6600.title" = "捧げる";
+
+/* Class = "NSMenuItem"; title = "祈る"; ObjectID = "6601"; */
+"6601.title" = "祈る";
+
+/* Class = "NSMenuItem"; title = "ゲーム"; ObjectID = "6602"; */
+"6602.title" = "ゲーム";
+
+/* Class = "NSMenuItem"; title = "テレポート"; ObjectID = "6603"; */
+"6603.title" = "テレポート";
+
+/* Class = "NSMenuItem"; title = "怪物の行動"; ObjectID = "6604"; */
+"6604.title" = "怪物の行動";
+
+/* Class = "NSMenuItem"; title = "アンデッドを追い払う"; ObjectID = "6605"; */
+"6605.title" = "アンデッドを追い払う";
+
+/* Class = "NSMenuItem"; title = "行動"; ObjectID = "6606"; */
+"6606.title" = "行動";
+
+/* Class = "NSMenu"; title = "行動"; ObjectID = "6607"; */
+"6607.title" = "行動";
+
+/* Class = "NSMenuItem"; title = "置く"; ObjectID = "6608"; */
+"6608.title" = "置く";
+
+/* Class = "NSMenuItem"; title = "拾う"; ObjectID = "6609"; */
+"6609.title" = "拾う";
+
+/* Class = "NSMenuItem"; title = "使用する"; ObjectID = "6611"; */
+"6611.title" = "使用する";
+
+/* Class = "NSMenuItem"; title = "ドアを閉じる"; ObjectID = "6612"; */
+"6612.title" = "ドアを閉じる";
+
+/* Class = "NSMenuItem"; title = "ドアを開く"; ObjectID = "6613"; */
+"6613.title" = "ドアを開く";
+
+/* Class = "NSMenuItem"; title = "降りる"; ObjectID = "6614"; */
+"6614.title" = "降りる";
+
+/* Class = "NSMenuItem"; title = "登る"; ObjectID = "6615"; */
+"6615.title" = "登る";
+
+/* Class = "NSMenuItem"; title = "ジャンプ"; ObjectID = "6617"; */
+"6617.title" = "ジャンプ";
+
+/* Class = "NSMenuItem"; title = "座る"; ObjectID = "6618"; */
+"6618.title" = "座る";
+
+/* Class = "NSMenuItem"; title = "乗る"; ObjectID = "6619"; */
+"6619.title" = "乗る";
+
+/* Class = "NSMenuItem"; title = "支払う"; ObjectID = "6620"; */
+"6620.title" = "支払う";
+
+/* Class = "NSMenuItem"; title = "顔をぬぐう"; ObjectID = "6621"; */
+"6621.title" = "顔をぬぐう";
+
+/* Class = "NSMenuItem"; title = "文字を書く"; ObjectID = "6623"; */
+"6623.title" = "文字を書く";
+
+/* Class = "NSMenuItem"; title = "再行動"; ObjectID = "6625"; */
+"6625.title" = "再行動";
+
+/* Class = "NSMenuItem"; title = "あさる"; ObjectID = "6626"; */
+"6626.title" = "あさる";
+
+/* Class = "NSMenuItem"; title = "戦う"; ObjectID = "6627"; */
+"6627.title" = "戦う";
+
+/* Class = "NSMenuItem"; title = "射撃"; ObjectID = "6628"; */
+"6628.title" = "射撃";
+
+/* Class = "NSMenuItem"; title = "投げる"; ObjectID = "6629"; */
+"6629.title" = "投げる";
+
+/* Class = "NSMenuItem"; title = "キック"; ObjectID = "6630"; */
+"6630.title" = "キック";
+
+/* Class = "NSMenuItem"; title = "休息"; ObjectID = "6632"; */
+"6632.title" = "休息";
+
+/* Class = "NSMenuItem"; title = "話す"; ObjectID = "6633"; */
+"6633.title" = "話す";
+
+/* Class = "NSMenuItem"; title = "食べる"; ObjectID = "6634"; */
+"6634.title" = "食べる";
+
+/* Class = "NSMenuItem"; title = "探す"; ObjectID = "6635"; */
+"6635.title" = "探す";
+
+/* Class = "NSMenuItem"; title = "罠を外す"; ObjectID = "6636"; */
+"6636.title" = "罠を外す";
+
+/* Class = "NSMenuItem"; title = "こじ開ける"; ObjectID = "6637"; */
+"6637.title" = "こじ開ける";
+
+/* Class = "NSMenuItem"; title = "複数置く"; ObjectID = "6639"; */
+"6639.title" = "複数置く";
+
+/* Class = "NSMenuItem"; title = "ゲーム"; ObjectID = "6640"; */
+"6640.title" = "ゲーム";
+
+/* Class = "NSMenu"; title = "ゲーム"; ObjectID = "6641"; */
+"6641.title" = "ゲーム";
+
+/* Class = "NSMenuItem"; title = "バージョン..."; ObjectID = "6642"; */
+"6642.title" = "バージョン...";
+
+/* Class = "NSMenuItem"; title = "コンパイルの表示 ..."; ObjectID = "6643"; */
+"6643.title" = "コンパイルの表示 ...";
+
+/* Class = "NSMenuItem"; title = "歴史 ..."; ObjectID = "6644"; */
+"6644.title" = "歴史 ...";
+
+/* Class = "NSMenuItem"; title = "情報"; ObjectID = "6645"; */
+"6645.title" = "情報";
+
+/* Class = "NSMenu"; title = "情報"; ObjectID = "6646"; */
+"6646.title" = "情報";
+
+/* Class = "NSMenuItem"; title = "発見した物"; ObjectID = "6647"; */
+"6647.title" = "発見した物";
+
+/* Class = "NSMenuItem"; title = "呪文リスト（見る/調整）"; ObjectID = "6648"; */
+"6648.title" = "呪文リスト（見る/調整）";
+
+/* Class = "NSMenuItem"; title = "持ち物リストの調整"; ObjectID = "6649"; */
+"6649.title" = "持ち物リストの調整";
+
+/* Class = "NSMenuItem"; title = "種類に名付ける"; ObjectID = "6650"; */
+"6650.title" = "種類に名付ける";
+
+/* Class = "NSMenuItem"; title = "クリーチャに名付ける"; ObjectID = "6651"; */
+"6651.title" = "クリーチャに名付ける";
+
+/* Class = "NSMenuItem"; title = "スキルを上げる"; ObjectID = "6653"; */
+"6653.title" = "スキルを上げる";
+
+/* Class = "NSMenuItem"; title = "物に名付ける"; ObjectID = "6655"; */
+"6655.title" = "物に名付ける";
+
+/* Class = "NSMenuItem"; title = "持ち物"; ObjectID = "6656"; */
+"6656.title" = "持ち物";
+
+/* Class = "NSMenuItem"; title = "行動を見る"; ObjectID = "6658"; */
+"6658.title" = "行動を見る";
+
+/* Class = "NSMenuItem"; title = "OpenGL設定"; ObjectID = "6660"; */
+"6660.title" = "OpenGL設定";
+
+/* Class = "NSMenu"; title = "OpenGL設定"; ObjectID = "6661"; */
+"6661.title" = "OpenGL設定";
+
+/* Class = "NSMenuItem"; title = "垂直同期を待つ（推奨）"; ObjectID = "6662"; */
+"6662.title" = "垂直同期を待つ（推奨）";
+
+/* Class = "NSMenuItem"; title = "フレームレート設定"; ObjectID = "6744"; */
+"6744.title" = "フレームレート設定";
+
+/* Class = "NSMenu"; title = "フレームレート設定"; ObjectID = "6745"; */
+"6745.title" = "フレームレート設定";
+
+/* Class = "NSMenuItem"; title = "ウエイト無し"; ObjectID = "6747"; */
+"6747.title" = "ウエイト無し";
+
+/* Class = "NSMenuItem"; title = "高速フレームレート（1/60秒）"; ObjectID = "6748"; */
+"6748.title" = "高速フレームレート（1/60秒）";
+
+/* Class = "NSMenuItem"; title = "通常フレームレート（1/45秒）"; ObjectID = "6749"; */
+"6749.title" = "通常フレームレート（1/45秒）";
+
+/* Class = "NSMenuItem"; title = "低速フレームレート（1/30秒）"; ObjectID = "6750"; */
+"6750.title" = "低速フレームレート（1/30秒）";
+
+/* Class = "NSMenuItem"; title = "NetHack3Dの設定..."; ObjectID = "6799"; */
+"6799.title" = "NetHack3Dの設定...";
+
+/* Class = "NSTextFieldCell"; title = "STR"; ObjectID = "6861"; */
+"6861.title" = "STR";
+
+/* Class = "NSTextFieldCell"; title = "CON"; ObjectID = "6862"; */
+"6862.title" = "CON";
+
+/* Class = "NSTextFieldCell"; title = "WIS"; ObjectID = "6863"; */
+"6863.title" = "WIS";
+
+/* Class = "NSTextFieldCell"; title = "DEX"; ObjectID = "6864"; */
+"6864.title" = "DEX";
+
+/* Class = "NSTextFieldCell"; title = "INT"; ObjectID = "6865"; */
+"6865.title" = "INT";
+
+/* Class = "NSTextFieldCell"; title = "CHA"; ObjectID = "6866"; */
+"6866.title" = "CHA";
+
+/* Class = "NSTextFieldCell"; title = "HP"; ObjectID = "6867"; */
+"6867.title" = "HP";
+
+/* Class = "NSTextFieldCell"; title = "Ac"; ObjectID = "6868"; */
+"6868.title" = "Ac";
+
+/* Class = "NSTextFieldCell"; title = "Pow"; ObjectID = "6869"; */
+"6869.title" = "Pow";
+
+/* Class = "NSTextFieldCell"; title = "Lv"; ObjectID = "6870"; */
+"6870.title" = "Lv";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6871"; */
+"6871.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6872"; */
+"6872.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6873"; */
+"6873.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6874"; */
+"6874.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6875"; */
+"6875.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6876"; */
+"6876.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6877"; */
+"6877.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6878"; */
+"6878.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6879"; */
+"6879.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6880"; */
+"6880.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6881"; */
+"6881.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6882"; */
+"6882.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6887"; */
+"6887.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6888"; */
+"6888.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6889"; */
+"6889.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6890"; */
+"6890.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6891"; */
+"6891.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6892"; */
+"6892.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6893"; */
+"6893.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6894"; */
+"6894.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6895"; */
+"6895.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6896"; */
+"6896.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6897"; */
+"6897.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6898"; */
+"6898.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6899"; */
+"6899.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6900"; */
+"6900.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6901"; */
+"6901.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6902"; */
+"6902.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6903"; */
+"6903.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6904"; */
+"6904.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6905"; */
+"6905.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6906"; */
+"6906.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "/"; ObjectID = "6907"; */
+"6907.title" = "/";
+
+/* Class = "NSTextFieldCell"; title = "/"; ObjectID = "6908"; */
+"6908.title" = "/";
+
+/* Class = "NSTextFieldCell"; title = "Traditonal Mode"; ObjectID = "6932"; */
+"6932.title" = "Traditonal Mode";
+
+/* Class = "NSButtonCell"; title = "Okay"; ObjectID = "6943"; */
+"6943.title" = "Okay";
+
+/* Class = "NSButtonCell"; title = "キャンセル"; ObjectID = "6944"; */
+"6944.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "name on stone"; ObjectID = "6946"; */
+"6946.title" = "name on stone";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6947"; */
+"6947.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6949"; */
+"6949.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Speak"; ObjectID = "6950"; */
+"6950.title" = "Speak";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6952"; */
+"6952.title" = "OK";
+
+/* Class = "NSSearchFieldCell"; title = "Small System Font Text"; ObjectID = "6953"; */
+"6953.title" = "Small System Font Text";
+
+/* Class = "NSButtonCell"; title = "キャンセル"; ObjectID = "6954"; */
+"6954.title" = "キャンセル";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "6955"; */
+"6955.title" = "Small System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "6956"; */
+"6956.title" = "Small System Font Text";
+
+/* Class = "NSButtonCell"; title = "全て選択"; ObjectID = "6957"; */
+"6957.title" = "全て選択";
+
+/* Class = "NSButtonCell"; title = "選択解除"; ObjectID = "6958"; */
+"6958.title" = "選択解除";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6960"; */
+"6960.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6962"; */
+"6962.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "System Font Text"; ObjectID = "6964"; */
+"6964.title" = "System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "NetHack"; ObjectID = "6968"; */
+"6968.title" = "NetHack";
+
+/* Class = "NSTextFieldCell"; title = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details."; ObjectID = "6969"; */
+"6969.title" = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details.";
+
+/* Class = "NSButtonCell"; title = "PlayerName"; ObjectID = "6970"; */
+"6970.title" = "PlayerName";
+
+/* Class = "NSButtonCell"; title = "Edit Preferences"; ObjectID = "6971"; */
+"6971.title" = "Edit Preferences";
+
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "6972"; */
+"6972.title" = "Quit";
+
+/* Class = "NSTextFieldCell"; title = "PlayerName"; ObjectID = "6973"; */
+"6973.title" = "PlayerName";
+
+/* Class = "NSTextFieldCell"; title = "Class"; ObjectID = "6974"; */
+"6974.title" = "Class";
+
+/* Class = "NSTextFieldCell"; title = "Gold"; ObjectID = "6975"; */
+"6975.title" = "Gold";
+
+/* Class = "NSTextFieldCell"; title = "Exp"; ObjectID = "6976"; */
+"6976.title" = "Exp";
+
+/* Class = "NSTextFieldCell"; title = "Time"; ObjectID = "6977"; */
+"6977.title" = "Time";
+
+/* Class = "NSTextFieldCell"; title = "Score"; ObjectID = "6978"; */
+"6978.title" = "Score";
+
+/* Class = "NSButtonCell"; title = "8"; ObjectID = "6980"; */
+"6980.title" = "8";
+
+/* Class = "NSButtonCell"; title = "2"; ObjectID = "6981"; */
+"6981.title" = "2";
+
+/* Class = "NSButtonCell"; title = "4"; ObjectID = "6982"; */
+"6982.title" = "4";
+
+/* Class = "NSButtonCell"; title = "6"; ObjectID = "6983"; */
+"6983.title" = "6";
+
+/* Class = "NSButtonCell"; title = "9"; ObjectID = "6984"; */
+"6984.title" = "9";
+
+/* Class = "NSButtonCell"; title = "7"; ObjectID = "6985"; */
+"6985.title" = "7";
+
+/* Class = "NSButtonCell"; title = "5"; ObjectID = "6988"; */
+"6988.title" = "5";
+
+/* Class = "NSButtonCell"; title = "o"; ObjectID = "6989"; */
+"6989.title" = "o";
+
+/* Class = "NSButtonCell"; title = "A"; ObjectID = "6990"; */
+"6990.title" = "A";
+
+/* Class = "NSMenuItem"; title = "Map…"; ObjectID = "ske-b7-lNY"; */
+"ske-b7-lNY.title" = "Map…";

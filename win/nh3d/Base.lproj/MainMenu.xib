@@ -851,7 +851,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="bevel" title="9" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="9" imageScaling="proportionallyDown" inset="2" id="6984">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
+                                        <font key="font" metaFont="label"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5792"/>
@@ -863,7 +863,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="1" imageScaling="proportionallyDown" inset="2" id="6986">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
+                                        <font key="font" metaFont="label"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5795"/>
@@ -875,7 +875,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="3" imageScaling="proportionallyDown" inset="2" id="6987">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
+                                        <font key="font" metaFont="label"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5797"/>
@@ -899,7 +899,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <buttonCell key="cell" type="bevel" title="7" bezelStyle="regularSquare" imagePosition="only" alignment="center" continuous="YES" borderStyle="border" tag="7" imageScaling="proportionallyDown" inset="2" id="6985">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="9" name=".HelveticaNeueDeskInterface-Regular"/>
+                                        <font key="font" metaFont="label"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="controllerActions:" target="5648" id="5790"/>
@@ -1572,7 +1572,7 @@
                             <column>
                                 <imageCell refusesFirstResponder="YES" state="on" alignment="left" toolTip="SubWeapon" imageScaling="proportionallyDown" image="base48" id="6343"/>
                                 <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Weapon" imageScaling="axesIndependently" image="base48" id="6344"/>
-                                <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Groves" imageScaling="proportionallyDown" image="base48" id="6353"/>
+                                <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Gloves" imageScaling="proportionallyDown" image="base48" id="6353"/>
                                 <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Ring(Right)" imageScaling="proportionallyDown" image="base48" id="6349"/>
                             </column>
                             <column>
@@ -1584,7 +1584,7 @@
                             <column>
                                 <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Amulet" imageScaling="proportionallyDown" image="base48" id="6352"/>
                                 <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Sheild" imageScaling="axesIndependently" image="base48" id="6351"/>
-                                <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Groves" imageScaling="proportionallyDown" image="base48" id="6350"/>
+                                <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Gloves" imageScaling="proportionallyDown" image="base48" id="6350"/>
                                 <imageCell refusesFirstResponder="YES" alignment="left" toolTip="Ring(Left)" imageScaling="proportionallyDown" image="base48" id="6342"/>
                             </column>
                         </cells>
@@ -3202,7 +3202,7 @@ DQ
                                     <action selector="gearMenuActions:" target="5648" id="6100"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Tow Weapon Combat" tag="3" id="6013">
+                            <menuItem title="Two Weapon Combat" tag="3" id="6013">
                                 <connections>
                                     <action selector="gearMenuActions:" target="5648" id="6101"/>
                                 </connections>
@@ -3755,7 +3755,7 @@ DQ
                                     <action selector="gearMenuActions:" target="5648" id="6719"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Tow Weapon Combat" tag="3" id="6583">
+                            <menuItem title="Two Weapon Combat" tag="3" id="6583">
                                 <connections>
                                     <action selector="gearMenuActions:" target="5648" id="6720"/>
                                 </connections>

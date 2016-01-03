@@ -570,7 +570,7 @@
 "6012.title" = "Exchange Weapon";
 
 /* Class = "NSMenuItem"; title = "Tow Weapon Combat"; ObjectID = "6013"; */
-"6013.title" = "Tow Weapon Combat";
+"6013.title" = "Two-Weapon Combat";
 
 /* Class = "NSMenuItem"; title = "Load quiver"; ObjectID = "6014"; */
 "6014.title" = "Load quiver";
@@ -747,10 +747,10 @@
 "6241.title" = "Use Sight Restriction";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Ring(Left)"; ObjectID = "6342"; */
-"6342.ibShadowedToolTip" = "Ring(Left)";
+"6342.ibShadowedToolTip" = "Ring (Left)";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "SubWeapon"; ObjectID = "6343"; */
-"6343.ibShadowedToolTip" = "SubWeapon";
+"6343.ibShadowedToolTip" = "Secondary Weapon";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Weapon"; ObjectID = "6344"; */
 "6344.ibShadowedToolTip" = "Weapon";
@@ -768,10 +768,10 @@
 "6348.ibShadowedToolTip" = "Shoes";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Ring(Right)"; ObjectID = "6349"; */
-"6349.ibShadowedToolTip" = "Ring(Right)";
+"6349.ibShadowedToolTip" = "Ring (Right)";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Groves"; ObjectID = "6350"; */
-"6350.ibShadowedToolTip" = "Groves";
+"6350.ibShadowedToolTip" = "Gloves";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Sheild"; ObjectID = "6351"; */
 "6351.ibShadowedToolTip" = "Sheild";
@@ -780,7 +780,7 @@
 "6352.ibShadowedToolTip" = "Amulet";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Groves"; ObjectID = "6353"; */
-"6353.ibShadowedToolTip" = "Groves";
+"6353.ibShadowedToolTip" = "Gloves";
 
 /* Class = "NSWindow"; title = "map"; ObjectID = "6441"; */
 "6441.title" = "map";
@@ -831,7 +831,7 @@
 "6582.title" = "Wield Weapon";
 
 /* Class = "NSMenuItem"; title = "Tow Weapon Combat"; ObjectID = "6583"; */
-"6583.title" = "Tow Weapon Combat";
+"6583.title" = "Two-Weapon Combat";
 
 /* Class = "NSMenuItem"; title = "Load quiver"; ObjectID = "6584"; */
 "6584.title" = "Load quiver";
