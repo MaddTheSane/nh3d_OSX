@@ -135,9 +135,19 @@ extern NH3DTileCache *_NH3DTileCache;
 							  color:0 
 							   posX:0 
 							   posY:0
-						    special:0 ];
+						    special:0
+							bgGlyph:0];
 }
 
+- (instancetype)initWithParameter:(char)ch
+							glyph:(int)glf
+							color:(int)col
+							 posX:(int)x
+							 posY:(int)y
+						  special:(int)sp
+{
+	return [self initWithParameter:ch glyph:glf color:col posX:x posY:YES special:sp bgGlyph:NO_GLYPH];
+}
 
 // This is designated initializer.
 - (instancetype)initWithParameter:(char)ch 
@@ -146,6 +156,7 @@ extern NH3DTileCache *_NH3DTileCache;
 							 posX:(int)x
 							 posY:(int)y
 						  special:(int)sp
+						  bgGlyph:(int)bg
 {
 	if (self = [super init]) {
 		lock = [[NSRecursiveLock alloc] init];

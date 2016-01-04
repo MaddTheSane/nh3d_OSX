@@ -74,7 +74,7 @@ class MapModel: NSObject {
 	override init() {
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
-				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + GLYPH_CMAP_OFF, color: 0, posX: x, posY: y, special: 0)
+				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + GLYPH_CMAP_OFF, color: 0, posX: x, posY: y, special: 0, bgGlyph: NO_GLYPH)
 			}
 		}
 		
@@ -135,7 +135,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	func setMapModelGlyph(glf: Int32, xPos x: Int32, yPos y: Int32) {
+	func setMapModelGlyph(glf: Int32, xPos x: Int32, yPos y: Int32, bgGlyph: Int32) {
 		var ch: Int32 = 0
 		var color: Int32 = 0
 		var special: UInt32 = 0
@@ -155,7 +155,7 @@ class MapModel: NSObject {
 			lock.lock()
 			
 			//  make map
-			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special))
+			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
 			
 			lock.unlock()
 			
@@ -231,7 +231,7 @@ class MapModel: NSObject {
 		lock.lock()
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
-				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + GLYPH_CMAP_OFF, color: 0, posX: x, posY: y, special: 0)
+				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + GLYPH_CMAP_OFF, color: 0, posX: x, posY: y, special: 0, bgGlyph: NO_GLYPH)
 			}
 		}
 		lock.unlock()

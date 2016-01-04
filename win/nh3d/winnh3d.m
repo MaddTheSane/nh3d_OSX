@@ -1135,7 +1135,7 @@ struct window_procs nh3d_procs = {
 #else
     genl_outrip,
 #endif
-    genl_preference_update,
+    nh3d_preference_update,
 	genl_getmsghistory,
 	genl_putmsghistory,
 #ifdef STATUS_VIA_WINDOWPORT
@@ -1402,7 +1402,7 @@ You("スコアの載らない発見モードで起動した．");
 {
 	switch (nh3d_windowlist[ wid ].type) {
 	case NHW_MAP:
-		[ _mapModel setMapModelGlyph:glyph xPos:x yPos:y ];
+		[ _mapModel setMapModelGlyph:glyph xPos:x yPos:y bgGlyph:bkglyph];
 		break;
 	default:
 		break;
