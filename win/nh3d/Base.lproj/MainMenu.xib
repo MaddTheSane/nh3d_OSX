@@ -3360,7 +3360,7 @@ DQ
                     <button verticalHuggingPriority="750" id="6808">
                         <rect key="frame" x="34" y="19" width="35" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="zoomin" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="6965">
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="ZoomInTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="6965">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="label"/>
                         </buttonCell>
@@ -3371,9 +3371,9 @@ DQ
                     <button verticalHuggingPriority="750" tag="-1" id="6810">
                         <rect key="frame" x="68" y="19" width="35" height="25"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="zoomout" imagePosition="only" alignment="center" borderStyle="border" tag="-1" imageScaling="proportionallyDown" id="6966">
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="ZoomOutTemplate" imagePosition="only" alignment="center" borderStyle="border" tag="-1" imageScaling="proportionallyDown" id="6966">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="label"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="zoomLevelMap:" target="5648" id="6812"/>
@@ -3960,11 +3960,11 @@ DQ
         <image name="SoundOffTemplate" width="15" height="14"/>
         <image name="SoundOnTemplate" width="15" height="14"/>
         <image name="Stun0" width="65" height="65"/>
+        <image name="ZoomInTemplate" width="19" height="19"/>
+        <image name="ZoomOutTemplate" width="19" height="19"/>
         <image name="base48" width="48" height="48"/>
         <image name="human" width="147" height="198"/>
         <image name="nh3d" width="128" height="128"/>
         <image name="rip" width="400" height="200"/>
-        <image name="zoomin" width="19" height="19"/>
-        <image name="zoomout" width="19" height="19"/>
     </resources>
 </document>
