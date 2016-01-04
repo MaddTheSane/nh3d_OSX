@@ -172,7 +172,7 @@ MACOSXDIR = /System/Library
 OSXARCH = -arch x86_64
 #OSXVECTOR = -faltivec -mtune=G5 -ftree-vectorize
 OSXVECTOR = -msse3 -ftree-vectorize
-CFLAGS = $(OSXARCH) $(OSXVECTOR) -I../include -Os
+CFLAGS += $(OSXARCH) $(OSXVECTOR) -I../include -Os
 OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -mdynamic-no-pic -Wreturn-type -Wunused-variable -fmessage-length=0 -fobjc-arc
 
 # NH3DINC=-I../win/nh3d -I$(MACOSXDIR)/Frameworks -I/usr/include
@@ -236,17 +236,17 @@ WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 #
 # Files for a NH3D port
 #
-WINNH3DSRC = ../win/nh3d/NH3DMapModel.m \
+WINNH3DSRC =  \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
-	../win/nh3d/NH3DMessenger.m ../win/nh3d/NH3DModelObject.m ../win/nh3d/NH3DOpenGLView.m \
-	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DPreferenceController.m ../win/nh3d/NH3DTileCache.m \
+	../win/nh3d/NH3DModelObject.m \
+	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DTileCache.m \
 	../win/nh3d/NH3DUserMakeSheetController.m ../win/nh3d/NH3DUserStatusModel.m \
 	../win/nh3d/winnh3d.m \
 	../win/nh3d/GLHelpers.swift ../win/nh3d/SwiftNetHack\ bridge.swift ../win/nh3d/MapModel.swift \
-	../win/nh3d/NH3DOpenGLViewSwift.swift
+	../win/nh3d/NH3DOpenGLViewSwift.swift ../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift
 #	../win/nh3d/compat/Cocoa-compat.m
-WINNH3DOBJ = NH3DMapModel.o NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
-	NH3DMessenger.o NH3DModelObject.o NH3DPanel.o NH3DPreferenceController.o \
+WINNH3DOBJ = NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
+	NH3DModelObject.o NH3DPanel.o \
 	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
 #	NH3DSwiftCode.o
 #	Cocoa-compat.o
@@ -691,15 +691,11 @@ NH3DMenuItem.o: ../win/nh3d/NH3DMenuItem.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuItem.m
 NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
-NH3DMessenger.o: ../win/nh3d/NH3DMessenger.m $(HACK_H) NetHack3D-Swift.h
-	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DMessenger.m 
 NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObjects.m
 NH3DPanel.o: ../win/nh3d/NH3DPanel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
 
-NH3DPreferenceController.o: ../win/nh3d/NH3DPreferenceController.m $(HACK_H)
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPreferenceController.m
 NH3DTileCache.o: ../win/nh3d/NH3DTileCache.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCache.m
 
@@ -712,7 +708,7 @@ NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m $(HACK_H)
 NetHack3D-Swift.h: NetHack3D.swiftmodule
 
 NetHack3D.swiftmodule: ../win/nh3d/GLHelpers.swift ../win/nh3d/SwiftNetHack\ bridge.swift ../win/nh3d/MapModel.swift  ../win/nh3d/NH3DOpenGLViewSwift.swift ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
-	swiftc ../win/nh3d/GLHelpers.swift ../win/nh3d/"SwiftNetHack bridge.swift" ../win/nh3d/MapModel.swift  ../win/nh3d/NH3DOpenGLViewSwift.swift -emit-objc-header-path NetHack3D-Swift.h -module-name NetHack3D -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk -c 
+	swiftc ../win/nh3d/GLHelpers.swift ../win/nh3d/"SwiftNetHack bridge.swift" ../win/nh3d/MapModel.swift  ../win/nh3d/NH3DOpenGLViewSwift.swift ../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift -emit-objc-header-path NetHack3D-Swift.h -module-name NetHack3D -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk macosx -c 
 bemain.o: ../sys/be/bemain.c $(HACK_H) ../include/dlb.h
 	$(CC) $(CFLAGS) -c ../sys/be/bemain.c
 getline.o: ../win/tty/getline.c $(HACK_H) ../include/func_tab.h
@@ -821,34 +817,6 @@ xshmmap.o: ../win/gtk/xshmmap.c ../include/hack.h ../include/winGTK.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
 xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
-NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapItem.m
-NH3DMapModel.o: ../win/nh3d/NH3DMapModel.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapModel.m
-NH3DMapView.o: ../win/nh3d/NH3DMapView.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapView.m
-NH3DMenuItem.o: ../win/nh3d/NH3DMenuItem.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuItem.m
-NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
-NH3DMessenger.o: ../win/nh3d/NH3DMessenger.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMessenger.m
-NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObject.m
-NH3DOpenGLView.o: ../win/nh3d/NH3DOpenGLView.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DOpenGLView.m
-NH3DPanel.o: ../win/nh3d/NH3DPanel.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
-NH3DPreferenceController.o: ../win/nh3d/NH3DPreferenceController.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPreferenceController.m
-NH3DTileCache.o: ../win/nh3d/NH3DTileCache.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCache.m
-NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserMakeSheetController.m
-NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserStatusModel.m
-winnh3d.o: ../win/nh3d/winnh3d.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/winnh3d.m
 Cocoa-compat.o: ../win/nh3d/compat/Cocoa-compat.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/compat/Cocoa-compat.m
 qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \

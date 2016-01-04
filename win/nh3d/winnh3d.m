@@ -1513,6 +1513,12 @@ You("スコアの載らない発見モードで起動した．");
 			//touch logfile
 			[@"" writeToURL:logURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
 		}
+		
+		NSString *syscf = @(SYSCF_FILE);
+		NSURL *localSyscf = [aURL URLByAppendingPathComponent:syscf isDirectory:NO];
+		if (![localSyscf checkResourceIsReachableAndReturnError:NULL]) {
+			[fm copyItemAtURL:[[NSBundle mainBundle] URLForResource:syscf withExtension:nil] toURL:localSyscf error:NULL];
+		}
 	}
 	dir = aURL.fileSystemRepresentation;
 	

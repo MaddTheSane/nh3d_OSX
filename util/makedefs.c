@@ -1466,6 +1466,9 @@ static struct win_info window_opts[] = {
 #ifdef BEOS_GRAPHICS
     { "BeOS", "BeOS InterfaceKit" },
 #endif
+#ifdef NH3D_GRAPHICS
+    { "nh3d", "NetHack 3D Cocoa"},
+#endif
     { 0, 0 }
 };
 
