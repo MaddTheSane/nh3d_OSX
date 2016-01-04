@@ -52,7 +52,7 @@ extern char **NXArgv;
 static __strong NH3DBindController *_NH3DBindController;
 static __strong NH3DUserStatusModel *_NH3DUserStatusModel;
 static __strong MapModel *_NH3DMapModel;
-static __strong NH3DMessenger *_NH3DMessenger;
+static __strong NH3DMessaging *_NH3DMessenger;
 static __strong NH3DMenuWindow *_NH3DMenuWindow;
 static __strong NH3DMapView *_NH3DKeyBuffer;
 static __strong NH3DOpenGLView *_NH3DOpenGLView;
@@ -99,6 +99,9 @@ NSString *NH3DTilesPerLineKey = @"TilesPerLine";
 NSString *NH3DNumberOfTilesRowKey = @"NumberOfTilesRow";
 
 NSString *NH3DSoundMuteKey = @"SoundMute";
+
+NSString * const NHUseNumPad = @"Use Num Pad";
+NSString * const NHMaxMessages = @"Max messages";
 
 static void
 process_options(argc, argv)
@@ -313,9 +316,9 @@ void nh3d_player_selection()
 void nh3d_askname()
 {		
 	@autoreleasepool {
-		nh3d_getlin( [ NSLocalizedString(@"Who are you?",@"") cStringUsingEncoding:NH3DTEXTENCODING ],plname );
+		nh3d_getlin([NSLocalizedString(@"Who are you?", @"") cStringUsingEncoding:NH3DTEXTENCODING], plname);
 		
-		if ( [ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ].length >= PL_NSIZ-11 ) {
+		if ([NSString stringWithCString:plname encoding:NH3DTEXTENCODING].length >= PL_NSIZ-11 ) {
 			plname[ 0 ] = 0;
 			
 			NSRunAlertPanel(NSLocalizedString(@"A name is too long, and it is difficult to learn.",@""),
@@ -326,7 +329,6 @@ void nh3d_askname()
 			NSString *pcName = [ [ NSString alloc ] initWithCString:plname encoding:NH3DTEXTENCODING ];
 			[ _NH3DUserStatusModel setPlayerName:pcName ];
 		}
-	
 	}
 }
 
@@ -335,45 +337,60 @@ void nh3d_get_nh_event()
 {
 	NSSound *soundEffect = nil;
 	
-	
 	@autoreleasepool {
-	if ( SOUND_MUTE ) return;
-	
+		if (SOUND_MUTE) return;
+		
 		int se = random() %150;
-	
+		
 		switch (se) {
-			case 1:  soundEffect = [ NSSound soundNamed:@"waterDrop.wav" ];
-					 [ soundEffect play ];
+			case 1:
+				soundEffect = [NSSound soundNamed:@"waterDrop"];
+				[soundEffect play];
 				break;
-			case 8:  soundEffect = [ NSSound soundNamed:@"hearnoise.wav" ];
-					 [ soundEffect play ];
+				
+			case 8:
+				soundEffect = [NSSound soundNamed:@"hearnoise"];
+				[soundEffect play];
 				break;
-			case 13: soundEffect = [ NSSound soundNamed:@"waterDrop5.wav" ];
-					[ soundEffect play ];
+			case 13:
+				soundEffect = [NSSound soundNamed:@"waterDrop5"];
+				[soundEffect play];
 				break;
-			case 18:  soundEffect = [ NSSound soundNamed:@"hearnoise.wav" ];
-					 [ soundEffect play ];
+				
+			case 18:
+				soundEffect = [NSSound soundNamed:@"hearnoise"];
+				[soundEffect play];
 				break;
-			case 25:  soundEffect = [ NSSound soundNamed:@"waterDrop2.wav" ];
-					 [ soundEffect play ];
+				
+			case 25:
+				soundEffect = [NSSound soundNamed:@"waterDrop2"];
+				[soundEffect play];
 				break;
-			case 32: soundEffect = [ NSSound soundNamed:@"waterDrop4.wav" ];
-					[ soundEffect play ];
+				
+			case 32:
+				soundEffect = [NSSound soundNamed:@"waterDrop4"];
+				[soundEffect play];
 				break;
-			case 48:  soundEffect = [ NSSound soundNamed:@"hearnoise.wav" ];
-					 [ soundEffect play ];
+				
+			case 48:
+				soundEffect = [NSSound soundNamed:@"hearnoise"];
+				[soundEffect play];
 				break;
-			case 57:  soundEffect = [ NSSound soundNamed:@"waterDrop4.wav" ];
-					 [ soundEffect play ];
+				
+			case 57:
+				soundEffect = [NSSound soundNamed:@"waterDrop4"];
+				[soundEffect play];
 				break;
-			case 80: soundEffect = [ NSSound soundNamed:@"waterDrop3.wav" ];
-					[ soundEffect play ];
-				break;	
+				
+			case 80:
+				soundEffect = [NSSound soundNamed:@"waterDrop3"];
+				[soundEffect play];
+				break;
+				
 			default:
 				soundEffect = nil;
-			break;
+				break;
 		}
-		
 	}
 }
 
@@ -748,7 +765,7 @@ void nh3d_raw_print_bold(const char *str)
 {
 	@autoreleasepool {
 		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
-		//#if DEBUG
+//#if DEBUG
 #if 1
 		NSLog(@"%@", aStr);
 #endif
@@ -1020,8 +1037,8 @@ void nh3d_outrip(winid wid, int how, time_t when)
 		Sprintf(buf, "%4ld\n", year);
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
-		[ _NH3DMapModel stopIndicator ];
-		[ _NH3DMessenger showOutRipString:[ripString copy]];
+		[_NH3DMapModel stopIndicator];
+		[_NH3DMessenger showOutRipString:[ripString copy]];
 	}
 }
 
@@ -1153,7 +1170,10 @@ You("スコアの載らない発見モードで起動した．");
 //--------------------------------------------------------------//
 
 
-@implementation NH3DBindController
+@implementation NH3DBindController {
+	NH3DPreferenceController *_prefPanel;
+	NH3DTileCache			*_tileCache;
+}
 
 
 // for UserDefaults
@@ -1197,7 +1217,10 @@ You("スコアの載らない発見モードで起動した．");
 						  NH3DInventryFontSizeKey: @13.0f,
 						  NH3DWindowFontSizeKey: @13.0f,
 						  
-						  NH3DSoundMuteKey: @NO
+						  NH3DSoundMuteKey: @NO,
+						  
+						  NHUseNumPad: @NO,
+						  NHMaxMessages: @30,
 						  };
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
@@ -1263,7 +1286,8 @@ You("スコアの載らない発見モードで起動した．");
 {
 	BOOL ret;
 	
-	if ( !iflags.window_inited ) return YES;
+	if ( !iflags.window_inited )
+		return YES;
 	
 	if ( _stDrawer.state != NSDrawerClosedState) {
 		[ _stDrawer close:self ];
@@ -1272,10 +1296,12 @@ You("スコアの載らない発見モードで起動した．");
 	raw_print([ NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING ]);
 	ret = [ _messenger showLogPanel ];
 	
-	if (ret == YES) { clearlocks(); [ _glMapView setRunning:NO ]; }
+	if (ret == YES) {
+		clearlocks();
+		[_glMapView setRunning:NO];
+	}
 	
 	return ret;
-	
 }
 
 
@@ -1289,9 +1315,8 @@ You("スコアの載らない発見モードで起動した．");
 	_tileCache = [ [ NH3DTileCache alloc ] initWithNamed:TILE_FILE_NAME ];
 	_NH3DTileCache = _tileCache;
 	
-	[ [NSUserDefaults standardUserDefaults] setObject:@NO forKey:NH3DTraditionalMapModeKey ];
-	[ [NSUserDefaults standardUserDefaults] setObject:@YES forKey:NH3DTraditionalMapModeKey ];
-	
+	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey ];
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey ];
 }
 
 
@@ -1337,7 +1362,7 @@ You("スコアの載らない発見モードで起動した．");
 
 - (void)didPresentError:(NSError *)error
 {
-	int result;
+	NSInteger result;
 	NSAlert *alert = [ NSAlert alertWithError:error ];
 	result = [ alert runModal ];
 }
@@ -1426,6 +1451,15 @@ You("スコアの載らない発見モードで起動した．");
 	_prefPanel = nil;
 }
 
+/// Loads Nethack-specific preferences
+- (void)loadNethackOptions
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	iflags.num_pad = [defaults boolForKey:NHUseNumPad];
+	iflags.msg_history = [defaults integerForKey:NHMaxMessages];
+}
+
 // ---------------------------------------------------------------------------- //
 // START NETHACK 3D
 // ---------------------------------------------------------------------------- //
@@ -1460,7 +1494,27 @@ You("スコアの載らない発見モードで起動した．");
 #ifdef CHDIR
 	
 	/* get resourcePath */
-	dir = [NSBundle mainBundle].resourcePath.fileSystemRepresentation;
+	//dir = [NSBundle mainBundle].resourcePath.fileSystemRepresentation;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSURL *aURL = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
+	aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
+	if (![aURL checkResourceIsReachableAndReturnError:NULL]) {
+		[fm createDirectoryAtURL:aURL withIntermediateDirectories:YES attributes:@{NSFilePosixPermissions:@(S_IRWXU)} error:NULL];
+	}
+	{
+		//Make sure the rest of the directory structure is okay
+		NSURL *permURL = [aURL URLByAppendingPathComponent:@"perm"];
+		NSURL *logURL = [aURL URLByAppendingPathComponent:@"logfile"];
+		if (![permURL checkResourceIsReachableAndReturnError:NULL]) {
+			//touch perm
+			[@"" writeToURL:permURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+		}
+		if (![logURL checkResourceIsReachableAndReturnError:NULL]) {
+			//touch logfile
+			[@"" writeToURL:logURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+		}
+	}
+	dir = aURL.fileSystemRepresentation;
 	
 #endif
 	
@@ -1525,6 +1579,7 @@ You("スコアの載らない発見モードで起動した．");
 
 	initoptions();
 	init_nhwindows(&argc,argv);
+	[_NH3DBindController loadNethackOptions];
 
 #endif // GNUSTEP
 /*
@@ -1570,7 +1625,7 @@ You("スコアの載らない発見モードで起動した．");
 #ifndef GNUSTEP
 	//for OSX (UTF8) File System
 		NSString *lockString;
-		lockString = [ NSString stringWithFormat:@"%d%@",(int)getuid(),[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
+		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(lock, lockString.fileSystemRepresentation);
 #else
 		Sprintf(lock, "%d%s", (int)getuid(), plname);
@@ -1673,7 +1728,6 @@ not_recovered:
 	[ _mapModel updateAllMaps ];
 
 	moveloop(false);
-
 }
 
 
@@ -1693,21 +1747,3 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 	}
 	return file;
 }
-
-const char *NH3DSaveDir()
-{
-	static NSURL *dir;
-	if (dir == nil) {
-		@autoreleasepool {
-			NSFileManager *fm = [NSFileManager defaultManager];
-			NSURL *aURL = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
-			aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
-			if (![aURL checkResourceIsReachableAndReturnError:NULL]) {
-				[fm createDirectoryAtURL:aURL withIntermediateDirectories:YES attributes:nil error:NULL];
-			}
-			dir = aURL;
-		}
-	}
-	return dir.fileSystemRepresentation;
-}
-

@@ -15,7 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NH3DMenuItem : NSObject {
-	
+@private
 	NSString		*name;
 	anything		identifier;
 	char			accelerator;

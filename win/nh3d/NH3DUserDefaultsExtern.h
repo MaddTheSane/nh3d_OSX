@@ -167,4 +167,8 @@ typedef NS_ENUM(int, NH3DParticleType) {
 
 #define MAX_TEXTURES 10
 
+#pragma mark - General NetHack preference Keys
+extern NSString * const NHUseNumPad;
+extern NSString * const NHMaxMessages;
+
 NS_ASSUME_NONNULL_END

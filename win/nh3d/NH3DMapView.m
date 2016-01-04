@@ -9,9 +9,11 @@
 
 #import "NH3DMapView.h"
 
-#import "NH3DMessenger.h"
 #import "winnh3d.h"
 #import "NetHack3D-Swift.h"
+
+//for key codes
+#include <Carbon/Carbon.h>
 
 #ifndef M
 # ifndef NHSTDC
@@ -58,8 +60,7 @@
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
-		
-	if (self = [ super initWithFrame:frameRect ]) {
+	if (self = [super initWithFrame:frameRect]) {
 		self.bgColor = [NSColor colorWithCalibratedWhite:0.15 alpha:1.0];
 			
 		isReady = NO;
@@ -99,7 +100,7 @@
 }
 
 
--( void )awakeFromNib
+- (void)awakeFromNib
 {
 	[super awakeFromNib];
 	NSNotificationCenter *nCenter = [NSNotificationCenter defaultCenter];
@@ -112,9 +113,8 @@
 
 - (void)defaultDidChange:(NSNotification *)notification
 {
-	if ( TRADITIONAL_MAP ) {
-		
-		if ( isReady ) {
+	if (TRADITIONAL_MAP) {
+		if (isReady) {
 			[ self lockFocusIfCanDraw ];
 			NSEraseRect( self.bounds );
 			[ [NSColor windowBackgroundColor] set ];
@@ -125,7 +125,7 @@
 		self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0) ;
 		
 		self.mapBezel = nil;
-		self.mapBase = [ NSImage imageNamed:@"trBase" ];
+		self.mapBase = [NSImage imageNamed:@"trBase"];
 		
 		[ self makeTraditionalMap ];
 		
@@ -134,8 +134,7 @@
 		[ [_bindController mainWindow] displayIfNeeded ];
 		
 	} else if ( !TRADITIONAL_MAP ) {
-		
-		if ( isReady ) {
+		if (isReady) {
 			[ self lockFocusIfCanDraw ];
 			NSEraseRect( self.bounds );
 			[ [NSColor windowBackgroundColor] set ];
@@ -143,24 +142,21 @@
 			[ self unlockFocus ];
 		}
 		
+		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);
 		
-		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0) ;
-		
-		self.mapBezel = [ NSImage imageNamed:@"asciiMapMask" ];
-		self.mapBase = [ NSImage imageNamed:@"asciiMapBase" ];
+		self.mapBezel = [ NSImage imageNamed:@"asciiMapMask"];
+		self.mapBase = [ NSImage imageNamed:@"asciiMapBase"];
 		
 		self.trMapImage = nil;
 		
 		[ self updateMap ];
 		[ self setNeedsDisplay:YES ];
-		[ [_bindController mainWindow] displayIfNeeded ];
+		[[_bindController mainWindow] displayIfNeeded];
 	}
-
 }
 
 - (void) dealloc {
 	int x,y;
-	
 	
 	for ( x=0 ; x<MAPVIEWSIZE_COLUMN ; x++ ) {
 		for ( y=0 ; y<MAPVIEWSIZE_ROW ; y++ ) {
@@ -210,7 +206,7 @@
 
 - (BOOL)becomeFirstResponder
 {
-	[ self setNeedsDisplay:YES ];
+	[self setNeedsDisplay:YES];
 	return YES;
 }
 
@@ -218,24 +214,20 @@
  - (void)resetCursorRects
 {
 	NSRect rect = self.bounds ;
-	NSCursor* cursor = [ [NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
-												hotSpot:NSMakePoint(7, 7) ];
-	[ self addCursorRect:rect cursor:cursor ];
-	
+	NSCursor* cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
+											   hotSpot:NSMakePoint(7, 7)];
+	[self addCursorRect:rect cursor:cursor];
 }
-
-
 
 - (void)setCenterAtX:(int)x y:(int)y depth:(int)depth
 {
-	if ( depth != plDepth && ( TRADITIONAL_MAP || trMapImage != nil ))
+	if (depth != plDepth && (TRADITIONAL_MAP || trMapImage != nil))
 		[self makeTraditionalMap];
 	plDepth = depth;
 	centerX = x;
 	centerY = y;
 	isReady = YES;
 }
-
 
 - (void)makeTraditionalMap
 {
@@ -341,8 +333,6 @@
 	
 	[_mapModel mapArrayAtX:x atY:y];
 }
-
-
 
 - (void)updateMap
 {
@@ -803,8 +793,8 @@
 	keyBuffer = 0;
 	int lkey = 0;
 	
-	if ( [ sender tag ] < 50 ) {
-		switch ( _mapModel.playerDirection ) {
+	if ([ sender tag ] < 50) {
+		switch (_mapModel.playerDirection) {
 			case PL_DIRECTION_FORWARD:
 				switch ( [ sender tag ] ) {
 					case 1:
@@ -967,8 +957,7 @@
 				break;
 		}
 	} else {
-		
-		switch ( [ sender selectedTag ] ) {
+		switch ([sender selectedTag]) {
 			//ButtonMatrix 1 (window rightside)
 			case 51: lkey = lastKeyBuffer;
 				break;
@@ -995,11 +984,10 @@
 		}
 	}
 	
-	self.keyBuffer = lkey ;
-	lastKeyBuffer = keyBuffer;	
+	self.keyBuffer = lkey;
+	lastKeyBuffer = keyBuffer;
 	[ self setNeedClear:YES ];
 	[ self setKeyUpdated:YES ];
-	
 }
 
 
@@ -1055,7 +1043,7 @@
 {
 	 
 	keyBuffer = 0;
-	switch ( [ sender tag ] ) {
+	switch ([sender tag]) {
 		case 0: keyBuffer = lastKeyBuffer;	/* Again */
 			break;
 		case 1: keyBuffer = 'F';	/* Fight */
@@ -1119,7 +1107,7 @@
 - (IBAction)magicMenuActions:(id)sender
 {
 	keyBuffer = 0;
-	switch ( [ sender tag ] ) {
+	switch ([sender tag]) {
 		case 0: keyBuffer = 'q';	/* Quaff Potion */
 			break;
 		case 1: keyBuffer = 'r';	/* Read Scroll/Book */
@@ -1235,74 +1223,66 @@
 //TODO: re-do this to work with OS X's run-loop!
 - (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
 {
-	char ch[1] = {0};
+	char ch[3] = {0};
 	
-	while ( !keyUpdated ) {
-		
+	while (!keyUpdated) {
 		@autoreleasepool {
-		
-			NSDate *date = [ NSDate dateWithTimeIntervalSinceNow:0.1 ];
+			NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.1];
 			
-			NSEvent *event = [ NSApp  nextEventMatchingMask:mask
-									 	 untilDate:date
-										    inMode:NSDefaultRunLoopMode
-										   dequeue:YES ];
+			NSEvent *event = [NSApp nextEventMatchingMask:mask
+												untilDate:date
+												   inMode:NSDefaultRunLoopMode
+												  dequeue:YES];
 			
-			if ( event ) {
-				
-				if ( ! [_bindController mainWindow].keyWindow ) {
+			if (event) {
+				if (![_bindController mainWindow].keyWindow ) {
 					[ NSApp sendEvent:event ];
 					continue;
 				} else {
 					
-				
-				switch ( event.type ) {
-					
-					case NSKeyDown:
-
-						strcpy(ch, event.charactersIgnoringModifiers.UTF8String );
-						
-						keyBuffer = 0;
-						modKeyFlag = MODKEY_NONE;
-						
-						if ( event.keyCode == 123 ) {
-							if ( TRADITIONAL_MAP ) [ _num4 performClick:self ];
-							else [ _turnLeft performClick:self ];
-							continue;
-						} else if( event.keyCode == 124 ) {
-							if ( TRADITIONAL_MAP ) [ _num6 performClick:self ];
-							else [ _turnRight performClick:self ];
-							continue;
-						} else if( event.keyCode == 125 ) {
-							[ _num2 performClick:self ];
-							continue;
-						} else if( event.keyCode == 126 ) {
-							[ _num8 performClick:self ];
-							continue;
-						
-						} else if ( event.modifierFlags & NSCommandKeyMask ) {
+					switch (event.type) {
+						case NSKeyDown:
+							strcpy(ch, event.charactersIgnoringModifiers.UTF8String );
 							
-							[ NSApp sendEvent:event ];
-							continue;
-								
-						} else if ( event.modifierFlags & NSShiftKeyMask ) {
+							keyBuffer = 0;
+							modKeyFlag = MODKEY_NONE;
 							
-							modKeyFlag = MODKEY_SHIFT;
-							ch[0] = ( isupper( (int)ch[0] ) ) ? tolower( (int)ch[0] ) : ch[0];
-								
-						} else if ( event.modifierFlags & NSControlKeyMask ) {
-							if ( ch[0]=='d' ) {
-								[ [_cmdGroup2 cellWithTag:62] performClick:self ];
+							if ( event.keyCode == kVK_LeftArrow ) {
+								if (TRADITIONAL_MAP)
+									[_num4 performClick:self];
+								else
+									[_turnLeft performClick:self];
 								continue;
-							} else {
-								modKeyFlag = MODKEY_CTRL;
+							} else if (event.keyCode == kVK_RightArrow) {
+								if (TRADITIONAL_MAP) {
+									[_num6 performClick:self];
+								} else {
+									[_turnRight performClick:self];
+								}
+								continue;
+							} else if (event.keyCode == kVK_DownArrow) {
+								[_num2 performClick:self];
+								continue;
+							} else if (event.keyCode == kVK_UpArrow) {
+								[_num8 performClick:self];
+								continue;
+								
+							} else if (event.modifierFlags & NSCommandKeyMask) {
+								[NSApp sendEvent:event];
+								continue;
+							} else if (event.modifierFlags & NSShiftKeyMask) {
+								modKeyFlag = MODKEY_SHIFT;
+								ch[0] = ( isupper( (int)ch[0] ) ) ? tolower( (int)ch[0] ) : ch[0];
+							} else if ( event.modifierFlags & NSControlKeyMask ) {
+								if ( ch[0]=='d' ) {
+									[ [_cmdGroup2 cellWithTag:62] performClick:self ];
+									continue;
+								} else {
+									modKeyFlag = MODKEY_CTRL;
+								}
+							} else if (getCharMode) {
+								self.keyBuffer = (int)ch[0];
 							}
-						
-						} else if ( getCharMode ) {
-							
-							keyBuffer = (int)ch[0];
-							
-						} 
 							
 							if ( event.modifierFlags & NSAlternateKeyMask ) {
 								switch ( ch[0] ) {
@@ -1310,151 +1290,244 @@
 										break;
 									default:
 										modKeyFlag = MODKEY_COMMAND;
-										self.keyBuffer = (int)ch[0] ;
+										self.keyBuffer = (int)ch[0];
 										break;
 								}
-							} else 
-						
-							switch ( ch[0] ) {
-								case '1': if ( iflags.num_pad ) [ _num1 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '2': if ( iflags.num_pad ) [ _num2 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '3': if ( iflags.num_pad ) [ _num3 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '4': if ( iflags.num_pad ) [ _num4 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '5':
-								case '.': [ _num5 performClick:self ]; 
-									break;
-								case '6': if ( iflags.num_pad ) [ _num6 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '7': if ( iflags.num_pad ) [ _num7 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '8': if ( iflags.num_pad ) [ _num8 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case '9': if ( iflags.num_pad ) [ _num9 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'f':[ [_cmdGroup2 cellWithTag:61] performClick:self ];
-									break;
-								case 'Z':[ [_cmdGroup2 cellWithTag:63] performClick:self ];
-									break;
-								case 't':[ [_cmdGroup2 cellWithTag:64] performClick:self ];
-									break;
-								case 'o':[ [_cmdGroup2 cellWithTag:65] performClick:self ]; 
-									break;
-								case 's':[ [_cmdGroup1 cellWithTag:52] performClick:self ]; 
-									break;
-								case ',':[ [_cmdGroup1 cellWithTag:53] performClick:self ];
-									break;
-								case ';':[ _help1 performClick:self ];
-									break;
-								case ':':[ _help2 performClick:self ];
-									break;
-								case 'b': if ( !iflags.num_pad ) [ _num1 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'j': if ( !iflags.num_pad ) [ _num2 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'n': if ( !iflags.num_pad ) [ _num3 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'h': if ( !iflags.num_pad ) [ _num4 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'l': if ( !iflags.num_pad ) [ _num6 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'y': if ( !iflags.num_pad ) [ _num7 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'k': if ( !iflags.num_pad ) [ _num8 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-								case 'u': if ( !iflags.num_pad ) [ _num9 performClick:self ];
-										  else self.keyBuffer = (int)ch[0] ;
-									break;
-									
-								default:
-									self.keyBuffer = (int)ch[0] ;
-									
-									break;
-							} // end switch (ch[0])
-						
-						lastKeyBuffer = keyBuffer;
-						
-						[ self setNeedClear:YES ];
-						[ self setKeyUpdated:YES ];
-						break;
-						
-					case NSLeftMouseUp:
-					{
-						NSPoint p = event.locationInWindow ;
-						NSRect bounds = self.bounds ;
-						downPoint = [ self convertPoint:p fromView:nil ];
-						
-						if ( !NSPointInRect(downPoint,bounds) ) {
-							[ NSApp sendEvent:event ];
-							continue;
-						} else
-						
-						
-						keyBuffer = 0;
-						clickType = 1;
-						
-						if ( TRADITIONAL_MAP ) {
-							int tsizeX,tsizeY,trcpX,trcpY;
+							} else {
+								switch (ch[0]) {
+									case '1':
+										if (iflags.num_pad) {
+											[_num1 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case '2':
+										if (iflags.num_pad) {
+											[ _num2 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case '3':
+										if (iflags.num_pad) {
+											[_num3 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case '4':
+										if (iflags.num_pad) {
+											[_num4 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case '5':
+									case '.':
+										[_num5 performClick:self];
+										break;
+										
+									case '6':
+										if (iflags.num_pad) {
+											[_num6 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case '7':
+										if (iflags.num_pad) {
+											[_num7 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+									case '8':
+										if ( iflags.num_pad ) {
+											[ _num8 performClick:self ];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case '9':
+										if (iflags.num_pad) {
+											[_num9 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'f':
+										[[_cmdGroup2 cellWithTag:61] performClick:self];
+										break;
+										
+									case 'Z':
+										[[_cmdGroup2 cellWithTag:63] performClick:self];
+										break;
+										
+									case 't':
+										[[_cmdGroup2 cellWithTag:64] performClick:self];
+										break;
+										
+									case 'o':
+										[[_cmdGroup2 cellWithTag:65] performClick:self];
+										break;
+										
+									case 's':
+										[[_cmdGroup1 cellWithTag:52] performClick:self];
+										break;
+										
+									case ',':
+										[[_cmdGroup1 cellWithTag:53] performClick:self];
+										break;
+										
+									case ';':
+										[_help1 performClick:self];
+										break;
+									case ':':
+										[_help2 performClick:self];
+										break;
+										
+									case 'b':
+										if (!iflags.num_pad) {
+											[_num1 performClick:self];
+										} else {
+										self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'j':
+										if (!iflags.num_pad) {
+											[_num2 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'n':
+										if (!iflags.num_pad) {
+											[_num3 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'h':
+										if (!iflags.num_pad) {
+											[_num4 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'l':
+										if (!iflags.num_pad) {
+											[_num6 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'y':
+										if (!iflags.num_pad) {
+											[_num7 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									case 'k':
+										if ( !iflags.num_pad ) {
+											[_num8 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+									case 'u':
+										if (!iflags.num_pad) {
+											[_num9 performClick:self];
+										} else {
+											self.keyBuffer = (int)ch[0];
+										}
+										break;
+										
+									default:
+										self.keyBuffer = (int)ch[0] ;
+										
+										break;
+								} // end switch (ch[0])
+							}
+							lastKeyBuffer = keyBuffer;
 							
-							tsizeX = ( TRADITIONAL_MAP_TILE ) ? TILE_SIZE_X : NH3DMAPFONTSIZE;
-							tsizeY = ( TRADITIONAL_MAP_TILE ) ? TILE_SIZE_Y : NH3DMAPFONTSIZE;
+							[ self setNeedClear:YES ];
+							[ self setKeyUpdated:YES ];
+							break;
 							
-							trcpX = (centerX - _mapModel.cursX - MAP_MARGIN) + (int)(downPoint.x/tsizeX) - (int)((bounds.size.width/tsizeX) / 2 );
-							trcpY = (centerY - _mapModel.cursY - MAP_MARGIN) + (int)(downPoint.y/tsizeY) - (int)((bounds.size.height/tsizeY) / 2 );
-
-							[ _mapModel setPosCursorAtX:_mapModel.cursX + trcpX -1   
-													atY:_mapModel.cursY + trcpY  * -1 ];
+						case NSLeftMouseUp:
+						{
+							NSPoint p = event.locationInWindow ;
+							NSRect bounds = self.bounds ;
+							downPoint = [ self convertPoint:p fromView:nil ];
+							
+							if ( !NSPointInRect(downPoint,bounds) ) {
+								[ NSApp sendEvent:event ];
+								continue;
+							} else
 								
-						} else { 	
-							switch ( _mapModel.playerDirection ) {
-								case PL_DIRECTION_FORWARD:
-									[ _mapModel setPosCursorAtX:_mapModel.cursX+((int)(downPoint.x/16) - viewCursX) 
-															atY:_mapModel.cursY+(((int)(downPoint.y/16) - viewCursY)* -1) ];
-									break;
-								case PL_DIRECTION_RIGHT:
-									[ _mapModel setPosCursorAtX:_mapModel.cursX+((int)(downPoint.y/16) - viewCursY)
-															atY:_mapModel.cursY+((int)(downPoint.x/16) - viewCursX)];
-									break;
-								case PL_DIRECTION_BACK:
-									[ _mapModel setPosCursorAtX:_mapModel.cursX+(((int)(downPoint.x/16) - viewCursX)* -1)
-															atY:_mapModel.cursY+((int)(downPoint.y/16) - viewCursY) ];
-									break;
-								case PL_DIRECTION_LEFT:
-									[ _mapModel setPosCursorAtX:_mapModel.cursX+(((int)(downPoint.y/16) - viewCursY)* -1)
-															atY:_mapModel.cursY+(((int)(downPoint.x/16) - viewCursX)* -1) ];
-									break;
-							}			
-						}	
-						
-						[ self setNeedClear:YES ];
-						[ self setKeyUpdated:YES ];
-
-					} // end case NSLeftMouseDown:
-					
-					default :
-						[NSApp sendEvent:event];
-						continue;
-						
-				} //end switch ([event type])
-			}
+								
+								keyBuffer = 0;
+							clickType = 1;
+							
+							if ( TRADITIONAL_MAP ) {
+								int tsizeX,tsizeY,trcpX,trcpY;
+								
+								tsizeX = ( TRADITIONAL_MAP_TILE ) ? TILE_SIZE_X : NH3DMAPFONTSIZE;
+								tsizeY = ( TRADITIONAL_MAP_TILE ) ? TILE_SIZE_Y : NH3DMAPFONTSIZE;
+								
+								trcpX = (centerX - _mapModel.cursX - MAP_MARGIN) + (int)(downPoint.x/tsizeX) - (int)((bounds.size.width/tsizeX) / 2 );
+								trcpY = (centerY - _mapModel.cursY - MAP_MARGIN) + (int)(downPoint.y/tsizeY) - (int)((bounds.size.height/tsizeY) / 2 );
+								
+								[ _mapModel setPosCursorAtX:_mapModel.cursX + trcpX -1
+														atY:_mapModel.cursY + trcpY  * -1 ];
+								
+							} else {
+								switch ( _mapModel.playerDirection ) {
+									case PL_DIRECTION_FORWARD:
+										[ _mapModel setPosCursorAtX:_mapModel.cursX+((int)(downPoint.x/16) - viewCursX)
+																atY:_mapModel.cursY+(((int)(downPoint.y/16) - viewCursY)* -1) ];
+										break;
+									case PL_DIRECTION_RIGHT:
+										[ _mapModel setPosCursorAtX:_mapModel.cursX+((int)(downPoint.y/16) - viewCursY)
+																atY:_mapModel.cursY+((int)(downPoint.x/16) - viewCursX)];
+										break;
+									case PL_DIRECTION_BACK:
+										[ _mapModel setPosCursorAtX:_mapModel.cursX+(((int)(downPoint.x/16) - viewCursX)* -1)
+																atY:_mapModel.cursY+((int)(downPoint.y/16) - viewCursY) ];
+										break;
+									case PL_DIRECTION_LEFT:
+										[ _mapModel setPosCursorAtX:_mapModel.cursX+(((int)(downPoint.y/16) - viewCursY)* -1)
+																atY:_mapModel.cursY+(((int)(downPoint.x/16) - viewCursX)* -1) ];
+										break;
+								}
+							}
+							
+							[ self setNeedClear:YES ];
+							[ self setKeyUpdated:YES ];
+							
+						} // end case NSLeftMouseDown:
+							
+						default :
+							[NSApp sendEvent:event];
+							continue;
+							
+					} //end switch ([event type])
+				}
 			}// end if (event)
 			else {
 				//NSEvent
@@ -1570,26 +1643,20 @@
 	} // end for x
 	
 	// draw direction symbol
-	[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (float)(cusx + 8) ,
-															   imgSize.height - (drawSize.height * (float)cusy))
+	[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
+															   imgSize.height - (drawSize.height * (CGFloat)cusy))
 										  fromRect:NSZeroRect
 										 operation:NSCompositeSourceOver
 										  fraction:0.5];
-	/*
-	[ [NSImage imageNamed:@"direction"] dissolveToPoint:NSMakePoint(drawSize.width * (float)(cusx + 8) ,
-																   imgSize.height - (drawSize.height * (float)cusy))
-											   fraction:0.5 ];
-	 */
 	
-	[ mapImage unlockFocus ];
+	[mapImage unlockFocus];
 	//[ putImg setCacheMode:NSImageCacheNever ];
 	
-	_mapLview.image = mapImage ;
+	_mapLview.image = mapImage;
 	
 	// Scroll to Cursor Postion (shift 7 tiles added to Right)
-	[ _mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
-									   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7))) ];
-	
+	[_mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
+									   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)))];
 	}
 	
 	// Sheet is Up.
@@ -1615,7 +1682,6 @@
 	[NSApp stopModal];
 }
 
-
 - (IBAction)zoomLevelMap:(id)sender
 {
 	NSImage *newImg;
@@ -1639,8 +1705,8 @@
 	}
 	
 	newImg = [ [NSImage alloc] initWithSize:newSize ];
-	NSGraphicsContext* gc = [ NSGraphicsContext currentContext ];
-	gc.imageInterpolation = NSImageInterpolationHigh ;
+	NSGraphicsContext* gc = [NSGraphicsContext currentContext];
+	gc.imageInterpolation = NSImageInterpolationHigh;
 	
 	[newImg lockFocus ];
 	[mapImage drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height)
@@ -1652,9 +1718,7 @@
 	_mapLview.frame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height);
 	_mapLview.image = newImg;
 	
-
 	[_mapLview setNeedsDisplay];
 }
-
 
 @end

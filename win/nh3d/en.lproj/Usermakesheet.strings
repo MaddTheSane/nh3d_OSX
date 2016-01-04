@@ -1,0 +1,120 @@
+
+/* Class = "NSWindow"; title = "UserMakeSheet"; ObjectID = "7"; */
+"7.title" = "UserMakeSheet";
+
+/* Class = "NSBox"; title = "Role"; ObjectID = "10"; */
+"10.title" = "Role";
+
+/* Class = "NSButtonCell"; title = "Archeologist"; ObjectID = "13"; */
+"13.title" = "Archeologist";
+
+/* Class = "NSButtonCell"; title = "Rogue"; ObjectID = "14"; */
+"14.title" = "Rogue";
+
+/* Class = "NSButtonCell"; title = "Barbarian"; ObjectID = "15"; */
+"15.title" = "Barbarian";
+
+/* Class = "NSButtonCell"; title = "Ranger"; ObjectID = "16"; */
+"16.title" = "Ranger";
+
+/* Class = "NSButtonCell"; title = "Caveman"; ObjectID = "17"; */
+"17.title" = "Caveman";
+
+/* Class = "NSButtonCell"; title = "Samurai"; ObjectID = "18"; */
+"18.title" = "Samurai";
+
+/* Class = "NSButtonCell"; title = "Healer"; ObjectID = "19"; */
+"19.title" = "Healer";
+
+/* Class = "NSButtonCell"; title = "Tourist"; ObjectID = "20"; */
+"20.title" = "Tourist";
+
+/* Class = "NSButtonCell"; title = "Knight"; ObjectID = "21"; */
+"21.title" = "Knight";
+
+/* Class = "NSButtonCell"; title = "Valkyrie"; ObjectID = "22"; */
+"22.title" = "Valkyrie";
+
+/* Class = "NSButtonCell"; title = "Monk"; ObjectID = "23"; */
+"23.title" = "Monk";
+
+/* Class = "NSButtonCell"; title = "Wizard"; ObjectID = "24"; */
+"24.title" = "Wizard";
+
+/* Class = "NSButtonCell"; title = "Priest"; ObjectID = "25"; */
+"25.title" = "Priest";
+
+/* Class = "NSBox"; title = "Gender"; ObjectID = "30"; */
+"30.title" = "Gender";
+
+/* Class = "NSButtonCell"; title = "Male"; ObjectID = "33"; */
+"33.title" = "Male";
+
+/* Class = "NSButtonCell"; title = "Female"; ObjectID = "34"; */
+"34.title" = "Female";
+
+/* Class = "NSBox"; title = "Race"; ObjectID = "35"; */
+"35.title" = "Race";
+
+/* Class = "NSButtonCell"; title = "Human"; ObjectID = "38"; */
+"38.title" = "Human";
+
+/* Class = "NSButtonCell"; title = "Gnome"; ObjectID = "39"; */
+"39.title" = "Gnome";
+
+/* Class = "NSButtonCell"; title = "Elf"; ObjectID = "40"; */
+"40.title" = "Elf";
+
+/* Class = "NSButtonCell"; title = "Orc"; ObjectID = "41"; */
+"41.title" = "Orc";
+
+/* Class = "NSButtonCell"; title = "Dwarf"; ObjectID = "42"; */
+"42.title" = "Dwarf";
+
+/* Class = "NSBox"; title = "Alginment"; ObjectID = "52"; */
+"52.title" = "Alginment";
+
+/* Class = "NSButtonCell"; title = "Lawful"; ObjectID = "55"; */
+"55.title" = "Lawful";
+
+/* Class = "NSButtonCell"; title = "Neutral"; ObjectID = "56"; */
+"56.title" = "Neutral";
+
+/* Class = "NSButtonCell"; title = "Chaotic"; ObjectID = "57"; */
+"57.title" = "Chaotic";
+
+/* Class = "NSTextFieldCell"; title = "Please tell us about you more."; ObjectID = "99"; */
+"99.title" = "Please tell us about you more.";
+
+/* Class = "NSTextFieldCell"; title = "Welcome, New Player!\n"; ObjectID = "102"; */
+"102.title" = "Welcome, New Player!\n";
+
+/* Class = "NSTextFieldCell"; title = "NetHack"; ObjectID = "103"; */
+"103.title" = "NetHack";
+
+/* Class = "NSTextFieldCell"; title = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details."; ObjectID = "104"; */
+"104.title" = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details.";
+
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "105"; */
+"105.title" = "Quit";
+
+/* Class = "NSTextFieldCell"; title = "NetHack3D"; ObjectID = "106"; */
+"106.title" = "NetHack3D";
+
+/* Class = "NSButtonCell"; title = "Start"; ObjectID = "107"; */
+"107.title" = "Start";
+
+/* Class = "NSTextFieldCell"; title = "by Haruumi Yoshino 2005\n"; ObjectID = "108"; */
+"108.title" = "by Haruumi Yoshino 2005\n";
+
+/* Class = "NSTextFieldCell"; title = "http://www.sbrain.org/nethack3d/"; ObjectID = "109"; */
+"109.title" = "http://www.sbrain.org/nethack3d/";
+
+/* Class = "NSTextFieldCell"; title = "PlayerName\n"; ObjectID = "110"; */
+"110.title" = "PlayerName\n";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "112"; */
+"112.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "114"; */
+"114.title" = "Radio";

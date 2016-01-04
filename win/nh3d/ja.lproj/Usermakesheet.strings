@@ -1,0 +1,120 @@
+
+/* Class = "NSWindow"; title = "UserMakeSheet"; ObjectID = "7"; */
+"7.title" = "UserMakeSheet";
+
+/* Class = "NSBox"; title = "職種"; ObjectID = "10"; */
+"10.title" = "職種";
+
+/* Class = "NSButtonCell"; title = "考古学者"; ObjectID = "13"; */
+"13.title" = "考古学者";
+
+/* Class = "NSButtonCell"; title = "盗賊"; ObjectID = "14"; */
+"14.title" = "盗賊";
+
+/* Class = "NSButtonCell"; title = "バーバリアン"; ObjectID = "15"; */
+"15.title" = "バーバリアン";
+
+/* Class = "NSButtonCell"; title = "レンジャー"; ObjectID = "16"; */
+"16.title" = "レンジャー";
+
+/* Class = "NSButtonCell"; title = "ケイブマン"; ObjectID = "17"; */
+"17.title" = "ケイブマン";
+
+/* Class = "NSButtonCell"; title = "侍"; ObjectID = "18"; */
+"18.title" = "侍";
+
+/* Class = "NSButtonCell"; title = "薬師"; ObjectID = "19"; */
+"19.title" = "薬師";
+
+/* Class = "NSButtonCell"; title = "観光客"; ObjectID = "20"; */
+"20.title" = "観光客";
+
+/* Class = "NSButtonCell"; title = "騎士"; ObjectID = "21"; */
+"21.title" = "騎士";
+
+/* Class = "NSButtonCell"; title = "ワルキューレ"; ObjectID = "22"; */
+"22.title" = "ワルキューレ";
+
+/* Class = "NSButtonCell"; title = "モンク"; ObjectID = "23"; */
+"23.title" = "モンク";
+
+/* Class = "NSButtonCell"; title = "魔法使い"; ObjectID = "24"; */
+"24.title" = "魔法使い";
+
+/* Class = "NSButtonCell"; title = "僧侶"; ObjectID = "25"; */
+"25.title" = "僧侶";
+
+/* Class = "NSBox"; title = "性別"; ObjectID = "30"; */
+"30.title" = "性別";
+
+/* Class = "NSButtonCell"; title = "男性"; ObjectID = "33"; */
+"33.title" = "男性";
+
+/* Class = "NSButtonCell"; title = "女性"; ObjectID = "34"; */
+"34.title" = "女性";
+
+/* Class = "NSBox"; title = "種族"; ObjectID = "35"; */
+"35.title" = "種族";
+
+/* Class = "NSButtonCell"; title = "人間"; ObjectID = "38"; */
+"38.title" = "人間";
+
+/* Class = "NSButtonCell"; title = "ノーム"; ObjectID = "39"; */
+"39.title" = "ノーム";
+
+/* Class = "NSButtonCell"; title = "エルフ"; ObjectID = "40"; */
+"40.title" = "エルフ";
+
+/* Class = "NSButtonCell"; title = "オーク"; ObjectID = "41"; */
+"41.title" = "オーク";
+
+/* Class = "NSButtonCell"; title = "ドワーフ"; ObjectID = "42"; */
+"42.title" = "ドワーフ";
+
+/* Class = "NSBox"; title = "属性"; ObjectID = "52"; */
+"52.title" = "属性";
+
+/* Class = "NSButtonCell"; title = "秩序"; ObjectID = "55"; */
+"55.title" = "秩序";
+
+/* Class = "NSButtonCell"; title = "中立"; ObjectID = "56"; */
+"56.title" = "中立";
+
+/* Class = "NSButtonCell"; title = "混沌"; ObjectID = "57"; */
+"57.title" = "混沌";
+
+/* Class = "NSTextFieldCell"; title = "新顔だね。君についてもうちょい詳しく教えてくれ。"; ObjectID = "99"; */
+"99.title" = "新顔だね。君についてもうちょい詳しく教えてくれ。";
+
+/* Class = "NSTextFieldCell"; title = "やあ。ようこそ"; ObjectID = "102"; */
+"102.title" = "やあ。ようこそ";
+
+/* Class = "NSTextFieldCell"; title = "NetHack"; ObjectID = "103"; */
+"103.title" = "NetHack";
+
+/* Class = "NSTextFieldCell"; title = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details."; ObjectID = "104"; */
+"104.title" = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details.";
+
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "105"; */
+"105.title" = "Quit";
+
+/* Class = "NSTextFieldCell"; title = "NetHack3D"; ObjectID = "106"; */
+"106.title" = "NetHack3D";
+
+/* Class = "NSButtonCell"; title = "Start"; ObjectID = "107"; */
+"107.title" = "Start";
+
+/* Class = "NSTextFieldCell"; title = "by Haruumi Yoshino 2005"; ObjectID = "108"; */
+"108.title" = "by Haruumi Yoshino 2005";
+
+/* Class = "NSTextFieldCell"; title = "http://www.sbrain.org/nethack3d/"; ObjectID = "109"; */
+"109.title" = "http://www.sbrain.org/nethack3d/";
+
+/* Class = "NSTextFieldCell"; title = "PlayerName"; ObjectID = "110"; */
+"110.title" = "PlayerName";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "112"; */
+"112.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "114"; */
+"114.title" = "Radio";

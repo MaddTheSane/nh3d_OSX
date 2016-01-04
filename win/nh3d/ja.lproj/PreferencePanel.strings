@@ -1,0 +1,150 @@
+
+/* Class = "NSTabViewItem"; label = "ビュー設定"; ObjectID = "8"; */
+"8.label" = "ビュー設定";
+
+/* Class = "NSTabViewItem"; label = "フォント"; ObjectID = "10"; */
+"10.label" = "フォント";
+
+/* Class = "NSButtonCell"; title = "2Dマップを視界制限する"; ObjectID = "17"; */
+"17.title" = "2Dマップを視界制限する";
+
+/* Class = "NSButtonCell"; title = "全体マップでタイルを使う"; ObjectID = "18"; */
+"18.title" = "全体マップでタイルを使う";
+
+/* Class = "NSBox"; title = "マップ設定"; ObjectID = "19"; */
+"19.title" = "マップ設定";
+
+/* Class = "NSButtonCell"; title = "垂直同期を待つ"; ObjectID = "25"; */
+"25.title" = "垂直同期を待つ";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "30"; */
+"30.title" = "Box";
+
+/* Class = "NSBox"; title = "OpenGL設定"; ObjectID = "32"; */
+"32.title" = "OpenGL設定";
+
+/* Class = "NSButtonCell"; title = "MipMapテクスチャ使用"; ObjectID = "66"; */
+"66.title" = "MipMapテクスチャ使用";
+
+/* Class = "NSButtonCell"; title = "HWアクセラレート"; ObjectID = "68"; */
+"68.title" = "HWアクセラレート";
+
+/* Class = "NSButtonCell"; title = "トリリニアフィルタ使用"; ObjectID = "69"; */
+"69.title" = "トリリニアフィルタ使用";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "70"; */
+"70.title" = "Switch";
+
+/* Class = "NSButtonCell"; title = "環境マップ有効"; ObjectID = "71"; */
+"71.title" = "環境マップ有効";
+
+/* Class = "NSButtonCell"; title = "パーティクル有効"; ObjectID = "72"; */
+"72.title" = "パーティクル有効";
+
+/* Class = "NSFormCell"; title = "メッセージ:"; ObjectID = "114"; */
+"114.title" = "メッセージ:";
+
+/* Class = "NSFormCell"; title = "ウインドウ:"; ObjectID = "115"; */
+"115.title" = "ウインドウ:";
+
+/* Class = "NSFormCell"; title = "マップ:"; ObjectID = "116"; */
+"116.title" = "マップ:";
+
+/* Class = "NSFormCell"; title = "ボールド:"; ObjectID = "117"; */
+"117.title" = "ボールド:";
+
+/* Class = "NSFormCell"; title = "メニュー:"; ObjectID = "118"; */
+"118.title" = "メニュー:";
+
+/* Class = "NSTabViewItem"; label = "ビューモード"; ObjectID = "148"; */
+"148.label" = "ビューモード";
+
+/* Class = "NSBox"; title = "NetHack View Mode"; ObjectID = "161"; */
+"161.title" = "NetHack View Mode";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "163"; */
+"163.title" = "Box";
+
+/* Class = "NSBox"; title = "タイル設定"; ObjectID = "170"; */
+"170.title" = "タイル設定";
+
+/* Class = "NSFormCell"; stringValue = "nhtiles.tiff"; ObjectID = "202"; */
+"202.stringValue" = "nhtiles.tiff";
+
+/* Class = "NSFormCell"; title = "タイルファイル名"; ObjectID = "202"; */
+"202.title" = "タイルファイル名";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "253"; */
+"253.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "デフォルトのフォント設定"; ObjectID = "276"; */
+"276.title" = "デフォルトのフォント設定";
+
+/* Class = "NSButtonCell"; title = "トラディショナルNetHack モードにする"; ObjectID = "277"; */
+"277.title" = "トラディショナルNetHack モードにする";
+
+/* Class = "NSTextFieldCell"; title = "Slow          Midium         Fast"; ObjectID = "278"; */
+"278.title" = "Slow          Midium         Fast";
+
+/* Class = "NSButtonCell"; title = "フレームレートを制限する"; ObjectID = "280"; */
+"280.title" = "フレームレートを制限する";
+
+/* Class = "NSButtonCell"; title = "Use tiled graphics for Alt. Objects"; ObjectID = "281"; */
+"281.title" = "Use tiled graphics for Alt. Objects";
+
+/* Class = "NSButtonCell"; title = "タイルグラフィックを使用"; ObjectID = "282"; */
+"282.title" = "タイルグラフィックを使用";
+
+/* Class = "NSTextFieldCell"; title = "8\n"; ObjectID = "285"; */
+"285.title" = "8\n";
+
+/* Class = "NSTextFieldCell"; title = "128\n\n"; ObjectID = "286"; */
+"286.title" = "128\n\n";
+
+/* Class = "NSTextFieldCell"; title = "幅"; ObjectID = "287"; */
+"287.title" = "幅";
+
+/* Class = "NSTextFieldCell"; title = "高さ"; ObjectID = "288"; */
+"288.title" = "高さ";
+
+/* Class = "NSButtonCell"; title = "タイル設定をリセット"; ObjectID = "290"; */
+"290.title" = "タイル設定をリセット";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "291"; */
+"291.title" = "40";
+
+/* Class = "NSTextFieldCell"; title = "1列あたりのタイル数"; ObjectID = "292"; */
+"292.title" = "1列あたりのタイル数";
+
+/* Class = "NSTextFieldCell"; title = "タイル列の数"; ObjectID = "293"; */
+"293.title" = "タイル列の数";
+
+/* Class = "NSTextFieldCell"; title = "30"; ObjectID = "294"; */
+"294.title" = "30";
+
+/* Class = "NSButtonCell"; title = "Apply"; ObjectID = "295"; */
+"295.title" = "Apply";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "296"; */
+"296.title" = "Switch";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "297"; */
+"297.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "299"; */
+"299.title" = "Switch";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "300"; */
+"300.title" = "Switch";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "301"; */
+"301.title" = "Field:";
+
+/* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
+"LN5-mm-Rkn.title" = "Maximum messages:";
+
+/* Class = "NSTabViewItem"; label = "Gameplay"; ObjectID = "UNO-Cf-L9F"; */
+"UNO-Cf-L9F.label" = "Gameplay";
+
+/* Class = "NSButtonCell"; title = "Use NumPad for movement"; ObjectID = "hKa-Vf-sUd"; */
+"hKa-Vf-sUd.title" = "Use NumPad for movement";

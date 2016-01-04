@@ -143,7 +143,7 @@ class MapModel: NSObject {
 		if ( mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].glyph == glf) {
 			return
 		} else if x+MAP_MARGIN > MAPSIZE_COLUMN || y+MAP_MARGIN > MAPSIZE_ROW {
-			panic("Illegal map size!!");
+			Swift_Panic("Illegal map size!!")
 		} else {
 			// map glyph to character and color
 

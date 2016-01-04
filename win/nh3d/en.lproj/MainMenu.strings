@@ -1,0 +1,1296 @@
+
+/* Class = "NSWindow"; title = "NetHack3D"; ObjectID = "21"; */
+"21.title" = "NetHack3D";
+
+/* Class = "NSMenu"; title = "Nethack3d"; ObjectID = "29"; */
+"29.title" = "Nethack3d";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
+"103.title" = "Help";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
+"106.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "NetHack3D Help"; ObjectID = "111"; */
+"111.title" = "NetHack3D Help";
+
+/* Class = "NSButton"; ibShadowedToolTip = "What is here?"; ObjectID = "275"; */
+"275.ibShadowedToolTip" = "What is here?";
+
+/* Class = "NSButton"; ibShadowedToolTip = "What is there?"; ObjectID = "293"; */
+"293.ibShadowedToolTip" = "What is there?";
+
+/* Class = "NSBox"; title = "Name"; ObjectID = "314"; */
+"314.title" = "Name";
+
+/* Class = "NSBox"; title = "Class"; ObjectID = "316"; */
+"316.title" = "Class";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Strength (STR)"; ObjectID = "344"; */
+"344.ibShadowedToolTip" = "Strength (STR)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Dexterity (DEX)"; ObjectID = "350"; */
+"350.ibShadowedToolTip" = "Dexterity (DEX)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Constitution (Con)"; ObjectID = "353"; */
+"353.ibShadowedToolTip" = "Constitution (Con)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Intellegence (INT)"; ObjectID = "356"; */
+"356.ibShadowedToolTip" = "Intellegence (INT)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Wisdom (Wis)"; ObjectID = "359"; */
+"359.ibShadowedToolTip" = "Wisdom (Wis)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Charisma (Cha)"; ObjectID = "362"; */
+"362.ibShadowedToolTip" = "Charisma (Cha)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Hit Points"; ObjectID = "365"; */
+"365.ibShadowedToolTip" = "Hit Points";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Magic Power"; ObjectID = "368"; */
+"368.ibShadowedToolTip" = "Magic Power";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "372"; */
+"372.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "375"; */
+"375.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "378"; */
+"378.title" = "Box";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Armor Class (AC)"; ObjectID = "380"; */
+"380.ibShadowedToolTip" = "Armor Class (AC)";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Player Level"; ObjectID = "383"; */
+"383.ibShadowedToolTip" = "Player Level";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Lawful"; ObjectID = "386"; */
+"386.ibShadowedToolTip" = "Lawful";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Neutral"; ObjectID = "387"; */
+"387.ibShadowedToolTip" = "Neutral";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Chaotic"; ObjectID = "388"; */
+"388.ibShadowedToolTip" = "Chaotic";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "390"; */
+"390.title" = "Box";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Again"; ObjectID = "417"; */
+"417.ibShadowedToolTip" = "Again";
+
+/* Class = "NSButtonCell"; title = "a"; ObjectID = "417"; */
+"417.title" = "a";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Rest"; ObjectID = "452"; */
+"452.ibShadowedToolTip" = "Rest";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "453"; */
+"453.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "455"; */
+"455.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "457"; */
+"457.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "459"; */
+"459.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "461"; */
+"461.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "463"; */
+"463.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "465"; */
+"465.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "467"; */
+"467.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "469"; */
+"469.ibShadowedToolTip" = "STR";
+
+/* Class = "NSTextField"; ibShadowedToolTip = "STR"; ObjectID = "471"; */
+"471.ibShadowedToolTip" = "STR";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "475"; */
+"475.title" = "Box";
+
+/* Class = "NSMenuItem"; title = "What is Here"; ObjectID = "498"; */
+"498.title" = "What is Here";
+
+/* Class = "NSMenuItem"; title = "What is There…"; ObjectID = "500"; */
+"500.title" = "What is There…";
+
+/* Class = "NSMenuItem"; title = "What is…"; ObjectID = "501"; */
+"501.title" = "What is…";
+
+/* Class = "NSMenuItem"; title = "Game"; ObjectID = "520"; */
+"520.title" = "Game";
+
+/* Class = "NSMenu"; title = "Game"; ObjectID = "521"; */
+"521.title" = "Game";
+
+/* Class = "NSMenuItem"; title = "Action"; ObjectID = "523"; */
+"523.title" = "Action";
+
+/* Class = "NSMenu"; title = "Action"; ObjectID = "524"; */
+"524.title" = "Action";
+
+/* Class = "NSMenuItem"; title = "Again "; ObjectID = "525"; */
+"525.title" = "Again ";
+
+/* Class = "NSMenuItem"; title = "Gear"; ObjectID = "526"; */
+"526.title" = "Gear";
+
+/* Class = "NSMenu"; title = "Gear"; ObjectID = "527"; */
+"527.title" = "Gear";
+
+/* Class = "NSMenuItem"; title = "Remove Many"; ObjectID = "528"; */
+"528.title" = "Remove Many";
+
+/* Class = "NSMenuItem"; title = "Magic"; ObjectID = "529"; */
+"529.title" = "Magic";
+
+/* Class = "NSMenu"; title = "Magic"; ObjectID = "530"; */
+"530.title" = "Magic";
+
+/* Class = "NSMenuItem"; title = "Quaff Potion"; ObjectID = "531"; */
+"531.title" = "Quaff Potion";
+
+/* Class = "NSMenuItem"; title = "Info"; ObjectID = "4842"; */
+"4842.title" = "Info";
+
+/* Class = "NSMenu"; title = "Info"; ObjectID = "4843"; */
+"4843.title" = "Info";
+
+/* Class = "NSMenuItem"; title = "Name Object"; ObjectID = "4844"; */
+"4844.title" = "Name Object";
+
+/* Class = "NSMenuItem"; title = "NetHack3D"; ObjectID = "4845"; */
+"4845.title" = "NetHack3D";
+
+/* Class = "NSMenu"; title = "NetHack3D"; ObjectID = "4846"; */
+"4846.title" = "NetHack3D";
+
+/* Class = "NSMenuItem"; title = "About NetHack3D…"; ObjectID = "4847"; */
+"4847.title" = "About NetHack3D…";
+
+/* Class = "NSMenuItem"; title = "Game Options…"; ObjectID = "4850"; */
+"4850.title" = "Game Options…";
+
+/* Class = "NSMenuItem"; title = "Quit without Saving…"; ObjectID = "4851"; */
+"4851.title" = "Quit without Saving…";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "4853"; */
+"4853.title" = "Services";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "4854"; */
+"4854.title" = "Services";
+
+/* Class = "NSMenuItem"; title = "Hide NetHack3D"; ObjectID = "4856"; */
+"4856.title" = "Hide NetHack3D";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "4857"; */
+"4857.title" = "Hide Others";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "4858"; */
+"4858.title" = "Show All";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "4863"; */
+"4863.title" = "File";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "4864"; */
+"4864.title" = "File";
+
+/* Class = "NSMenuItem"; title = "Save and Quit"; ObjectID = "4867"; */
+"4867.title" = "Save and Quit";
+
+/* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "4873"; */
+"4873.title" = "Page Setup…";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "4877"; */
+"4877.title" = "Print…";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "4881"; */
+"4881.title" = "Window";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "4882"; */
+"4882.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "4883"; */
+"4883.title" = "Zoom";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "4884"; */
+"4884.title" = "Minimize";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "4886"; */
+"4886.title" = "Bring All to Front";
+
+/* Class = "NSBox"; title = "Title"; ObjectID = "4994"; */
+"4994.title" = "Title";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Hunger"; ObjectID = "5012"; */
+"5012.ibShadowedToolTip" = "Hunger";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Confused"; ObjectID = "5013"; */
+"5013.ibShadowedToolTip" = "Confused";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Sick"; ObjectID = "5014"; */
+"5014.ibShadowedToolTip" = "Sick";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Ill"; ObjectID = "5015"; */
+"5015.ibShadowedToolTip" = "Ill";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Blind"; ObjectID = "5016"; */
+"5016.ibShadowedToolTip" = "Blind";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Stunned"; ObjectID = "5017"; */
+"5017.ibShadowedToolTip" = "Stunned";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Hallucinating"; ObjectID = "5018"; */
+"5018.ibShadowedToolTip" = "Hallucinating";
+
+/* Class = "NSMenuItem"; title = "Version"; ObjectID = "5027"; */
+"5027.title" = "Version";
+
+/* Class = "NSMenuItem"; title = "Compilation…"; ObjectID = "5028"; */
+"5028.title" = "Compilation…";
+
+/* Class = "NSMenuItem"; title = "History…"; ObjectID = "5029"; */
+"5029.title" = "History…";
+
+/* Class = "NSMenuItem"; title = "Wield Weapon"; ObjectID = "5031"; */
+"5031.title" = "Wield Weapon";
+
+/* Class = "NSMenuItem"; title = "Exchange Weapon"; ObjectID = "5032"; */
+"5032.title" = "Exchange Weapon";
+
+/* Class = "NSMenuItem"; title = "Two-Weapon Combat"; ObjectID = "5033"; */
+"5033.title" = "Two-Weapon Combat";
+
+/* Class = "NSMenuItem"; title = "Load Quiver"; ObjectID = "5034"; */
+"5034.title" = "Load Quiver";
+
+/* Class = "NSMenuItem"; title = "Wear Armour"; ObjectID = "5035"; */
+"5035.title" = "Wear Armour";
+
+/* Class = "NSMenuItem"; title = "Take off Armour"; ObjectID = "5036"; */
+"5036.title" = "Take off Armour";
+
+/* Class = "NSMenuItem"; title = "Put on non-Armour"; ObjectID = "5039"; */
+"5039.title" = "Put on non-Armour";
+
+/* Class = "NSMenuItem"; title = "Remove non-Armour"; ObjectID = "5040"; */
+"5040.title" = "Remove non-Armour";
+
+/* Class = "NSMenuItem"; title = "Apply"; ObjectID = "5042"; */
+"5042.title" = "Apply";
+
+/* Class = "NSMenuItem"; title = "Chat"; ObjectID = "5043"; */
+"5043.title" = "Chat";
+
+/* Class = "NSMenuItem"; title = "Close Door"; ObjectID = "5044"; */
+"5044.title" = "Close Door";
+
+/* Class = "NSMenuItem"; title = "Drop many"; ObjectID = "5045"; */
+"5045.title" = "Drop many";
+
+/* Class = "NSMenuItem"; title = "Down"; ObjectID = "5046"; */
+"5046.title" = "Down";
+
+/* Class = "NSMenuItem"; title = "Drop"; ObjectID = "5047"; */
+"5047.title" = "Drop";
+
+/* Class = "NSMenuItem"; title = "Eat"; ObjectID = "5048"; */
+"5048.title" = "Eat";
+
+/* Class = "NSMenuItem"; title = "Engrave"; ObjectID = "5049"; */
+"5049.title" = "Engrave";
+
+/* Class = "NSMenuItem"; title = "Fight"; ObjectID = "5050"; */
+"5050.title" = "Fight";
+
+/* Class = "NSMenuItem"; title = "Fire from Quiver"; ObjectID = "5051"; */
+"5051.title" = "Fire from Quiver";
+
+/* Class = "NSMenuItem"; title = "Get"; ObjectID = "5052"; */
+"5052.title" = "Get";
+
+/* Class = "NSMenuItem"; title = "Force"; ObjectID = "5053"; */
+"5053.title" = "Force";
+
+/* Class = "NSMenuItem"; title = "Jump"; ObjectID = "5054"; */
+"5054.title" = "Jump";
+
+/* Class = "NSMenuItem"; title = "Kick"; ObjectID = "5055"; */
+"5055.title" = "Kick";
+
+/* Class = "NSMenuItem"; title = "Loot"; ObjectID = "5056"; */
+"5056.title" = "Loot";
+
+/* Class = "NSMenuItem"; title = "Open Door"; ObjectID = "5057"; */
+"5057.title" = "Open Door";
+
+/* Class = "NSMenuItem"; title = "Pay"; ObjectID = "5058"; */
+"5058.title" = "Pay";
+
+/* Class = "NSMenuItem"; title = "Rest"; ObjectID = "5059"; */
+"5059.title" = "Rest";
+
+/* Class = "NSMenuItem"; title = "Ride"; ObjectID = "5060"; */
+"5060.title" = "Ride";
+
+/* Class = "NSMenuItem"; title = "Search"; ObjectID = "5061"; */
+"5061.title" = "Search";
+
+/* Class = "NSMenuItem"; title = "Sit"; ObjectID = "5062"; */
+"5062.title" = "Sit";
+
+/* Class = "NSMenuItem"; title = "Throw"; ObjectID = "5063"; */
+"5063.title" = "Throw";
+
+/* Class = "NSMenuItem"; title = "Untrap"; ObjectID = "5064"; */
+"5064.title" = "Untrap";
+
+/* Class = "NSMenuItem"; title = "Up"; ObjectID = "5065"; */
+"5065.title" = "Up";
+
+/* Class = "NSMenuItem"; title = "Wipe Face"; ObjectID = "5066"; */
+"5066.title" = "Wipe Face";
+
+/* Class = "NSMenuItem"; title = "Read Scroll/Book"; ObjectID = "5067"; */
+"5067.title" = "Read Scroll/Book";
+
+/* Class = "NSMenuItem"; title = "Zap Wand"; ObjectID = "5068"; */
+"5068.title" = "Zap Wand";
+
+/* Class = "NSMenuItem"; title = "Zap Spell"; ObjectID = "5069"; */
+"5069.title" = "Zap Spell";
+
+/* Class = "NSMenuItem"; title = "Dip"; ObjectID = "5070"; */
+"5070.title" = "Dip";
+
+/* Class = "NSMenuItem"; title = "Rub"; ObjectID = "5071"; */
+"5071.title" = "Rub";
+
+/* Class = "NSMenuItem"; title = "Invoke"; ObjectID = "5072"; */
+"5072.title" = "Invoke";
+
+/* Class = "NSMenuItem"; title = "Offer"; ObjectID = "5073"; */
+"5073.title" = "Offer";
+
+/* Class = "NSMenuItem"; title = "Pray"; ObjectID = "5074"; */
+"5074.title" = "Pray";
+
+/* Class = "NSMenuItem"; title = "Teleport"; ObjectID = "5075"; */
+"5075.title" = "Teleport";
+
+/* Class = "NSMenuItem"; title = "Monster Action"; ObjectID = "5076"; */
+"5076.title" = "Monster Action";
+
+/* Class = "NSMenuItem"; title = "Turn Undead"; ObjectID = "5077"; */
+"5077.title" = "Turn Undead";
+
+/* Class = "NSMenuItem"; title = "Inventory"; ObjectID = "5078"; */
+"5078.title" = "Inventory";
+
+/* Class = "NSMenuItem"; title = "Conduct"; ObjectID = "5079"; */
+"5079.title" = "Conduct";
+
+/* Class = "NSMenuItem"; title = "Discoveries"; ObjectID = "5080"; */
+"5080.title" = "Discoveries";
+
+/* Class = "NSMenuItem"; title = "List/Reorder Spells"; ObjectID = "5081"; */
+"5081.title" = "List/Reorder Spells";
+
+/* Class = "NSMenuItem"; title = "Adjust Letters"; ObjectID = "5082"; */
+"5082.title" = "Adjust Letters";
+
+/* Class = "NSMenuItem"; title = "Qualifications"; ObjectID = "5085"; */
+"5085.title" = "Qualifications";
+
+/* Class = "NSMenuItem"; title = "Name Creature"; ObjectID = "5086"; */
+"5086.title" = "Name Creature";
+
+/* Class = "NSMenuItem"; title = "Name Object Type"; ObjectID = "5087"; */
+"5087.title" = "Name Object Type";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5108"; */
+"5108.title" = "Box";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Radar On/OFF"; ObjectID = "5249"; */
+"5249.ibShadowedToolTip" = "Radar On/OFF";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5255"; */
+"5255.title" = "Box";
+
+/* Class = "NSWindow"; title = "Bye…"; ObjectID = "5320"; */
+"5320.title" = "Bye…";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5437"; */
+"5437.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5451"; */
+"5451.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5453"; */
+"5453.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5455"; */
+"5455.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5457"; */
+"5457.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5459"; */
+"5459.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5461"; */
+"5461.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5464"; */
+"5464.title" = "Box";
+
+/* Class = "NSWindow"; title = "NetHack3D"; ObjectID = "5650"; */
+"5650.title" = "NetHack3D";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5744"; */
+"5744.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5746"; */
+"5746.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5748"; */
+"5748.title" = "Box";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "5750"; */
+"5750.title" = "Box";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "5915"; */
+"5915.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "Info"; ObjectID = "5918"; */
+"5918.title" = "Info";
+
+/* Class = "NSMenu"; title = "Info"; ObjectID = "5919"; */
+"5919.title" = "Info";
+
+/* Class = "NSMenuItem"; title = "Gear"; ObjectID = "5921"; */
+"5921.title" = "Gear";
+
+/* Class = "NSMenu"; title = "Gear"; ObjectID = "5922"; */
+"5922.title" = "Gear";
+
+/* Class = "NSMenuItem"; title = "Game"; ObjectID = "5924"; */
+"5924.title" = "Game";
+
+/* Class = "NSMenu"; title = "Game"; ObjectID = "5925"; */
+"5925.title" = "Game";
+
+/* Class = "NSMenuItem"; title = "Action"; ObjectID = "5927"; */
+"5927.title" = "Action";
+
+/* Class = "NSMenu"; title = "Action"; ObjectID = "5928"; */
+"5928.title" = "Action";
+
+/* Class = "NSMenuItem"; title = "Magic"; ObjectID = "5930"; */
+"5930.title" = "Magic";
+
+/* Class = "NSMenu"; title = "Magic"; ObjectID = "5931"; */
+"5931.title" = "Magic";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "5933"; */
+"5933.title" = "Help";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "5934"; */
+"5934.title" = "Help";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Fire from Quiver"; ObjectID = "5957"; */
+"5957.ibShadowedToolTip" = "Fire from Quiver";
+
+/* Class = "NSButtonCell"; title = "f"; ObjectID = "5957"; */
+"5957.title" = "f";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Kick"; ObjectID = "5960"; */
+"5960.ibShadowedToolTip" = "Kick";
+
+/* Class = "NSButtonCell"; title = "k"; ObjectID = "5960"; */
+"5960.title" = "k";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Use Magic"; ObjectID = "5961"; */
+"5961.ibShadowedToolTip" = "Use Magic";
+
+/* Class = "NSButtonCell"; title = "Z"; ObjectID = "5961"; */
+"5961.title" = "Z";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Throw"; ObjectID = "5962"; */
+"5962.ibShadowedToolTip" = "Throw";
+
+/* Class = "NSButtonCell"; title = "t"; ObjectID = "5962"; */
+"5962.title" = "t";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Open"; ObjectID = "5963"; */
+"5963.ibShadowedToolTip" = "Open";
+
+/* Class = "NSButtonCell"; title = "o"; ObjectID = "5963"; */
+"5963.title" = "o";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Search"; ObjectID = "5974"; */
+"5974.ibShadowedToolTip" = "Search";
+
+/* Class = "NSButtonCell"; title = "s"; ObjectID = "5974"; */
+"5974.title" = "s";
+
+/* Class = "NSButtonCell"; ibShadowedToolTip = "Get"; ObjectID = "5975"; */
+"5975.ibShadowedToolTip" = "Get";
+
+/* Class = "NSButtonCell"; title = ","; ObjectID = "5975"; */
+"5975.title" = ",";
+
+/* Class = "NSMenuItem"; title = "Version…"; ObjectID = "6006"; */
+"6006.title" = "Version…";
+
+/* Class = "NSMenuItem"; title = "Compilation…"; ObjectID = "6007"; */
+"6007.title" = "Compilation…";
+
+/* Class = "NSMenuItem"; title = "History…"; ObjectID = "6008"; */
+"6008.title" = "History…";
+
+/* Class = "NSMenuItem"; title = "Remove Many"; ObjectID = "6009"; */
+"6009.title" = "Remove Many";
+
+/* Class = "NSMenuItem"; title = "Wield Weapon"; ObjectID = "6011"; */
+"6011.title" = "Wield Weapon";
+
+/* Class = "NSMenuItem"; title = "Exchange Weapon"; ObjectID = "6012"; */
+"6012.title" = "Exchange Weapon";
+
+/* Class = "NSMenuItem"; title = "Tow Weapon Combat"; ObjectID = "6013"; */
+"6013.title" = "Two-Weapon Combat";
+
+/* Class = "NSMenuItem"; title = "Load quiver"; ObjectID = "6014"; */
+"6014.title" = "Load quiver";
+
+/* Class = "NSMenuItem"; title = "Wear Armour"; ObjectID = "6016"; */
+"6016.title" = "Wear Armour";
+
+/* Class = "NSMenuItem"; title = "Take off Armour"; ObjectID = "6017"; */
+"6017.title" = "Take off Armour";
+
+/* Class = "NSMenuItem"; title = "Put on non-Armour"; ObjectID = "6018"; */
+"6018.title" = "Put on non-Armour";
+
+/* Class = "NSMenuItem"; title = "Remove non-Armour"; ObjectID = "6019"; */
+"6019.title" = "Remove non-Armour";
+
+/* Class = "NSMenuItem"; title = "Again "; ObjectID = "6020"; */
+"6020.title" = "Again ";
+
+/* Class = "NSMenuItem"; title = "Fight"; ObjectID = "6022"; */
+"6022.title" = "Fight";
+
+/* Class = "NSMenuItem"; title = "Fire from Quiver"; ObjectID = "6023"; */
+"6023.title" = "Fire from Quiver";
+
+/* Class = "NSMenuItem"; title = "Throw"; ObjectID = "6024"; */
+"6024.title" = "Throw";
+
+/* Class = "NSMenuItem"; title = "Kick"; ObjectID = "6025"; */
+"6025.title" = "Kick";
+
+/* Class = "NSMenuItem"; title = "Rest"; ObjectID = "6027"; */
+"6027.title" = "Rest";
+
+/* Class = "NSMenuItem"; title = "Chat"; ObjectID = "6028"; */
+"6028.title" = "Chat";
+
+/* Class = "NSMenuItem"; title = "Eat"; ObjectID = "6029"; */
+"6029.title" = "Eat";
+
+/* Class = "NSMenuItem"; title = "Search"; ObjectID = "6030"; */
+"6030.title" = "Search";
+
+/* Class = "NSMenuItem"; title = "Untrap"; ObjectID = "6031"; */
+"6031.title" = "Untrap";
+
+/* Class = "NSMenuItem"; title = "Force"; ObjectID = "6032"; */
+"6032.title" = "Force";
+
+/* Class = "NSMenuItem"; title = "Drop many"; ObjectID = "6034"; */
+"6034.title" = "Drop many";
+
+/* Class = "NSMenuItem"; title = "Drop"; ObjectID = "6035"; */
+"6035.title" = "Drop";
+
+/* Class = "NSMenuItem"; title = "Get"; ObjectID = "6036"; */
+"6036.title" = "Get";
+
+/* Class = "NSMenuItem"; title = "Loot"; ObjectID = "6037"; */
+"6037.title" = "Loot";
+
+/* Class = "NSMenuItem"; title = "Close Door"; ObjectID = "6039"; */
+"6039.title" = "Close Door";
+
+/* Class = "NSMenuItem"; title = "Open Door"; ObjectID = "6040"; */
+"6040.title" = "Open Door";
+
+/* Class = "NSMenuItem"; title = "Down"; ObjectID = "6041"; */
+"6041.title" = "Down";
+
+/* Class = "NSMenuItem"; title = "Up"; ObjectID = "6042"; */
+"6042.title" = "Up";
+
+/* Class = "NSMenuItem"; title = "Jump"; ObjectID = "6044"; */
+"6044.title" = "Jump";
+
+/* Class = "NSMenuItem"; title = "Sit"; ObjectID = "6045"; */
+"6045.title" = "Sit";
+
+/* Class = "NSMenuItem"; title = "Ride"; ObjectID = "6046"; */
+"6046.title" = "Ride";
+
+/* Class = "NSMenuItem"; title = "Pay"; ObjectID = "6047"; */
+"6047.title" = "Pay";
+
+/* Class = "NSMenuItem"; title = "Wipe Face"; ObjectID = "6048"; */
+"6048.title" = "Wipe Face";
+
+/* Class = "NSMenuItem"; title = "Apply"; ObjectID = "6050"; */
+"6050.title" = "Apply";
+
+/* Class = "NSMenuItem"; title = "Engrave"; ObjectID = "6051"; */
+"6051.title" = "Engrave";
+
+/* Class = "NSMenuItem"; title = "Quaff Potion"; ObjectID = "6052"; */
+"6052.title" = "Quaff Potion";
+
+/* Class = "NSMenuItem"; title = "Read Scroll/Book"; ObjectID = "6053"; */
+"6053.title" = "Read Scroll/Book";
+
+/* Class = "NSMenuItem"; title = "Zap Wand"; ObjectID = "6054"; */
+"6054.title" = "Zap Wand";
+
+/* Class = "NSMenuItem"; title = "Zap Spell"; ObjectID = "6055"; */
+"6055.title" = "Zap Spell";
+
+/* Class = "NSMenuItem"; title = "Dip"; ObjectID = "6057"; */
+"6057.title" = "Dip";
+
+/* Class = "NSMenuItem"; title = "Rub"; ObjectID = "6058"; */
+"6058.title" = "Rub";
+
+/* Class = "NSMenuItem"; title = "Invoke"; ObjectID = "6059"; */
+"6059.title" = "Invoke";
+
+/* Class = "NSMenuItem"; title = "Offer"; ObjectID = "6060"; */
+"6060.title" = "Offer";
+
+/* Class = "NSMenuItem"; title = "Pray"; ObjectID = "6061"; */
+"6061.title" = "Pray";
+
+/* Class = "NSMenuItem"; title = "Teleport"; ObjectID = "6063"; */
+"6063.title" = "Teleport";
+
+/* Class = "NSMenuItem"; title = "Monster Action"; ObjectID = "6064"; */
+"6064.title" = "Monster Action";
+
+/* Class = "NSMenuItem"; title = "Turn Undead"; ObjectID = "6065"; */
+"6065.title" = "Turn Undead";
+
+/* Class = "NSMenuItem"; title = "Inventory"; ObjectID = "6066"; */
+"6066.title" = "Inventory";
+
+/* Class = "NSMenuItem"; title = "Conduct"; ObjectID = "6068"; */
+"6068.title" = "Conduct";
+
+/* Class = "NSMenuItem"; title = "Discoveries"; ObjectID = "6069"; */
+"6069.title" = "Discoveries";
+
+/* Class = "NSMenuItem"; title = "List/Reorder Spells"; ObjectID = "6070"; */
+"6070.title" = "List/Reorder Spells";
+
+/* Class = "NSMenuItem"; title = "Adjust Letters"; ObjectID = "6071"; */
+"6071.title" = "Adjust Letters";
+
+/* Class = "NSMenuItem"; title = "Name Object"; ObjectID = "6073"; */
+"6073.title" = "Name Object";
+
+/* Class = "NSMenuItem"; title = "Name Object Type"; ObjectID = "6074"; */
+"6074.title" = "Name Object Type";
+
+/* Class = "NSMenuItem"; title = "Name Creature"; ObjectID = "6075"; */
+"6075.title" = "Name Creature";
+
+/* Class = "NSMenuItem"; title = "Qualificatuons"; ObjectID = "6077"; */
+"6077.title" = "Qualificatuons";
+
+/* Class = "NSMenuItem"; title = "NetHack3D Help"; ObjectID = "6078"; */
+"6078.title" = "NetHack3D Help";
+
+/* Class = "NSMenuItem"; title = "What is here"; ObjectID = "6080"; */
+"6080.title" = "What is here";
+
+/* Class = "NSMenuItem"; title = "What is there"; ObjectID = "6081"; */
+"6081.title" = "What is there";
+
+/* Class = "NSMenuItem"; title = "What is…"; ObjectID = "6082"; */
+"6082.title" = "What is…";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "6240"; */
+"6240.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "Use Sight Restriction"; ObjectID = "6241"; */
+"6241.title" = "Use Sight Restriction";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Ring(Left)"; ObjectID = "6342"; */
+"6342.ibShadowedToolTip" = "Ring (Left)";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "SubWeapon"; ObjectID = "6343"; */
+"6343.ibShadowedToolTip" = "Secondary Weapon";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Weapon"; ObjectID = "6344"; */
+"6344.ibShadowedToolTip" = "Weapon";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Helmet"; ObjectID = "6345"; */
+"6345.ibShadowedToolTip" = "Helmet";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Cloak"; ObjectID = "6346"; */
+"6346.ibShadowedToolTip" = "Cloak";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Armour"; ObjectID = "6347"; */
+"6347.ibShadowedToolTip" = "Armour";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Shoes"; ObjectID = "6348"; */
+"6348.ibShadowedToolTip" = "Shoes";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Ring(Right)"; ObjectID = "6349"; */
+"6349.ibShadowedToolTip" = "Ring (Right)";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Groves"; ObjectID = "6350"; */
+"6350.ibShadowedToolTip" = "Gloves";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Sheild"; ObjectID = "6351"; */
+"6351.ibShadowedToolTip" = "Sheild";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Amulet"; ObjectID = "6352"; */
+"6352.ibShadowedToolTip" = "Amulet";
+
+/* Class = "NSImageCell"; ibShadowedToolTip = "Groves"; ObjectID = "6353"; */
+"6353.ibShadowedToolTip" = "Gloves";
+
+/* Class = "NSWindow"; title = "map"; ObjectID = "6441"; */
+"6441.title" = "map";
+
+/* Class = "NSMenuItem"; title = "View Level Map"; ObjectID = "6450"; */
+"6450.title" = "View Level Map";
+
+/* Class = "NSMenuItem"; title = "Use Tiles in Level Map"; ObjectID = "6451"; */
+"6451.title" = "Use Tiles in Level Map";
+
+/* Class = "NSMenuItem"; title = "View Level Map"; ObjectID = "6472"; */
+"6472.title" = "View Level Map";
+
+/* Class = "NSMenu"; title = "Menu"; ObjectID = "6569"; */
+"6569.title" = "Menu";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "6570"; */
+"6570.title" = "Help";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "6571"; */
+"6571.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "NetHack3D Help"; ObjectID = "6572"; */
+"6572.title" = "NetHack3D Help";
+
+/* Class = "NSMenuItem"; title = "What is here"; ObjectID = "6574"; */
+"6574.title" = "What is here";
+
+/* Class = "NSMenuItem"; title = "What is there"; ObjectID = "6575"; */
+"6575.title" = "What is there";
+
+/* Class = "NSMenuItem"; title = "What is…"; ObjectID = "6576"; */
+"6576.title" = "What is…";
+
+/* Class = "NSMenuItem"; title = "Gear"; ObjectID = "6577"; */
+"6577.title" = "Gear";
+
+/* Class = "NSMenu"; title = "Gear"; ObjectID = "6578"; */
+"6578.title" = "Gear";
+
+/* Class = "NSMenuItem"; title = "Exchange Weapon"; ObjectID = "6579"; */
+"6579.title" = "Exchange Weapon";
+
+/* Class = "NSMenuItem"; title = "Remove Many"; ObjectID = "6580"; */
+"6580.title" = "Remove Many";
+
+/* Class = "NSMenuItem"; title = "Wield Weapon"; ObjectID = "6582"; */
+"6582.title" = "Wield Weapon";
+
+/* Class = "NSMenuItem"; title = "Tow Weapon Combat"; ObjectID = "6583"; */
+"6583.title" = "Two-Weapon Combat";
+
+/* Class = "NSMenuItem"; title = "Load quiver"; ObjectID = "6584"; */
+"6584.title" = "Load quiver";
+
+/* Class = "NSMenuItem"; title = "Wear Armour"; ObjectID = "6586"; */
+"6586.title" = "Wear Armour";
+
+/* Class = "NSMenuItem"; title = "Take off Armour"; ObjectID = "6587"; */
+"6587.title" = "Take off Armour";
+
+/* Class = "NSMenuItem"; title = "Put on non-Armour"; ObjectID = "6588"; */
+"6588.title" = "Put on non-Armour";
+
+/* Class = "NSMenuItem"; title = "Remove non-Armour"; ObjectID = "6589"; */
+"6589.title" = "Remove non-Armour";
+
+/* Class = "NSMenuItem"; title = "Magic"; ObjectID = "6590"; */
+"6590.title" = "Magic";
+
+/* Class = "NSMenu"; title = "Magic"; ObjectID = "6591"; */
+"6591.title" = "Magic";
+
+/* Class = "NSMenuItem"; title = "Quaff Potion"; ObjectID = "6592"; */
+"6592.title" = "Quaff Potion";
+
+/* Class = "NSMenuItem"; title = "Read Scroll/Book"; ObjectID = "6593"; */
+"6593.title" = "Read Scroll/Book";
+
+/* Class = "NSMenuItem"; title = "Zap Wand"; ObjectID = "6594"; */
+"6594.title" = "Zap Wand";
+
+/* Class = "NSMenuItem"; title = "Zap Spell"; ObjectID = "6595"; */
+"6595.title" = "Zap Spell";
+
+/* Class = "NSMenuItem"; title = "Dip"; ObjectID = "6597"; */
+"6597.title" = "Dip";
+
+/* Class = "NSMenuItem"; title = "Rub"; ObjectID = "6598"; */
+"6598.title" = "Rub";
+
+/* Class = "NSMenuItem"; title = "Invoke"; ObjectID = "6599"; */
+"6599.title" = "Invoke";
+
+/* Class = "NSMenuItem"; title = "Offer"; ObjectID = "6600"; */
+"6600.title" = "Offer";
+
+/* Class = "NSMenuItem"; title = "Pray"; ObjectID = "6601"; */
+"6601.title" = "Pray";
+
+/* Class = "NSMenuItem"; title = "Teleport"; ObjectID = "6603"; */
+"6603.title" = "Teleport";
+
+/* Class = "NSMenuItem"; title = "Monster Action"; ObjectID = "6604"; */
+"6604.title" = "Monster Action";
+
+/* Class = "NSMenuItem"; title = "Turn Undead"; ObjectID = "6605"; */
+"6605.title" = "Turn Undead";
+
+/* Class = "NSMenuItem"; title = "Action"; ObjectID = "6606"; */
+"6606.title" = "Action";
+
+/* Class = "NSMenu"; title = "Action"; ObjectID = "6607"; */
+"6607.title" = "Action";
+
+/* Class = "NSMenuItem"; title = "Drop"; ObjectID = "6608"; */
+"6608.title" = "Drop";
+
+/* Class = "NSMenuItem"; title = "Get"; ObjectID = "6609"; */
+"6609.title" = "Get";
+
+/* Class = "NSMenuItem"; title = "Apply"; ObjectID = "6611"; */
+"6611.title" = "Apply";
+
+/* Class = "NSMenuItem"; title = "Close Door"; ObjectID = "6612"; */
+"6612.title" = "Close Door";
+
+/* Class = "NSMenuItem"; title = "Open Door"; ObjectID = "6613"; */
+"6613.title" = "Open Door";
+
+/* Class = "NSMenuItem"; title = "Down"; ObjectID = "6614"; */
+"6614.title" = "Down";
+
+/* Class = "NSMenuItem"; title = "Up"; ObjectID = "6615"; */
+"6615.title" = "Up";
+
+/* Class = "NSMenuItem"; title = "Jump"; ObjectID = "6617"; */
+"6617.title" = "Jump";
+
+/* Class = "NSMenuItem"; title = "Sit"; ObjectID = "6618"; */
+"6618.title" = "Sit";
+
+/* Class = "NSMenuItem"; title = "Ride"; ObjectID = "6619"; */
+"6619.title" = "Ride";
+
+/* Class = "NSMenuItem"; title = "Pay"; ObjectID = "6620"; */
+"6620.title" = "Pay";
+
+/* Class = "NSMenuItem"; title = "Wipe Face"; ObjectID = "6621"; */
+"6621.title" = "Wipe Face";
+
+/* Class = "NSMenuItem"; title = "Engrave"; ObjectID = "6623"; */
+"6623.title" = "Engrave";
+
+/* Class = "NSMenuItem"; title = "Again "; ObjectID = "6625"; */
+"6625.title" = "Again ";
+
+/* Class = "NSMenuItem"; title = "Loot"; ObjectID = "6626"; */
+"6626.title" = "Loot";
+
+/* Class = "NSMenuItem"; title = "Fight"; ObjectID = "6627"; */
+"6627.title" = "Fight";
+
+/* Class = "NSMenuItem"; title = "Fire from Quiver"; ObjectID = "6628"; */
+"6628.title" = "Fire from Quiver";
+
+/* Class = "NSMenuItem"; title = "Throw"; ObjectID = "6629"; */
+"6629.title" = "Throw";
+
+/* Class = "NSMenuItem"; title = "Kick"; ObjectID = "6630"; */
+"6630.title" = "Kick";
+
+/* Class = "NSMenuItem"; title = "Rest"; ObjectID = "6632"; */
+"6632.title" = "Rest";
+
+/* Class = "NSMenuItem"; title = "Chat"; ObjectID = "6633"; */
+"6633.title" = "Chat";
+
+/* Class = "NSMenuItem"; title = "Eat"; ObjectID = "6634"; */
+"6634.title" = "Eat";
+
+/* Class = "NSMenuItem"; title = "Search"; ObjectID = "6635"; */
+"6635.title" = "Search";
+
+/* Class = "NSMenuItem"; title = "Untrap"; ObjectID = "6636"; */
+"6636.title" = "Untrap";
+
+/* Class = "NSMenuItem"; title = "Force"; ObjectID = "6637"; */
+"6637.title" = "Force";
+
+/* Class = "NSMenuItem"; title = "Drop many"; ObjectID = "6639"; */
+"6639.title" = "Drop many";
+
+/* Class = "NSMenuItem"; title = "Game"; ObjectID = "6640"; */
+"6640.title" = "Game";
+
+/* Class = "NSMenu"; title = "Game"; ObjectID = "6641"; */
+"6641.title" = "Game";
+
+/* Class = "NSMenuItem"; title = "Version…"; ObjectID = "6642"; */
+"6642.title" = "Version…";
+
+/* Class = "NSMenuItem"; title = "Compilation…"; ObjectID = "6643"; */
+"6643.title" = "Compilation…";
+
+/* Class = "NSMenuItem"; title = "History…"; ObjectID = "6644"; */
+"6644.title" = "History…";
+
+/* Class = "NSMenuItem"; title = "Info"; ObjectID = "6645"; */
+"6645.title" = "Info";
+
+/* Class = "NSMenu"; title = "Info"; ObjectID = "6646"; */
+"6646.title" = "Info";
+
+/* Class = "NSMenuItem"; title = "Discoveries"; ObjectID = "6647"; */
+"6647.title" = "Discoveries";
+
+/* Class = "NSMenuItem"; title = "List/Reorder Spells"; ObjectID = "6648"; */
+"6648.title" = "List/Reorder Spells";
+
+/* Class = "NSMenuItem"; title = "Adjust Letters"; ObjectID = "6649"; */
+"6649.title" = "Adjust Letters";
+
+/* Class = "NSMenuItem"; title = "Name Object Type"; ObjectID = "6650"; */
+"6650.title" = "Name Object Type";
+
+/* Class = "NSMenuItem"; title = "Name Creature"; ObjectID = "6651"; */
+"6651.title" = "Name Creature";
+
+/* Class = "NSMenuItem"; title = "Qualificatuons"; ObjectID = "6653"; */
+"6653.title" = "Qualificatuons";
+
+/* Class = "NSMenuItem"; title = "Name Object"; ObjectID = "6655"; */
+"6655.title" = "Name Object";
+
+/* Class = "NSMenuItem"; title = "Inventory"; ObjectID = "6656"; */
+"6656.title" = "Inventory";
+
+/* Class = "NSMenuItem"; title = "Conduct"; ObjectID = "6658"; */
+"6658.title" = "Conduct";
+
+/* Class = "NSMenuItem"; title = "OpenGL Settings"; ObjectID = "6660"; */
+"6660.title" = "OpenGL Settings";
+
+/* Class = "NSMenu"; title = "OpenGL Settings"; ObjectID = "6661"; */
+"6661.title" = "OpenGL Settings";
+
+/* Class = "NSMenuItem"; title = "Wait for vSync (recommended)"; ObjectID = "6662"; */
+"6662.title" = "Wait for vSync (recommended)";
+
+/* Class = "NSMenuItem"; title = "FrameRateSetting"; ObjectID = "6744"; */
+"6744.title" = "FrameRateSetting";
+
+/* Class = "NSMenu"; title = "FrameRateSetting"; ObjectID = "6745"; */
+"6745.title" = "FrameRateSetting";
+
+/* Class = "NSMenuItem"; title = "No limit."; ObjectID = "6747"; */
+"6747.title" = "No limit.";
+
+/* Class = "NSMenuItem"; title = "Fast framerate. (1/60sec.)"; ObjectID = "6748"; */
+"6748.title" = "Fast framerate. (1/60sec.)";
+
+/* Class = "NSMenuItem"; title = "Normal framerate. (1/45sec.)"; ObjectID = "6749"; */
+"6749.title" = "Normal framerate. (1/45sec.)";
+
+/* Class = "NSMenuItem"; title = "Slow framerate. (1/30sec.)"; ObjectID = "6750"; */
+"6750.title" = "Slow framerate. (1/30sec.)";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "6799"; */
+"6799.title" = "Preferences…";
+
+/* Class = "NSTextFieldCell"; title = "STR"; ObjectID = "6861"; */
+"6861.title" = "STR";
+
+/* Class = "NSTextFieldCell"; title = "CON"; ObjectID = "6862"; */
+"6862.title" = "CON";
+
+/* Class = "NSTextFieldCell"; title = "WIS"; ObjectID = "6863"; */
+"6863.title" = "WIS";
+
+/* Class = "NSTextFieldCell"; title = "DEX"; ObjectID = "6864"; */
+"6864.title" = "DEX";
+
+/* Class = "NSTextFieldCell"; title = "INT"; ObjectID = "6865"; */
+"6865.title" = "INT";
+
+/* Class = "NSTextFieldCell"; title = "CHA"; ObjectID = "6866"; */
+"6866.title" = "CHA";
+
+/* Class = "NSTextFieldCell"; title = "HP"; ObjectID = "6867"; */
+"6867.title" = "HP";
+
+/* Class = "NSTextFieldCell"; title = "Ac"; ObjectID = "6868"; */
+"6868.title" = "Ac";
+
+/* Class = "NSTextFieldCell"; title = "Pow"; ObjectID = "6869"; */
+"6869.title" = "Pow";
+
+/* Class = "NSTextFieldCell"; title = "Lv"; ObjectID = "6870"; */
+"6870.title" = "Lv";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6871"; */
+"6871.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6872"; */
+"6872.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6873"; */
+"6873.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6874"; */
+"6874.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6875"; */
+"6875.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6876"; */
+"6876.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6877"; */
+"6877.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6878"; */
+"6878.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6879"; */
+"6879.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6880"; */
+"6880.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6881"; */
+"6881.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6882"; */
+"6882.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6887"; */
+"6887.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6888"; */
+"6888.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6889"; */
+"6889.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6890"; */
+"6890.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6891"; */
+"6891.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6892"; */
+"6892.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6893"; */
+"6893.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6894"; */
+"6894.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6895"; */
+"6895.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6896"; */
+"6896.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00/00"; ObjectID = "6897"; */
+"6897.title" = "00/00";
+
+/* Class = "NSTextFieldCell"; title = "00000"; ObjectID = "6898"; */
+"6898.title" = "00000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6899"; */
+"6899.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6900"; */
+"6900.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6901"; */
+"6901.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "00000000"; ObjectID = "6902"; */
+"6902.title" = "00000000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6903"; */
+"6903.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6904"; */
+"6904.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6905"; */
+"6905.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "0000"; ObjectID = "6906"; */
+"6906.title" = "0000";
+
+/* Class = "NSTextFieldCell"; title = "/"; ObjectID = "6907"; */
+"6907.title" = "/";
+
+/* Class = "NSTextFieldCell"; title = "/"; ObjectID = "6908"; */
+"6908.title" = "/";
+
+/* Class = "NSTextFieldCell"; title = "Traditonal Mode"; ObjectID = "6932"; */
+"6932.title" = "Traditonal Mode";
+
+/* Class = "NSButtonCell"; title = "Okay"; ObjectID = "6943"; */
+"6943.title" = "Okay";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "6944"; */
+"6944.title" = "Cancel";
+
+/* Class = "NSTextFieldCell"; title = "name on stone"; ObjectID = "6946"; */
+"6946.title" = "name on stone";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6947"; */
+"6947.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6949"; */
+"6949.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Speak"; ObjectID = "6950"; */
+"6950.title" = "Speak";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6952"; */
+"6952.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "6954"; */
+"6954.title" = "Cancel";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "6955"; */
+"6955.title" = "Small System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "Small System Font Text"; ObjectID = "6956"; */
+"6956.title" = "Small System Font Text";
+
+/* Class = "NSButtonCell"; title = "Select All"; ObjectID = "6957"; */
+"6957.title" = "Select All";
+
+/* Class = "NSButtonCell"; title = "Deselect"; ObjectID = "6958"; */
+"6958.title" = "Deselect";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6960"; */
+"6960.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6962"; */
+"6962.title" = "OK";
+
+/* Class = "NSTextFieldCell"; title = "System Font Text"; ObjectID = "6964"; */
+"6964.title" = "System Font Text";
+
+/* Class = "NSTextFieldCell"; title = "NetHack"; ObjectID = "6968"; */
+"6968.title" = "NetHack";
+
+/* Class = "NSTextFieldCell"; title = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details."; ObjectID = "6969"; */
+"6969.title" = "Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.\nNetHack may be freely redistributed.  See license for details.";
+
+/* Class = "NSButtonCell"; title = "Play NetHack3D"; ObjectID = "6970"; */
+"6970.title" = "Play NetHack3D";
+
+/* Class = "NSButtonCell"; title = "Edit Preferences"; ObjectID = "6971"; */
+"6971.title" = "Edit Preferences";
+
+/* Class = "NSButtonCell"; title = "Quit"; ObjectID = "6972"; */
+"6972.title" = "Quit";
+
+/* Class = "NSTextFieldCell"; title = "PlayerName"; ObjectID = "6973"; */
+"6973.title" = "PlayerName";
+
+/* Class = "NSTextFieldCell"; title = "Class"; ObjectID = "6974"; */
+"6974.title" = "Class";
+
+/* Class = "NSTextFieldCell"; title = "Gold"; ObjectID = "6975"; */
+"6975.title" = "Gold";
+
+/* Class = "NSTextFieldCell"; title = "Exp"; ObjectID = "6976"; */
+"6976.title" = "Exp";
+
+/* Class = "NSTextFieldCell"; title = "Time"; ObjectID = "6977"; */
+"6977.title" = "Time";
+
+/* Class = "NSTextFieldCell"; title = "Score"; ObjectID = "6978"; */
+"6978.title" = "Score";
+
+/* Class = "NSButtonCell"; title = "8"; ObjectID = "6980"; */
+"6980.title" = "8";
+
+/* Class = "NSButtonCell"; title = "2"; ObjectID = "6981"; */
+"6981.title" = "2";
+
+/* Class = "NSButtonCell"; title = "4"; ObjectID = "6982"; */
+"6982.title" = "4";
+
+/* Class = "NSButtonCell"; title = "6"; ObjectID = "6983"; */
+"6983.title" = "6";
+
+/* Class = "NSButtonCell"; title = "9"; ObjectID = "6984"; */
+"6984.title" = "9";
+
+/* Class = "NSButtonCell"; title = "7"; ObjectID = "6985"; */
+"6985.title" = "7";
+
+/* Class = "NSButtonCell"; title = "5"; ObjectID = "6988"; */
+"6988.title" = "5";
+
+/* Class = "NSButtonCell"; title = "o"; ObjectID = "6989"; */
+"6989.title" = "o";
+
+/* Class = "NSButtonCell"; title = "A"; ObjectID = "6990"; */
+"6990.title" = "A";
+
+/* Class = "NSMenuItem"; title = "Map…"; ObjectID = "ske-b7-lNY"; */
+"ske-b7-lNY.title" = "Map…";

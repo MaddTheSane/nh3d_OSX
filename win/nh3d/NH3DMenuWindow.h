@@ -9,7 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DMenuItem.h"
-#import "NH3DMessenger.h"
+
+@class NH3DMessaging;
 
 #import "NH3DUserDefaultsExtern.h"
 
@@ -26,9 +27,10 @@
 	IBOutlet NSScrollView *_textScrollView;
 	IBOutlet NSPanel *_textPanel;
 	/* I am going to collect it.Probably. Perhaps.... */
-	IBOutlet NH3DMessenger *_messenger;
+	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSTextView *_ripTextwindow;
 	
+@private
 	NSMutableArray *nh3dMenu;
 	NSMutableDictionary *darkShadowStrAttributes;
 	NSMutableDictionary *lightShadowStrAttributes;
@@ -38,7 +40,7 @@
 	
 	BOOL isMenu;
 	BOOL isExtendMenu;
-	int selectedRow;
+	NSInteger selectedRow;
 	BOOL doneRip;
 	int pickType;
 }
@@ -52,7 +54,7 @@
 
 @property BOOL doneRip;
 
-@property (readonly, copy) NSMutableArray *nh3dMenu;
+@property (readonly, strong) NSMutableArray *nh3dMenu;
 
 - (void)putTextMessage:(NSString *)contents;
 - (void)clearTextMessage;

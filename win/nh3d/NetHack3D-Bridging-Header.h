@@ -7,19 +7,19 @@
 #import "NH3DUserDefaultsExtern.h"
 #import "NH3DMapItem.h"
 #import "NH3DMapView.h"
-#import "NH3DModelObjects.h"
+#import "NH3DModelObject.h"
+#import "winnh3d.h"
 
 static inline BOOL Swift_Invis() {
-	return ((HInvis || EInvis || \
-			 pm_invisible(youmonst.data)) && !BInvis);
+	return !!Invis;
 }
 
 static inline BOOL Swift_Blind() {
-	return Blind;
+	return !!Blind;
 }
 
 static inline BOOL Swift_Underwater() {
-	return Underwater;
+	return !!Underwater;
 }
 
 static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
@@ -28,11 +28,11 @@ static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
 }
 
 static inline BOOL Swift_IsSoft(schar type) {
-	return IS_SOFT(type);
+	return !!IS_SOFT(type);
 }
 
 static inline BOOL Swift_IsRoom(schar type) {
-	return IS_ROOM(type);
+	return !!IS_ROOM(type);
 }
 
 /* from tile.c */
@@ -45,13 +45,21 @@ static inline short glyphToTile(size_t i)
 }
 
 static inline BOOL Swift_Hallucination() {
-	return Hallucination;
+	return !!Hallucination;
 }
 
 static inline BOOL Swift_Flying() {
-	return Flying;
+	return !!Flying;
 }
 
 static inline BOOL Swift_Levitation() {
-	return Levitation;
+	return !!Levitation;
+}
+
+__dead2
+static inline void Swift_Panic(const char *panicText)
+{
+	panic("%s", panicText);
+	//should never be called
+	abort();
 }

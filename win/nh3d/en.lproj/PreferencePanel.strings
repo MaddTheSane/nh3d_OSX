@@ -1,0 +1,150 @@
+
+/* Class = "NSTabViewItem"; label = "View Options"; ObjectID = "8"; */
+"8.label" = "View Options";
+
+/* Class = "NSTabViewItem"; label = "Font Settings"; ObjectID = "10"; */
+"10.label" = "Font Settings";
+
+/* Class = "NSButtonCell"; title = "Use sight restriction on 2D map"; ObjectID = "17"; */
+"17.title" = "Use sight restriction on 2D map";
+
+/* Class = "NSButtonCell"; title = "Use tiled graphics on level map"; ObjectID = "18"; */
+"18.title" = "Use tiled graphics on level map";
+
+/* Class = "NSBox"; title = "Map settings"; ObjectID = "19"; */
+"19.title" = "Map settings";
+
+/* Class = "NSButtonCell"; title = "Wait for vSync"; ObjectID = "25"; */
+"25.title" = "Wait for vSync";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "30"; */
+"30.title" = "Box";
+
+/* Class = "NSBox"; title = "OpenGL Settings"; ObjectID = "32"; */
+"32.title" = "OpenGL Settings";
+
+/* Class = "NSButtonCell"; title = "Use MipMap Texture"; ObjectID = "66"; */
+"66.title" = "Use MipMap Texture";
+
+/* Class = "NSButtonCell"; title = "Use HW Acceleration"; ObjectID = "68"; */
+"68.title" = "Use HW Acceleration";
+
+/* Class = "NSButtonCell"; title = "Use TriLinear Texture"; ObjectID = "69"; */
+"69.title" = "Use TriLinear Texture";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "70"; */
+"70.title" = "Switch";
+
+/* Class = "NSButtonCell"; title = "Enable Environment"; ObjectID = "71"; */
+"71.title" = "Enable Environment";
+
+/* Class = "NSButtonCell"; title = "Enable Particles"; ObjectID = "72"; */
+"72.title" = "Enable Particles";
+
+/* Class = "NSFormCell"; title = "Message Font:"; ObjectID = "114"; */
+"114.title" = "Message Font:";
+
+/* Class = "NSFormCell"; title = "Window Font:"; ObjectID = "115"; */
+"115.title" = "Window Font:";
+
+/* Class = "NSFormCell"; title = "Map Font:"; ObjectID = "116"; */
+"116.title" = "Map Font:";
+
+/* Class = "NSFormCell"; title = "Bold Font:"; ObjectID = "117"; */
+"117.title" = "Bold Font:";
+
+/* Class = "NSFormCell"; title = "Menu Item Font:"; ObjectID = "118"; */
+"118.title" = "Menu Item Font:";
+
+/* Class = "NSTabViewItem"; label = "View Mode"; ObjectID = "148"; */
+"148.label" = "View Mode";
+
+/* Class = "NSBox"; title = "NetHack View Mode"; ObjectID = "161"; */
+"161.title" = "NetHack View Mode";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "163"; */
+"163.title" = "Box";
+
+/* Class = "NSBox"; title = "Tile Settings"; ObjectID = "170"; */
+"170.title" = "Tile Settings";
+
+/* Class = "NSFormCell"; stringValue = "nhtiles.tiff"; ObjectID = "202"; */
+"202.stringValue" = "nhtiles.tiff";
+
+/* Class = "NSFormCell"; title = "Tile file:"; ObjectID = "202"; */
+"202.title" = "Tile file:";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "253"; */
+"253.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "Use Default Font Settings"; ObjectID = "276"; */
+"276.title" = "Use Default Font Settings";
+
+/* Class = "NSButtonCell"; title = "Traditional NetHack Mode"; ObjectID = "277"; */
+"277.title" = "Traditional NetHack Mode";
+
+/* Class = "NSTextFieldCell"; title = "Slow          Midium         Fast"; ObjectID = "278"; */
+"278.title" = "Slow          Midium         Fast";
+
+/* Class = "NSButtonCell"; title = "Enable Framerate limit"; ObjectID = "280"; */
+"280.title" = "Enable Framerate limit";
+
+/* Class = "NSButtonCell"; title = "Use tiled graphics for Alt. Objects"; ObjectID = "281"; */
+"281.title" = "Use tiled graphics for Alt. Objects";
+
+/* Class = "NSButtonCell"; title = "Use Tiled Graphics"; ObjectID = "282"; */
+"282.title" = "Use Tiled Graphics";
+
+/* Class = "NSTextFieldCell"; title = "8\n"; ObjectID = "285"; */
+"285.title" = "8\n";
+
+/* Class = "NSTextFieldCell"; title = "128\n\n"; ObjectID = "286"; */
+"286.title" = "128\n\n";
+
+/* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "287"; */
+"287.title" = "Width";
+
+/* Class = "NSTextFieldCell"; title = "Height"; ObjectID = "288"; */
+"288.title" = "Height";
+
+/* Class = "NSButtonCell"; title = "Reset Tile Settings"; ObjectID = "290"; */
+"290.title" = "Reset Tile Settings";
+
+/* Class = "NSTextFieldCell"; title = "40"; ObjectID = "291"; */
+"291.title" = "40";
+
+/* Class = "NSTextFieldCell"; title = "Tiles Per Line:"; ObjectID = "292"; */
+"292.title" = "Tiles Per Line:";
+
+/* Class = "NSTextFieldCell"; title = "Number of \nTiles Row:"; ObjectID = "293"; */
+"293.title" = "Number of \nTiles Row:";
+
+/* Class = "NSTextFieldCell"; title = "30"; ObjectID = "294"; */
+"294.title" = "30";
+
+/* Class = "NSButtonCell"; title = "Apply"; ObjectID = "295"; */
+"295.title" = "Apply";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "296"; */
+"296.title" = "Switch";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "297"; */
+"297.title" = "Field:";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "299"; */
+"299.title" = "Switch";
+
+/* Class = "NSButtonCell"; title = "Switch"; ObjectID = "300"; */
+"300.title" = "Switch";
+
+/* Class = "NSFormCell"; title = "Field:"; ObjectID = "301"; */
+"301.title" = "Field:";
+
+/* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
+"LN5-mm-Rkn.title" = "Maximum messages:";
+
+/* Class = "NSTabViewItem"; label = "Gameplay"; ObjectID = "UNO-Cf-L9F"; */
+"UNO-Cf-L9F.label" = "Gameplay";
+
+/* Class = "NSButtonCell"; title = "Use NumPad for movement"; ObjectID = "hKa-Vf-sUd"; */
+"hKa-Vf-sUd.title" = "Use NumPad for movement";
