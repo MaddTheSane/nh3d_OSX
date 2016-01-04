@@ -1067,6 +1067,10 @@ void nh3d_set_savefile_name()
 }
 #endif
 
+static char * nh3d_getmsghistory(boolean init);
+static void nh3d_putmsghistory(const char*msg, boolean is_restoring);
+static void nh3d_preference_update(const char *pref);
+
 struct window_procs nh3d_procs = {
     "nh3d",
 	WC_COLOR|
@@ -1132,7 +1136,33 @@ struct window_procs nh3d_procs = {
     genl_outrip,
 #endif
     genl_preference_update,
+	genl_getmsghistory,
+	genl_putmsghistory,
+#ifdef STATUS_VIA_WINDOWPORT
+	hup_void_ndecl,                                   /* status_init */
+	hup_void_ndecl,                                   /* status_finish */
+	genl_status_enablefield, hup_status_update,
+#ifdef STATUS_HILITES
+	genl_status_threshold,
+#endif
+#endif /* STATUS_VIA_WINDOWPORT */
+	genl_can_suspend_no,
 };
+
+char * nh3d_getmsghistory(boolean init)
+{
+	return genl_getmsghistory(init);
+}
+void nh3d_putmsghistory(const char*msg, boolean is_restoring)
+{
+	genl_putmsghistory(msg, is_restoring);
+}
+void nh3d_preference_update(const char *pref)
+{
+	genl_preference_update(pref);
+}
+
+
 
 static void
 wd_message()
