@@ -209,7 +209,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="5108">
                         <rect key="frame" x="625" y="246" width="169" height="228"/>
@@ -220,7 +219,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <button toolTip="What is here?" horizontalHuggingPriority="750" verticalHuggingPriority="750" tag="71" id="275">
                         <rect key="frame" x="597" y="183" width="21" height="23"/>
@@ -272,7 +270,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box title="Class" titlePosition="noTitle" id="316">
                         <rect key="frame" x="625" y="476" width="169" height="36"/>
@@ -301,7 +298,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <imageView toolTip="Strength (STR)" id="344" userLabel="STR Status Icon">
                         <rect key="frame" x="635" y="363" width="32" height="32"/>
@@ -387,7 +383,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" id="375">
                         <rect key="frame" x="12" y="90" width="156" height="28"/>
@@ -431,7 +426,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <imageView toolTip="Armor Class (AC)" id="380" userLabel="AC Status Icon">
                         <rect key="frame" x="635" y="255" width="32" height="32"/>
@@ -469,7 +463,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" id="455">
                         <rect key="frame" x="667" y="346" width="27" height="17"/>
@@ -563,7 +556,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" id="453">
                         <rect key="frame" x="667" y="380" width="21" height="18"/>
@@ -918,7 +910,6 @@
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="message" size="11"/>
                     </box>
                     <levelIndicator verticalHuggingPriority="750" id="5005">
                         <rect key="frame" x="248" y="194" width="330" height="16"/>
@@ -1614,7 +1605,7 @@
                     <button id="6841">
                         <rect key="frame" x="181" y="188" width="26" height="26"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SoundOn" imagePosition="only" alignment="center" alternateImage="SoundOff" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6933">
+                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="SoundOnTemplate" imagePosition="only" alignment="center" alternateImage="SoundOffTemplate" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6933">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                             <font key="font" metaFont="label"/>
                         </buttonCell>
@@ -3966,8 +3957,8 @@ DQ
         <image name="ScrollPaper" width="487" height="518"/>
         <image name="ScrollParchment" width="451" height="131"/>
         <image name="Sick0" width="65" height="65"/>
-        <image name="SoundOff" width="15" height="14"/>
-        <image name="SoundOn" width="15" height="14"/>
+        <image name="SoundOffTemplate" width="15" height="14"/>
+        <image name="SoundOnTemplate" width="15" height="14"/>
         <image name="Stun0" width="65" height="65"/>
         <image name="base48" width="48" height="48"/>
         <image name="human" width="147" height="198"/>
