@@ -4,3 +4,5 @@ makedefs
 tilemap
 dgn_comp
 lev_comp
+lev_lex.c
+lev_yacc.c

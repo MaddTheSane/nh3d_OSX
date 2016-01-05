@@ -1387,7 +1387,7 @@
 		2BCAABD50913A7A500AF1C59 /* tiletext */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tiletext; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB3EA30A291D82009C988D /* Makefile.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.dat; sourceTree = "<group>"; };
 		2BCB3EA40A291D82009C988D /* Makefile.doc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.doc; sourceTree = "<group>"; };
-		2BCB3EA50A291D82009C988D /* Makefile.src */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.src; sourceTree = "<group>"; };
+		2BCB3EA50A291D82009C988D /* Makefile.src */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.src; sourceTree = "<group>"; usesTabs = 1; };
 		2BCB3EA60A291D82009C988D /* Makefile.top */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.top; sourceTree = "<group>"; };
 		2BCB3EA70A291D82009C988D /* Makefile.utl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.utl; sourceTree = "<group>"; };
 		2BCB3EA80A291D82009C988D /* setup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup.sh; sourceTree = "<group>"; };
@@ -1430,6 +1430,7 @@
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
+		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -2770,6 +2771,7 @@
 		2BA0209208EF3D68004057D1 /* Cocoa_GNUStep */ = {
 			isa = PBXGroup;
 			children = (
+				552BE4791C3B2D4300F7D1C9 /* hints */,
 				5560A2BC1C34927200BF77F7 /* sysconf */,
 				2BCB3EA30A291D82009C988D /* Makefile.dat */,
 				2BCB3EA40A291D82009C988D /* Makefile.doc */,
@@ -2828,6 +2830,14 @@
 				2BEB62E80891ADF000D38098 /* recover.c */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		552BE4791C3B2D4300F7D1C9 /* hints */ = {
+			isa = PBXGroup;
+			children = (
+				552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */,
+			);
+			path = hints;
 			sourceTree = "<group>";
 		};
 		5560A2A51C347F8C00BF77F7 /* Other Sources */ = {
@@ -3688,6 +3698,7 @@
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = NOMAIL;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3702,6 +3713,7 @@
 				PRODUCT_NAME = NetHack3D;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = "-Wno-format-security";
 			};
 			name = Debug;
@@ -3718,6 +3730,7 @@
 				GCC_CW_ASM_SYNTAX = NO;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = NOMAIL;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_MISSING_PARENTHESES = NO;

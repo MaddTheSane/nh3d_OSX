@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) int posX;
 @property (readonly) int posY;
 @property (readonly) unsigned int special;
+@property (readonly) int bgGlyph;
 
 @property (nonatomic, getter=isPlayer) BOOL player;
 
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;
 @property (readonly, strong, nullable) NSImage *tile;
+@property (readonly, strong, nullable) NSImage *backgroundTile;
 
 @property (readonly) int modelDrawingType;
 

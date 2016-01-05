@@ -28,6 +28,7 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize modelDrawingType;
 @synthesize special;
 @synthesize material = color;
+@synthesize bgGlyph;
 
 - (void)checkDrawingType
 {
@@ -172,6 +173,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		player = NO;
 		hasAlternateSymbol = NO;
 		hasCursor = NO;
+		bgGlyph = bg;
 		
 		//tile = nil;
 		
@@ -294,5 +296,20 @@ extern NH3DTileCache *_NH3DTileCache;
 	else 
 		return nil;
 }
+
+- (NSImage *)backgroundTile
+{
+	
+	/*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
+		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
+		tile = [ img copy ];
+		[ img release ];
+	 }*/
+	if ( glyph != S_stone + GLYPH_CMAP_OFF )
+		return [_NH3DTileCache tileImageFromGlyph:bgGlyph];
+	else
+		return nil;
+}
+
 
 @end
