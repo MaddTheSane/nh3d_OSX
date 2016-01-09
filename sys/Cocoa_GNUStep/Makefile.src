@@ -715,39 +715,40 @@ NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m $(HACK_
 NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserStatusModel.m
 
-SWIFTFLAGS = -module-name $(GAME) -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
+SWIFTFLAGS = -module-name $(GAME) -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk $(shell xcrun --show-sdk-path -sdk macosx)
 
 NetHack3D-Swift.h: NetHack3D.swiftmodule
+	swiftc -frontend -c -parse-as-library -color-diagnostics $(SWIFTFLAGS) \
+	NetHack3D.swiftmodule -emit-objc-header-path NetHack3D-Swift.h
 
-NetHack3D.swiftmodule: GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.o NH3DPreferenceController.o NH3DMessaging.o
-	swiftc -frontend -emit-module -emit-module-path NetHack3D.swiftmodule \ 
-	$(subst .o,-partial.swiftmodule,$(WINNH3DSOBJ)) -parse-as-library -c -color-diagnostics \
-	$(SWIFTFLAGS) -emit-objc-header-path NetHack3D-Swift.h  
+NetHack3D.swiftmodule: $(WINNH3DSOBJ)
+	swiftc -frontend -c -color-diagnostics -emit-module $(SWIFTFLAGS) -emit-module-path \
+	NetHack3D.swiftmodule $(subst .o,-partial.swiftmodule,$(WINNH3DSOBJ)) -parse-as-library
 
 GLHelpers.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/GLHelpers.swift \
 	$(filter-out ../win/nh3d/GLHelpers.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path GLHelpers-partial.swiftmodule -o GLHelpers.o 
+	-emit-module -emit-module-path GLHelpers-partial.swiftmodule -o GLHelpers.o
 SwiftNetHack\ bridge.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/SwiftNetHack\ bridge.swift \
 	$(filter-out ../win/nh3d/SwiftNetHack\ bridge.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path SwiftNetHackBridge-partial.swiftmodule -o SwiftNetHack\ bridge.o 
+	-emit-module -emit-module-path SwiftNetHack\ bridge-partial.swiftmodule -o SwiftNetHack\ bridge.o
 MapModel.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/MapModel.swift \
 	$(filter-out ../win/nh3d/MapModel.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path MapModel-partial.swiftmodule -o MapModel.o 
+	-emit-module -emit-module-path MapModel-partial.swiftmodule -o MapModel.o
 NH3DOpenGLViewSwift.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/NH3DOpenGLViewSwift.swift \
 	$(filter-out ../win/nh3d/NH3DOpenGLViewSwift.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path NH3DOpenGLView-partial.swiftmodule -o NH3DOpenGLViewSwift.o 
+	-emit-module -emit-module-path NH3DOpenGLViewSwift-partial.swiftmodule -o NH3DOpenGLViewSwift.o
 NH3DPreferenceController.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/NH3DPreferenceController.swift \
 	$(filter-out ../win/nh3d/NH3DPreferenceController.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path NH3DPreferenceController-partial.swiftmodule -o NH3DPreferenceController.o 
+	-emit-module -emit-module-path NH3DPreferenceController-partial.swiftmodule -o NH3DPreferenceController.o
 NH3DMessaging.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/NH3DMessaging.swift \
 	$(filter-out ../win/nh3d/NH3DMessaging.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path NH3dMessaging-partial.swiftmodule -o NH3DMessaging.o 
+	-emit-module -emit-module-path NH3DMessaging-partial.swiftmodule -o NH3DMessaging.o
 
 
 bemain.o: ../sys/be/bemain.c $(HACK_H) ../include/dlb.h
