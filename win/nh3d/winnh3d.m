@@ -1496,7 +1496,7 @@ You("スコアの載らない発見モードで起動した．");
 
 - (IBAction)startNetHack3D:(id)sender
 {	
-	register int fd;
+	int fd;
 	int argc = NXArgc;
 	char **argv = NXArgv;
 	char buf[ BUFSZ ];
@@ -1553,7 +1553,6 @@ You("スコアの載らない発見モードで起動した．");
 	dir = aURL.fileSystemRepresentation;
 	
 #endif
-	
 	
 	if(argc > 1) {
 #ifdef CHDIR
@@ -1629,7 +1628,8 @@ You("スコアの載らない発見モードで起動した．");
 
 	process_options(argc, argv);
 
-
+	// Always get the background glyph
+	iflags.use_background_glyph = TRUE;
 
 
 	[ self showMainWindow ];

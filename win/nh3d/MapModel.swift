@@ -140,7 +140,7 @@ class MapModel: NSObject {
 		var color: Int32 = 0
 		var special: UInt32 = 0
 		
-		if ( mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].glyph == glf) {
+		if mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].glyph == glf && mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].bgGlyph == bgGlyph {
 			return
 		} else if x+MAP_MARGIN > MAPSIZE_COLUMN || y+MAP_MARGIN > MAPSIZE_ROW {
 			Swift_Panic("Illegal map size!!")

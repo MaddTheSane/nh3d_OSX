@@ -253,11 +253,10 @@
 
 - (void)drawTraditionalMapAtX:(int)x atY:(int)y
 {
-	
 	NSRect bounds = NSMakeRect( 0, 0, trMapImage.size .width, trMapImage.size .height);
 	NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 	
-	if ( TRADITIONAL_MAP_TILE && mapItem != nil ) {
+	if (TRADITIONAL_MAP_TILE && mapItem != nil) {
 		NSImage *tileImg = mapItem.tile ;
 		NSSize tileSize = tileImg.size ;
 		

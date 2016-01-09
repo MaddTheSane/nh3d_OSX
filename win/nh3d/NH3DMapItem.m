@@ -130,7 +130,6 @@ extern NH3DTileCache *_NH3DTileCache;
 
 /// Override NSObject designated initializer. Normary don't use this.
 - (instancetype) init {
-	
 	return [ self initWithParameter:' ' 
 							  glyph:S_stone+GLYPH_CMAP_OFF 
 							  color:0 
@@ -177,9 +176,9 @@ extern NH3DTileCache *_NH3DTileCache;
 		
 		//tile = nil;
 		
-		[ self checkDrawingType ];
+		[self checkDrawingType];
 		
-		[ lock unlock ];
+		[lock unlock];
 	}
 	return self;
 }
@@ -187,7 +186,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSString *)symbol
 {
-	return [ NSString stringWithFormat:@"%c",symbol ];
+	return [NSString stringWithFormat:@"%c", symbol];
 }
 
 
@@ -283,9 +282,35 @@ extern NH3DTileCache *_NH3DTileCache;
 	[ lock unlock ];
 }
 
+- (BOOL)hasBackground
+{
+	return bgGlyph != NO_GLYPH;
+}
+
 - (NSImage *)tile
-{	
+{
+#if 0
+	NSImage *tmpTile;
+	if (!(tmpTile = [self foregroundTile])) {
+		return nil;
+	}
 	
+	if ([self backgroundTile]) {
+		NSImage *tmpFG = tmpTile;
+		tmpTile = [[self backgroundTile] copy];
+		[tmpTile lockFocus];
+		[tmpFG drawInRect:NSMakeRect(0, 0, tmpTile.size.width, tmpTile.size.height)];
+		[tmpTile unlockFocus];
+	}
+	
+	return tmpTile;
+#else
+	return [self foregroundTile];
+#endif
+}
+
+- (NSImage *)foregroundTile
+{
 /*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
 		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
 		tile = [ img copy ];
@@ -299,17 +324,15 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)backgroundTile
 {
-	
 	/*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
 		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
 		tile = [ img copy ];
 		[ img release ];
 	 }*/
-	if ( glyph != S_stone + GLYPH_CMAP_OFF )
+	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
 		return [_NH3DTileCache tileImageFromGlyph:bgGlyph];
 	else
 		return nil;
 }
-
 
 @end

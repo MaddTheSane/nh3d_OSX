@@ -1327,7 +1327,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				isRiding = true
 			}
 			//#endif
-			if ( u.utrap != 0 && u.utraptype == UInt32(TT_PIT) ) {
+			if u.utrap != 0 && u.utraptype == UInt32(TT_PIT) {
 				cameraY = 0.1
 			}
 			if Swift_Underwater() {

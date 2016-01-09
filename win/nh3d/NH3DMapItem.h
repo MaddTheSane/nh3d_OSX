@@ -46,7 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;
+@property (readonly) BOOL hasBackground;
 @property (readonly, strong, nullable) NSImage *tile;
+
+@property (readonly, strong, nullable) NSImage *foregroundTile;
 @property (readonly, strong, nullable) NSImage *backgroundTile;
 
 @property (readonly) int modelDrawingType;
