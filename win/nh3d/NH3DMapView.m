@@ -37,6 +37,8 @@
 @property (strong) NSImage *trMapImage;
 @property (strong) NSImage *posCursor;
 @property (strong) NSImage *mapRestrictedBezel;
+@property (copy) NSImage *petIcon;
+@property (copy) NSImage *stackIcon;
 @property int centerX;
 @property int centerY;
 @end
@@ -71,6 +73,8 @@
 										
 		self.posCursor = [NSImage imageNamed:@"nh3dPosCursor"];
 		self.mapRestrictedBezel = [NSImage imageNamed:@"asciiMapMaskLimited"];
+		self.petIcon = [NSImage imageNamed:@"petMark"];
+		self.stackIcon = [NSImage imageNamed:@"pileMark"];
 
 		cursOpacity = 1.0;
 		keyBuffer = '0';
