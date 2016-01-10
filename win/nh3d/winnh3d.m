@@ -1483,6 +1483,10 @@ You("スコアの載らない発見モードで起動した．");
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	iflags.num_pad = [defaults boolForKey:NHUseNumPad];
+	if (iflags.num_pad) {
+		iflags.num_pad_mode = 1;
+		reset_commands(FALSE);
+	}
 	iflags.msg_history = [defaults integerForKey:NHMaxMessages];
 }
 

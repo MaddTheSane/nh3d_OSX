@@ -217,22 +217,22 @@ extern NH3DTileCache *_NH3DTileCache;
 	return playerStatusLine;
 }
 
-- (float)playerWaningHp 
+- (CGFloat)playerWaningHp
 {
 	return playerWaningHp;
 }
 
-- (float)playerCriticalHp 
+- (CGFloat)playerCriticalHp
 {
 	return playerCriticalHp;
 }
 
-- (float)playerWaningPow
+- (CGFloat)playerWaningPow
 {
 	return playerWaningPow;
 }
 
-- (float)playerCriticalPow 
+- (CGFloat)playerCriticalPow
 {
 	return playerCriticalPow;
 }
@@ -800,25 +800,25 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerWaningHp:(int)maxHp
 {
-	playerWaningHp = maxHp/10*5;
+	playerWaningHp = (CGFloat)maxHp/10*5;
 }
 
 
 - (void)setPlayerCriticalHp:(int)maxHp
 {
-	playerCriticalHp = maxHp/10*3;
+	playerCriticalHp = (CGFloat)maxHp/10*3;
 }
 
 
 - (void)setPlayerWaningPow:(int)maxPow
 {
-	playerWaningPow = maxPow/10*5;
+	playerWaningPow = (CGFloat)maxPow/10*5;
 }
 
 
 - (void)setPlayerCriticalPow:(int)maxPow
 {
-	playerCriticalPow = maxPow/10*3;
+	playerCriticalPow = (CGFloat)maxPow/10*3;
 }
 
 //
@@ -956,9 +956,11 @@ extern NH3DTileCache *_NH3DTileCache;
 	[ self setPlayerInt:ACURR( A_INT ) ];
 	[ self setPlayerWis:ACURR( A_WIS ) ];
 	[ self setPlayerCha:ACURR( A_CHA ) ];
-	[ self setPlayerGold:u.umoney0 ];
+	[self setPlayerGold:money_cnt(invent)];
 #ifdef SCORE_ON_BOTL
 	[ self setPlayerScore:botl_score( ) ];
+#else
+	[self setPlayerScore:0];
 #endif
 	[ self setPlayerExp:u.uexp ];
 	[ self setPlayerAc:u.uac ];

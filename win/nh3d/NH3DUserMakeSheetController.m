@@ -35,6 +35,7 @@ static const int DIALOG_CANCEL	= 129;
 	[super awakeFromNib];
 	self.window.backgroundColor = [NSColor clearColor];
 	self.window.opaque = YES;
+	self.window.hasShadow = NO;
 }
 	
 
