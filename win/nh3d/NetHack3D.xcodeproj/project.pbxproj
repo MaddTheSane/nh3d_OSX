@@ -452,7 +452,6 @@
 		2BE574B409256C7E00F1BB75 /* hwall.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE574B309256C7E00F1BB75 /* hwall.png */; };
 		2BE574C60925944F00F1BB75 /* corner.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE574C40925944F00F1BB75 /* corner.png */; };
 		2BE574C70925944F00F1BB75 /* upStair.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BE574C50925944F00F1BB75 /* upStair.png */; };
-		2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
@@ -1426,7 +1425,6 @@
 		2BEB62E50891ADF000D38098 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		2BEB62E60891ADF000D38098 /* panic.c */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.c; path = panic.c; sourceTree = "<group>"; };
 		2BEB62E80891ADF000D38098 /* recover.c */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.c; path = recover.c; sourceTree = "<group>"; };
-		2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = nhtiles.tiff; sourceTree = "<group>"; };
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
@@ -2341,7 +2339,6 @@
 				554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */,
 				2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */,
 				2BE376270A22E29D00B3CDF4 /* trBase.tif */,
-				2BF23FFB0912D9B300CA44CD /* nhtiles.tiff */,
 				2B76D427090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff */,
 				2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */,
 				2BCFB25608F950DB007DB83D /* base48.tiff */,
@@ -3155,7 +3152,6 @@
 				2BCFB25D08F95590007DB83D /* asciiMapMask.tiff in Resources */,
 				2B9854BC08F96D84005E0966 /* asciiMapBase.tiff in Resources */,
 				2B76D428090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff in Resources */,
-				2BF23FFC0912D9B300CA44CD /* nhtiles.tiff in Resources */,
 				2B6F3EE2091AF3E500367391 /* footStep.wav in Resources */,
 				2B6F3EE4091AF3E500367391 /* waterDrop.wav in Resources */,
 				2B6F3F8A091B59F500367391 /* waterDrop2.wav in Resources */,

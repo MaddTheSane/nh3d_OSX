@@ -1214,11 +1214,11 @@ You("スコアの載らない発見モードで起動した．");
 						  NH3DUseTraditionalMapKey: @NO,
 						  NH3DTraditionalMapModeKey: @NO,
 						  
-						  NH3DTileNameKey: @"nhtiles.tiff",
+						  NH3DTileNameKey: @"nhtiles",
 						  NH3DTileSizeWidthKey: @16,
 						  NH3DTileSizeHeightKey: @16,
 						  NH3DTilesPerLineKey: @40,
-						  NH3DNumberOfTilesRowKey: @30,
+						  NH3DNumberOfTilesRowKey: @37,
 						  
 						  NH3DUseTileInLevelMapKey: @YES,
 						  NH3DUseSightRestrictionKey: @YES,

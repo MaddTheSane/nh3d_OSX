@@ -157,11 +157,17 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 
 	@IBAction func resetTileSettings(sender: AnyObject?) {
 		let defaults = NSUserDefaults.standardUserDefaults()
-		defaults.setObject("nhtiles.tiff", forKey: NH3DTileNameKey)
-		defaults.setInteger(16, forKey: NH3DTileSizeWidthKey)
-		defaults.setInteger(16, forKey: NH3DTileSizeHeightKey)
-		defaults.setInteger(40, forKey: NH3DTilesPerLineKey)
-		defaults.setInteger(30, forKey: NH3DNumberOfTilesRowKey)
+		//defaults.setObject("nhtiles.tiff", forKey: NH3DTileNameKey)
+		//defaults.setInteger(16, forKey: NH3DTileSizeWidthKey)
+		//defaults.setInteger(16, forKey: NH3DTileSizeHeightKey)
+		//defaults.setInteger(40, forKey: NH3DTilesPerLineKey)
+		//defaults.setInteger(30, forKey: NH3DNumberOfTilesRowKey)
+		
+		defaults.removeObjectForKey(NH3DTileNameKey)
+		defaults.removeObjectForKey(NH3DTileSizeWidthKey)
+		defaults.removeObjectForKey(NH3DTileSizeHeightKey)
+		defaults.removeObjectForKey(NH3DTilesPerLineKey)
+		defaults.removeObjectForKey(NH3DNumberOfTilesRowKey)
 	}
 	
 	@IBAction func applyTileSettings(sender: AnyObject?) {
