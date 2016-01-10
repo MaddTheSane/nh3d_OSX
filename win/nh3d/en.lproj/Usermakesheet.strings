@@ -84,7 +84,7 @@
 "57.title" = "Chaotic";
 
 /* Class = "NSTextFieldCell"; title = "Please tell us about you more."; ObjectID = "99"; */
-"99.title" = "Please tell us about you more.";
+"99.title" = "Tell us more about you";
 
 /* Class = "NSTextFieldCell"; title = "Welcome, New Player!\n"; ObjectID = "102"; */
 "102.title" = "Welcome, New Player!\n";
