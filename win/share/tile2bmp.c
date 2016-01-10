@@ -73,26 +73,34 @@ lelong(long x)
 }
 
 #ifdef __GNUC__
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199101L
+#include <stdint.h>
+#else
+typedef unsigned uint32_t;
+typedef short int16_t;
+typedef unsigned short uint16_t;
+#endif
+
 typedef struct tagBMIH {
-    unsigned long biSize;
-    long biWidth;
-    long biHeight;
-    unsigned short biPlanes;
-    unsigned short biBitCount;
-    unsigned long biCompression;
-    unsigned long biSizeImage;
-    long biXPelsPerMeter;
-    long biYPelsPerMeter;
-    unsigned long biClrUsed;
-    unsigned long biClrImportant;
+    uint32_t biSize;
+    int32_t biWidth;
+    int32_t biHeight;
+    uint16_t biPlanes;
+    uint16_t biBitCount;
+    uint32_t biCompression;
+    uint32_t biSizeImage;
+    int32_t biXPelsPerMeter;
+    int32_t biYPelsPerMeter;
+    uint32_t biClrUsed;
+    uint32_t biClrImportant;
 } PACK BITMAPINFOHEADER;
 
 typedef struct tagBMFH {
-    unsigned short bfType;
-    unsigned long bfSize;
-    unsigned short bfReserved1;
-    unsigned short bfReserved2;
-    unsigned long bfOffBits;
+    uint16_t bfType;
+    uint32_t bfSize;
+    uint16_t bfReserved1;
+    uint16_t bfReserved2;
+    uint32_t bfOffBits;
 } PACK BITMAPFILEHEADER;
 
 typedef struct tagRGBQ {
@@ -102,9 +110,9 @@ typedef struct tagRGBQ {
     unsigned char rgbReserved;
 } PACK RGBQUAD;
 #define UINT unsigned int
-#define DWORD unsigned long
-#define LONG long
-#define WORD unsigned short
+#define DWORD uint32_t
+#define LONG int32_t
+#define WORD uint16_t
 #define BI_RGB 0L
 #define BI_RLE8 1L
 #define BI_RLE4 2L
