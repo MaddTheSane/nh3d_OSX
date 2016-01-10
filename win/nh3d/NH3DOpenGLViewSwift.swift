@@ -666,7 +666,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool, without: Int32...) -> NH3DModelObject? {
 		var withoutFlag = false;
 		
-		for i in (startNum+offset)...(endNum+offset) {
+		func nums() -> [Int32] {
+			let theRange = (startNum)...(endNum)
+			let theArray = Array(theRange)
+			return theArray.map({return $0 + offset})
+		}
+		
+		for i in nums() {
 			if modelDictionary[i] != nil {
 				if without.count > 1 && without[0] != 0 {
 					for wo in without {
