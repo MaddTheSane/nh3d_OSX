@@ -130,13 +130,13 @@ extern NH3DTileCache *_NH3DTileCache;
 
 /// Override NSObject designated initializer. Normary don't use this.
 - (instancetype) init {
-	return [ self initWithParameter:' ' 
-							  glyph:S_stone+GLYPH_CMAP_OFF 
-							  color:0 
-							   posX:0 
-							   posY:0
-						    special:0
-							bgGlyph:0];
+	return [self initWithParameter:' '
+							 glyph:S_stone+GLYPH_CMAP_OFF
+							 color:0
+							  posX:0
+							  posY:0
+						   special:0
+						   bgGlyph:NO_GLYPH];
 }
 
 - (instancetype)initWithParameter:(char)ch

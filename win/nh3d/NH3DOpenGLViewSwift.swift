@@ -1151,7 +1151,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			if model == nil && defaultTex[Int(glyph)] == 0 {
 				
 				if let newModel = loadModelBlocks[Int(glyph)](glyph: glyph) {
-					if ( glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF ) {
+					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF {
 						newModel.animated = true;
 						newModel.animationRate = ( Float( random() % 5 )*0.1 )+0.5 ;
 						newModel.setPivotX(0.0, atY: 0.3, atZ: 0.0)

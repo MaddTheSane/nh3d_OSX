@@ -1239,13 +1239,13 @@
 			
 			if (event) {
 				if (![_bindController mainWindow].keyWindow ) {
-					[ NSApp sendEvent:event ];
+					[NSApp sendEvent:event];
 					continue;
 				} else {
 					
 					switch (event.type) {
 						case NSKeyDown:
-							strcpy(ch, event.charactersIgnoringModifiers.UTF8String );
+							strcpy(ch, event.charactersIgnoringModifiers.UTF8String);
 							
 							keyBuffer = 0;
 							modKeyFlag = MODKEY_NONE;
@@ -1275,16 +1275,14 @@
 								continue;
 							} else if (event.modifierFlags & NSShiftKeyMask) {
 								modKeyFlag = MODKEY_SHIFT;
-								ch[0] = ( isupper( (int)ch[0] ) ) ? tolower( (int)ch[0] ) : ch[0];
-							} else if ( event.modifierFlags & NSControlKeyMask ) {
-								if ( ch[0]=='d' ) {
-									[ [_cmdGroup2 cellWithTag:62] performClick:self ];
+								ch[0] = (isupper((int)ch[0])) ? tolower((int)ch[0]) : ch[0];
+							} else if (event.modifierFlags & NSControlKeyMask) {
+								if (ch[0]=='d') {
+									[[_cmdGroup2 cellWithTag:62] performClick:self];
 									continue;
 								} else {
 									modKeyFlag = MODKEY_CTRL;
 								}
-							} else if (getCharMode) {
-								self.keyBuffer = (int)ch[0];
 							}
 							
 							if (event.modifierFlags & NSAlternateKeyMask) {
@@ -1298,7 +1296,9 @@
 										self.keyBuffer = (int)ch[0];
 										break;
 								}
-							} else if (!getCharMode) {
+							} else if (getCharMode) {
+								self.keyBuffer = (int)ch[0];
+							} else {
 								switch (ch[0]) {
 									case '1':
 										if (iflags.num_pad) {
@@ -1464,7 +1464,7 @@
 										break;
 										
 									default:
-										self.keyBuffer = (int)ch[0] ;
+										self.keyBuffer = (int)ch[0];
 										
 										break;
 								} // end switch (ch[0])
