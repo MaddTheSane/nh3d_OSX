@@ -1535,6 +1535,7 @@ You("スコアの載らない発見モードで起動した．");
 		//Make sure the rest of the directory structure is okay
 		NSURL *permURL = [aURL URLByAppendingPathComponent:@"perm"];
 		NSURL *logURL = [aURL URLByAppendingPathComponent:@"logfile"];
+		NSURL *xlogURL = [aURL URLByAppendingPathComponent:@"xlogfile"];
 		if (![permURL checkResourceIsReachableAndReturnError:NULL]) {
 			//touch perm
 			[@"" writeToURL:permURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
@@ -1543,7 +1544,11 @@ You("スコアの載らない発見モードで起動した．");
 			//touch logfile
 			[@"" writeToURL:logURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
 		}
-		
+		if (![xlogURL checkResourceIsReachableAndReturnError:NULL]) {
+			//touch xlogfile
+			[@"" writeToURL:xlogURL atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+		}
+
 		NSString *syscf = @(SYSCF_FILE);
 		NSURL *localSyscf = [aURL URLByAppendingPathComponent:syscf isDirectory:NO];
 		if (![localSyscf checkResourceIsReachableAndReturnError:NULL]) {
