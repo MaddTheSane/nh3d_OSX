@@ -10,16 +10,17 @@
 
 /* This file collects some Unix dependencies */
 
-#import "hack.h"	/* mainly for index() which depends on BSD */
-#import "dlb.h"
+#include "hack.h"	/* mainly for index() which depends on BSD */
+#include "dlb.h"
 
-#import <sys/errno.h>
-#import <sys/stat.h>
+#include <sys/errno.h>
+#include <sys/stat.h>
 #if defined(NO_FILE_LINKS) || defined(SUNOS4) || defined(POSIX_TYPES)
-#import <sys/fcntl.h>
+#include <sys/fcntl.h>
 #endif
-#import <signal.h>
+#include <signal.h>
 #include <pwd.h>
+#include <ctype.h>
 
 /*#ifdef NH3D_GRAPHICS
 #import <sys/errno.h>
