@@ -86,16 +86,19 @@
 
 - (void)prepareAttributes
 {
+	style = [[NSMutableParagraphStyle alloc] init];
 	style.alignment = NSLeftTextAlignment;
 	style.lineSpacing = 1;
 	
 	//Text attributes in View or backgrounded text field.
+	darkShadowStrAttributes = [[NSMutableDictionary alloc] initWithCapacity:4];
 	darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 	darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
 	darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 	darkShadowStrAttributes[NSForegroundColorAttributeName] = [[NSColor brownColor] shadowWithLevel:0.8];
 	
-	//Text attributes on Panel or Window.	
+	//Text attributes on Panel or Window.
+	lightShadowStrAttributes = [[NSMutableDictionary alloc] initWithCapacity:4];
 	lightShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT size: NH3DWINDOWFONTSIZE];
 	lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
 	lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
@@ -117,7 +120,7 @@
 		darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 	}
 	
-	textOrRip.typingAttributes = darkShadowStrAttributes ;
+	textOrRip.typingAttributes = darkShadowStrAttributes;
 
 	[textOrRip setEditable:YES ];
 	[textOrRip insertText:contents];
@@ -163,7 +166,7 @@
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
 	
-	_textWindow.string = @"" ;
+	_textWindow.string = @"";
 	
 	[_textWindow stopSpeaking:self];
 }
@@ -175,7 +178,7 @@
 		[self updateMenuWindow];
 	} else {
 		nh3dMenu = [[NSMutableArray alloc] init];
-		[self updateMenuWindow ];
+		[self updateMenuWindow];
 	}
 }
 

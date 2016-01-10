@@ -627,17 +627,17 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
 {
 	@autoreleasepool {
+		NSString *loc = [[NSBundle mainBundle] pathForResource:[NSString stringWithCString:filename encoding:NH3DTEXTENCODING] ofType:nil];
 		NSString *contentsOfFile = nil;
 		NSError *lerror = nil;
 		// try same Japanese encodeing. see 'NSString.h' for more infomation. nethack3d default encoding is '3'(EUC-JP)
-		NSStringEncoding fileEncoding[ 6 ] = {NSJapaneseEUCStringEncoding,NSUTF8StringEncoding,NSShiftJISStringEncoding,NSUnicodeStringEncoding,NSISO2022JPStringEncoding,NSMacOSRomanStringEncoding};
+		NSStringEncoding fileEncoding[6] = {NSUTF8StringEncoding, NSJapaneseEUCStringEncoding, NSShiftJISStringEncoding, NSUnicodeStringEncoding, NSISO2022JPStringEncoding, NSMacOSRomanStringEncoding};
 		int i = 0;
 		
-		while ( contentsOfFile == nil  ) {
-			contentsOfFile = [ NSString stringWithContentsOfFile:
-				[ NSString stringWithCString:filename encoding:NH3DTEXTENCODING ]
-													   encoding:fileEncoding[ i ]
-														  error:&lerror ];
+		while (contentsOfFile == nil) {
+			contentsOfFile = [[NSString alloc] initWithContentsOfFile:loc
+													   encoding:fileEncoding[i]
+														  error:&lerror];
 			
 			if (contentsOfFile != nil || i == 6) {
 				break;
@@ -655,20 +655,16 @@ void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
 				[ _NH3DBindController didPresentError:lerror ];
 			}
 		}
-	
 	}
 }
-
 
 void nh3d_start_menu(winid wid)
 {
 	@autoreleasepool {
-	
 		if ( nh3d_windowlist[ wid ].win != nil && nh3d_windowlist[ wid ].type == NHW_MENU ) {		
 			[ nh3d_windowlist[ wid ].win createMenuWindow:wid ];
 			[ nh3d_windowlist[ wid ].win setIsMenu:YES ];
 		}
-	
 	}
 }
 
@@ -1061,8 +1057,8 @@ void nh3d_set_savefile_name()
 {
 	@autoreleasepool {
 		NSString *saveString;
-		saveString = [ NSString stringWithFormat:@"%d%@",(int)getuid(),[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
-		Strcpy(SAVEF, saveString.fileSystemRepresentation );
+		saveString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+		Strcpy(SAVEF, saveString.fileSystemRepresentation);
 	}
 }
 #endif

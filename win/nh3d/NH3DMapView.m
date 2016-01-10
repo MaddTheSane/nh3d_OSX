@@ -1287,16 +1287,18 @@
 								self.keyBuffer = (int)ch[0];
 							}
 							
-							if ( event.modifierFlags & NSAlternateKeyMask ) {
-								switch ( ch[0] ) {
-									case 'a': [ [_cmdGroup1 cellWithTag:51] performClick:self ];
+							if (event.modifierFlags & NSAlternateKeyMask) {
+								switch (ch[0]) {
+									case 'a':
+										[[_cmdGroup1 cellWithTag:51] performClick:self];
 										break;
+										
 									default:
 										modKeyFlag = MODKEY_COMMAND;
 										self.keyBuffer = (int)ch[0];
 										break;
 								}
-							} else {
+							} else if (!getCharMode) {
 								switch (ch[0]) {
 									case '1':
 										if (iflags.num_pad) {
@@ -1393,6 +1395,7 @@
 									case ';':
 										[_help1 performClick:self];
 										break;
+										
 									case ':':
 										[_help2 performClick:self];
 										break;
