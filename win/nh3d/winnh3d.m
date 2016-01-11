@@ -802,31 +802,51 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 {
 	@autoreleasepool {
 		char yn;
-		char buf[ BUFSZ ];
+		char buf[BUFSZ];
 		int result;
 		BOOL ynfunc;
 		
-		if ( question != nil ) Strcpy(buf,question);
-		if ( choices != nil ) Strcat(buf,choices);
+		if (question != nil)
+			Strcpy(buf,question);
+		if (choices != nil)
+			Strcat(buf,choices);
 		putstr(WIN_MESSAGE, ATR_BOLD, buf);
 		
-		if (choices && strcmp(choices, "yn") == 0 ) {
+		if (choices && strcmp(choices, ynchars) == 0 ) {
 			ynfunc = YES;
 			result = NSRunAlertPanel(
-                [ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 
-                @" ", 
-                @"YES", 
-                @"NO", 
-                @"Cancel",nil);
+                [NSString stringWithCString:question encoding:NH3DTEXTENCODING],
+                @" ",
+                @"Yes",
+                @"No",
+                @"Cancel");
 		
-		} else if (choices && strcmp(choices, "ynq") == 0 ) {
+		} else if (choices && strcmp(choices, ynqchars) == 0 ) {
 			ynfunc = YES;
 			result = NSRunAlertPanel(
 					[ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 
-					@" ", 
-					@"YES", 
-					@"NO", 
-					@"Quit",nil);
+					@" ",
+					@"Yes",
+					@"No",
+					@"Quit");
+		} else if (choices && strcmp(choices, ynaqchars) == 0) {
+			ynfunc = YES;
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
+			{
+				NSButton *abutt = [alert addButtonWithTitle:@"Yes"];
+				abutt.tag = NSAlertDefaultReturn;
+				
+				abutt = [alert addButtonWithTitle:@"No"];
+				abutt.tag = NSAlertAlternateReturn;
+				
+				abutt = [alert addButtonWithTitle:@"Auto"];
+				abutt.tag = 2;
+				
+				abutt = [alert addButtonWithTitle:@"Quit"];
+				abutt.tag = NSAlertOtherReturn;
+			}
+			result = [alert runModal];
 		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING ] isLike:
 												NSLocalizedString(@"*what direction*",@"") ] ) {
 			// hmm... These letters from cmd.c will not there be a good method?
@@ -900,8 +920,10 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 		else if(result == NSAlertAlternateReturn && ynfunc) {
 			yn = 'n';
 		}
-		else if(result == NSAlertOtherReturn && strcmp(choices, "ynq") == 0 && ynfunc) {
+		else if(result == NSAlertOtherReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
 			yn = 'q';
+		} else if (result == 2 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
+			yn = 'a';
 		} else if (result == NSAlertOtherReturn && ynfunc) {
 			yn = 'n';
 		} else {
