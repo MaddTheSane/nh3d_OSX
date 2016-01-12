@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NH3DMapView : NSView
 {
-	
 	IBOutlet MapModel *_mapModel;
 	IBOutlet NH3DBindController *_bindController;
 	IBOutlet NH3DMessaging *_messenger;
@@ -92,7 +91,6 @@ NS_ASSUME_NONNULL_BEGIN
 	int enemyCatch;
 	
 	NSRecursiveLock *lock;
-	
 }
 
 @property (nonatomic, strong) NSColor *bgColor;

@@ -64,11 +64,12 @@ extern int total_tiles_used;
 	return self;
 }
 
-	
+#define GET_RAW_PIXELS 1
 - (NSImage *)tileImageFromGlyph:(int)glyph
 {
-	NSUInteger p[tileSize_X*tileSize_Y];
 	NSImage *tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)];
+#if GET_RAW_PIXELS
+	NSUInteger p[10];
 	NSBitmapImageRep *bmpRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
 																	   pixelsWide:tileSize_X
 																	   pixelsHigh:tileSize_Y
@@ -79,9 +80,13 @@ extern int total_tiles_used;
 																   colorSpaceName:NSDeviceRGBColorSpace
 																	  bytesPerRow:bitMap.bytesPerRow
 																	 bitsPerPixel:bitMap.bitsPerPixel];
+#endif
 	
+#if GET_RAW_PIXELS
+	int x,y;
+#endif
 	int tile = glyph2tile[glyph];
-	int x,y,t_x,t_y;
+	int t_x,t_y;
 	
 	if ( tile >= total_tiles_used || tile < 0 )
 	{
@@ -92,15 +97,22 @@ extern int total_tiles_used;
 	t_x = ( tile % TILES_PER_LINE ) * tileSize_X;
 	t_y = ( tile / TILES_PER_LINE ) * tileSize_Y;
 
+#if GET_RAW_PIXELS
 	for ( x=0 ; x<=tileSize_X ; x++ ) {
 		for ( y=0 ; y<=tileSize_Y ; y++ ) {
-			
 			[bitMap getPixel:p atX:(t_x + x) y:(t_y + y)];
 			[bmpRep setPixel:p atX:x y:y];
 		}
 	}
+#else
+	[tileImg lockFocusFlipped:NO];
+	[bitMap drawInRect:NSMakeRect(0, 0, tileSize_X, tileSize_Y) fromRect:NSMakeRect(t_x, t_y, tileSize_X, tileSize_Y) operation:NSCompositeCopy fraction:1 respectFlipped:YES hints:nil];
+	[tileImg unlockFocus];
+#endif
 	
+#if GET_RAW_PIXELS
 	[ tileImg addRepresentation:bmpRep ];
+#endif
 	tileImg.cacheMode = NSImageCacheNever;
 	return tileImg;
 }

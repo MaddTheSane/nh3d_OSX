@@ -1185,6 +1185,8 @@
 		55C183461C39E43900602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		55C183471C39E44D00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Usermakesheet.strings; sourceTree = "<group>"; };
 		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
+		55CD9CEF1C45A439007F36B2 /* cppregex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cppregex.cpp; sourceTree = "<group>"; };
+		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1734,6 +1736,7 @@
 		2B31DCED08CD73D4008CCAAC /* share */ = {
 			isa = PBXGroup;
 			children = (
+				55CD9CEF1C45A439007F36B2 /* cppregex.cpp */,
 				2B31DCEE08CD73D4008CCAAC /* dgn_comp.h */,
 				2B31DCEF08CD73D4008CCAAC /* dgn_lex.c */,
 				2B31DCF008CD73D4008CCAAC /* dgn_yacc.c */,
@@ -1748,6 +1751,7 @@
 				2B31DCF908CD73D4008CCAAC /* pcsys.c */,
 				2B31DCFA08CD73D4008CCAAC /* pctty.c */,
 				2B31DCFB08CD73D4008CCAAC /* pcunix.c */,
+				55CD9CF01C45A439007F36B2 /* pmatchregex.c */,
 				5560A2BA1C348C4900BF77F7 /* posixregex.c */,
 				2B31DCFC08CD73D4008CCAAC /* random.c */,
 				2B31DCFD08CD73D4008CCAAC /* sounds */,

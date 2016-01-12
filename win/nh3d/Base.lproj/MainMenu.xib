@@ -3960,8 +3960,8 @@ DQ
         <image name="SoundOffTemplate" width="15" height="14"/>
         <image name="SoundOnTemplate" width="15" height="14"/>
         <image name="Stun0" width="65" height="65"/>
-        <image name="ZoomInTemplate" width="19" height="19"/>
-        <image name="ZoomOutTemplate" width="19" height="19"/>
+        <image name="ZoomInTemplate" width="20" height="20"/>
+        <image name="ZoomOutTemplate" width="20" height="20"/>
         <image name="base48" width="48" height="48"/>
         <image name="human" width="147" height="198"/>
         <image name="nh3d" width="128" height="128"/>

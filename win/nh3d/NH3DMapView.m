@@ -1666,20 +1666,14 @@
 	}
 	
 	// Sheet is Up.
-	//@try {
-		[_window beginSheet:_mapLpanel completionHandler:^(NSModalResponse returnCode) {
-			[_mapLview setImage:nil];
-		}];
-		
-		[NSApp runModalForWindow:_mapLpanel];
-		
-		// Sheet is Over.
-		[_window endSheet:_mapLpanel];
-	//}
-	//} @catch(NSException *e) {
-	//	NSLog(@"%@", e);
-	//	NSBeep();
-	//}
+	[_window beginSheet:_mapLpanel completionHandler:^(NSModalResponse returnCode) {
+		[_mapLview setImage:nil];
+	}];
+	
+	[NSApp runModalForWindow:_mapLpanel];
+	
+	// Sheet is Over.
+	[_window endSheet:_mapLpanel];
 }
 
 
@@ -1694,32 +1688,32 @@
 	NSSize	mapSize = mapImage.size ;
 	NSSize	newSize = _mapLview.image.size ;
 	
-	if ( newSize.height > mapSize.height*1.5 ) {
-		newSize.height = mapSize.height*1.5;
-		newSize.width = mapSize.width*1.5;
-	} else if ( newSize.height < mapSize.height*0.5 ) {
-		newSize.height = mapSize.height*0.5;
-		newSize.width = mapSize.width*0.5;
+	if (newSize.height > mapSize.height * 1.5) {
+		newSize.height = mapSize.height * 1.5;
+		newSize.width = mapSize.width * 1.5;
+	} else if (newSize.height < mapSize.height * 0.5) {
+		newSize.height = mapSize.height * 0.5;
+		newSize.width = mapSize.width * 0.5;
 	}
 		
 	if ([sender tag]) {
 		// zoom in
-		newSize = NSMakeSize( newSize.width*0.75 , newSize.height*0.75 );
+		newSize = NSMakeSize(newSize.width * 0.75, newSize.height * 0.75);
 	} else {
 		// zoom out
-		newSize = NSMakeSize( newSize.width*1.25 , newSize.height*1.25 );
+		newSize = NSMakeSize(newSize.width * 1.25, newSize.height * 1.25);
 	}
 	
-	newImg = [ [NSImage alloc] initWithSize:newSize ];
+	newImg = [[NSImage alloc] initWithSize:newSize];
 	NSGraphicsContext* gc = [NSGraphicsContext currentContext];
 	gc.imageInterpolation = NSImageInterpolationHigh;
 	
-	[newImg lockFocus ];
+	[newImg lockFocus];
 	[mapImage drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height)
 				 fromRect:NSZeroRect
 				operation:NSCompositeSourceOver
 				 fraction:1.0];
-	[newImg unlockFocus ];
+	[newImg unlockFocus];
 	
 	_mapLview.frame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height);
 	_mapLview.image = newImg;
