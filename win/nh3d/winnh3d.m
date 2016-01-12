@@ -109,46 +109,33 @@ int argc;
 char *argv[ ];
 {
 	int i;
+	int l;
 	/*
 	 * Process options.
 	 */
 	while(argc > 1 && argv[ 1 ][ 0 ] == '-'){
 		argv++;
 		argc--;
+		l = (int) strlen(*argv);
+		/* must supply at least 4 chars to match "-XXXgraphics" */
+		if (l < 4)
+			l = 4;
 		switch(argv[ 0 ][ 1 ]){
 			case 'D':
-#ifdef WIZARD
-			{
-				char *user;
-				int uid;
-				struct passwd *pw = (struct passwd *)0;
-				
-				uid = getuid();
-				user = getlogin();
-				if (user) {
-					pw = getpwnam(user);
-					if (pw && (pw->pw_uid != uid)) pw = 0;
+			case 'd':
+				if ((argv[0][1] == 'D' && !argv[0][2])
+					|| !strcmpi(*argv, "-debug")) {
+					wizard = TRUE, discover = FALSE;
+				} else if (!strncmpi(*argv, "-DECgraphics", l)) {
+					load_symset("DECGraphics", PRIMARY);
+					switch_symbols(TRUE);
+				} else {
+					//raw_printf("Unknown option: %s", *argv);
 				}
-				if (pw == 0) {
-					user = nh_getenv("USER");
-					if (user) {
-						pw = getpwnam(user);
-						if (pw && (pw->pw_uid != uid)) pw = 0;
-					}
-					if (pw == 0) {
-						pw = getpwuid(uid);
-					}
-				}
-				if (pw && !strcmp(pw->pw_name,WIZARD)) {
-					wizard = TRUE;
-					break;
-				}
-			}
-				/* otherwise fall thru to discover */
-				wiz_error_flag = TRUE;
-#endif
+				break;
+
 			case 'X':
-				discover = TRUE;
+				wizard = TRUE, discover = TRUE;
 				break;
 #ifdef NEWS
 			case 'n':
@@ -167,13 +154,11 @@ char *argv[ ];
 				break;
 			case 'I':
 			case 'i':
-				if (!strncmpi(argv[ 0 ]+1, "IBM", 3))
-					switch_symbols(H_IBM);
-				break;
-				/*  case 'D': */
-			case 'd':
-				if (!strncmpi(argv[ 0 ]+1, "DEC", 3))
-					switch_symbols(H_DEC);
+				if (!strncmpi(argv[ 0 ]+1, "IBM", 3)) {
+					load_symset("IBMGraphics", PRIMARY);
+					load_symset("RogueIBM", ROGUESET);
+					switch_symbols(TRUE);
+				}
 				break;
 			case 'p': /* profession (role) */
 				if (argv[ 0 ][ 2 ]) {
@@ -947,10 +932,10 @@ void nh3d_getlin(const char *prompt, char *line)
 	int ret = 0;
 	
 	@autoreleasepool {
-	ret = [ _NH3DMessenger showInputPanel:prompt line:line ];
+		ret = [ _NH3DMessenger showInputPanel:prompt line:line ];
 	}
-	if (ret == -1) line[ 0 ] = (char)0;
-	
+	if (ret == -1)
+		line[ 0 ] = (char)0;
 }
 
 
@@ -1004,8 +989,8 @@ void nh3d_number_pad(int num)
 void nh3d_delay_output()
 {
 	@autoreleasepool {
-		[ _NH3DMapModel updateAllMaps ];
-		[ NSThread sleepUntilDate:[ NSDate dateWithTimeIntervalSinceNow:0.01 ] ];
+		[_NH3DMapModel updateAllMaps];
+		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
 	}
 }
 
@@ -1029,11 +1014,11 @@ void nh3d_end_screen()
 void nh3d_outrip(winid wid, int how, time_t when)
 {
 	@autoreleasepool {
-		char buf[ BUFSZ ];
+		char buf[BUFSZ];
 		NSMutableString *ripString = [[NSMutableString alloc] initWithCapacity:100];
-		extern const char *killed_by_prefix[ ];
+		extern const char *killed_by_prefix[];
 		
-		[ _NH3DMenuWindow setDoneRip:YES ];
+		_NH3DMenuWindow.doneRip = YES;
 		
 		Sprintf(buf, "%s\n", plname);
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];

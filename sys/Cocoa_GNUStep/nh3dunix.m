@@ -10,23 +10,21 @@
 
 /* This file collects some Unix dependencies */
 
-#include "hack.h"	/* mainly for index() which depends on BSD */
-#include "dlb.h"
+#include "hack.h" /* mainly for index() which depends on BSD */
 
-#include <sys/errno.h>
+#include <errno.h>
 #include <sys/stat.h>
 #if defined(NO_FILE_LINKS) || defined(SUNOS4) || defined(POSIX_TYPES)
-#include <sys/fcntl.h>
+#include <fcntl.h>
 #endif
 #include <signal.h>
 #include <pwd.h>
 #include <ctype.h>
 
-/*#ifdef NH3D_GRAPHICS
-#import <sys/errno.h>
-#import <sys/fcntl.h>
+#ifdef NH3D_GRAPHICS
+#include <sys/errno.h>
+#include <sys/fcntl.h>
 #endif
-*/
 
 #ifdef _M_UNIX
 extern void NDECL(sco_mapon);
@@ -50,8 +48,7 @@ static struct stat buf;
 
 /* see whether we should throw away this xlock file */
 static int
-veryold(fd)
-int fd;
+veryold(int fd)
 {
 	time_t date;
 	
@@ -89,8 +86,9 @@ return(1);
 static int
 eraseoldlocks()
 {
-	register int i;
+	int i;
 	
+    program_state.preserve_locks = 0; /* not required but shows intent */
 	/* cannot use maxledgerno() here, because we need to find a lock name
 	* before starting everything (including the dungeon initialization
 								  * that sets astral_level, needed for maxledgerno()) up
@@ -109,7 +107,7 @@ eraseoldlocks()
 void
 getlock()
 {
-	register int i = 0, fd, c;
+	int i = 0, fd, c;
 	const char *fq_lock;
 	
 #ifdef TTY_GRAPHICS
@@ -121,7 +119,7 @@ getlock()
 		*/
 	/* added check for window-system type -dlc */
 	if (!strcmp(windowprocs.name, "tty"))
-	    if (!isatty(0))
+		if (!isatty(0))
 			error("You must play from a terminal.");
 #endif
 	
@@ -142,20 +140,20 @@ getlock()
 			fq_lock = fqname(lock, LEVELPREFIX, 0);
 			
 			if((fd = open(fq_lock, 0)) == -1) {
-			    if(errno == ENOENT) goto gotlock; /* no such file */
-			    perror(fq_lock);
-			    unlock_file(HLOCK);
-			    error("Cannot open %s", fq_lock);
+				if(errno == ENOENT) goto gotlock; /* no such file */
+				perror(fq_lock);
+				unlock_file(HLOCK);
+				error("Cannot open %s", fq_lock);
 			}
 			
 			if(veryold(fd) /* closes fd if true */
-				&& eraseoldlocks())
-goto gotlock;
-(void) close(fd);
+			   && eraseoldlocks())
+				goto gotlock;
+			(void) close(fd);
 		} while(i < locknum);
-
-unlock_file(HLOCK);
-error("Too many hacks running now.");
+		
+		unlock_file(HLOCK);
+		error("Too many hacks running now.");
 	} else {
 		fq_lock = fqname(lock, LEVELPREFIX, 0);
 		if((fd = open(fq_lock, 0)) == -1) {
@@ -171,102 +169,87 @@ error("Too many hacks running now.");
 		
 		if(iflags.window_inited) {
 			
-		    c = yn("There is already a game in progress under your name.  Destroy old game?");
+			c = yn("There is already a game in progress under your name.  Destroy old game?");
 			/*JP
-		    c = yn("¤¢¤Ê¤¿¤ÎÌ¾Á°¤ÇÉÔÀµ½ªÎ»¤·¤¿¥²¡¼¥à¤¬»Ä¤Ã¤Æ¤¤¤Þ¤¹¡¥ÇË´þ¤·¤Þ¤¹¤«¡©");
-			*/
+			 c = yn("ã‚ãªãŸã®åå‰ã§ä¸æ­£çµ‚äº†ã—ãŸã‚²ãƒ¼ãƒ ãŒæ®‹ã£ã¦ã„ã¾ã™ï¼Žç ´æ£„ã—ã¾ã™ã‹ï¼Ÿ");
+			 */
 		} else {
-
-		    (void) printf("\nThere is already a game in progress under your name.");
-		    (void) printf("  Destroy old game? [yn] ");
-/*
-		    (void) printf("\n¤¢¤Ê¤¿¤ÎÌ¾Á°¤ÇÉÔÀµ½ªÎ»¤·¤¿¥²¡¼¥à¤¬»Ä¤Ã¤Æ¤¤¤Þ¤¹¡¥");
-		    (void) printf("ÇË´þ¤·¤Þ¤¹¤«¡©[yn] ");
-*/
-		    (void) fflush(stdout);
-		    c = getchar();
-		    (void) putchar(c);
-		    (void) fflush(stdout);
-		    while (getchar() != '\n') ; /* eat rest of line and newline */
+			
+			(void) printf("\nThere is already a game in progress under your name.");
+			(void) printf("  Destroy old game? [yn] ");
+			/*
+			 (void) printf("\nã‚ãªãŸã®åå‰ã§ä¸æ­£çµ‚äº†ã—ãŸã‚²ãƒ¼ãƒ ãŒæ®‹ã£ã¦ã„ã¾ã™ï¼Ž");
+			 (void) printf("ç ´æ£„ã—ã¾ã™ã‹ï¼Ÿ[yn] ");
+			 */
+			(void) fflush(stdout);
+			c = getchar();
+			(void) putchar(c);
+			(void) fflush(stdout);
+			while (getchar() != '\n') ; /* eat rest of line and newline */
 		}
-if(c == 'y' || c == 'Y')
-if(eraseoldlocks())
-goto gotlock;
-else {
+		if(c == 'y' || c == 'Y')
+			if(eraseoldlocks())
+				goto gotlock;
+			else {
 				unlock_file(HLOCK);
 				error("Couldn't destroy old game.");
-}
-else {
-	unlock_file(HLOCK);
-	error("%s", "");
-}
+			}
+			else {
+				unlock_file(HLOCK);
+				error("%s", "");
+			}
 	}
-
+	
 gotlock:
-fd = creat(fq_lock, FCMASK);
-unlock_file(HLOCK);
-if(fd == -1) {
-	error("cannot creat lock file (%s).", fq_lock);
-} else {
-	if(write(fd, (genericptr_t) &hackpid, sizeof(hackpid))
-	   != sizeof(hackpid)){
-		error("cannot write lock (%s)", fq_lock);
+	fd = creat(fq_lock, FCMASK);
+	unlock_file(HLOCK);
+	if(fd == -1) {
+		error("cannot creat lock file (%s).", fq_lock);
+	} else {
+		if(write(fd, (genericptr_t) &hackpid, sizeof(hackpid))
+		   != sizeof(hackpid)){
+			error("cannot write lock (%s)", fq_lock);
+		}
+		if(close(fd) == -1) {
+			error("cannot close lock (%s)", fq_lock);
+		}
 	}
-	if(close(fd) == -1) {
-		error("cannot close lock (%s)", fq_lock);
-	}
-}
 }
 
 void
-regularize(s)	/* normalize file name - we don't like .'s, /'s, spaces */
-register char *s;
+regularize(register char *s)	/* normalize file name - we don't like .'s, /'s, spaces */
 {
-/*
-	register char *lp;
-*/
-	register char *lp;
-/*	
-#ifdef SJIS_FILESYSTEM
-	lp = (unsigned char *)ic2str( s );
-	strcpy(s, lp);
-	for (lp = s; *lp; lp++){
-	    if(is_kanji(*lp)){
-			lp++;
-			continue;
-	    }
-	    if(*lp == '.' || *lp == '/' || *lp == ' '){
-			*lp = '_';
-	    }
-	}
-#else */
-	while((lp=index(s, '.')) || (lp=index(s, '/')) || (lp=index(s,' ')))
-		*lp = '_';
-/*#endif*/
-#if defined(SYSV) && !defined(AIX_31) && !defined(SVR4) && !defined(LINUX) && !defined(__APPLE__)
-	/* avoid problems with 14 character file name limit */
-# ifdef COMPRESS
-	/* leave room for .e from error and .Z from compress appended to
-		* save files */
-	{
-#  ifdef COMPRESS_EXTENSION
-	    int i = 12 - strlen(COMPRESS_EXTENSION);
-#  else
-	    int i = 10;		/* should never happen... */
-#  endif
-	    if(strlen(s) > i)
-			s[i] = '\0';
-	}
-# else
-	if(strlen(s) > 11)
-		/* leave room for .nn appended to level files */
-		s[11] = '\0';
-# endif
+    char *lp;
+    
+    while ((lp = index(s, '.')) || (lp = index(s, '/'))
+           || (lp = index(s, ' ')))
+        *lp = '_';
+#if defined(SYSV) && !defined(AIX_31) && !defined(SVR4) && !defined(LINUX) \
+&& !defined(__APPLE__)
+    /* avoid problems with 14 character file name limit */
+#ifdef COMPRESS
+    /* leave room for .e from error and .Z from compress appended to
+     * save files */
+    {
+#ifdef COMPRESS_EXTENSION
+        int i = 12 - strlen(COMPRESS_EXTENSION);
+#else
+        int i = 10; /* should never happen... */
+#endif
+        if (strlen(s) > i)
+            s[i] = '\0';
+    }
+#else
+    if (strlen(s) > 11)
+    /* leave room for .nn appended to level files */
+        s[11] = '\0';
+#endif
 #endif
 }
 
+
 #if defined(TIMED_DELAY) && !defined(msleep) && defined(SYSV)
-#import <poll.h>
+#include <poll.h>
 
 void
 msleep(msec)
@@ -285,6 +268,13 @@ int
 dosh()
 {
 	register char *str;
+#ifdef SYSCF
+	if (!sysopt.shellers || !sysopt.shellers[0]
+		|| !check_user_string(sysopt.shellers)) {
+		Norep("Unknown command '!'.");
+		return 0;
+	}
+#endif
 	if(child(0)) {
 		if((str = getenv("SHELL")) != (char*)0)
 			(void) execl(str, str, (char *)0);
@@ -333,9 +323,9 @@ sco_mapoff();
 linux_mapoff();
 #endif
 (void) signal(SIGINT, (SIG_RET_TYPE) done1);
-#ifdef WIZARD
+//#ifdef WIZARD
 if(wizard) (void) signal(SIGQUIT,SIG_DFL);
-#endif
+//#endif
 if(wt) {
 	raw_print("");
 	wait_synch();

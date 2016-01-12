@@ -14,7 +14,6 @@ import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 
 
-private let GLYPH_MON_OFF: Int32 = 0
 private let TEX_SIZE = 128
 
 private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
@@ -4289,9 +4288,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_DEMOGORGON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons
 		
 		// daemon "The Riders"
-		loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] = loadModelFunc_Riders;
-		loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
-		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] = loadModelFunc_Riders;
+		loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] =		loadModelFunc_Riders;
+		loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] =	loadModelFunc_Riders;
+		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] =		loadModelFunc_Riders;
 		
 		// sea monsters
 		loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] = loadModelFunc_seamonsters

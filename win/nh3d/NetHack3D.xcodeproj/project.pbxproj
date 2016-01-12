@@ -339,7 +339,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2B02FB1D09497BDB008FEDB0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2B02FB1F09497C03008FEDB0 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -621,7 +621,7 @@
 		2B31DD0D08CD73D4008CCAAC /* unixtty.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unixtty.c; sourceTree = "<group>"; };
 		2B31DD0E08CD73D4008CCAAC /* uudecode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uudecode.c; sourceTree = "<group>"; };
 		2B31DD1F08CD73D5008CCAAC /* nh3dres.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dres.m; sourceTree = "<group>"; };
-		2B31DD2008CD73D5008CCAAC /* nh3dunix.m */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.objc; path = nh3dunix.m; sourceTree = "<group>"; };
+		2B31DD2008CD73D5008CCAAC /* nh3dunix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dunix.m; sourceTree = "<group>"; };
 		2B31DD2208CD73D5008CCAAC /* install.com */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = install.com; sourceTree = "<group>"; };
 		2B31DD2308CD73D5008CCAAC /* Install.vms */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Install.vms; sourceTree = "<group>"; };
 		2B31DD2408CD73D5008CCAAC /* lev_lex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lev_lex.h; sourceTree = "<group>"; };
@@ -2348,6 +2348,7 @@
 			);
 			path = Cocoa_GNUStep;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		2BA7A3A309774ABC00122932 /* unix */ = {
 			isa = PBXGroup;
