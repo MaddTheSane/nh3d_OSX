@@ -289,15 +289,16 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)tile
 {
-#if 0
-	NSImage *tmpTile;
-	if (!(tmpTile = [self foregroundTile])) {
+#if 1
+	NSImage *tmpTile = [self foregroundTile];
+	if (!tmpTile) {
 		return nil;
 	}
 	
-	if ([self backgroundTile]) {
+	NSImage *bgtile = [self backgroundTile];
+	if (bgtile != nil) {
 		NSImage *tmpFG = tmpTile;
-		tmpTile = [[self backgroundTile] copy];
+		tmpTile = [bgtile copy];
 		[tmpTile lockFocus];
 		[tmpFG drawInRect:NSMakeRect(0, 0, tmpTile.size.width, tmpTile.size.height)];
 		[tmpTile unlockFocus];
