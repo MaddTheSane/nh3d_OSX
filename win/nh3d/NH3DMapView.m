@@ -59,6 +59,7 @@
 @synthesize cursorOpacity = cursOpacity;
 @synthesize centerX;
 @synthesize centerY;
+@synthesize bgColor;
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
@@ -80,7 +81,7 @@
 		keyBuffer = '0';
 		extendKey = -1 ;
 		modKeyFlag = MODKEY_NONE;
-//		cursPos = NSZeroPoint;
+		//cursPos = NSZeroPoint;
 		plDepth = 0;
 		
 		lock = [[NSRecursiveLock alloc] init];
@@ -97,12 +98,10 @@
 			self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 			self.trMapImage = nil;
 		}
-
 	}
 	
 	return self;
 }
-
 
 - (void)awakeFromNib
 {
@@ -114,16 +113,15 @@
 				  object:nil];
 }
 
-
 - (void)defaultDidChange:(NSNotification *)notification
 {
 	if (TRADITIONAL_MAP) {
 		if (isReady) {
-			[ self lockFocusIfCanDraw ];
-			NSEraseRect( self.bounds );
-			[ [NSColor windowBackgroundColor] set ];
-			[ NSBezierPath fillRect:self.bounds ];
-			[ self unlockFocus ];
+			[self lockFocusIfCanDraw];
+			NSEraseRect(self.bounds);
+			[[NSColor windowBackgroundColor] set];
+			[NSBezierPath fillRect:self.bounds];
+			[self unlockFocus];
 		}
 		
 		self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0) ;
@@ -131,25 +129,24 @@
 		self.mapBezel = nil;
 		self.mapBase = [NSImage imageNamed:@"trBase"];
 		
-		[ self makeTraditionalMap ];
+		[self makeTraditionalMap];
 		
-		[ self updateMap ];
-		[ self setNeedsDisplay:YES ];
-		[ [_bindController mainWindow] displayIfNeeded ];
-		
-	} else if ( !TRADITIONAL_MAP ) {
+		[self updateMap];
+		[self setNeedsDisplay:YES];
+		[[_bindController mainWindow] displayIfNeeded];
+	} else if (!TRADITIONAL_MAP) {
 		if (isReady) {
-			[ self lockFocusIfCanDraw ];
-			NSEraseRect( self.bounds );
-			[ [NSColor windowBackgroundColor] set ];
-			[ NSBezierPath fillRect:self.bounds ];
-			[ self unlockFocus ];
+			[self lockFocusIfCanDraw];
+			NSEraseRect(self.bounds);
+			[[NSColor windowBackgroundColor] set];
+			[NSBezierPath fillRect:self.bounds];
+			[self unlockFocus];
 		}
 		
 		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);
 		
-		self.mapBezel = [ NSImage imageNamed:@"asciiMapMask"];
-		self.mapBase = [ NSImage imageNamed:@"asciiMapBase"];
+		self.mapBezel = [NSImage imageNamed:@"asciiMapMask"];
+		self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 		
 		self.trMapImage = nil;
 		
@@ -162,8 +159,8 @@
 - (void) dealloc {
 	int x,y;
 	
-	for ( x=0 ; x<MAPVIEWSIZE_COLUMN ; x++ ) {
-		for ( y=0 ; y<MAPVIEWSIZE_ROW ; y++ ) {
+	for (x = 0; x<MAPVIEWSIZE_COLUMN; x++) {
+		for (y = 0; y<MAPVIEWSIZE_ROW; y++) {
 			mapItemValue[x][y] = nil;
 		}
 	}
@@ -177,25 +174,24 @@
 	[mapBase drawInRect:bounds
 			   fromRect:NSZeroRect
 			  operation:NSCompositeSourceOver
-			   fraction:1.0 ];
+			   fraction:1.0];
 	
 	if (isReady) {
-		if (TRADITIONAL_MAP)
+		if (TRADITIONAL_MAP) {
 			[self updateMap];
-		else
+		} else {
 			[self reloadMap];
+		}
 	}
 	
 	[self drawMask];
 }
 
-@synthesize bgColor;
 - (void)setBgColor:(NSColor *)colr
 {
 	bgColor = [colr copy];
 	[self setNeedsDisplay:YES];
 }
-
 
 - (BOOL)acceptsFirstResponder
 {
@@ -213,7 +209,6 @@
 	[self setNeedsDisplay:YES];
 	return YES;
 }
-
 
  - (void)resetCursorRects
 {
@@ -237,23 +232,21 @@
 {
 	int x,y;
 
-	if ( TRADITIONAL_MAP_TILE ) {
-		self.trMapImage = [ [NSImage alloc] initWithSize:NSMakeSize( TILE_SIZE_X*MAPSIZE_COLUMN,
-																TILE_SIZE_Y*MAPSIZE_ROW) ];
+	if (TRADITIONAL_MAP_TILE) {
+		self.trMapImage = [[NSImage alloc] initWithSize:NSMakeSize(TILE_SIZE_X*MAPSIZE_COLUMN,
+																   TILE_SIZE_Y*MAPSIZE_ROW)];
 	} else {
-		self.trMapImage = [ [NSImage alloc] initWithSize:NSMakeSize( NH3DMAPFONTSIZE*MAPSIZE_COLUMN,
-																NH3DMAPFONTSIZE*MAPSIZE_ROW) ];
+		self.trMapImage = [[NSImage alloc] initWithSize:NSMakeSize(NH3DMAPFONTSIZE*MAPSIZE_COLUMN,
+																   NH3DMAPFONTSIZE*MAPSIZE_ROW)];
 	}
 	
-	for ( x = MAP_MARGIN ; x < MAPSIZE_COLUMN-MAP_MARGIN ; x++ ) {
-		for ( y = MAP_MARGIN ; y < MAPSIZE_ROW-MAP_MARGIN ; y++ ) {
+	for (x = MAP_MARGIN; x < MAPSIZE_COLUMN-MAP_MARGIN; x++) {
+		for (y = MAP_MARGIN; y < MAPSIZE_ROW-MAP_MARGIN; y++) {
 			
 			[ self drawTraditionalMapAtX:x atY:y ];
-			
 		}
 	}
 }
-
 
 - (void)drawTraditionalMapAtX:(int)x atY:(int)y
 {
@@ -264,10 +257,10 @@
 		NSImage *tileImg = mapItem.tile ;
 		NSSize tileSize = tileImg.size ;
 		
-		if ( tileImg != nil ) {
-			[ trMapImage lockFocus ];
+		if (tileImg != nil) {
+			[trMapImage lockFocus];
 			
-			[ [NSColor clearColor] set ];
+			[[NSColor clearColor] set];
 			NSRectFill( NSMakeRect( bounds.origin.x+(x*TILE_SIZE_X),
 									(NSMaxY(bounds)-(y*TILE_SIZE_Y)),
 									(float)TILE_SIZE_X , (float)TILE_SIZE_Y ) );
@@ -301,24 +294,25 @@
 		attributes[NSForegroundColorAttributeName] = [ mapItem color ];
 		
 
-		
-		if ( fontsize > 12.0 ) {
+		if (fontsize > 12.0) {
 			//set shadow 
-			NSShadow *lshadow = [ [NSShadow alloc] init ];
+			NSShadow *lshadow = [[NSShadow alloc] init];
 			
-			lshadow.shadowOffset = NSMakeSize(0.8, 1.8) ;
+			lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
 			lshadow.shadowBlurRadius = drawMargin ;
 			
-			if ( [ mapItem special ] > 0 ) lshadow.shadowColor = [ mapItem color ] ;
-			else lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0] ;
+			if ([mapItem special] > 0) {
+				lshadow.shadowColor = [mapItem color];
+			} else {
+				lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
+			}
 			
 			attributes[NSShadowAttributeName] = lshadow;
 		}
 		
+		[trMapImage lockFocus];
 		
-		[ trMapImage lockFocus ];
-		
-		[ [NSColor clearColor] set ];
+		[[NSColor clearColor] set];
 		NSRectFill( NSMakeRect( bounds.origin.x+(x*fontsize),
 								(NSMaxY(bounds)-(y*fontsize)),
 								fontsize+drawMargin , fontsize+drawMargin) );
@@ -328,10 +322,7 @@
 												  fontsize , fontsize )
 					   withAttributes:attributes ];
 		
-						
-		[ trMapImage unlockFocus ];
-		
-		
+		[trMapImage unlockFocus];
 	}
 	
 	[_mapModel mapArrayAtX:x atY:y];
@@ -348,19 +339,18 @@
 		int localx = 0;
 		int localy = 0;
 		
-		if ( TRADITIONAL_MAP ) {
+		if (TRADITIONAL_MAP) {
+			CGFloat trCenterX,trCenterY,tsizeX,tsizeY,trColumn,trRow,trcpX,trcpY;
+			NSRect bounds = self.bounds;
 			
-			float trCenterX,trCenterY,tsizeX,tsizeY,trColumn,trRow,trcpX,trcpY;
-			NSRect bounds = self.bounds ;
-			
-			if ( needClear ) {
-				[ self lockFocusIfCanDraw ];
-				NSEraseRect( bounds );
-				[ mapBase drawInRect:bounds
-							fromRect:NSZeroRect
-						   operation:NSCompositeCopy
-							fraction:1.0 ];
-				[ self unlockFocus ];
+			if (needClear) {
+				[self lockFocusIfCanDraw];
+				NSEraseRect(bounds);
+				[mapBase drawInRect:bounds
+						   fromRect:NSZeroRect
+						  operation:NSCompositeCopy
+						   fraction:1.0];
+				[self unlockFocus];
 				needClear = NO;
 			}
 			
@@ -398,7 +388,7 @@
 							operation:NSCompositeSourceOver
 							 fraction:cursOpacity];
 			}
-			[ self unlockFocus ];
+			[self unlockFocus];
 		} else {
 			switch ( _mapModel.playerDirection ) {
 				case PL_DIRECTION_FORWARD:
@@ -462,8 +452,8 @@
 						localx++;
 						localy=0;
 					}
-					[ self drawMask ];
-					[ self enemyCheck ];
+					[self drawMask];
+					[self enemyCheck];
 					break;
 			}
 		}
@@ -485,15 +475,14 @@
 		//setColor and shadow for special-flag
 		attributes[NSForegroundColorAttributeName] = [[mapItemValue[x][y] color]  highlightWithLevel:0.2];
 		
-		if ( [ mapItemValue[x][y] special ] > 0 ) {
-			lshadow.shadowColor = [ mapItemValue[x][y] color ] ;
+		if ([mapItemValue[x][y] special] > 0 ) {
+			lshadow.shadowColor = [mapItemValue[x][y] color];
 		} else {
-			lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0] ;
+			lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 		}
 		
 		attributes[NSShadowAttributeName] = lshadow;
 		
-
 		// Replace Wall/OpenDoor charctor for Right,Left direction
 		switch ( _mapModel.playerDirection ) {
 			case PL_DIRECTION_RIGHT:
@@ -551,7 +540,7 @@
 		}
 
 		//Draw view
-		[ self lockFocusIfCanDraw ];
+		[self lockFocusIfCanDraw];
 		
 		if ( needClear ) {
 			NSEraseRect( bounds );
@@ -563,7 +552,7 @@
 			needClear = NO;
 		}
 		
-		[ [mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+		[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 															  (NSMaxY(bounds)-((y+1)*16.0)),
 															   16.0,16.0)
 										   options:NSStringDrawingUsesDeviceMetrics
@@ -581,10 +570,8 @@
 			viewCursX = x;
 			viewCursY = MAPVIEWSIZE_ROW-y-1;
 		}
-			
-		[ self unlockFocus ];
-	
-	
+		
+		[self unlockFocus];
 	}
 }
 
@@ -594,25 +581,25 @@
 		return;
 	
 	NSRect bounds = self.bounds ;
-	NSShadow *lshadow = [ [NSShadow alloc] init ];
-	NSMutableDictionary *attributes = [ [NSMutableDictionary alloc] init ];
+	NSShadow *lshadow = [[NSShadow alloc] init];
+	NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
 	int x,y;
 	
-	lshadow.shadowOffset = NSMakeSize(0.8, 1.8) ;
-	lshadow.shadowBlurRadius = 3.5 ;
+	lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
+	lshadow.shadowBlurRadius = 3.5;
 	
 	attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
 	
 	//Draw view
-	[ self lockFocusIfCanDraw ];
+	[self lockFocusIfCanDraw];
 	
-	if ( needClear ) {
+	if (needClear) {
 		NSEraseRect(bounds);
 		//[ mapBase dissolveToPoint:NSMakePoint(bounds.origin.x,bounds.origin.y) fraction:1.0 ];
-		[ mapBase drawInRect:bounds
-					fromRect:NSZeroRect
-				   operation:NSCompositeSourceOver
-					fraction:1.0 ];
+		[mapBase drawInRect:bounds
+				   fromRect:NSZeroRect
+				  operation:NSCompositeSourceOver
+				   fraction:1.0];
 		needClear = NO;
 	}
 				
@@ -630,7 +617,7 @@
 				attributes[NSShadowAttributeName] = lshadow;
 				
 				
-				[ [mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+				[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																	  (NSMaxY(bounds)-((y+1)*16.0)),
 																	  16.0,16.0)
 												   options:NSStringDrawingUsesDeviceMetrics
@@ -655,9 +642,8 @@
 	
 	//[ self drawMask ];
 	
-	[ self unlockFocus ];
+	[self unlockFocus];
 }
-
 
 - (void)setCursorOpacity:(CGFloat)opaq
 {
@@ -673,7 +659,7 @@
 	attributes_alt[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE - 2.0];
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 		
-	[ self lockFocusIfCanDraw ];
+	[self lockFocusIfCanDraw];
 	
 	if ( RESTRICTED_VIEW && !TRADITIONAL_MAP ) {
 		//[ mapRestrictedBezel compositeToPoint:NSZeroPoint operation:NSCompositeSourceOver ];
@@ -707,16 +693,15 @@
 		}
 	}
 	
-	[ self unlockFocus ];
+	[self unlockFocus];
 }
-
 
 - (void)enemyCheck
 {
 	int x,y =0;
 	enemyCatch = 0;
 	
-	if ( !isReady || TRADITIONAL_MAP ) {
+	if (!isReady || TRADITIONAL_MAP) {
 		return;
 	} else {
 	
@@ -742,11 +727,7 @@
 			[ _mapModel setEnemyWarnBase:10 ];
 		}
 	}
-}	
-
-
-
-
+}
 
 //-----------------------------------------------------
 //
@@ -756,8 +737,7 @@
 
 - (void)setKeyBuffer:(int)value
 {	 
-	switch ( modKeyFlag ) {
-		
+	switch (modKeyFlag) {
 		case MODKEY_SHIFT:
 			keyBuffer = ( islower(value) ) ? toupper(value) : value;
 			//NSLog(@"%c",keyBuffer);
@@ -776,8 +756,6 @@
 	modKeyFlag = MODKEY_NONE;
 }
 
-
-
 - (int)checkExtendCmdList:(const char*)excmd
 {
 	int i,ret = -1;
@@ -790,13 +768,12 @@
 	return ret;
 }
 
-
 - (IBAction)controllerActions:(id)sender
 {
 	keyBuffer = 0;
 	int lkey = 0;
 	
-	if ([ sender tag ] < 50) {
+	if ([sender tag] < 50) {
 		switch (_mapModel.playerDirection) {
 			case PL_DIRECTION_FORWARD:
 				switch ( [ sender tag ] ) {
@@ -989,10 +966,9 @@
 	
 	self.keyBuffer = lkey;
 	lastKeyBuffer = keyBuffer;
-	[ self setNeedClear:YES ];
-	[ self setKeyUpdated:YES ];
+	[self setNeedClear:YES];
+	[self setKeyUpdated:YES];
 }
-
 
 - (void)keyDown:(NSEvent*)event
 {
@@ -1044,7 +1020,6 @@
 
 - (IBAction)actionMenuActions:(id)sender
 {
-	 
 	keyBuffer = 0;
 	switch ([sender tag]) {
 		case 0: keyBuffer = lastKeyBuffer;	/* Again */
@@ -1206,7 +1181,6 @@
 	self.keyUpdated = YES;
 }
 
-
 - (IBAction)setRestrictedView:(id)sender
 {	
 	[[NSUserDefaults standardUserDefaults] setBool:!((NSCell*)sender).state forKey:NH3DUseSightRestrictionKey];
@@ -1223,7 +1197,6 @@
 																		forKey:NH3DUseTileInLevelMapKey];
 }
 
-//TODO: re-do this to work with OS X's run-loop!
 - (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
 {
 	char ch[3] = {0};
@@ -1539,130 +1512,128 @@
 				//NSEvent
 			}
 		}
-		
 	} // end while (keyUpdated == NO)
-}	
-
+}
 
 - (IBAction)showGlobalMap:(id)sender
 {
 	@autoreleasepool {
-	int x,y,cusx,cusy;
-	NSRect mapwindowRect = NSMakeRect(0,0,_mapLpanel.maxSize.width,_mapLpanel.maxSize.height);
-	NSSize drawSize;
-	NSSize imgSize;
-	
-	_mapLpanel.backgroundColor = [NSColor clearColor];
-	_mapLpanel.opaque = NO;
-	
-	[_mapLpanel setFrame:mapwindowRect display:NO];
-	
-	if (TILED_LEVELMAP) {
-		mapImage = [[NSImage alloc] initWithSize:NSMakeSize(TILE_SIZE_X * MAPSIZE_COLUMN , TILE_SIZE_Y * MAPSIZE_ROW)];
-	} else {
-		mapImage = [[NSImage alloc] initWithSize:NSMakeSize(NH3DMAPFONTSIZE * MAPSIZE_COLUMN , NH3DMAPFONTSIZE * MAPSIZE_ROW)];
-	}
-	
-	imgSize = mapImage.size;
-	_mapLview.frame = NSMakeRect(0.0, 0.0, imgSize.width, imgSize.height);
-	[mapImage lockFocus];
-	
-	for ( x=0 ; x<MAPSIZE_COLUMN ; x++ ) {
-		for ( y=0 ; y<MAPSIZE_ROW ; y++ ) {
-
-			NH3DMapItem *mapcell = [_mapModel mapArrayAtX:x atY:y];
-			
-			if ( TILED_LEVELMAP ) { // Draw Tiled Map.
-				NSImage *tileImg = mapcell.tile ;
-				drawSize = tileImg.size ;
+		int x,y,cusx,cusy;
+		NSRect mapwindowRect = NSMakeRect(0,0,_mapLpanel.maxSize.width,_mapLpanel.maxSize.height);
+		NSSize drawSize;
+		NSSize imgSize;
+		
+		_mapLpanel.backgroundColor = [NSColor clearColor];
+		_mapLpanel.opaque = NO;
+		
+		[_mapLpanel setFrame:mapwindowRect display:NO];
+		
+		if (TILED_LEVELMAP) {
+			mapImage = [[NSImage alloc] initWithSize:NSMakeSize(TILE_SIZE_X * MAPSIZE_COLUMN , TILE_SIZE_Y * MAPSIZE_ROW)];
+		} else {
+			mapImage = [[NSImage alloc] initWithSize:NSMakeSize(NH3DMAPFONTSIZE * MAPSIZE_COLUMN , NH3DMAPFONTSIZE * MAPSIZE_ROW)];
+		}
+		
+		imgSize = mapImage.size;
+		_mapLview.frame = NSMakeRect(0.0, 0.0, imgSize.width, imgSize.height);
+		[mapImage lockFocus];
+		
+		for (x = 0; x < MAPSIZE_COLUMN; x++ ) {
+			for (y = 0; y < MAPSIZE_ROW; y++ ) {
 				
-				/*
-				[tileImg dissolveToPoint:NSMakePoint(drawSize.width * (float)x,
-												   imgSize.height - (drawSize.height * (float)y) )
-									    fraction:1.0 ];
-				 */
-				[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-												 imgSize.height - (drawSize.height * (CGFloat)y))
-							fromRect:NSZeroRect
-						   operation:NSCompositeSourceOver
-							fraction:1.0];
-			} else { // Draw ASCII Map.
-				NSShadow *lshadow = [[NSShadow alloc] init];
-				NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+				NH3DMapItem *mapcell = [_mapModel mapArrayAtX:x atY:y];
 				
-				attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE];
-				
-				
-				if ([[mapcell symbol] isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
-					mapcell.cSymbol = '|';
-					mapcell.hasAlternateSymbol = NO;
-				} else if ( [ [mapcell symbol] isEqualToString:@"|" ] && mapcell.hasAlternateSymbol ) {
-					mapcell.cSymbol = '-';
-					mapcell.hasAlternateSymbol = NO;
+				if (TILED_LEVELMAP) { // Draw Tiled Map.
+					NSImage *tileImg = mapcell.tile ;
+					drawSize = tileImg.size ;
+					
+					/*
+					 [tileImg dissolveToPoint:NSMakePoint(drawSize.width * (float)x,
+					 imgSize.height - (drawSize.height * (float)y) )
+					 fraction:1.0 ];
+					 */
+					[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+													 imgSize.height - (drawSize.height * (CGFloat)y))
+								fromRect:NSZeroRect
+							   operation:NSCompositeSourceOver
+								fraction:1.0];
+				} else { // Draw ASCII Map.
+					NSShadow *lshadow = [[NSShadow alloc] init];
+					NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+					
+					attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE];
+					
+					
+					if ([[mapcell symbol] isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
+						mapcell.cSymbol = '|';
+						mapcell.hasAlternateSymbol = NO;
+					} else if ( [ [mapcell symbol] isEqualToString:@"|" ] && mapcell.hasAlternateSymbol ) {
+						mapcell.cSymbol = '-';
+						mapcell.hasAlternateSymbol = NO;
+					}
+					
+					attributes[NSForegroundColorAttributeName] = [[mapcell color] highlightWithLevel:0.2];
+					
+					
+					drawSize = [[mapcell symbol] sizeWithAttributes:attributes];
+					
+					lshadow.shadowOffset = NSMakeSize(0.8, 0.8) ;
+					lshadow.shadowBlurRadius = 5.5 ;
+					lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.5] ;
+					
+					attributes[NSShadowAttributeName] = lshadow;
+					
+					
+					[[mapcell symbol] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+															  imgSize.height - (drawSize.height * (CGFloat)y))
+							    withAttributes:attributes];
+					
+					[attributes removeAllObjects];
 				}
 				
-				attributes[NSForegroundColorAttributeName] = [[mapcell color] highlightWithLevel:0.2];
-
-				
-				drawSize = [[mapcell symbol] sizeWithAttributes:attributes];
-				
-				lshadow.shadowOffset = NSMakeSize(0.8, 0.8) ;
-				lshadow.shadowBlurRadius = 5.5 ;
-				lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:0.5] ;
-				
-				attributes[NSShadowAttributeName] = lshadow;
-				
-				
-				[[mapcell symbol] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-														 imgSize.height - (drawSize.height * (CGFloat)y))
-							    withAttributes:attributes];
-				
-				[attributes removeAllObjects];
-			}
-			
-			if (mapcell.hasCursor) { // Check cursor postion and drawing.
-				NSShadow* sd = [[NSShadow alloc] init];
-				NSSize cursOrigin = posCursor.size;
-				cusx = x;
-				cusy = y;
-				[NSGraphicsContext saveGraphicsState];
-				sd.shadowOffset = NSMakeSize( 2, -2 ) ; 
-				sd.shadowBlurRadius = 3 ;
-				sd.shadowColor = [NSColor blackColor];
-				[ sd set ];
-				posCursor.size = drawSize ;
-				[posCursor drawAtPoint:NSMakePoint(drawSize.width * (float)x,
-												   imgSize.height - (drawSize.height * (float)y))
-							  fromRect:NSZeroRect
-							 operation:NSCompositeSourceOver
-							  fraction:1.0];
-				/*
-				[ posCursor dissolveToPoint:NSMakePoint(drawSize.width * (float)x,
+				if (mapcell.hasCursor) { // Check cursor postion and drawing.
+					NSShadow* sd = [[NSShadow alloc] init];
+					NSSize cursOrigin = posCursor.size;
+					cusx = x;
+					cusy = y;
+					[NSGraphicsContext saveGraphicsState];
+					sd.shadowOffset = NSMakeSize( 2, -2 ) ;
+					sd.shadowBlurRadius = 3 ;
+					sd.shadowColor = [NSColor blackColor];
+					[ sd set ];
+					posCursor.size = drawSize ;
+					[posCursor drawAtPoint:NSMakePoint(drawSize.width * (float)x,
 													   imgSize.height - (drawSize.height * (float)y))
-								   fraction:1.0 ];*/
-				posCursor.size = cursOrigin;
-				[NSGraphicsContext restoreGraphicsState];
+								  fromRect:NSZeroRect
+								 operation:NSCompositeSourceOver
+								  fraction:1.0];
+					/*
+					 [ posCursor dissolveToPoint:NSMakePoint(drawSize.width * (float)x,
+					 imgSize.height - (drawSize.height * (float)y))
+					 fraction:1.0 ];*/
+					posCursor.size = cursOrigin;
+					[NSGraphicsContext restoreGraphicsState];
+					
+				}
 				
-			}
-			
-		} // end for y
-	} // end for x
-	
-	// draw direction symbol
-	[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
-															   imgSize.height - (drawSize.height * (CGFloat)cusy))
-										  fromRect:NSZeroRect
-										 operation:NSCompositeSourceOver
-										  fraction:0.5];
-	
-	[mapImage unlockFocus];
-	//[ putImg setCacheMode:NSImageCacheNever ];
-	
-	_mapLview.image = mapImage;
-	
-	// Scroll to Cursor Postion (shift 7 tiles added to Right)
-	[_mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
-									   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)))];
+			} // end for y
+		} // end for x
+		
+		// draw direction symbol
+		[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
+																   imgSize.height - (drawSize.height * (CGFloat)cusy))
+											  fromRect:NSZeroRect
+											 operation:NSCompositeSourceOver
+											  fraction:0.5];
+		
+		[mapImage unlockFocus];
+		//[ putImg setCacheMode:NSImageCacheNever ];
+		
+		_mapLview.image = mapImage;
+		
+		// Scroll to Cursor Postion (shift 7 tiles added to Right)
+		[_mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
+										   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)))];
 	}
 	
 	// Sheet is Up.
@@ -1675,7 +1646,6 @@
 	// Sheet is Over.
 	[_window endSheet:_mapLpanel];
 }
-
 
 - (IBAction)closeModalDialog:(id)sender
 {

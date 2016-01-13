@@ -37,17 +37,15 @@ extern NH3DTileCache *_NH3DTileCache;
 		) {
 		// draw type is corrwall object (10 = stone wall type / 0 = black wall type)
 		modelDrawingType = 0 ;
-	} else if ( player ) {
+	} else if (player) {
 		// draw type is playerpositon
 		modelDrawingType = 1;
-		
 	} else {
-		
 		switch (glyph) {
 			case S_stone + GLYPH_CMAP_OFF:
-				modelDrawingType = (    IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ )
-									|| IS_STWALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ )
-									|| IS_DOOR( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) ) ? 0 : 1 ;
+				modelDrawingType = (IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
+									|| IS_STWALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
+									|| IS_DOOR(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)) ? 0 : 1 ;
 				break;
 			case S_room + GLYPH_CMAP_OFF:
 			case S_corr + GLYPH_CMAP_OFF:
@@ -183,12 +181,10 @@ extern NH3DTileCache *_NH3DTileCache;
 	return self;
 }
 
-
 - (NSString *)symbol
 {
 	return [NSString stringWithFormat:@"%c", symbol];
 }
-
 
 - (NSColor *)color
 {
@@ -196,90 +192,89 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	switch (color) {
 		case 0:
-			aColor = [ NSColor darkGrayColor ];
+			aColor = [NSColor darkGrayColor];
 			break;
 		case 1:
-			aColor = [ NSColor redColor ];
+			aColor = [NSColor redColor];
 			break;
 		case 2:
-			aColor = [ NSColor greenColor ];
+			aColor = [NSColor greenColor];
 			break;
 		case 3:
-			aColor = [ NSColor brownColor ];
+			aColor = [NSColor brownColor];
 			break;
 		case 4:
-			aColor = [ NSColor blueColor ];
+			aColor = [NSColor blueColor];
 			break;
 		case 5:
-			aColor = [ NSColor magentaColor ];
+			aColor = [NSColor magentaColor];
 			break;
 		case 6:
-			aColor = [ NSColor cyanColor ];
+			aColor = [NSColor cyanColor];
 			break;
 		case 7:
-			aColor = [ NSColor grayColor ];
+			aColor = [NSColor grayColor];
 			break;
 		case 8:
-			aColor = [ [NSColor grayColor] highlightWithLevel:0.5 ];
+			aColor = [[NSColor grayColor] highlightWithLevel:0.5];
 			break;
 		case 9:
-			aColor = [ NSColor orangeColor ];
+			aColor = [NSColor orangeColor];
 			break;
 		case 10:
-			aColor = [ [NSColor greenColor] highlightWithLevel:0.5 ];
+			aColor = [[NSColor greenColor] highlightWithLevel:0.5];
 			break;
 		case 11:
 			aColor = [ NSColor yellowColor ];
 			break;
 		case 12:
-			aColor = [ [NSColor blueColor] highlightWithLevel:0.5 ];
+			aColor = [[NSColor blueColor] highlightWithLevel:0.5];
 			break;
 		case 13:
-			aColor = [ [NSColor magentaColor] highlightWithLevel:0.5 ];
+			aColor = [[NSColor magentaColor] highlightWithLevel:0.5];
 			break;
 		case 14:
-			aColor = [ [NSColor cyanColor] highlightWithLevel:0.5 ];
+			aColor = [[NSColor cyanColor] highlightWithLevel:0.5];
 			break;
 		case 15:
-			aColor = [ NSColor whiteColor ];
+			aColor = [NSColor whiteColor];
 			break;
 		default:
-			aColor = [ NSColor windowBackgroundColor ];
+			aColor = [NSColor windowBackgroundColor];
+			break;
 	}
 
 	return aColor;
 }
 
-
 - (void)setPlayer:(BOOL)flag
 {
-	[ lock lock ];
+	[lock lock];
 	player = flag;
-	[ self checkDrawingType ];
-	[ lock unlock ];
+	[self checkDrawingType];
+	[lock unlock];
 }
-
 
 - (void)setCSymbol:(char)chr
 {
-	[ lock lock ];
+	[lock lock];
 	symbol = chr;
-	[ self checkDrawingType ];
-	[ lock unlock ];
+	[self checkDrawingType];
+	[lock unlock];
 }
 
 - (void)setHasAlternateSymbol:(BOOL)flag
 {
-	[ lock lock ];
+	[lock lock];
 	hasAlternateSymbol = flag;
-	[ lock unlock ];
+	[lock unlock];
 }
 
 - (void)setHasCursor:(BOOL)flag
 {
-	[ lock lock ];
+	[lock lock];
 	hasCursor = flag;
-	[ lock unlock ];
+	[lock unlock];
 }
 
 - (BOOL)hasBackground

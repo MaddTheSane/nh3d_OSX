@@ -55,6 +55,7 @@ static const NH3DMaterial defaultMat = {
 @synthesize particleLife;
 @synthesize particleSlowdown;
 @synthesize particleGravity;
+@synthesize particleSize;
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
@@ -467,7 +468,6 @@ static const NH3DMaterial defaultMat = {
 }
 
 
-
 - (float)vectScalarProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2
 {
     return (p_vector1->x*p_vector2->x + p_vector1->y*p_vector2->y + p_vector1->z*p_vector2->z);
@@ -549,14 +549,14 @@ static const NH3DMaterial defaultMat = {
 
 
 
-- ( BOOL )queryExtensionSupported:( char* )szTargetExtension
+- (BOOL)queryExtensionSupported:(char*)szTargetExtension
 {
 	const unsigned char *pszExtensions = NULL;
     const unsigned char *pszStart;
 	unsigned char *pszWhere, *pszTerminator;
 	
 	// Extension names should not have spaces
-	pszWhere = (unsigned char *) strchr( szTargetExtension, ' ' );
+	pszWhere = (unsigned char *)strchr(szTargetExtension, ' ');
 	if( pszWhere || *szTargetExtension == '\0' )
 		return NO;
 	
@@ -579,9 +579,7 @@ static const NH3DMaterial defaultMat = {
 	return NO;
 }
 
-
-
-- ( void )initParams
+- (void)initParams
 {
 	verts_qty = 0;							
 	face_qty = 0;
@@ -611,12 +609,9 @@ static const NH3DMaterial defaultMat = {
 	
 	textures[0] = 0;
 	numberOfTextures = 0;
-}	
+}
 
-
-
-
-- (instancetype) init // emitter init
+- (instancetype)init
 {
 	if (self = [super init]) {
 		
@@ -777,7 +772,6 @@ static const NH3DMaterial defaultMat = {
 
 @synthesize modelName;
 
-
 - (int)verts_qty
 {
 	return verts_qty;
@@ -788,12 +782,10 @@ static const NH3DMaterial defaultMat = {
 	return face_qty;
 }
 
-
 - (int)normal_qty
 {
 	return normal_qty;
 }
-
 
 - (int)texcords_qty
 {
@@ -806,12 +798,10 @@ static const NH3DMaterial defaultMat = {
 	return verts;
 }
 
-
 - (NH3DVertexType *)norms
 {
 	return norms;
 }
-
 
 - (NH3DFaceType *)faces
 {
@@ -836,7 +826,6 @@ static const NH3DMaterial defaultMat = {
 	return texcoords;
 }
 
-
 - (GLuint)texture
 {
 	if (texture > numberOfTextures) {
@@ -844,7 +833,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	return textures[texture];
 }
-
 
 - (void)setTexture:(int)tex_id
 {
@@ -875,76 +863,76 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity
 {
-	
 	int i;
 	
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	
 	particleGravity.x = x_gravity;
 	particleGravity.y = y_gravity;
 	particleGravity.z = z_gravity;
 	
-	for( i = 0; i < MAX_PARTICLES; i++ )
-	{
-		particles[ i ].xg = particleGravity.x;
-		particles[ i ].yg = particleGravity.y;
-		particles[ i ].zg = particleGravity.z;
+	for (i = 0; i < MAX_PARTICLES; i++) {
+		particles[i].xg = particleGravity.x;
+		particles[i].yg = particleGravity.y;
+		particles[i].zg = particleGravity.z;
 	}
 	
 }
 
-
 - (void)setParticleType:(NH3DParticleType)type
 {
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	
 	particleType = type;
 }
 
-
 - (int)particleColor
 {
-	if (modelType != NH3DModelTypeEmitter) return 0;
+	if (modelType != NH3DModelTypeEmitter)
+		return 0;
 	
 	return particleColor;
 }
 
-
 - (void)setParticleColor:(int)col
 {
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	
 	particleColor = col;
 }
 
-
 - (void)setParticleSpeedX:(float)x Y:(float)y
 {
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	
 	xspeed = x;
 	yspeed = y;
 }
 
-
 - (void)setParticleSlowdown:(float)value
 {
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	slowdown = value;
 }
 
 - (void)setParticleLife:(float)value
 {
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	particleLife = value;
 }
 
 - (void)setParticleSize:(float)value
 {
-	if (modelType != NH3DModelTypeEmitter) return;
+	if (modelType != NH3DModelTypeEmitter)
+		return;
 	particleSize = value;
 }
-
 
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz
 {
@@ -975,7 +963,6 @@ static const NH3DMaterial defaultMat = {
 	self.modelRotate = toSet;
 }
 
-
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz
 {
 	NH3DVertexType toSet;
@@ -1004,36 +991,36 @@ static const NH3DMaterial defaultMat = {
 		
 		case NH3DModelTypeObject:
 			modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName withTexture:NO];
-//			if (modelobj == nil) {
-//				modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName withTexture:NO];
-//			}
+			//if (modelobj == nil) {
+			//	modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName withTexture:NO];
+			//}
 			
 			break;
 		case NH3DModelTypeTexturedObject:
 			modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName withTexture:YES];
-//			if (modelobj == nil) {
-//				modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName withTexture:YES];
-//			}
+			//if (modelobj == nil) {
+			//	modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName withTexture:YES];
+			//}
 				
 			break;
 		case NH3DModelTypeEmitter:
 			modelobj = [[NH3DModelObject alloc] init];
-			
 			break;
-		default :
+			
+		default:
 			NSLog(@"NH3DModelObject:Can't add Child object '%@'. There is not an appointed type '%d'.",childName,type);
 			break;
 	}
 	
-	if ( modelobj != nil ) {
-		if ( childObjects == nil ) {
-			childObjects = [ [NSMutableArray alloc] init ];
+	if (modelobj != nil) {
+		if (childObjects == nil) {
+			childObjects = [[NSMutableArray alloc] init];
 		}
 		
-		[ modelobj setIsChild:YES ];
-		[ childObjects addObject:modelobj ];
+		[modelobj setIsChild:YES];
+		[childObjects addObject:modelobj];
 		hasChildObject = YES;
-		numberOfChildObjects = childObjects.count ;
+		numberOfChildObjects = childObjects.count;
 	} else {
 		NSLog(@"NH3DModelObject:Can't add Child object '%@'. please check filename or location.",childName);
 	}
@@ -1047,39 +1034,39 @@ static const NH3DMaterial defaultMat = {
 	int i;
 	float px , py, pz;
 	
-	if ( active ) {
+	if (active) {
 		
 		GLfloat blendcol[4] = { 1.0, 1.0, 1.0, 0.33 };
 		
-		if ( !isChild ) glPushMatrix();
+		if (!isChild) {
+			glPushMatrix();
+		}
 		
-		glTranslatef( modelPivot.x, modelPivot.y, modelPivot.z);
-		glRotatef(modelRotate.x , 1, 0, 0);
-		glRotatef(modelRotate.y , 0, 1, 0);
-		glRotatef(modelRotate.z , 0, 0, 1);
-		glScalef( modelScale.x ,modelScale.y ,modelScale.z );
+		glTranslatef(modelPivot.x, modelPivot.y, modelPivot.z);
+		glRotatef(modelRotate.x, 1, 0, 0);
+		glRotatef(modelRotate.y, 0, 1, 0);
+		glRotatef(modelRotate.z, 0, 0, 1);
+		glScalef(modelScale.x, modelScale.y, modelScale.z);
 		
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		
-		glMaterialfv(GL_FRONT , GL_AMBIENT , currentMaterial.ambient );
-		glMaterialfv(GL_FRONT , GL_DIFFUSE , currentMaterial.diffuse );
-		glMaterialfv(GL_FRONT , GL_SPECULAR , currentMaterial.specular );
-		glMaterialf(GL_FRONT , GL_SHININESS , currentMaterial.shininess );
-		glMaterialfv(GL_FRONT , GL_EMISSION , currentMaterial.emission );
-				
+		glMaterialfv(GL_FRONT, GL_AMBIENT, currentMaterial.ambient );
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, currentMaterial.diffuse );
+		glMaterialfv(GL_FRONT, GL_SPECULAR, currentMaterial.specular );
+		glMaterialf(GL_FRONT, GL_SHININESS, currentMaterial.shininess );
+		glMaterialfv(GL_FRONT, GL_EMISSION, currentMaterial.emission );
 		
-		switch ( modelType ) {
-			
+		switch (modelType) {
 			case NH3DModelTypeObject:
 				
 				glActiveTexture(GL_TEXTURE0);
 				glDisable(GL_TEXTURE_2D);
 				
-				if ( useEnvironment ) {
+				if (useEnvironment) {
 					
 					glActiveTexture(GL_TEXTURE1);
 					
-					glBindTexture( GL_TEXTURE_2D, texture );
+					glBindTexture(GL_TEXTURE_2D, texture);
 					
 					glEnable(GL_TEXTURE_2D);
 					glEnable(GL_TEXTURE_GEN_S);
@@ -1096,27 +1083,27 @@ static const NH3DMaterial defaultMat = {
 				
 				glBegin(GL_TRIANGLES);
 				
-				for ( i= 0 ;i < face_qty ;i++ ) {
+				for (i = 0; i < face_qty; i++) {
 					
-					glNormal3f( norms[ faces[i].a ].x ,
-								norms[ faces[i].a ].y ,
-								norms[ faces[i].a ].z );
+					glNormal3f(norms[faces[i].a].x,
+							   norms[faces[i].a].y,
+							   norms[faces[i].a].z);
 					
-					glVertex3f( verts[ faces[i].a ].x + modelShift.x,
-								verts[ faces[i].a ].y + modelShift.y,
-								verts[ faces[i].a ].z + modelShift.z);
+					glVertex3f(verts[faces[i].a].x + modelShift.x,
+							   verts[faces[i].a].y + modelShift.y,
+							   verts[faces[i].a].z + modelShift.z);
 					//--------------------------------------------------------------------------------------------- 1st vertex is over
-					glNormal3f( norms[ faces[i].b ].x,
-								norms[ faces[i].b ].y,
-								norms[ faces[i].b ].z);
+					glNormal3f(norms[faces[i].b].x,
+								norms[faces[i].b].y,
+								norms[faces[i].b].z);
 					
-					glVertex3f( verts[ faces[i].b ].x + modelShift.x,
-								verts[ faces[i].b ].y + modelShift.y,
-								verts[ faces[i].b ].z + modelShift.z);
+					glVertex3f(verts[faces[i].b].x + modelShift.x,
+							   verts[faces[i].b].y + modelShift.y,
+							   verts[faces[i].b].z + modelShift.z);
 					//--------------------------------------------------------------------------------------------- 2nd vertex is over
-					glNormal3f( norms[ faces[i].c ].x,
-								norms[ faces[i].c ].y,
-								norms[ faces[i].c ].z);
+					glNormal3f(norms[faces[i].c].x,
+							   norms[faces[i].c].y,
+							   norms[faces[i].c].z);
 					
 					glVertex3f( verts[ faces[i].c ].x + modelShift.x,
 								verts[ faces[i].c ].y + modelShift.y,
@@ -1126,7 +1113,7 @@ static const NH3DMaterial defaultMat = {
 				}
 				glEnd();
 				
-				if ( useEnvironment ) {
+				if (useEnvironment) {
 					glDisable(GL_TEXTURE_GEN_S);
 					glDisable(GL_TEXTURE_GEN_T);
 					glDisable(GL_TEXTURE_2D);
@@ -1134,53 +1121,50 @@ static const NH3DMaterial defaultMat = {
 				
 				glActiveTexture(GL_TEXTURE0);
 				glEnable(GL_TEXTURE_2D);
-				
 				break;
 				
 			case NH3DModelTypeTexturedObject:
-				
 				glActiveTexture(GL_TEXTURE0);
 				glEnable(GL_TEXTURE_2D);
-				glBindTexture( GL_TEXTURE_2D, textures[texture] );
-				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+				glBindTexture(GL_TEXTURE_2D, textures[texture]);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				
 				glBegin(GL_TRIANGLES);
 				
-				for ( i= 0 ;i < face_qty ;i++ ) {
+				for (i = 0; i < face_qty; i++) {
+					glNormal3f(norms[faces[i].a].x,
+							   norms[faces[i].a].y,
+							   norms[faces[i].a].z);
 					
-					glNormal3f( norms[ faces[i].a ].x ,
-								norms[ faces[i].a ].y ,
-								norms[ faces[i].a ].z );
+					glTexCoord2f(texcoords[faces[i].a].s,
+								 texcoords[faces[i].a].t);
 					
-					glTexCoord2f( texcoords[ faces[i].a ].s,
-								  texcoords[ faces[i].a ].t);
-					
-					glVertex3f( verts[ faces[i].a ].x + modelShift.x,
-								verts[ faces[i].a ].y + modelShift.y,
-								verts[ faces[i].a ].z + modelShift.z);
+					glVertex3f(verts[faces[i].a].x + modelShift.x,
+							   verts[faces[i].a].y + modelShift.y,
+							   verts[faces[i].a].z + modelShift.z);
 					//--------------------------------------------------------------------------------------------- 1st vertex is over
-					glNormal3f( norms[ faces[i].b ].x,
-								norms[ faces[i].b ].y,
-								norms[ faces[i].b ].z);
+					glNormal3f(norms[faces[i].b].x,
+							   norms[faces[i].b].y,
+							   norms[faces[i].b].z);
 					
-					glTexCoord2f( texcoords[ faces[i].b ].s,
-								  texcoords[ faces[i].b ].t);
+					glTexCoord2f(texcoords[faces[i].b].s,
+								 texcoords[faces[i].b].t);
 					
 					
 					glVertex3f( verts[ faces[i].b ].x + modelShift.x,
 								verts[ faces[i].b ].y + modelShift.y,
 								verts[ faces[i].b ].z + modelShift.z);
 					//--------------------------------------------------------------------------------------------- 2nd vertex is over
-					glNormal3f( norms[ faces[i].c ].x,
+					glNormal3f(norms[ faces[i].c ].x,
 								norms[ faces[i].c ].y,
 								norms[ faces[i].c ].z);
 					
-					glTexCoord2f( texcoords[ faces[i].c ].s,
-								  texcoords[ faces[i].c ].t);
+					glTexCoord2f(texcoords[faces[i].c].s,
+								 texcoords[faces[i].c].t);
 					
-					glVertex3f( verts[ faces[i].c ].x + modelShift.x,
-								verts[ faces[i].c ].y + modelShift.y,
-								verts[ faces[i].c ].z + modelShift.z);
+					glVertex3f(verts[faces[i].c].x + modelShift.x,
+							   verts[faces[i].c].y + modelShift.y,
+							   verts[faces[i].c].z + modelShift.z);
 					//--------------------------------------------------------------------------------------------- 3rd vertex is over		
 					//--------------------------------------------------------------------------------------------- draw is over
 					
@@ -1207,7 +1191,7 @@ static const NH3DMaterial defaultMat = {
 						pz = particles[ i ].z; 
 						float pSize;
 						
-						switch ( particleType ) {
+						switch (particleType) {
 							
 							case NH3DParticleTypePoints :
 								

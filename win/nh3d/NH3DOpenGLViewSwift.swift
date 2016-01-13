@@ -550,7 +550,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		for effect in effectArray {
-			effect.setParticleSize(8.5)
+			effect.particleSize = 8.5
 			effect.particleType = .Points
 			effect.particleColor = CLR_RED
 			effect.setParticleSpeedX(1.0, y: -1.0)
@@ -1773,7 +1773,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.childObjectAtLast?.childObjectAtLast?.setParticleSpeedX(0.0, y: 0.1)
 				model?.childObjectAtLast?.childObjectAtLast?.particleSlowdown = 6.0
 				model?.childObjectAtLast?.childObjectAtLast?.particleLife = 0.30
-				model?.childObjectAtLast?.childObjectAtLast?.setParticleSize(10.0)
+				model?.childObjectAtLast?.childObjectAtLast?.particleSize = 10.0
 			}
 		}
 		modelDictionary[S_vwall + GLYPH_CMAP_OFF] = model;
@@ -1795,7 +1795,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.childObjectAtLast?.childObjectAtLast?.setParticleSpeedX(0.0, y: 0.1)
 				model?.childObjectAtLast?.childObjectAtLast?.particleSlowdown = 6.0
 				model?.childObjectAtLast?.childObjectAtLast?.particleLife = 0.30
-				model?.childObjectAtLast?.childObjectAtLast?.setParticleSize(10.0)
+				model?.childObjectAtLast?.childObjectAtLast?.particleSize = 10.0
 			}
 			model?.childObjectAtLast?.modelRotate = NH3DVertexType(x: 0.0, y: -90.0, z: 0.0)
 		}
@@ -1839,7 +1839,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		magicItem.setParticleSpeedX(1, y: 1)
 		magicItem.particleSlowdown = 3.8
 		magicItem.particleLife = 0.4
-		magicItem.setParticleSize(20)
+		magicItem.particleSize = 20
 	}
 	
 	private func setParamsForMagicExplosion(magicItem: NH3DModelObject, color: Int32) {
@@ -1849,7 +1849,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		magicItem.setParticleSpeedX(1, y: 15)
 		magicItem.particleSlowdown = 8.8
 		magicItem.particleLife = 0.4
-		magicItem.setParticleSize(35)
+		magicItem.particleSize = 35
 	}
 	
 	//MARK: - Load model methods. Used as closures
@@ -2228,7 +2228,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1, y: 1)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
@@ -2243,7 +2243,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.childObjectAtLast?.setParticleSpeedX(1.5, y:2.00)
 			ret?.childObjectAtLast?.childObjectAtLast?.particleSlowdown = 1.8
 			ret?.childObjectAtLast?.childObjectAtLast?.particleLife = 0.5
-			ret?.childObjectAtLast?.childObjectAtLast?.setParticleSize(6.0)
+			ret?.childObjectAtLast?.childObjectAtLast?.particleSize = 6.0
 			
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2253,7 +2253,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		default:
 			ret = checkLoadedModels(at: PM_HUMAN,
@@ -2294,7 +2294,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 		} else {
 			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "and", textured: false)
 			if let ret = ret where !ret.hasChildObject {
@@ -2305,7 +2305,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				ret.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
 				ret.childObjectAtLast?.particleSlowdown = 8.8
 				ret.childObjectAtLast?.particleLife = 0.24
-				ret.childObjectAtLast?.setParticleSize(8.0)
+				ret.childObjectAtLast?.particleSize = 8.0
 				ret.addChildObject("kingset", type: .TexturedObject)
 				ret.childObjectAtLast?.setPivotX(0.0, atY:0.52, atZ:0.0)
 				ret.childObjectAtLast?.setModelRotateX(0.0, rotateY:0.7, rotateZ:0.0)
@@ -2329,7 +2329,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
 			ret.childObjectAtLast?.particleSlowdown = 8.8
 			ret.childObjectAtLast?.particleLife = 0.24
-			ret.childObjectAtLast?.setParticleSize(15.0)
+			ret.childObjectAtLast?.particleSize = 15.0
 			ret.addChildObject("emitter", type: .Emitter)
 			ret.childObjectAtLast?.particleType = .Aura
 			ret.childObjectAtLast?.particleColor = CLR_BRIGHT_MAGENTA
@@ -2337,7 +2337,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret.childObjectAtLast?.particleSlowdown = 8.8
 			ret.childObjectAtLast?.particleLife = 0.24
-			ret.childObjectAtLast?.setParticleSize(8.0)
+			ret.childObjectAtLast?.particleSize = 8.0
 		}
 		
 		return ret;
@@ -2384,7 +2384,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
@@ -2397,7 +2397,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "and", withTexture: true)
@@ -2408,7 +2408,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_THOTH_AMON + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
@@ -2419,7 +2419,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
@@ -2430,7 +2430,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_CYCLOPS + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
@@ -2441,7 +2441,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_IXOTH + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
@@ -2452,7 +2452,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_MASTER_KAEN + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
@@ -2463,7 +2463,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_NALZOK + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "and", withTexture: false)
@@ -2474,7 +2474,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_SCORPIUS + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "lowerS", withTexture: false)
@@ -2485,7 +2485,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF, PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
@@ -2496,7 +2496,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y:1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_LORD_SURTUR + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
@@ -2511,7 +2511,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_DARK_ONE + GLYPH_MON_OFF :
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
@@ -2525,16 +2525,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.24
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		default:
 			
 			if glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF {
 				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
 					to: PM_NORN,
-					modelName:"atmark",
-					textured:false,
-					without:PM_KING_ARTHUR)
+					modelName: "atmark",
+					textured: false,
+					without: PM_KING_ARTHUR)
 				
 				if let ret = ret where !ret.hasChildObject {
 					ret.addChildObject("emitter", type: .Emitter)
@@ -2544,14 +2544,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 					ret.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 					ret.childObjectAtLast?.particleSlowdown = 8.8
 					ret.childObjectAtLast?.particleLife = 0.24
-					ret.childObjectAtLast?.setParticleSize(8.0)
+					ret.childObjectAtLast?.particleSize = 8.0
 				}
 			} else {
-				
-				ret = checkLoadedModels(at:PM_STUDENT,
-					to:PM_APPRENTICE,
-					modelName:"atmark",
-					textured:false)
+				ret = checkLoadedModels(at: PM_STUDENT,
+					to: PM_APPRENTICE,
+					modelName: "atmark",
+					textured: false)
 			}
 		}
 		
@@ -2603,14 +2602,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleColor = CLR_CYAN
 			ret?.childObjectAtLast?.setParticleGravityX(0.0, y:-8.8, z:1.0)
 			ret?.childObjectAtLast?.particleLife = 0.21
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY:-0.687, atZ:0.512)
 			ret?.childObjectAtLast?.particleType = .Points
 			ret?.childObjectAtLast?.particleColor = CLR_BRIGHT_CYAN
 			ret?.childObjectAtLast?.setParticleGravityX(0.0, y:-5.8, z:1.0)
 			ret?.childObjectAtLast?.particleLife = 0.3
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case S_fountain + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
@@ -2622,7 +2621,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(0.0, y: -130.0)
 			ret?.childObjectAtLast?.particleSlowdown = 4.2
 			ret?.childObjectAtLast?.particleLife = 0.8
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(0.34, atY: -1.70, atZ: -0.65)
 			ret?.childObjectAtLast?.setModelScaleX(0.98, scaleY:0.7, scaleZ:0.98)
@@ -2632,7 +2631,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(0.0, y: -130.0)
 			ret?.childObjectAtLast?.particleSlowdown = 4.2
 			ret?.childObjectAtLast?.particleLife = 0.28
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setModelScaleX(0.5, scaleY: 0.7, scaleZ: 0.5)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: 1.35, atZ: -0.0)
@@ -2642,7 +2641,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(0.0, y: -190.0)
 			ret?.childObjectAtLast?.particleSlowdown = 4.2
 			ret?.childObjectAtLast?.particleLife = 1.2
-			ret?.childObjectAtLast?.setParticleSize(8.0)
+			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case S_vodbridge + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "bridgeUP", withTexture: true)
@@ -2700,7 +2699,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(0.0, y: 300)
 			ret?.childObjectAtLast?.particleSlowdown = 5.2
 			ret?.childObjectAtLast?.particleLife = 0.56
-			ret?.childObjectAtLast?.setParticleSize(5.0)
+			ret?.childObjectAtLast?.particleSize = 5.0
 			
 		case S_rust_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
@@ -2712,14 +2711,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(0.0, y: 300.0)
 			ret?.childObjectAtLast?.particleSlowdown = 5.2
 			ret?.childObjectAtLast?.particleLife = 0.56
-			ret?.childObjectAtLast?.setParticleSize(5.0)
+			ret?.childObjectAtLast?.particleSize = 5.0
 			
 		case S_fire_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
 			ret?.childObjectAtLast?.particleType = .Both
-			ret?.childObjectAtLast?.setParticleSize(4.0)
+			ret?.childObjectAtLast?.particleSize = 4.0
 			ret?.childObjectAtLast?.setParticleGravityX(0, y: -1.0, z: 0)
 			ret?.childObjectAtLast?.particleColor = CLR_ORANGE
 			ret?.childObjectAtLast?.setParticleSpeedX(0.0, y: 200)
@@ -2795,7 +2794,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.childObjectAtLast?.particleSlowdown = 8.8
 			ret?.childObjectAtLast?.particleLife = 0.4
-			ret?.childObjectAtLast?.setParticleSize(2.0)
+			ret?.childObjectAtLast?.particleSize = 2.0
 			
 			//case S_web + GLYPH_CMAP_OFF :
 			//case S_statue_trap + GLYPH_CMAP_OFF :
@@ -2809,7 +2808,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(10.0)
+			ret?.particleSize = 10.0
 			
 		case S_anti_magic_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject()
@@ -2820,7 +2819,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(10.0)
+			ret?.particleSize = 10.0
 			
 		case S_polymorph_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject()
@@ -2831,8 +2830,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(10.0)
+			ret?.particleSize = 10.0
 			
+		//case S_vibrating_square + GLYPH_CMAP_OFF:
 		default:
 			break;
 		}
@@ -2987,7 +2987,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		ret.setParticleSpeedX(1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
-		ret.setParticleSize(20.0)
+		ret.particleSize = (20.0)
 		
 		return ret;
 	}
@@ -3093,7 +3093,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		ret.setParticleSpeedX(1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
-		ret.setParticleSize(20.0)
+		ret.particleSize = (20.0)
 		
 		return ret;
 	}
@@ -3156,7 +3156,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(20.0)
+			ret?.particleSize = 20.0
 			
 			// camera flash
 		case S_flashbeam + GLYPH_CMAP_OFF:
@@ -3167,7 +3167,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(20.0)
+			ret?.particleSize = 20.0
 			
 			// boomerang
 			//case S_boomleft + GLYPH_CMAP_OFF :
@@ -3192,7 +3192,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(20.0)
+			ret?.particleSize = 20.0
 			break;
 			
 		case S_ss2 + GLYPH_CMAP_OFF:
@@ -3203,7 +3203,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(10.0)
+			ret?.particleSize = (10.0)
 			break;
 			
 		case S_ss3 + GLYPH_CMAP_OFF:
@@ -3214,7 +3214,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(20.0)
+			ret?.particleSize = 20.0
 			break;
 			
 		case S_ss4 + GLYPH_CMAP_OFF:
@@ -3225,8 +3225,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.setParticleSpeedX(1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
-			ret?.setParticleSize(10.0)
-			break
+			ret?.particleSize = 10.0
 			
 		default:
 			break
@@ -4417,6 +4416,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(S_magic_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
 		loadModelBlocks[Int(S_anti_magic_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
 		loadModelBlocks[Int(S_polymorph_trap + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
+		loadModelBlocks[Int(S_vibrating_square + GLYPH_CMAP_OFF)] = loadModelFunc_TrapSymbol;
 		// ------------------------- Effect Symbols Section. ------------------------- //
 		
 		// ZAP symbols ( NUM_ZAP * four directions )
@@ -4479,7 +4479,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.setParticleSpeedX(1.0, y:1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
-			ret.setParticleSize(20.0)
+			ret.particleSize = 20.0
 			
 			return ret;
 		}
@@ -4494,7 +4494,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.setParticleSpeedX(1.0, y:1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
-			ret.setParticleSize(20.0)
+			ret.particleSize = 20.0
 			
 			return ret;
 		}

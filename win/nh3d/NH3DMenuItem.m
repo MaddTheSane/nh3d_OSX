@@ -16,7 +16,7 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize selectable;
 @synthesize selected;
 
-//Override NSObject designated initializer. this is not work!! don't use this.
+//Override NSObject designated initializer. this does not work!! don't use this.
 - (instancetype)init
 {
 	anything anyChar;
@@ -28,22 +28,21 @@ extern NH3DTileCache *_NH3DTileCache;
 
 // This is designated initializer.
 -(instancetype)initWithParameter:(const char*)cName
-			identifier:(const anything *)ident
-		   accelerator:(char)accel
-		   group_accel:(char)gaccel
-				 glyph:(int)glf
-			 attribute:(int)attr
-			 preSelect:(boolean)presel
+					  identifier:(const anything *)ident
+					 accelerator:(char)accel
+					 group_accel:(char)gaccel
+						   glyph:(int)glf
+					   attribute:(int)attr
+					   preSelect:(boolean)presel
 {
 	if (self = [super init]) {
-		
-		name = [ [NSString alloc] initWithCString:cName
-										 encoding:NH3DTEXTENCODING ];
+		name = [[NSString alloc] initWithCString:cName
+										encoding:NH3DTEXTENCODING ];
 		identifier = *ident;
-		if ( ident->a_void == 0 ) {
-			[ self setSelectable:NO ];
+		if (ident->a_void == 0) {
+			[self setSelectable:NO];
 		} else {
-			[ self setSelectable:YES ];
+			[self setSelectable:YES];
 		}
 		accelerator = accel;
 		group_accel = gaccel;
@@ -54,14 +53,12 @@ extern NH3DTileCache *_NH3DTileCache;
 	return self;
 }
 
-
 - (NSAttributedString *)name
 {
 	NSAttributedString *aStr = nil;
-	NSMutableDictionary *strAttributes = [ [NSMutableDictionary alloc] init ];
+	NSMutableDictionary *strAttributes = [[NSMutableDictionary alloc] init];
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
-	
 	
 	switch ( attribute ) {
 		case ATR_NONE:
@@ -76,13 +73,11 @@ extern NH3DTileCache *_NH3DTileCache;
 			break;
 	}
 	
-	if ( ! self.selectable ) {
-		
-		NSShadow *darkShadow = [ [NSShadow alloc] init ];
-		darkShadow.shadowColor = [NSColor blackColor] ;
-		darkShadow.shadowOffset = NSMakeSize(0,0) ;
-		darkShadow.shadowBlurRadius = 6.0 ;
-		
+	if (!self.selectable) {
+		NSShadow *darkShadow = [[NSShadow alloc] init];
+		darkShadow.shadowColor = [NSColor blackColor];
+		darkShadow.shadowOffset = NSMakeSize(0,0);
+		darkShadow.shadowBlurRadius = 6.0;
 		
 		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];
 		strAttributes[NSShadowAttributeName] = darkShadow;
@@ -90,19 +85,17 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	// Set shadow for Cursed/Blessed item.
 	
-	if ( [ name isLike:NSLocalizedString(@"*blessed*",@"") ]
-		|| ( ![ name isLike:NSLocalizedString(@"*called*",@"") ] && [ name isLike:NSLocalizedString(@"*holy water*",@"") ]) ) {
+	if ([name isLike:NSLocalizedString(@"*blessed*",@"")]
+		|| ( ![name isLike:NSLocalizedString(@"*called*", @"")] && [name isLike:NSLocalizedString(@"*holy water*",@"")])) {
 		
-		NSShadow *lightShadow = [ [NSShadow alloc] init ];
-		lightShadow.shadowColor = [NSColor cyanColor] ;
-		lightShadow.shadowOffset = NSMakeSize(0, 0) ;
+		NSShadow *lightShadow = [[NSShadow alloc] init];
+		lightShadow.shadowColor = [NSColor cyanColor];
+		lightShadow.shadowOffset = NSMakeSize(0, 0);
 		lightShadow.shadowBlurRadius = 6.0 ;
 		
 		strAttributes[NSShadowAttributeName] = lightShadow;
-		
-		
-	} else if ( ([ name isLike:NSLocalizedString(@"*cursed*",@"") ] || [ name isLike:NSLocalizedString(@"*cursed *",@"") ])
-			   && ( ![ name isLike:NSLocalizedString(@"*uncursed*",@"") ] && ![ name isLike:NSLocalizedString(@"*called*",@"") ]) ) {
+	} else if (([ name isLike:NSLocalizedString(@"*cursed*",@"")] || [name isLike:NSLocalizedString(@"*cursed *",@"") ])
+			   && (![name isLike:NSLocalizedString(@"*uncursed*",@"")] && ![name isLike:NSLocalizedString(@"*called*",@"")])) {
 		
 		NSShadow *cursedShadow = [[NSShadow alloc] init];
 		cursedShadow.shadowColor = [NSColor redColor];
@@ -125,23 +118,20 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSAttributedString *)accelerator
 {
-	
-	if ( accelerator ) {
-		
+	if (accelerator) {
 		NSAttributedString *aStr = nil;
-		NSShadow *lightShadow = [ [NSShadow alloc] init ];
-		NSMutableDictionary *strAttributes = [ [NSMutableDictionary alloc] init ];
+		NSShadow *lightShadow = [[NSShadow alloc] init];
+		NSMutableDictionary *strAttributes = [[NSMutableDictionary alloc] init];
 		
-		lightShadow.shadowColor = [NSColor cyanColor] ;
-		lightShadow.shadowOffset = NSMakeSize(0,0) ;
-		lightShadow.shadowBlurRadius = 3.6 ;
+		lightShadow.shadowColor = [NSColor cyanColor];
+		lightShadow.shadowOffset = NSMakeSize(0,0);
+		lightShadow.shadowBlurRadius = 3.6;
 
 		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 2.0];
 		strAttributes[NSShadowAttributeName] = lightShadow;
 		strAttributes[NSForegroundColorAttributeName] = [NSColor blueColor];
 		
-		switch ( attribute )
-		{
+		switch (attribute) {
 			case ATR_NONE:
 				break;
 			case ATR_ULINE:
@@ -159,7 +149,6 @@ extern NH3DTileCache *_NH3DTileCache;
 		aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c",accelerator]
 												 attributes:strAttributes];
 		
-		
 		return aStr;
 		
 	} else 
@@ -169,10 +158,9 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)glyph
 {
-	if ( glyph == NO_GLYPH ) {
+	if (glyph == NO_GLYPH) {
 		return nil;
 	} else {
-
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	}
 }
@@ -180,70 +168,63 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)smallGlyph
 {
-	if ( glyph == NO_GLYPH ) {
+	if (glyph == NO_GLYPH) {
 		return nil;
-	} else if ( [ _NH3DTileCache tileSize_X ] == 16 && [ _NH3DTileCache tileSize_Y ] == 16 ) {
+	} else if ([_NH3DTileCache tileSize_X] == 16 && [_NH3DTileCache tileSize_Y] == 16) {
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	} else {
 		NSImage *smallTile = [[NSImage alloc] initWithSize:NSMakeSize(16.0, 16.0)];
 		
-		[ smallTile lockFocus ];
-		[ [_NH3DTileCache tileImageFromGlyph:glyph] drawInRect:NSMakeRect( 0, 0, 16.0 , 16.0 )
-													  fromRect:NSZeroRect
-													 operation:NSCompositeSourceOver
-													  fraction:1.0 ];
-		[ smallTile unlockFocus ];
+		[smallTile lockFocus];
+		[[_NH3DTileCache tileImageFromGlyph:glyph] drawInRect:NSMakeRect(0, 0, 16.0 , 16.0)
+													 fromRect:NSZeroRect
+													operation:NSCompositeSourceOver
+													 fraction:1.0];
+		[smallTile unlockFocus];
 		
 		return smallTile;
 	}
-	
 }
-
 
 - (anything)identifier
 {
 	return identifier;
 }
 
-
 - (BOOL)isPreSelected
 {
-	if ( preselect == MENU_SELECTED ) {
+	if (preselect == MENU_SELECTED) {
 		return YES;
-	} else
+	} else {
 		return NO;
+	}
 }
-
 
 - (void)setName:(const char*)nameStr
 {
-	name = [ NSString stringWithCString:nameStr
-							   encoding:NH3DTEXTENCODING ];
+	name = [[NSString alloc] initWithCString:nameStr
+									encoding:NH3DTEXTENCODING];
 }
-
 
 - (void)setIdentifier:(const ANY_P *)identifierValue
 {
 	identifier = *identifierValue;
-	if ( identifierValue->a_void == 0 ) {
+	if (identifierValue->a_void == 0) {
 		self.selectable = NO;
 	} else {
 		self.selectable = YES;
 	}
 }
 
-
 - (void)setAccelerator:(CHAR_P)acceleratorValue
 {
 	accelerator = acceleratorValue;
 }
 
-
 - (void)setGroup_accel:(CHAR_P)group_accelValue
 {
 	group_accel = group_accelValue;
 }
-
 
 - (void)setGlyph:(int)glyphValue
 {
@@ -254,7 +235,6 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	attribute = attrValue;
 }
-
 
 - (void)setPreselect:(BOOLEAN_P)preselectValue
 {

@@ -34,12 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // This is designated initializer.
 -(instancetype)initWithParameter:(const char*)cName
-			identifier:(const anything *)ident
-		   accelerator:(char)accel
-		   group_accel:(char)gaccel
-				 glyph:(int)glf
-			 attribute:(int)attr
-			 preSelect:(boolean)presel NS_DESIGNATED_INITIALIZER;
+					  identifier:(const anything *)ident
+					 accelerator:(char)accel
+					 group_accel:(char)gaccel
+						   glyph:(int)glf
+					   attribute:(int)attr
+					   preSelect:(boolean)presel NS_DESIGNATED_INITIALIZER;
 
 - (NSAttributedString *)name;
 - (NSAttributedString *)accelerator;

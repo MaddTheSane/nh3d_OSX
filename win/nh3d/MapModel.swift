@@ -90,7 +90,7 @@ class MapModel: NSObject {
 	@IBAction func toggleIndicator(sender: AnyObject?) {
 		if indicatorIsActive {
 			stopIndicator()
-			enemyIndicator.intValue = 0
+			enemyIndicator.integerValue = 0
 		} else {
 			startIndicator()
 		}
@@ -98,10 +98,10 @@ class MapModel: NSObject {
 
 	private func prepareAttributes() {
 		shadow.shadowColor = NSColor(calibratedWhite: 0, alpha: 0.7)
-		shadow.shadowOffset = NSMakeSize(2, -2) ;
-		shadow.shadowBlurRadius = 1.0 ;
+		shadow.shadowOffset = NSMakeSize(2, -2)
+		shadow.shadowBlurRadius = 1.0
 		
-		style.alignment = NSCenterTextAlignment;
+		style.alignment = .Center
 		
 		strAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
 		strAttributes[NSShadowAttributeName] = shadow;
@@ -198,7 +198,6 @@ class MapModel: NSObject {
 	}
 	
 	@objc(mapArrayAtX:atY:) func mapArray(x x: Int32, y: Int32) -> NH3DMapItem? {
-		
 		if (x < MAPSIZE_COLUMN) && (y < MAPSIZE_ROW) && (x >= 0) && (y >= 0) && (mapArray[Int(x)][Int(y)] != nil) {
 			return  mapArray[Int(x)][Int(y)];
 		} else {

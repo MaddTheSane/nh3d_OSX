@@ -10,9 +10,8 @@
 #import "NH3DUserStatusModel.h"
 
 
-static const int DIALOG_OK		= 128;
-static const int DIALOG_CANCEL	= 129;
-
+#define DIALOG_OK		128
+#define DIALOG_CANCEL	129
 
 
 @implementation NH3DUserMakeSheetController
@@ -25,11 +24,9 @@ static const int DIALOG_CANCEL	= 129;
 		[ self setPriestName:@"Priest" ];
 		[ self setCavemanName:@"Caveman" ];
 		playerName = nil;
-
 	}
 	return self;
 }
-
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
@@ -37,32 +34,30 @@ static const int DIALOG_CANCEL	= 129;
 	self.window.backgroundColor = [NSColor clearColor];
 	self.window.opaque = NO;
 }
-	
 
-- ( void )setPriestName:( NSString * )aString {
+- (void)setPriestName:(NSString *)aString {
 	priestName = NSLocalizedString(aString,@"");
 }
 
 
-- ( void )setCavemanName:( NSString * )aString {
+- (void)setCavemanName:(NSString *)aString {
 	cavemanName = NSLocalizedString(aString, @"");
 }
 
 - (IBAction)checkRace:(id)sender
 {
-	int tag ;
-	tag = [ chooseRace selectedTag ];
-	[ _userStatus setPlayerRole:nil ];
-	[ self setDone_role:NO ];
-	[ self setEn_male:NO ];
-	[ self setEn_female:NO ];
-	[ self setEn_lowful:NO ];
-	[ self setEn_newtral:NO ];
-	[ self setEn_chaotic:NO ];
-	[ chooseRole deselectSelectedCell ];
+	NSInteger tag;
+	tag = [chooseRace selectedTag];
+	[_userStatus setPlayerRole:nil];
+	[self setDone_role:NO];
+	[self setEn_male:NO];
+	[self setEn_female:NO];
+	[self setEn_lowful:NO];
+	[self setEn_newtral:NO];
+	[self setEn_chaotic:NO];
+	[chooseRole deselectSelectedCell];
 
-	switch ( tag ) {
-		
+	switch (tag) {
 		case 0:
 			[ _userStatus setPlayerRace:@"Human" ];
 			[ self setDone_race:YES ];
@@ -100,7 +95,7 @@ static const int DIALOG_CANCEL	= 129;
 			break;
 			
 		case 2:
-			[ _userStatus setPlayerRace:@"Dwarf" ];
+			[_userStatus setPlayerRace:@"Dwarf"];
 			[ self setDone_race:YES ];
 			[ self setEn_archeologist:YES ];
 			[ self setEn_barbarian:NO ];
@@ -173,12 +168,12 @@ static const int DIALOG_CANCEL	= 129;
 	}
 }
 
-- ( IBAction )checkRole:( id )sender 
+- (IBAction)checkRole:(id)sender
 {
-	int tag ;
+	int tag;
 	int race;
-	tag = [ chooseRole selectedTag ];
-	race = [ chooseRace selectedTag ];
+	tag = [chooseRole selectedTag];
+	race = [chooseRace selectedTag];
 
 	/*
 	if ( [ [ inputName stringValue ] isEqual:@"" ] || [ [ inputName stringValue ] cStringLength ] >= PL_NSIZ-11 ) {
@@ -282,10 +277,9 @@ static const int DIALOG_CANCEL	= 129;
 			[ self setEn_lowful:NO ];
 			[ self setEn_newtral:NO ];
 			[ self setEn_chaotic:NO ];
-			
 	}
 	
-	switch ( race ) {
+	switch (race) {
 		case 0 :
 			switch ( tag ) {
 				case 0 :
@@ -362,10 +356,9 @@ static const int DIALOG_CANCEL	= 129;
 			[ self setEn_chaotic:YES ];
 			break;
 	}
-	
 }
 
-- ( IBAction )checkGender:( id )sender
+- ( IBAction )checkGender:(id)sender
 {
 	int tag,role;
 	tag = [ chooseGender selectedTag ];
@@ -382,18 +375,17 @@ static const int DIALOG_CANCEL	= 129;
 	}
 	 */
 	
-	if ( !tag ) {
+	if (!tag) {
 		[ self setPriestName:@"Priest" ];
 		[ self setCavemanName:@"Caveman" ];
 		[ _userStatus setPlayerGender:@"Male" ];
-	}
-	else {
+	} else {
 		[ self setPriestName:@"Priestess" ];
 		[ self setCavemanName:@"Cavewoman" ];
 		[ _userStatus setPlayerGender:@"Female" ];
 	}
 	
-	if ( role == 2 || role == 6 ) {
+	if (role == 2 || role == 6) {
 		[ self checkRole:self ];
 	}			
 }
@@ -401,77 +393,98 @@ static const int DIALOG_CANCEL	= 129;
 //
 // Matrix tags enabled/disabled use CocoaBinding
 //
-- ( void )setDone_race:( BOOL )enable {
+#pragma mark -
+- (void)setDone_race:(BOOL)enable {
 	done_race = enable;
-}	
-- ( void )setDone_role:( BOOL )enable {
+}
+
+- (void)setDone_role:(BOOL)enable {
 	done_role = enable;
 }
-- ( void )setDone_name:( BOOL )enable {
+
+- (void)setDone_name:(BOOL)enable {
 	done_name = enable;
 }
 
-- ( void )setEn_archeologist:( BOOL )enable {
+- (void)setEn_archeologist:(BOOL)enable {
 	en_archeologist = enable;
 }
-- ( void )setEn_barbarian:( BOOL )enable {
+
+- (void)setEn_barbarian:(BOOL)enable {
 	en_barbarian = enable;
 }
-- ( void )setEn_caveman:( BOOL )enable {
+
+- (void)setEn_caveman:(BOOL)enable {
 	en_caveman = enable;
 }
-- ( void )setEn_healer:( BOOL )enable {
+
+- (void)setEn_healer:(BOOL)enable {
 	en_healer = enable;
 }
-- ( void )setEn_knight:( BOOL )enable {
+
+- (void)setEn_knight:(BOOL)enable {
 	en_knight = enable;
 }
-- ( void )setEn_monk:( BOOL )enable {
+
+- (void)setEn_monk:(BOOL)enable {
 	en_monk = enable;
 }
-- ( void )setEn_priest:( BOOL )enable {
+
+- (void)setEn_priest:(BOOL)enable {
 	en_priest = enable;
 }
-- ( void )setEn_rouge:( BOOL )enable {
+
+- (void)setEn_rouge:(BOOL)enable {
 	en_rouge = enable;
 }
-- ( void )setEn_ranger:( BOOL )enable {
+
+- (void)setEn_ranger:(BOOL)enable {
 	en_ranger = enable;
 }
-- ( void )setEn_samurai:( BOOL )enable {
+
+- (void)setEn_samurai:(BOOL)enable {
 	en_samurai = enable;
 }
-- ( void )setEn_tourist:( BOOL )enable {
+
+- (void)setEn_tourist:(BOOL)enable {
 	en_tourist = enable;
 }
-- ( void )setEn_valkyrie:( BOOL )enable {
+
+- (void)setEn_valkyrie:(BOOL)enable {
 	en_valkyrie = enable;
 }
-- ( void )setEn_wizard:( BOOL )enable {
+
+- (void)setEn_wizard:(BOOL)enable {
 	en_wizard = enable;
 }
 
+#pragma mark -
 
-- ( void )setEn_lowful:( BOOL )enable {
+- (void)setEn_lowful:(BOOL)enable {
 	en_lowful = enable;
 }
-- ( void )setEn_newtral:( BOOL )enable {
+
+- (void)setEn_newtral:(BOOL)enable {
 	en_newtral = enable;
 }
-- ( void )setEn_chaotic:( BOOL )enable {
+
+- (void)setEn_chaotic:(BOOL)enable {
 	en_chaotic = enable;
 }
 
-- ( void )setEn_male:( BOOL )enable {
+#pragma mark -
+
+- (void)setEn_male:(BOOL)enable {
 	en_male = enable;
 }
-- ( void )setEn_female:( BOOL )enable {
+
+- (void)setEn_female:(BOOL)enable {
 	en_female = enable;
 }
 
+#pragma mark -
 
-
-- ( void )createPlayer
+- (void)createPlayer
 {	
 	int race,role,align,gender;
 	align = [ chooseAlign selectedTag ];
@@ -479,20 +492,20 @@ static const int DIALOG_CANCEL	= 129;
 	race = [ chooseRace selectedTag ];
 	gender = [ chooseGender selectedTag ];
 	
-	switch ( align ) {
-		case 0 : 
-			[ _userStatus setPlayerAlign:@"Lowful" ];
-			[ _userStatus setLowfulIcon:YES ];
-			[ _userStatus setNewtralIcon:NO ];
-			[ _userStatus setChaosIcon:NO ];
+	switch (align) {
+		case 0:
+			[_userStatus setPlayerAlign:@"Lowful"];
+			[_userStatus setLowfulIcon:YES];
+			[_userStatus setNewtralIcon:NO];
+			[_userStatus setChaosIcon:NO];
 			break;
-		case 1 :
+		case 1:
 			[ _userStatus setPlayerAlign:@"Newtral" ];
 			[ _userStatus setLowfulIcon:NO ];
 			[ _userStatus setNewtralIcon:YES ];
 			[ _userStatus setChaosIcon:NO ];
 			break;
-		case 2 :
+		case 2:
 			[ _userStatus setPlayerAlign:@"Chaotic" ];
 			[ _userStatus setLowfulIcon:NO ];
 			[ _userStatus setNewtralIcon:NO ];
@@ -504,13 +517,10 @@ static const int DIALOG_CANCEL	= 129;
 	flags.initrole = role;
 	flags.initgend = gender;
 	flags.initalign = align;
-	
 }
-
 
 - (void)startSheet:(NH3DUserStatusModel *)userStatusModel
 {
-	
 	_userStatus = userStatusModel;
 	
 	self.playerName = [userStatusModel playerName];
@@ -532,40 +542,16 @@ static const int DIALOG_CANCEL	= 129;
 	[NSApp runModalForWindow:self.window];
 }
 
-
-- (void)sheetDidEnd:(NSWindow*)sheet returnCode:(int)returnCode contextInfo:(void*)contextInfo
+- (IBAction)makePlayer:(id)sender
 {
-    [self.window orderOut:self];
-	[NSApp stopModal];
-	//[ [ self window ] release ];
-    
-    // Check return code
-    if(returnCode == DIALOG_CANCEL) {
-        // Quit button was pushed
-		[NSApp terminate:self];
-        return;
-    }
-    else if(returnCode == DIALOG_OK) {
-		/* direct to makePlayer method */
-    }
+	[self createPlayer];
+	[NSApp.mainWindow endSheet:self.window returnCode:DIALOG_OK];
 }
-
-
-
-- (IBAction)makePlayer:(id)sender 
-{
-	
-	[ self createPlayer ];
-	[NSApp.mainWindow endSheet: self.window returnCode:DIALOG_OK];
-	
-}
-
 
 - (IBAction)quitGame:(id)sender
 {
     // Cancel button is pushed
-    [NSApp.mainWindow endSheet: self.window returnCode:DIALOG_CANCEL];
+    [NSApp.mainWindow endSheet:self.window returnCode:DIALOG_CANCEL];
 }
-
 
 @end

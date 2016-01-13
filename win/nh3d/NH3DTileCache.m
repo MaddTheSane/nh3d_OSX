@@ -23,7 +23,6 @@ extern int total_tiles_used;
 	return [self initWithNamed:TILE_FILE_NAME];
 }
 
-
 - (instancetype) initWithNamed:(NSString *)imageName   /* This is designated initializer. */
 {
 	if (self = [super init]) {
@@ -47,9 +46,7 @@ extern int total_tiles_used;
 		tiffData = tileSource.TIFFRepresentation;
 		bitMap = [[NSBitmapImageRep alloc] initWithData: tiffData];
 		
-		//[ tiffData release ];
-		
-		if ( ( bitMap.pixelsWide % TILES_PER_LINE) && ( bitMap.pixelsHigh % NUMBER_OF_TILES_ROW) ) {
+		if ((bitMap.pixelsWide % TILES_PER_LINE) && (bitMap.pixelsHigh % NUMBER_OF_TILES_ROW)) {
 			NSRunCriticalAlertPanel(@"Tile Format Error!",
 									@"%@: Does not support this TILE Pattern.",
 									@"OK",nil,nil, imageName);
@@ -88,8 +85,7 @@ extern int total_tiles_used;
 	int tile = glyph2tile[glyph];
 	int t_x,t_y;
 	
-	if ( tile >= total_tiles_used || tile < 0 )
-	{
+	if (tile >= total_tiles_used || tile < 0) {
 		NSLog(@"ERROR:Asked for a TILE %d outside the allowed range.",tile);
 		return nil;
 	}
@@ -98,8 +94,8 @@ extern int total_tiles_used;
 	t_y = ( tile / TILES_PER_LINE ) * tileSize_Y;
 
 #if GET_RAW_PIXELS
-	for ( x=0 ; x<=tileSize_X ; x++ ) {
-		for ( y=0 ; y<=tileSize_Y ; y++ ) {
+	for (x = 0; x <= tileSize_X; x++) {
+		for (y = 0; y <= tileSize_Y; y++) {
 			[bitMap getPixel:p atX:(t_x + x) y:(t_y + y)];
 			[bmpRep setPixel:p atX:x y:y];
 		}
@@ -111,7 +107,7 @@ extern int total_tiles_used;
 #endif
 	
 #if GET_RAW_PIXELS
-	[ tileImg addRepresentation:bmpRep ];
+	[tileImg addRepresentation:bmpRep];
 #endif
 	tileImg.cacheMode = NSImageCacheNever;
 	return tileImg;

@@ -110,8 +110,8 @@ typedef struct {
 	float				yspeed;
 }
 
-
-- (instancetype)init NS_DESIGNATED_INITIALIZER; // init for particle emitter
+/// init for particle emitter
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 /*
 - (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag; // 
 																// NOTICE.
@@ -158,8 +158,7 @@ typedef struct {
 - (void)setParticleSpeedX:(float)x Y:(float)y;
 @property (nonatomic) float particleSlowdown;
 @property (nonatomic) float particleLife;
-- (void)setParticleSize:(float)value;
-
+@property (nonatomic) float particleSize;
 
 @property (readonly) BOOL hasChildObject;
 @property (readonly) NSInteger numberOfChildObjects;
@@ -185,9 +184,6 @@ typedef struct {
 @property NH3DMaterial currentMaterial;
 
 - (void)drawSelf;
-
-// 
-
 
 @end
 
