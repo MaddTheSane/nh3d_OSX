@@ -1409,6 +1409,10 @@ int status;
 #endif
     program_state.exiting = 1;
     nethack_exit(status);
+#ifdef NH3D_GRAPHICS
+    //quiet a warning
+    exit(status);
+#endif
 }
 
 /* #vanquished command */

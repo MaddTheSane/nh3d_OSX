@@ -304,13 +304,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](count: Int(NH3DGL_MAPVIEWSIZE_COLUMN), repeatedValue:[NH3DMapItem?](count: Int(NH3DGL_MAPVIEWSIZE_ROW), repeatedValue: nil))
 	
-	private var lastCameraX: GLfloat = 5.0;
-	var lastCameraY: GLfloat = 1.8;
-	var lastCameraZ: GLfloat = 5.0;
+	private var lastCameraX: GLfloat = 5.0
+	private var lastCameraY: GLfloat = 1.8
+	private var lastCameraZ: GLfloat = 5.0
 	
-	private(set) var lastCameraHead: GLfloat = 0;
-	private(set) var lastCameraPitch: GLfloat = 0;
-	private(set) var lastCameraRoll: GLfloat = 0;
+	private(set) var lastCameraHead: GLfloat = 0
+	private(set) var lastCameraPitch: GLfloat = 0
+	private(set) var lastCameraRoll: GLfloat = 0
 	
 	private(set) var cameraX: GLfloat = 5.0;
 	private(set) var cameraY: GLfloat = 1.8;
@@ -391,11 +391,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		self.setFrameSize(frameRect.size)
 		
-		glMatrixMode(GLenum(GL_PROJECTION));
+		glMatrixMode(GLenum(GL_PROJECTION))
 		glLoadIdentity();
 		
-		glClearColor( 0,0,0,0 );
-		glClearDepth( 1.0 );
+		glClearColor(0, 0, 0, 0)
+		glClearDepth(1.0)
 		do {
 			var aMatrix = GLKMatrix4MakePerspective(
 				GLKMathDegreesToRadians(76),				/* View angle */
@@ -419,7 +419,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		//glShadeModel( GL_FLAT );
 		
 		glMatrixMode(GLenum(GL_MODELVIEW))
-		glLoadIdentity();
+		glLoadIdentity()
 		
 		glEnable(GLenum(GL_DEPTH_TEST))
 		glEnable(GLenum(GL_POINT_SMOOTH))
@@ -435,9 +435,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glEnable(GLenum(GL_LIGHTING))
 		glEnable(GLenum(GL_FOG))
 		
-		
 		// load texture
-		
 		floorTex = loadImageToTexture(named: "floor")
 		floor2Tex = loadImageToTexture(named: "floor2")
 		//wallTex = [ self loadImageToTexture:@"wall.tif" ];
@@ -573,6 +571,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let nCenter = NSNotificationCenter.defaultCenter()
 		nCenter.addObserver(self, selector: "defaultsDidChange:", name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
+		//TODO: What if moved to other display?
 		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID());
 		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
 		
@@ -599,7 +598,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return;
 		} else {
 			var attributes = [String: AnyObject]()
-			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 20)!
+			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 20)
 			attributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.5, alpha: 0.6)
 			
 			lockFocusIfCanDraw()
@@ -609,7 +608,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			NSImage(named: "nh3d")?.drawAtPoint(NSPoint(x: 156, y: 88), fromRect: .zero, operation: .CompositeSourceOver, fraction: 0.7)
 			("NetHack3D" as NSString).drawAtPoint(NSPoint(x: 168.0, y: 70.0), withAttributes: attributes)
-			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 14)!
+			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 14)
 			("by Haruumi Yoshino 2005" as NSString).drawAtPoint(NSPoint(x: 130.0, y: 56.0), withAttributes: attributes)
 			("NetHack" as NSString).drawAtPoint(NSPoint(x: 192.0, y: 29.0), withAttributes: attributes)
 			attributes[NSFontAttributeName] =  NSFont(name: "Copperplate", size: 11)
@@ -648,14 +647,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		viewLock.lock()
 		
-		glGenTextures(1, &texID);
-		glBindTexture(GLenum(GL_TEXTURE_2D), texID);
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT);
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT);
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR);
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE);
-		glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(imgRep.pixelsWide), GLsizei(imgRep.pixelsHigh), 0, GLenum(imgRep.alpha ? GL_RGBA : GL_RGB), GLenum(GL_UNSIGNED_BYTE), imgRep.bitmapData);
+		glGenTextures(1, &texID)
+		glBindTexture(GLenum(GL_TEXTURE_2D), texID)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
+		glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(imgRep.pixelsWide), GLsizei(imgRep.pixelsHigh), 0, GLenum(imgRep.alpha ? GL_RGBA : GL_RGB), GLenum(GL_UNSIGNED_BYTE), imgRep.bitmapData)
 		
 		viewLock.unlock()
 		
@@ -747,9 +746,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func drawFloorAndCeiling(x x: Float, z: Float, flag: Int32) {
-		glPushMatrix();
+		glPushMatrix()
 		
-		glTranslatef(x, 0.0, z);
+		glTranslatef(x, 0.0, z)
 		
 		glEnableClientState(GLenum(GL_VERTEX_ARRAY))
 		glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
@@ -776,10 +775,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private func createLightAndFog() {
 		let gblight = 1.0 - (Float(u.uhp) / Float(u.uhpmax))
 		
-		let AmbLightPos: [ GLfloat ] = [0.0, 4.0, 0.0, 0];
-		let keyLightPos: [ GLfloat ] = [0.01, 3.0, 0.0, 1]
-		var fogColor: [ GLfloat ] = [gblight/4, 0.0, 0.0, 0.0]
-		let lightEmisson: [ GLfloat ] = [0.1, 0.1, 0.1, 1]
+		let AmbLightPos: [GLfloat] = [0.0, 4.0, 0.0, 0]
+		let keyLightPos: [GLfloat] = [0.01, 3.0, 0.0, 1]
+		var fogColor: [GLfloat] = [gblight/4, 0.0, 0.0, 0.0]
+		let lightEmisson: [GLfloat] = [0.1, 0.1, 0.1, 1]
 		
 		keyLightCol[0] = 2.0;
 		keyLightCol[3] = 1.0;
@@ -787,15 +786,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 			keyLightCol[1] = 0.0;
 			keyLightCol[2] = 0.0;
 		} else {
-			keyLightCol[1] = 2.00 - ( gblight * 2.0 );
-			keyLightCol[2] = 2.00 - ( gblight * 2.0 );
+			keyLightCol[1] = 2.00 - (gblight * 2.0)
+			keyLightCol[2] = 2.00 - (gblight * 2.0)
 		}
 		
-		glPushMatrix();
+		glPushMatrix()
 		
 		glTranslatef(lastCameraX,
 			lastCameraY,
-			lastCameraZ);
+			lastCameraZ)
 		
 		glFogi(GLenum(GL_FOG_MODE), GL_LINEAR)
 		glHint(GLenum(GL_MULTISAMPLE_FILTER_HINT_NV), GLenum(GL_NICEST))
@@ -822,7 +821,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glClearColor(fogColor[0], 0.0, 0.0, 0.0)
 		}
 		
-		if isReady && ( Swift_Blind() || u.uswallow != 0 ) {
+		if isReady && (Swift_Blind() || u.uswallow != 0) {
 			// you're blind
 			
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
@@ -839,9 +838,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glClearColor(0.0, 0.0, 0.0, 0.0)
 			glFogf(GLenum(GL_FOG_END),  6.0)
 			glFogfv(GLenum(GL_FOG_COLOR), defaultBackGroundCol)
-			
 		} else if isReady && Swift_Underwater() {
-			
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
 			glLightf(GLenum(GL_LIGHT0), GLenum(GL_SHININESS), 1.0)
@@ -971,19 +968,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glDeleteTextures(1, &texid)
 		}
 		
-		glDeleteTextures(1, &floorTex )
-		glDeleteTextures(1, &floor2Tex )
-		glDeleteTextures(1, &cellingTex )
-		glDeleteTextures(1, &waterTex )
-		glDeleteTextures(1, &poolTex )
-		glDeleteTextures(1, &lavaTex )
-		glDeleteTextures(1, &envelopTex )
-		glDeleteTextures(1, &minesTex )
-		glDeleteTextures(1, &airTex )
-		glDeleteTextures(1, &cloudTex )
-		glDeleteTextures(1, &hellTex )
-		glDeleteTextures(1, &nullTex )
-		glDeleteTextures(1, &rougeTex )
+		glDeleteTextures(1, &floorTex)
+		glDeleteTextures(1, &floor2Tex)
+		glDeleteTextures(1, &cellingTex)
+		glDeleteTextures(1, &waterTex)
+		glDeleteTextures(1, &poolTex)
+		glDeleteTextures(1, &lavaTex)
+		glDeleteTextures(1, &envelopTex)
+		glDeleteTextures(1, &minesTex)
+		glDeleteTextures(1, &airTex)
+		glDeleteTextures(1, &cloudTex)
+		glDeleteTextures(1, &hellTex)
+		glDeleteTextures(1, &nullTex)
+		glDeleteTextures(1, &rougeTex)
 	}
 	
 	private func detachOpenGLThread() {
@@ -997,7 +994,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// OpenGL update method.
 	@objc(timerFired:) private func timerFired(sender: AnyObject) {
 		autoreleasepool {
-			
 			openGLContext?.makeCurrentContext()
 			
 			viewLock.lock()
@@ -1148,22 +1144,18 @@ final class NH3DOpenGLView: NSOpenGLView {
 			var model = modelDictionary[glyph];
 			
 			if model == nil && defaultTex[Int(glyph)] == 0 {
-				
 				if let newModel = loadModelBlocks[Int(glyph)](glyph: glyph) {
 					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF {
 						newModel.animated = true;
-						newModel.animationRate = ( Float( random() % 5 )*0.1 )+0.5 ;
+						newModel.animationRate = (Float( random() % 5 ) * 0.1) + 0.5
 						newModel.setPivotX(0.0, atY: 0.3, atZ: 0.0)
 						newModel.useEnvironment = true
 						newModel.setTexture(Int32(envelopTex))
 					}
-					//NSLog(@"bf retaincount %d",[ newModel retainCount ]);
-					modelDictionary[glyph] = newModel;
-					//NSLog(@"af retaincount %d",[ newModel retainCount ]);
+					modelDictionary[glyph] = newModel
 					keyArray.append(glyph)
-					//[ keyArray addObject:@(glyph) ];
 					
-					model = modelDictionary[glyph];
+					model = modelDictionary[glyph]
 				}
 			}
 			
@@ -1180,9 +1172,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 				viewLock.unlock()
 			}
 			
-			if ( model == nil
-			 && !( glyph >= S_stone+GLYPH_CMAP_OFF
-				&& glyph <= S_water+GLYPH_CMAP_OFF ) ) { // Draw alternate object.
+			if (model == nil
+			 && !(glyph >= S_stone+GLYPH_CMAP_OFF
+				&& glyph <= S_water+GLYPH_CMAP_OFF)) { // Draw alternate object.
 					
 					var f: Float = 0
 					var angle: Float = 5.0
@@ -1191,7 +1183,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0);
 					
 					if defaultTex[Int(glyph)] == 0 {
-						if ( NH3DGL_USETILE ) {
+						if (NH3DGL_USETILE) {
 							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.tile!, color: nil)
 						} else {
 							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.symbol, color: mapItem.color)
@@ -1203,7 +1195,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glEnable(GLenum(GL_ALPHA_TEST))
 					glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
 					
-					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)] );
+					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
 					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE );
 					
 					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient);
@@ -1225,7 +1217,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					
 					glDisable(GLenum(GL_CULL_FACE))
 					//angle = 5.0;
-					for ( f = 0.0 ; f < 0.02 ; f += 0.002 ) {
+					for (f = 0.0 ; f < 0.02 ; f += 0.002) {
 						angle *= -1.0
 						glTranslatef(0.0, 0.0, f)
 						glRotatef(angle, 0, 1.0, 0)
@@ -1362,7 +1354,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			// Clear modelDictionary
 			//@synchronized( modelDictionary ) {
 			//	@synchronized( keyArray ) {
-			for key in keyArray{
+			for key in keyArray {
 				modelDictionary.removeValueForKey(key)
 			}
 			keyArray.removeAll()
@@ -1370,73 +1362,65 @@ final class NH3DOpenGLView: NSOpenGLView {
 			//}
 			
 			// Setup speciallevels
-			if In_mines( &u.uz ) != 0 {
+			if In_mines(&u.uz) != 0 {
 				changeWallsTexture(1)
 				floorCurrent = minesTex;
 				cellingCurrent = cellingTex;
 				elementalLevel = 0;
-				
-			} else if In_hell( &u.uz ) != 0 {
+			} else if In_hell(&u.uz) != 0 {
 				changeWallsTexture(2)
 				floorCurrent = hellTex;
 				cellingCurrent = cellingTex;
 				elementalLevel = 0;
 				
 				//glPolygonMode( GL_FRONT_AND_BACK,GL_FILL );
-				
-			} else if Is_knox( &u.uz ) || Is_sanctum( &u.uz ) || Is_stronghold( &u.uz ) {
+			} else if Is_knox(&u.uz) || Is_sanctum(&u.uz) || Is_stronghold(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex;
 				cellingCurrent = floor2Tex;
 				elementalLevel = 0;
-				
-			} else if In_sokoban( &u.uz ) {
+			} else if In_sokoban(&u.uz) {
 				changeWallsTexture(0)
 				floorCurrent = floorTex;
 				cellingCurrent = floorTex;
 				elementalLevel = 0;
 				/* not yat */
 				
-			} else if Is_earthlevel( &u.uz ) {
+			} else if Is_earthlevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex;
 				cellingCurrent = floor2Tex;
 				
 				elementalLevel = 1;
 				
-			} else if Is_waterlevel( &u.uz ) {
+			} else if Is_waterlevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex;
 				cellingCurrent = floor2Tex;
 				
 				elementalLevel = 2;
-				
-			} else if Is_firelevel( &u.uz ) {
+			} else if Is_firelevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex;
 				cellingCurrent = floor2Tex;
 				
 				elementalLevel = 3;
-				
-			} else if Is_airlevel( &u.uz ) {
+			} else if Is_airlevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex;
 				cellingCurrent = floor2Tex;
 				
 				elementalLevel = 4;
-				
-			} else if Is_astralevel( &u.uz ) {
+			} else if Is_astralevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex;
 				cellingCurrent = floor2Tex;
 				
 				elementalLevel = 5;
-				
 			} else if Is_rogue_level(&u.uz) {
 				changeWallsTexture(4)
 				floorCurrent = rougeTex;
 				cellingCurrent = rougeTex;
-				
 			} else if floorCurrent != floorTex {
 				changeWallsTexture(0)
 				floorCurrent = floorTex;
@@ -1483,7 +1467,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		viewLock.lock()
 		do {
 			nowUpdating = true
-			let footstep = NSSound(named: "footStep.wav")!
+			let footstep = NSSound(named: "footStep")!
 			
 			drawMargin = 1;
 			
@@ -1534,7 +1518,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		struct EffectHelper {
 			static var effectCount = 0
 		}
-		let localPos = effectArray[ enemyPosition-1 ].modelShift
+		let localPos = effectArray[enemyPosition - 1].modelShift
 		
 		effectArray[enemyPosition - 1].setPivotX(cameraX+localPos.x,
 			atY: localPos.y,
@@ -1554,11 +1538,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 			static var floatDirection = false
 		}
 		
-		FloatHelp.fltCamera = ( FloatHelp.floatDirection ) ? FloatHelp.fltCamera+0.003 : FloatHelp.fltCamera-0.003;
-		if ( FloatHelp.fltCamera > 0.08 ) {
+		FloatHelp.fltCamera = FloatHelp.floatDirection ? FloatHelp.fltCamera+0.003 : FloatHelp.fltCamera - 0.003
+		if FloatHelp.fltCamera > 0.08 {
 			FloatHelp.floatDirection = false
 		}
-		if ( FloatHelp.fltCamera < -0.08 ) {
+		if FloatHelp.fltCamera < -0.08 {
 			FloatHelp.floatDirection = true
 		}
 		
@@ -1593,16 +1577,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	func dorryCamera() {
 		if !isReady {
-			glTranslatef( -cameraX,-cameraY,-cameraZ );
+			glTranslatef(-cameraX, -cameraY, -cameraZ)
 		} else if ( lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ ) {
-			glTranslatef( -cameraX,-cameraY,-cameraZ );
+			glTranslatef(-cameraX, -cameraY, -cameraZ)
 			if drawMargin != 3 {
 				drawMargin = 0
 			}
 		} else {
-			let xstep = ( cameraX - lastCameraX ) / cameraStep;
-			let ystep = ( cameraY - lastCameraY ) / cameraStep;
-			let zstep = ( cameraZ - lastCameraZ ) / cameraStep;
+			let xstep = (cameraX - lastCameraX) / cameraStep
+			let ystep = (cameraY - lastCameraY) / cameraStep
+			let zstep = (cameraZ - lastCameraZ) / cameraStep
 			
 			lastCameraZ += zstep;
 			lastCameraY += ystep;
@@ -1624,16 +1608,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	func panCamera() {
 		if !isReady {
-			glRotatef( cameraRoll,		0,0,1 );
-			glRotatef( -cameraPitch,	1,0,0 );
-			glRotatef( -cameraHead,		0,1,0 );
+			glRotatef(cameraRoll,	0,0,1)
+			glRotatef(-cameraPitch,	1,0,0)
+			glRotatef(-cameraHead,	0,1,0)
 		} else if lastCameraHead == cameraHead {
 			if drawMargin != 1 {
 				drawMargin  = 0
 			}
-			glRotatef( cameraRoll,		0,0,1 );
-			glRotatef( -cameraPitch,	1,0,0 );
-			glRotatef( -cameraHead,		0,1,0 );
+			glRotatef(cameraRoll,	0,0,1)
+			glRotatef(-cameraPitch,	1,0,0)
+			glRotatef(-cameraHead,	0,1,0)
 		} else {
 			let rollstep = ( cameraRoll - lastCameraRoll ) / cameraStep;
 			let pitchstep = ( cameraPitch - lastCameraPitch ) / cameraStep;
@@ -1653,9 +1637,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraHead = cameraHead
 			}
 			
-			glRotatef( lastCameraRoll,		0,0,1 );
-			glRotatef( -lastCameraPitch,	1,0,0 );
-			glRotatef( -lastCameraHead,		0,1,0 );
+			glRotatef(lastCameraRoll,	0,0,1);
+			glRotatef(-lastCameraPitch,	1,0,0);
+			glRotatef(-lastCameraHead,	0,1,0);
 		}
 	}
 	
@@ -1663,13 +1647,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private func createTextureFromSymbol(symbol: AnyObject, color: NSColor?) -> GLuint {
 		viewLock.lock()
+		defer {
+			viewLock.unlock()
+		}
 		var texID: GLuint = 0
 		let img = NSImage(size: NSSize(width: TEX_SIZE, height: TEX_SIZE))
 		var symbolSize = NSSize.zero
 		
 		img.backgroundColor = NSColor.clearColor()
 		
-		if ( !NH3DGL_USETILE ) {
+		if !NH3DGL_USETILE {
 			guard let symbol = symbol as? String else {
 				assert(false)
 				return 0
@@ -1677,9 +1664,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			var attributes = [String: AnyObject]()
 			let fontName = NSUserDefaults.standardUserDefaults().stringForKey(NH3DWindowFontKey)!
 			
-			
-			attributes[NSFontAttributeName] = NSFont(name: fontName,
-				size: CGFloat(TEX_SIZE))
+			attributes[NSFontAttributeName] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
 			
 			attributes[NSForegroundColorAttributeName] = color;
 			attributes[NSBackgroundColorAttributeName] = NSColor.clearColor()
@@ -1689,7 +1674,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			// Draw texture
 			img.lockFocus()
 			
-			(symbol as NSString).drawAtPoint(NSPoint(x: CGFloat( TEX_SIZE/2 ) - ( symbolSize.width/2 ), y: CGFloat( TEX_SIZE/2 ) - ( symbolSize.height/2 ) ), withAttributes: attributes)
+			(symbol as NSString).drawAtPoint(NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
 			
 			img.unlockFocus()
 		} else {
@@ -1701,7 +1686,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			// Draw Tiled texture
 			img.lockFocus()
-			symbol.drawInRect(NSMakeRect( CGFloat(TEX_SIZE)/4 ,0 ,(CGFloat(TEX_SIZE)/4)*3 ,(CGFloat(TEX_SIZE)/4)*3),
+			symbol.drawInRect(NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
 				fromRect: NSRect(origin: .zero, size: symbolSize),
 				operation: .CompositeSourceOver,
 				fraction:1.0)
@@ -1713,10 +1698,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return 0
 		}
 		
-		glPixelStorei( GLenum(GL_UNPACK_ALIGNMENT), 1)
+		glPixelStorei(GLenum(GL_UNPACK_ALIGNMENT), 1)
 		
-		glGenTextures( 1, &texID );
-		glBindTexture( GLenum(GL_TEXTURE_2D), texID)
+		glGenTextures(1, &texID);
+		glBindTexture(GLenum(GL_TEXTURE_2D), texID)
 		
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
 		glHint(GLenum(GL_PERSPECTIVE_CORRECTION_HINT), GLenum(GL_NICEST))
@@ -1727,13 +1712,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA,
 				GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
 				0, GLenum(GL_RGBA),
-				GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData);
+				GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData)
 		} else {
 			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB,
 				GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
 				0, GLenum(GL_RGB),
-				GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData);
-			
+				GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData)
 		}
 		// setup texture status
 		
@@ -1744,8 +1728,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
 		
 		glAlphaFunc(GLenum(GL_GREATER), 0.5)
-		
-		viewLock.unlock()
 		
 		return texID
 	}
@@ -1799,7 +1781,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			model?.childObjectAtLast?.modelRotate = NH3DVertexType(x: 0.0, y: -90.0, z: 0.0)
 		}
-		modelDictionary[S_hwall + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_hwall + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "corner", withTexture: true)
 		model?.addTexture("corner_mines")
@@ -1807,15 +1789,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("corner_knox")
 		model?.addTexture("corner_rouge")
 		
-		modelDictionary[S_tlcorn + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_trcorn + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_blcorn + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_brcorn + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_crwall + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_tuwall + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_tdwall + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_tlwall + GLYPH_CMAP_OFF] = model;
-		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model;
+		modelDictionary[S_tlcorn + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_trcorn + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_blcorn + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_brcorn + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_crwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_tuwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_tdwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_tlwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "vopendoor", withTexture: true)
 		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model;
@@ -2057,20 +2039,20 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Gnomes(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		switch glyph {
-		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF :
-			ret = checkLoadedModels(at:PM_GNOME,
-				to:PM_GNOME_LORD,
-				modelName:"upperG",
-				textured:false);
+		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF:
+			ret = checkLoadedModels(at: PM_GNOME,
+				to: PM_GNOME_LORD,
+				modelName: "upperG",
+				textured: false);
 			
-		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF :
-			ret = NH3DModelObject(with3DSFile:"upperG", withTexture:false)
+		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF:
+			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY:-0.01, atZ:-0.15)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_GNOME_KING + GLYPH_MON_OFF :
-			ret = NH3DModelObject(with3DSFile:"upperG", withTexture:false)
+		case PM_GNOME_KING + GLYPH_MON_OFF:
+			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.05, atZ: -0.25)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2274,7 +2256,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Major Daemons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObject? {
-		if ( glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ) {
+		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF {
 			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "and", textured: false)
 		} else {
 			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "and", textured: false)
@@ -2356,7 +2338,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// Adventurers
 	private final func loadModelFunc_Adventures(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		if ( glyph == PM_WIZARD + GLYPH_MON_OFF ) {
+		if glyph == PM_WIZARD + GLYPH_MON_OFF {
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
@@ -2528,7 +2510,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		default:
-			
 			if glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF {
 				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
 					to: PM_NORN,
@@ -2555,7 +2536,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		return ret;
-		
 	}
 	
 	// MARK: - Map Symbol Section
@@ -2796,6 +2776,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.4
 			ret?.childObjectAtLast?.particleSize = 2.0
 			
+			//TODO: implement
 			//case S_web + GLYPH_CMAP_OFF :
 			//case S_statue_trap + GLYPH_CMAP_OFF :
 			
@@ -2832,7 +2813,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		//case S_vibrating_square + GLYPH_CMAP_OFF:
+		case S_vibrating_square + GLYPH_CMAP_OFF:
+			//TODO: implement proper vibrating square model
+			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
+
 		default:
 			break;
 		}
@@ -3406,7 +3390,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		nowUpdating = true
 		oglParamNowChanging = true
 		switch sender.tag {
-		case 1003 : // no wait
+		case 1003: // no wait
 			waitRate = dRefreshRate;
 			sender.state = NSOnState
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
@@ -3417,7 +3401,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			sender.menu?.itemWithTag(1005)?.state = NSOffState
 			sender.menu?.itemWithTag(1006)?.state = NSOffState
 			
-		case 1004 :
+		case 1004:
 			waitRate = WAIT_FAST;
 			sender.state = NSOnState
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
@@ -3428,7 +3412,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			sender.menu?.itemWithTag(1005)?.state = NSOffState
 			sender.menu?.itemWithTag(1006)?.state = NSOffState
 			
-		case 1005 :
+		case 1005:
 			waitRate = WAIT_NORMAL;
 			sender.state = NSOnState
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
@@ -3439,7 +3423,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			sender.menu?.itemWithTag(1004)?.state = NSOffState
 			sender.menu?.itemWithTag(1006)?.state = NSOffState
 			
-		case 1006 :
+		case 1006:
 			waitRate = WAIT_SLOW;
 			sender.state = NSOnState
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
@@ -3635,20 +3619,20 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent);
-			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
+			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
-			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts );
+			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms)
+			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts)
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent);
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
-			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, CeilingTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , CeilingVerts );
+			glTexCoordPointer(2, GLenum(GL_FLOAT),0, CeilingTexVerts );
+			glVertexPointer(3 , GLenum(GL_FLOAT), 0 , CeilingVerts );
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
 			
 			glDisable(GLenum(GL_TEXTURE_2D));
@@ -4003,12 +3987,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_WARHORSE+GLYPH_MON_OFF)] = loadModelFunc_unicorns
 		
 		// vortices
-		loadModelBlocks[Int(PM_FOG_CLOUD+GLYPH_MON_OFF)] = loadModelFunc_vortices
-		loadModelBlocks[Int(PM_DUST_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
-		loadModelBlocks[Int(PM_ICE_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
-		loadModelBlocks[Int(PM_ENERGY_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
-		loadModelBlocks[Int(PM_STEAM_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
-		loadModelBlocks[Int(PM_FIRE_VORTEX+GLYPH_MON_OFF)] = loadModelFunc_vortices
+		loadModelBlocks[Int(PM_FOG_CLOUD+GLYPH_MON_OFF)] =		loadModelFunc_vortices
+		loadModelBlocks[Int(PM_DUST_VORTEX+GLYPH_MON_OFF)] =	loadModelFunc_vortices
+		loadModelBlocks[Int(PM_ICE_VORTEX+GLYPH_MON_OFF)] =		loadModelFunc_vortices
+		loadModelBlocks[Int(PM_ENERGY_VORTEX+GLYPH_MON_OFF)] =	loadModelFunc_vortices
+		loadModelBlocks[Int(PM_STEAM_VORTEX+GLYPH_MON_OFF)] =	loadModelFunc_vortices
+		loadModelBlocks[Int(PM_FIRE_VORTEX+GLYPH_MON_OFF)] =	loadModelFunc_vortices
 		
 		// worms
 		loadModelBlocks[Int(PM_BABY_LONG_WORM+GLYPH_MON_OFF)] = loadModelFunc_worms
@@ -4017,8 +4001,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_PURPLE_WORM+GLYPH_MON_OFF)] = loadModelFunc_worms
 		
 		// xan
-		loadModelBlocks[Int(PM_GRID_BUG+GLYPH_MON_OFF)] = loadModelFunc_xan
-		loadModelBlocks[Int(PM_XAN+GLYPH_MON_OFF)] = loadModelFunc_xan
+		loadModelBlocks[Int(PM_GRID_BUG+GLYPH_MON_OFF)] =	loadModelFunc_xan
+		loadModelBlocks[Int(PM_XAN+GLYPH_MON_OFF)] =		loadModelFunc_xan
 		
 		// lights
 		loadModelBlocks[Int(PM_YELLOW_LIGHT+GLYPH_MON_OFF)] = loadModelFunc_lights
@@ -4030,11 +4014,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Angels
-		loadModelBlocks[Int(PM_COUATL+GLYPH_MON_OFF)] = loadModelFunc_Angels
-		loadModelBlocks[Int(PM_ALEAX+GLYPH_MON_OFF)] = loadModelFunc_Angels
-		loadModelBlocks[Int(PM_ANGEL+GLYPH_MON_OFF)] = loadModelFunc_Angels
-		loadModelBlocks[Int(PM_KI_RIN+GLYPH_MON_OFF)] = loadModelFunc_Angels
-		loadModelBlocks[Int(PM_ARCHON+GLYPH_MON_OFF)] = loadModelFunc_Angels
+		loadModelBlocks[Int(PM_COUATL+GLYPH_MON_OFF)] =	loadModelFunc_Angels
+		loadModelBlocks[Int(PM_ALEAX+GLYPH_MON_OFF)] =	loadModelFunc_Angels
+		loadModelBlocks[Int(PM_ANGEL+GLYPH_MON_OFF)] =	loadModelFunc_Angels
+		loadModelBlocks[Int(PM_KI_RIN+GLYPH_MON_OFF)] =	loadModelFunc_Angels
+		loadModelBlocks[Int(PM_ARCHON+GLYPH_MON_OFF)] =	loadModelFunc_Angels
 		
 		// Bats
 		loadModelBlocks[Int(PM_BAT+GLYPH_MON_OFF)] = loadModelFunc_Bats
@@ -4084,10 +4068,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_VIOLET_FUNGUS+GLYPH_MON_OFF)] = loadModelFunc_Fungi
 		
 		// Gnomes
-		loadModelBlocks[Int(PM_GNOME+GLYPH_MON_OFF)] = loadModelFunc_Gnomes
-		loadModelBlocks[Int(PM_GNOME_LORD+GLYPH_MON_OFF)] = loadModelFunc_Gnomes
-		loadModelBlocks[Int(PM_GNOMISH_WIZARD + GLYPH_MON_OFF)] = loadModelFunc_Gnomes
-		loadModelBlocks[Int(PM_GNOME_KING + GLYPH_MON_OFF)] = loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME+GLYPH_MON_OFF)] =				loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME_LORD+GLYPH_MON_OFF)] =			loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOMISH_WIZARD + GLYPH_MON_OFF)] =	loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME_KING + GLYPH_MON_OFF)] =		loadModelFunc_Gnomes
 		
 		// Giant Humanoids
 		loadModelBlocks[Int(PM_GIANT + GLYPH_MON_OFF)] = loadModelFunc_giantHumanoids
@@ -4106,10 +4090,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Kops
-		loadModelBlocks[Int(PM_KEYSTONE_KOP + GLYPH_MON_OFF)] = loadModelFunc_Kops
-		loadModelBlocks[Int(PM_KOP_SERGEANT + GLYPH_MON_OFF)] = loadModelFunc_Kops
-		loadModelBlocks[Int(PM_KOP_LIEUTENANT + GLYPH_MON_OFF)] = loadModelFunc_Kops
-		loadModelBlocks[Int(PM_KOP_KAPTAIN + GLYPH_MON_OFF)] = loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KEYSTONE_KOP + GLYPH_MON_OFF)] =		loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_SERGEANT + GLYPH_MON_OFF)] =		loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_LIEUTENANT + GLYPH_MON_OFF)] =	loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_KAPTAIN + GLYPH_MON_OFF)] =		loadModelFunc_Kops
 		
 		// Liches
 		loadModelBlocks[Int(PM_LICH + GLYPH_MON_OFF)] = loadModelFunc_Liches
@@ -4118,14 +4102,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_ARCH_LICH + GLYPH_MON_OFF)] = loadModelFunc_Liches
 		
 		// Mummies
-		loadModelBlocks[Int(PM_KOBOLD_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_GNOME_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_ORC_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_DWARF_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_ELF_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_HUMAN_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_ETTIN_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
-		loadModelBlocks[Int(PM_GIANT_MUMMY + GLYPH_MON_OFF)] = loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_KOBOLD_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_GNOME_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_ORC_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_DWARF_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_ELF_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_HUMAN_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_ETTIN_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
+		loadModelBlocks[Int(PM_GIANT_MUMMY + GLYPH_MON_OFF)] =	loadModelFunc_Mummies
 		
 		// Nagas
 		loadModelBlocks[Int(PM_RED_NAGA_HATCHLING + GLYPH_MON_OFF)] = loadModelFunc_Nagas
@@ -4178,9 +4162,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		};
 		
 		// Vampires
-		loadModelBlocks[Int(PM_VAMPIRE + GLYPH_MON_OFF)] = loadModelFunc_Vampires
-		loadModelBlocks[Int(PM_VAMPIRE_LORD + GLYPH_MON_OFF)] = loadModelFunc_Vampires
-		loadModelBlocks[Int(PM_VLAD_THE_IMPALER + GLYPH_MON_OFF)] = loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VAMPIRE + GLYPH_MON_OFF)] =			loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VAMPIRE_LORD + GLYPH_MON_OFF)] =		loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VLAD_THE_IMPALER + GLYPH_MON_OFF)] =	loadModelFunc_Vampires
 		
 		// Wraiths
 		loadModelBlocks[Int(PM_BARROW_WIGHT + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
@@ -4193,12 +4177,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Yeti and other large beasts
-		loadModelBlocks[Int(PM_MONKEY + GLYPH_MON_OFF)] = loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_APE + GLYPH_MON_OFF)] = loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_OWLBEAR + GLYPH_MON_OFF)] = loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_YETI + GLYPH_MON_OFF)] = loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_CARNIVOROUS_APE + GLYPH_MON_OFF)] = loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] = loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_MONKEY + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_APE + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_OWLBEAR + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_YETI + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_CARNIVOROUS_APE + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
+		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
 		
 		// Zombie
 		loadModelBlocks[Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
