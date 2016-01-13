@@ -57,6 +57,11 @@ static const NH3DMaterial defaultMat = {
 @synthesize particleGravity;
 @synthesize particleSize;
 
+- (NSInteger)numberOfTextures
+{
+	return numberOfTextures;
+}
+
 - (GLuint)loadImageToTexture:(NSString *)fileName
 {
 	NSImage	*sourcefile = [NSImage imageNamed:fileName];
@@ -1181,7 +1186,7 @@ static const NH3DMaterial defaultMat = {
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA ,GL_ONE);
 				
-				for( i = 0; i < MAX_PARTICLES; i++ ) {
+				for (i = 0; i < MAX_PARTICLES; i++) {
 					
 					float colorArray[4] = { particles[ i ].r, particles[ i ].g, particles[ i ].b, particles[ i ].life };
 					
@@ -1314,17 +1319,17 @@ static const NH3DMaterial defaultMat = {
 				break;		
 		}
 		
-		if ( !isChild ) glPopMatrix();
-		
-		// Draw ChildObject
-		if ( hasChildObject ) {
-			for ( i=0 ; i < numberOfChildObjects ; i++ ) {
-				[ childObjects[i] drawSelf ];
-			}
+		if (!isChild) {
+			glPopMatrix();
 		}
 		
+		// Draw ChildObject
+		if (hasChildObject) {
+			for (NH3DModelObject *childObject in childObjects) {
+				[childObject drawSelf];
+			}
+		}
 	}
-	
 }	
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len

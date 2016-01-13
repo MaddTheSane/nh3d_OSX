@@ -1135,6 +1135,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		if glyph != S_room + GLYPH_CMAP_OFF {
 			viewLock.lock()
+			defer {
+				viewLock.unlock()
+			}
 			struct drawModelArrayHelper {
 				static var rot: GLfloat = 0
 			}
@@ -1147,7 +1150,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				if let newModel = loadModelBlocks[Int(glyph)](glyph: glyph) {
 					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF {
 						newModel.animated = true;
-						newModel.animationRate = (Float( random() % 5 ) * 0.1) + 0.5
+						newModel.animationRate = (Float(random() % 5) * 0.1) + 0.5
 						newModel.setPivotX(0.0, atY: 0.3, atZ: 0.0)
 						newModel.useEnvironment = true
 						newModel.setTexture(Int32(envelopTex))
@@ -1169,7 +1172,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 				glPopMatrix();
 				
 				drawModelArrayHelper.rot += 0.05;
-				viewLock.unlock()
 			}
 			
 			if (model == nil
@@ -1265,6 +1267,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 						model.childObjectAtIndex(0).active = true
 					}
 					
+				} else if glyph >= PM_GIANT_ANT+GLYPH_STATUE_OFF && glyph <= (NUMMONS + GLYPH_STATUE_OFF) {
+					model.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 				} else {
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 				}
@@ -1904,13 +1908,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF :
 			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, modelName: "lowerK", textured: false)
 			
-		case PM_KOBOLD_LORD+GLYPH_MON_OFF :
+		case PM_KOBOLD_LORD+GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0, atY: 0.1, atZ: -0.25)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF :
+		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0, atY: -0.01, atZ: -0.15)
@@ -3345,6 +3349,34 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	*/
 	
+	/// Statues
+	private final func loadModelFunc_Statues(glyph: Int32) -> NH3DModelObject? {
+		//TODO: implement
+		var loadDat: (at: Int32, to: Int32, modelName: String)
+		switch glyph {
+		case (PM_GIANT_ANT + GLYPH_STATUE_OFF)...(PM_QUEEN_BEE + GLYPH_STATUE_OFF):
+			loadDat = (PM_GIANT_ANT, PM_QUEEN_BEE, "lowerA")
+			
+		case (PM_ACID_BLOB + GLYPH_STATUE_OFF)...(PM_GELATINOUS_CUBE + GLYPH_STATUE_OFF):
+			loadDat = (PM_ACID_BLOB, PM_GELATINOUS_CUBE, "lowerB")
+
+		default:
+			return nil
+		}
+		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: loadDat.modelName, textured: false)
+		if let ret = ret where ret.numberOfTextures == 0 {
+			//Just add a simple texture for now
+			ret.addTexture("celling")
+			ret.animated = true;
+			ret.animationRate = (Float(random() % 5) * 0.05) + 0.25
+			ret.setPivotX(0.0, atY: 0.3, atZ: 0.0)
+			ret.useEnvironment = false
+		}
+		return ret
+	}
+	
+	// MARK: -
+	
 	/// wait for vSync...
 	@IBAction func drawAllFrameFunction(sender: AnyObject) {
 		viewLock.lock()
@@ -4491,6 +4523,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(S_ss2 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
 		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
 		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
+		
+		// statues
+		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)..<Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Statues
+		}
 		
 		// explosion symbols ( 9 postion * 7 types )
 		for i in 0..<MAXEXPCHARS {
