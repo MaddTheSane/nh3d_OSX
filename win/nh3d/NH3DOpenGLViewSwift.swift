@@ -52,10 +52,10 @@ private let vsincNoWait: GLint = 0;
 ////////////////////////////////
 
 private var FloorVerts: [NH3DVertexType] = [
-	NH3DVertexType( x: -2.0, y: 0.0, z: -2.0 ),
-	NH3DVertexType( x: -2.0, y: 0.0, z: 2.0 ),
-	NH3DVertexType( x: 2.0, y: 0.0, z: -2.0 ),
-	NH3DVertexType( x: 2.0, y: 0.0, z: 2.0 )
+	NH3DVertexType(x: -2.0, y: 0.0, z: -2.0),
+	NH3DVertexType(x: -2.0, y: 0.0, z: 2.0),
+	NH3DVertexType(x: 2.0, y: 0.0, z: -2.0),
+	NH3DVertexType(x: 2.0, y: 0.0, z: 2.0)
 ]
 
 private var FloorTexVerts:[NH3DMapCoordType] = [
@@ -66,10 +66,10 @@ private var FloorTexVerts:[NH3DMapCoordType] = [
 ]
 
 private var FloorVertNorms: [NH3DVertexType] = [
-	NH3DVertexType( x: -0.25, y: 0.50, z: 0.25),
-	NH3DVertexType( x: -0.25, y: 0.50, z: 0.25),
-	NH3DVertexType( x: 0.25, y: 0.50, z: -0.25),
-	NH3DVertexType( x: 0.25, y: 0.50, z: -0.25)
+	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
+	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
+	NH3DVertexType(x: 0.25, y: 0.50, z: -0.25),
+	NH3DVertexType(x: 0.25, y: 0.50, z: -0.25)
 ]
 
 //////////////////////////////
@@ -92,10 +92,10 @@ private var CeilingTexVerts: [NH3DMapCoordType] = [
 
 
 private var CeilingVertNorms: [NH3DVertexType] = [
-	NH3DVertexType( x: 0.0, y: -1.0, z: 0.0),
-	NH3DVertexType( x: 0.0, y: -1.0, z: 0.0),
-	NH3DVertexType( x: 0.0, y: -1.0, z: 0.0),
-	NH3DVertexType( x: 0.0, y: -1.0, z: 0.0)
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0)
 ]
 
 ////////////////////////////////
@@ -104,10 +104,10 @@ private var CeilingVertNorms: [NH3DVertexType] = [
 
 
 private var defaultVerts: [NH3DVertexType] = [
-	NH3DVertexType( x: -1.5, y: 0.5,  z: 0 ),
-	NH3DVertexType(  x: 1.5, y: 0.5,  z: 0 ),
-	NH3DVertexType( x: -1.5,  y: 3.5,  z: 0 ),
-	NH3DVertexType(  x: 1.5,  y: 3.5,  z: 0 )
+	NH3DVertexType(x: -1.5, y: 0.5, z: 0),
+	NH3DVertexType( x: 1.5, y: 0.5, z: 0),
+	NH3DVertexType(x: -1.5, y: 3.5, z: 0),
+	NH3DVertexType( x: 1.5, y: 3.5, z: 0)
 ]
 
 private var defaultTexVerts: [NH3DMapCoordType] = [
@@ -118,11 +118,9 @@ private var defaultTexVerts: [NH3DMapCoordType] = [
 ]
 
 private var defaultNorms: [NH3DVertexType] = [
-	NH3DVertexType( x: 0.5, y: 0.0, z: 0.5),
-	NH3DVertexType( x: 0.5, y: 0.0, z: 0.5)
+	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5),
+	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5)
 ]
-
-
 
 ////////////////////////////////
 // MARK: null object
@@ -141,7 +139,6 @@ private var nullObjectTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 ),
 	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 )
 ]
-
 
 private var nullObjectNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.20,  y: 0.50, z: -0.30 ),NH3DVertexType( x: 0.20, y: 0.50, z: -0.30 ),
@@ -250,8 +247,7 @@ private var nh3dMaterialArray: [NH3DMaterial] = [
 		specular: ( 0.296648 , 0.296648 , 0.296648 , 1.0 ),
 		emission: ( 0.6 , 0.6 , 0.6 , 1.0 ),
 		shininess: 0.088)
-];
-
+]
 
 final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
@@ -1484,10 +1480,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraY = cameraY;
 				lastCameraZ = cameraZ;
 				isReady = true;
-			} else if ( footstep.playing && ( (!isFloating || isRiding) && !Swift_IsSoft( Swift_RoomAtLocation(u.ux, u.uy).typ )) && !SOUND_MUTE ) {
+			} else if footstep.playing && ((!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ)) && !SOUND_MUTE {
 				footstep.stop()
 				footstep.play()
-			} else if ( (!isFloating || isRiding) && !Swift_IsSoft( Swift_RoomAtLocation(u.ux, u.uy).typ ) && !SOUND_MUTE ) {
+			} else if (!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ) && !SOUND_MUTE {
 				footstep.play()
 			}
 			
@@ -1515,7 +1511,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	options:nil];
 	}
 	*/
-	
 	
 	// ---------------------------------
 	func doEffect() {

@@ -4,13 +4,13 @@
 @implementation NH3DPanel
 
 - (instancetype)initWithContentRect:(NSRect)contentRect 
-				styleMask:(NSUInteger)aStyle
-				  backing:(NSBackingStoreType)bufferingType 
-					defer:(BOOL)flag
+						  styleMask:(NSUInteger)aStyle
+							backing:(NSBackingStoreType)bufferingType
+							  defer:(BOOL)flag
 {
 	self = [super initWithContentRect:contentRect
-//							styleMask:NSBorderlessWindowMask
-							styleMask:aStyle
+							styleMask:aStyle | NSBorderlessWindowMask
+							//styleMask:aStyle
 							  backing:bufferingType
 								defer:flag ];
 	

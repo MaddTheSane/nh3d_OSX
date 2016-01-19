@@ -14,7 +14,6 @@
 
 
 @interface NH3DUserMakeSheetController : NSWindowController {
-
 	NH3DUserStatusModel *_userStatus;
 	
 	IBOutlet NSMatrix *chooseRace;
@@ -53,7 +52,6 @@
 	NSString *cavemanName;
 	
 	NSAttributedString *playerName;
-	
 }
 
 - (void)setDone_race:(BOOL)enable;
