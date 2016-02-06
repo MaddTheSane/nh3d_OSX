@@ -387,7 +387,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		self.setFrameSize(frameRect.size)
 		
-		glMatrixMode(GLenum(GL_PROJECTION))
+		glMatrixMode(GLenum(bitPattern: GL_PROJECTION))
 		glLoadIdentity();
 		
 		glClearColor(0, 0, 0, 0)
@@ -461,7 +461,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		cacheMethods()
 		
 		// init Effect models
-		_enemyPosition = 0;
+		_enemyPosition = 0
 		effectArray.reserveCapacity(12)
 		
 		do {
@@ -567,9 +567,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let nCenter = NSNotificationCenter.defaultCenter()
 		nCenter.addObserver(self, selector: "defaultsDidChange:", name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
-		//TODO: What if moved to other display?
-		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID());
-		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg);
+		// TODO: What if moved to other display?
+		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
+		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
 		
 		_running = true
 		threadRunning = false
@@ -870,22 +870,22 @@ final class NH3DOpenGLView: NSOpenGLView {
 				if ( ( Swift_IsRoom( Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ ) || IS_DOOR( Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ ) )
 					&& Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF ) {
 						glFogf( GLenum(GL_FOG_END) ,  4.5 + Float(i) * NH3DGL_TILE_SIZE );
-						break;
+						break
 						
 				} else if ( ( Swift_IsRoom( Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ ) || IS_DOOR( Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ ) )
 					&& Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF ) {
 						glFogf( GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
-						break;
+						break
 						
 				} else if (Swift_IsRoom(Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ))
 					&& Swift_RoomAtLocation(u.ux + xchar(i), u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
-						break;
+						break
 						
 				} else if (Swift_IsRoom(Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ))
 					&& Swift_RoomAtLocation(u.ux - xchar(i), u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
-						break;
+						break
 				}
 			}
 			
@@ -908,19 +908,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 				if Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ == schar(CORR)
 					&&   Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
-						break;
+						break
 				} else if Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ == schar(CORR)
 					&&   Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
-						break;
+						break
 				} else if Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ == schar(CORR)
 					&&   Swift_RoomAtLocation(u.ux + xchar(i), u.uy).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
-						break;
+						break
 				} else if Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ == schar(CORR)
 					&&   Swift_RoomAtLocation(u.ux - xchar(i), u.uy).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE );
-						break;
+						break
 				}
 			}
 		} else {
@@ -935,7 +935,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glLightfv(GLenum(GL_LIGHT1), GLenum(GL_EMISSION), lightEmisson)
 			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 10.0)
 			
-			glFogf(GLenum(GL_FOG_END),  4.5 + Float(u.nv_range) * NH3DGL_TILE_SIZE)
+			glFogf(GLenum(GL_FOG_END), 4.5 + Float(u.nv_range) * NH3DGL_TILE_SIZE)
 			glFogfv(GLenum(GL_FOG_COLOR), fogColor)
 		}
 		
@@ -989,13 +989,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// OpenGL update method.
 	@objc(timerFired:) private func timerFired(sender: AnyObject) {
-		autoreleasepool {
 			openGLContext?.makeCurrentContext()
 			
 			viewLock.lock()
 			
 			var vsType: GLint
-			if ( OPENGLVIEW_WAITSYNC ) {
+			if OPENGLVIEW_WAITSYNC {
 				vsType = vsincWait
 			} else {
 				vsType = vsincNoWait
@@ -1016,8 +1015,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 					}
 				}
 			}
-			
-		}
 		NSThread.exit()
 	}
 	
@@ -1035,9 +1032,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			var z: Int32 = 0
 			nowUpdating = true;
 			
-			if (!Swift_Hallucination() || updateGLViewHelper.clearCnt == 10) {
-				glClear(GLbitfield( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) );
-				updateGLViewHelper.clearCnt=0;
+			if !Swift_Hallucination() || updateGLViewHelper.clearCnt == 10 {
+				glClear(GLbitfield( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
+				updateGLViewHelper.clearCnt = 0
 			} else {
 				updateGLViewHelper.clearCnt++
 			}
@@ -1384,7 +1381,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				floorCurrent = floorTex;
 				cellingCurrent = floorTex;
 				elementalLevel = 0;
-				/* not yat */
+				/* not yet */
 				
 			} else if Is_earthlevel(&u.uz) {
 				changeWallsTexture(3)
@@ -3615,96 +3612,95 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		drawFloorArray[0] = { [unowned self] in
-			glActiveTexture( GLenum(GL_TEXTURE0) );
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent );
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.floorCurrent)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
-			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		drawFloorArray[1] = { [unowned self] in
-			glActiveTexture( GLenum(GL_TEXTURE0) );
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE);
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
-			glTexCoordPointer(2, GLenum(GL_FLOAT),0, CeilingTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , CeilingVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, CeilingVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		drawFloorArray[2] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent)
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.floorCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms)
-			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts)
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts)
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms );
-			glTexCoordPointer(2, GLenum(GL_FLOAT),0, CeilingTexVerts );
-			glVertexPointer(3 , GLenum(GL_FLOAT), 0 , CeilingVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, CeilingTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, CeilingVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw pool
 		drawFloorArray[3] = { [unowned self] in
-			glActiveTexture( GLenum(GL_TEXTURE0) );
+			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D));
 			
-			glAlphaFunc( GLenum(GL_GREATER), 0.5 );
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.poolTex);
+			glAlphaFunc(GLenum(GL_GREATER), 0.5)
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.poolTex)
 			glTexEnvf(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GLfloat(GL_MODULATE))
 			
-			glActiveTexture(GLenum(GL_TEXTURE1));
+			glActiveTexture(GLenum(GL_TEXTURE1))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.envelopTex );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.envelopTex)
 			
-			glEnable(GLenum(GL_TEXTURE_2D));
-			glEnable(GLenum(GL_TEXTURE_GEN_S));
-			glEnable(GLenum(GL_TEXTURE_GEN_T));
+			glEnable(GLenum(GL_TEXTURE_2D))
+			glEnable(GLenum(GL_TEXTURE_GEN_S))
+			glEnable(GLenum(GL_TEXTURE_GEN_T))
 			
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_COMBINE)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GL_INTERPOLATE)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GL_PREVIOUS)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GL_ONE_MINUS_SRC_ALPHA)
 			
-			
 			glTexGeni(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			glTexGeni(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms)
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
 			glTexCoordPointer( 2, GLenum(GL_FLOAT), 0, FloorTexVerts)
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts)
+			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_GEN_S));
-			glDisable(GLenum(GL_TEXTURE_GEN_T));
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_GEN_S))
+			glDisable(GLenum(GL_TEXTURE_GEN_T))
+			glDisable(GLenum(GL_TEXTURE_2D))
 			
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GL_CONSTANT)
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GL_SRC_ALPHA)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_SOURCE2_RGB), GL_CONSTANT)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_OPERAND2_RGB), GL_SRC_ALPHA)
 			
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
@@ -3717,15 +3713,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 		//Draw ice
 		drawFloorArray[4] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.floorCurrent );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.floorCurrent)
 			
 			glMaterialf(GLenum(GL_FRONT), GLenum(GL_EMISSION), 10.0)
 			
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glActiveTexture(GLenum(GL_TEXTURE1));
+			glActiveTexture(GLenum(GL_TEXTURE1))
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.envelopTex)
 			
@@ -3740,17 +3736,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
-			glTexCoordPointer(2, GLenum(GL_FLOAT),0, FloorTexVerts)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
 			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_GEN_S));
-			glDisable(GLenum(GL_TEXTURE_GEN_T));
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_GEN_S))
+			glDisable(GLenum(GL_TEXTURE_GEN_T))
+			glDisable(GLenum(GL_TEXTURE_2D))
 			
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
@@ -3763,20 +3759,20 @@ final class NH3DOpenGLView: NSOpenGLView {
 		//Draw lava
 		drawFloorArray[5] = { [unowned self] in
 			glActiveTexture(GLenum(GL_TEXTURE0))
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.lavaTex)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			let emisson:[ GLfloat ] = [ 1.0, 1.0, 1.0, 1.0 ];
-			glMaterialfv( GLenum(GL_FRONT), GLenum(GL_EMISSION), emisson)
+			let emisson: [GLfloat] = [1.0, 1.0, 1.0, 1.0]
+			glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), emisson)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms);
-			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, CeilingVertNorms)
@@ -3788,72 +3784,72 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		//draw air
 		drawFloorArray[6] = { [unowned self] in
-			glActiveTexture(GLenum(GL_TEXTURE0));
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.airTex );
-			glTexEnvi( GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.airTex)
+			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer( GLenum(GL_FLOAT), 0 ,FloorVertNorms );
-			glTexCoordPointer(2, GLenum(GL_FLOAT),0, FloorTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3 , GLenum(GL_FLOAT), 0, FloorVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//draw cloud
 		drawFloorArray[7] = { [unowned self] in
-			glActiveTexture(GLenum(GL_TEXTURE0));
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.cloudTex)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0 ,FloorVertNorms );
-			glTexCoordPointer( 2, GLenum(GL_FLOAT),0, FloorTexVerts );
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0 , FloorVerts );
-			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0 , 4 );
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
+			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//draw water
 		drawFloorArray[8] = { [unowned self] in
-			glActiveTexture(GLenum(GL_TEXTURE0));
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE0))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.waterTex );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.waterTex)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
-			glActiveTexture(GLenum(GL_TEXTURE1));
-			glEnable(GLenum(GL_TEXTURE_2D));
+			glActiveTexture(GLenum(GL_TEXTURE1))
+			glEnable(GLenum(GL_TEXTURE_2D))
 			
 			glBindTexture(GLenum(GL_TEXTURE_2D), self.envelopTex)
 			
-			glEnable(GLenum(GL_TEXTURE_GEN_S));
-			glEnable(GLenum(GL_TEXTURE_GEN_T));
+			glEnable(GLenum(GL_TEXTURE_GEN_S))
+			glEnable(GLenum(GL_TEXTURE_GEN_T))
 			
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_COMBINE)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_COMBINE_RGB), GL_INTERPOLATE)
 			
-			let blend: [GLfloat] = [ 1.0, 1.0, 1.0, 0.18 ]
+			let blend: [GLfloat] = [1.0, 1.0, 1.0, 0.18]
 			glTexEnvfv(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_COLOR), blend)
 			
 			glTexGeni(GLenum(GL_S), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			glTexGeni(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			
 			
-			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms);
-			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts);
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts);
+			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_GEN_S));
-			glDisable(GLenum(GL_TEXTURE_GEN_T));
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_GEN_S))
+			glDisable(GLenum(GL_TEXTURE_GEN_T))
+			glDisable(GLenum(GL_TEXTURE_2D))
 			
 			glActiveTexture(GLenum(GL_TEXTURE0));
 			
-			glBindTexture( GLenum(GL_TEXTURE_2D), self.cellingCurrent );
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.cellingCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0 , CeilingVertNorms)
@@ -3861,16 +3857,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glVertexPointer(3, GLenum(GL_FLOAT), 0 , CeilingVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
-			glDisable(GLenum(GL_TEXTURE_2D));
+			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		
 		// insect class
-		loadModelBlocks[Int(PM_GIANT_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect;
-		loadModelBlocks[Int(PM_KILLER_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect;
-		loadModelBlocks[Int(PM_SOLDIER_ANT+GLYPH_MON_OFF)] =	loadModelFunc_insect;
-		loadModelBlocks[Int(PM_FIRE_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect;
-		loadModelBlocks[Int(PM_GIANT_BEETLE+GLYPH_MON_OFF)] =	loadModelFunc_insect;
-		loadModelBlocks[Int(PM_QUEEN_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect;
+		loadModelBlocks[Int(PM_GIANT_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect
+		loadModelBlocks[Int(PM_KILLER_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect
+		loadModelBlocks[Int(PM_SOLDIER_ANT+GLYPH_MON_OFF)] =	loadModelFunc_insect
+		loadModelBlocks[Int(PM_FIRE_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect
+		loadModelBlocks[Int(PM_GIANT_BEETLE+GLYPH_MON_OFF)] =	loadModelFunc_insect
+		loadModelBlocks[Int(PM_QUEEN_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect
 		
 		// blob class
 		loadModelBlocks[Int(PM_ACID_BLOB+GLYPH_MON_OFF)] =			loadModelFunc_blob
@@ -3883,21 +3879,21 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_PYROLISK+GLYPH_MON_OFF)] =		loadModelFunc_cockatrice
 		
 		// dog or canine class
-		loadModelBlocks[Int(PM_JACKAL+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_FOX+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_COYOTE+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_WEREJACKAL+GLYPH_MON_OFF)] =			loadModelFunc_dog;
-		loadModelBlocks[Int(PM_LITTLE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog;
-		loadModelBlocks[Int(PM_DOG+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_LARGE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog;
-		loadModelBlocks[Int(PM_DINGO+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_WOLF+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_WEREWOLF+GLYPH_MON_OFF)] =			loadModelFunc_dog;
-		loadModelBlocks[Int(PM_WARG+GLYPH_MON_OFF)] =				loadModelFunc_dog;
-		loadModelBlocks[Int(PM_WINTER_WOLF_CUB+GLYPH_MON_OFF)] =	loadModelFunc_dog;
-		loadModelBlocks[Int(PM_WINTER_WOLF+GLYPH_MON_OFF)] =		loadModelFunc_dog;
-		loadModelBlocks[Int(PM_HELL_HOUND_PUP+GLYPH_MON_OFF)] =		loadModelFunc_dog;
-		loadModelBlocks[Int(PM_HELL_HOUND+GLYPH_MON_OFF)] =			loadModelFunc_dog;
+		loadModelBlocks[Int(PM_JACKAL+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_FOX+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_COYOTE+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_WEREJACKAL+GLYPH_MON_OFF)] =			loadModelFunc_dog
+		loadModelBlocks[Int(PM_LITTLE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog
+		loadModelBlocks[Int(PM_DOG+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_LARGE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog
+		loadModelBlocks[Int(PM_DINGO+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_WOLF+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_WEREWOLF+GLYPH_MON_OFF)] =			loadModelFunc_dog
+		loadModelBlocks[Int(PM_WARG+GLYPH_MON_OFF)] =				loadModelFunc_dog
+		loadModelBlocks[Int(PM_WINTER_WOLF_CUB+GLYPH_MON_OFF)] =	loadModelFunc_dog
+		loadModelBlocks[Int(PM_WINTER_WOLF+GLYPH_MON_OFF)] =		loadModelFunc_dog
+		loadModelBlocks[Int(PM_HELL_HOUND_PUP+GLYPH_MON_OFF)] =		loadModelFunc_dog
+		loadModelBlocks[Int(PM_HELL_HOUND+GLYPH_MON_OFF)] =			loadModelFunc_dog
 		
 		// eye or sphere class
 		loadModelBlocks[Int(PM_GAS_SPORE+GLYPH_MON_OFF)] =			loadModelFunc_sphere;
@@ -3916,17 +3912,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_TIGER+GLYPH_MON_OFF)] =		loadModelFunc_cat
 		
 		// gremlins and gagoyles class
-		loadModelBlocks[Int(PM_GREMLIN+GLYPH_MON_OFF)] =			loadModelFunc_gremlins;
-		loadModelBlocks[Int(PM_GARGOYLE+GLYPH_MON_OFF)] =			loadModelFunc_gremlins;
-		loadModelBlocks[Int(PM_WINGED_GARGOYLE+GLYPH_MON_OFF)] =	loadModelFunc_gremlins;
+		loadModelBlocks[Int(PM_GREMLIN+GLYPH_MON_OFF)] =			loadModelFunc_gremlins
+		loadModelBlocks[Int(PM_GARGOYLE+GLYPH_MON_OFF)] =			loadModelFunc_gremlins
+		loadModelBlocks[Int(PM_WINGED_GARGOYLE+GLYPH_MON_OFF)] =	loadModelFunc_gremlins
 		
 		// humanoids class
-		loadModelBlocks[Int(PM_DWARF_KING+GLYPH_MON_OFF)] =			loadModelFunc_humanoids;
-		loadModelBlocks[Int(PM_HOBBIT+GLYPH_MON_OFF)] =				loadModelFunc_humanoids;
-		loadModelBlocks[Int(PM_DWARF+GLYPH_MON_OFF)] =				loadModelFunc_humanoids;
-		loadModelBlocks[Int(PM_BUGBEAR+GLYPH_MON_OFF)] =			loadModelFunc_humanoids;
-		loadModelBlocks[Int(PM_DWARF_LORD+GLYPH_MON_OFF)] =			loadModelFunc_humanoids;
-		loadModelBlocks[Int(PM_MIND_FLAYER+GLYPH_MON_OFF)] =		loadModelFunc_humanoids;
+		loadModelBlocks[Int(PM_DWARF_KING+GLYPH_MON_OFF)] =			loadModelFunc_humanoids
+		loadModelBlocks[Int(PM_HOBBIT+GLYPH_MON_OFF)] =				loadModelFunc_humanoids
+		loadModelBlocks[Int(PM_DWARF+GLYPH_MON_OFF)] =				loadModelFunc_humanoids
+		loadModelBlocks[Int(PM_BUGBEAR+GLYPH_MON_OFF)] =			loadModelFunc_humanoids
+		loadModelBlocks[Int(PM_DWARF_LORD+GLYPH_MON_OFF)] =			loadModelFunc_humanoids
+		loadModelBlocks[Int(PM_MIND_FLAYER+GLYPH_MON_OFF)] =		loadModelFunc_humanoids
 		loadModelBlocks[Int(PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF)] =	loadModelFunc_humanoids
 		
 		// imp and minor demons
@@ -4194,9 +4190,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_VLAD_THE_IMPALER + GLYPH_MON_OFF)] =	loadModelFunc_Vampires
 		
 		// Wraiths
-		loadModelBlocks[Int(PM_BARROW_WIGHT + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
-		loadModelBlocks[Int(PM_WRAITH + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
-		loadModelBlocks[Int(PM_NAZGUL + GLYPH_MON_OFF)] = loadModelFunc_Wraiths;
+		loadModelBlocks[Int(PM_BARROW_WIGHT + GLYPH_MON_OFF)] = loadModelFunc_Wraiths
+		loadModelBlocks[Int(PM_WRAITH + GLYPH_MON_OFF)] = loadModelFunc_Wraiths
+		loadModelBlocks[Int(PM_NAZGUL + GLYPH_MON_OFF)] = loadModelFunc_Wraiths
 		
 		// Xorn
 		loadModelBlocks[Int(PM_XORN + GLYPH_MON_OFF)] = { _ in
@@ -4224,17 +4220,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_SKELETON + GLYPH_MON_OFF)] = loadModelFunc_Zombie;
 		
 		// Golems
-		loadModelBlocks[Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_PAPER_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_ROPE_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_GOLD_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_LEATHER_GOLEM + GLYPH_MON_OFF)] =	loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_WOOD_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_FLESH_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_CLAY_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_STONE_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_GLASS_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
-		loadModelBlocks[Int(PM_IRON_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems;
+		loadModelBlocks[Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_PAPER_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_ROPE_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_GOLD_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_LEATHER_GOLEM + GLYPH_MON_OFF)] =	loadModelFunc_Golems
+		loadModelBlocks[Int(PM_WOOD_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_FLESH_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_CLAY_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_STONE_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_GLASS_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		loadModelBlocks[Int(PM_IRON_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
 		
 		// Human or Elves
 		loadModelBlocks[Int(PM_ELVENKING + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves;
@@ -4298,9 +4294,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_DEMOGORGON + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons
 		
 		// daemon "The Riders"
-		loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] =		loadModelFunc_Riders;
-		loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] =	loadModelFunc_Riders;
-		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] =		loadModelFunc_Riders;
+		loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] =		loadModelFunc_Riders
+		loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] =	loadModelFunc_Riders
+		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] =		loadModelFunc_Riders
 		
 		// sea monsters
 		loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] = loadModelFunc_seamonsters
@@ -4433,51 +4429,51 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// ZAP symbols ( NUM_ZAP * four directions )
 		
 		// type Magic Missile
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicMissile;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicMissile;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicMissile;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicMissile
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicMissile
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicMissile
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicMissile
 		
 		// type Magic FIRE
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicFIRE;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicFIRE;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicFIRE;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicFIRE
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicFIRE
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicFIRE
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicFIRE
 		
 		// type Magic COLD
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicCOLD;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicCOLD;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicCOLD;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicCOLD
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicCOLD
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicCOLD
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicCOLD
 		
 		// type Magic SLEEP
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicSLEEP;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicSLEEP;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicSLEEP;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicSLEEP
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicSLEEP
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicSLEEP
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicSLEEP
 		
 		// type Magic DEATH
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicDEATH;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicDEATH;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicDEATH;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicDEATH
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicDEATH
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicDEATH
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicDEATH
 		
 		// type Magic LIGHTNING
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicLIGHTNING;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicLIGHTNING;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicLIGHTNING;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicLIGHTNING;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicLIGHTNING
 		
 		// type Magic POISONGAS
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicPOISONGAS;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicPOISONGAS;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicPOISONGAS;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicPOISONGAS
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicPOISONGAS
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicPOISONGAS
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicPOISONGAS
 		
 		// type Magic ACID
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicACID;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicACID;
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicACID;
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicACID
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicACID
+		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicACID
 		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicACID
 		
 		// dig beam
@@ -4514,10 +4510,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		//loadModelBlocks[ S_boomright + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
 		
 		// magic shild
-		loadModelBlocks[Int(S_ss1 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
-		loadModelBlocks[Int(S_ss2 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
-		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
-		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD;
+		loadModelBlocks[Int(S_ss1 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss2 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
 		
 		// statues
 		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)..<Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
@@ -4527,22 +4523,22 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// explosion symbols ( 9 postion * 7 types )
 		for i in 0..<MAXEXPCHARS {
 			// type DARK
-			loadModelBlocks[Int(NH3D_EXPLODE_DARK + i)] = loadModelFunc_explotionDARK;
+			loadModelBlocks[Int(NH3D_EXPLODE_DARK + i)] = loadModelFunc_explotionDARK
 			
 			// type NOXIOUS
-			loadModelBlocks[Int(NH3D_EXPLODE_NOXIOUS + i)] = loadModelFunc_explotionNOXIOUS;
+			loadModelBlocks[Int(NH3D_EXPLODE_NOXIOUS + i)] = loadModelFunc_explotionNOXIOUS
 			
 			// type MUDDY
-			loadModelBlocks[Int(NH3D_EXPLODE_MUDDY + i)] = loadModelFunc_explotionMUDDY;
+			loadModelBlocks[Int(NH3D_EXPLODE_MUDDY + i)] = loadModelFunc_explotionMUDDY
 			
 			// type WET
 			loadModelBlocks[Int(NH3D_EXPLODE_WET + i)] = loadModelFunc_explotionWET
 			
 			// type MAGICAL
-			loadModelBlocks[Int(NH3D_EXPLODE_MAGICAL + i)] = loadModelFunc_explotionMAGICAL;
+			loadModelBlocks[Int(NH3D_EXPLODE_MAGICAL + i)] = loadModelFunc_explotionMAGICAL
 			
 			// type FIERY
-			loadModelBlocks[Int(NH3D_EXPLODE_FIERY + i)] = loadModelFunc_explotionFIERY;
+			loadModelBlocks[Int(NH3D_EXPLODE_FIERY + i)] = loadModelFunc_explotionFIERY
 			
 			// type FROSTY
 			loadModelBlocks[Int(NH3D_EXPLODE_FROSTY + i)] = loadModelFunc_explotionFROSTY
