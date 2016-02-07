@@ -323,6 +323,12 @@
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
 		556A21B71C670E9C00DB226F /* NH3DTeleportationDestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */; };
 		556A21B81C670E9C00DB226F /* NH3DTeleportationDestinationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */; };
+		556A21BB1C67B80500DB226F /* NH3DModelDefines.c in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B91C67B80500DB226F /* NH3DModelDefines.c */; };
+		556A21BD1C67BD8B00DB226F /* NH3DModelBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A21BC1C67BD8B00DB226F /* NH3DModelBundle.swift */; };
+		556A21C91C67C47D00DB226F /* Models.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556A21C81C67C47D00DB226F /* Models.xcassets */; };
+		556A21D51C67C53800DB226F /* Models.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 556A21D41C67C53800DB226F /* Models.xcassets */; };
+		556A21DA1C67C74E00DB226F /* Letters.nh3dmodels in Resources */ = {isa = PBXBuildFile; fileRef = 556A21C21C67C43100DB226F /* Letters.nh3dmodels */; };
+		556A21DB1C67C74E00DB226F /* BaseWalls.nh3dmodels in Resources */ = {isa = PBXBuildFile; fileRef = 556A21CE1C67C52000DB226F /* BaseWalls.nh3dmodels */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -333,6 +339,23 @@
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		556A21D61C67C73700DB226F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 556A21C11C67C43100DB226F;
+			remoteInfo = Letters;
+		};
+		556A21D81C67C73700DB226F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 556A21CD1C67C52000DB226F;
+			remoteInfo = BaseWalls;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -1168,6 +1191,15 @@
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
 		556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DTeleportationDestinationController.swift; sourceTree = "<group>"; };
 		556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NH3DTeleportationDestinationController.xib; sourceTree = "<group>"; };
+		556A21B91C67B80500DB226F /* NH3DModelDefines.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NH3DModelDefines.c; sourceTree = "<group>"; };
+		556A21BA1C67B80500DB226F /* NH3DModelDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DModelDefines.h; sourceTree = "<group>"; };
+		556A21BC1C67BD8B00DB226F /* NH3DModelBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DModelBundle.swift; sourceTree = "<group>"; };
+		556A21C21C67C43100DB226F /* Letters.nh3dmodels */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Letters.nh3dmodels; sourceTree = BUILT_PRODUCTS_DIR; };
+		556A21C41C67C43100DB226F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		556A21C81C67C47D00DB226F /* Models.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Models.xcassets; sourceTree = "<group>"; };
+		556A21CE1C67C52000DB226F /* BaseWalls.nh3dmodels */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BaseWalls.nh3dmodels; sourceTree = BUILT_PRODUCTS_DIR; };
+		556A21D01C67C52000DB226F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		556A21D41C67C53800DB226F /* Models.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Models.xcassets; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1238,6 +1270,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		556A21BF1C67C43100DB226F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		556A21CB1C67C52000DB226F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1289,6 +1335,7 @@
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
 				556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */,
+				556A21BC1C67BD8B00DB226F /* NH3DModelBundle.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1314,6 +1361,8 @@
 				2BCAABC00913A70000AF1C59 /* tilemap */,
 				8D1107320486CEB800E47090 /* NetHack3D.app */,
 				2BCAABD50913A7A500AF1C59 /* tiletext */,
+				556A21C21C67C43100DB226F /* Letters.nh3dmodels */,
+				556A21CE1C67C52000DB226F /* BaseWalls.nh3dmodels */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1325,6 +1374,8 @@
 				5560A2A51C347F8C00BF77F7 /* Other Sources */,
 				29B97315FDCFA39411CA2CEA /* NetHack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				556A21C31C67C43100DB226F /* Letters */,
+				556A21CF1C67C52000DB226F /* BaseWalls */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -2411,9 +2462,29 @@
 		5560A2A51C347F8C00BF77F7 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				556A21BA1C67B80500DB226F /* NH3DModelDefines.h */,
+				556A21B91C67B80500DB226F /* NH3DModelDefines.c */,
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		556A21C31C67C43100DB226F /* Letters */ = {
+			isa = PBXGroup;
+			children = (
+				556A21C41C67C43100DB226F /* Info.plist */,
+				556A21C81C67C47D00DB226F /* Models.xcassets */,
+			);
+			path = Letters;
+			sourceTree = "<group>";
+		};
+		556A21CF1C67C52000DB226F /* BaseWalls */ = {
+			isa = PBXGroup;
+			children = (
+				556A21D01C67C52000DB226F /* Info.plist */,
+				556A21D41C67C53800DB226F /* Models.xcassets */,
+			);
+			path = BaseWalls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2515,6 +2586,40 @@
 			productReference = 2BCAABD50913A7A500AF1C59 /* tiletext */;
 			productType = "com.apple.product-type.tool";
 		};
+		556A21C11C67C43100DB226F /* Letters */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 556A21C51C67C43200DB226F /* Build configuration list for PBXNativeTarget "Letters" */;
+			buildPhases = (
+				556A21BE1C67C43100DB226F /* Sources */,
+				556A21BF1C67C43100DB226F /* Frameworks */,
+				556A21C01C67C43100DB226F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Letters;
+			productName = Letters;
+			productReference = 556A21C21C67C43100DB226F /* Letters.nh3dmodels */;
+			productType = "com.apple.product-type.bundle";
+		};
+		556A21CD1C67C52000DB226F /* BaseWalls */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 556A21D11C67C52000DB226F /* Build configuration list for PBXNativeTarget "BaseWalls" */;
+			buildPhases = (
+				556A21CA1C67C52000DB226F /* Sources */,
+				556A21CB1C67C52000DB226F /* Frameworks */,
+				556A21CC1C67C52000DB226F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BaseWalls;
+			productName = BaseWalls;
+			productReference = 556A21CE1C67C52000DB226F /* BaseWalls.nh3dmodels */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D1107260486CEB800E47090 /* NetHack3D */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B14B3280890124A0051A4A9 /* Build configuration list for PBXNativeTarget "NetHack3D" */;
@@ -2526,6 +2631,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				556A21D71C67C73700DB226F /* PBXTargetDependency */,
+				556A21D91C67C73700DB226F /* PBXTargetDependency */,
 			);
 			name = NetHack3D;
 			productInstallPath = "$(HOME)/Applications";
@@ -2542,6 +2649,14 @@
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
+				TargetAttributes = {
+					556A21C11C67C43100DB226F = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					556A21CD1C67C52000DB226F = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
 			};
 			buildConfigurationList = 2B14B32C0890124A0051A4A9 /* Build configuration list for PBXProject "NetHack3D" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2563,15 +2678,35 @@
 				2BACF9EE090258000095C8A4 /* recover */,
 				2BCAABBF0913A70000AF1C59 /* tilemap */,
 				2BCAABD40913A7A500AF1C59 /* tiletext */,
+				556A21C11C67C43100DB226F /* Letters */,
+				556A21CD1C67C52000DB226F /* BaseWalls */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		556A21C01C67C43100DB226F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				556A21C91C67C47D00DB226F /* Models.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		556A21CC1C67C52000DB226F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				556A21D51C67C53800DB226F /* Models.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556A21DA1C67C74E00DB226F /* Letters.nh3dmodels in Resources */,
+				556A21DB1C67C74E00DB226F /* BaseWalls.nh3dmodels in Resources */,
 				5560A2B21C3481AB00BF77F7 /* medusa-3.lev in Resources */,
 				2B5CC026088EB5A600940C58 /* air.lev in Resources */,
 				2B5CC027088EB5A600940C58 /* Arc-fila.lev in Resources */,
@@ -2807,6 +2942,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		556A21BE1C67C43100DB226F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		556A21CA1C67C52000DB226F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2820,6 +2969,7 @@
 				2B5CC153088EB7DF00940C58 /* bones.c in Sources */,
 				2B5CC154088EB7DF00940C58 /* botl.c in Sources */,
 				2B5CC155088EB7DF00940C58 /* cmd.c in Sources */,
+				556A21BD1C67BD8B00DB226F /* NH3DModelBundle.swift in Sources */,
 				2B5CC156088EB7DF00940C58 /* dbridge.c in Sources */,
 				2B5CC157088EB7DF00940C58 /* decl.c in Sources */,
 				2B5CC158088EB7DF00940C58 /* detect.c in Sources */,
@@ -2850,6 +3000,7 @@
 				55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */,
 				2B5CC16F088EB7DF00940C58 /* invent.c in Sources */,
 				2B5CC171088EB7DF00940C58 /* light.c in Sources */,
+				556A21BB1C67B80500DB226F /* NH3DModelDefines.c in Sources */,
 				2B5CC172088EB7DF00940C58 /* lock.c in Sources */,
 				2B5CC173088EB7DF00940C58 /* mail.c in Sources */,
 				2B5CC175088EB7DF00940C58 /* makemon.c in Sources */,
@@ -2948,6 +3099,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		556A21D71C67C73700DB226F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 556A21C11C67C43100DB226F /* Letters */;
+			targetProxy = 556A21D61C67C73700DB226F /* PBXContainerItemProxy */;
+		};
+		556A21D91C67C73700DB226F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 556A21CD1C67C52000DB226F /* BaseWalls */;
+			targetProxy = 556A21D81C67C73700DB226F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */ = {
@@ -3107,13 +3271,20 @@
 		2B14B32D0890124A0051A4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3126,7 +3297,8 @@
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3141,12 +3313,19 @@
 		2B14B32E0890124A0051A4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = NOMAIL;
@@ -3156,7 +3335,8 @@
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = NetHack3D;
@@ -3409,6 +3589,154 @@
 			};
 			name = Release;
 		};
+		556A21C61C67C43200DB226F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = Letters/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Letters;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = nh3dmodels;
+			};
+			name = Debug;
+		};
+		556A21C71C67C43200DB226F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = Letters/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Letters;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = nh3dmodels;
+			};
+			name = Release;
+		};
+		556A21D21C67C52000DB226F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = BaseWalls/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.BaseWalls;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = nh3dmodels;
+			};
+			name = Debug;
+		};
+		556A21D31C67C52000DB226F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = BaseWalls/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.BaseWalls;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = nh3dmodels;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3483,6 +3811,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		556A21C51C67C43200DB226F /* Build configuration list for PBXNativeTarget "Letters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				556A21C61C67C43200DB226F /* Debug */,
+				556A21C71C67C43200DB226F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		556A21D11C67C52000DB226F /* Build configuration list for PBXNativeTarget "BaseWalls" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				556A21D21C67C52000DB226F /* Debug */,
+				556A21D31C67C52000DB226F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

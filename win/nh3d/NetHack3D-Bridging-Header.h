@@ -9,6 +9,7 @@
 #import "NH3DMapView.h"
 #import "NH3DModelObject.h"
 #import "winnh3d.h"
+#include "NH3DModelDefines.h"
 
 static inline BOOL Swift_Invis() {
 	return !!Invis;
