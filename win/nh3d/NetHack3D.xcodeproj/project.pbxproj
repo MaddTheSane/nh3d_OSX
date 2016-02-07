@@ -1289,7 +1289,6 @@
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
 				556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */,
-				556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1355,6 +1354,7 @@
 				2BA021C708EF4B62004057D1 /* perm */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,
 				2B578FFD08AB66570080498F /* Resources */,
+				556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */,
 				2B3539190915A2F4002CC8AD /* MainMenu.xib */,
 				2BE3649D095D20F500D34027 /* Usermakesheet.xib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
