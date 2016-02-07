@@ -264,7 +264,6 @@
 		2B5CC1BD088EB7DF00940C58 /* worn.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC14A088EB7DF00940C58 /* worn.c */; };
 		2B5CC1BE088EB7DF00940C58 /* write.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC14B088EB7DF00940C58 /* write.c */; };
 		2B5CC1BF088EB7DF00940C58 /* zap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC14C088EB7DF00940C58 /* zap.c */; };
-		2B5E0E1808B09A520012CAC4 /* base.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B5E0E1708B09A520012CAC4 /* base.tiff */; };
 		2B5E5194097D4E94002F1588 /* nh3dres.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DD1F08CD73D5008CCAAC /* nh3dres.m */; };
 		2B5E5195097D4E94002F1588 /* nh3dunix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DD2008CD73D5008CCAAC /* nh3dunix.m */; };
 		2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6311CC08B7A27A00162523 /* winnh3d.m */; };
@@ -272,12 +271,10 @@
 		2B6F3EE4091AF3E500367391 /* waterDrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2B6F3EE1091AF3E500367391 /* waterDrop.wav */; };
 		2B6F3F8A091B59F500367391 /* waterDrop2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2B6F3F87091B59F500367391 /* waterDrop2.wav */; };
 		2B6F3F8B091B59F500367391 /* waterDrop3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2B6F3F88091B59F500367391 /* waterDrop3.wav */; };
-		2B76D428090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B76D427090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff */; };
 		2B89E8340957180300978B9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		2B89F12A0A22FE3F00387832 /* oracles in Resources */ = {isa = PBXBuildFile; fileRef = 2B89F1280A22FE3F00387832 /* oracles */; };
 		2B89F12B0A22FE3F00387832 /* rumors in Resources */ = {isa = PBXBuildFile; fileRef = 2B89F1290A22FE3F00387832 /* rumors */; };
 		2B8AE3610960779400B6998D /* PreferencePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B8AE3600960779400B6998D /* PreferencePanel.xib */; };
-		2B9854BC08F96D84005E0966 /* asciiMapBase.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */; };
 		2B9ED5D608F51D15004AD560 /* NH3DMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5D508F51D15004AD560 /* NH3DMapView.m */; };
 		2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5E108F53947004AD560 /* NH3DMapItem.m */; };
 		2BA021C808EF4B62004057D1 /* perm in Resources */ = {isa = PBXBuildFile; fileRef = 2BA021C708EF4B62004057D1 /* perm */; };
@@ -305,11 +302,8 @@
 		2BCAABCC0913A71200AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD70913A7B100AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD80913A7B100AF1C59 /* tiletext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBE08CD73C5008CCAAC /* tiletext.c */; };
-		2BCFB25708F950DB007DB83D /* base48.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BCFB25608F950DB007DB83D /* base48.tiff */; };
-		2BCFB25D08F95590007DB83D /* asciiMapMask.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BCFB25C08F95590007DB83D /* asciiMapMask.tiff */; };
 		2BE3649F095D20F500D34027 /* Usermakesheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3649D095D20F500D34027 /* Usermakesheet.xib */; };
 		2BE376360A22E29D00B3CDF4 /* icon_O.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */; };
-		2BE376410A22E29D00B3CDF4 /* trBase.tif in Resources */ = {isa = PBXBuildFile; fileRef = 2BE376270A22E29D00B3CDF4 /* trBase.tif */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
@@ -2719,17 +2713,12 @@
 				2B5CC0D5088EB5A600940C58 /* wizard3.lev in Resources */,
 				2B5CC0D6088EB5A600940C58 /* wizhelp in Resources */,
 				2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */,
-				2B5E0E1808B09A520012CAC4 /* base.tiff in Resources */,
 				2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */,
 				2B5469C208EF2F01008AA81F /* Sysunix in Resources */,
 				2BA021C808EF4B62004057D1 /* perm in Resources */,
 				2BA046CD08EF5831004057D1 /* logfile in Resources */,
 				5560A2A21C347F0700BF77F7 /* symbols in Resources */,
 				2B0D0DA408F1C20600F7A7E8 /* options in Resources */,
-				2BCFB25708F950DB007DB83D /* base48.tiff in Resources */,
-				2BCFB25D08F95590007DB83D /* asciiMapMask.tiff in Resources */,
-				2B9854BC08F96D84005E0966 /* asciiMapBase.tiff in Resources */,
-				2B76D428090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff in Resources */,
 				2B6F3EE2091AF3E500367391 /* footStep.wav in Resources */,
 				2B6F3EE4091AF3E500367391 /* waterDrop.wav in Resources */,
 				2B6F3F8A091B59F500367391 /* waterDrop2.wav in Resources */,
@@ -2747,7 +2736,6 @@
 				2B8AE3610960779400B6998D /* PreferencePanel.xib in Resources */,
 				5560A2AD1C34818300BF77F7 /* bigrm-8.lev in Resources */,
 				2BE376360A22E29D00B3CDF4 /* icon_O.tiff in Resources */,
-				2BE376410A22E29D00B3CDF4 /* trBase.tif in Resources */,
 				2B89F12A0A22FE3F00387832 /* oracles in Resources */,
 				2B89F12B0A22FE3F00387832 /* rumors in Resources */,
 			);
