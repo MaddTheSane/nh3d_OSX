@@ -45,8 +45,8 @@ private let keyLightAltspec: [GLfloat] = [0.04 ,0.09 ,0.18 ,1];
 private let defaultBackGroundCol: [GLfloat] = [0.00 ,0.00 ,0.00 ,0] ;
 private let underwaterColor: [GLfloat] = [0.00 ,0.00 ,0.80 ,1.0] ;
 
-private let vsincWait: GLint = 1;
-private let vsincNoWait: GLint = 0;
+private let vsyncWait: GLint = 1;
+private let vsyncNoWait: GLint = 0;
 ////////////////////////////////
 // MARK: floor model
 ////////////////////////////////
@@ -995,9 +995,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			var vsType: GLint
 			if OPENGLVIEW_WAITSYNC {
-				vsType = vsincWait
+				vsType = vsyncWait
 			} else {
-				vsType = vsincNoWait
+				vsType = vsyncNoWait
 			}
 			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
 			
@@ -1064,14 +1064,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 				
 			case PL_DIRECTION_RIGHT:
 				for z in 0..<NH3DGL_MAPVIEWSIZE_ROW {
-					for ( x=NH3DGL_MAPVIEWSIZE_COLUMN-1 ; x > MAP_MARGIN-drawMargin ; x-- ) {
+					for x = NH3DGL_MAPVIEWSIZE_COLUMN - 1; x > MAP_MARGIN-drawMargin; x-- {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
 			case PL_DIRECTION_BACK:
 				for x in 0..<NH3DGL_MAPVIEWSIZE_COLUMN {
-					for ( z=NH3DGL_MAPVIEWSIZE_ROW-1 ; z > MAP_MARGIN-drawMargin ; z-- ) {
+					for z = NH3DGL_MAPVIEWSIZE_ROW - 1; z > MAP_MARGIN-drawMargin; z-- {
 						drawGLView(x: x, z: z)
 					}
 				}
@@ -1191,19 +1191,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
 					
 					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
-					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE );
+					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 					
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient);
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse);
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular);
-					glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess);
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission);
+					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
+					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
+					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
+					glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
+					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
 					
-					glAlphaFunc(GLenum(GL_GREATER), 0.5);
+					glAlphaFunc(GLenum(GL_GREATER), 0.5)
 					
 					glEnableClientState(GLenum(GL_VERTEX_ARRAY))
 					glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-					glEnableClientState(GLenum(GL_NORMAL_ARRAY));
+					glEnableClientState(GLenum(GL_NORMAL_ARRAY))
 					
 					glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
 					glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
@@ -1598,7 +1598,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraZ = cameraZ
 			}
 			
-			glTranslatef( -lastCameraX,-lastCameraY,-lastCameraZ );
+			glTranslatef(-lastCameraX, -lastCameraY, -lastCameraZ)
 		}
 	}
 	
@@ -1633,9 +1633,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraHead = cameraHead
 			}
 			
-			glRotatef(lastCameraRoll,	0,0,1);
-			glRotatef(-lastCameraPitch,	1,0,0);
-			glRotatef(-lastCameraHead,	0,1,0);
+			glRotatef(lastCameraRoll,	0,0,1)
+			glRotatef(-lastCameraPitch,	1,0,0)
+			glRotatef(-lastCameraHead,	0,1,0)
 		}
 	}
 	
@@ -3385,9 +3385,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		var vsType: GLint
 		if OPENGLVIEW_WAITSYNC {
-			vsType = vsincWait
+			vsType = vsyncWait
 		} else {
-			vsType = vsincNoWait
+			vsType = vsyncNoWait
 		}
 		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
 	}
@@ -3531,9 +3531,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			var vsType: GLint
 			if OPENGLVIEW_WAITSYNC {
-				vsType = vsincWait
+				vsType = vsyncWait
 			} else {
-				vsType = vsincNoWait
+				vsType = vsyncNoWait
 			}
 			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
 		}
