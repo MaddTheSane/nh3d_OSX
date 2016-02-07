@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NH3DTeleportationDestinationController" customModule="NetHack3D" customModuleProvider="target">
+            <connections>
+                <outlet property="scrollView" destination="NSl-hC-1jI" id="akS-Gp-vMY"/>
+                <outlet property="window" destination="cuj-bG-eRP" id="XXg-1o-3XE"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="map" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="cuj-bG-eRP" userLabel="mapPanel" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="258" y="108" width="739" height="523"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <value key="minSize" type="size" width="739" height="523"/>
+            <value key="maxSize" type="size" width="739" height="523"/>
+            <view key="contentView" id="g9l-Cf-VZp">
+                <rect key="frame" x="0.0" y="0.0" width="739" height="523"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="fns-7k-6Sb">
+                        <rect key="frame" x="0.0" y="0.0" width="739" height="547"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="ScrollPaper" id="8YE-ef-ZC1"/>
+                    </imageView>
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSl-hC-1jI">
+                        <rect key="frame" x="45" y="60" width="650" height="450"/>
+                        <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="HlM-Xs-sLT">
+                            <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <imageView translatesAutoresizingMaskIntoConstraints="NO" id="qK0-v1-GRi">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="iVR-EM-dkN"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="qK0-v1-GRi" firstAttribute="leading" secondItem="HlM-Xs-sLT" secondAttribute="leading" id="0uN-iS-BJm"/>
+                                <constraint firstAttribute="bottom" secondItem="qK0-v1-GRi" secondAttribute="bottom" id="BMA-mK-Pad"/>
+                                <constraint firstAttribute="trailing" secondItem="qK0-v1-GRi" secondAttribute="trailing" constant="600" id="Iy3-ZH-x3v"/>
+                                <constraint firstItem="qK0-v1-GRi" firstAttribute="top" secondItem="HlM-Xs-sLT" secondAttribute="top" constant="400" id="uZi-Zs-PV8"/>
+                            </constraints>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="CmT-Fm-dQh">
+                            <rect key="frame" x="1" y="-22" width="784" height="11"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="tOt-8G-ZmY">
+                            <rect key="frame" x="-22" y="1" width="11" height="564"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Wj-BA-SNs">
+                        <rect key="frame" x="614" y="12" width="82" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="gnp-2o-uPW"/>
+                            <constraint firstAttribute="width" constant="70" id="vcD-Qq-VAX"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="jCU-9P-Yce">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                    </button>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wcg-K4-Vsi">
+                        <rect key="frame" x="108" y="20" width="507" height="28"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="System Font Text" id="IhD-IN-xmb">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ls7-4S-w2k">
+                        <rect key="frame" x="34" y="19" width="35" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="2Vm-vP-d0M"/>
+                        </constraints>
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="ZoomInTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" id="pm1-0K-y2P">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="label"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XpE-if-zls">
+                        <rect key="frame" x="68" y="19" width="35" height="25"/>
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="ZoomOutTemplate" imagePosition="only" alignment="center" borderStyle="border" tag="-1" imageScaling="proportionallyDown" id="wPq-O7-mjk">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ls7-4S-w2k" firstAttribute="leading" secondItem="g9l-Cf-VZp" secondAttribute="leading" constant="34" id="20M-wR-TnR"/>
+                    <constraint firstItem="wcg-K4-Vsi" firstAttribute="leading" secondItem="XpE-if-zls" secondAttribute="trailing" constant="7" id="2I1-MK-sC2"/>
+                    <constraint firstItem="NSl-hC-1jI" firstAttribute="top" secondItem="g9l-Cf-VZp" secondAttribute="top" constant="13" id="6mr-04-WVk"/>
+                    <constraint firstItem="XpE-if-zls" firstAttribute="top" secondItem="ls7-4S-w2k" secondAttribute="top" id="8xJ-za-hXZ"/>
+                    <constraint firstAttribute="bottom" secondItem="ls7-4S-w2k" secondAttribute="bottom" constant="20" symbolic="YES" id="CZx-ux-Bw7"/>
+                    <constraint firstItem="fns-7k-6Sb" firstAttribute="leading" secondItem="g9l-Cf-VZp" secondAttribute="leading" id="Ccn-3n-RXH"/>
+                    <constraint firstItem="XpE-if-zls" firstAttribute="width" secondItem="ls7-4S-w2k" secondAttribute="width" id="DBn-uq-OdA"/>
+                    <constraint firstItem="NSl-hC-1jI" firstAttribute="leading" secondItem="g9l-Cf-VZp" secondAttribute="leading" constant="45" id="Kxa-Ts-tgE"/>
+                    <constraint firstItem="NSl-hC-1jI" firstAttribute="centerX" secondItem="fns-7k-6Sb" secondAttribute="centerX" id="Lww-i4-J7O"/>
+                    <constraint firstItem="XpE-if-zls" firstAttribute="bottom" secondItem="ls7-4S-w2k" secondAttribute="bottom" id="SBT-6R-ujp"/>
+                    <constraint firstItem="XpE-if-zls" firstAttribute="leading" secondItem="ls7-4S-w2k" secondAttribute="trailing" constant="-1" id="VNE-vp-b4G"/>
+                    <constraint firstItem="5Wj-BA-SNs" firstAttribute="top" secondItem="NSl-hC-1jI" secondAttribute="bottom" constant="20" symbolic="YES" id="Vhu-qB-2eV"/>
+                    <constraint firstAttribute="bottom" secondItem="5Wj-BA-SNs" secondAttribute="bottom" constant="19" id="eLl-o8-Xqk"/>
+                    <constraint firstItem="wcg-K4-Vsi" firstAttribute="top" secondItem="NSl-hC-1jI" secondAttribute="bottom" constant="12" id="jmO-BG-ldk"/>
+                    <constraint firstItem="XpE-if-zls" firstAttribute="bottom" secondItem="wcg-K4-Vsi" secondAttribute="bottom" id="k6h-Hy-iV8"/>
+                    <constraint firstAttribute="bottom" secondItem="fns-7k-6Sb" secondAttribute="bottom" id="mF7-BA-4ON"/>
+                    <constraint firstItem="5Wj-BA-SNs" firstAttribute="leading" secondItem="wcg-K4-Vsi" secondAttribute="trailing" constant="7" id="qlN-id-95d"/>
+                    <constraint firstAttribute="trailing" secondItem="fns-7k-6Sb" secondAttribute="trailing" id="txV-9Y-Jpr"/>
+                    <constraint firstItem="fns-7k-6Sb" firstAttribute="top" secondItem="g9l-Cf-VZp" secondAttribute="top" constant="-24" id="ucm-lt-M5H"/>
+                    <constraint firstItem="ls7-4S-w2k" firstAttribute="top" secondItem="NSl-hC-1jI" secondAttribute="bottom" constant="17" id="vFB-mi-UZq"/>
+                    <constraint firstAttribute="trailing" secondItem="5Wj-BA-SNs" secondAttribute="trailing" constant="49" id="zjD-7m-bzA"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="owU-kZ-32X"/>
+            </connections>
+        </window>
+    </objects>
+    <resources>
+        <image name="ScrollPaper" width="487" height="518"/>
+        <image name="ZoomInTemplate" width="20" height="20"/>
+        <image name="ZoomOutTemplate" width="20" height="20"/>
+    </resources>
+</document>
