@@ -104,7 +104,6 @@ static const NH3DMaterial defaultMat = {
 	return tex_id;
 }
 
-/*
 - (BOOL)importOBJfileToNH3DModel:(NSString *)name
 {
 	// NOTICE.
@@ -133,7 +132,7 @@ static const NH3DMaterial defaultMat = {
 	
     while(![scanner isAtEnd] && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
 			
-		NSAutoreleasePool *pool = [NSAutoreleasePool new];
+		@autoreleasepool {
 		
 			[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 			
@@ -181,33 +180,32 @@ static const NH3DMaterial defaultMat = {
 						[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 						NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
 						faces[face_qty].a = [[faceArray_A objectAtIndex:0] intValue];
-						texReference[face_qty].a = [[faceArray_A objectAtIndex:1] intValue];
-						normReference[face_qty].a = [[faceArray_A objectAtIndex:2] intValue];
+						//texReference[face_qty].a = [[faceArray_A objectAtIndex:1] intValue];
+						//normReference[face_qty].a = [[faceArray_A objectAtIndex:2] intValue];
 						
 					//}	
 						[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 						NSArray *faceArray_B = [destText componentsSeparatedByString:@"/"];
 						faces[face_qty].b = [[faceArray_B objectAtIndex:0] intValue];
-						texReference[face_qty].b = [[faceArray_B objectAtIndex:1] intValue];
-						normReference[face_qty].b = [[faceArray_B objectAtIndex:2] intValue];
+						//texReference[face_qty].b = [[faceArray_B objectAtIndex:1] intValue];
+						//normReference[face_qty].b = [[faceArray_B objectAtIndex:2] intValue];
 					
 						
 						[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 						NSArray *faceArray_C = [destText componentsSeparatedByString:@"/"];
 						faces[face_qty].c = [[faceArray_C objectAtIndex:0] intValue];
-						texReference[face_qty].c = [[faceArray_C objectAtIndex:1] intValue];
-						normReference[face_qty].c = [[faceArray_C objectAtIndex:2] intValue];
+						//texReference[face_qty].c = [[faceArray_C objectAtIndex:1] intValue];
+						//normReference[face_qty].c = [[faceArray_C objectAtIndex:2] intValue];
 						
 						face_qty++;
 						
 			} // end if ([destText ...
 			
-			[pool release];
+		}
     } // end while(![scanner isAtEnd])
 	
 	return YES;
 }
-*/
 
 - (BOOL)import3DSfileToNH3DModel:(NSString *)name
 {
@@ -664,7 +662,6 @@ static const NH3DMaterial defaultMat = {
 }
 
 
-/*
 - (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag
 {
 	self = [super init];
@@ -711,7 +708,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	return self;
 }
-*/
 
 - (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
 {

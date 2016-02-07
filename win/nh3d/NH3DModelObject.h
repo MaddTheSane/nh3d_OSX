@@ -112,14 +112,14 @@ typedef struct {
 
 /// init for particle emitter
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
-/*
-- (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag; // 
-																// NOTICE.
-																// this method work for TRIANGLES ONLY 
-																// not yat impliment other mesh type. do not work well texturecood, and faceinfomation.
-																// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
-																// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
-*/
+
+/// NOTICE.
+/// this method work for TRIANGLES ONLY
+/// not yet impliment other mesh type. do not work well texturecood, and faceinfomation.
+/// plz use method `- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag` and 3ds format files.
+/// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
+- (nullable instancetype) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag NS_DESIGNATED_INITIALIZER;
+
 - (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_DESIGNATED_INITIALIZER; // This is designated initializer.
 
 - (void)calculateNormals;
