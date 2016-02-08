@@ -1410,7 +1410,7 @@ int status;
     program_state.exiting = 1;
     nethack_exit(status);
 #ifdef NH3D_GRAPHICS
-    //quiet a warning
+    /* quiet a warning */
     exit(status);
 #endif
 }

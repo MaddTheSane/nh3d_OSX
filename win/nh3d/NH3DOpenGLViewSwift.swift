@@ -1510,7 +1510,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	*/
 	
 	// ---------------------------------
-	func doEffect() {
+	private func doEffect() {
 		struct EffectHelper {
 			static var effectCount = 0
 		}
@@ -1528,7 +1528,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func floatingCamera() {
+	private func floatingCamera() {
 		struct FloatHelp {
 			static var fltCamera: Float = 0
 			static var floatDirection = false
@@ -1545,7 +1545,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTranslatef(0.0, FloatHelp.fltCamera, 0.0)
 	}
 	
-	func shockedCamera() {
+	private func shockedCamera() {
 		struct ShockHelp {
 			static var cameraShock: Float = 0
 			static var shockCount = 0
@@ -1571,7 +1571,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTranslatef(0.0, ShockHelp.cameraShock, 0.0)
 	}
 	
-	func dorryCamera() {
+	private func dorryCamera() {
 		if !isReady {
 			glTranslatef(-cameraX, -cameraY, -cameraZ)
 		} else if ( lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ ) {
@@ -1602,7 +1602,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func panCamera() {
+	private func panCamera() {
 		if !isReady {
 			glRotatef(cameraRoll,	0,0,1)
 			glRotatef(-cameraPitch,	1,0,0)

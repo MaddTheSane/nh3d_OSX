@@ -277,8 +277,6 @@
 		2B8AE3610960779400B6998D /* PreferencePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B8AE3600960779400B6998D /* PreferencePanel.xib */; };
 		2B9ED5D608F51D15004AD560 /* NH3DMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5D508F51D15004AD560 /* NH3DMapView.m */; };
 		2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5E108F53947004AD560 /* NH3DMapItem.m */; };
-		2BA021C808EF4B62004057D1 /* perm in Resources */ = {isa = PBXBuildFile; fileRef = 2BA021C708EF4B62004057D1 /* perm */; };
-		2BA046CD08EF5831004057D1 /* logfile in Resources */ = {isa = PBXBuildFile; fileRef = 2BA046CC08EF5831004057D1 /* logfile */; };
 		2BA7A40609774D3100122932 /* nh3dmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* nh3dmain.m */; };
 		2BACF9E60902568F0095C8A4 /* makedefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E40891ADF000D38098 /* makedefs.c */; };
 		2BACFA02090259400095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
@@ -1083,8 +1081,6 @@
 		2B9ED5D508F51D15004AD560 /* NH3DMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMapView.m; sourceTree = "<group>"; };
 		2B9ED5E008F53947004AD560 /* NH3DMapItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMapItem.h; sourceTree = "<group>"; };
 		2B9ED5E108F53947004AD560 /* NH3DMapItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMapItem.m; sourceTree = "<group>"; };
-		2BA021C708EF4B62004057D1 /* perm */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = perm; sourceTree = "<group>"; };
-		2BA046CC08EF5831004057D1 /* logfile */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = logfile; sourceTree = "<group>"; };
 		2BA7A3A409774ABC00122932 /* cpp1.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp1.shr; sourceTree = "<group>"; };
 		2BA7A3A509774ABC00122932 /* cpp2.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp2.shr; sourceTree = "<group>"; };
 		2BA7A3A609774ABC00122932 /* cpp3.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp3.shr; sourceTree = "<group>"; };
@@ -1351,7 +1347,6 @@
 			children = (
 				2B2BBF58093F487100DCBBBB /* nh3d.icns */,
 				2B6F3EDE091AF3E500367391 /* Sound */,
-				2BA021C708EF4B62004057D1 /* perm */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,
 				2B578FFD08AB66570080498F /* Resources */,
 				556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */,
@@ -1360,7 +1355,6 @@
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				2BA046CC08EF5831004057D1 /* logfile */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
 			);
 			name = Resources;
@@ -2715,8 +2709,6 @@
 				2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */,
 				2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */,
 				2B5469C208EF2F01008AA81F /* Sysunix in Resources */,
-				2BA021C808EF4B62004057D1 /* perm in Resources */,
-				2BA046CD08EF5831004057D1 /* logfile in Resources */,
 				5560A2A21C347F0700BF77F7 /* symbols in Resources */,
 				2B0D0DA408F1C20600F7A7E8 /* options in Resources */,
 				2B6F3EE2091AF3E500367391 /* footStep.wav in Resources */,
@@ -3034,6 +3026,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					NOTTYGRAPHICS,
+					"HACKDIR=\\\"Resources\\\"",
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -3082,6 +3075,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					NOTTYGRAPHICS,
+					"HACKDIR=\\\"Resources\\\"",
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
