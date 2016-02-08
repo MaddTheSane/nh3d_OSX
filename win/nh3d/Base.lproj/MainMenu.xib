@@ -3132,7 +3132,7 @@ DQ
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
-                                    <rect key="frame" x="0.0" y="0.0" width="394" height="369"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="394" height="22"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3248,7 +3248,7 @@ DQ
                             <action selector="deselectAll:" target="5499" id="5602"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5589">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5589">
                         <rect key="frame" x="178" y="439" width="139" height="14"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Small System Font Text" id="6956">
                             <font key="font" metaFont="smallSystemBold"/>
@@ -3273,6 +3273,7 @@ DQ
                     <constraint firstItem="5562" firstAttribute="top" secondItem="5498" secondAttribute="bottom" constant="20" symbolic="YES" id="Wxf-fM-ciy"/>
                     <constraint firstItem="5562" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5600" secondAttribute="trailing" constant="8" symbolic="YES" id="YMy-55-iRw"/>
                     <constraint firstItem="5762" firstAttribute="top" secondItem="5497" secondAttribute="top" constant="-26" id="aFb-YF-g1G"/>
+                    <constraint firstItem="5579" firstAttribute="width" secondItem="5589" secondAttribute="width" id="cFG-Ni-JWp"/>
                     <constraint firstItem="5600" firstAttribute="leading" secondItem="5599" secondAttribute="trailing" constant="8" symbolic="YES" id="cOE-9X-Avt"/>
                     <constraint firstAttribute="bottom" secondItem="5562" secondAttribute="bottom" constant="21" id="gUP-LB-wHc"/>
                     <constraint firstItem="5498" firstAttribute="top" secondItem="5579" secondAttribute="bottom" constant="9" id="pgy-eu-Gup"/>

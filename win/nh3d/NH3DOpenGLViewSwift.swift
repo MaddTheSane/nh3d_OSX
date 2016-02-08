@@ -989,32 +989,32 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// OpenGL update method.
 	@objc(timerFired:) private func timerFired(sender: AnyObject) {
-			openGLContext?.makeCurrentContext()
-			
-			viewLock.lock()
-			
-			var vsType: GLint
-			if OPENGLVIEW_WAITSYNC {
-				vsType = vsyncWait
-			} else {
-				vsType = vsyncNoWait
-			}
-			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
-			
-			viewLock.unlock()
-			
-			while _running && !TRADITIONAL_MAP {
+		openGLContext?.makeCurrentContext()
+		
+		viewLock.lock()
+		
+		var vsType: GLint
+		if OPENGLVIEW_WAITSYNC {
+			vsType = vsyncWait
+		} else {
+			vsType = vsyncNoWait
+		}
+		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+		
+		viewLock.unlock()
+		
+		while _running && !TRADITIONAL_MAP {
+			if isReady && !nowUpdating && !self.needsDisplay {
+				//if ( isReady && !nowUpdating ) {
 				autoreleasepool {
-					if isReady && !nowUpdating && !self.needsDisplay {
-						//if ( isReady && !nowUpdating ) {
-						self.updateGLView()
-					}
-					
-					if hasWait {
-						NSThread.sleepUntilDate(NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
-					}
+					self.updateGLView()
 				}
 			}
+			
+			if hasWait {
+				NSThread.sleepUntilDate(NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
+			}
+		}
 		NSThread.exit()
 	}
 	
