@@ -13,7 +13,9 @@ extern short glyph2tile[];
 extern int total_tiles_used;
 
 
-@implementation NH3DTileCache
+@implementation NH3DTileCache {
+	NSMutableDictionary<NSNumber*,NSImage*> *tileDictCache;
+}
 @synthesize tileSize_X;
 @synthesize tileSize_Y;
 
@@ -26,6 +28,7 @@ extern int total_tiles_used;
 - (instancetype) initWithNamed:(NSString *)imageName   /* This is designated initializer. */
 {
 	if (self = [super init]) {
+		tileDictCache = [[NSMutableDictionary alloc] initWithCapacity:TILES_PER_LINE * NUMBER_OF_TILES_ROW / 4];
 		NSImage	*tileSource = [NSImage imageNamed:imageName];
 		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:imageName]];
@@ -64,7 +67,12 @@ extern int total_tiles_used;
 #define GET_RAW_PIXELS 1
 - (NSImage *)tileImageFromGlyph:(int)glyph
 {
-	NSImage *tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)];
+	int tile = glyph2tile[glyph];
+	NSImage *tileImg = tileDictCache[@(tile)];
+	if (tileImg) {
+		return tileImg;
+	}
+	tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)];
 #if GET_RAW_PIXELS
 	NSUInteger p[10];
 	NSBitmapImageRep *bmpRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
@@ -82,7 +90,6 @@ extern int total_tiles_used;
 #if GET_RAW_PIXELS
 	int x,y;
 #endif
-	int tile = glyph2tile[glyph];
 	int t_x,t_y;
 	
 	if (tile >= total_tiles_used || tile < 0) {
@@ -109,7 +116,8 @@ extern int total_tiles_used;
 #if GET_RAW_PIXELS
 	[tileImg addRepresentation:bmpRep];
 #endif
-	tileImg.cacheMode = NSImageCacheNever;
+	//tileImg.cacheMode = NSImageCacheNever;
+	tileDictCache[@(tile)] = tileImg;
 	return tileImg;
 }
 
