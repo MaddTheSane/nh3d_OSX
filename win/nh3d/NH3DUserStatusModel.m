@@ -545,6 +545,8 @@ extern NH3DTileCache *_NH3DTileCache;
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Lv", (int)lvUpdate]];
 }
 
+#pragma mark -
+
 - (NSImage *)lowfulIcon
 {
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Lowful", (int)lowfulIcon]];
@@ -557,6 +559,8 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Chaos", (int)chaosIcon]];
 }
+
+#pragma mark -
 
 - (NSImage *)stHunger
 {
@@ -587,9 +591,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Hallu", (int)stHallu]];
 }
 
-//
-//
-//
+#pragma mark -
 
 - (void)setPlayerName:(NSString *)aString {
 	if (![playerName isEqualToString:aString] && aString.length <= PL_NSIZ-11) {
@@ -610,13 +612,11 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-
 - (void)setPlayerRole:(NSString *)aString {
 	if ( playerRole != NSLocalizedString(aString, @"")) {
 		playerRole = NSLocalizedString(aString, @"");
 	}
 }
-
 
 - (void)setPlayerAlign:(NSString *)aString {
 	if (![playerAlign isEqualToString: NSLocalizedString(aString, @"")]) {
@@ -630,7 +630,6 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-
 - (void)setPlayerStatusLine:(NSString *)aString
 {
 	if (![ playerStatusLine isEqualToString:aString]) {
@@ -638,6 +637,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
+#pragma mark -
 
 - (void)setPlayerStr:(int)aValue {
 	static unsigned strcount;
@@ -723,11 +723,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-
-//
-//
-//
-
+#pragma mark -
 
 - (void)setPlayerMaxhp:(int)aValue {
 	static unsigned hpcount;
@@ -801,27 +797,22 @@ extern NH3DTileCache *_NH3DTileCache;
 	playerWaningHp = (CGFloat)maxHp/10*5;
 }
 
-
 - (void)setPlayerCriticalHp:(int)maxHp
 {
 	playerCriticalHp = (CGFloat)maxHp/10*3;
 }
-
 
 - (void)setPlayerWaningPow:(int)maxPow
 {
 	playerWaningPow = (CGFloat)maxPow/10*5;
 }
 
-
 - (void)setPlayerCriticalPow:(int)maxPow
 {
 	playerCriticalPow = (CGFloat)maxPow/10*3;
 }
 
-//
-//
-//
+#pragma mark -
 
 - (void)setStrUpdate:(BOOL)update {
 	strUpdate = update;
@@ -920,9 +911,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-//
-//
-//
+#pragma mark -
 
 - (void)updatePlayer
 {
