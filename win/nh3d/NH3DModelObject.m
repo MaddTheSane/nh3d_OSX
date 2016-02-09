@@ -227,6 +227,11 @@ static const NH3DMaterial defaultMat = {
 														error:nil];
 	//NSLog(@"Model %@ loading...",name);
 	
+	if (!file_3ds && [NSDataAsset class]) {
+		//For forward compatibility
+		file_3ds = [[NSDataAsset alloc] initWithName:name].data;
+	}
+	
 	char	mName[20];
 	
 	if (file_3ds == nil) return NO;
