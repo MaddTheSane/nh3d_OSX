@@ -564,6 +564,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		wantsBestResolutionOpenGLSurface = true
 		let nCenter = NSNotificationCenter.defaultCenter()
 		nCenter.addObserver(self, selector: "defaultsDidChange:", name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
