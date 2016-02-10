@@ -742,7 +742,7 @@ static const NH3DMaterial defaultMat = {
 		
 		modelType = NH3DModelTypeObject;
 		
-		if ( flag ) {
+		if (flag) {
 			textures[texture] = [self loadImageToTexture:name];
 			modelType = NH3DModelTypeTexturedObject;
 			++numberOfTextures;
