@@ -6,7 +6,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "upperK.3ds"
+      "filename" : "upperK.3ds",
+      "universal-type-identifier" : "com.autodesk.mac.3ds"
     }
   ]
 }

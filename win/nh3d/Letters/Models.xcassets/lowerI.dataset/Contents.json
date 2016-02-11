@@ -6,7 +6,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "lowerI.3ds"
+      "filename" : "lowerI.3ds",
+      "universal-type-identifier" : "com.autodesk.mac.3ds"
     }
   ]
 }

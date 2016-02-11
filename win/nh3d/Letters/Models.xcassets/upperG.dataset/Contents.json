@@ -6,7 +6,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "upperG.3ds"
+      "filename" : "upperG.3ds",
+      "universal-type-identifier" : "com.autodesk.mac.3ds"
     }
   ]
 }

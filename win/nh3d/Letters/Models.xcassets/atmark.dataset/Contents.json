@@ -6,7 +6,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "atmark.3ds"
+      "filename" : "atmark.3ds",
+      "universal-type-identifier" : "com.autodesk.mac.3ds"
     }
   ]
 }

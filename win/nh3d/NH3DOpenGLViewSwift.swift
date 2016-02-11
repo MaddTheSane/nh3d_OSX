@@ -564,6 +564,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		wantsBestResolutionOpenGLSurface = true
 		let nCenter = NSNotificationCenter.defaultCenter()
 		nCenter.addObserver(self, selector: "defaultsDidChange:", name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
@@ -688,7 +689,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 		}
 		
-		if modelName == "emitter"  {
+		if modelName == "emitter" {
 			return NH3DModelObject()
 		} else {
 			return NH3DModelObject(with3DSFile: modelName, withTexture: flag)
@@ -945,12 +946,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glPopMatrix();
 	}
 	
-	//---------- draw floor function ----------------
-	
-	private func floorfunc_default() {
-		return;
-	}
-	
 	override var opaque: Bool {
 		return !firstTime
 	}
@@ -989,32 +984,32 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// OpenGL update method.
 	@objc(timerFired:) private func timerFired(sender: AnyObject) {
-			openGLContext?.makeCurrentContext()
-			
-			viewLock.lock()
-			
-			var vsType: GLint
-			if OPENGLVIEW_WAITSYNC {
-				vsType = vsyncWait
-			} else {
-				vsType = vsyncNoWait
-			}
-			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
-			
-			viewLock.unlock()
-			
-			while _running && !TRADITIONAL_MAP {
+		openGLContext?.makeCurrentContext()
+		
+		viewLock.lock()
+		
+		var vsType: GLint
+		if OPENGLVIEW_WAITSYNC {
+			vsType = vsyncWait
+		} else {
+			vsType = vsyncNoWait
+		}
+		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+		
+		viewLock.unlock()
+		
+		while _running && !TRADITIONAL_MAP {
+			if isReady && !nowUpdating && !self.needsDisplay {
+				//if ( isReady && !nowUpdating ) {
 				autoreleasepool {
-					if isReady && !nowUpdating && !self.needsDisplay {
-						//if ( isReady && !nowUpdating ) {
-						self.updateGLView()
-					}
-					
-					if hasWait {
-						NSThread.sleepUntilDate(NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
-					}
+					self.updateGLView()
 				}
 			}
+			
+			if hasWait {
+				NSThread.sleepUntilDate(NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
+			}
+		}
 		NSThread.exit()
 	}
 	
@@ -1252,7 +1247,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 					}
 					
 				} else if glyph == S_hwall + GLYPH_CMAP_OFF {
-					
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posx) % 5) != 0 {
 						model.childObjectAtIndex(0).active = false
@@ -1435,6 +1429,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		setCameraAt(x: Float(x) * NH3DGL_TILE_SIZE, y: 1.8, z: Float(z) * NH3DGL_TILE_SIZE)
 	}
 	
+	/// Sets the camera's head, pitch amount, and rolling amount, in degrees.
 	@objc(setCameraHead:pitching:rolling:) func setCamera(var head head: Float, pitching pitch: Float, rolling roll: Float) {
 		viewLock.lock()
 		do {
@@ -1460,6 +1455,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		viewLock.unlock()
 	}
 	
+	/// Sets the camera's x-y-z position.
 	@objc(setCameraAtX:atY:atZ:) func setCameraAt(x x: Float, y: Float, z: Float) {
 		viewLock.lock()
 		do {
@@ -1510,7 +1506,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	*/
 	
 	// ---------------------------------
-	func doEffect() {
+	private func doEffect() {
 		struct EffectHelper {
 			static var effectCount = 0
 		}
@@ -1528,7 +1524,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func floatingCamera() {
+	private func floatingCamera() {
 		struct FloatHelp {
 			static var fltCamera: Float = 0
 			static var floatDirection = false
@@ -1545,7 +1541,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTranslatef(0.0, FloatHelp.fltCamera, 0.0)
 	}
 	
-	func shockedCamera() {
+	private func shockedCamera() {
 		struct ShockHelp {
 			static var cameraShock: Float = 0
 			static var shockCount = 0
@@ -1553,11 +1549,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		//cameraShock = ( shockDirection ) ? cameraShock+( float )( ( random() %4 )*0.01 ) : cameraShock-( float )( ( random() %4 )*0.01 );
-		ShockHelp.cameraShock = ( ShockHelp.shockDirection ) ? ShockHelp.cameraShock+0.04 : ShockHelp.cameraShock-0.04;
-		if ( ShockHelp.cameraShock > 0.08 ) {
+		ShockHelp.cameraShock = ( ShockHelp.shockDirection ) ? ShockHelp.cameraShock + 0.04 : ShockHelp.cameraShock - 0.04;
+		if ShockHelp.cameraShock > 0.08 {
 			ShockHelp.shockDirection = false
 		}
-		if ( ShockHelp.cameraShock < -0.08 ) {
+		if ShockHelp.cameraShock < -0.08 {
 			ShockHelp.shockDirection = true
 		}
 		
@@ -1571,7 +1567,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTranslatef(0.0, ShockHelp.cameraShock, 0.0)
 	}
 	
-	func dorryCamera() {
+	private func dorryCamera() {
 		if !isReady {
 			glTranslatef(-cameraX, -cameraY, -cameraZ)
 		} else if ( lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ ) {
@@ -1602,7 +1598,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func panCamera() {
+	private func panCamera() {
 		if !isReady {
 			glRotatef(cameraRoll,	0,0,1)
 			glRotatef(-cameraPitch,	1,0,0)
@@ -1641,6 +1637,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	// MARK: -
 	
+	/// Creates a symbol based off of either an image or string, applying color as well.
 	private func createTextureFromSymbol(symbol: AnyObject, color: NSColor?) -> GLuint {
 		viewLock.lock()
 		defer {
@@ -1728,7 +1725,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return texID
 	}
 	
-	///load models first time.
+	/// load models first time.
 	private func loadModels() {
 		var model: NH3DModelObject? = nil
 		
@@ -1740,7 +1737,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("wall_knox")
 		model?.addTexture("wall_rouge")
 		do {
-			model?.addChildObject("touch", type: .TexturedObject)
+			model?.addChildObject("torch", type: .TexturedObject)
 			model?.childObjectAtLast?.setPivotX(0.478, atY: 2.834, atZ: 0.007)
 			model?.childObjectAtLast?.addChildObject("emitter", type: .Emitter)
 			do {
@@ -1762,7 +1759,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("wall_knox")
 		model?.addTexture("wall_rouge")
 		do {
-			model?.addChildObject("touch", type: .TexturedObject)
+			model?.addChildObject("torch", type: .TexturedObject)
 			model?.childObjectAtLast?.setPivotX(-0.005, atY: 2.834, atZ: 0.483)
 			model?.childObjectAtLast?.addChildObject("emitter", type: .Emitter)
 			do {
@@ -2253,9 +2250,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// Major Daemons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObject? {
 		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF {
-			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "and", textured: false)
+			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "ampersand", textured: false)
 		} else {
-			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "and", textured: false)
+			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "ampersand", textured: false)
 		}
 	}
 	
@@ -2264,7 +2261,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil;
 		
 		if glyph == PM_JUIBLEX + GLYPH_MON_OFF {
-			ret = NH3DModelObject(with3DSFile: "and", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura;
 			ret?.childObjectAtLast?.particleColor = CLR_RED
@@ -2274,7 +2271,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 		} else {
-			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "and", textured: false)
+			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "ampersand", textured: false)
 			if let ret = ret where !ret.hasChildObject {
 				ret.addChildObject("emitter", type: .Emitter)
 				ret.childObjectAtLast?.particleType = .Aura
@@ -2295,9 +2292,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// daemon "The Riders"
 	private final func loadModelFunc_Riders(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil;
+		var ret: NH3DModelObject? = nil
 		
-		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "and", textured: false)
+		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "ampersand", textured: false)
 		
 		if let ret = ret where !ret.hasChildObject {
 			ret.addChildObject("emitter", type: .Emitter)
@@ -2323,12 +2320,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// sea monsters
 	private final func loadModelFunc_seamonsters(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicoron", textured: false)
+		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicolon", textured: false)
 	}
 	
 	/// lizards
 	private final func loadModelFunc_lizards(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "coron", textured: false)
+		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "colon", textured: false)
 	}
 	
 	/// Adventurers
@@ -2349,7 +2346,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_KING_ARTHUR + GLYPH_MON_OFF :
+		case PM_KING_ARTHUR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.18, atZ: 0.0)
@@ -2364,7 +2361,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF :
+		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
@@ -2377,8 +2374,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF :
-			ret = NH3DModelObject(with3DSFile: "and", withTexture: true)
+		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF:
+			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
 			ret?.childObjectAtLast?.particleColor = CLR_RED
@@ -2388,7 +2385,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_THOTH_AMON + GLYPH_MON_OFF :
+		case PM_THOTH_AMON + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2444,7 +2441,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case PM_NALZOK + GLYPH_MON_OFF :
-			ret = NH3DModelObject(with3DSFile: "and", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
 			ret?.childObjectAtLast?.particleColor = CLR_RED
@@ -2561,7 +2558,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject(with3DSFile: "downladder", withTexture: true)
 			
 		case S_altar + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject(with3DSFile: "alter", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "altar", withTexture: true)
 			
 		case S_grave + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "grave", withTexture: true)
@@ -2655,7 +2652,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject(with3DSFile: "arrowtrap", withTexture: true)
 			
 		case S_dart_trap + GLYPH_CMAP_OFF :
-			ret = NH3DModelObject(with3DSFile: "dartstrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "dartTrap", withTexture: true)
 			
 		case S_falling_rock_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject(with3DSFile: "rockfalltrap", withTexture: true)
@@ -2717,7 +2714,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
 		case S_teleportation_trap + GLYPH_CMAP_OFF :
-			ret = NH3DModelObject(with3DSFile: "telporter", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
 			ret?.childObjectAtLast?.setModelScaleX(0.55, scaleY: 0.8, scaleZ: 0.55)
@@ -2739,7 +2736,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.25
 			
 		case S_level_teleporter + GLYPH_CMAP_OFF :
-			ret = NH3DModelObject(with3DSFile: "leveltelporter", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
 			ret?.childObjectAtLast?.setModelScaleX(0.55, scaleY:0.8, scaleZ:0.55)

@@ -277,8 +277,6 @@
 		2B8AE3610960779400B6998D /* PreferencePanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B8AE3600960779400B6998D /* PreferencePanel.xib */; };
 		2B9ED5D608F51D15004AD560 /* NH3DMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5D508F51D15004AD560 /* NH3DMapView.m */; };
 		2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9ED5E108F53947004AD560 /* NH3DMapItem.m */; };
-		2BA021C808EF4B62004057D1 /* perm in Resources */ = {isa = PBXBuildFile; fileRef = 2BA021C708EF4B62004057D1 /* perm */; };
-		2BA046CD08EF5831004057D1 /* logfile in Resources */ = {isa = PBXBuildFile; fileRef = 2BA046CC08EF5831004057D1 /* logfile */; };
 		2BA7A40609774D3100122932 /* nh3dmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* nh3dmain.m */; };
 		2BACF9E60902568F0095C8A4 /* makedefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E40891ADF000D38098 /* makedefs.c */; };
 		2BACFA02090259400095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
@@ -321,6 +319,44 @@
 		5560A2B91C3481CC00BF77F7 /* epitaph in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B61C3481CC00BF77F7 /* epitaph */; };
 		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
+		5562105B1C6D484E001DD4CE /* downladder.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B5181E00973EBD600C91C6E /* downladder.3ds */; };
+		5562105C1C6D484E001DD4CE /* upladder.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B5181E20973EBD600C91C6E /* upladder.3ds */; };
+		5562105D1C6D484E001DD4CE /* bridge_opt.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B9A473E096DD7530074B10D /* bridge_opt.3ds */; };
+		5562105E1C6D484E001DD4CE /* magicportal.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B56CD9E094E8CA500C22BA8 /* magicportal.3ds */; };
+		556210601C6D484E001DD4CE /* levelteleporter.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0192D094BA33400B386A8 /* levelteleporter.3ds */; };
+		556210611C6D484E001DD4CE /* teleporter.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0192E094BA33400B386A8 /* teleporter.3ds */; };
+		556210621C6D484E001DD4CE /* beartrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3BC860943D24500F782A6 /* beartrap.3ds */; };
+		556210631C6D484E001DD4CE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
+		556210641C6D484E001DD4CE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
+		556210651C6D484E001DD4CE /* arrowtrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123DBB0931F05F00E894EE /* arrowtrap.3ds */; };
+		556210661C6D484E001DD4CE /* spikepit.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123DB50931EA4F00E894EE /* spikepit.3ds */; };
+		556210671C6D484E001DD4CE /* bridge.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B4D09319B6B00E894EE /* bridge.3ds */; };
+		556210681C6D484E001DD4CE /* bridgeUP.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B4F09319B6B00E894EE /* bridgeUP.3ds */; };
+		556210691C6D484E001DD4CE /* dartTrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B5109319B6B00E894EE /* dartTrap.3ds */; };
+		5562106A1C6D484E001DD4CE /* gastrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B5309319B6B00E894EE /* gastrap.3ds */; };
+		5562106B1C6D484E001DD4CE /* landmine.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B5509319B6B00E894EE /* landmine.3ds */; };
+		5562106C1C6D484E001DD4CE /* pit.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B5709319B6B00E894EE /* pit.3ds */; };
+		5562106D1C6D484E001DD4CE /* rockfalltrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B5909319B6B00E894EE /* rockfalltrap.3ds */; };
+		5562106E1C6D484E001DD4CE /* torch.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B123B5B09319B6B00E894EE /* torch.3ds */; };
+		5562106F1C6D484E001DD4CE /* boulder.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3BCF092A134F00C7BD42 /* boulder.3ds */; };
+		556210701C6D484E001DD4CE /* altar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B53092A041100C7BD42 /* altar.3ds */; };
+		556210711C6D484E001DD4CE /* downStair.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B55092A041100C7BD42 /* downStair.3ds */; };
+		556210721C6D484E001DD4CE /* fountain.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B57092A041100C7BD42 /* fountain.3ds */; };
+		556210731C6D484E001DD4CE /* hdoor.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B59092A041100C7BD42 /* hdoor.3ds */; };
+		556210741C6D484E001DD4CE /* hopendoor.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B5B092A041100C7BD42 /* hopendoor.3ds */; };
+		556210751C6D484E001DD4CE /* opulent_throne.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B5D092A041100C7BD42 /* opulent_throne.3ds */; };
+		556210761C6D484E001DD4CE /* grave.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B5F092A041100C7BD42 /* grave.3ds */; };
+		556210771C6D484E001DD4CE /* sink.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B61092A041100C7BD42 /* sink.3ds */; };
+		556210781C6D484E001DD4CE /* vdoor.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B63092A041100C7BD42 /* vdoor.3ds */; };
+		556210791C6D484E001DD4CE /* vopendoor.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BAF3B65092A041100C7BD42 /* vopendoor.3ds */; };
+		5562107A1C6D484E001DD4CE /* corner.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B26129909233E7800CA7A64 /* corner.3ds */; };
+		5562107B1C6D484E001DD4CE /* hwall.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B26129C09233E7800CA7A64 /* hwall.3ds */; };
+		5562107C1C6D484E001DD4CE /* invisible.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B26129E09233E7800CA7A64 /* invisible.3ds */; };
+		5562107D1C6D484E001DD4CE /* upStair.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B2612D509233E7900CA7A64 /* upStair.3ds */; };
+		5562107E1C6D484E001DD4CE /* vwall.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B2612D709233E7900CA7A64 /* vwall.3ds */; };
+		5562107F1C6D4858001DD4CE /* nurse.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA509526D7C006921EA /* nurse.3ds */; };
+		556210801C6D4858001DD4CE /* wizardset.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA109526CF8006921EA /* wizardset.3ds */; };
+		556210811C6D486F001DD4CE /* kingset.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0192A094BA33400B386A8 /* kingset.3ds */; };
 		556A21B71C670E9C00DB226F /* NH3DTeleportationDestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */; };
 		556A21B81C670E9C00DB226F /* NH3DTeleportationDestinationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */; };
 		556A21BB1C67B80500DB226F /* NH3DModelDefines.c in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B91C67B80500DB226F /* NH3DModelDefines.c */; };
@@ -369,9 +405,24 @@
 		2B0964CE091D465D004965B2 /* waterDrop4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop4.wav; sourceTree = "<group>"; };
 		2B0964E0091D4A98004965B2 /* waterDrop5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop5.wav; sourceTree = "<group>"; };
 		2B0D0DA308F1C20600F7A7E8 /* options */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = options; sourceTree = "<group>"; };
+		2B123B4D09319B6B00E894EE /* bridge.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = bridge.3ds; sourceTree = "<group>"; };
+		2B123B4F09319B6B00E894EE /* bridgeUP.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = bridgeUP.3ds; sourceTree = "<group>"; };
+		2B123B5109319B6B00E894EE /* dartTrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = dartTrap.3ds; sourceTree = "<group>"; };
+		2B123B5309319B6B00E894EE /* gastrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = gastrap.3ds; sourceTree = "<group>"; };
+		2B123B5509319B6B00E894EE /* landmine.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = landmine.3ds; sourceTree = "<group>"; };
+		2B123B5709319B6B00E894EE /* pit.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = pit.3ds; sourceTree = "<group>"; };
+		2B123B5909319B6B00E894EE /* rockfalltrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = rockfalltrap.3ds; sourceTree = "<group>"; };
+		2B123B5B09319B6B00E894EE /* torch.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = torch.3ds; sourceTree = "<group>"; };
+		2B123DB50931EA4F00E894EE /* spikepit.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = spikepit.3ds; sourceTree = "<group>"; };
+		2B123DBB0931F05F00E894EE /* arrowtrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = arrowtrap.3ds; sourceTree = "<group>"; };
 		2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NH3DUserStatusModel.m; sourceTree = "<group>"; };
 		2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DUserStatusModel.h; sourceTree = "<group>"; };
 		2B25C9A708F28B47009163CD /* dungeon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dungeon.pdf; sourceTree = "<group>"; };
+		2B26129909233E7800CA7A64 /* corner.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = corner.3ds; sourceTree = "<group>"; };
+		2B26129C09233E7800CA7A64 /* hwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = hwall.3ds; sourceTree = "<group>"; };
+		2B26129E09233E7800CA7A64 /* invisible.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = invisible.3ds; sourceTree = "<group>"; };
+		2B2612D509233E7900CA7A64 /* upStair.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = upStair.3ds; sourceTree = "<group>"; };
+		2B2612D709233E7900CA7A64 /* vwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = vwall.3ds; sourceTree = "<group>"; };
 		2B29B1DD08E0EDFD00951AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2B2BBF58093F487100DCBBBB /* nh3d.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nh3d.icns; sourceTree = "<group>"; };
 		2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DModelObject.m; sourceTree = "<group>"; };
@@ -724,8 +775,13 @@
 		2B31DD7808CD73D5008CCAAC /* porthelp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = porthelp; sourceTree = "<group>"; };
 		2B31DD7908CD73D5008CCAAC /* win32api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win32api.h; sourceTree = "<group>"; };
 		2B31DD7A08CD73D5008CCAAC /* winnt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winnt.c; sourceTree = "<group>"; };
+		2B3D4EA109526CF8006921EA /* wizardset.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = wizardset.3ds; sourceTree = "<group>"; };
+		2B3D4EA509526D7C006921EA /* nurse.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = nurse.3ds; sourceTree = "<group>"; };
+		2B5181E00973EBD600C91C6E /* downladder.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = downladder.3ds; sourceTree = "<group>"; };
+		2B5181E20973EBD600C91C6E /* upladder.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = upladder.3ds; sourceTree = "<group>"; };
 		2B5458D9095D23F3007A1049 /* NH3DUserMakeSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DUserMakeSheetController.h; sourceTree = "<group>"; };
 		2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DUserMakeSheetController.m; sourceTree = "<group>"; };
+		2B56CD9E094E8CA500C22BA8 /* magicportal.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = magicportal.3ds; sourceTree = "<group>"; };
 		2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMenuWindow.h; sourceTree = "<group>"; };
 		2B598AD508E5B523005ECDC5 /* NH3DMenuWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMenuWindow.m; sourceTree = "<group>"; };
 		2B5CBF74088EB5A500940C58 /* air.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = air.lev; sourceTree = "<group>"; };
@@ -1087,7 +1143,6 @@
 		2B5CC223088EB7ED00940C58 /* xwindowp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xwindowp.h; sourceTree = "<group>"; };
 		2B5CC224088EB7ED00940C58 /* you.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = you.h; sourceTree = "<group>"; };
 		2B5CC225088EB7ED00940C58 /* youprop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = youprop.h; sourceTree = "<group>"; };
-		2B5E0E1708B09A520012CAC4 /* base.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = base.tiff; sourceTree = "<group>"; };
 		2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DModelObject.h; sourceTree = "<group>"; };
 		2B6311CB08B7A27A00162523 /* winnh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winnh3d.h; sourceTree = "<group>"; };
 		2B6311CC08B7A27A00162523 /* winnh3d.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = winnh3d.m; sourceTree = "<group>"; };
@@ -1098,16 +1153,13 @@
 		2B6F3EE1091AF3E500367391 /* waterDrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop.wav; sourceTree = "<group>"; };
 		2B6F3F87091B59F500367391 /* waterDrop2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop2.wav; sourceTree = "<group>"; };
 		2B6F3F88091B59F500367391 /* waterDrop3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop3.wav; sourceTree = "<group>"; };
-		2B76D427090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = asciiMapMaskLimited.tiff; sourceTree = "<group>"; };
 		2B89F1280A22FE3F00387832 /* oracles */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = oracles; sourceTree = "<group>"; };
 		2B89F1290A22FE3F00387832 /* rumors */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rumors; sourceTree = "<group>"; };
-		2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = asciiMapBase.tiff; sourceTree = "<group>"; };
+		2B9A473E096DD7530074B10D /* bridge_opt.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = bridge_opt.3ds; sourceTree = "<group>"; };
 		2B9ED5D408F51D15004AD560 /* NH3DMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMapView.h; sourceTree = "<group>"; };
 		2B9ED5D508F51D15004AD560 /* NH3DMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMapView.m; sourceTree = "<group>"; };
 		2B9ED5E008F53947004AD560 /* NH3DMapItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DMapItem.h; sourceTree = "<group>"; };
 		2B9ED5E108F53947004AD560 /* NH3DMapItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DMapItem.m; sourceTree = "<group>"; };
-		2BA021C708EF4B62004057D1 /* perm */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = perm; sourceTree = "<group>"; };
-		2BA046CC08EF5831004057D1 /* logfile */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = logfile; sourceTree = "<group>"; };
 		2BA7A3A409774ABC00122932 /* cpp1.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp1.shr; sourceTree = "<group>"; };
 		2BA7A3A509774ABC00122932 /* cpp2.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp2.shr; sourceTree = "<group>"; };
 		2BA7A3A609774ABC00122932 /* cpp3.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp3.shr; sourceTree = "<group>"; };
@@ -1129,6 +1181,20 @@
 		2BACF9BC090255260095C8A4 /* lev_comp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lev_comp; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BACF9C90902555E0095C8A4 /* dgn_comp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dgn_comp; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BACF9EF090258000095C8A4 /* recover */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = recover; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BAF3B53092A041100C7BD42 /* altar.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = altar.3ds; sourceTree = "<group>"; };
+		2BAF3B55092A041100C7BD42 /* downStair.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = downStair.3ds; sourceTree = "<group>"; };
+		2BAF3B57092A041100C7BD42 /* fountain.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = fountain.3ds; sourceTree = "<group>"; };
+		2BAF3B59092A041100C7BD42 /* hdoor.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = hdoor.3ds; sourceTree = "<group>"; };
+		2BAF3B5B092A041100C7BD42 /* hopendoor.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = hopendoor.3ds; sourceTree = "<group>"; };
+		2BAF3B5D092A041100C7BD42 /* opulent_throne.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = opulent_throne.3ds; sourceTree = "<group>"; };
+		2BAF3B5F092A041100C7BD42 /* grave.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = grave.3ds; sourceTree = "<group>"; };
+		2BAF3B61092A041100C7BD42 /* sink.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = sink.3ds; sourceTree = "<group>"; };
+		2BAF3B63092A041100C7BD42 /* vdoor.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = vdoor.3ds; sourceTree = "<group>"; };
+		2BAF3B65092A041100C7BD42 /* vopendoor.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = vopendoor.3ds; sourceTree = "<group>"; };
+		2BAF3BCF092A134F00C7BD42 /* boulder.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = boulder.3ds; sourceTree = "<group>"; };
+		2BC0192A094BA33400B386A8 /* kingset.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = kingset.3ds; sourceTree = "<group>"; };
+		2BC0192D094BA33400B386A8 /* levelteleporter.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = levelteleporter.3ds; sourceTree = "<group>"; };
+		2BC0192E094BA33400B386A8 /* teleporter.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = teleporter.3ds; sourceTree = "<group>"; };
 		2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DTileCache.h; sourceTree = "<group>"; };
 		2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DTileCache.m; sourceTree = "<group>"; };
 		2BCAABC00913A70000AF1C59 /* tilemap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tilemap; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1139,12 +1205,12 @@
 		2BCB3EA60A291D82009C988D /* Makefile.top */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.top; sourceTree = "<group>"; };
 		2BCB3EA70A291D82009C988D /* Makefile.utl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.utl; sourceTree = "<group>"; };
 		2BCB3EA80A291D82009C988D /* setup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup.sh; sourceTree = "<group>"; };
-		2BCFB25608F950DB007DB83D /* base48.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = base48.tiff; sourceTree = "<group>"; };
-		2BCFB25C08F95590007DB83D /* asciiMapMask.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = asciiMapMask.tiff; sourceTree = "<group>"; };
 		2BD3B6E1090247C70091BDD5 /* winnh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winnh3d.h; sourceTree = "<group>"; };
+		2BD3BC860943D24500F782A6 /* beartrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = beartrap.3ds; sourceTree = "<group>"; };
 		2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DUserDefaultsExtern.h; sourceTree = "<group>"; };
 		2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = icon_O.tiff; sourceTree = "<group>"; };
-		2BE376270A22E29D00B3CDF4 /* trBase.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = trBase.tif; sourceTree = "<group>"; };
+		2BE4C327093CB52D00ACEEEE /* ironbar.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = ironbar.3ds; sourceTree = "<group>"; };
+		2BE4C329093CB52D00ACEEEE /* tree.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = tree.3ds; sourceTree = "<group>"; };
 		2BEB62D70891ADF000D38098 /* dgn_comp.l */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.lex; path = dgn_comp.l; sourceTree = "<group>"; };
 		2BEB62D80891ADF000D38098 /* dgn_comp.y */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.yacc; path = dgn_comp.y; sourceTree = "<group>"; };
 		2BEB62D90891ADF000D38098 /* dgn_lex.c */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.c.c; path = dgn_lex.c; sourceTree = "<group>"; };
@@ -1401,8 +1467,8 @@
 			isa = PBXGroup;
 			children = (
 				2B2BBF58093F487100DCBBBB /* nh3d.icns */,
+				2B26129509233E7800CA7A64 /* models */,
 				2B6F3EDE091AF3E500367391 /* Sound */,
-				2BA021C708EF4B62004057D1 /* perm */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,
 				2B578FFD08AB66570080498F /* Resources */,
 				556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */,
@@ -1411,7 +1477,6 @@
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				2BA046CC08EF5831004057D1 /* logfile */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
 			);
 			name = Resources;
@@ -1426,6 +1491,51 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B26129509233E7800CA7A64 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				2B5181E00973EBD600C91C6E /* downladder.3ds */,
+				2B5181E20973EBD600C91C6E /* upladder.3ds */,
+				2B9A473E096DD7530074B10D /* bridge_opt.3ds */,
+				2B3D4EA509526D7C006921EA /* nurse.3ds */,
+				2B3D4EA109526CF8006921EA /* wizardset.3ds */,
+				2B56CD9E094E8CA500C22BA8 /* magicportal.3ds */,
+				2BC0192A094BA33400B386A8 /* kingset.3ds */,
+				2BC0192D094BA33400B386A8 /* levelteleporter.3ds */,
+				2BC0192E094BA33400B386A8 /* teleporter.3ds */,
+				2BD3BC860943D24500F782A6 /* beartrap.3ds */,
+				2BE4C327093CB52D00ACEEEE /* ironbar.3ds */,
+				2BE4C329093CB52D00ACEEEE /* tree.3ds */,
+				2B123DBB0931F05F00E894EE /* arrowtrap.3ds */,
+				2B123DB50931EA4F00E894EE /* spikepit.3ds */,
+				2B123B4D09319B6B00E894EE /* bridge.3ds */,
+				2B123B4F09319B6B00E894EE /* bridgeUP.3ds */,
+				2B123B5109319B6B00E894EE /* dartTrap.3ds */,
+				2B123B5309319B6B00E894EE /* gastrap.3ds */,
+				2B123B5509319B6B00E894EE /* landmine.3ds */,
+				2B123B5709319B6B00E894EE /* pit.3ds */,
+				2B123B5909319B6B00E894EE /* rockfalltrap.3ds */,
+				2B123B5B09319B6B00E894EE /* torch.3ds */,
+				2BAF3BCF092A134F00C7BD42 /* boulder.3ds */,
+				2BAF3B53092A041100C7BD42 /* altar.3ds */,
+				2BAF3B55092A041100C7BD42 /* downStair.3ds */,
+				2BAF3B57092A041100C7BD42 /* fountain.3ds */,
+				2BAF3B59092A041100C7BD42 /* hdoor.3ds */,
+				2BAF3B5B092A041100C7BD42 /* hopendoor.3ds */,
+				2BAF3B5D092A041100C7BD42 /* opulent_throne.3ds */,
+				2BAF3B5F092A041100C7BD42 /* grave.3ds */,
+				2BAF3B61092A041100C7BD42 /* sink.3ds */,
+				2BAF3B63092A041100C7BD42 /* vdoor.3ds */,
+				2BAF3B65092A041100C7BD42 /* vopendoor.3ds */,
+				2B26129909233E7800CA7A64 /* corner.3ds */,
+				2B26129C09233E7800CA7A64 /* hwall.3ds */,
+				2B26129E09233E7800CA7A64 /* invisible.3ds */,
+				2B2612D509233E7900CA7A64 /* upStair.3ds */,
+				2B2612D709233E7900CA7A64 /* vwall.3ds */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 		2B31DB7508CD73C5008CCAAC /* win */ = {
@@ -1959,12 +2069,6 @@
 			children = (
 				554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */,
 				2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */,
-				2BE376270A22E29D00B3CDF4 /* trBase.tif */,
-				2B76D427090FB9D9001E2EF3 /* asciiMapMaskLimited.tiff */,
-				2B9854BB08F96D84005E0966 /* asciiMapBase.tiff */,
-				2BCFB25608F950DB007DB83D /* base48.tiff */,
-				2BCFB25C08F95590007DB83D /* asciiMapMask.tiff */,
-				2B5E0E1708B09A520012CAC4 /* base.tiff */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2689,7 +2793,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556210811C6D486F001DD4CE /* kingset.3ds in Resources */,
+				5562107F1C6D4858001DD4CE /* nurse.3ds in Resources */,
 				556A21C91C67C47D00DB226F /* Models.xcassets in Resources */,
+				556210801C6D4858001DD4CE /* wizardset.3ds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2697,7 +2804,42 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556210641C6D484E001DD4CE /* tree.3ds in Resources */,
+				556210791C6D484E001DD4CE /* vopendoor.3ds in Resources */,
+				5562106A1C6D484E001DD4CE /* gastrap.3ds in Resources */,
+				5562107B1C6D484E001DD4CE /* hwall.3ds in Resources */,
+				556210721C6D484E001DD4CE /* fountain.3ds in Resources */,
+				556210681C6D484E001DD4CE /* bridgeUP.3ds in Resources */,
+				5562106C1C6D484E001DD4CE /* pit.3ds in Resources */,
+				5562105E1C6D484E001DD4CE /* magicportal.3ds in Resources */,
+				5562106D1C6D484E001DD4CE /* rockfalltrap.3ds in Resources */,
+				5562105B1C6D484E001DD4CE /* downladder.3ds in Resources */,
+				556210751C6D484E001DD4CE /* opulent_throne.3ds in Resources */,
+				5562107C1C6D484E001DD4CE /* invisible.3ds in Resources */,
+				556210711C6D484E001DD4CE /* downStair.3ds in Resources */,
+				5562106E1C6D484E001DD4CE /* torch.3ds in Resources */,
+				556210741C6D484E001DD4CE /* hopendoor.3ds in Resources */,
+				5562105D1C6D484E001DD4CE /* bridge_opt.3ds in Resources */,
+				556210691C6D484E001DD4CE /* dartTrap.3ds in Resources */,
+				556210631C6D484E001DD4CE /* ironbar.3ds in Resources */,
+				5562107D1C6D484E001DD4CE /* upStair.3ds in Resources */,
+				556210611C6D484E001DD4CE /* teleporter.3ds in Resources */,
+				556210771C6D484E001DD4CE /* sink.3ds in Resources */,
+				556210731C6D484E001DD4CE /* hdoor.3ds in Resources */,
+				5562107A1C6D484E001DD4CE /* corner.3ds in Resources */,
+				556210761C6D484E001DD4CE /* grave.3ds in Resources */,
+				5562106B1C6D484E001DD4CE /* landmine.3ds in Resources */,
+				556210671C6D484E001DD4CE /* bridge.3ds in Resources */,
+				556210621C6D484E001DD4CE /* beartrap.3ds in Resources */,
+				556210601C6D484E001DD4CE /* levelteleporter.3ds in Resources */,
+				556210701C6D484E001DD4CE /* altar.3ds in Resources */,
+				5562105C1C6D484E001DD4CE /* upladder.3ds in Resources */,
 				556A21D51C67C53800DB226F /* Models.xcassets in Resources */,
+				556210661C6D484E001DD4CE /* spikepit.3ds in Resources */,
+				5562106F1C6D484E001DD4CE /* boulder.3ds in Resources */,
+				556210781C6D484E001DD4CE /* vdoor.3ds in Resources */,
+				556210651C6D484E001DD4CE /* arrowtrap.3ds in Resources */,
+				5562107E1C6D484E001DD4CE /* vwall.3ds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2850,8 +2992,6 @@
 				2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */,
 				2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */,
 				2B5469C208EF2F01008AA81F /* Sysunix in Resources */,
-				2BA021C808EF4B62004057D1 /* perm in Resources */,
-				2BA046CD08EF5831004057D1 /* logfile in Resources */,
 				5560A2A21C347F0700BF77F7 /* symbols in Resources */,
 				2B0D0DA408F1C20600F7A7E8 /* options in Resources */,
 				2B6F3EE2091AF3E500367391 /* footStep.wav in Resources */,
@@ -3198,6 +3338,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					NOTTYGRAPHICS,
+					"HACKDIR=\\\"Resources\\\"",
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -3246,6 +3387,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					NOTTYGRAPHICS,
+					"HACKDIR=\\\"Resources\\\"",
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
@@ -3300,7 +3442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = NetHack3D;
 				SDKROOT = macosx;
@@ -3338,7 +3480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = NetHack3D;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wno-format-security";
@@ -3819,6 +3961,7 @@
 				556A21C71C67C43200DB226F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		556A21D11C67C52000DB226F /* Build configuration list for PBXNativeTarget "BaseWalls" */ = {
 			isa = XCConfigurationList;
@@ -3827,6 +3970,7 @@
 				556A21D31C67C52000DB226F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

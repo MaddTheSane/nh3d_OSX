@@ -10,12 +10,11 @@
 
 #import "NH3DUserStatusModel.h"
 
-extern const char *enc_stat[ ]; /* from botl.c */
-extern const char *hu_stat[ ]; /* from eat.c */
+extern const char *enc_stat[]; /* from botl.c */
+extern const char *hu_stat[]; /* from eat.c */
 
 #define DIALOG_OK		 128
 #define DIALOG_CANCEL	 129
-
 
 //from nh3d_win.m
 extern NH3DTileCache *_NH3DTileCache;
@@ -47,40 +46,40 @@ extern NH3DTileCache *_NH3DTileCache;
 		style = [[NSMutableParagraphStyle alloc] init];
 		strAttributes = [[NSMutableDictionary alloc] init];
 		
-		[ self setPlayerCriticalHp: 0 ];
-		[ self setPlayerCriticalPow:0 ];
-		[ self setPlayerWaningHp: 0 ];
-		[ self setPlayerWaningPow: 0 ];
+		[self setPlayerCriticalHp:0];
+		[self setPlayerCriticalPow:0];
+		[self setPlayerWaningHp:0];
+		[self setPlayerWaningPow:0];
 		
-		[ self setPlayerName:@"" ];
-		[ self setPlayerClass:@"" ];
-		[ self setPlayerMaxhp:9999 ];
-		[ self setPlayerMaxpow:9999 ];
-		[ self setPlayerHp:9999 ];
-		[ self setPlayerPow:9999 ];
-		[ self setPlayerStr:9999 ];
-		[ self setPlayerDex:9999 ];
-		[ self setPlayerCon:9999 ];
-		[ self setPlayerInt:9999 ];
-		[ self setPlayerWis:9999 ];
-		[ self setPlayerCha:9999 ];
-		[ self setPlayerGold:9999 ];
-		[ self setPlayerScore:9999 ];
-		[ self setPlayerTime:9999 ];
-		[ self setPlayerExp:9999 ];
-		[ self setPlayerAc:-9999 ];
-		[ self setPlayerLv:9999 ];
+		[self setPlayerName:@""];
+		[self setPlayerClass:@""];
+		[self setPlayerMaxhp:9999];
+		[self setPlayerMaxpow:9999];
+		[self setPlayerHp:9999];
+		[self setPlayerPow:9999];
+		[self setPlayerStr:9999];
+		[self setPlayerDex:9999];
+		[self setPlayerCon:9999];
+		[self setPlayerInt:9999];
+		[self setPlayerWis:9999];
+		[self setPlayerCha:9999];
+		[self setPlayerGold:9999];
+		[self setPlayerScore:9999];
+		[self setPlayerTime:9999];
+		[self setPlayerExp:9999];
+		[self setPlayerAc:-9999];
+		[self setPlayerLv:9999];
 
-		[ self setStrUpdate:NO ];
-		[ self setHpUpdate:NO ];
-		[ self setDexUpdate:NO ];
-		[ self setConUpdate:NO ];
-		[ self setIntUpdate:NO ];
-		[ self setWisUpdate:NO ];
-		[ self setChaUpdate:NO ];
-		[ self setLvUpdate:NO ];
-		[ self setPowUpdate:NO ];
-		[ self setAcUpdate:NO ];
+		[self setStrUpdate:NO];
+		[self setHpUpdate:NO];
+		[self setDexUpdate:NO];
+		[self setConUpdate:NO];
+		[self setIntUpdate:NO];
+		[self setWisUpdate:NO];
+		[self setChaUpdate:NO];
+		[self setLvUpdate:NO];
+		[self setPowUpdate:NO];
+		[self setAcUpdate:NO];
 				
 		firstTime = YES;
     }
@@ -94,7 +93,6 @@ extern NH3DTileCache *_NH3DTileCache;
 	shadow.shadowBlurRadius = 0.5;
 			
 	style.alignment = NSCenterTextAlignment;
-			
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT size: 14];
 	strAttributes[NSShadowAttributeName] = shadow;
@@ -125,20 +123,19 @@ extern NH3DTileCache *_NH3DTileCache;
 */
 
 - (void)awakeFromNib {
-	[ self prepareAttributes ];
-	[ self setPlayerArmour:0 ];
-	[ self setPlayerCloak:0 ];
-	[ self setPlayerHelmet:0 ];
-	[ self setPlayerShield:0 ];
-	[ self setPlayerGloves:0 ];
-	[ self setPlayerShoes:0 ];
-	[ self setPlayerRingL:0 ];
-	[ self setPlayerRingR:0 ];
-	[ self setPlayerWeapon:0 ];
-	[ self setPlayerSubWeapon:0 ];
-	[ self setPlayerAmulet:0 ];
-	[ self setPlayerBlindFold:0 ];
-	
+	[self prepareAttributes];
+	[self setPlayerArmour:0];
+	[self setPlayerCloak:0];
+	[self setPlayerHelmet:0];
+	[self setPlayerShield:0];
+	[self setPlayerGloves:0];
+	[self setPlayerShoes:0];
+	[self setPlayerRingL:0];
+	[self setPlayerRingR:0];
+	[self setPlayerWeapon:0];
+	[self setPlayerSubWeapon:0];
+	[self setPlayerAmulet:0];
+	[self setPlayerBlindFold:0];
 }
 
 
@@ -161,7 +158,7 @@ extern NH3DTileCache *_NH3DTileCache;
 - (NSAttributedString *)playerName
 {
 	int fSize;
-	switch ( playerName.length ) {
+	switch (playerName.length) {
 		case 15:
 		case 16:
 			fSize = 16;
@@ -176,6 +173,7 @@ extern NH3DTileCache *_NH3DTileCache;
 			break;
 		default:
 			fSize = 17;
+			break;
 	}
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
@@ -244,10 +242,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerArmour:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerArmour = nil;
 	} else {
-		playerArmour = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerArmour = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -258,10 +256,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerCloak:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerCloak = nil;
 	} else {
-		playerCloak = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerCloak = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -270,14 +268,12 @@ extern NH3DTileCache *_NH3DTileCache;
 	return playerHelmet;
 }
 
-
-
 - (void)setPlayerHelmet:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerHelmet = nil;
 	} else {
-		playerHelmet = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerHelmet = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -288,10 +284,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerShield:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerShield = nil;
 	} else {
-		playerShield = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerShield = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -302,10 +298,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerGloves:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerGloves = nil;
 	} else {
-		playerGloves = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerGloves = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -316,10 +312,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerShoes:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerShoes = nil;
 	} else {
-		playerShoes = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerShoes = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -330,10 +326,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerRingL:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerRingL = nil;
 	} else {
-		playerRingL = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerRingL = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -344,24 +340,24 @@ extern NH3DTileCache *_NH3DTileCache;
  
 - (void)setPlayerRingR:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerRingR = nil;		
 	} else {
-		playerRingR = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerRingR = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
 - (NSImage*)playerWeapon
 {
-	return playerWeapon ;
+	return playerWeapon;
 }
 
 - (void)setPlayerWeapon:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerWeapon = nil;
 	} else {		
-		playerWeapon = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerWeapon = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -372,10 +368,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerSubWeapon:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerSubWeapon = nil;
 	} else {
-		playerSubWeapon = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerSubWeapon = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -386,10 +382,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerAmulet:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerAmulet = nil;
 	} else {
-		playerAmulet = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerAmulet = [[ _NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -400,113 +396,110 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerBlindFold:(int)glyph
 {
-	if ( !glyph ) {
+	if (!glyph) {
 		playerBlindFold = nil;
 	} else {
-		playerBlindFold = [ [ _NH3DTileCache tileImageFromGlyph:glyph ] copy ];
+		playerBlindFold = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
 	}
 }
 
-
 - (void)updatePlayerInventory
 {
-	if ( uarm ) { 
-		[ self setPlayerArmour:obj_to_glyph( uarm ) ];
+	if (uarm) {
+		[self setPlayerArmour:obj_to_glyph(uarm)];
 	} else {
-		[ self setPlayerArmour:0 ];
-	}
-#ifdef TOURIST
-	if ( uarmu && !uarm ) {
-	[ self setPlayerArmour:obj_to_glyph( uarmu ) ];
-	} else if ( !uarm ) {
-		[ self setPlayerArmour:0 ];
-	}
-#endif
-	
-	if ( uarmc ) {
-		[ self setPlayerCloak:obj_to_glyph( uarmc ) ];
-	} else {
-		[ self setPlayerCloak:0 ];
-	}
-	
-	if ( uarmh ) {
-		[ self setPlayerHelmet:obj_to_glyph( uarmh ) ];
-	} else {
-		[ self setPlayerHelmet:0 ];
-	}
-		
-	if ( uarmg ) {
-		[ self setPlayerGloves:obj_to_glyph( uarmg ) ];
-	} else {
-		[ self setPlayerGloves:0 ];
-	}
-	
-	if ( uarmf ) {
-		[ self setPlayerShoes:obj_to_glyph( uarmf ) ];
-	} else {
-		[ self setPlayerShoes:0 ];
-	}
-	
-	if ( uleft ) {
-		[ self setPlayerRingL:obj_to_glyph( uleft ) ];
-	} else {
-		[ self setPlayerRingL:0 ];
-	}
-	
-	if ( uright ) {
-		[ self setPlayerRingR:obj_to_glyph( uright ) ];
-	} else {
-		[ self setPlayerRingR:0 ];
-	}
-	
-	if ( uwep ) {
-		[ self setPlayerWeapon:obj_to_glyph( uwep ) ];
-	} else {
-		[ self setPlayerWeapon:0 ];
-	}
-	
-	if ( uswapwep && !u.twoweap ) {
-		[ self setPlayerSubWeapon:obj_to_glyph( uswapwep ) ];
-	} else {
-		[ self setPlayerSubWeapon:0 ];
-	}
-	
-	if ( uarms && !u.twoweap ) {
-		[ self setPlayerShield:obj_to_glyph( uarms ) ];
-	} else if ( u.twoweap ) {
-		[ self setPlayerShield:obj_to_glyph( uswapwep ) ];
-	} else {
-		[ self setPlayerShield:0 ];
-	}
-	
-	if ( uamul ) {
-		[ self setPlayerAmulet:obj_to_glyph( uamul ) ];
-	} else {
-		[ self setPlayerAmulet:0 ];
-	}
-	
-	if ( ublindf ) {
-		[ self setPlayerBlindFold:obj_to_glyph( ublindf ) ];
-	} else {
-		[ self setPlayerBlindFold:0 ];
+		[self setPlayerArmour:0];
 	}
 
+	if (uarmu && !uarm) {
+		[self setPlayerArmour:obj_to_glyph(uarmu)];
+	} else if (!uarm) {
+		[self setPlayerArmour:0];
+	}
+	
+	if (uarmc) {
+		[self setPlayerCloak:obj_to_glyph(uarmc)];
+	} else {
+		[self setPlayerCloak:0];
+	}
+	
+	if (uarmh) {
+		[self setPlayerHelmet:obj_to_glyph(uarmh)];
+	} else {
+		[self setPlayerHelmet:0];
+	}
+		
+	if (uarmg) {
+		[self setPlayerGloves:obj_to_glyph(uarmg)];
+	} else {
+		[self setPlayerGloves:0];
+	}
+	
+	if (uarmf) {
+		[self setPlayerShoes:obj_to_glyph(uarmf)];
+	} else {
+		[self setPlayerShoes:0];
+	}
+	
+	if (uleft) {
+		[self setPlayerRingL:obj_to_glyph(uleft)];
+	} else {
+		[self setPlayerRingL:0];
+	}
+	
+	if (uright) {
+		[self setPlayerRingR:obj_to_glyph(uright)];
+	} else {
+		[self setPlayerRingR:0];
+	}
+	
+	if (uwep ) {
+		[self setPlayerWeapon:obj_to_glyph(uwep)];
+	} else {
+		[self setPlayerWeapon:0];
+	}
+	
+	if (uswapwep && !u.twoweap) {
+		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
+	} else {
+		[self setPlayerSubWeapon:0];
+	}
+	
+	if (uarms && !u.twoweap) {
+		[self setPlayerShield:obj_to_glyph(uarms)];
+	} else if (u.twoweap) {
+		[self setPlayerShield:obj_to_glyph(uswapwep)];
+	} else {
+		[self setPlayerShield:0];
+	}
+	
+	if (uamul) {
+		[self setPlayerAmulet:obj_to_glyph(uamul)];
+	} else {
+		[self setPlayerAmulet:0];
+	}
+	
+	if (ublindf) {
+		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
+	} else {
+		[self setPlayerBlindFold:0];
+	}
 }
 //
 //
 //
 
 - (NSString*)playerStr {
-	NSString* strStr = nil; 
+	NSString* strStr;
 	
-	if ( playerStr > 118 ) {
-		strStr = [ NSString stringWithFormat:@"%d",playerStr-100 ];
-	} else if ( playerStr == 118 ) {
+	if (playerStr > 118) {
+		strStr = [NSString stringWithFormat:@"%d", playerStr - 100];
+	} else if (playerStr == 118) {
 		strStr = @"18/**";
-	} else if ( playerStr > 18 ) {
-		strStr = [ NSString stringWithFormat:@"18/%02d",playerStr-18 ];
+	} else if (playerStr > 18) {
+		strStr = [NSString stringWithFormat:@"18/%02d", playerStr - 18];
 	} else {
-		strStr = [ NSString stringWithFormat:@"%d",playerStr ];
+		strStr = [NSString stringWithFormat:@"%d", playerStr];
 	}
 	return strStr;
 }
@@ -552,6 +545,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Lv", (int)lvUpdate]];
 }
 
+#pragma mark -
 
 - (NSImage *)lowfulIcon
 {
@@ -565,6 +559,8 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Chaos", (int)chaosIcon]];
 }
+
+#pragma mark -
 
 - (NSImage *)stHunger
 {
@@ -595,12 +591,10 @@ extern NH3DTileCache *_NH3DTileCache;
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Hallu", (int)stHallu]];
 }
 
-//
-//
-//
+#pragma mark -
 
 - (void)setPlayerName:(NSString *)aString {
-	if ( ![ playerName isEqualToString: aString ] && aString.length <= PL_NSIZ-11 ) {
+	if (![playerName isEqualToString:aString] && aString.length <= PL_NSIZ-11) {
 		playerName = aString;
 		//strcpy( plname,[ playerName cStringUsingEncoding:NH3DTEXTENCODING ] );
 	}
@@ -613,188 +607,188 @@ extern NH3DTileCache *_NH3DTileCache;
 }
 
 - (void)setPlayerRace:(NSString *)aString {
-	if (![playerRace isEqualToString: NSLocalizedString(aString,@"") ] ) {
-		playerRace = NSLocalizedString(aString,@"");
+	if (![playerRace isEqualToString: NSLocalizedString(aString, @"")]) {
+		playerRace = NSLocalizedString(aString, @"");
 	}
 }
-
 
 - (void)setPlayerRole:(NSString *)aString {
-	if ( playerRole != NSLocalizedString(aString,@"") ) {
-		playerRole = NSLocalizedString(aString,@"");
+	if ( playerRole != NSLocalizedString(aString, @"")) {
+		playerRole = NSLocalizedString(aString, @"");
 	}
 }
 
-
 - (void)setPlayerAlign:(NSString *)aString {
-	if (![playerAlign isEqualToString: NSLocalizedString(aString,@"")]) {
-		playerAlign = NSLocalizedString(aString,@"");
+	if (![playerAlign isEqualToString: NSLocalizedString(aString, @"")]) {
+		playerAlign = NSLocalizedString(aString, @"");
 	}
 }
 
 - (void)setPlayerGender:(NSString *)aString {
-	if (![playerGender isEqualToString: NSLocalizedString(aString,@"")]) {
-		playerGender = NSLocalizedString(aString,@"");
+	if (![playerGender isEqualToString: NSLocalizedString(aString, @"")]) {
+		playerGender = NSLocalizedString(aString, @"");
 	}
 }
 
-
 - (void)setPlayerStatusLine:(NSString *)aString
 {
-	if ( ![ playerStatusLine isEqualToString:aString ] ) {
+	if (![ playerStatusLine isEqualToString:aString]) {
 		playerStatusLine = [aString copy];
 	}
 }
 
+#pragma mark -
 
 - (void)setPlayerStr:(int)aValue {
 	static unsigned strcount;
 	
-	if ( playerStr != aValue && playerStr < aValue ) {
+	if (playerStr != aValue && playerStr < aValue) {
 		playerStr = aValue;
-		[ self setStrUpdate:YES ];
+		[self setStrUpdate:YES];
 		strcount = playerTime;
 	} else {
 		playerStr = aValue;
-		if ( strcount < playerTime-15 ) [ self setStrUpdate:NO ];
+		if (strcount < playerTime-15)
+			[self setStrUpdate:NO];
 	}
 }
 
 - (void)setPlayerDex:(int)aValue {
 	static unsigned dexcount;
 	
-	if ( playerDex != aValue && playerDex < aValue ) {
+	if (playerDex != aValue && playerDex < aValue) {
 		playerDex = aValue;
-		[ self setDexUpdate:YES ];
+		[self setDexUpdate:YES];
 		dexcount = playerTime;
 	} else {
 		playerDex = aValue;
-		if ( dexcount < playerTime-15 ) [ self setDexUpdate:NO ];
+		if (dexcount < playerTime-15)
+			[self setDexUpdate:NO];
 	}
 }
 
 - (void)setPlayerCon:(int)aValue {
 	static unsigned concount;
 	
-	if ( playerCon != aValue && playerCon < aValue ) {
+	if (playerCon != aValue && playerCon < aValue) {
 		playerCon = aValue;
-		[ self setConUpdate:YES ];
+		[self setConUpdate:YES];
 		concount = playerTime;
 	} else {
 		playerCon = aValue;
-		if ( concount < playerTime-15 ) [ self setConUpdate:NO ];
+		if (concount < playerTime-15)
+			[self setConUpdate:NO];
 	}
 }
 
 - (void)setPlayerInt:(int)aValue {
 	static unsigned intcount;
 	
-	if ( playerInt != aValue && playerInt < aValue ) {
+	if (playerInt != aValue && playerInt < aValue) {
 		playerInt = aValue;
-		[ self setIntUpdate:YES ];
+		[self setIntUpdate:YES];
 		intcount = playerTime;
 	} else {
 		playerInt = aValue;
-		if ( intcount < playerTime-15 ) [ self setIntUpdate:NO ];
+		if (intcount < playerTime-15)
+			[self setIntUpdate:NO];
 	}
 }
 
 - (void)setPlayerWis:(int)aValue {
 	static unsigned wiscount;
 	
-	if ( playerWis != aValue && playerWis < aValue ) {
+	if (playerWis != aValue && playerWis < aValue) {
 		playerWis = aValue;
-		[ self setWisUpdate:YES ];
+		[self setWisUpdate:YES];
 		wiscount = playerTime;
 	} else {
 		playerWis = aValue;
-		if ( wiscount < playerTime-15 ) [ self setWisUpdate:NO ];
+		if (wiscount < playerTime-15)
+			[self setWisUpdate:NO];
 	}
 }
 
 - (void)setPlayerCha:(int)aValue {
 	static unsigned chacount;
 	
-	if ( playerCha != aValue && playerCha < aValue ) {
+	if (playerCha != aValue && playerCha < aValue) {
 		playerCha = aValue;
-		[ self setChaUpdate:YES ];
+		[self setChaUpdate:YES];
 		chacount = playerTime;
 	} else {
 		playerCha = aValue;
-		if ( chacount < playerTime-15 )
-			[ self setChaUpdate:NO ];
+		if (chacount < playerTime-15)
+			[self setChaUpdate:NO];
 	}
 }
 
-
-//
-//
-//
-
+#pragma mark -
 
 - (void)setPlayerMaxhp:(int)aValue {
 	static unsigned hpcount;
 	
-	if ( playerMaxhp != aValue && playerMaxhp < aValue ) {
+	if (playerMaxhp != aValue && playerMaxhp < aValue) {
 		playerMaxhp = aValue;
-		[ self setPlayerWaningHp:aValue ];
-		[ self setPlayerCriticalHp:aValue ];
-		if ( !firstTime ) [ self setHpUpdate:YES ];
+		[self setPlayerWaningHp:aValue];
+		[self setPlayerCriticalHp:aValue];
+		if (!firstTime)
+			[self setHpUpdate:YES];
 		hpcount = playerTime;
-	} else if ( playerMaxhp != aValue ) {
+	} else if (playerMaxhp != aValue) {
 		playerMaxhp = aValue;
-		[ self setPlayerWaningHp:aValue ];
-		[ self setPlayerCriticalHp:aValue ];
+		[self setPlayerWaningHp:aValue];
+		[self setPlayerCriticalHp:aValue];
 	}
-	if ( hpcount < playerTime-15 )
-		[ self setHpUpdate:NO ];
+	if (hpcount < playerTime-15)
+		[self setHpUpdate:NO];
 }
 
 - (void)setPlayerMaxpow:(int)aValue {
 	static unsigned powcount;
 	
-	if ( playerMaxpow != aValue && playerMaxpow < aValue ) {
+	if (playerMaxpow != aValue && playerMaxpow < aValue) {
 		playerMaxpow = aValue;
-		[ self setPlayerWaningPow:aValue ];
-		[ self setPlayerCriticalPow:aValue ];
+		[self setPlayerWaningPow:aValue];
+		[self setPlayerCriticalPow:aValue];
 		if (!firstTime)
 			[self setPowUpdate:YES];
 		powcount = playerTime;
 		
-	} else if ( playerMaxpow != aValue ) {
+	} else if (playerMaxpow != aValue) {
 		playerMaxpow = aValue;
-		[ self setPlayerWaningPow:aValue ];
-		[ self setPlayerCriticalPow:aValue ];
+		[self setPlayerWaningPow:aValue];
+		[self setPlayerCriticalPow:aValue];
 	}
-	if ( powcount < playerTime-15 )
-		[ self setPowUpdate:NO ];
+	if (powcount < playerTime-15)
+		[self setPowUpdate:NO];
 }
 
 - (void)setPlayerAc:(int)aValue {
 	static unsigned account;
 	
-	if ( playerAc != aValue && playerAc > aValue ) {
+	if (playerAc != aValue && playerAc > aValue) {
 		playerAc = aValue;
-		[ self setAcUpdate:YES ];
+		[self setAcUpdate:YES];
 		account = playerTime;
 	} else {
 		playerAc = aValue;
 		if (account < playerTime-15)
-			[ self setAcUpdate:NO];
+			[self setAcUpdate:NO];
 	}
 }
 
 - (void)setPlayerLv:(int)aValue {
 	static unsigned lvcount;
 	
-	if ( playerLv != aValue && playerLv < aValue ) {
+	if (playerLv != aValue && playerLv < aValue) {
 		playerLv = aValue;
-		[ self setLvUpdate:YES ];
+		[self setLvUpdate:YES];
 		lvcount = playerTime;
 	} else {
 		playerLv = aValue;
-		if ( lvcount < playerTime-15 )
-			[ self setLvUpdate:NO ];
+		if (lvcount < playerTime-15)
+			[self setLvUpdate:NO];
 	}
 }
 
@@ -803,53 +797,48 @@ extern NH3DTileCache *_NH3DTileCache;
 	playerWaningHp = (CGFloat)maxHp/10*5;
 }
 
-
 - (void)setPlayerCriticalHp:(int)maxHp
 {
 	playerCriticalHp = (CGFloat)maxHp/10*3;
 }
-
 
 - (void)setPlayerWaningPow:(int)maxPow
 {
 	playerWaningPow = (CGFloat)maxPow/10*5;
 }
 
-
 - (void)setPlayerCriticalPow:(int)maxPow
 {
 	playerCriticalPow = (CGFloat)maxPow/10*3;
 }
 
-//
-//
-//
+#pragma mark -
 
-- (void)setStrUpdate:( BOOL )update {
+- (void)setStrUpdate:(BOOL)update {
 	strUpdate = update;
 }
-- (void)setDexUpdate:( BOOL )update {
+- (void)setDexUpdate:(BOOL)update {
 	dexUpdate = update;
 }
-- (void)setConUpdate:( BOOL )update {
+- (void)setConUpdate:(BOOL)update {
 	conUpdate = update;
 }
-- (void)setIntUpdate:( BOOL )update {
+- (void)setIntUpdate:(BOOL)update {
 	intUpdate = update;
 }
-- (void)setWisUpdate:( BOOL )update {
+- (void)setWisUpdate:(BOOL)update {
 	wisUpdate = update;
 }
-- (void)setChaUpdate:( BOOL )update {
+- (void)setChaUpdate:(BOOL)update {
 	chaUpdate = update;
 }
-- (void)setHpUpdate:( BOOL )update {
+- (void)setHpUpdate:(BOOL)update {
 	hpUpdate = update;
 }
-- (void)setPowUpdate:( BOOL )update {
+- (void)setPowUpdate:(BOOL)update {
 	powUpdate = update;
 }
-- (void)setAcUpdate:( BOOL )update {
+- (void)setAcUpdate:(BOOL)update {
 	acUpdate = update;
 }
 - (void)setLvUpdate:(BOOL)update {
@@ -874,37 +863,37 @@ extern NH3DTileCache *_NH3DTileCache;
 	[self checkStDrawer];
 }
 
-- (void)setStConfuse:( BOOL )aBool
+- (void)setStConfuse:(BOOL)aBool
 {
 	stConfuse = aBool;
 	[self checkStDrawer];
 }
 
-- (void)setStSick:( BOOL )aBool
+- (void)setStSick:(BOOL)aBool
 {
 	stSick = aBool;
 	[self checkStDrawer];
 }
 
-- (void)setStIll:( BOOL )aBool
+- (void)setStIll:(BOOL)aBool
 {
 	stIll = aBool;
 	[self checkStDrawer];
 }
 
-- (void)setStBlind:( BOOL )aBool
+- (void)setStBlind:(BOOL)aBool
 {
 	stBlind = aBool;
 	[self checkStDrawer];
 }
 
-- (void)setStStun:( BOOL )aBool
+- (void)setStStun:(BOOL)aBool
 {
 	stStun = aBool;
 	[self checkStDrawer];
 }
 
-- (void)setStHallu:( BOOL )aBool
+- (void)setStHallu:(BOOL)aBool
 {
 	stHallu = aBool;
 	[self checkStDrawer];
@@ -922,90 +911,108 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-//
-//
-//
+#pragma mark -
 
 - (void)updatePlayer
 {
-	const char* hung = hu_stat[ u.uhs ];
+	const char* hung = hu_stat[u.uhs];
 	
-	[ self setPlayerClass:[ NSString stringWithFormat:NSLocalizedString( @"the %@",@"" ),
-							[ NSString stringWithCString:rank_of( u.ulevel, pl_character[ 0 ], flags.female ) 
-											   encoding:NH3DTEXTENCODING ] ] ];
+	[self setPlayerClass:[NSString stringWithFormat:NSLocalizedString(@"the %@", @""),
+							[NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
+											   encoding:NH3DTEXTENCODING]]];
 	
-	[ self setPlayerTime:moves ];
+	[self setPlayerTime:moves];
 	
-	if ( u.mtimedone ) {
-	// You're a monster.
-		[ self setPlayerMaxhp:u.mhmax ];
-		[ self setPlayerHp:u.mh ];
-		[ self setPlayerLv:mons[ u.umonnum ].mlevel ];
+	if (u.mtimedone) {
+		// You're a monster.
+		[self setPlayerMaxhp:u.mhmax];
+		[self setPlayerHp:u.mh];
+		[self setPlayerLv:mons[u.umonnum].mlevel];
 	} else {
-	// You're normal.
-		[ self setPlayerMaxhp:u.uhpmax ];
-		[ self setPlayerHp:u.uhp ];
-		[ self setPlayerLv:u.ulevel ];
+		// You're normal.
+		[self setPlayerMaxhp:u.uhpmax];
+		[self setPlayerHp:u.uhp];
+		[self setPlayerLv:u.ulevel];
 	}
-	[ self setPlayerMaxpow:u.uenmax ];
-	[ self setPlayerPow:u.uen ];
+	[self setPlayerMaxpow:u.uenmax];
+	[self setPlayerPow:u.uen];
 	
-	[ self setPlayerStr:ACURR( A_STR ) ];
-	[ self setPlayerDex:ACURR( A_DEX ) ];
-	[ self setPlayerCon:ACURR( A_CON ) ];
-	[ self setPlayerInt:ACURR( A_INT ) ];
-	[ self setPlayerWis:ACURR( A_WIS ) ];
-	[ self setPlayerCha:ACURR( A_CHA ) ];
+	[self setPlayerStr:ACURR(A_STR)];
+	[self setPlayerDex:ACURR(A_DEX)];
+	[self setPlayerCon:ACURR(A_CON)];
+	[self setPlayerInt:ACURR(A_INT)];
+	[self setPlayerWis:ACURR(A_WIS)];
+	[self setPlayerCha:ACURR(A_CHA)];
 	[self setPlayerGold:money_cnt(invent)];
 #ifdef SCORE_ON_BOTL
-	[ self setPlayerScore:botl_score( ) ];
+	[self setPlayerScore:botl_score()];
 #else
 	[self setPlayerScore:0];
 #endif
-	[ self setPlayerExp:u.uexp ];
-	[ self setPlayerAc:u.uac ];
+	[self setPlayerExp:u.uexp];
+	[self setPlayerAc:u.uac];
 	
-	if ( Hallucination ) [ self setStHallu:YES ]; else [ self setStHallu:NO ];
+	if (Hallucination)
+		[self setStHallu:YES];
+	else
+		[self setStHallu:NO];
 	
-	if ( Confusion ) [ self setStConfuse:YES ]; else [ self setStConfuse:NO ];
+	if (Confusion)
+		[self setStConfuse:YES];
+	else
+		[self setStConfuse:NO];
 	
-	if ( Stunned ) [ self setStStun:YES ]; else [ self setStStun:NO ];
+	if (Stunned)
+		[self setStStun:YES];
+	else
+		[self setStStun:NO];
 	
-	if ( Blind ) [ self setStBlind:YES ]; else [ self setStBlind:NO ];
+	if (Blind)
+		[self setStBlind:YES];
+	else
+		[self setStBlind:NO];
 	
-	if ( Sick ) [ self setStSick:YES ]; else [ self setStSick:NO ]; 
+	if (Sick)
+		[self setStSick:YES];
+	else
+		[self setStSick:NO];
 	
-	if ( Vomiting ) [ self setStIll:YES ]; else [ self setStIll:NO ];
+	if (Vomiting)
+		[self setStIll:YES];
+	else
+		[self setStIll:NO];
 	
-	if ( hung[ 0 ]!=' ' ) [ self setStHunger:YES ]; else [ self setStHunger:NO ];
+	if (hung[0] != ' ')
+		[self setStHunger:YES];
+	else
+		[self setStHunger:NO];
 	
-	switch ( u.ualign.type ) {
+	switch (u.ualign.type) {
 		case 1 : 
-			[ self setPlayerAlign:@"Lowful" ];
-			[ self setLowfulIcon:YES ];
-			[ self setNewtralIcon:NO ];
-			[ self setChaosIcon:NO ];
+			[self setPlayerAlign:@"Lowful"];
+			[self setLowfulIcon:YES];
+			[self setNewtralIcon:NO];
+			[self setChaosIcon:NO];
 			break;
 		case 0 :
-			[ self setPlayerAlign:@"Newtral" ];
-			[ self setLowfulIcon:NO ];
-			[ self setNewtralIcon:YES ];
-			[ self setChaosIcon:NO ];
+			[self setPlayerAlign:@"Newtral"];
+			[self setLowfulIcon:NO];
+			[self setNewtralIcon:YES];
+			[self setChaosIcon:NO];
 			break;
 		case -1 :
-			[ self setPlayerAlign:@"Chaotic" ];
-			[ self setLowfulIcon:NO ];
-			[ self setNewtralIcon:NO ];
-			[ self setChaosIcon:YES ];
+			[self setPlayerAlign:@"Chaotic"];
+			[self setLowfulIcon:NO];
+			[self setNewtralIcon:NO];
+			[self setChaosIcon:YES];
 			break;
 		case -128 :
-			[ self setPlayerAlign:@"Evil" ];
-			[ self setLowfulIcon:YES ];
-			[ self setNewtralIcon:YES ];
-			[ self setChaosIcon:YES ];
+			[self setPlayerAlign:@"Evil"];
+			[self setLowfulIcon:YES];
+			[self setNewtralIcon:YES];
+			[self setChaosIcon:YES];
 			break;
 	}
-	
 	
 	firstTime = NO;
 

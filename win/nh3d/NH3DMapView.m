@@ -463,15 +463,15 @@
 - (void)drawAsciiItemAtX:(int)x atY:(int)y
 {
 	@autoreleasepool {
-		NSRect bounds = self.bounds ;
-		NSShadow *lshadow = [ [NSShadow alloc] init ];
-		NSMutableDictionary *attributes = [ [NSMutableDictionary alloc] init ];
-			
-		lshadow.shadowOffset = NSMakeSize(0.8, 1.8) ;
+		NSRect bounds = self.bounds;
+		NSShadow *lshadow = [[NSShadow alloc] init];
+		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+		
+		lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
 		lshadow.shadowBlurRadius = 3.5 ;
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
-			 
+		
 		//setColor and shadow for special-flag
 		attributes[NSForegroundColorAttributeName] = [[mapItemValue[x][y] color]  highlightWithLevel:0.2];
 		
@@ -484,7 +484,7 @@
 		attributes[NSShadowAttributeName] = lshadow;
 		
 		// Replace Wall/OpenDoor charctor for Right,Left direction
-		switch ( _mapModel.playerDirection ) {
+		switch (_mapModel.playerDirection) {
 			case PL_DIRECTION_RIGHT:
 			case PL_DIRECTION_LEFT:
 				if ( ! mapItemValue[x][y].hasAlternateSymbol ) {
@@ -529,49 +529,49 @@
 				break;
 			default:
 				if ( [ [mapItemValue[x][y] symbol] isEqualToString:@"-" ] && mapItemValue[x][y].hasAlternateSymbol ) {
-						(mapItemValue[x][y]).cSymbol = '|';
-						[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
-					} else if ( [ [mapItemValue[x][y] symbol] isEqualToString:@"|" ] && mapItemValue[x][y].hasAlternateSymbol ) {
-						(mapItemValue[x][y]).cSymbol = '-';
-						[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
-					}
-
+					(mapItemValue[x][y]).cSymbol = '|';
+					[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
+				} else if ( [ [mapItemValue[x][y] symbol] isEqualToString:@"|" ] && mapItemValue[x][y].hasAlternateSymbol ) {
+					(mapItemValue[x][y]).cSymbol = '-';
+					[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
+				}
+				
 				break;
 		}
-
+		
 		//Draw view
-		[self lockFocusIfCanDraw];
-		
-		if ( needClear ) {
-			NSEraseRect( bounds );
-			//[ mapBase dissolveToPoint:NSMakePoint(bounds.origin.x,bounds.origin.y) fraction:1.0 ];
-			[ mapBase drawInRect:bounds
-						fromRect:NSZeroRect
-					   operation:NSCompositeSourceOver
-						fraction:1.0 ];
-			needClear = NO;
-		}
-		
-		[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+		if ([self lockFocusIfCanDraw]) {
+			if (needClear) {
+				NSEraseRect(bounds);
+				//[ mapBase dissolveToPoint:NSMakePoint(bounds.origin.x,bounds.origin.y) fraction:1.0 ];
+				[mapBase drawInRect:bounds
+						   fromRect:NSZeroRect
+						  operation:NSCompositeSourceOver
+						   fraction:1.0];
+				needClear = NO;
+			}
+			
+			[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 															  (NSMaxY(bounds)-((y+1)*16.0)),
-															   16.0,16.0)
+																 16.0,16.0)
 										   options:NSStringDrawingUsesDeviceMetrics
-										attributes:attributes ];
-		
-		if (mapItemValue[x][y].hasCursor) {
-			[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
-						  fromRect:NSZeroRect
-						 operation:NSCompositeSourceOver
-						  fraction:cursOpacity];
-
-			/*
-			[ posCursor dissolveToPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
-							   fraction:cursOpacity ];*/
-			viewCursX = x;
-			viewCursY = MAPVIEWSIZE_ROW-y-1;
+										   attributes:attributes];
+			
+			if (mapItemValue[x][y].hasCursor) {
+				[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
+							  fromRect:NSZeroRect
+							 operation:NSCompositeSourceOver
+							  fraction:cursOpacity];
+				
+				/*
+				 [ posCursor dissolveToPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
+				 fraction:cursOpacity ];*/
+				viewCursX = x;
+				viewCursY = MAPVIEWSIZE_ROW-y-1;
+			}
+			
+			[self unlockFocus];
 		}
-		
-		[self unlockFocus];
 	}
 }
 

@@ -118,7 +118,7 @@
 /*# define GNUSTEP */ /* use GNUStep framework */
 # define GRAPHIC_TOMBSTONE	/* Use graphical tombstone (rip.png) */
 # define CHDIR
-# define HACKDIR "Resources"
+/*# define HACKDIR "Resources"*/
 # ifndef DEFAULT_WINDOW_SYS
 #  define DEFAULT_WINDOW_SYS "nh3d"
 # endif
@@ -458,7 +458,7 @@ typedef unsigned char uchar;
 
 /* SCORE_ON_BOTL is neither experimental nor inadequately tested,
    but doesn't seem to fit in any other section... */
-/* #define SCORE_ON_BOTL */         /* enable the 'showscore' option to
+#define SCORE_ON_BOTL               /* enable the 'showscore' option to
                                        show estimated score on status line */
 
 /* FREE_ALL_MEMORY is neither experimental nor inadequately tested,

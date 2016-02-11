@@ -325,7 +325,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		tile = [ img copy ];
 		[ img release ];
 	 }*/
-	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
+	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && (bgGlyph != (S_darkroom + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
 		return [_NH3DTileCache tileImageFromGlyph:bgGlyph];
 	else
 		return nil;
