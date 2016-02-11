@@ -2652,7 +2652,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject(with3DSFile: "arrowtrap", withTexture: true)
 			
 		case S_dart_trap + GLYPH_CMAP_OFF :
-			ret = NH3DModelObject(with3DSFile: "dartstrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "dartTrap", withTexture: true)
 			
 		case S_falling_rock_trap + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject(with3DSFile: "rockfalltrap", withTexture: true)
@@ -2714,7 +2714,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
 		case S_teleportation_trap + GLYPH_CMAP_OFF :
-			ret = NH3DModelObject(with3DSFile: "telporter", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
 			ret?.childObjectAtLast?.setModelScaleX(0.55, scaleY: 0.8, scaleZ: 0.55)

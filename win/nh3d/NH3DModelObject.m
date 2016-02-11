@@ -82,10 +82,10 @@ static const NH3DMaterial defaultMat = {
 	
 	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
 	
-	glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
-	glGenTextures( 1, &tex_id );
-	glBindTexture( GL_TEXTURE_2D, tex_id );
+	glGenTextures(1, &tex_id );
+	glBindTexture(GL_TEXTURE_2D, tex_id);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 	
