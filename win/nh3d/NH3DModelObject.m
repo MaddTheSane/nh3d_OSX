@@ -6,10 +6,12 @@
 //  Copyright 2005 Haruumi Yoshino. All rights reserved.
 //
 
+#include <math.h>
+#include <tgmath.h>
 #import "NH3DModelObject.h"
 
 
-static GLfloat colors[ 16 ][ 3 ] = {
+static GLfloat colors[16][3] = {
 	{ 0.1 , 0.1 , 0.1  },				// Black
 	{ 0.81424, 0.14136 , 0.14136 },		// Red
 	{ 0.17568 , 0.81424 , 0.17568 },	// Green
@@ -222,13 +224,16 @@ static const NH3DMaterial defaultMat = {
 	NSRange fileRange = {0,0};
 	
 	// Open 3DS file and Create NSData object
-	NSData *file_3ds = [[NSData alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:name withExtension:@"3ds"]
-													  options:NSDataReadingMappedIfSafe
-														error:nil];
+	NSData *file_3ds;
+	NSURL *dataURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"3ds"];
+	if (dataURL) {
+		file_3ds = [[NSData alloc] initWithContentsOfURL:dataURL
+												 options:NSDataReadingMappedIfSafe
+												   error:nil];
+	}
 	//NSLog(@"Model %@ loading...",name);
 	
 	if (!file_3ds && [NSDataAsset class]) {
-		//For forward compatibility
 		file_3ds = [[NSDataAsset alloc] initWithName:name].data;
 	}
 	
@@ -239,9 +244,7 @@ static const NH3DMaterial defaultMat = {
 	fileRange.length = file_3ds.length;
 	fileRange.location = 0;
 	
-	
-	while (fileRange.location < fileRange.length && verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)
-	{		
+	while (fileRange.location < fileRange.length && verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS) {
 		float floatBuffer = 0.0;	// float value buffer
 		unsigned short shortBuffer = 0; // short value buffer
 		unsigned int longBuffer = 0; // long value buffer
@@ -262,9 +265,7 @@ static const NH3DMaterial defaultMat = {
 		
 		//NSLog(@"Chunk_length: %d",l_ChunkLength);
 		
-		switch (l_ChunkIdent)
-        {
-			
+		switch (l_ChunkIdent) {
 			case 0x4d4d:	//MAIN CHUNK
 				break;    
 				
@@ -272,25 +273,21 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			case 0x4000:	// MODELBLOCK ..read model name
-				
 				i=0;
-				do
-				{
+				do {
 					[file_3ds getBytes:&l_Name range:NSMakeRange(fileRange.location,1)];
 					fileRange.location = fileRange.location + 1;
 					mName[i]=l_Name;
 					i++;
-                }while(l_Name != '\0' && i<20);
+                } while (l_Name != '\0' && i<20);
 					
-					modelName = @(mName);
-				
+				modelName = @(mName);
 				break;
 				
 			case 0x4100:	// TRIANGULAR MESH
 				break;
 				
 			case 0x4110:	// read VERTICES
-				
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 				fileRange.location = fileRange.location + sizeof(unsigned short);
 				
@@ -303,16 +300,13 @@ static const NH3DMaterial defaultMat = {
 				
 				normal_qty = verts_qty;
 				
-				if ( verts_qty ) {
-					
+				if (verts_qty) {
 					verts = malloc( verts_qty * sizeof(NH3DVertexType) );
 					norms = malloc( normal_qty * sizeof(NH3DVertexType) );
 					
 					//NSLog(@"Number of vertices: %d",verts_qty);						
 					
-					for (i=0; i < verts_qty; i++)
-					{
-						
+					for (i = 0; i < verts_qty; i++) {
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
 						fileRange.location = fileRange.location + sizeof(float);
 						
@@ -328,7 +322,6 @@ static const NH3DMaterial defaultMat = {
 						
 						//NSLog(@"%d Vertices y: %f",i,verts[i].y);
 						
-						
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
 						fileRange.location = fileRange.location + sizeof(float);
 						
@@ -340,12 +333,9 @@ static const NH3DMaterial defaultMat = {
 					NSLog(@"Model %@|%@ does not have effective data. check modelformat or data.",modelCode,modelName);
 					return NO;
 				}
-				
 				break;
 				
-				
 			case 0x4120:	// FACES DESCRIPTION ....read face infomation
-				
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 				fileRange.location = fileRange.location + sizeof(unsigned short);
 				
@@ -356,52 +346,47 @@ static const NH3DMaterial defaultMat = {
 					NSLog(@"Model %@|%@ reache to MaxPolygons. it does not complete.",modelCode,modelName);
 				}
 				
-					if ( face_qty ) {
-						faces = malloc( face_qty * sizeof(NH3DFaceType));
+				if (face_qty) {
+					faces = malloc(face_qty * sizeof(NH3DFaceType));
+					
+					//NSLog(@"Number of polygons: %d",face_qty);
+					
+					for (i = 0; i < face_qty; i++) {
+						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
+						fileRange.location = fileRange.location + sizeof(unsigned short);
 						
-						//NSLog(@"Number of polygons: %d",face_qty); 
+						faces[i].a = NSSwapLittleShortToHost(shortBuffer);
 						
-						for (i=0; i < face_qty; i++)
-						{
-							[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-							fileRange.location = fileRange.location + sizeof(unsigned short);
-							
-							faces[i].a = NSSwapLittleShortToHost(shortBuffer);
-							
-							//NSLog(@"%d Polygon point a: %d",i,faces[i].a);
-							
-							
-							[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-							fileRange.location = fileRange.location + sizeof(unsigned short);
-							
-							faces[i].b = NSSwapLittleShortToHost(shortBuffer);
-							
-							//NSLog(@"%d Polygon point b: %d",i,faces[i].b);
-							
-							[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-							fileRange.location = fileRange.location + sizeof(unsigned short);
-							
-							faces[i].c = NSSwapLittleShortToHost(shortBuffer);
-							
-							//NSLog(@"%d Polygon point c: %d",i,faces[i].c);
-							
-							
-							[file_3ds getBytes:&l_Face_Flag range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-							fileRange.location = fileRange.location + sizeof(unsigned short);
-							
-							l_Face_Flag = NSSwapLittleShortToHost(l_Face_Flag);
-							
-							//NSLog(@"%d Face flags: %x",i,l_Face_Flag);
-							
-						}
+						//NSLog(@"%d Polygon point a: %d",i,faces[i].a);
+						
+						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
+						fileRange.location = fileRange.location + sizeof(unsigned short);
+						
+						faces[i].b = NSSwapLittleShortToHost(shortBuffer);
+						
+						//NSLog(@"%d Polygon point b: %d",i,faces[i].b);
+						
+						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
+						fileRange.location = fileRange.location + sizeof(unsigned short);
+						
+						faces[i].c = NSSwapLittleShortToHost(shortBuffer);
+						
+						//NSLog(@"%d Polygon point c: %d",i,faces[i].c);
+						
+						[file_3ds getBytes:&l_Face_Flag range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
+						fileRange.location = fileRange.location + sizeof(unsigned short);
+						
+						l_Face_Flag = NSSwapLittleShortToHost(l_Face_Flag);
+						
+						//NSLog(@"%d Face flags: %x",i,l_Face_Flag);
 					}
+				}
 				break;
 				
 			case 0x4130:	// FACE MATERIALS
 				break;
 				
 			case 0x4140:	// MAPPING COORDINATES LIST ...read texture uv infomation
-				
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 				fileRange.location = fileRange.location + sizeof(unsigned short);
 				
@@ -412,35 +397,31 @@ static const NH3DMaterial defaultMat = {
 					NSLog(@"Model %@|%@ TextureCoods reache to MaxPolygons. it does not complete.",modelCode,modelName);
 				}
 					
-					if ( texcords_qty ) {
+				if (texcords_qty) {
+					texcoords = malloc( texcords_qty * sizeof(NH3DMapCoordType) );
+					
+					//NSLog(@"Number of TexCoords %d",texcords_qty);
+					
+					for (i = 0; i < texcords_qty; i++) {
 						
-						texcoords = malloc( texcords_qty * sizeof(NH3DMapCoordType) );
+						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
+						fileRange.location = fileRange.location + sizeof(float);
 						
-						//NSLog(@"Number of TexCoords %d",texcords_qty);
+						texcoords[i].s = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
-						for (i=0; i < texcords_qty; i++)
-						{
-							
-							[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-							fileRange.location = fileRange.location + sizeof(float);
-							
-							texcoords[i].s = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
-							
-							//NSLog(@"%d Mapping list u: %f",i,texcoords[i].s);
-							
-							
-							[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-							fileRange.location = fileRange.location + sizeof(float);
-							
-							texcoords[i].t = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
-							
-							//NSLog(@"%d Mapping list v: %f",i,texcoords[i].t);
-						}
+						//NSLog(@"%d Mapping list u: %f",i,texcoords[i].s);
+						
+						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
+						fileRange.location = fileRange.location + sizeof(float);
+						
+						texcoords[i].t = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
+						
+						//NSLog(@"%d Mapping list v: %f",i,texcoords[i].t);
 					}
+				}
 					break;
 				
 			default: // skip other chunk
-				
 				fileRange.location = fileRange.location + l_ChunkLength-6;
 				//NSLog(@"Read done ... %d/%d",fileRange.location,fileRange.length);
 				break;
@@ -451,19 +432,18 @@ static const NH3DMaterial defaultMat = {
 	return YES;
 }
 
-
-- (float)vectorLength :(NH3DVertexType *)p_vector
+- (float)vectorLength:(NH3DVertexType *)p_vector
 {
-	return (float)(sqrt(p_vector->x*p_vector->x + p_vector->y*p_vector->y + p_vector->z*p_vector->z));
+	return sqrtf(p_vector->x*p_vector->x + p_vector->y*p_vector->y + p_vector->z*p_vector->z);
 }
-
 
 - (void)vectorNormalize:(NH3DVertexType *)p_vector
 {
 	float l_length;
 	
 	l_length = [self vectorLength:p_vector];
-	if (l_length==0) l_length=1;
+	if (l_length==0)
+		l_length=1;
 	p_vector->x /= l_length;
 	p_vector->y /= l_length;
 	p_vector->z /= l_length;
@@ -499,25 +479,23 @@ static const NH3DMaterial defaultMat = {
 	NH3DVertexType l_vect1,l_vect2,l_vect3,l_vect_b1,l_vect_b2,l_normal;
 	int l_Connect[verts_qty];
 	
-	for (i=0;  i< verts_qty; i++)
-	{
+	for (i = 0; i< verts_qty; i++) {
 		norms[i].x = 0.0;
 		norms[i].y = 0.0;
 		norms[i].z = 0.0;
 		l_Connect[i]=0;
 	}
 	
-	for (i=0 ; i < face_qty; i++)
-	{
-        l_vect1.x = verts[ faces[i].a ].x ;
-        l_vect1.y = verts[ faces[i].a ].y ;
-        l_vect1.z = verts[ faces[i].a ].z ;
-        l_vect2.x = verts[ faces[i].b ].x ;
-        l_vect2.y = verts[ faces[i].b ].y ;
-        l_vect2.z = verts[ faces[i].b ].z ;
-        l_vect3.x = verts[ faces[i].c ].x ;
-        l_vect3.y = verts[ faces[i].c ].y ;
-        l_vect3.z = verts[ faces[i].c ].z ;         
+	for (i = 0; i < face_qty; i++) {
+        l_vect1.x = verts[faces[i].a ].x ;
+        l_vect1.y = verts[faces[i].a ].y ;
+        l_vect1.z = verts[faces[i].a ].z ;
+        l_vect2.x = verts[faces[i].b ].x ;
+        l_vect2.y = verts[faces[i].b ].y ;
+        l_vect2.z = verts[faces[i].b ].z ;
+        l_vect3.x = verts[faces[i].c ].x ;
+        l_vect3.y = verts[faces[i].c ].y ;
+        l_vect3.z = verts[faces[i].c ].z ;
 		
         // Polygon normal calculation
 		[self createVectorWithStart:&l_vect1 endingAt:&l_vect2 outVector:&l_vect_b1];
@@ -525,9 +503,9 @@ static const NH3DMaterial defaultMat = {
         [self vectDotProduct :&l_vect_b1 second:&l_vect_b2 normal:&l_normal];
         [self vectorNormalize :&l_normal];
 		
-		l_Connect[ faces[i].a ]+=1;
-		l_Connect[ faces[i].b ]+=1;
-		l_Connect[ faces[i].c ]+=1;
+		l_Connect[faces[i].a] += 1;
+		l_Connect[faces[i].b] += 1;
+		l_Connect[faces[i].c] += 1;
 		
 		norms[ faces[i].a ].x += l_normal.x;
 		norms[ faces[i].a ].y += l_normal.y;
@@ -540,10 +518,8 @@ static const NH3DMaterial defaultMat = {
 		norms[ faces[i].c ].z += l_normal.z;	
 	}	
 	
-    for (i=0; i < verts_qty; i++)
-	{
-		if (l_Connect[i]>0)
-		{
+    for (i = 0; i < verts_qty; i++) {
+		if (l_Connect[i] > 0) {
 			norms[i].x /= l_Connect[i];
 			norms[i].y /= l_Connect[i];
 			norms[i].z /= l_Connect[i];
@@ -567,22 +543,21 @@ static const NH3DMaterial defaultMat = {
 	
 	// Extension names should not have spaces
 	pszWhere = (unsigned char *)strchr(szTargetExtension, ' ');
-	if( pszWhere || *szTargetExtension == '\0' )
+	if(pszWhere || *szTargetExtension == '\0')
 		return NO;
 	
 	// Get Extensions String
-	pszExtensions = glGetString( GL_EXTENSIONS );
+	pszExtensions = glGetString(GL_EXTENSIONS);
 	
 	// Search The Extensions String For An Exact Copy
 	pszStart = pszExtensions;
-	for(;;)
-	{
-		pszWhere = (unsigned char *) strstr( (const char *) pszStart, szTargetExtension );
-		if( !pszWhere )
+	for (;;) {
+		pszWhere = (unsigned char *)strstr((const char *)pszStart, szTargetExtension);
+		if(!pszWhere)
 			break;
-		pszTerminator = pszWhere + strlen( szTargetExtension );
-		if( pszWhere == pszStart || *( pszWhere - 1 ) == ' ' )
-			if( *pszTerminator == ' ' || *pszTerminator == '\0' )
+		pszTerminator = pszWhere + strlen(szTargetExtension);
+		if (pszWhere == pszStart || *( pszWhere - 1 ) == ' ')
+			if (*pszTerminator == ' ' || *pszTerminator == '\0')
 				return YES;
 		pszStart = pszTerminator;
 	}
@@ -624,7 +599,6 @@ static const NH3DMaterial defaultMat = {
 - (instancetype)init
 {
 	if (self = [super init]) {
-		
 		int i;
 		
 		[self initParams];
@@ -640,8 +614,7 @@ static const NH3DMaterial defaultMat = {
 		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
 		particles = malloc( MAX_PARTICLES * sizeof(NH3DParticle) );
-
-			
+		
 		for (i = 0; i < MAX_PARTICLES; i++ ) {
 			particles[i].active = YES;
 			particles[i].life = 0.8f;
@@ -718,10 +691,9 @@ static const NH3DMaterial defaultMat = {
 }
 */
 
-- (instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
+- (instancetype)initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
 {
 	if (self = [super init]) {
-		
 		modelCode = [name copy];
 		
 		[self initParams];
@@ -736,7 +708,7 @@ static const NH3DMaterial defaultMat = {
 		particleSize = 0;
 		particleType = NH3DParticleTypePoints;
 		
-		if ( ![self import3DSfileToNH3DModel:name] ) {
+		if (![self import3DSfileToNH3DModel:name]) {
 			return nil;
 		}
 		
@@ -760,9 +732,9 @@ static const NH3DMaterial defaultMat = {
 	
 	//NSLog(@"dealloc %@|%@",modelCode,modelName);
 	
-	for ( i = 0 ; i < numberOfTextures ; i++ ) {
-		GLuint texid = textures[ i ];
-		glDeleteTextures(1 , &texid);
+	for (i = 0; i < numberOfTextures; i++) {
+		GLuint texid = textures[i];
+		glDeleteTextures(1, &texid);
 	}
 	
 	free(verts);
@@ -773,8 +745,6 @@ static const NH3DMaterial defaultMat = {
 
 	[childObjects removeAllObjects];
 }
-
-
 
 
 
@@ -801,7 +771,6 @@ static const NH3DMaterial defaultMat = {
 {
 	return texcords_qty;
 }
-
 
 - (NH3DVertexType *)verts
 {
@@ -992,13 +961,11 @@ static const NH3DMaterial defaultMat = {
 	return childObjects.lastObject;
 }
 
-
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type
 {
 	NH3DModelObject *modelobj = nil;
 	
 	switch (type) {
-		
 		case NH3DModelTypeObject:
 			modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName withTexture:NO];
 			//if (modelobj == nil) {
@@ -1045,8 +1012,7 @@ static const NH3DMaterial defaultMat = {
 	float px , py, pz;
 	
 	if (active) {
-		
-		GLfloat blendcol[4] = { 1.0, 1.0, 1.0, 0.33 };
+		GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
 		
 		if (!isChild) {
 			glPushMatrix();
@@ -1060,11 +1026,11 @@ static const NH3DMaterial defaultMat = {
 		
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		
-		glMaterialfv(GL_FRONT, GL_AMBIENT, currentMaterial.ambient );
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, currentMaterial.diffuse );
-		glMaterialfv(GL_FRONT, GL_SPECULAR, currentMaterial.specular );
-		glMaterialf(GL_FRONT, GL_SHININESS, currentMaterial.shininess );
-		glMaterialfv(GL_FRONT, GL_EMISSION, currentMaterial.emission );
+		glMaterialfv(GL_FRONT, GL_AMBIENT, currentMaterial.ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, currentMaterial.diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, currentMaterial.specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, currentMaterial.shininess);
+		glMaterialfv(GL_FRONT, GL_EMISSION, currentMaterial.emission);
 		
 		switch (modelType) {
 			case NH3DModelTypeObject:
@@ -1073,7 +1039,6 @@ static const NH3DMaterial defaultMat = {
 				glDisable(GL_TEXTURE_2D);
 				
 				if (useEnvironment) {
-					
 					glActiveTexture(GL_TEXTURE1);
 					
 					glBindTexture(GL_TEXTURE_2D, texture);
@@ -1094,7 +1059,6 @@ static const NH3DMaterial defaultMat = {
 				glBegin(GL_TRIANGLES);
 				
 				for (i = 0; i < face_qty; i++) {
-					
 					glNormal3f(norms[faces[i].a].x,
 							   norms[faces[i].a].y,
 							   norms[faces[i].a].z);
@@ -1184,7 +1148,6 @@ static const NH3DMaterial defaultMat = {
 					break;
 				
 			case NH3DModelTypeEmitter:
-				
 				glDisable(GL_LIGHTING);
 				glDisable(GL_TEXTURE_2D);
 				
@@ -1192,63 +1155,60 @@ static const NH3DMaterial defaultMat = {
 				glBlendFunc(GL_SRC_ALPHA ,GL_ONE);
 				
 				for (i = 0; i < MAX_PARTICLES; i++) {
+					float colorArray[4] = {particles[i].r, particles[i].g, particles[i].b, particles[i].life};
 					
-					float colorArray[4] = { particles[ i ].r, particles[ i ].g, particles[ i ].b, particles[ i ].life };
-					
-					if( particles[ i ].active ) {
-						px = particles[ i ].x;         
-						py = particles[ i ].y;
-						pz = particles[ i ].z; 
+					if( particles[i].active ) {
+						px = particles[i].x;         
+						py = particles[i].y;
+						pz = particles[i].z; 
 						float pSize;
 						
 						switch (particleType) {
-							
 							case NH3DParticleTypePoints :
-								
-								glPointSize( ((random() % 500 )*0.01) + particleSize );
+								glPointSize(((random() % 500 )*0.01) + particleSize);
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
-								glVertex3f( px + 0.02f, py + 0.02f, pz +0.02f);
-								glVertex3f( px - 0.02f, py + 0.02f, pz -0.02f);
-								glVertex3f( px + 0.02f, py - 0.02f, pz +0.02f);
-								glVertex3f( px - 0.02f, py - 0.02f, pz -0.02f);
+								glVertex3f(px + 0.02f, py + 0.02f, pz +0.02f);
+								glVertex3f(px - 0.02f, py + 0.02f, pz -0.02f);
+								glVertex3f(px + 0.02f, py - 0.02f, pz +0.02f);
+								glVertex3f(px - 0.02f, py - 0.02f, pz -0.02f);
 								glEnd();
 								
 								break;
 							case NH3DParticleTypeLines :
-								glLineWidth( ((random() % 400)*0.01) + particleSize );
+								glLineWidth(((random() % 400)*0.01) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);
 								glColor4fv(colorArray);
-								glVertex3f( px + 0.02f, py , pz ); glVertex3f( px - 0.02f, py + 0.1f, pz + 0.01f );
-								glVertex3f( px - 0.02f, py , pz ); glVertex3f( px + 0.02f, py - 0.1f, pz - 0.01f );
+								glVertex3f(px + 0.02f, py, pz); glVertex3f(px - 0.02f, py + 0.1f, pz + 0.01f);
+								glVertex3f(px - 0.02f, py, pz); glVertex3f(px + 0.02f, py - 0.1f, pz - 0.01f);
 								glEnd();
 								
 								break;
 							case NH3DParticleTypeBoth :								
-								glPointSize( ((random() % 500)*0.01) + particleSize);
+								glPointSize(((random() % 500)*0.01) + particleSize);
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
-								glVertex3f( px + 0.02f, py + 0.02f, pz +0.02f);
-								glVertex3f( px - 0.02f, py + 0.02f, pz -0.02f);
-								glVertex3f( px + 0.02f, py - 0.02f, pz +0.02f);
-								glVertex3f( px - 0.02f, py - 0.02f, pz -0.02f);
+								glVertex3f(px + 0.02f, py + 0.02f, pz +0.02f);
+								glVertex3f(px - 0.02f, py + 0.02f, pz -0.02f);
+								glVertex3f(px + 0.02f, py - 0.02f, pz +0.02f);
+								glVertex3f(px - 0.02f, py - 0.02f, pz -0.02f);
 								glEnd();
 								
-								glLineWidth( (random() % 4) + particleSize);
+								glLineWidth((random() % 4) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);
 								
 								glColor4fv(colorArray);
-								glVertex3f( px + 0.02f, py , pz ); glVertex3f( px - 0.02f, py + 0.1f, pz + 0.01f );
-								glVertex3f( px , py , pz ); glVertex3f( px - 0.02f, py - 0.1f, pz - 0.01f );
+								glVertex3f(px + 0.02f, py, pz); glVertex3f(px - 0.02f, py + 0.1f, pz + 0.01f);
+								glVertex3f(px , py , pz); glVertex3f(px - 0.02f, py - 0.1f, pz - 0.01f);
 								glEnd();
 								
 								break;
 							case NH3DParticleTypeAura :
-								glLineWidth( ((random() % 200)*0.01) + particleSize);
+								glLineWidth(((random() % 200)*0.01) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);
 								
@@ -1274,45 +1234,45 @@ static const NH3DMaterial defaultMat = {
 								
 								break;
 							default :
-								pSize = ( (random() % 5) + particleSize) * 0.01;
+								pSize = ((random() % 5) + particleSize) * 0.01;
 								glBegin(GL_QUADS);
 								glColor4fv(colorArray);
-								glVertex3f( px + pSize, py + pSize, pz );
-								glVertex3f( px - pSize, py + pSize, pz );
-								glVertex3f( px + pSize, py - pSize, pz );
-								glVertex3f( px - pSize, py - pSize, pz );
+								glVertex3f(px + pSize, py + pSize, pz);
+								glVertex3f(px - pSize, py + pSize, pz);
+								glVertex3f(px + pSize, py - pSize, pz);
+								glVertex3f(px - pSize, py - pSize, pz);
 								glEnd();
 								break;
 						}
 						
 						
 						// Move on the axes by appropriate amount
-						particles[ i ].x += particles[ i ].xi / ( slowdown * 1000 );
-						particles[ i ].y += particles[ i ].yi / ( slowdown * 1000 );
-						particles[ i ].z += particles[ i ].zi / ( slowdown * 1000 );
+						particles[i].x += particles[i].xi / (slowdown * 1000);
+						particles[i].y += particles[i].yi / (slowdown * 1000);
+						particles[i].z += particles[i].zi / (slowdown * 1000);
 						// Take gravity into account
-						particles[ i ].xi += particles[ i ].xg;
-						particles[ i ].yi += particles[ i ].yg;
-						particles[ i ].zi += particles[ i ].zg;
+						particles[i].xi += particles[i].xg;
+						particles[i].yi += particles[i].yg;
+						particles[i].zi += particles[i].zg;
 						// Reduce particle's life by 'fade'
-						particles[ i ].life -= particles[ i ].fade;
+						particles[i].life -= particles[i].fade;
 						
-						if( particles[ i ].life < 0.0f ) {
-							particles[ i ].life = particleLife; 
+						if (particles[i].life < 0.0f) {
+							particles[i].life = particleLife; 
 							
-							particles[ i ].fade = (float) ( rand() % 100 ) / 1000.0f +
+							particles[i].fade = (float) (rand() % 100) / 1000.0f +
 								0.003f;
-							particles[ i ].x = 0.0f;   // Center on X axis
-							particles[ i ].y = 0.0f;   // Center on Y axis
-							particles[ i ].z = 0.0f;   // Center on Z axis
+							particles[i].x = 0.0f;   // Center on X axis
+							particles[i].y = 0.0f;   // Center on Y axis
+							particles[i].z = 0.0f;   // Center on Z axis
 													   // X axis speed and direction
-							particles[ i ].xi = xspeed + (float) ( random() % 60 ) - 32.0f;
-							particles[ i ].yi = yspeed + (float) ( random() % 60 ) - 30.0f;
-							particles[ i ].zi = (float) ( random() % 60 ) - 30.0f;
+							particles[i].xi = xspeed + (float) ( random() % 60 ) - 32.0f;
+							particles[i].yi = yspeed + (float) ( random() % 60 ) - 30.0f;
+							particles[i].zi = (float) ( random() % 60 ) - 30.0f;
 							
-							particles[ i ].r = colors[ particleColor ][ 0 ];
-							particles[ i ].g = colors[ particleColor ][ 1 ];
-							particles[ i ].b = colors[ particleColor ][ 2 ];
+							particles[i].r = colors[ particleColor ][ 0 ];
+							particles[i].g = colors[ particleColor ][ 1 ];
+							particles[i].b = colors[ particleColor ][ 2 ];
 						}
 						
 					}
