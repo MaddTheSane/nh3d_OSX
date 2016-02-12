@@ -18,11 +18,11 @@
 @synthesize playerName;
 
 - (instancetype) init {
-	self = [ super initWithWindowNibName:@"Usermakesheet" ];
+	self = [super initWithWindowNibName:@"Usermakesheet"];
 	if (self != nil) {
 		
-		[ self setPriestName:@"Priest" ];
-		[ self setCavemanName:@"Caveman" ];
+		[self setPriestName:@"Priest"];
+		[self setCavemanName:@"Caveman"];
 		playerName = nil;
 	}
 	return self;
@@ -36,7 +36,7 @@
 }
 
 - (void)setPriestName:(NSString *)aString {
-	priestName = NSLocalizedString(aString,@"");
+	priestName = NSLocalizedString(aString, @"");
 }
 
 
@@ -59,112 +59,112 @@
 
 	switch (tag) {
 		case 0:
-			[ _userStatus setPlayerRace:@"Human" ];
-			[ self setDone_race:YES ];
-			[ self setEn_archeologist:YES ];
-			[ self setEn_barbarian:YES ];
-			[ self setEn_caveman:YES ];
-			[ self setEn_healer:YES ];
-			[ self setEn_knight:YES ];
-			[ self setEn_monk:YES ];
-			[ self setEn_priest:YES ];
-			[ self setEn_rouge:YES ];
-			[ self setEn_ranger:YES ];
-			[ self setEn_samurai:YES ];
-			[ self setEn_tourist:YES ];
-			[ self setEn_valkyrie:YES ];
-			[ self setEn_wizard:YES ];
+			[_userStatus setPlayerRace:@"Human"];
+			[self setDone_race:YES];
+			[self setEn_archeologist:YES];
+			[self setEn_barbarian:YES];
+			[self setEn_caveman:YES];
+			[self setEn_healer:YES];
+			[self setEn_knight:YES];
+			[self setEn_monk:YES];
+			[self setEn_priest:YES];
+			[self setEn_rouge:YES];
+			[self setEn_ranger:YES];
+			[self setEn_samurai:YES];
+			[self setEn_tourist:YES];
+			[self setEn_valkyrie:YES];
+			[self setEn_wizard:YES];
 			break;
 			
 		case 1:
-			[ _userStatus setPlayerRace:@"Elf" ];
-			[ self setDone_race:YES ];
-			[ self setEn_archeologist:NO ];
-			[ self setEn_barbarian:NO ];
-			[ self setEn_caveman:NO ];
-			[ self setEn_healer:NO ];
-			[ self setEn_knight:NO ];
-			[ self setEn_monk:NO ];
-			[ self setEn_priest:YES ];
-			[ self setEn_rouge:NO ];
-			[ self setEn_ranger:YES ];
-			[ self setEn_samurai:NO ];
-			[ self setEn_tourist:NO ];
-			[ self setEn_valkyrie:NO ];
-			[ self setEn_wizard:YES ];
+			[_userStatus setPlayerRace:@"Elf"];
+			[self setDone_race:YES];
+			[self setEn_archeologist:NO];
+			[self setEn_barbarian:NO];
+			[self setEn_caveman:NO];
+			[self setEn_healer:NO];
+			[self setEn_knight:NO];
+			[self setEn_monk:NO];
+			[self setEn_priest:YES];
+			[self setEn_rouge:NO];
+			[self setEn_ranger:YES];
+			[self setEn_samurai:NO];
+			[self setEn_tourist:NO];
+			[self setEn_valkyrie:NO];
+			[self setEn_wizard:YES];
 			break;
 			
 		case 2:
 			[_userStatus setPlayerRace:@"Dwarf"];
-			[ self setDone_race:YES ];
-			[ self setEn_archeologist:YES ];
-			[ self setEn_barbarian:NO ];
-			[ self setEn_caveman:YES ];
-			[ self setEn_healer:NO ];
-			[ self setEn_knight:NO ];
-			[ self setEn_monk:NO ];
-			[ self setEn_priest:NO ];
-			[ self setEn_rouge:NO ];
-			[ self setEn_ranger:NO ];
-			[ self setEn_samurai:NO ];
-			[ self setEn_tourist:NO ];
-			[ self setEn_valkyrie:YES ];
-			[ self setEn_wizard:NO ];
+			[self setDone_race:YES];
+			[self setEn_archeologist:YES];
+			[self setEn_barbarian:NO];
+			[self setEn_caveman:YES];
+			[self setEn_healer:NO];
+			[self setEn_knight:NO];
+			[self setEn_monk:NO];
+			[self setEn_priest:NO];
+			[self setEn_rouge:NO];
+			[self setEn_ranger:NO];
+			[self setEn_samurai:NO];
+			[self setEn_tourist:NO];
+			[self setEn_valkyrie:YES];
+			[self setEn_wizard:NO];
 			break;
 			
 		case 3:
-			[ _userStatus setPlayerRace:@"Gnome" ];
-			[ self setDone_race:YES ];
-			[ self setEn_archeologist:YES ];
-			[ self setEn_barbarian:NO ];
-			[ self setEn_caveman:YES ];
-			[ self setEn_healer:YES ];
-			[ self setEn_knight:NO ];
-			[ self setEn_monk:NO ];
-			[ self setEn_priest:NO ];
-			[ self setEn_rouge:NO ];
-			[ self setEn_ranger:YES ];
-			[ self setEn_samurai:NO ];
-			[ self setEn_tourist:NO ];
-			[ self setEn_valkyrie:NO ];
-			[ self setEn_wizard:YES ];
+			[_userStatus setPlayerRace:@"Gnome"];
+			[self setDone_race:YES];
+			[self setEn_archeologist:YES];
+			[self setEn_barbarian:NO];
+			[self setEn_caveman:YES];
+			[self setEn_healer:YES];
+			[self setEn_knight:NO];
+			[self setEn_monk:NO];
+			[self setEn_priest:NO];
+			[self setEn_rouge:NO];
+			[self setEn_ranger:YES];
+			[self setEn_samurai:NO];
+			[self setEn_tourist:NO];
+			[self setEn_valkyrie:NO];
+			[self setEn_wizard:YES];
 			break;
 			
 		case 4:
-			[ _userStatus setPlayerRace:@"Orc" ];
-			[ self setDone_race:YES ];
-			[ self setEn_archeologist:NO ];
-			[ self setEn_barbarian:YES ];
-			[ self setEn_caveman:NO ];
-			[ self setEn_healer:NO ];
-			[ self setEn_knight:NO ];
-			[ self setEn_monk:NO ];
-			[ self setEn_priest:NO ];
-			[ self setEn_rouge:YES ];
-			[ self setEn_ranger:YES ];
-			[ self setEn_samurai:NO ];
-			[ self setEn_tourist:NO ];
-			[ self setEn_valkyrie:NO ];
-			[ self setEn_wizard:YES ];
+			[_userStatus setPlayerRace:@"Orc"];
+			[self setDone_race:YES];
+			[self setEn_archeologist:NO];
+			[self setEn_barbarian:YES];
+			[self setEn_caveman:NO];
+			[self setEn_healer:NO];
+			[self setEn_knight:NO];
+			[self setEn_monk:NO];
+			[self setEn_priest:NO];
+			[self setEn_rouge:YES];
+			[self setEn_ranger:YES];
+			[self setEn_samurai:NO];
+			[self setEn_tourist:NO];
+			[self setEn_valkyrie:NO];
+			[self setEn_wizard:YES];
 			break;
 			
 		default:
-			[ _userStatus setPlayerRace:nil ];
-			[ self setDone_race:NO ];
-			[ self setEn_archeologist:NO ];
-			[ self setEn_barbarian:NO ];
-			[ self setEn_caveman:NO ];
-			[ self setEn_healer:NO ];
-			[ self setEn_knight:NO ];
-			[ self setEn_monk:NO ];
-			[ self setEn_priest:NO ];
-			[ self setEn_rouge:NO ];
-			[ self setEn_ranger:NO ];
-			[ self setEn_samurai:NO ];
-			[ self setEn_tourist:NO ];
+			[_userStatus setPlayerRace:nil];
+			[self setDone_race:NO];
+			[self setEn_archeologist:NO];
+			[self setEn_barbarian:NO];
+			[self setEn_caveman:NO];
+			[self setEn_healer:NO];
+			[self setEn_knight:NO];
+			[self setEn_monk:NO];
+			[self setEn_priest:NO];
+			[self setEn_rouge:NO];
+			[self setEn_ranger:NO];
+			[self setEn_samurai:NO];
+			[self setEn_tourist:NO];
 			
-			[ self setEn_valkyrie:NO ];
-			[ self setEn_wizard:NO ];
+			[self setEn_valkyrie:NO];
+			[self setEn_wizard:NO];
 	}
 }
 
@@ -176,217 +176,217 @@
 	race = [chooseRace selectedTag];
 
 	/*
-	if ( [ [ inputName stringValue ] isEqual:@"" ] || [ [ inputName stringValue ] cStringLength ] >= PL_NSIZ-11 ) {
-		[ self setPlayerName:[ NSString stringWithFormat:@"%@%d%@",@"input 1to",PL_NSIZ-12,@"Chars." ] ];
-		[ self setDone_name:NO ];
+	if ( [[inputName stringValue] isEqual:@""] || [[inputName stringValue] cStringLength] >= PL_NSIZ-11 ) {
+		[self setPlayerName:[NSString stringWithFormat:@"%@%d%@",@"input 1to",PL_NSIZ-12,@"Chars."]];
+		[self setDone_name:NO];
 	}
 	else {
-		[ self setPlayerName:[ inputName stringValue ] ];
-		[ self setDone_name:YES ];
+		[self setPlayerName:[inputName stringValue]];
+		[self setDone_name:YES];
 	}
 	*/
 	
-	switch ( tag ) {
+	switch (tag) {
 		case 0 :
-			[ _userStatus setPlayerRole:@"Archeologist" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Archeologist"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 1 :
-			[ _userStatus setPlayerRole:@"Barbarian" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Barbarian"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 2 :
-			[ _userStatus setPlayerRole:cavemanName ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:cavemanName];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 3 :
-			[ _userStatus setPlayerRole:@"Healer" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Healer"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 4 :
-			[ _userStatus setPlayerRole:@"Knight" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Knight"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 5 :
-			[ _userStatus setPlayerRole:@"Monk" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Monk"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 6 :
-			[ _userStatus setPlayerRole:priestName ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:priestName];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 7 :
-			[ _userStatus setPlayerRole:@"Rogue" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Rogue"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 8 :
-			[ _userStatus setPlayerRole:@"Ranger" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Ranger"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 9 :
-			[ _userStatus setPlayerRole:@"Samurai" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Samurai"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 10 :
-			[ _userStatus setPlayerRole:@"Tourist" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Tourist"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		case 11 :
-			[ _userStatus setPlayerRole:@"Valkyrie" ];
-			[ chooseGender selectCellWithTag:1 ];
-			[ self setPriestName:@"Priestess" ];
-			[ self setCavemanName:@"Cavewoman" ];
-			[ _userStatus setPlayerGender:@"Female" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:NO ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Valkyrie"];
+			[chooseGender selectCellWithTag:1];
+			[self setPriestName:@"Priestess"];
+			[self setCavemanName:@"Cavewoman"];
+			[_userStatus setPlayerGender:@"Female"];
+			[self setDone_role:YES];
+			[self setEn_male:NO];
+			[self setEn_female:YES];
 			break;
 		case 12 :
-			[ _userStatus setPlayerRole:@"Wizard" ];
-			[ self setDone_role:YES ];
-			[ self setEn_male:YES ];
-			[ self setEn_female:YES ];
+			[_userStatus setPlayerRole:@"Wizard"];
+			[self setDone_role:YES];
+			[self setEn_male:YES];
+			[self setEn_female:YES];
 			break;
 		default:
-			[ _userStatus setPlayerRole:nil ];
-			[ self setDone_role:NO ];
-			[ self setEn_male:NO ];
-			[ self setEn_female:NO ];
-			[ self setEn_lowful:NO ];
-			[ self setEn_newtral:NO ];
-			[ self setEn_chaotic:NO ];
+			[_userStatus setPlayerRole:nil];
+			[self setDone_role:NO];
+			[self setEn_male:NO];
+			[self setEn_female:NO];
+			[self setEn_lowful:NO];
+			[self setEn_newtral:NO];
+			[self setEn_chaotic:NO];
 	}
 	
 	switch (race) {
 		case 0 :
-			switch ( tag ) {
-				case 0 :
-				case 2 :
-				case 11 :
-					if ( [ chooseAlign selectedTag ] == 2 ) {
-						[ chooseAlign selectCellWithTag:1 ];
+			switch (tag) {
+				case 0:
+				case 2:
+				case 11:
+					if ([chooseAlign selectedTag] == 2) {
+						[chooseAlign selectCellWithTag:1];
 					}
-					[ self setEn_lowful:YES ];
-					[ self setEn_newtral:YES ];
-					[ self setEn_chaotic:NO ];
+					[self setEn_lowful:YES];
+					[self setEn_newtral:YES];
+					[self setEn_chaotic:NO];
 					break;
-				case 1 :
-				case 8 :
-				case 12 :
-					if ( [ chooseAlign selectedTag ] == 0 ) {
-						[ chooseAlign selectCellWithTag:1 ];
+				case 1:
+				case 8:
+				case 12:
+					if ([chooseAlign selectedTag] == 0) {
+						[chooseAlign selectCellWithTag:1];
 					}
-					[ self setEn_lowful:NO ];
-					[ self setEn_newtral:YES ];
-					[ self setEn_chaotic:YES ];
+					[self setEn_lowful:NO];
+					[self setEn_newtral:YES];
+					[self setEn_chaotic:YES];
 					break;
-				case 3 :
-				case 10 :
-					[ chooseAlign selectCellWithTag:1 ];
-					[ self setEn_lowful:NO ];
-					[ self setEn_newtral:YES ];
-					[ self setEn_chaotic:NO ];
+				case 3:
+				case 10:
+					[chooseAlign selectCellWithTag:1];
+					[self setEn_lowful:NO];
+					[self setEn_newtral:YES];
+					[self setEn_chaotic:NO];
 					break;
-				case 4 :
-				case 9 :
-					[ chooseAlign selectCellWithTag:0 ];
-					[ self setEn_lowful:YES ];
-					[ self setEn_newtral:NO ];
-					[ self setEn_chaotic:NO ];
+				case 4:
+				case 9:
+					[chooseAlign selectCellWithTag:0];
+					[self setEn_lowful:YES];
+					[self setEn_newtral:NO];
+					[self setEn_chaotic:NO];
 					break;
-				case 5 :
-				case 6 :
-					[ self setEn_lowful:YES ];
-					[ self setEn_newtral:YES ];
-					[ self setEn_chaotic:YES ];
+				case 5:
+				case 6:
+					[self setEn_lowful:YES];
+					[self setEn_newtral:YES];
+					[self setEn_chaotic:YES];
 					break;
 				case 7 :
-					[ chooseAlign selectCellWithTag:2 ];
-					[ self setEn_lowful:NO ];
-					[ self setEn_newtral:NO ];
-					[ self setEn_chaotic:YES ];
+					[chooseAlign selectCellWithTag:2];
+					[self setEn_lowful:NO];
+					[self setEn_newtral:NO];
+					[self setEn_chaotic:YES];
 					break;
 			}
 			
 			break;
 		case 1 :
-			[ chooseAlign selectCellWithTag:2 ];
-			[ self setEn_lowful:NO ];
-			[ self setEn_newtral:NO ];
-			[ self setEn_chaotic:YES ];
+			[chooseAlign selectCellWithTag:2];
+			[self setEn_lowful:NO];
+			[self setEn_newtral:NO];
+			[self setEn_chaotic:YES];
 			break;
 		case 2 :
-			[ chooseAlign selectCellWithTag:0 ];
-			[ self setEn_lowful:YES ];
-			[ self setEn_newtral:NO ];
-			[ self setEn_chaotic:NO ];
+			[chooseAlign selectCellWithTag:0];
+			[self setEn_lowful:YES];
+			[self setEn_newtral:NO];
+			[self setEn_chaotic:NO];
 			break;
 		case 3 :
-			[ chooseAlign selectCellWithTag:1 ];
-			[ self setEn_lowful:NO ];
-			[ self setEn_newtral:YES ];
-			[ self setEn_chaotic:NO ];
+			[chooseAlign selectCellWithTag:1];
+			[self setEn_lowful:NO];
+			[self setEn_newtral:YES];
+			[self setEn_chaotic:NO];
 			break;
 		case 4 :
-			[ chooseAlign selectCellWithTag:2 ];
-			[ self setEn_lowful:NO ];
-			[ self setEn_newtral:NO ];
-			[ self setEn_chaotic:YES ];
+			[chooseAlign selectCellWithTag:2];
+			[self setEn_lowful:NO];
+			[self setEn_newtral:NO];
+			[self setEn_chaotic:YES];
 			break;
 	}
 }
 
-- ( IBAction )checkGender:(id)sender
+- (IBAction)checkGender:(id)sender
 {
 	int tag,role;
-	tag = [ chooseGender selectedTag ];
-	role = [ chooseRole selectedTag ];
+	tag = [chooseGender selectedTag];
+	role = [chooseRole selectedTag];
 	
 	/*
-	if ( [ [ inputName stringValue ] isEqual:@"" ] || [ [ inputName stringValue ] cStringLength ] >= PL_NSIZ-11 ) {
-		[ self setPlayerName:[ NSString stringWithFormat:@"%@%d%@",@"input 1to",PL_NSIZ-12,@"Chars." ] ];
-		[ self setDone_name:NO ];
+	if ( [[inputName stringValue] isEqual:@""] || [[inputName stringValue] cStringLength] >= PL_NSIZ-11 ) {
+		[self setPlayerName:[NSString stringWithFormat:@"%@%d%@",@"input 1to",PL_NSIZ-12,@"Chars."]];
+		[self setDone_name:NO];
 	}
 	else {
-		[ self setPlayerName:[ inputName stringValue ] ];
-		[ self setDone_name:YES ];
+		[self setPlayerName:[inputName stringValue]];
+		[self setDone_name:YES];
 	}
 	 */
 	
 	if (!tag) {
-		[ self setPriestName:@"Priest" ];
-		[ self setCavemanName:@"Caveman" ];
-		[ _userStatus setPlayerGender:@"Male" ];
+		[self setPriestName:@"Priest"];
+		[self setCavemanName:@"Caveman"];
+		[_userStatus setPlayerGender:@"Male"];
 	} else {
-		[ self setPriestName:@"Priestess" ];
-		[ self setCavemanName:@"Cavewoman" ];
-		[ _userStatus setPlayerGender:@"Female" ];
+		[self setPriestName:@"Priestess"];
+		[self setCavemanName:@"Cavewoman"];
+		[_userStatus setPlayerGender:@"Female"];
 	}
 	
 	if (role == 2 || role == 6) {
-		[ self checkRole:self ];
+		[self checkRole:self];
 	}			
 }
 
@@ -487,10 +487,10 @@
 - (void)createPlayer
 {	
 	int race,role,align,gender;
-	align = [ chooseAlign selectedTag ];
-	role = [ chooseRole selectedTag ];
-	race = [ chooseRace selectedTag ];
-	gender = [ chooseGender selectedTag ];
+	align = [chooseAlign selectedTag];
+	role = [chooseRole selectedTag];
+	race = [chooseRace selectedTag];
+	gender = [chooseGender selectedTag];
 	
 	switch (align) {
 		case 0:
@@ -500,16 +500,16 @@
 			[_userStatus setChaosIcon:NO];
 			break;
 		case 1:
-			[ _userStatus setPlayerAlign:@"Newtral" ];
-			[ _userStatus setLowfulIcon:NO ];
-			[ _userStatus setNewtralIcon:YES ];
-			[ _userStatus setChaosIcon:NO ];
+			[_userStatus setPlayerAlign:@"Newtral"];
+			[_userStatus setLowfulIcon:NO];
+			[_userStatus setNewtralIcon:YES];
+			[_userStatus setChaosIcon:NO];
 			break;
 		case 2:
-			[ _userStatus setPlayerAlign:@"Chaotic" ];
-			[ _userStatus setLowfulIcon:NO ];
-			[ _userStatus setNewtralIcon:NO ];
-			[ _userStatus setChaosIcon:YES ];
+			[_userStatus setPlayerAlign:@"Chaotic"];
+			[_userStatus setLowfulIcon:NO];
+			[_userStatus setNewtralIcon:NO];
+			[_userStatus setChaosIcon:YES];
 			break;
 	}
 	
@@ -532,7 +532,7 @@
 		// Check return code
 		if(returnCode == DIALOG_CANCEL) {
 			// Quit button was pushed
-			[ NSApp terminate:self ];
+			[NSApp terminate:self];
 			return;
 		} else if(returnCode == DIALOG_OK) {
 			/* direct to makePlayer method */

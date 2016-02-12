@@ -613,7 +613,7 @@ extern NH3DTileCache *_NH3DTileCache;
 }
 
 - (void)setPlayerRole:(NSString *)aString {
-	if ( playerRole != NSLocalizedString(aString, @"")) {
+	if (![playerRole isEqualToString: NSLocalizedString(aString, @"")]) {
 		playerRole = NSLocalizedString(aString, @"");
 	}
 }
