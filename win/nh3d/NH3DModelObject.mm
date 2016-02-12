@@ -9,6 +9,7 @@
 #include <math.h>
 #include <tgmath.h>
 #import "NH3DModelObject.h"
+#include <assimp/Importer.hpp>
 
 
 static GLfloat colors[16][3] = {
@@ -299,8 +300,8 @@ static const NH3DMaterial defaultMat = {
 				normal_qty = verts_qty;
 				
 				if (verts_qty) {
-					verts = malloc( verts_qty * sizeof(NH3DVertexType) );
-					norms = malloc( normal_qty * sizeof(NH3DVertexType) );
+					verts = new NH3DVertexType[verts_qty];
+					norms = new NH3DVertexType[normal_qty];
 					
 					//NSLog(@"Number of vertices: %d",verts_qty);						
 					
@@ -345,7 +346,7 @@ static const NH3DMaterial defaultMat = {
 				}
 				
 				if (face_qty) {
-					faces = malloc(face_qty * sizeof(NH3DFaceType));
+					faces = new NH3DFaceType[face_qty];
 					
 					//NSLog(@"Number of polygons: %d",face_qty);
 					
@@ -396,7 +397,7 @@ static const NH3DMaterial defaultMat = {
 				}
 					
 				if (texcords_qty) {
-					texcoords = malloc( texcords_qty * sizeof(NH3DMapCoordType) );
+					texcoords = new NH3DMapCoordType[texcords_qty];
 					
 					//NSLog(@"Number of TexCoords %d",texcords_qty);
 					
@@ -611,7 +612,7 @@ static const NH3DMaterial defaultMat = {
 		particleSize = 1.0;
 		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
-		particles = malloc( MAX_PARTICLES * sizeof(NH3DParticle) );
+		particles = new NH3DParticle[MAX_PARTICLES];
 		
 		for (i = 0; i < MAX_PARTICLES; i++ ) {
 			particles[i].active = YES;
@@ -733,11 +734,11 @@ static const NH3DMaterial defaultMat = {
 		glDeleteTextures(1, &texid);
 	}
 	
-	free(verts);
-	free(norms);
-	free(faces);
-	free(texcoords);
-	free(particles);
+	delete [] verts;
+	delete [] norms;
+	delete [] faces;
+	delete [] texcoords;
+	delete [] particles;
 
 	[childObjects removeAllObjects];
 }

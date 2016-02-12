@@ -1,0 +1,3 @@
+[submodule "win/nh3d/Vendor/assimp"]
+	path = win/nh3d/Vendor/assimp
+	url = https://github.com/assimp/assimp.git

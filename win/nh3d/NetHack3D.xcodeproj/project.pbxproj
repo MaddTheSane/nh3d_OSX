@@ -17,7 +17,7 @@
 		2B0D0DA408F1C20600F7A7E8 /* options in Resources */ = {isa = PBXBuildFile; fileRef = 2B0D0DA308F1C20600F7A7E8 /* options */; };
 		2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */; };
 		2B29B1DE08E0EDFD00951AF7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */; };
-		2B2E1EDF0919086F008805B3 /* NH3DModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */; };
+		2B2E1EDF0919086F008805B3 /* NH3DModelObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E1EDE0919086F008805B3 /* NH3DModelObject.mm */; };
 		2B35391A0915A2F4002CC8AD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B3539190915A2F4002CC8AD /* MainMenu.xib */; };
 		2B5458DB095D23F3007A1049 /* NH3DUserMakeSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */; };
 		2B5469C108EF2EF5008AA81F /* unixtty.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DD0D08CD73D4008CCAAC /* unixtty.c */; };
@@ -357,6 +357,7 @@
 		5562107F1C6D4858001DD4CE /* nurse.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA509526D7C006921EA /* nurse.3ds */; };
 		556210801C6D4858001DD4CE /* wizardset.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2B3D4EA109526CF8006921EA /* wizardset.3ds */; };
 		556210811C6D486F001DD4CE /* kingset.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BC0192A094BA33400B386A8 /* kingset.3ds */; };
+		5562108B1C6D5AFB001DD4CE /* libassimp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 556210881C6D5AE1001DD4CE /* libassimp.a */; };
 		556A21B71C670E9C00DB226F /* NH3DTeleportationDestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */; };
 		556A21B81C670E9C00DB226F /* NH3DTeleportationDestinationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */; };
 		556A21BB1C67B80500DB226F /* NH3DModelDefines.c in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B91C67B80500DB226F /* NH3DModelDefines.c */; };
@@ -377,6 +378,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		556210871C6D5AE1001DD4CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 556210831C6D5AE1001DD4CE /* Assimp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F7922801AB43AC3005A8E5D;
+			remoteInfo = assimp;
+		};
+		556210891C6D5AF2001DD4CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 556210831C6D5AE1001DD4CE /* Assimp.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F79227F1AB43AC3005A8E5D;
+			remoteInfo = assimp;
+		};
 		556A21D61C67C73700DB226F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -425,7 +440,7 @@
 		2B2612D709233E7900CA7A64 /* vwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = vwall.3ds; sourceTree = "<group>"; };
 		2B29B1DD08E0EDFD00951AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		2B2BBF58093F487100DCBBBB /* nh3d.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nh3d.icns; sourceTree = "<group>"; };
-		2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DModelObject.m; sourceTree = "<group>"; };
+		2B2E1EDE0919086F008805B3 /* NH3DModelObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NH3DModelObject.mm; sourceTree = "<group>"; };
 		2B31DB7708CD73C5008CCAAC /* bitmfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitmfile.c; sourceTree = "<group>"; };
 		2B31DB7808CD73C5008CCAAC /* gem_rsc.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rsc.uu; sourceTree = "<group>"; };
 		2B31DB7908CD73C5008CCAAC /* gem_rso.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rso.uu; sourceTree = "<group>"; };
@@ -1255,6 +1270,7 @@
 		5560A2B61C3481CC00BF77F7 /* epitaph */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = epitaph; sourceTree = "<group>"; };
 		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
+		556210831C6D5AE1001DD4CE /* Assimp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Assimp.xcodeproj; path = Vendor/assimp/workspaces/xcode6/Assimp.xcodeproj; sourceTree = "<group>"; };
 		556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DTeleportationDestinationController.swift; sourceTree = "<group>"; };
 		556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NH3DTeleportationDestinationController.xib; sourceTree = "<group>"; };
 		556A21B91C67B80500DB226F /* NH3DModelDefines.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NH3DModelDefines.c; sourceTree = "<group>"; };
@@ -1354,6 +1370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5562108B1C6D5AFB001DD4CE /* libassimp.a in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
 				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
@@ -1390,7 +1407,7 @@
 				2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */,
 				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */,
-				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
+				2B2E1EDE0919086F008805B3 /* NH3DModelObject.mm */,
 				55BF8B371B76F46F0031A45A /* TileCache.swift */,
 				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
 				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
@@ -1436,6 +1453,7 @@
 		29B97314FDCFA39411CA2CEA /* NetHack3D */ = {
 			isa = PBXGroup;
 			children = (
+				556210821C6D5AA9001DD4CE /* Third-party */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				5560A2A51C347F8C00BF77F7 /* Other Sources */,
 				29B97315FDCFA39411CA2CEA /* NetHack */,
@@ -2573,6 +2591,22 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		556210821C6D5AA9001DD4CE /* Third-party */ = {
+			isa = PBXGroup;
+			children = (
+				556210831C6D5AE1001DD4CE /* Assimp.xcodeproj */,
+			);
+			name = "Third-party";
+			sourceTree = "<group>";
+		};
+		556210841C6D5AE1001DD4CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				556210881C6D5AE1001DD4CE /* libassimp.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		556A21C31C67C43100DB226F /* Letters */ = {
 			isa = PBXGroup;
 			children = (
@@ -2735,6 +2769,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5562108A1C6D5AF2001DD4CE /* PBXTargetDependency */,
 				556A21D71C67C73700DB226F /* PBXTargetDependency */,
 				556A21D91C67C73700DB226F /* PBXTargetDependency */,
 			);
@@ -2773,6 +2808,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NetHack3D */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 556210841C6D5AE1001DD4CE /* Products */;
+					ProjectRef = 556210831C6D5AE1001DD4CE /* Assimp.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NetHack3D */,
@@ -2787,6 +2828,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		556210881C6D5AE1001DD4CE /* libassimp.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libassimp.a;
+			remoteRef = 556210871C6D5AE1001DD4CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		556A21C01C67C43100DB226F /* Resources */ = {
@@ -3230,7 +3281,7 @@
 				5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */,
 				2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */,
 				2BCAAB520912FC5000AF1C59 /* NH3DTileCache.m in Sources */,
-				2B2E1EDF0919086F008805B3 /* NH3DModelObject.m in Sources */,
+				2B2E1EDF0919086F008805B3 /* NH3DModelObject.mm in Sources */,
 				2B5458DB095D23F3007A1049 /* NH3DUserMakeSheetController.m in Sources */,
 				2BA7A40609774D3100122932 /* nh3dmain.m in Sources */,
 				2B5E5194097D4E94002F1588 /* nh3dres.m in Sources */,
@@ -3241,6 +3292,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5562108A1C6D5AF2001DD4CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = assimp;
+			targetProxy = 556210891C6D5AF2001DD4CE /* PBXContainerItemProxy */;
+		};
 		556A21D71C67C73700DB226F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 556A21C11C67C43100DB226F /* Letters */;
@@ -3349,6 +3405,7 @@
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = YES;
+				HEADER_SEARCH_PATHS = Vendor/assimp/include;
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -3397,6 +3454,7 @@
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = NO;
+				HEADER_SEARCH_PATHS = Vendor/assimp/include;
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
