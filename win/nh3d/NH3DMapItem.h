@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;
 @property (readonly) BOOL hasBackground;
+
+/// The foreground tile layered over the background tile.
 @property (readonly, strong, nullable) NSImage *tile;
 
 @property (readonly, strong, nullable) NSImage *foregroundTile;

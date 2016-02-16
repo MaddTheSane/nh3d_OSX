@@ -93,11 +93,11 @@ NSString *NH3DUseSightRestrictionKey = @"ASCIIMapisRestricted";
 NSString *NH3DUseTraditionalMapKey = @"UseTraditionalMap";
 NSString *NH3DTraditionalMapModeKey = @"TraditionalMapMode";
 
-NSString *NH3DTileNameKey = @"TileName";
-NSString *NH3DTileSizeWidthKey = @"TileSizeWidth";
-NSString *NH3DTileSizeHeightKey = @"TileSizeHeight";
-NSString *NH3DTilesPerLineKey = @"TilesPerLine";
-NSString *NH3DNumberOfTilesRowKey = @"NumberOfTilesRow";
+NSString *const NH3DTileNameKey = @"TileName";
+NSString *const NH3DTileSizeWidthKey = @"TileSizeWidth";
+NSString *const NH3DTileSizeHeightKey = @"TileSizeHeight";
+NSString *const NH3DTilesPerLineKey = @"TilesPerLine";
+NSString *const NH3DNumberOfTilesRowKey = @"NumberOfTilesRow";
 
 NSString *NH3DSoundMuteKey = @"SoundMute";
 
@@ -307,10 +307,10 @@ void nh3d_askname()
 		if ([NSString stringWithCString:plname encoding:NH3DTEXTENCODING].length >= PL_NSIZ-11) {
 			plname[0] = 0;
 			
-			NSRunAlertPanel(NSLocalizedString(@"A name is too long, and it is difficult to learn.",@""),
-							NSLocalizedString(@"Please input it within 1 to 20 characters.",@""),
-							@"OK",nil,nil);
-			
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = NSLocalizedString(@"A name is too long, and it is difficult to learn.",@"");
+			alert.informativeText = NSLocalizedString(@"Please input it within 1 to 20 characters.",@"");
+			[alert runModal];
 		} else {
 			NSString *pcName = [[NSString alloc] initWithCString:plname encoding:NH3DTEXTENCODING];
 			[_NH3DUserStatusModel setPlayerName:pcName];
@@ -799,37 +799,37 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 		
 		if (choices && strcmp(choices, ynchars) == 0 ) {
 			ynfunc = YES;
-			result = NSRunAlertPanel(
-                [NSString stringWithCString:question encoding:NH3DTEXTENCODING],
-                @" ",
-                @"Yes",
-                @"No",
-                @"Cancel");
-		
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
+			alert.informativeText = @" ";
+			[alert addButtonWithTitle:@"Yes"];
+			[alert addButtonWithTitle:@"No"];
+			
+			result = [alert runModal];
 		} else if (choices && strcmp(choices, ynqchars) == 0 ) {
 			ynfunc = YES;
-			result = NSRunAlertPanel(
-					[ NSString stringWithCString:question encoding:NH3DTEXTENCODING ], 
-					@" ",
-					@"Yes",
-					@"No",
-					@"Quit");
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
+			alert.informativeText = @" ";
+			[alert addButtonWithTitle:@"Yes"];
+			[alert addButtonWithTitle:@"No"];
+			[alert addButtonWithTitle:@"Quit"];
+			
+			result = [alert runModal];
 		} else if (choices && strcmp(choices, ynaqchars) == 0) {
 			ynfunc = YES;
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
+			alert.informativeText = @" ";
+			[alert addButtonWithTitle:@"Yes"];
+			[alert addButtonWithTitle:@"No"];
+			
 			{
-				NSButton *abutt = [alert addButtonWithTitle:@"Yes"];
-				abutt.tag = NSAlertDefaultReturn;
-				
-				abutt = [alert addButtonWithTitle:@"No"];
-				abutt.tag = NSAlertAlternateReturn;
-				
-				abutt = [alert addButtonWithTitle:@"Auto"];
-				abutt.tag = 2;
+				NSButton *abutt = [alert addButtonWithTitle:@"Auto"];
+				abutt.tag = NSAlertThirdButtonReturn + 1;
 				
 				abutt = [alert addButtonWithTitle:@"Quit"];
-				abutt.tag = NSAlertOtherReturn;
+				abutt.tag = NSAlertThirdButtonReturn;
 			}
 			result = [alert runModal];
 		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING ] isLike:
@@ -839,93 +839,89 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 			ynfunc = NO;
 			result = nh_poskey(&x, &y, &mod);
 			
-			if ( !result ) {
+			if (!result) {
 				int hdirect,vdirect;
-				hdirect = ( x > u.ux ) ? 1 : 2;
-				vdirect = ( y < u.uy ) ? 3 : 6;
-				hdirect = ( x == u.ux ) ? 0 : hdirect;
-				vdirect = ( y == u.uy ) ? 0 : vdirect;
+				hdirect = (x > u.ux) ? 1 : 2;
+				vdirect = (y < u.uy) ? 3 : 6;
+				hdirect = (x == u.ux) ? 0 : hdirect;
+				vdirect = (y == u.uy) ? 0 : vdirect;
 				
 				switch ( hdirect + vdirect ) {
 					case 1 : // choice right
 						result = ( iflags.num_pad ) ? '6' : 'l' ;
-						[ _NH3DMessenger setLastAttackDirection:0 ];
+						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 2 : // choice left
 						result = ( iflags.num_pad ) ? '4' : 'h' ;
-						[ _NH3DMessenger setLastAttackDirection:0 ];
+						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 3 : // choice front
 						result = ( iflags.num_pad ) ? '8' : 'k' ;
-						[ _NH3DMessenger setLastAttackDirection:2 ];
+						[_NH3DMessenger setLastAttackDirection:2];
 						break;
 					case 4 : // choice front right
 						result = ( iflags.num_pad ) ? '9' : 'u' ;
-						[ _NH3DMessenger setLastAttackDirection:3 ];
+						[_NH3DMessenger setLastAttackDirection:3];
 						break;
 					case 5 : // choice front left
 						result = ( iflags.num_pad ) ? '7' : 'y' ;
-						[ _NH3DMessenger setLastAttackDirection:1 ];
+						[_NH3DMessenger setLastAttackDirection:1];
 						break;
 					case 6 : // choice back
 						result = ( iflags.num_pad ) ? '2' : 'j' ;
-						[ _NH3DMessenger setLastAttackDirection:0 ];
+						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 7 : // choice back right
 						result = ( iflags.num_pad ) ? '3' : 'n' ;
-						[ _NH3DMessenger setLastAttackDirection:0 ];
+						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 8 : // choice back left
 						result = ( iflags.num_pad ) ? '1' : 'b' ;
-						[ _NH3DMessenger setLastAttackDirection:0 ];
+						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 				}
 			}
-
 		} else {
 			char *p;
 			ynfunc = NO;
 			result = nhgetch();
 			
 			if (choices != nil) {
-				buf[ 0 ] = result;
-				buf[ 1 ] = '\0';
+				buf[0] = result;
+				buf[1] = '\0';
 				p = strstr(choices,buf);
-				if (p == NULL) result = 'n';
+				if (p == NULL)
+					result = 'n';
 				
 				sprintf(buf,"> [ %c ]",result);
 				putstr(WIN_MESSAGE, ATR_ULINE, buf);
 			}
 		}
 		
-		
-		if(result == NSAlertDefaultReturn && ynfunc) {
+		if(result == NSAlertFirstButtonReturn && ynfunc) {
 			yn = 'y';
 		}
-		else if(result == NSAlertAlternateReturn && ynfunc) {
+		else if(result == NSAlertSecondButtonReturn && ynfunc) {
 			yn = 'n';
 		}
-		else if(result == NSAlertOtherReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
+		else if(result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
 			yn = 'q';
-		} else if (result == 2 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
+		} else if (result == NSAlertThirdButtonReturn + 1 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
 			yn = 'a';
-		} else if (result == NSAlertOtherReturn && ynfunc) {
+		} else if (result == NSAlertThirdButtonReturn && ynfunc) {
 			yn = 'n';
 		} else {
 			yn = result;
 		}
 		
 		if (ynfunc) {
-			sprintf(buf,"> [ %c ]",yn);		
+			sprintf(buf,"> [ %c ]", yn);
 			putstr(WIN_MESSAGE, ATR_ULINE, buf);
 		}
 		
-		
 		return yn;
 	}
-
 }
-
 
 void nh3d_getlin(const char *prompt, char *line)
 {
@@ -937,7 +933,6 @@ void nh3d_getlin(const char *prompt, char *line)
 	if (ret == -1)
 		line[ 0 ] = (char)0;
 }
-
 
 int nh3d_get_ext_cmd()
 {
@@ -965,8 +960,7 @@ int nh3d_get_ext_cmd()
 		 ret = select_menu(win, PICK_ONE, &mi );
 		 destroy_nhwindow(win);
 		 
-		 if( ret >= 1 )
-		 {
+		 if (ret >= 1) {
 			 ret = _NH3DMenuWindow.selectedRow ;
 		 } else {
 			 ret = -1;
@@ -1156,16 +1150,16 @@ char * nh3d_getmsghistory(boolean init)
 {
 	return genl_getmsghistory(init);
 }
+
 void nh3d_putmsghistory(const char*msg, boolean is_restoring)
 {
 	genl_putmsghistory(msg, is_restoring);
 }
+
 void nh3d_preference_update(const char *pref)
 {
 	genl_preference_update(pref);
 }
-
-
 
 static void
 wd_message()
@@ -1174,29 +1168,28 @@ wd_message()
 	if (wiz_error_flag) {
 		
 		pline("Only user \"%s\" may access debug (wizard) mode.",
-		/*
-		pline("「%s」のみがデバッグ(wizard)モードを使用できる．",
-		*/
+			  /*
+			   pline("「%s」のみがデバッグ(wizard)モードを使用できる．",
+			   */
 # ifndef KR1ED
 			  WIZARD);
 # else
 		WIZARD_NAME);
 # endif
-
-pline("Entering discovery mode instead.");
-/*
-pline("かわりに発見モードへ移行する．");
- */
+		
+		pline("Entering discovery mode instead.");
+		/*
+		 pline("かわりに発見モードへ移行する．");
+		 */
 	} else
 #endif
-if (discover)
-
-You("are in non-scoring discovery mode.");
-/*
-You("スコアの載らない発見モードで起動した．");
-*/
+		if (discover)
+			
+			You("are in non-scoring discovery mode.");
+	/*
+	 You("スコアの載らない発見モードで起動した．");
+	 */
 }
-
 
 //--------------------------------------------------------------//
 #pragma mark -- NH3D Window port --
@@ -1262,7 +1255,6 @@ You("スコアの載らない発見モードで起動した．");
 	});
 }
 
-
 - (instancetype)init
 {
 	self = [ super init ];
@@ -1270,13 +1262,11 @@ You("スコアの載らない発見モードで起動した．");
 	return self;
 }
 
-
 - (void)awakeFromNib
 {		
 	_window.alphaValue = 0;
 	[_window setMovableByWindowBackground:NO];
 }
-
 
 //-------------------------------------------------------------
 // App delgates
@@ -1302,32 +1292,33 @@ You("スコアの載らない発見モードで起動した．");
 
 - (BOOL)windowShouldClose:(id)sender
 {
-	int choise = NSRunAlertPanel(NSLocalizedString(@"Quit NetHack3D",@""),
-								 NSLocalizedString(@"Do you really want to Force Quit?",@""),
-								@"Cancel",@"Quit",nil);
-	if (choise == NSAlertAlternateReturn)
-		{
-		[ NSApp terminate:self ];
-			return YES;
-		}
-	else
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = NSLocalizedString(@"Quit NetHack3D",@"");
+	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?",@"");
+	[alert addButtonWithTitle:@"Cancel"];
+	[alert addButtonWithTitle:@"Quit"];
+	NSInteger choise = [alert runModal];
+	if (choise == NSAlertSecondButtonReturn) {
+		[NSApp terminate:self];
+		return YES;
+	} else {
 		return NO;
-	
+	}
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
 	BOOL ret;
 	
-	if ( !iflags.window_inited )
+	if (!iflags.window_inited)
 		return YES;
 	
-	if ( _stDrawer.state != NSDrawerClosedState) {
-		[ _stDrawer close:self ];
+	if (_stDrawer.state != NSDrawerClosedState) {
+		[_stDrawer close:self];
 	} 
 	
-	raw_print([ NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING ]);
-	ret = [ _messenger showLogPanel ];
+	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING]);
+	ret = [_messenger showLogPanel];
 	
 	if (ret == YES) {
 		clearlocks();
@@ -1342,7 +1333,6 @@ You("スコアの載らない発見モードで起動した．");
 //  over App delgates. 
 //-------------------------------------------------------------
 
-
 - (void)setTile
 {
 	_tileCache = [ [ NH3DTileCache alloc ] initWithNamed:TILE_FILE_NAME ];
@@ -1352,17 +1342,15 @@ You("スコアの載らない発見モードで起動した．");
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey ];
 }
 
-
-
 // show user make panel.
 - (void)showUserMakeSheet
 {
 	NH3DUserMakeSheetController *userMakeSheet = nil;
 	
-	if ([ [ _userStatus playerName ].string isEqualToString:@"" ]) {
+	if ([[_userStatus playerName].string isEqualToString:@""]) {
 	
 		//NSString *pName = [ [ NSString alloc ] initWithCString:plname encoding:NH3DTEXTENCODING ];
-		[ _userStatus setPlayerName:[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
+		[_userStatus setPlayerName:[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 	}
 	
 	// Display sheet dialog
@@ -1371,9 +1359,8 @@ You("スコアの載らない発見モードで起動した．");
 		userMakeSheet = [[NH3DUserMakeSheetController alloc] init];
 	}
 		
-	[ userMakeSheet startSheet:_userStatus ];
+	[userMakeSheet startSheet:_userStatus];
 }
-
 
 - (void)showMainWindow
 {
@@ -1386,7 +1373,6 @@ You("スコアの載らない発見モードで起動した．");
 	}];
 }
 
-
 - (NSWindow*)mainWindow
 {
 	return _window;
@@ -1396,6 +1382,7 @@ You("スコアの載らない発見モードで起動した．");
 {
 	NSInteger result;
 	NSAlert *alert = [NSAlert alertWithError:error];
+	NSLog(@"%@", error);
 	result = [alert runModal];
 }
 
@@ -1403,7 +1390,7 @@ You("スコアの載らない発見モードで起動した．");
 {
 	switch (nh3d_windowlist[wid].type) {
 	case NHW_MAP:
-		[ _mapModel setMapModelGlyph:glyph xPos:x yPos:y bgGlyph:bkglyph];
+		[_mapModel setMapModelGlyph:glyph xPos:x yPos:y bgGlyph:bkglyph];
 		break;
 	default:
 		break;
@@ -1416,16 +1403,16 @@ You("スコアの載らない発見モードで起動した．");
 	NSUInteger mask = (NSAnyEventMask);
 
 	//Wait next Event
-	[ _asciiMapView nh3dEventHandlerLoopWithMask:mask ];	
+	[_asciiMapView nh3dEventHandlerLoopWithMask:mask];
 	
 	ret = _asciiMapView.keyBuffer;
 
 	if (ret == 0) {
-		*x = _mapModel.cursX ;
-		*y = _mapModel.cursY ;
-		*mod = _asciiMapView.clickType ;
+		*x = _mapModel.cursX;
+		*y = _mapModel.cursY;
+		*mod = _asciiMapView.clickType;
 	}
-	[ _asciiMapView setKeyUpdated:NO ];
+	[_asciiMapView setKeyUpdated:NO];
 
 	return ret;
 }
@@ -1437,13 +1424,13 @@ You("スコアの載らない発見モードで起動した．");
 						NSKeyDownMask		|
 						NSApplicationDefinedMask);
 	
-	[ _asciiMapView setGetCharMode:YES ];
+	[_asciiMapView setGetCharMode:YES];
 	//Wait next Event
-	[ _asciiMapView nh3dEventHandlerLoopWithMask:mask ];
+	[_asciiMapView nh3dEventHandlerLoopWithMask:mask];
 
 	ret = _asciiMapView.keyBuffer;
-	[ _asciiMapView setKeyUpdated:NO ];
-	[ _asciiMapView setGetCharMode:NO ];
+	[_asciiMapView setKeyUpdated:NO];
+	[_asciiMapView setGetCharMode:NO];
 	return ret;
 }
 
@@ -1494,7 +1481,7 @@ You("スコアの載らない発見モードで起動した．");
 // ---------------------------------------------------------------------------- //
 
 - (IBAction)startNetHack3D:(id)sender
-{	
+{
 	int fd;
 	int argc = NXArgc;
 	char **argv = NXArgv;
@@ -1503,12 +1490,12 @@ You("スコアの載らない発見モードで起動した．");
 #ifdef CHDIR
 	const char *dir;
 #endif
-#endif	
+#endif
 	[[sender window] close];
 	[_window makeKeyAndOrderFront:self];
-
-#ifndef GNUSTEP	
-
+	
+#ifndef GNUSTEP
+	
 #ifdef XI18N
 	setlocale(LC_ALL, "");
 #endif
@@ -1517,11 +1504,10 @@ You("スコアの載らない発見モードで起動した．");
 	hackpid = getpid();
 	(void) umask(0777 & ~FCMASK);
 	
-	choose_windows(DEFAULT_WINDOW_SYS);	
+	choose_windows(DEFAULT_WINDOW_SYS);
 	
 #ifdef CHDIR
 	/* get resourcePath */
-	//dir = [NSBundle mainBundle].resourcePath.fileSystemRepresentation;
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSURL *aURL = [fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
 	aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
@@ -1546,7 +1532,7 @@ You("スコアの載らない発見モードで起動した．");
 			//touch xlogfile
 			[blankData writeToURL:xlogURL atomically:NO];
 		}
-
+		
 		NSString *syscf = @(SYSCF_FILE);
 		NSURL *localSyscf = [aURL URLByAppendingPathComponent:syscf isDirectory:NO];
 		if (![localSyscf checkResourceIsReachableAndReturnError:NULL]) {
@@ -1559,10 +1545,10 @@ You("スコアの載らない発見モードで起動した．");
 	
 	if(argc > 1) {
 #ifdef CHDIR
-	    if (!strncmp(argv[ 1 ], "-d", 2) && argv[ 1 ][ 2 ] != 'e') {
+		if (!strncmp(argv[ 1 ], "-d", 2) && argv[ 1 ][ 2 ] != 'e') {
 			/* avoid matching "-dec" for DECgraphics; since the man page
-			* says -d directory, hope nobody's using -desomething_else
-			*/
+			 * says -d directory, hope nobody's using -desomething_else
+			 */
 			argc--;
 			argv++;
 			dir = argv[ 0 ]+2;
@@ -1574,95 +1560,91 @@ You("スコアの載らない発見モードで起動した．");
 			}
 			if(!*dir)
 				error("Flag -d must be followed by a directory name.");
-	    }
-	    if (argc > 1)
+		}
+		if (argc > 1)
 #endif /* CHDIR */
 			
-			/*
-			 * Now we know the directory containing 'record' and
-			 * may do a prscore().  Exclude `-style' - it's a Qt option.
-			 */
+		/*
+		 * Now we know the directory containing 'record' and
+		 * may do a prscore().  Exclude `-style' - it's a Qt option.
+		 */
 			if (!strncmp(argv[ 1 ], "-s", 2) && strncmp(argv[ 1 ], "-style", 6)) {
 #ifdef CHDIR
 				chdirx(dir,0);
 #endif
-/*
-				setkcode('I');
-				initoptions();
-				init_jtrns();
+				/*
+				 setkcode('I');
+				 initoptions();
+				 init_jtrns();
+				 prscore(argc, argv);
+				 jputchar('\0');*/ /* reset */
+				
 				prscore(argc, argv);
-				jputchar('\0');*/ /* reset */
-
-						 prscore(argc, argv);
-
-						 exit(EXIT_SUCCESS);
+				
+				exit(EXIT_SUCCESS);
 			}
 	}
-
-
-/*
- * Change directories before we initialize the window system so
- * we can find the tile file.
- */
+	
+	
+	/*
+	 * Change directories before we initialize the window system so
+	 * we can find the tile file.
+	 */
 #ifdef CHDIR
 	chdirx(dir,1);
 #endif
-
-
-/* Line like "OPTIONS=name:foo-@" may exist in config file.
-* In this case, need to select random class,
-* so must call setrandom() before initoptions().
-*/
-//	setrandom();
-
+	
+	
+	/* Line like "OPTIONS=name:foo-@" may exist in config file.
+	 * In this case, need to select random class,
+	 * so must call setrandom() before initoptions().
+	 */
+	//	setrandom();
+	
 	initoptions();
 	init_nhwindows(&argc,argv);
 	[_NH3DBindController loadNethackOptions];
-
+	
 #endif // GNUSTEP
-/*
- * It seems you really want to play.
- */
+	/*
+	 * It seems you really want to play.
+	 */
 	u.uhp = 1;	/* prevent RIP on early quits */
 	(void) signal(SIGHUP, (SIG_RET_TYPE) hangup);
 #ifdef SIGXCPU
 	(void) signal(SIGXCPU, (SIG_RET_TYPE) hangup);
 #endif
-
+	
 	process_options(argc, argv);
-
+	
 	// Always get the background glyph
 	iflags.use_background_glyph = TRUE;
-
-
+	
 	[ self showMainWindow ];
-
-
-
+	
 #ifdef WIZARD
 	if (wizard)
 		Strcpy(plname, "wizard");
 	else
 #endif
-
+		
 		if(!*plname || !strncmp(plname, "player", 4)
 		   || !strncmp(plname, "games", 4)) {
-	
-			askname();		
+			askname();
 		}
-
+	
 	plnamesuffix();		/* strip suffix from name; calls askname() */
-/* again if suffix was whole name */
-/* accepts any suffix */
-/*
- * check for multiple games under the same name
- * (if !locknum) or check max nr of players (otherwise)
- */
+	/* again if suffix was whole name */
+	/* accepts any suffix */
+	/*
+	 * check for multiple games under the same name
+	 * (if !locknum) or check max nr of players (otherwise)
+	 */
 	(void) signal(SIGQUIT,SIG_IGN);
 	(void) signal(SIGINT,SIG_IGN);
 	if(!locknum) {
 #ifndef GNUSTEP
-	//for OSX (UTF8) File System
+		//for OSX (UTF8) File System
 		NSString *lockString;
 		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(lock, lockString.fileSystemRepresentation);
@@ -1671,70 +1653,64 @@ You("スコアの載らない発見モードで起動した．");
 #endif
 	}
 	getlock();
-
+	
 	dlb_init();	/* must be before newgame() */
-
-/*
- * Initialization of the boundaries of the mazes
- * Both boundaries have to be even.
- */
+	
+	/*
+	 * Initialization of the boundaries of the mazes
+	 * Both boundaries have to be even.
+	 */
 	x_maze_max = COLNO-1;
 	if (x_maze_max % 2)
 		x_maze_max--;
 	y_maze_max = ROWNO-1;
 	if (y_maze_max % 2)
 		y_maze_max--;
-
-/*
- *  Initialize the vision system.  This must be before mklev() on a
- *  new game or before a level restore on a saved game.
- */
+	
+	/*
+	 *  Initialize the vision system.  This must be before mklev() on a
+	 *  new game or before a level restore on a saved game.
+	 */
 	vision_init();
-
-//switch_graphics(ASCII_GRAPHICS);
+	
+	//switch_graphics(ASCII_GRAPHICS);
 	display_gamewindows();
-
-
+	
+	
 #ifdef TEXTCOLOR
 	iflags.use_color = TRUE;
 #endif
-
-
-
+	
 	if ((fd = restore_saved_game()) >= 0) {
-	
 		const char *fq_save = fqname(SAVEF, SAVEPREFIX, 1);
-	
+		
 		(void) chmod(fq_save,0);	/* disallow parallel restores */
 		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
-	
+		
 #ifdef NEWS
 		if(iflags.news) {
 			display_file(NEWS, FALSE);
 			iflags.news = FALSE; /* in case dorecover() fails */
 		}
 #endif
-	
-	
-	
+		
 		pline("Restoring save file...");
-	
-	/*
-		pline("セーブファイルを復元中．．．");
-	 */
+		
+		/*
+		 pline("セーブファイルを復元中．．．");
+		 */
 		mark_synch();	/* flush output */
 		if(!dorecover(fd))
 			goto not_recovered;
-	
+		
 		check_special_room(FALSE);
 		wd_message();
-	
-		if (discover || wizard) {
 		
-		if(yn("Do you want to keep the save file?") == 'n')
-		/*
-			if(yn("セーブファイルを残しておきますか？") == 'n')
-		 */
+		if (discover || wizard) {
+			if(yn("Do you want to keep the save file?") == 'n')
+			/*
+			 if(yn("セーブファイルを残しておきますか？") == 'n')
+			 */
 				(void) delete_savefile();
 			else {
 				(void) chmod(fq_save,FCMASK); /* back to readable */
@@ -1744,31 +1720,29 @@ You("スコアの載らない発見モードで起動した．");
 		//flags.move = 0;
 		[ _userStatus setPlayerName:[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
 	} else {
-	
-not_recovered:
-	
+	not_recovered:
+		
 		player_selection();
-	
+		
 		newgame();
 		wd_message();
 		//flags.move = 0;
 		set_wear(NULL);
 		(void) pickup(1);
 	}
-
+	
 	[ _userStatus updatePlayer ];
 	
 	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
-/*
-	Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
-*/
-
+	/*
+	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
+	 */
+	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 	[_mapModel updateAllMaps];
-
+	
 	moveloop(false);
 }
-
 
 @end
 

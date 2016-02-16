@@ -3352,7 +3352,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			loadDat = (PM_JACKAL, PM_HELL_HOUND, "lowerD")
 
 		case (PM_LICHEN + GLYPH_STATUE_OFF)...(PM_VIOLET_FUNGUS + GLYPH_STATUE_OFF):
-				loadDat = (PM_LICHEN, PM_VIOLET_FUNGUS, "upperF")
+			loadDat = (PM_LICHEN, PM_VIOLET_FUNGUS, "upperF")
 			
 		default:
 			return nil
@@ -3372,7 +3372,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			ret.childObjectAtLast?.animationRate = (Float(random() % 5) * 0.1) + 0.5
 			ret.childObjectAtLast?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
-			ret.childObjectAtLast?.modelShift = NH3DVertexType(x: 0.5, y: 1.5, z: 0.5)
+			ret.childObjectAtLast?.modelShift = NH3DVertexType(x: 0, y: 1.5, z: 0)
 			ret.childObjectAtLast?.modelScale = NH3DVertexType(x: 0.75, y: 0.75, z: 0.75)
 		}
 		return ret

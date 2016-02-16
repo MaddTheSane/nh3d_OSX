@@ -65,23 +65,23 @@ extern NSString *NH3DSoundMuteKey;
 extern NSString *NH3DUseTraditionalMapKey;
 extern NSString *NH3DTraditionalMapModeKey;
 
-#define TRADITIONAL_MAP			[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey ]
-#define TRADITIONAL_MAP_TILE	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey ]
+#define TRADITIONAL_MAP			[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey]
+#define TRADITIONAL_MAP_TILE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey]
 
 // Tile settings
 
-extern NSString *NH3DTileNameKey;
-extern NSString *NH3DTileSizeWidthKey;
-extern NSString *NH3DTileSizeHeightKey;
-extern NSString *NH3DTilesPerLineKey;
-extern NSString *NH3DNumberOfTilesRowKey;
+extern NSString *const NH3DTileNameKey;
+extern NSString *const NH3DTileSizeWidthKey;
+extern NSString *const NH3DTileSizeHeightKey;
+extern NSString *const NH3DTilesPerLineKey;
+extern NSString *const NH3DNumberOfTilesRowKey;
 
-#define TILE_FILE_NAME			[ [NSUserDefaults standardUserDefaults] stringForKey:NH3DTileNameKey ]
-#define TILE_SIZE_X				[ [NSUserDefaults standardUserDefaults] integerForKey:NH3DTileSizeWidthKey ]
-#define TILE_SIZE_Y				[ [NSUserDefaults standardUserDefaults] integerForKey:NH3DTileSizeHeightKey ]
+#define TILE_FILE_NAME			[[NSUserDefaults standardUserDefaults] stringForKey:NH3DTileNameKey]
+#define TILE_SIZE_X				[[NSUserDefaults standardUserDefaults] integerForKey:NH3DTileSizeWidthKey]
+#define TILE_SIZE_Y				[[NSUserDefaults standardUserDefaults] integerForKey:NH3DTileSizeHeightKey]
 
-#define TILES_PER_LINE			[ [NSUserDefaults standardUserDefaults] integerForKey:NH3DTilesPerLineKey ]
-#define NUMBER_OF_TILES_ROW		[ [NSUserDefaults standardUserDefaults] integerForKey:NH3DNumberOfTilesRowKey ]
+#define TILES_PER_LINE			[[NSUserDefaults standardUserDefaults] integerForKey:NH3DTilesPerLineKey ]
+#define NUMBER_OF_TILES_ROW		[[NSUserDefaults standardUserDefaults] integerForKey:NH3DNumberOfTilesRowKey]
 
 // Player Directions
 #define PL_DIRECTION_FORWARD 0

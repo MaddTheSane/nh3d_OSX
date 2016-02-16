@@ -55,12 +55,15 @@ var NH3DMSGFONT: String! {
 var NH3DWINDOWFONT: String! {
 	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DWindowFontKey)
 }
+
 var NH3DMAPFONT: String! {
 	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DMapFontKey)
 }
+
 var NH3DBOLDFONT: String! {
 	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DBoldFontKey)
 }
+
 var NH3DINVFONT: String! {
 	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DInventryFontKey)
 }
@@ -97,6 +100,7 @@ var TILE_FILE_NAME: String! {
 var TILES_PER_LINE: Int {
 	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DTilesPerLineKey)
 }
+
 var NUMBER_OF_TILES_ROW: Int {
 	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DNumberOfTilesRowKey)
 }
