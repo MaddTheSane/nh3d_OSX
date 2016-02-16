@@ -123,97 +123,105 @@ static const NH3DMaterial defaultMat = {
 	// plz use method '- (BOOL)import3DSfileToNH3DModel:(NSString *)filename ' and 3ds format files.
 	// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
 	
-	
 	NSCharacterSet *chSet;
-	NSString *sourceObj = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@.OBJ",name]];
+	NSURL *sourceURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"obj"];
+	if (!sourceURL) {
+		if ([name isAbsolutePath]) {
+			sourceURL = [NSURL fileURLWithPath:name];
+			name = [[name lastPathComponent] stringByDeletingPathExtension];
+		} else {
+			return NO;
+		}
+	}
+	
+	NSString *mtlName;
+	
+	NSString *sourceObj = [[NSString alloc] initWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
 	NSString *destText;
 	NSScanner *scanner;
-
-	if (sourceObj == nil) {
-		NSLog(@"file %@.OBJ is not found.",name);
-		return NO;
-	} else 
 	
-	modelName = name;
+	if (sourceObj == nil) {
+		NSLog(@"file %@.obj was not found.", name);
+		return NO;
+	} else {
+		modelName = [name copy];
+	}
 	
 	chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	scanner = [[NSScanner alloc] initWithString:sourceObj];
 	
-	
-	scanner = [NSScanner scannerWithString:sourceObj];
-	
-    while(![scanner isAtEnd] && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
-			
+	while(![scanner isAtEnd] && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
 		@autoreleasepool {
-		
 			[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 			
 			if ([destText isEqualToString:@"v"]) {
 				// scan vertexes
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					verts[verts_qty].x = [destText floatValue];
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					verts[verts_qty].y = [destText floatValue];
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					verts[verts_qty].z = [destText floatValue];
-					
-					verts_qty++;
-					
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				verts[verts_qty].x = [destText floatValue];
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				verts[verts_qty].y = [destText floatValue];
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				verts[verts_qty].z = [destText floatValue];
+				
+				verts_qty++;
+				
 			} else if ([destText isEqualToString:@"vn"]) {
-					// scan normals
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					norms[normal_qty].x = [destText floatValue];
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					norms[normal_qty].y = [destText floatValue];
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					norms[normal_qty].z = [destText floatValue];
-					
-					normal_qty++;
-					
+				// scan normals
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				norms[normal_qty].x = [destText floatValue];
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				norms[normal_qty].y = [destText floatValue];
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				norms[normal_qty].z = [destText floatValue];
+				
+				normal_qty++;
+				
 			} else if ([destText isEqualToString:@"vt"]) {
-					// scan texture coords
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					texcoords[texcords_qty].s = [destText floatValue];
-					[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-					texcoords[texcords_qty].t = [destText floatValue];
-					//NSLog(@"vt %d:%f,%f",texcords_qty,texcoords[texcords_qty].s,texcoords[texcords_qty].t);
-					
-					texcords_qty++;
-					
+				// scan texture coords
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				texcoords[texcords_qty].s = [destText floatValue];
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				texcoords[texcords_qty].t = [destText floatValue];
+				//NSLog(@"vt %d:%f,%f",texcords_qty,texcoords[texcords_qty].s,texcoords[texcords_qty].t);
+				
+				texcords_qty++;
+				
 			} else if ([destText isEqualToString:@"f"]) {
 				// scan faces
 				// a format of 'f' section its vertex reference number,
 				// optionally include the texture vertex and vertex normal reference numbers.
 				// e,g. v1/vt1/vn1 /v2/vt2/vn2 ....
 				// but not work well yat.
-					
-					//NSRange aRange = [destText rangeOfString:@"/"];
-					//if ( aRange.length != 0) {
-						[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-						NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
-						faces[face_qty].a = [[faceArray_A objectAtIndex:0] intValue];
-						texReference[face_qty].a = [[faceArray_A objectAtIndex:1] intValue];
-						normReference[face_qty].a = [[faceArray_A objectAtIndex:2] intValue];
-						
-					//}	
-						[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-						NSArray *faceArray_B = [destText componentsSeparatedByString:@"/"];
-						faces[face_qty].b = [[faceArray_B objectAtIndex:0] intValue];
-						texReference[face_qty].b = [[faceArray_B objectAtIndex:1] intValue];
-						normReference[face_qty].b = [[faceArray_B objectAtIndex:2] intValue];
-					
-						
-						[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-						NSArray *faceArray_C = [destText componentsSeparatedByString:@"/"];
-						faces[face_qty].c = [[faceArray_C objectAtIndex:0] intValue];
-						texReference[face_qty].c = [[faceArray_C objectAtIndex:1] intValue];
-						normReference[face_qty].c = [[faceArray_C objectAtIndex:2] intValue];
-						
-						face_qty++;
-						
+				
+				//NSRange aRange = [destText rangeOfString:@"/"];
+				//if ( aRange.length != 0) {
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
+				faces[face_qty].a = [[faceArray_A objectAtIndex:0] intValue];
+				texReference[face_qty].a = [[faceArray_A objectAtIndex:1] intValue];
+				normReference[face_qty].a = [[faceArray_A objectAtIndex:2] intValue];
+				//}
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				NSArray *faceArray_B = [destText componentsSeparatedByString:@"/"];
+				faces[face_qty].b = [[faceArray_B objectAtIndex:0] intValue];
+				texReference[face_qty].b = [[faceArray_B objectAtIndex:1] intValue];
+				normReference[face_qty].b = [[faceArray_B objectAtIndex:2] intValue];
+				
+				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
+				NSArray *faceArray_C = [destText componentsSeparatedByString:@"/"];
+				faces[face_qty].c = [[faceArray_C objectAtIndex:0] intValue];
+				texReference[face_qty].c = [[faceArray_C objectAtIndex:1] intValue];
+				normReference[face_qty].c = [[faceArray_C objectAtIndex:2] intValue];
+				
+				face_qty++;
+			} else if ([destText isEqualToString:@"mtllib"]) {
+				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&mtlName];
+			} else if ([[destText substringToIndex:1] isEqualToString:@"#"]) {
+				//comment line. skip
+				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:nil];
 			} // end if ([destText ...
-			
 		}
-    } // end while(![scanner isAtEnd])
+	} // end while(![scanner isAtEnd])
 	
 	return YES;
 }
@@ -659,11 +667,13 @@ static const NH3DMaterial defaultMat = {
 {
 	self = [super init];
 	if (self != nil) {
+#if 0
 		NH3DMaterial defaultMat = {{ 0.5, 0.5, 0.5, 1.0 },
-		{ 1.0 , 1.0 , 1.0 , 1.0 },
-		{ 0.0 , 0.0 , 0.0 , 1.0},
-		{ 0.1 , 0.1 , 0.1 , 1.0 },
+			{ 1.0 , 1.0 , 1.0 , 1.0 },
+			{ 0.0 , 0.0 , 0.0 , 1.0},
+			{ 0.1 , 0.1 , 0.1 , 1.0 },
 			1.0 };
+#endif
 
 		int i;
 		[self initParams];
@@ -684,7 +694,8 @@ static const NH3DMaterial defaultMat = {
 		
 		numberOfTextures = 0;
 		
-		if ([self importOBJfileToNH3DModel:name] == NO) return nil;
+		if ([self importOBJfileToNH3DModel:name] == NO)
+			return nil;
 		
 		modelType = NH3DModelTypeObject;
 		
@@ -696,7 +707,7 @@ static const NH3DMaterial defaultMat = {
 		
 		[self calculateNormals];
 		
-		active = YES;		
+		active = YES;
 	}
 	return self;
 }
