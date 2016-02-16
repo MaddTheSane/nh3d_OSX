@@ -68,10 +68,9 @@ static const NH3DMaterial defaultMat = {
 {
 	NSImage	*sourcefile = [NSImage imageNamed:fileName];
 	NSBitmapImageRep	*imgrep;
-	GLuint				tex_id;			// valiable to return
+	GLuint				tex_id = 0;			// valiable to return
 	
 	if (sourcefile == nil) {
-		
 		sourcefile = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",
 															  [NSBundle mainBundle].resourcePath,
 															  fileName]];
@@ -86,7 +85,7 @@ static const NH3DMaterial defaultMat = {
 	
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
-	glGenTextures(1, &tex_id );
+	glGenTextures(1, &tex_id);
 	glBindTexture(GL_TEXTURE_2D, tex_id);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
@@ -221,7 +220,7 @@ static const NH3DMaterial defaultMat = {
 	unsigned short l_Face_Flag = 0;
 	unsigned int l_ChunkLength = 0;
 			
-	NSRange fileRange = {0,0};
+	NSRange fileRange = NSMakeRange(0, 0);
 	
 	// Open 3DS file and Create NSData object
 	NSData *file_3ds;
@@ -237,9 +236,18 @@ static const NH3DMaterial defaultMat = {
 		file_3ds = [[NSDataAsset alloc] initWithName:name].data;
 	}
 	
-	char	mName[20];
+	char	mName[21];
 	
-	if (file_3ds == nil) return NO;
+	if (file_3ds == nil)
+		return NO;
+	
+	// Magic number check
+	[file_3ds getBytes:mName range:NSMakeRange(0, 2)];
+	if (memcmp("MM", mName, 2) != 0) {
+		return nil;
+	}
+	
+	memset(mName, 0, sizeof(mName));
 	
 	fileRange.length = file_3ds.length;
 	fileRange.location = 0;
@@ -613,7 +621,7 @@ static const NH3DMaterial defaultMat = {
 		particleSize = 1.0;
 		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
-		particles = malloc( MAX_PARTICLES * sizeof(NH3DParticle) );
+		particles = malloc(MAX_PARTICLES * sizeof(NH3DParticle));
 		
 		for (i = 0; i < MAX_PARTICLES; i++ ) {
 			particles[i].active = YES;
@@ -693,6 +701,11 @@ static const NH3DMaterial defaultMat = {
 
 - (instancetype)initWith3DSFile:(NSString *)name withTexture:(BOOL)flag
 {
+	return [self initWith3DSFile:name textureNamed:flag ? name : nil];
+}
+
+- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName
+{
 	if (self = [super init]) {
 		modelCode = [name copy];
 		
@@ -714,8 +727,8 @@ static const NH3DMaterial defaultMat = {
 		
 		modelType = NH3DModelTypeObject;
 		
-		if (flag) {
-			textures[texture] = [self loadImageToTexture:name];
+		if (texName) {
+			textures[texture] = [self loadImageToTexture:texName];
 			modelType = NH3DModelTypeTexturedObject;
 			++numberOfTextures;
 		}
@@ -727,12 +740,7 @@ static const NH3DMaterial defaultMat = {
 }
 
 - (void) dealloc {
-	
-	int i;
-	
-	//NSLog(@"dealloc %@|%@",modelCode,modelName);
-	
-	for (i = 0; i < numberOfTextures; i++) {
+	for (int i = 0; i < numberOfTextures; i++) {
 		GLuint texid = textures[i];
 		glDeleteTextures(1, &texid);
 	}
@@ -825,7 +833,7 @@ static const NH3DMaterial defaultMat = {
 		++numberOfTextures;
 		return YES;
 	} else {
-		NSLog(@"Model %@ :Can't add new Texture %@. reach to limit of texture numbers",modelCode,textureName);
+		NSLog(@"Model %@: Can't add new Texture %@. Limit of textures reached", modelCode, textureName);
 		return NO;
 	}
 }

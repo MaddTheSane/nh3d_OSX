@@ -435,7 +435,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		floorTex = loadImageToTexture(named: "floor")
 		floor2Tex = loadImageToTexture(named: "floor2")
 		//wallTex = [ self loadImageToTexture:@"wall.tif" ];
-		cellingTex = loadImageToTexture(named: "celling")
+		cellingTex = loadImageToTexture(named: "ceiling")
 		waterTex = loadImageToTexture(named: "water")
 		poolTex = loadImageToTexture(named: "poolColor")
 		lavaTex = loadImageToTexture(named: "lava")
@@ -1730,7 +1730,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		//  -------------------------- Map Symbols Section. -------------------------- //
 		
-		model = NH3DModelObject(with3DSFile: "vwall", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "vwall", textureNamed: "wall_start")
 		model?.addTexture("wall_mines")
 		model?.addTexture("wall_hell")
 		model?.addTexture("wall_knox")
@@ -1741,7 +1741,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			model?.childObjectAtLast?.addChildObject("emitter", type: .Emitter)
 			do {
 				model?.childObjectAtLast?.childObjectAtLast?.setPivotX(0.593, atY: 1.261, atZ: 0)
-				model?.childObjectAtLast?.childObjectAtLast?.particleType = .Both ;
+				model?.childObjectAtLast?.childObjectAtLast?.particleType = .Both
 				model?.childObjectAtLast?.childObjectAtLast?.particleColor = CLR_ORANGE
 				model?.childObjectAtLast?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.0, z: 0)
 				model?.childObjectAtLast?.childObjectAtLast?.setParticleSpeedX(0.0, y: 0.1)
@@ -1752,7 +1752,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		modelDictionary[S_vwall + GLYPH_CMAP_OFF] = model;
 		
-		model = NH3DModelObject(with3DSFile: "hwall", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "hwall", textureNamed: "wall_start")
 		model?.addTexture("wall_mines")
 		model?.addTexture("wall_hell")
 		model?.addTexture("wall_knox")
@@ -1791,16 +1791,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[S_tlwall + GLYPH_CMAP_OFF] = model
 		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject(with3DSFile: "vopendoor", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "vopendoor", textureNamed: "door")
 		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model;
 		
-		model = NH3DModelObject(with3DSFile: "hopendoor", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "hopendoor", textureNamed: "door")
 		modelDictionary[S_hodoor + GLYPH_CMAP_OFF] = model;
 		
-		model = NH3DModelObject(with3DSFile: "vdoor", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "vdoor", textureNamed: "door")
 		modelDictionary[S_vcdoor + GLYPH_CMAP_OFF] = model;
 		
-		model = NH3DModelObject(with3DSFile: "hdoor", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "hdoor", textureNamed: "door")
 		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model;
 	}
 	
@@ -2616,7 +2616,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
 		case S_vodbridge + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject(with3DSFile: "bridgeUP", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
 			ret?.setModelRotateX(0, rotateY: -90, rotateZ: 0)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			
@@ -2626,7 +2626,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setPivotX(4.0, atY:0.0, atZ:0.0)
 			
 		case S_vcdbridge + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject(with3DSFile: "bridgeUP", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			
 		case S_hcdbridge + GLYPH_CMAP_OFF:
@@ -3351,10 +3351,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		default:
 			return nil
 		}
-		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: loadDat.modelName)
+		//let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: loadDat.modelName)
+		let ret = NH3DModelObject(with3DSFile: loadDat.modelName, textureNamed: "ceiling")
 		if let ret = ret where ret.numberOfTextures == 0 {
 			//Just add a simple texture for now
-			ret.addTexture("celling")
+			//ret.addTexture("ceiling")
 			ret.animated = true;
 			ret.animationRate = (Float(random() % 5) * 0.05) + 0.25
 			ret.setPivotX(0.0, atY: 0.3, atZ: 0.0)

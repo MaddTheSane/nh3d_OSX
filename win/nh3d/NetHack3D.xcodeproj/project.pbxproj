@@ -401,7 +401,6 @@
 		2B2612D509233E7900CA7A64 /* upStair.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = upStair.3ds; sourceTree = "<group>"; };
 		2B2612D709233E7900CA7A64 /* vwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = vwall.3ds; sourceTree = "<group>"; };
 		2B29B1DD08E0EDFD00951AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		2B2BBF58093F487100DCBBBB /* nh3d.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = nh3d.icns; sourceTree = "<group>"; };
 		2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DModelObject.m; sourceTree = "<group>"; };
 		2B31DB7708CD73C5008CCAAC /* bitmfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitmfile.c; sourceTree = "<group>"; };
 		2B31DB7808CD73C5008CCAAC /* gem_rsc.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gem_rsc.uu; sourceTree = "<group>"; };
@@ -1415,7 +1414,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2B2BBF58093F487100DCBBBB /* nh3d.icns */,
 				2B26129509233E7800CA7A64 /* models */,
 				2B6F3EDE091AF3E500367391 /* Sound */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,

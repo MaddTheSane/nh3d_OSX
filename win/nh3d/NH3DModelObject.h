@@ -120,7 +120,9 @@ typedef struct {
 																// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
 																// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
 */
-- (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_DESIGNATED_INITIALIZER; // This is designated initializer.
+- (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag;
+- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER; // This is designated initializer.
+
 
 - (void)calculateNormals;
 
