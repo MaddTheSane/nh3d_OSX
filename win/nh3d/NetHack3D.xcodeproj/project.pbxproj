@@ -342,6 +342,7 @@
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
+		5553AA2E1C73B79400A903B5 /* pillar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 5553AA2D1C73B79400A903B5 /* pillar.3ds */; };
 		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
 		5560A2A21C347F0700BF77F7 /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A01C347F0700BF77F7 /* symbols */; };
 		5560A2A31C347F0700BF77F7 /* tribute in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A11C347F0700BF77F7 /* tribute */; };
@@ -1211,6 +1212,7 @@
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
+		5553AA2D1C73B79400A903B5 /* pillar.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = pillar.3ds; sourceTree = "<group>"; };
 		5560A2991C347D5B00BF77F7 /* sys.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sys.c; sourceTree = "<group>"; };
 		5560A29B1C347E0900BF77F7 /* sys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sys.h; sourceTree = "<group>"; };
 		5560A29C1C347E7100BF77F7 /* mextra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mextra.h; sourceTree = "<group>"; };
@@ -1237,7 +1239,6 @@
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
-		55BF8B371B76F46F0031A45A /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
 		55C1693B1C3520F300C1365E /* NH3DMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DMessaging.swift; sourceTree = "<group>"; };
 		55C183311C39C4A200602251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		55C183321C39C4A200602251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
@@ -1344,7 +1345,6 @@
 				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
-				55BF8B371B76F46F0031A45A /* TileCache.swift */,
 				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
 				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
@@ -1481,6 +1481,7 @@
 				2B26129E09233E7800CA7A64 /* invisible.3ds */,
 				2B2612D509233E7900CA7A64 /* upStair.3ds */,
 				2B2612D709233E7900CA7A64 /* vwall.3ds */,
+				5553AA2D1C73B79400A903B5 /* pillar.3ds */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -2855,6 +2856,7 @@
 				2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */,
 				2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */,
 				2BD3BC880943D24500F782A6 /* beartrap.3ds in Resources */,
+				5553AA2E1C73B79400A903B5 /* pillar.3ds in Resources */,
 				2BC01930094BA33400B386A8 /* kingset.3ds in Resources */,
 				2BC01933094BA33400B386A8 /* levelteleporter.3ds in Resources */,
 				2BC01934094BA33400B386A8 /* teleporter.3ds in Resources */,

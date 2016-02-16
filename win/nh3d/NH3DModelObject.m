@@ -53,11 +53,15 @@ static const NH3DMaterial defaultMat = {
 @synthesize modelRotate;
 @synthesize modelPivot;
 @synthesize hasChildren = hasChildObject;
-@synthesize numberOfChildObjects;
 @synthesize particleLife;
 @synthesize particleSlowdown;
 @synthesize particleGravity;
 @synthesize particleSize;
+
+- (NSInteger)numberOfChildObjects
+{
+	return [childObjects count];
+}
 
 + (instancetype)modelNamed:(NSString*)name textureNamed:(NSString*)texName
 {
@@ -597,7 +601,6 @@ static const NH3DMaterial defaultMat = {
 	currentMaterial = defaultMat;
 	
 	hasChildObject = NO;
-	numberOfChildObjects = 0;
 	childObjects = nil;
 	
 	modelScale.x = 1.0;
@@ -1009,7 +1012,6 @@ static const NH3DMaterial defaultMat = {
 		[modelobj setIsChild:YES];
 		[childObjects addObject:modelobj];
 		hasChildObject = YES;
-		numberOfChildObjects = childObjects.count;
 	} else {
 		NSLog(@"NH3DModelObject: Can't add Child object '%@'. Please check filename or location.", childName);
 	}

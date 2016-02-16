@@ -1229,7 +1229,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				}
 				
 				if model.animated {
-					glRotatef(model.animationValue, 0.0, 1.0, 0.0 );
+					glRotatef(model.animationValue, 0.0, 1.0, 0.0)
 				}
 				
 				if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= NUMMONS {
@@ -2352,7 +2352,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setModelRotateX(0.0, rotateY: 11.7, rotateZ: 0.0)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.childObjectAtLast?.particleType = .Aura ;
+			ret?.childObjectAtLast?.particleType = .Aura
 			ret?.childObjectAtLast?.particleColor = CLR_BRIGHT_CYAN
 			ret?.childObjectAtLast?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
 			ret?.childObjectAtLast?.setParticleSpeedX(1.0, y: 1.00)
@@ -3347,19 +3347,32 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case (PM_ACID_BLOB + GLYPH_STATUE_OFF)...(PM_GELATINOUS_CUBE + GLYPH_STATUE_OFF):
 			loadDat = (PM_ACID_BLOB, PM_GELATINOUS_CUBE, "lowerB")
+		
+		case (PM_JACKAL + GLYPH_STATUE_OFF)...(PM_HELL_HOUND + GLYPH_STATUE_OFF):
+			loadDat = (PM_JACKAL, PM_HELL_HOUND, "lowerD")
 
 		default:
 			return nil
 		}
-		//let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: loadDat.modelName)
-		let ret = NH3DModelObject(with3DSFile: loadDat.modelName, textureNamed: "ceiling")
-		if let ret = ret where ret.numberOfTextures == 0 {
+		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar")
+		if let ret = ret where !ret.hasChildren {
 			//Just add a simple texture for now
 			//ret.addTexture("ceiling")
-			ret.animated = true;
-			ret.animationRate = (Float(random() % 5) * 0.05) + 0.25
-			ret.setPivotX(0.0, atY: 0.3, atZ: 0.0)
-			ret.useEnvironment = false
+			ret.animated = true
+			ret.useEnvironment = true
+			ret.animationRate = ((Float(random() % 5) * 0.1) + 0.5) / 2
+			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
+			//ret.modelRotate = NH3DVertexType(x: 90, y: 0, z: 0)
+			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
+			ret.setPivotX(0.0, atY: 0.0, atZ: 0.0)
+			ret.addChildObject(loadDat.modelName, type: .Object)
+			//ret.childObjectAtLast?.useEnvironment = true
+			//ret.childObjectAtLast?.animated = true
+			ret.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
+			//ret.childObjectAtLast?.animationRate = (Float(random() % 5) * 0.1) + 0.5
+			//ret.childObjectAtLast?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
+			ret.childObjectAtLast?.modelShift = NH3DVertexType(x: 0.5, y: 1.5, z: 0.5)
+			ret.childObjectAtLast?.modelScale = NH3DVertexType(x: 0.75, y: 0.75, z: 0.75)
 		}
 		return ret
 	}
@@ -3554,13 +3567,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
 		}
 		switchMethodArray[1] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
-			self.drawFloorAndCeiling(x: Float(x)*NH3DGL_TILE_SIZE,
-				z: Float(z)*NH3DGL_TILE_SIZE,
+			self.drawFloorAndCeiling(x: Float(x) * NH3DGL_TILE_SIZE,
+				z: Float(z) * NH3DGL_TILE_SIZE,
 				flag: 2);
 		}
 		switchMethodArray[2] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
-			self.drawFloorAndCeiling( x: Float(x)*NH3DGL_TILE_SIZE,
-				z: Float(z)*NH3DGL_TILE_SIZE,
+			self.drawFloorAndCeiling( x: Float(x) * NH3DGL_TILE_SIZE,
+				z: Float(z) * NH3DGL_TILE_SIZE,
 				flag: 1);
 			
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)

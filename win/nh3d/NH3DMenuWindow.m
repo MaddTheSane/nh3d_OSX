@@ -114,18 +114,15 @@
 	if (flags.tombstone && doneRip) {
 		textOrRip = _ripTextwindow;
 		darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 1.0];
-
 	} else {
 		textOrRip = _textWindow;
 		darkShadowStrAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 	}
 	
 	textOrRip.typingAttributes = darkShadowStrAttributes;
+	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:[contents stringByAppendingString:@"\n"] attributes:darkShadowStrAttributes];
 
-	[textOrRip setEditable:YES ];
-	[textOrRip insertText:contents];
-	[textOrRip insertText:@"\n"];
-	[textOrRip setEditable:NO];
+	[textOrRip.textStorage appendAttributedString:attrStr];
 	//[ textOrRip sizeToFit ];
 }
 
@@ -153,8 +150,8 @@
 	//Does not work!
 	//[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
 	
-	frameRect = [ _textPanel frameRectForContentRect:((NSView*)_textPanel.contentView).frame ];
-	[ _textPanel setFrame:frameRect display:NO ];
+	frameRect = [_textPanel frameRectForContentRect:((NSView*)_textPanel.contentView).frame];
+	[_textPanel setFrame:frameRect display:NO];
 	
 	if (_textScrollView.verticalScroller.usableParts != NSNoScrollerParts) {
 		[_textWindow scrollRangeToVisible:NSMakeRange(0,0)];
@@ -441,7 +438,6 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (void)keyDown:(NSEvent*)event
 {
-	int i;
 	unichar key = [event.charactersIgnoringModifiers characterAtIndex:0];
 	
 	if ((key == NSEnterCharacter || key == NSCarriageReturnCharacter)
@@ -459,7 +455,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		return;
 	}
 	
-	for (i = 0; i < nh3dMenu.count; i++) {
+	for (NSInteger i = 0; i < nh3dMenu.count; i++) {
 		if ([event.charactersIgnoringModifiers isEqualToString:[nh3dMenu[i] accelerator].string]) {
 			[_menuTableWindow selectRowIndexes:[NSIndexSet indexSetWithIndex:i] byExtendingSelection:NO];
 			

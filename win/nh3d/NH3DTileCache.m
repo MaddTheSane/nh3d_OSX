@@ -38,9 +38,11 @@ extern int total_tiles_used;
 		if ( tileSource == nil ) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:imageName];
 			if ( tileSource == nil ) {
-				NSRunCriticalAlertPanel(@"Tile Load Error!",
-										@"Can't find Tilefile: %@!!",
-										@"OK",nil,nil, imageName);
+				NSAlert *alert = [[NSAlert alloc] init];
+				alert.messageText = @"Tile Load Error";
+				alert.informativeText = [[NSString alloc] initWithFormat:@"Can't find tile file: %@!", imageName];
+				alert.alertStyle = NSCriticalAlertStyle;
+				[alert runModal];
 				NSLog(@"Can't find Tilefile: %@!!",imageName);
 				return nil; 
 			}
@@ -50,16 +52,18 @@ extern int total_tiles_used;
 		bitMap = [[NSBitmapImageRep alloc] initWithData: tiffData];
 		
 		if ((bitMap.pixelsWide % TILES_PER_LINE) && (bitMap.pixelsHigh % NUMBER_OF_TILES_ROW)) {
-			NSRunCriticalAlertPanel(@"Tile Format Error!",
-									@"%@: Does not support this TILE Pattern.",
-									@"OK",nil,nil, imageName);
-				NSLog(@"%@: Does not support this TILE Pattern.", imageName);
-				return nil;
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.alertStyle = NSCriticalAlertStyle;
+			alert.messageText = @"Tile Format Error";
+			alert.informativeText = [[NSString alloc] initWithFormat:@"\"%@\" Does not support this tile pattern.", imageName];
+			[alert runModal];
+			
+			NSLog(@"%@: Does not support this TILE Pattern.", imageName);
+			return nil;
 		} else {
 			tileSize_X = bitMap.pixelsWide / TILES_PER_LINE;
 			tileSize_Y = bitMap.pixelsHigh / NUMBER_OF_TILES_ROW;	
 		}
-		
 	}
 	return self;
 }

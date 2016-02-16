@@ -9,8 +9,8 @@
 import Cocoa
 import AVFoundation
 
-private let DIALOG_OK		= 128;
-private let DIALOG_CANCEL	= 129;
+private let DIALOG_OK		= 128
+private let DIALOG_CANCEL	= 129
 
 private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], effects: [NH3DMessaging.Effect]) {
 	let bundleURL = NSBundle.mainBundle().bundleURL
@@ -92,16 +92,16 @@ class NH3DMessaging: NSObject {
 		//for view or backgrounded text field.
 		let adarkShadow = NSShadow()
 		adarkShadow.shadowColor = NSColor(calibratedWhite: 0.2, alpha: 0.5)
-		adarkShadow.shadowOffset = NSSize(width: 2, height: -2);
-		adarkShadow.shadowBlurRadius = 0.5;
+		adarkShadow.shadowOffset = NSSize(width: 2, height: -2)
+		adarkShadow.shadowBlurRadius = 0.5
 		return adarkShadow
 	}()
 	private let lightShadow: NSShadow = {
 		//for panel or window.
 		let alightShadow = NSShadow()
 		alightShadow.shadowColor = NSColor(calibratedWhite:1.0, alpha:1.0)
-		alightShadow.shadowOffset = NSSize(width: -1.5, height: 1.5);
-		alightShadow.shadowBlurRadius = 1.6;
+		alightShadow.shadowOffset = NSSize(width: -1.5, height: 1.5)
+		alightShadow.shadowBlurRadius = 1.6
 		return alightShadow
 	}()
 	private var style = NSMutableParagraphStyle()
@@ -284,16 +284,16 @@ class NH3DMessaging: NSObject {
 		if result == DIALOG_CANCEL {
 			questionTextField.stringValue = ""
 			inputTextField.stringValue = ""
-			return -1;
+			return -1
 		}
 		if inputTextField.stringValue.characters.count == 0 {
 			questionTextField.stringValue = ""
-			return -1;
+			return -1
 		}
 		
 		if inputTextField.stringValue.lengthOfBytesUsingEncoding(NH3DTEXTENCODING) > Int(BUFSZ) {
 			let alert = NSAlert()
-			alert.messageText = NSLocalizedString("There is too much number of the letters.", comment:"")
+			alert.messageText = NSLocalizedString("There is too much number of the letters.", comment: "")
 			alert.informativeText = " "
 			alert.runModal()
 			
@@ -343,7 +343,7 @@ class NH3DMessaging: NSObject {
 		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
 			attributes: lightShadowStrAttributes)
 		
-		ripPanel.alphaValue = 0;
+		ripPanel.alphaValue = 0
 		ripPanel.orderFront(self)
 		// window fade out/in
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
@@ -358,7 +358,7 @@ class NH3DMessaging: NSObject {
 	
 	func putLogMessage(rawText: String, bold: Bool) {
 		#if DEBUG
-			NSLog(" %@", rawText);
+			NSLog(" %@", rawText)
 		#endif
 		prepareAttributes()
 		style.alignment = .Left
@@ -367,9 +367,7 @@ class NH3DMessaging: NSObject {
 		
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		
-		rawPrintWindow.editable = true;
 		rawPrintWindow.textStorage?.appendAttributedString(putStr)
-		rawPrintWindow.editable = false;
 		#if DEBUG
 			NSLog("%@", rawText);
 		#endif
@@ -378,15 +376,15 @@ class NH3DMessaging: NSObject {
 	func showLogPanel() -> Bool {
 		var ripOrMainWindow: NSWindow
 		
-		rawPrintPanel.alphaValue = 0;
+		rawPrintPanel.alphaValue = 0
 		rawPrintPanel.makeKeyAndOrderFront(self)
 		// window fade out/in
 		
 		if ripFlag {
-			ripOrMainWindow = ripPanel;
+			ripOrMainWindow = ripPanel
 			NSApp.runModalForWindow(ripPanel)
 		} else {
-			ripOrMainWindow = window;
+			ripOrMainWindow = window
 		}
 		
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in

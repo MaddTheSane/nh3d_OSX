@@ -100,7 +100,6 @@ typedef struct {
 	
 	BOOL				hasChildObject;
 	BOOL				isChild;
-	NSInteger			numberOfChildObjects;
 	NSMutableArray<NH3DModelObject*>		*childObjects;
 	
 	NH3DModelType		modelType;
