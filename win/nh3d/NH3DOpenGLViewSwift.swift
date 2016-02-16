@@ -2271,7 +2271,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSize = 8.0
 		} else {
 			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "ampersand")
-			if let ret = ret where !ret.hasChildObject {
+			if let ret = ret where !ret.hasChildren {
 				ret.addChildObject("emitter", type: .Emitter)
 				ret.childObjectAtLast?.particleType = .Aura
 				ret.childObjectAtLast?.particleColor = CLR_RED
@@ -2295,7 +2295,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "ampersand")
 		
-		if let ret = ret where !ret.hasChildObject {
+		if let ret = ret where !ret.hasChildren {
 			ret.addChildObject("emitter", type: .Emitter)
 			ret.childObjectAtLast?.particleType = .Aura
 			ret.childObjectAtLast?.particleColor = CLR_RED
@@ -2509,7 +2509,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					textured: false,
 					without: PM_KING_ARTHUR)
 				
-				if let ret = ret where !ret.hasChildObject {
+				if let ret = ret where !ret.hasChildren {
 					ret.addChildObject("emitter", type: .Emitter)
 					ret.childObjectAtLast?.particleType = .Aura
 					ret.childObjectAtLast?.particleColor = CLR_BRIGHT_CYAN

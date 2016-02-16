@@ -72,8 +72,8 @@ typedef struct {
 	unsigned short		face_qty;					/* faces counts */
 	unsigned short		normal_qty;					/* normal counts */
 	unsigned short		texcords_qty;				/* texcoords counts */
-//	NH3DFaceType		texReference[MAX_POLYGONS];	/* OBJ face optional texture reference */
-//	NH3DFaceType		normReference[MAX_POLYGONS];/* OBJ face optional normal reference */
+	NH3DFaceType		texReference[MAX_POLYGONS];	/* OBJ face optional texture reference */
+	NH3DFaceType		normReference[MAX_POLYGONS];/* OBJ face optional normal reference */
 	
 	NH3DVertexType		*verts;		/* vertex points */
 	NH3DVertexType		*norms;		/* normals */
@@ -112,17 +112,20 @@ typedef struct {
 
 /// init for particle emitter
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
-/*
-- (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag; // 
-																// NOTICE.
-																// this method work for TRIANGLES ONLY 
-																// not yat impliment other mesh type. do not work well texturecood, and faceinfomation.
-																// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
-																// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
-*/
+
+/// this method work for TRIANGLES ONLY.
+/// not yet impliment other mesh type. do not work well texturecood, and face infomation.
+/// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
+/// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
+- (nullable instancetype) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag;
+
+- (nullable instancetype) initWithOBJFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER;
+
+
 - (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag;
 - (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER; // This is designated initializer.
 
++ (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName;
 
 - (void)calculateNormals;
 
@@ -138,8 +141,8 @@ typedef struct {
 @property (readonly) NH3DVertexType *norms NS_RETURNS_INNER_POINTER;
 
 @property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER;
-//- (NH3DFaceType *)texReference;
-//- (NH3DFaceType *)normReference;
+- (NH3DFaceType *)texReference NS_RETURNS_INNER_POINTER;
+- (NH3DFaceType *)normReference NS_RETURNS_INNER_POINTER;
 @property (readonly) NH3DMapCoordType *texcoords NS_RETURNS_INNER_POINTER;
 
 - (GLuint)texture;
@@ -163,7 +166,7 @@ typedef struct {
 @property (nonatomic) float particleLife;
 @property (nonatomic) float particleSize;
 
-@property (readonly) BOOL hasChildObject;
+@property (readonly) BOOL hasChildren;
 @property (readonly) NSInteger numberOfChildObjects;
 
 @property BOOL isChild;
