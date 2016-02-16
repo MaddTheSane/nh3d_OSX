@@ -658,7 +658,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return texID
 	}
 	
-	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool, without: Int32...) -> NH3DModelObject? {
+	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, without: Int32...) -> NH3DModelObject? {
 		var withoutFlag = false;
 		
 		func nums() -> [Int32] {
@@ -1530,7 +1530,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			static var floatDirection = false
 		}
 		
-		FloatHelp.fltCamera = FloatHelp.floatDirection ? FloatHelp.fltCamera+0.003 : FloatHelp.fltCamera - 0.003
+		FloatHelp.fltCamera = FloatHelp.floatDirection ? FloatHelp.fltCamera + 0.003 : FloatHelp.fltCamera - 0.003
 		if FloatHelp.fltCamera > 0.08 {
 			FloatHelp.floatDirection = false
 		}
@@ -1548,7 +1548,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 			static var shockDirection = false
 		}
 		
-		//cameraShock = ( shockDirection ) ? cameraShock+( float )( ( random() %4 )*0.01 ) : cameraShock-( float )( ( random() %4 )*0.01 );
 		ShockHelp.cameraShock = ( ShockHelp.shockDirection ) ? ShockHelp.cameraShock + 0.04 : ShockHelp.cameraShock - 0.04;
 		if ShockHelp.cameraShock > 0.08 {
 			ShockHelp.shockDirection = false
@@ -1611,9 +1610,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glRotatef(-cameraPitch,	1,0,0)
 			glRotatef(-cameraHead,	0,1,0)
 		} else {
-			let rollstep = ( cameraRoll - lastCameraRoll ) / cameraStep;
-			let pitchstep = ( cameraPitch - lastCameraPitch ) / cameraStep;
-			let headstep = ( cameraHead - lastCameraHead ) / cameraStep;
+			let rollstep = (cameraRoll - lastCameraRoll) / cameraStep
+			let pitchstep = (cameraPitch - lastCameraPitch) / cameraStep
+			let headstep = (cameraHead - lastCameraHead) / cameraStep
 			
 			lastCameraRoll += rollstep;
 			lastCameraPitch += pitchstep;
@@ -1831,37 +1830,37 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// insect class
 	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, modelName: "lowerA", textured: false)
+		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, modelName: "lowerA")
 	}
 	
 	/// blob class
 	private func loadModelFunc_blob(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_ACID_BLOB, to: PM_GELATINOUS_CUBE, modelName: "lowerB", textured: false)
+		return checkLoadedModels(at: PM_ACID_BLOB, to: PM_GELATINOUS_CUBE, modelName: "lowerB")
 	}
 	
 	/// cockatrice class
 	private func loadModelFunc_cockatrice(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_CHICKATRICE, to: PM_PYROLISK, modelName: "lowerC", textured: false)
+		return checkLoadedModels(at: PM_CHICKATRICE, to: PM_PYROLISK, modelName: "lowerC")
 	}
 	
 	/// dog or canine class
 	private func loadModelFunc_dog(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, modelName: "lowerD", textured: false)
+		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, modelName: "lowerD")
 	}
 	
 	/// eye or sphere class
 	private func loadModelFunc_sphere(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, modelName: "lowerE", textured: false)
+		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, modelName: "lowerE")
 	}
 	
 	/// cat or feline class
 	private func loadModelFunc_cat(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, modelName: "lowerF", textured: false)
+		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, modelName: "lowerF")
 	}
 	
 	/// gremlins and gagoyles class
 	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerG", textured: false)
+		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerG")
 	}
 	
 	/// humanoids class
@@ -1873,20 +1872,20 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setPivotX(0, atY: 0.2, atZ: -0.21)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
-			ret = checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerH", textured: false, without: PM_DWARF_KING)
+			ret = checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerH", without: PM_DWARF_KING)
 		}
 		return ret
 	}
 	
 	/// imp and minor demons
 	private func loadModelFunc_imp(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_MANES, to: PM_TENGU, modelName: "lowerI", textured: false)
+		return checkLoadedModels(at: PM_MANES, to: PM_TENGU, modelName: "lowerI")
 	}
 	
 	
 	/// jellys
 	private func loadModelFunc_jellys(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BLUE_JELLY, to: PM_OCHRE_JELLY, modelName: "lowerJ", textured: false)
+		return checkLoadedModels(at: PM_BLUE_JELLY, to: PM_OCHRE_JELLY, modelName: "lowerJ")
 	}
 	
 	// kobolds
@@ -1894,8 +1893,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF :
-			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, modelName: "lowerK", textured: false)
+		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF:
+			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, modelName: "lowerK")
 			
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
@@ -1910,7 +1909,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
-			break;
+			break
 		}
 		
 		return ret;
@@ -1923,12 +1922,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	// mimics
 	private func loadModelFunc_mimics(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_SMALL_MIMIC, to: PM_GIANT_MIMIC, modelName: "lowerM", textured: false)
+		return checkLoadedModels(at: PM_SMALL_MIMIC, to: PM_GIANT_MIMIC, modelName: "lowerM")
 	}
 	
 	/// nymphs
 	private func loadModelFunc_nymphs(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, modelName: "lowerN", textured: false)
+		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, modelName: "lowerN")
 	}
 	
 	/// orc class
@@ -1942,7 +1941,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		} else {
-			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, modelName: "lowerO", textured: false, without: PM_ORC_SHAMAN)
+			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, modelName: "lowerO", without: PM_ORC_SHAMAN)
 		}
 		
 		return nil
@@ -1950,82 +1949,82 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// piercers
 	private final func loadModelFunc_piercers(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_ROCK_PIERCER, to: PM_GLASS_PIERCER, modelName: "lowerP", textured: false)
+		return checkLoadedModels(at: PM_ROCK_PIERCER, to: PM_GLASS_PIERCER, modelName: "lowerP")
 	}
 	
 	/// quadrupeds
 	private final func loadModelFunc_quadrupeds(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_ROTHE, to: PM_MASTODON, modelName: "lowerQ", textured: false)
+		return checkLoadedModels(at: PM_ROTHE, to: PM_MASTODON, modelName: "lowerQ")
 	}
 	
 	/// rodents
 	private final func loadModelFunc_rodents(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_SEWER_RAT, to: PM_WOODCHUCK, modelName: "lowerR", textured: false)
+		return checkLoadedModels(at: PM_SEWER_RAT, to: PM_WOODCHUCK, modelName: "lowerR")
 	}
 	
 	/// spiders
 	private final func loadModelFunc_spiders(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_CAVE_SPIDER, to: PM_SCORPION, modelName: "lowerS", textured: false)
+		return checkLoadedModels(at: PM_CAVE_SPIDER, to: PM_SCORPION, modelName: "lowerS")
 	}
 	
 	/// trapper
 	private final func loadModelFunc_trapper(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_LURKER_ABOVE, to: PM_TRAPPER, modelName: "lowerT", textured: false)
+		return checkLoadedModels(at: PM_LURKER_ABOVE, to: PM_TRAPPER, modelName: "lowerT")
 	}
 	
 	/// unicorns and horses
 	private final func loadModelFunc_unicorns(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_WHITE_UNICORN, to: PM_WARHORSE, modelName: "lowerU", textured: false)
+		return checkLoadedModels(at: PM_WHITE_UNICORN, to: PM_WARHORSE, modelName: "lowerU")
 	}
 	
 	/// vortices
 	private final func loadModelFunc_vortices(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_FOG_CLOUD, to: PM_FIRE_VORTEX, modelName: "lowerV", textured: false)
+		return checkLoadedModels(at: PM_FOG_CLOUD, to: PM_FIRE_VORTEX, modelName: "lowerV")
 	}
 	
 	/// worms
 	private final func loadModelFunc_worms(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BABY_LONG_WORM, to: PM_PURPLE_WORM, modelName: "lowerW", textured: false)
+		return checkLoadedModels(at: PM_BABY_LONG_WORM, to: PM_PURPLE_WORM, modelName: "lowerW")
 	}
 	
 	/// xan
 	private final func loadModelFunc_xan(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GRID_BUG, to: PM_XAN, modelName: "lowerX", textured: false)
+		return checkLoadedModels(at: PM_GRID_BUG, to: PM_XAN, modelName: "lowerX")
 	}
 	
 	/// lights
 	private final func loadModelFunc_lights(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_YELLOW_LIGHT, to: PM_BLACK_LIGHT, modelName: "lowerY", textured: false)
+		return checkLoadedModels(at: PM_YELLOW_LIGHT, to: PM_BLACK_LIGHT, modelName: "lowerY")
 	}
 	
 	/// Angels
 	private final func loadModelFunc_Angels(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, modelName: "upperA", textured: false)
+		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, modelName: "upperA")
 	}
 	
 	/// Bats
 	private final func loadModelFunc_Bats(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BAT, to: PM_VAMPIRE_BAT, modelName: "upperB", textured: false)
+		return checkLoadedModels(at: PM_BAT, to: PM_VAMPIRE_BAT, modelName: "upperB")
 	}
 	
 	/// Centaurs
 	private final func loadModelFunc_Centaurs(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_PLAINS_CENTAUR, to: PM_MOUNTAIN_CENTAUR, modelName: "upperC", textured: false)
+		return checkLoadedModels(at: PM_PLAINS_CENTAUR, to: PM_MOUNTAIN_CENTAUR, modelName: "upperC")
 	}
 	
 	/// Dragons
 	private final func loadModelFunc_Dragons(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BABY_GRAY_DRAGON, to: PM_YELLOW_DRAGON, modelName: "upperD", textured: false)
+		return checkLoadedModels(at: PM_BABY_GRAY_DRAGON, to: PM_YELLOW_DRAGON, modelName: "upperD")
 	}
 	
 	/// Elementals
 	private final func loadModelFunc_Elementals(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_STALKER, to: PM_WATER_ELEMENTAL, modelName: "upperE", textured: false)
+		return checkLoadedModels(at: PM_STALKER, to: PM_WATER_ELEMENTAL, modelName: "upperE")
 	}
 	
 	/// Fungi
 	private final func loadModelFunc_Fungi(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, modelName: "upperF", textured: false)
+		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, modelName: "upperF")
 	}
 	
 	/// gnomes
@@ -2059,27 +2058,27 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Giant Humanoids
 	private final func loadModelFunc_giantHumanoids(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, modelName: "upperH", textured: false)
+		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, modelName: "upperH")
 	}
 	
 	/// Kops
 	private final func loadModelFunc_Kops(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KEYSTONE_KOP, to: PM_KOP_KAPTAIN, modelName: "upperK", textured: false)
+		return checkLoadedModels(at: PM_KEYSTONE_KOP, to: PM_KOP_KAPTAIN, modelName: "upperK")
 	}
 	
 	/// Liches
 	private final func loadModelFunc_Liches(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_LICH, to: PM_ARCH_LICH, modelName: "upperL", textured: false)
+		return checkLoadedModels(at: PM_LICH, to: PM_ARCH_LICH, modelName: "upperL")
 	}
 	
 	/// Mummies
 	private final func loadModelFunc_Mummies(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KOBOLD_MUMMY, to: PM_GIANT_MUMMY, modelName: "upperM", textured: false)
+		return checkLoadedModels(at: PM_KOBOLD_MUMMY, to: PM_GIANT_MUMMY, modelName: "upperM")
 	}
 	
 	/// Nagas
 	private final func loadModelFunc_Nagas(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_RED_NAGA_HATCHLING, to: PM_GUARDIAN_NAGA, modelName: "upperN", textured: false)
+		return checkLoadedModels(at: PM_RED_NAGA_HATCHLING, to: PM_GUARDIAN_NAGA, modelName: "upperN")
 	}
 	
 	/// Ogres
@@ -2087,9 +2086,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
 		case PM_OGRE + GLYPH_MON_OFF, PM_OGRE_LORD + GLYPH_MON_OFF:
-			ret = checkLoadedModels(at: PM_OGRE, to: PM_OGRE_LORD, modelName: "upperO", textured: false)
+			ret = checkLoadedModels(at: PM_OGRE, to: PM_OGRE_LORD, modelName: "upperO")
 			
-		case PM_OGRE_KING + GLYPH_MON_OFF :
+		case PM_OGRE_KING + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: 0.15, atZ: -0.18)
@@ -2103,7 +2102,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Puddings
 	private final func loadModelFunc_Puddings(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GRAY_OOZE, to: PM_GREEN_SLIME, modelName: "upperP", textured: false)
+		return checkLoadedModels(at: PM_GRAY_OOZE, to: PM_GREEN_SLIME, modelName: "upperP")
 	}
 	
 	/// Quantum mechanics
@@ -2113,17 +2112,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Rust monster or disenchanter
 	private final func loadModelFunc_Rustmonster(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_RUST_MONSTER, to: PM_DISENCHANTER, modelName: "upperR", textured: false)
+		return checkLoadedModels(at: PM_RUST_MONSTER, to: PM_DISENCHANTER, modelName: "upperR")
 	}
 	
 	/// Snakes
 	private final func loadModelFunc_Snakes(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GARTER_SNAKE, to: PM_COBRA, modelName: "upperS", textured: false)
+		return checkLoadedModels(at: PM_GARTER_SNAKE, to: PM_COBRA, modelName: "upperS")
 	}
 	
 	/// Trolls
 	private final func loadModelFunc_Trolls(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_TROLL, to: PM_OLOG_HAI, modelName: "upperT", textured: false)
+		return checkLoadedModels(at: PM_TROLL, to: PM_OLOG_HAI, modelName: "upperT")
 	}
 	
 	/// Umber hulk
@@ -2135,10 +2134,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Vampires(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		switch glyph {
-		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF :
-			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, modelName: "upperV", textured: false)
+		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF:
+			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, modelName: "upperV")
 			
-		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF :
+		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF:
 			ret =  NH3DModelObject(with3DSFile: "upperV", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0, atY: 0.15, atZ: -0.18)
@@ -2153,7 +2152,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Wraiths
 	private final func loadModelFunc_Wraiths(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, modelName: "upperW", textured: false)
+		return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, modelName: "upperW")
 	}
 	
 	/// Xorn
@@ -2163,17 +2162,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Yeti and other large beasts
 	private final func loadModelFunc_Yeti(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, modelName: "upperY", textured: false)
+		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, modelName: "upperY")
 	}
 	
 	/// Zombie
 	private final func loadModelFunc_Zombie(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, modelName: "upperZ", textured: false)
+		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, modelName: "upperZ")
 	}
 	
 	/// Golems
 	private final func loadModelFunc_Golems(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, modelName: "backslash", textured: false)
+		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, modelName: "backslash")
 	}
 	
 	/// Human or Elves
@@ -2188,13 +2187,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.setModelRotateX(0, rotateY: 11.7, rotateZ: 0)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_NURSE + GLYPH_MON_OFF :
+		case PM_NURSE + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("nurse", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0, atY: -0.28, atZ: 1)
 			ret?.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF :
+		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2205,7 +2204,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF :
+		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY:-0.28, atZ:-0.15)
@@ -2244,15 +2243,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Ghosts
 	private final func loadModelFunc_Ghosts(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible", textured: false)
+		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible")
 	}
 	
 	/// Major Daemons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObject? {
 		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF {
-			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "ampersand", textured: false)
+			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "ampersand")
 		} else {
-			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "ampersand", textured: false)
+			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "ampersand")
 		}
 	}
 	
@@ -2271,7 +2270,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 		} else {
-			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "ampersand", textured: false)
+			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "ampersand")
 			if let ret = ret where !ret.hasChildObject {
 				ret.addChildObject("emitter", type: .Emitter)
 				ret.childObjectAtLast?.particleType = .Aura
@@ -2294,7 +2293,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Riders(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
-		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "ampersand", textured: false)
+		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "ampersand")
 		
 		if let ret = ret where !ret.hasChildObject {
 			ret.addChildObject("emitter", type: .Emitter)
@@ -2320,12 +2319,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// sea monsters
 	private final func loadModelFunc_seamonsters(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicolon", textured: false)
+		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicolon")
 	}
 	
 	/// lizards
 	private final func loadModelFunc_lizards(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "colon", textured: false)
+		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "colon")
 	}
 	
 	/// Adventurers
@@ -2336,7 +2335,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
 		} else {
-			ret = checkLoadedModels(at: PM_ARCHEOLOGIST, to: PM_VALKYRIE, modelName: "atmark", textured: false)
+			ret = checkLoadedModels(at: PM_ARCHEOLOGIST, to: PM_VALKYRIE, modelName: "atmark")
 		}
 		return ret
 	}
@@ -2396,7 +2395,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF :
+		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2407,7 +2406,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_CYCLOPS + GLYPH_MON_OFF :
+		case PM_CYCLOPS + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2418,7 +2417,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_IXOTH + GLYPH_MON_OFF :
+		case PM_IXOTH + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2429,7 +2428,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_MASTER_KAEN + GLYPH_MON_OFF :
+		case PM_MASTER_KAEN + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2440,7 +2439,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_NALZOK + GLYPH_MON_OFF :
+		case PM_NALZOK + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2451,7 +2450,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_SCORPIUS + GLYPH_MON_OFF :
+		case PM_SCORPIUS + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "lowerS", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2462,7 +2461,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF, PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF :
+		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF, PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.particleType = .Aura
@@ -2473,7 +2472,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_LORD_SURTUR + GLYPH_MON_OFF :
+		case PM_LORD_SURTUR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.18, atZ: 0.0)
@@ -2488,7 +2487,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.24
 			ret?.childObjectAtLast?.particleSize = 8.0
 			
-		case PM_DARK_ONE + GLYPH_MON_OFF :
+		case PM_DARK_ONE + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
@@ -2648,21 +2647,21 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil;
 		
 		switch glyph {
-		case S_arrow_trap + GLYPH_CMAP_OFF :
+		case S_arrow_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "arrowtrap", withTexture: true)
 			
-		case S_dart_trap + GLYPH_CMAP_OFF :
+		case S_dart_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "dartTrap", withTexture: true)
 			
-		case S_falling_rock_trap + GLYPH_CMAP_OFF :
+		case S_falling_rock_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "rockfalltrap", withTexture: true)
 			
 			//case S_squeaky_board + GLYPH_CMAP_OFF :
-		case S_land_mine + GLYPH_CMAP_OFF :
+		case S_land_mine + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "landmine", withTexture: true)
 			
 			//case S_rolling_boulder_trap + GLYPH_CMAP_OFF :
-		case S_sleeping_gas_trap + GLYPH_CMAP_OFF :
+		case S_sleeping_gas_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: 0.5, atZ:0.0)
@@ -2674,7 +2673,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.56
 			ret?.childObjectAtLast?.particleSize = 5.0
 			
-		case S_rust_trap + GLYPH_CMAP_OFF :
+		case S_rust_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
@@ -2686,7 +2685,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleLife = 0.56
 			ret?.childObjectAtLast?.particleSize = 5.0
 			
-		case S_fire_trap + GLYPH_CMAP_OFF :
+		case S_fire_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
@@ -2698,22 +2697,22 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSlowdown = 2.0
 			ret?.childObjectAtLast?.particleLife = 0.5
 			
-		case S_bear_trap + GLYPH_CMAP_OFF :
+		case S_bear_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "beartrap", withTexture: true)
 			
-		case S_pit + GLYPH_CMAP_OFF :
+		case S_pit + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_spiked_pit + GLYPH_CMAP_OFF :
+		case S_spiked_pit + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "spikepit", withTexture: true)
 			
 		case S_hole + GLYPH_CMAP_OFF :
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_trap_door + GLYPH_CMAP_OFF :
+		case S_trap_door + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_teleportation_trap + GLYPH_CMAP_OFF :
+		case S_teleportation_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
@@ -2735,7 +2734,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSlowdown = 1.8
 			ret?.childObjectAtLast?.particleLife = 0.25
 			
-		case S_level_teleporter + GLYPH_CMAP_OFF :
+		case S_level_teleporter + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
@@ -2757,7 +2756,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.childObjectAtLast?.particleSlowdown = 1.8
 			ret?.childObjectAtLast?.particleLife = 0.25
 			
-		case S_magic_portal + GLYPH_CMAP_OFF :
+		case S_magic_portal + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "magicportal", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.childObjectAtLast?.setModelScaleX(0.8, scaleY:0.7, scaleZ:0.8)
@@ -2773,7 +2772,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			//case S_web + GLYPH_CMAP_OFF :
 			//case S_statue_trap + GLYPH_CMAP_OFF :
 			
-		case S_magic_trap + GLYPH_CMAP_OFF :
+		case S_magic_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
 			ret?.setModelScaleX(0.7, scaleY: 0.4, scaleZ: 0.7)
 			ret?.particleType = .Aura
@@ -2784,7 +2783,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_anti_magic_trap + GLYPH_CMAP_OFF :
+		case S_anti_magic_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
 			ret?.setModelScaleX(0.7, scaleY: 0.4, scaleZ: 0.7)
 			ret?.particleType = .Aura
@@ -2795,7 +2794,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_polymorph_trap + GLYPH_CMAP_OFF :
+		case S_polymorph_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
 			ret?.setModelScaleX(0.7, scaleY: 0.4, scaleZ: 0.7)
 			ret?.particleType = .Aura
@@ -3147,8 +3146,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleSize = 20.0
 			
 			// boomerang
-			//case S_boomleft + GLYPH_CMAP_OFF :
-			//case S_boomright + GLYPH_CMAP_OFF :
+			//case S_boomleft + GLYPH_CMAP_OFF:
+			//case S_boomright + GLYPH_CMAP_OFF:
 		default:
 			break
 		}
@@ -3352,7 +3351,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		default:
 			return nil
 		}
-		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: loadDat.modelName, textured: false)
+		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: loadDat.modelName)
 		if let ret = ret where ret.numberOfTextures == 0 {
 			//Just add a simple texture for now
 			ret.addTexture("celling")
