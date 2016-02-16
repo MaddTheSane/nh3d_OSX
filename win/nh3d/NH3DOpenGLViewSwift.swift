@@ -3351,9 +3351,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case (PM_JACKAL + GLYPH_STATUE_OFF)...(PM_HELL_HOUND + GLYPH_STATUE_OFF):
 			loadDat = (PM_JACKAL, PM_HELL_HOUND, "lowerD")
 
+		case (PM_LICHEN + GLYPH_STATUE_OFF)...(PM_VIOLET_FUNGUS + GLYPH_STATUE_OFF):
+				loadDat = (PM_LICHEN, PM_VIOLET_FUNGUS, "upperF")
+			
 		default:
 			return nil
 		}
+		
 		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar")
 		if let ret = ret where !ret.hasChildren {
 			//Just add a simple texture for now
@@ -3362,15 +3366,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.useEnvironment = true
 			ret.animationRate = ((Float(random() % 5) * 0.1) + 0.5) / 2
 			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
-			//ret.modelRotate = NH3DVertexType(x: 90, y: 0, z: 0)
 			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
 			ret.setPivotX(0.0, atY: 0.0, atZ: 0.0)
 			ret.addChildObject(loadDat.modelName, type: .Object)
-			//ret.childObjectAtLast?.useEnvironment = true
-			//ret.childObjectAtLast?.animated = true
 			ret.childObjectAtLast?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
-			//ret.childObjectAtLast?.animationRate = (Float(random() % 5) * 0.1) + 0.5
-			//ret.childObjectAtLast?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
+			ret.childObjectAtLast?.animationRate = (Float(random() % 5) * 0.1) + 0.5
+			ret.childObjectAtLast?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
 			ret.childObjectAtLast?.modelShift = NH3DVertexType(x: 0.5, y: 1.5, z: 0.5)
 			ret.childObjectAtLast?.modelScale = NH3DVertexType(x: 0.75, y: 0.75, z: 0.75)
 		}
