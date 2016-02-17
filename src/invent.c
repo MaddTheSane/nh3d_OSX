@@ -1,4 +1,4 @@
-/* NetHack 3.6	invent.c	$NHDT-Date: 1447576348 2015/11/15 08:32:28 $  $NHDT-Branch: master $:$NHDT-Revision: 1.179 $ */
+/* NetHack 3.6	invent.c	$NHDT-Date: 1454061993 2016/01/29 10:06:33 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.193 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -9,7 +9,6 @@
 
 STATIC_DCL int FDECL(CFDECLSPEC sortloot_cmp, (struct obj *, struct obj *));
 STATIC_DCL void NDECL(reorder_invent);
-STATIC_DCL boolean FDECL(mergable, (struct obj *, struct obj *));
 STATIC_DCL void FDECL(noarmor, (BOOLEAN_P));
 STATIC_DCL void FDECL(invdisp_nothing, (const char *, const char *));
 STATIC_DCL boolean FDECL(worn_wield_only, (struct obj *));
@@ -271,9 +270,11 @@ struct obj **potmp, **pobj;
          *
          * Don't do the age manipulation if lit.  We would need
          * to stop the burn on both items, then merge the age,
-         * then restart the burn.
+         * then restart the burn.  Glob ages are averaged in the
+         * absorb routine, which uses weight rather than quantity
+         * to adjust for proportion (glob quantity is always 1).
          */
-        if (!obj->lamplit)
+        if (!obj->lamplit && !obj->globby)
             otmp->age = ((otmp->age * otmp->quan) + (obj->age * obj->quan))
                         / (otmp->quan + obj->quan);
 
@@ -332,10 +333,9 @@ struct obj **potmp, **pobj;
 #endif /*0*/
         }
 
-        /* handle puddings a bit differently; absorption will
-         * free the other object automatically so we can just
-         * return out from here.  */
-        if (Is_pudding(obj)) {
+        /* handle puddings a bit differently; absorption will free the
+           other object automatically so we can just return out from here */
+        if (obj->globby) {
             pudding_merge_message(otmp, obj);
             obj_absorb(potmp, pobj);
             return 1;
@@ -434,6 +434,7 @@ struct obj *obj;
 {
     struct obj *otmp, *prev;
     int saved_otyp = (int) obj->otyp; /* for panic */
+    boolean obj_was_thrown;
 
     if (obj->where != OBJ_FREE)
         panic("addinv: obj not free");
@@ -442,6 +443,7 @@ struct obj *obj;
     obj->no_charge = 0; /* should not be set in hero's invent */
     if (Has_contents(obj))
         picked_container(obj); /* clear no_charge */
+    obj_was_thrown = obj->was_thrown;
     obj->was_thrown = 0;       /* not meaningful for invent */
 
     addinv_core1(obj);
@@ -476,6 +478,10 @@ struct obj *obj;
     }
     obj->where = OBJ_INVENT;
 
+    /* fill empty quiver if obj was thrown */
+    if (flags.pickup_thrown && !uquiver && obj_was_thrown
+        && (throwing_weapon(obj) || is_ammo(obj)))
+        setuqwep(obj);
 added:
     addinv_core2(obj);
     carry_obj_effects(obj); /* carrying affects the obj */
@@ -820,7 +826,7 @@ have_lizard()
     return FALSE;
 }
 
-/* 3.6.0 tribute */
+/* 3.6 tribute */
 struct obj *
 u_have_novel()
 {
@@ -964,8 +970,8 @@ register const char *let, *word;
     boolean allownone = FALSE;
     boolean useboulder = FALSE;
     xchar foox = 0;
-    long cnt, prevcnt;
-    boolean prezero;
+    long cnt;
+    boolean cntgiven = FALSE;
     long dummymask;
 
     if (*let == ALLOW_COUNT)
@@ -1099,6 +1105,7 @@ register const char *let, *word;
                  && (otmp->otyp != HORN_OF_PLENTY || !otmp->dknown
                      || !objects[HORN_OF_PLENTY].oc_name_known))
              || (!strcmp(word, "charge") && !is_chargeable(otmp))
+             || (!strcmp(word, "open") && otyp != TIN)
              || (!strcmp(word, "call") && !objtyp_is_callable(otyp))
              ) {
                 foo--;
@@ -1124,9 +1131,13 @@ register const char *let, *word;
                  && (!Is_astralevel(&u.uz) ^ (otmp->oclass != AMULET_CLASS)))
              /* suppress container being stashed into */
              || (!strcmp(word, "stash") && !ck_bag(otmp))
-             /* worn armor or accessory covered by cursed worn armor */
+             /* worn armor (shirt, suit) covered by worn armor (suit, cloak)
+                or accessory (ring) covered by cursed worn armor (gloves) */
              || (taking_off(word)
-                 && inaccessible_equipment(otmp, (const char *) 0, TRUE))
+                 && inaccessible_equipment(otmp, (const char *) 0, FALSE))
+             || (!strcmp(word, "write on")
+                 && (!(otyp == SCR_BLANK_PAPER || otyp == SPE_BLANK_PAPER)
+                     || !otmp->dknown || !objects[otyp].oc_name_known))
              ) {
                 /* acceptable but not listed as likely candidate */
                 foo--;
@@ -1153,12 +1164,15 @@ register const char *let, *word;
     if (!foo && !allowall && !allownone) {
         You("don't have anything %sto %s.", foox ? "else " : "", word);
         return (struct obj *) 0;
+    } else if (!strcmp(word, "write on")) { /* ugly check for magic marker */
+        /* we wanted all scrolls and books in altlets[], but that came with
+           'allowall' which we don't want since it prevents "silly thing"
+           result if anything other than scroll or spellbook is chosen */
+        allowall = FALSE;
     }
     for (;;) {
         cnt = 0;
-        if (allowcnt == 2)
-            allowcnt = 1; /* abort previous count */
-        prezero = FALSE;
+        cntgiven = FALSE;
         if (!buf[0]) {
             Sprintf(qbuf, "What do you want to %s? [*]", word);
         } else {
@@ -1168,28 +1182,17 @@ register const char *let, *word;
             ilet = readchar();
         else
             ilet = yn_function(qbuf, (char *) 0, '\0');
-        if (digit(ilet) && !allowcnt) {
-            pline("No count allowed with this command.");
-            continue;
-        }
-        if (ilet == '0')
-            prezero = TRUE;
-        while (digit(ilet)) {
-            if (ilet != '?' && ilet != '*')
-                savech(ilet);
-            /* accumulate unless cnt has overflowed */
-            if (allowcnt < 3) {
-                prevcnt = cnt;
-                cnt = 10L * cnt + (long) (ilet - '0');
-                /* signal presence of cnt */
-                allowcnt = (cnt >= prevcnt) ? 2 : 3;
+        if (digit(ilet)) {
+            long tmpcnt = 0;
+            if (!allowcnt) {
+                pline("No count allowed with this command.");
+                continue;
             }
-            ilet = readchar();
-        }
-        if (allowcnt == 3) {
-            /* overflow detected; force cnt to be invalid */
-            cnt = -1L;
-            allowcnt = 2;
+            ilet = get_count(NULL, ilet, LARGEST_INT, &tmpcnt);
+            if (tmpcnt) {
+                cnt = tmpcnt;
+                cntgiven = TRUE;
+            }
         }
         if (index(quitchars, ilet)) {
             if (flags.verbose)
@@ -1230,9 +1233,7 @@ register const char *let, *word;
                 continue;
             if (allowcnt && ctmp >= 0) {
                 cnt = ctmp;
-                if (!cnt)
-                    prezero = TRUE;
-                allowcnt = 2;
+                cntgiven = TRUE;
             }
             if (ilet == '\033') {
                 if (flags.verbose)
@@ -1260,23 +1261,21 @@ register const char *let, *word;
              * to your money supply.  The LRS is the tax bureau
              * from Larn.
              */
-            if (allowcnt == 2 && cnt <= 0) {
-                if (cnt < 0 || !prezero)
+            if (cntgiven && cnt <= 0) {
+                if (cnt < 0)
                     pline_The(
                   "LRS would be very interested to know you have that much.");
                 return (struct obj *) 0;
             }
         }
-        if (allowcnt == 2 && !strcmp(word, "throw")) {
+        if (cntgiven && !strcmp(word, "throw")) {
             /* permit counts for throwing gold, but don't accept
              * counts for other things since the throw code will
              * split off a single item anyway */
-            if (ilet != def_oc_syms[COIN_CLASS].sym
-                && !(otmp && otmp->oclass == COIN_CLASS))
-                allowcnt = 1;
-            if (cnt == 0 && prezero)
+            if (cnt == 0)
                 return (struct obj *) 0;
-            if (cnt > 1) {
+            if (cnt > 1 && (ilet != def_oc_syms[COIN_CLASS].sym
+                && !(otmp && otmp->oclass == COIN_CLASS))) {
                 You("can only throw one item at a time.");
                 continue;
             }
@@ -1304,7 +1303,7 @@ register const char *let, *word;
         silly_thing(word, otmp);
         return (struct obj *) 0;
     }
-    if (allowcnt == 2) { /* cnt given */
+    if (cntgiven) {
         if (cnt == 0)
             return (struct obj *) 0;
         if (cnt != otmp->quan) {
@@ -1327,7 +1326,7 @@ struct obj *otmp;
 #if 1 /* 'P','R' vs 'W','T' handling is obsolete */
     nhUse(otmp);
 #else
-    const char *s1, *s2, *s3, *what;
+    const char *s1, *s2, *s3;
     int ocls = otmp->oclass, otyp = otmp->otyp;
 
     s1 = s2 = s3 = 0;
@@ -1346,14 +1345,10 @@ struct obj *otmp;
         else if (!strcmp(word, "take off"))
             s1 = "R", s2 = "remove", s3 = "";
     }
-    if (s1) {
-        what = "that";
-        /* quantity for armor and accessory objects is always 1,
-           but some things should be referred to as plural */
-        if (otyp == LENSES || is_gloves(otmp) || is_boots(otmp))
-            what = "those";
-        pline("Use the '%s' command to %s %s%s.", s1, s2, what, s3);
-    } else
+    if (s1)
+        pline("Use the '%s' command to %s %s%s.", s1, s2,
+              !is_plural(otmp) ? "that" : "those", s3);
+    else
 #endif
         pline(silly_thing_to, word);
 }
@@ -2192,7 +2187,7 @@ char avoidlet;
         }
         end_menu(win, "Inventory letters used:");
 
-        n = select_menu(win, PICK_NONE, &selected);
+        n = select_menu(win, PICK_ONE, &selected);
         if (n > 0) {
             ret = selected[0].item.a_char;
             free((genericptr_t) selected);
@@ -2692,6 +2687,7 @@ boolean picked_some;
     skip_objects = (flags.pile_limit > 0 && obj_cnt >= flags.pile_limit);
     if (u.uswallow && u.ustuck) {
         struct monst *mtmp = u.ustuck;
+
         Sprintf(fbuf, "Contents of %s %s", s_suffix(mon_nam(mtmp)),
                 mbodypart(mtmp, STOMACH));
         /* Skip "Contents of " by using fbuf index 12 */
@@ -2835,7 +2831,16 @@ boolean picked_some;
 int
 dolook()
 {
-    return look_here(0, FALSE);
+    int res;
+
+    /* don't let
+       MSGTYPE={norep,noshow} "You see here"
+       interfere with feedback from the look-here command */
+    hide_unhide_msgtypes(TRUE, MSGTYP_MASK_REP_SHOW);
+    res = look_here(0, FALSE);
+    /* restore normal msgtype handling */
+    hide_unhide_msgtypes(FALSE, MSGTYP_MASK_REP_SHOW);
+    return res;
 }
 
 boolean
@@ -2884,39 +2889,50 @@ struct obj *obj;
     return;
 }
 
-/* returns TRUE if obj  & otmp can be merged */
-STATIC_OVL boolean
+/* returns TRUE if obj & otmp can be merged; used in invent.c and mkobj.c */
+boolean
 mergable(otmp, obj)
 register struct obj *otmp, *obj;
 {
     int objnamelth = 0, otmpnamelth = 0;
+
     if (obj == otmp)
         return FALSE; /* already the same object */
     if (obj->otyp != otmp->otyp)
+        return FALSE; /* different types */
+    if (obj->nomerge) /* explicitly marked to prevent merge */
         return FALSE;
+
     /* coins of the same kind will always merge */
     if (obj->oclass == COIN_CLASS)
         return TRUE;
+
     if (obj->unpaid != otmp->unpaid || obj->spe != otmp->spe
-        || obj->dknown != otmp->dknown
-        || (obj->bknown != otmp->bknown && !Role_if(PM_PRIEST))
         || obj->cursed != otmp->cursed || obj->blessed != otmp->blessed
         || obj->no_charge != otmp->no_charge || obj->obroken != otmp->obroken
         || obj->otrapped != otmp->otrapped || obj->lamplit != otmp->lamplit
-        || obj->greased != otmp->greased || obj->oeroded != otmp->oeroded
-        || obj->oeroded2 != otmp->oeroded2 || obj->bypass != otmp->bypass)
+        || obj->bypass != otmp->bypass)
         return FALSE;
 
-    if (obj->nomerge) /* explicitly marked to prevent merge */
+    if (obj->globby)
+        return TRUE;
+    /* Checks beyond this point either aren't applicable to globs
+     * or don't inhibit their merger.
+     */
+
+    if (obj->oclass == FOOD_CLASS
+        && (obj->oeaten != otmp->oeaten || obj->orotten != otmp->orotten))
+        return FALSE;
+
+    if (obj->dknown != otmp->dknown
+        || (obj->bknown != otmp->bknown && !Role_if(PM_PRIEST))
+        || obj->oeroded != otmp->oeroded || obj->oeroded2 != otmp->oeroded2
+        || obj->greased != otmp->greased)
         return FALSE;
 
     if ((obj->oclass == WEAPON_CLASS || obj->oclass == ARMOR_CLASS)
         && (obj->oerodeproof != otmp->oerodeproof
             || obj->rknown != otmp->rknown))
-        return FALSE;
-
-    if (obj->oclass == FOOD_CLASS
-        && (obj->oeaten != otmp->oeaten || obj->orotten != otmp->orotten))
         return FALSE;
 
     if (obj->otyp == CORPSE || obj->otyp == EGG || obj->otyp == TIN) {
@@ -3423,6 +3439,7 @@ doorganize() /* inventory organizer by Del Lamb */
                    names, strip off the name of the one being moved */
                 if (olth && !obj->oartifact && !mergable(otmp, obj)) {
                     char *holdname = ONAME(obj);
+
                     ONAME(obj) = (char *) 0;
                     /* restore name iff merging is still not possible */
                     if (!mergable(otmp, obj)) {

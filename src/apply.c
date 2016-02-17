@@ -1,4 +1,4 @@
-/* NetHack 3.6	apply.c	$NHDT-Date: 1446808436 2015/11/06 11:13:56 $  $NHDT-Branch: master $:$NHDT-Revision: 1.210 $ */
+/* NetHack 3.6	apply.c	$NHDT-Date: 1455140802 2016/02/10 21:46:42 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.220 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -237,6 +237,13 @@ int rx, ry, *resp;
     } else if (corpse) {
         boolean here = (rx == u.ux && ry == u.uy),
                 one = (corpse->quan == 1L && !more_corpses), reviver = FALSE;
+        int visglyph, corpseglyph;
+
+        visglyph = glyph_at(rx, ry);
+        corpseglyph = obj_to_glyph(corpse);
+
+        if (Blind && (visglyph != corpseglyph))
+            map_object(corpse, TRUE);
 
         if (Role_if(PM_HEALER)) {
             /* ok to reset `corpse' here; we're done with it */
@@ -765,8 +772,6 @@ beautiful()
                      : "handsome")
                : "ugly");
 }
-
-#define WEAK 3 /* from eat.c */
 
 static const char look_str[] = "look %s.";
 
@@ -1495,6 +1500,17 @@ int magic; /* 0=Physical, otherwise skill level */
 {
     coord cc;
 
+    /* attempt "jumping" spell if hero has no innate jumping ability */
+    if (!magic && !Jumping) {
+        int sp_no;
+
+        for (sp_no = 0; sp_no < MAXSPELL; ++sp_no)
+            if (spl_book[sp_no].sp_id == NO_SPELL)
+                break;
+            else if (spl_book[sp_no].sp_id == SPE_JUMPING)
+                return spelleffects(sp_no, FALSE);
+    }
+
     if (!magic && (nolimbs(youmonst.data) || slithy(youmonst.data))) {
         /* normally (nolimbs || slithy) implies !Jumping,
            but that isn't necessarily the case for knights */
@@ -1629,7 +1645,11 @@ int magic; /* 0=Physical, otherwise skill level */
         if (range < temp)
             range = temp;
         (void) walk_path(&uc, &cc, hurtle_step, (genericptr_t) &range);
-        teleds(cc.x, cc.y, TRUE);
+        /* hurtle_step results in (u.ux, u.uy) == (cc.x, cc.y) and usually
+         * moves the ball if punished, but does not handle all the effects
+         * of landing on the final position.
+         */
+        teleds(cc.x, cc.y, FALSE);
         sokoban_guilt();
         nomul(-1);
         multi_reason = "jumping around";
@@ -1764,6 +1784,7 @@ struct obj *obj;
             if (Deaf) /* make_deaf() won't give feedback when already deaf */
                 pline("Nothing seems to happen.");
             make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
+            context.botl = TRUE;
             break;
         }
         return;
@@ -3487,18 +3508,8 @@ doapply()
         res = dowrite(obj);
         break;
     case TIN_OPENER:
-        if (!carrying(TIN)) {
-            You("have no tin to open.");
-            goto xit;
-        }
-        You("cannot open a tin without eating or discarding its contents.");
-        if (flags.verbose)
-            pline("In order to eat, use the 'e' command.");
-        if (obj != uwep)
-            pline(
-          "Opening the tin will be much easier if you wield the tin opener.");
-        goto xit;
-
+        res = use_tin_opener(obj);
+        break;
     case FIGURINE:
         use_figurine(&obj);
         break;
@@ -3540,7 +3551,6 @@ doapply()
             break;
         }
         pline("Sorry, I don't know how to use that.");
-    xit:
         nomul(0);
         return 0;
     }

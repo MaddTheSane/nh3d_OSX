@@ -1,4 +1,4 @@
-/* NetHack 3.6	role.c	$NHDT-Date: 1446861770 2015/11/07 02:02:50 $  $NHDT-Branch: master $:$NHDT-Revision: 1.34 $ */
+/* NetHack 3.6	role.c	$NHDT-Date: 1453514597 2016/01/23 02:03:17 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.36 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985-1999. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -1809,9 +1809,10 @@ winid where;
 
 /* add a "pick alignment first"-type entry to the specified menu */
 void
-role_menu_extra(which, where)
+role_menu_extra(which, where, preselect)
 int which;
 winid where;
+boolean preselect;
 {
     static NEARDATA const char RS_menu_let[] = {
         '=',  /* name */
@@ -1927,7 +1928,7 @@ winid where;
         any.a_int = 0;
         /* use four spaces of padding to fake a grayed out menu choice */
         Sprintf(buf, "%4s%s forces %s", "", constrainer, forcedvalue);
-        add_menu(where, NO_GLYPH, &any, ' ', 0, ATR_NONE, buf,
+        add_menu(where, NO_GLYPH, &any, 0, 0, ATR_NONE, buf,
                  MENU_UNSELECTED);
     } else if (what) {
         any.a_int = RS_menu_arg(which);
@@ -1941,11 +1942,11 @@ winid where;
     } else if (which == ROLE_RANDOM) {
         any.a_int = ROLE_RANDOM;
         add_menu(where, NO_GLYPH, &any, '*', 0, ATR_NONE, "Random",
-                 MENU_UNSELECTED);
+                 preselect ? MENU_SELECTED : MENU_UNSELECTED);
     } else if (which == ROLE_NONE) {
         any.a_int = ROLE_NONE;
         add_menu(where, NO_GLYPH, &any, 'q', 0, ATR_NONE, "Quit",
-                 MENU_UNSELECTED);
+                 preselect ? MENU_SELECTED : MENU_UNSELECTED);
     } else {
         impossible("role_menu_extra: bad arg (%d)", which);
     }

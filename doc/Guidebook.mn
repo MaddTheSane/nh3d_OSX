@@ -1,11 +1,11 @@
-.\" $NHDT-Branch: master $:$NHDT-Revision: 1.188 $ $NHDT-Date: 1449420465 2015/12/06 16:47:45 $
+.\" $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.191 $ $NHDT-Date: 1450306152 2015/12/16 22:49:12 $
 .ds h0 "NetHack Guidebook
 .ds h1
 .ds h2 %
 .ds vr "NetHack 3.6
 .ds f0 "\*(vr
 .ds f1
-.ds f2 "December 7, 2015
+.ds f2 "January 18, 2016
 .\" labeled paragraph start (should be part of tmac.n, but I don't want to
 .\" make changes to that file)
 .\" .PS word
@@ -342,14 +342,37 @@ show only your experience level here.
 The number of turns elapsed so far, displayed if you have the
 .op time
 option set.
-.lp "Hunger status
-Your current hunger status, ranging from \fBSatiated\fP down to
-\fBFainting\fP.  If your hunger status is normal, it is not displayed.
-.pg
-Additional status flags may appear after the hunger status:  \fBConf\fP
-when you're confused, \fBFoodPois\fP or \fBIll\fP
-when sick, \fBBlind\fP when you can't
-see, \fBStun\fP when stunned, and \fBHallu\fP when hallucinating.
+.lp Status
+Hunger:
+your current hunger status.
+Values are \fBSatiated\fP, \fBNot Hungry\fP (or \fBNormal\fP),
+\fBHungry\fP, \fBWeak\fP, and \fBFainting\fP.
+.\" not mentioned: Fainted
+Not shown when \fBNormal\fP.
+.lp ""
+Encumbrance:
+an indication of how what your are carrying affects your ability to move.
+Values are \fBUnencumbered\fP, \fBEncumbered\fP, \fBStressed\fP,
+\fBStrained\fP, \fBOvertaxed\fP, and \fBOverloaded\fP.
+Not shown when \fBUnencumbered\fP.
+.lp ""
+Fatal conditions:
+\fBStone\fP (aka \fBPetrifying\fP, turning to stone),
+\fBSlime\fP (turning into green slime),
+\fBStrngl\fP (being strangled),
+\fBFoodPois\fP (suffering from acute food poisoning),
+\fBTermIll\fP (suffering from a terminal illness).
+.lp ""
+Non-fatal conditions:
+\fBBlind\fP (can't see), \fBDeaf\fP (can't hear),
+\fBStun\fB (stunned), \fBConf\fP (confused), \fBHallu\fP (hallucinating).
+.lp ""
+Movement modifiers:
+\fBLev\fP (levitating), \fBFly\fP (flying), \fBRide\fP (riding).
+.lp ""
+Other conditions and modifiers exist, but there isn't enough room to
+display them with the other status fields.  The `^X' command shows
+all relevant status conditions.
 .hn 2
 The message line (top)
 .pg
@@ -429,8 +452,8 @@ of the Mazes of Menace.  Watch out, they can be nasty and vicious.
 Sometimes, however, they can be helpful.
 .lp I
 This marks the last known location of an invisible or otherwise unseen
-monster.  Note that the monster could have moved.  The 'F' and 'm' commands
-may be useful here.
+monster.  Note that the monster could have moved.
+The `F' and `m' commands may be useful here.
 .pg
 You need not memorize all these symbols; you can ask the game what any
 symbol represents with the `/' command (see the next section for
@@ -476,7 +499,8 @@ helpful texts.  Here are the commands for your reference:
 .lp ?
 Help menu:  display one of several help texts available.
 .lp /
-Tell what a symbol represents.  You may choose to specify a location
+The ``what-is'' command, to
+tell what a symbol represents.  You may choose to specify a location
 or type a symbol (or even a whole word) to explain.
 Specifying a location is done by moving the cursor to a particular spot
 on the map and then pressing one of `.', `,', `;',
@@ -485,14 +509,31 @@ conditionally check for ``More info?'' depending upon whether the
 .op help
 option is on, and then you will be asked to pick another location;
 `,' will explain the symbol but skip any additional
-information; `;' will skip additional info and also not bother asking
+information, then let you pick another location;
+`;' will skip additional info and also not bother asking
 you to choose another location to examine; `:' will show additional
 info, if any, without asking for confirmation.  When picking a location,
 pressing the ESC key will terminate this command, or pressing `?'
 will give a brief reminder about how it works.
-.pg
+.lp ""
+If the
+.op autodescribe
+option is on, a short description of what you see at each location is
+shown as you move the cursor.  Typing `#' while picking a location will
+toggle that option on or off.
+The
+.op whatis_coord
+option controls whether the short description includes map coordinates.
+.lp ""
 Specifying a name rather than a location
 always gives any additional information available about that name.
+.lp ""
+You may also request a description of nearby monsters,
+all monsters currently displayed, nearby objects, or all objects.
+The
+.op whatis_coord
+option controls which format of map coordinate is included with their
+descriptions.
 .lp &
 Tell what a command does.
 .lp <
@@ -860,12 +901,16 @@ See the section below entitled ``Conduct'' for details.
 Dip an object into something.
 .lp #enhance
 Advance or check weapon and spell skills.
+.lp #exploremode
+Enter the explore mode.
 .lp #force
 Force a lock.
 .lp #invoke
 Invoke an object's special powers.
 .lp #jump
 Jump to another location.
+.lp #kick
+Kick something.
 .lp #loot
 Loot a box or bag on the floor beneath you, or the saddle 
 from a steed standing next to you.
@@ -1947,8 +1992,27 @@ option.
 There is a section of this Guidebook that discusses that.
 .pg
 The default name of the configuration file varies on different
-operating systems, but NETHACKOPTIONS can also be set to
-the full name of a file you want to use (possibly preceded by an `@').
+operating systems. On DOS and Windows, it is ``defaults.nh''
+in the same folder as nethack.exe or nethackW.exe. On Unix, Linux
+and Mac OS X it is ``.nethackrc'' in the user's home directory.
+NETHACKOPTIONS can also be set to the full name of a file you
+want to use (possibly preceded by an `@').
+.pg
+Here is a short example of config file contents:
+.sd
+\fB# Set your character's role, race, gender, and alignment.\fP
+\fBOPTIONS=role:Valkyrie, race:Human, gender:female, align:lawful\fP
+
+\fB# Turn on autopickup, and set automatically picked up object types\fP
+\fBOPTIONS=autopickup,pickup_types:$"=/!?+\fP
+\fB# Show colored text if possible\fP
+\fBOPTIONS=color\fP
+\fB# Show lit corridors differently\fP
+\fBOPTIONS=lit_corridor\fP
+
+\fB# No startup splash screen. Windows GUI only.\fP
+\fBOPTIONS=!splash_screen\fP
+.ed
 .hn 2
 Customization options
 .pg
@@ -1970,6 +2034,11 @@ The default is to randomly pick an appropriate alignment.
 If you prefix a `!' or ``no'' to the value, you can 
 exclude that alignment from being picked randomly.
 Cannot be set with the `O' command.  Persistent.
+.lp autodescribe
+Automatically describe the terrain under cursor when asked to get a location
+on the map.  The
+.op whatis_coord
+option controls whether the description includes map coordinates.
 .lp autodig
 Automatically dig if you are wielding a digging tool and moving into a place
 that can be dug (default false). Persistent.
@@ -2196,6 +2265,10 @@ Default '>'.
 .lp menu_objsyms
 Show object symbols in menu headings in menus where
 the object symbols act as menu accelerators (default off).
+.lp menu_overlay
+Do not clear the screen before drawing menus, and align
+menus to the right edge of the screen. Only for the tty port.
+(default on)
 .lp menu_previous_page 
 Menu character accelerator to goto the previous menu page.
 Implemented by the Amiga, Gem and tty ports.
@@ -2456,7 +2529,8 @@ alert notification messages about feature changes for that
 and prior versions (ex. ``suppress_alert:3.3.1'').
 .lp symset
 This option may be used to select one of the named symbol sets found within
-``symbols'' to alter the symbols displayed on the screen.
+``symbols'' to alter the symbols displayed on the screen. 
+Use ``symset:default'' to explicitly select the default symbols.
 .lp "time    "
 Show the elapsed game time in turns on bottom line (default off).  Persistent.
 .lp timed_delay
@@ -2478,6 +2552,27 @@ prevent the game from attempting unintended moves if you make inadvertent
 mouse clicks on the map window.  Persistent.
 .lp verbose
 Provide more commentary during the game (default on).  Persistent.
+.lp whatis_coord
+When using the `/' or `;' commands to look around on the map with
+.op autodescribe
+on, display coordinates after the description.
+Also works in other situations where you are asked to pick a location.
+.lp ""
+The possibile settings are:
+.sd
+.si
+.CC c "compass ('east' or '3s' or '2n,4w');"
+.CC m "map <x,y> (map column x=0 is not used);"
+.CC s "screen [row,column] (row is offset to match tty usage);"
+.CC n "none (no coordinates shown) [default]."
+.ei
+.ed
+.lp ""
+The
+.op whatis_coord
+option is also used with
+the `/m', `/M', `/o', and `/O' sub-commands of `/',
+where the `none' setting is overridden with `map'.
 .lp windowtype
 Select which windowing system to use, such as ``tty'' or ``X11''
 (default depends on version).
@@ -2667,7 +2762,8 @@ Regular expressions are normally POSIX extended regular expressions. It is
 possible to compile NetHack without regular expression support on a platform
 where there is no regular expression library. While this is not true of any
 modern platform, if your NetHack was built this way, patterns are instead glob
-patterns.
+patterns. This applies to Autopickup exceptions, Message types, Menu colors,
+and User sounds.
 .hn 2
 Configuring Autopickup Exceptions
 .pg
@@ -3180,6 +3276,10 @@ SEDUCE
 0 or 1 to disable or enable, respectively, the SEDUCE option (see the source
 for details on this function).
 .lp
+CHECK_PLNAME
+Setting this to 1 will make the EXPLORERS, WIZARDS, and SHELLERS check
+for the player name instead of the user's login name.
+.lp
 CHECK_SAVE_UID
 0 or 1 to disable or enable, respectively, the UID checking for savefiles.
 .pg
@@ -3481,15 +3581,22 @@ with some of the beloved community patches. Many bugs were fixed and a
 large amount of code was restructured.
 .pg
 \fBThe development team, as well as \fBSteve VanDevender\fP and 
-\fBKevin Smolkowski\fP ensured that NetHack 3.6.0 continued to operate on 
+\fBKevin Smolkowski\fP ensured that NetHack 3.6 continued to operate on 
 various Unix flavors and maintained the X11 interface. 
 .pg
 \fBKen Lorber\fP, \fBHaoyang Wang\fP, \fBPat Rankin\fP, and \fBDean Luick\fP 
-maintained the port of NetHack 3.6.0 for Mac.
+maintained the port of NetHack 3.6 for Mac.
 .pg
 \fBMichael Allison\fP, \fBDerek S. Ray\fP, \fBYitzhak Sapir\fP, 
 \fBAlex Kompel\fP, and \fBDion Nicolaas\fP maintained the port of 
-NetHack 3.6.0 for Microsoft Windows.
+NetHack 3.6 for Microsoft Windows.
+.pg
+The 3.6 development team consisting of
+\fBMichael Allison\fP, \fBWarwick Allison\fP, \fBKen Arromdee\fP,
+\fBDavid Cohrs\fP, \fBJessie Collet\fP, \fBSean Hunt\fP, 
+\fBPasi Kallinen\fP, \fBKen Lorber\fP, \fBDean Luick\fP, \fBPat Rankin\fP, 
+\fBMike Stephenson\fP, \fBDerek S. Ray\fP, \fBJanet Walz\fP, and \fBPaul Winner\fP
+released 3.6.1 as a bug fix release in January 2016.
 .pg
 The official NetHack web site is maintained by \fBKen Lorber\fP at http://www.nethack.org/.
 .pg

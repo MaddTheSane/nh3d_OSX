@@ -306,11 +306,49 @@ register struct monst *mtmp;
     return dstrat;
 }
 
+void
+choose_stairs(sx, sy)
+xchar *sx;
+xchar *sy;
+{
+    xchar x = 0, y = 0;
+
+    if (builds_up(&u.uz)) {
+        if (xdnstair) {
+            x = xdnstair;
+            y = ydnstair;
+        } else if (xdnladder) {
+            x = xdnladder;
+            y = ydnladder;
+        }
+    } else {
+        if (xupstair) {
+            x = xupstair;
+            y = yupstair;
+        } else if (xupladder) {
+            x = xupladder;
+            y = yupladder;
+        }
+    }
+
+    if (!x && sstairs.sx) {
+        x = sstairs.sx;
+        y = sstairs.sy;
+    }
+
+    if (x && y) {
+        *sx = x;
+        *sy = y;
+    }
+
+}
+
 int
 tactics(mtmp)
 register struct monst *mtmp;
 {
     unsigned long strat = strategy(mtmp);
+    xchar sx = 0, sy = 0;
 
     mtmp->mstrategy =
         (mtmp->mstrategy & (STRAT_WAITMASK | STRAT_APPEARMSG)) | strat;
@@ -318,15 +356,14 @@ register struct monst *mtmp;
     switch (strat) {
     case STRAT_HEAL: /* hide and recover */
         /* if wounded, hole up on or near the stairs (to block them) */
-        /* unless, of course, there are no stairs (e.g. endlevel) */
+        choose_stairs(&sx, &sy);
         mtmp->mavenge = 1; /* covetous monsters attack while fleeing */
         if (In_W_tower(mtmp->mx, mtmp->my, &u.uz)
-            || (mtmp->iswiz && !xupstair && !mon_has_amulet(mtmp))) {
+            || (mtmp->iswiz && !sx && !mon_has_amulet(mtmp))) {
             if (!rn2(3 + mtmp->mhp / 10))
                 (void) rloc(mtmp, TRUE);
-        } else if (xupstair
-                   && (mtmp->mx != xupstair || mtmp->my != yupstair)) {
-            (void) mnearto(mtmp, xupstair, yupstair, TRUE);
+        } else if (sx && (mtmp->mx != sx || mtmp->my != sy)) {
+            (void) mnearto(mtmp, sx, sy, TRUE);
         }
         /* if you're not around, cast healing spells */
         if (distu(mtmp->mx, mtmp->my) > (BOLT_LIM * BOLT_LIM))
@@ -388,13 +425,39 @@ register struct monst *mtmp;
     return 0;
 }
 
+/* are there any monsters mon could aggravate? */
+boolean
+has_aggravatables(mon)
+struct monst *mon;
+{
+    struct monst *mtmp;
+    boolean in_w_tower = In_W_tower(mon->mx, mon->my, &u.uz);
+
+    if (in_w_tower != In_W_tower(u.ux, u.uy, &u.uz))
+        return FALSE;
+
+    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+        if (DEADMONSTER(mtmp))
+            continue;
+        if (in_w_tower != In_W_tower(mtmp->mx, mtmp->my, &u.uz))
+            continue;
+        if ((mtmp->mstrategy & STRAT_WAITFORU) != 0
+            || mtmp->msleeping || !mtmp->mcanmove)
+            return TRUE;
+    }
+    return FALSE;
+}
+
 void
 aggravate()
 {
     register struct monst *mtmp;
+    boolean in_w_tower = In_W_tower(u.ux, u.uy, &u.uz);
 
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
+            continue;
+        if (in_w_tower != In_W_tower(mtmp->mx, mtmp->my, &u.uz))
             continue;
         mtmp->mstrategy &= ~(STRAT_WAITFORU | STRAT_APPEARMSG);
         mtmp->msleeping = 0;

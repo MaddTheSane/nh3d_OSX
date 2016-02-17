@@ -466,16 +466,10 @@ display_warning(mon)
 register struct monst *mon;
 {
     int x = mon->mx, y = mon->my;
-    int wl = (int) (mon->m_lev / 4);
     int glyph;
 
     if (mon_warning(mon)) {
-        if (wl > WARNCOUNT - 1)
-            wl = WARNCOUNT - 1;
-        /* 3.4.1: this really ought to be rn2(WARNCOUNT), but value "0"
-           isn't handled correctly by the what_is routine so avoid it */
-        if (Hallucination)
-            wl = rn1(WARNCOUNT - 1, 1);
+        int wl = Hallucination ? rn1(WARNCOUNT - 1, 1) : warning_of(mon);
         glyph = warning_to_glyph(wl);
     } else if (MATCH_WARN_OF_MON(mon)) {
         glyph = mon_to_glyph(mon);
@@ -484,6 +478,18 @@ register struct monst *mon;
         return;
     }
     show_glyph(x, y, glyph);
+}
+
+int
+warning_of(mon)
+struct monst *mon;
+{
+    int wl = 0, tmp = 0;
+    if (mon_warning(mon)) {
+        tmp = (int) (mon->m_lev / 4);    /* match display.h */
+        wl = (tmp > WARNCOUNT - 1) ? WARNCOUNT - 1 : tmp;
+    }
+    return wl;
 }
 
 
@@ -1201,8 +1207,7 @@ set_mimic_blocking()
     for (mon = fmon; mon; mon = mon->nmon) {
         if (DEADMONSTER(mon))
             continue;
-        if (mon->minvis && (is_door_mappear(mon)
-                            || is_obj_mappear(mon,BOULDER))) {
+        if (mon->minvis && is_lightblocker_mappear(mon)) {
             if (See_invisible)
                 block_point(mon->mx, mon->my);
             else
@@ -1318,6 +1323,21 @@ typedef struct {
 static gbuf_entry gbuf[ROWNO][COLNO];
 static char gbuf_start[ROWNO];
 static char gbuf_stop[ROWNO];
+
+/* FIXME: This is a dirty hack, because newsym() doesn't distinguish
+ * between object piles and single objects, it doesn't mark the location
+ * for update. */
+void
+newsym_force(x, y)
+register int x, y;
+{
+    newsym(x,y);
+    gbuf[y][x].new = 1;
+    if (gbuf_start[y] > x)
+        gbuf_start[y] = x;
+    if (gbuf_stop[y] < x)
+        gbuf_stop[y] = x;
+}
 
 /*
  * Store the glyph in the 3rd screen for later flushing.

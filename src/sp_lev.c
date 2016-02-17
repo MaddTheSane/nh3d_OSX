@@ -1585,7 +1585,8 @@ struct mkroom *croom;
          * eventually be expanded.
          */
         if (m->appear_as.str
-            && ((mtmp->data->mlet == S_MIMIC) || mtmp->cham)) {
+            && ((mtmp->data->mlet == S_MIMIC) || mtmp->cham)
+            && !Protection_from_shape_changers) {
             int i;
 
             switch (m->appear) {
@@ -1823,8 +1824,8 @@ struct mkroom *croom;
         otmp->obroken = 1;
         otmp->olocked = 0; /* obj generation may set */
     }
-    if (o->trapped)
-        otmp->otrapped = 1;
+    if (o->trapped == 0 || o->trapped == 1)
+        otmp->otrapped = o->trapped;
     if (o->greased)
         otmp->greased = 1;
 #ifdef INVISIBLE_OBJECTS
@@ -1872,11 +1873,12 @@ struct mkroom *croom;
                 }
             }
         } else {
+            struct obj *cobj = container_obj[container_idx - 1];
             remove_object(otmp);
-            if (container_obj[container_idx - 1])
-                (void) add_to_container(container_obj[container_idx - 1],
-                                        otmp);
-            else {
+            if (cobj) {
+                (void) add_to_container(cobj, otmp);
+                cobj->owt = weight(cobj);
+            } else {
                 obj_extract_self(otmp);
                 obfree(otmp, NULL);
                 return;
@@ -3023,7 +3025,7 @@ struct sp_coder *coder;
     tmpobj.lit = 0;
     tmpobj.eroded = 0;
     tmpobj.locked = 0;
-    tmpobj.trapped = 0;
+    tmpobj.trapped = -1;
     tmpobj.recharged = 0;
     tmpobj.invis = 0;
     tmpobj.greased = 0;
@@ -4386,7 +4388,7 @@ void
 spo_levregion(coder)
 struct sp_coder *coder;
 {
-    static const char nhFunc[] = "spot_levregion";
+    static const char nhFunc[] = "spo_levregion";
     struct opvar *rname, *padding, *rtype, *del_islev, *dy2, *dx2, *dy1, *dx1,
         *in_islev, *iy2, *ix2, *iy1, *ix1;
 
@@ -5862,10 +5864,15 @@ sp_lev *lvl;
 
     count_features();
 
-    if (coder->premapped)
-        sokoban_detect();
     if (coder->solidify)
         solidify_map();
+
+    /* This must be done before sokoban_detect(),
+     * otherwise branch stairs won't be premapped. */
+    fixup_special();
+
+    if (coder->premapped)
+        sokoban_detect();
 
     if (coder->frame) {
         struct sp_frame *tmpframe;

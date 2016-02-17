@@ -1,4 +1,4 @@
-/* NetHack 3.6	objnam.c	$NHDT-Date: 1447490776 2015/11/14 08:46:16 $  $NHDT-Branch: master $:$NHDT-Revision: 1.154 $ */
+/* NetHack 3.6	objnam.c	$NHDT-Date: 1455672990 2016/02/17 01:36:30 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.165 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -120,7 +120,12 @@ register int otyp;
         Strcpy(buf, "wand");
         break;
     case SPBOOK_CLASS:
-        Strcpy(buf, "spellbook");
+        if (otyp != SPE_NOVEL) {
+            Strcpy(buf, "spellbook");
+        } else {
+            Strcpy(buf, !nn ? "book" : "novel");
+            nn = 0;
+        }
         break;
     case RING_CLASS:
         Strcpy(buf, "ring");
@@ -197,12 +202,13 @@ struct obj *obj;
     return TRUE;
 }
 
+/* used by distant_name() to pass extra information to xname_flags();
+   it would be much cleaner if this were a parameter, but that would
+   require all of the xname() and doname() calls to be modified */
+static int distantname = 0;
+
 /* Give the name of an object seen at a distance.  Unlike xname/doname,
- * we don't want to set dknown if it's not set already.  The kludge used is
- * to temporarily set Blind so that xname() skips the dknown setting.  This
- * assumes that we don't want to do this too often; if this function becomes
- * frequently used, it'd probably be better to pass a parameter to xname()
- * or doname() instead.
+ * we don't want to set dknown if it's not set already.
  */
 char *
 distant_name(obj, func)
@@ -211,10 +217,17 @@ char *FDECL((*func), (OBJ_P));
 {
     char *str;
 
-    long save_Blinded = Blinded;
-    Blinded = 1;
+    /* 3.6.1: this used to save Blind, set it, make the call, then restore
+     * the saved value; but the Eyes of the Overworld override blindness
+     * and let characters wearing them get dknown set for distant items.
+     *
+     * TODO? if the hero is wearing those Eyes, figure out whether the
+     * object is within X-ray radius and only treat it as distant when
+     * beyond that radius.  Logic is iffy but result might be interesting.
+     */
+    ++distantname;
     str = (*func)(obj);
-    Blinded = save_Blinded;
+    --distantname;
     return str;
 }
 
@@ -271,7 +284,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
      */
     if (!nn && ocl->oc_uses_known && ocl->oc_unique)
         obj->known = 0;
-    if (!Blind)
+    if (!Blind && !distantname)
         obj->dknown = TRUE;
     if (Role_if(PM_PRIEST))
         obj->bknown = TRUE;
@@ -815,7 +828,10 @@ boolean with_price;
 
     if (lknown && Is_box(obj)) {
         if (obj->obroken)
-            Strcat(prefix, "unlockable ");
+            /* 3.6.0 used "unlockable" here but that could be misunderstood
+               to mean "capable of being unlocked" rather than the intended
+               "not capable of being locked" */
+            Strcat(prefix, "broken ");
         else if (obj->olocked)
             Strcat(prefix, "locked ");
         else
@@ -1026,7 +1042,7 @@ boolean with_price;
 
     /* show weight for items (debug tourist info)
      * aum is stolen from Crawl's "Arbitrary Unit of Measure" */
-    if (wizard) {
+    if (wizard && iflags.wizweight) {
         Sprintf(eos(bp), " (%d aum)", obj->owt);
     }
     bp = strprepend(bp, prefix);
@@ -1086,6 +1102,8 @@ register struct obj *otmp;
                           || is_flammable(otmp));
 }
 
+/* format a corpse name (xname() omits monster type; doname() calls us);
+   eatcorpse() also uses us for death reason when eating tainted glob */
 char *
 corpse_xname(otmp, adjective, cxn_flags)
 struct obj *otmp;
@@ -1102,10 +1120,14 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             /* include "an" for "an ogre corpse */
         any_prefix = (cxn_flags & CXN_ARTICLE) != 0,
             /* leave off suffix (do_name() appends "corpse" itself) */
-        omit_corpse = (cxn_flags & CXN_NOCORPSE) != 0, possessive = FALSE;
+        omit_corpse = (cxn_flags & CXN_NOCORPSE) != 0,
+        possessive = FALSE,
+        glob = (otmp->otyp != CORPSE && otmp->globby);
     const char *mname;
 
-    if (omndx == NON_PM) { /* paranoia */
+    if (glob) {
+        mname = OBJ_NAME(objects[otmp->otyp]); /* "glob of <monster>" */
+    } else if (omndx == NON_PM) { /* paranoia */
         mname = "thing";
         /* [Possible enhancement:  check whether corpse has monster traits
             attached in order to use priestname() for priests and minions.] */
@@ -1156,7 +1178,9 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             any_prefix = FALSE;
     }
 
-    if (!omit_corpse) {
+    if (glob) {
+        ; /* omit_corpse doesn't apply; quantity is always 1 */
+    } else if (!omit_corpse) {
         Strcat(nambuf, " corpse");
         /* makeplural(nambuf) => append "s" to "corpse" */
         if (otmp->quan > 1L && !ignore_quan) {
@@ -1866,6 +1890,15 @@ const char *const *alt_as_is; /* another set like as_is[] */
         }
     }
 
+    /* avoid false hit on one_off[].plur == "lice";
+       if more of these turn up, one_off[] entries will need to flagged
+       as to which are whole words and which are matchable as suffices
+       then matching in the loop below will end up becoming more complex */
+    if (!strcmpi(basestr, "slice")) {
+        if (to_plural)
+            (void) strkitten(basestr, 's');
+        return TRUE;
+    }
     for (sp = one_off; sp->sing; sp++) {
         /* check whether endstring already matches */
         same = to_plural ? sp->plur : sp->sing;
@@ -2364,6 +2397,7 @@ struct alt_spellings {
     { "grappling iron", GRAPPLING_HOOK },
     { "grapnel", GRAPPLING_HOOK },
     { "grapple", GRAPPLING_HOOK },
+    { "protection from shape shifters", RIN_PROTECTION_FROM_SHAPE_CHAN },
     /* normally we wouldn't have to worry about unnecessary <space>, but
        " stone" will get stripped off, preventing a wishymatch; that actually
        lets "flint stone" be a match, so we also accept bogus "flintstone" */
@@ -3328,6 +3362,8 @@ typfnd:
         break;
 #ifdef MAIL
     case SCR_MAIL:
+        /* 0: delivered in-game via external event (or randomly for fake mail);
+           1: from bones or wishing; 2: written with marker */
         otmp->spe = 1;
         break;
 #endif
@@ -3460,7 +3496,7 @@ typfnd:
         if (aname && objtyp == otmp->otyp)
             name = aname;
 
-        /* 3.6.0 tribute - fix up novel */
+        /* 3.6 tribute - fix up novel */
         if (otmp->otyp == SPE_NOVEL) {
             const char *novelname;
 
@@ -3497,7 +3533,7 @@ typfnd:
     }
     otmp->owt = weight(otmp);
     if (very && otmp->otyp == HEAVY_IRON_BALL)
-        otmp->owt += 160;
+        otmp->owt += IRON_BALL_W_INCR;
 
     return otmp;
 }
@@ -3600,12 +3636,11 @@ const char *
 mimic_obj_name(mtmp)
 struct monst *mtmp;
 {
-    if (mtmp->m_ap_type == M_AP_OBJECT
-        && mtmp->mappearance != STRANGE_OBJECT) {
-        int idx = objects[mtmp->mappearance].oc_descr_idx;
+    if (mtmp->m_ap_type == M_AP_OBJECT) {
         if (mtmp->mappearance == GOLD_PIECE)
             return "gold";
-        return obj_descr[idx].oc_name;
+        if (mtmp->mappearance != STRANGE_OBJECT)
+            return simple_typename(mtmp->mappearance);
     }
     return "whatcha-may-callit";
 }

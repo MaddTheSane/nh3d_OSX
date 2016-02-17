@@ -1,4 +1,4 @@
-/* NetHack 3.6	zap.c	$NHDT-Date: 1447987787 2015/11/20 02:49:47 $  $NHDT-Branch: master $:$NHDT-Revision: 1.236 $ */
+/* NetHack 3.6	zap.c	$NHDT-Date: 1449669396 2015/12/09 13:56:36 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.238 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -152,6 +152,8 @@ struct obj *otmp;
     /* fall through */
     case SPE_FORCE_BOLT:
         reveal_invis = TRUE;
+        if (disguised_mimic)
+            seemimic(mtmp);
         if (resists_magm(mtmp)) { /* match effect on player */
             shieldeff(mtmp->mx, mtmp->my);
             pline("Boing!");
@@ -171,6 +173,8 @@ struct obj *otmp;
     case WAN_SLOW_MONSTER:
     case SPE_SLOW_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {
+            if (disguised_mimic)
+                seemimic(mtmp);
             mon_adjust_speed(mtmp, -1, otmp);
             m_dowear(mtmp, FALSE); /* might want speed boots */
             if (u.uswallow && (mtmp == u.ustuck) && is_whirly(mtmp->data)) {
@@ -182,6 +186,8 @@ struct obj *otmp;
         break;
     case WAN_SPEED_MONSTER:
         if (!resist(mtmp, otmp->oclass, 0, NOTELL)) {
+            if (disguised_mimic)
+                seemimic(mtmp);
             mon_adjust_speed(mtmp, 1, otmp);
             m_dowear(mtmp, FALSE); /* might want speed boots */
         }
@@ -239,16 +245,22 @@ struct obj *otmp;
         break;
     case WAN_CANCELLATION:
     case SPE_CANCELLATION:
+        if (disguised_mimic)
+            seemimic(mtmp);
         (void) cancel_monst(mtmp, otmp, TRUE, TRUE, FALSE);
         break;
     case WAN_TELEPORTATION:
     case SPE_TELEPORT_AWAY:
+        if (disguised_mimic)
+            seemimic(mtmp);
         reveal_invis = !u_teleport_mon(mtmp, TRUE);
         break;
     case WAN_MAKE_INVISIBLE: {
         int oldinvis = mtmp->minvis;
         char nambuf[BUFSZ];
 
+        if (disguised_mimic)
+            seemimic(mtmp);
         /* format monster's name before altering its visibility */
         Strcpy(nambuf, Monnam(mtmp));
         mon_set_minvis(mtmp);
@@ -368,6 +380,8 @@ struct obj *otmp;
             wake = FALSE;
         break;
     case SPE_DRAIN_LIFE:
+        if (disguised_mimic)
+            seemimic(mtmp);
         dmg = monhp_per_lvl(mtmp);
         if (dbldam)
             dmg *= 2;
@@ -758,15 +772,22 @@ boolean by_hero;
         if (costly_spot(x, y))
             shkp = shop_keeper(*in_rooms(x, y, SHOPBASE));
 
-        if (cansee(x, y))
-            pline(
-                "%s glows iridescently.",
-                upstart(corpse_xname(corpse, (const char *) 0, CXN_PFX_THE)));
-        else if (shkp)
+        if (cansee(x, y)) {
+            char buf[BUFSZ];
+            unsigned pfx = CXN_PFX_THE;
+
+            Strcpy(buf, (corpse->quan > 1L) ? "one of " : "");
+            if (carried(corpse) && !corpse->unpaid) {
+                Strcat(buf, "your ");
+                pfx = CXN_NO_PFX;
+            }
+            Strcat(buf, corpse_xname(corpse, (const char *) 0, pfx));
+            pline("%s glows iridescently.", upstart(buf));
+        } else if (shkp) {
             /* need some prior description of the corpse since
                stolen_value() will refer to the object as "it" */
             pline("A corpse is resuscitated.");
-
+        }
         /* don't charge for shopkeeper's own corpse if we just revived him */
         if (shkp && mtmp != shkp)
             (void) stolen_value(corpse, x, y, (boolean) shkp->mpeaceful,
@@ -810,7 +831,7 @@ boolean by_hero;
     }
 
     /* monster retains its name */
-    if (has_oname(corpse))
+    if (has_oname(corpse) && !unique_corpstat(mtmp->data))
         mtmp = christen_monst(mtmp, ONAME(corpse));
     /* partially eaten corpse yields wounded monster */
     if (corpse->oeaten)
@@ -1854,10 +1875,14 @@ struct obj *obj, *otmp;
                         You_hear("a crumbling sound.");
                 }
             } else {
+                int oox = obj->ox;
+                int ooy = obj->oy;
                 if (context.mon_moving
                         ? !breaks(obj, obj->ox, obj->oy)
                         : !hero_breaks(obj, obj->ox, obj->oy, FALSE))
                     maybelearnit = FALSE; /* nothing broke */
+                else
+                    newsym_force(oox,ooy);
                 res = 0;
             }
             if (maybelearnit)
@@ -2347,7 +2372,13 @@ boolean ordinary;
         }
         if (u.utrap) { /* escape web or bear trap */
             (void) openholdingtrap(&youmonst, &learn_it);
-        } else { /* trigger previously escaped trapdoor */
+        } else {
+            struct obj *otmp;
+            /* unlock carried boxes */
+            for (otmp = invent; otmp; otmp = otmp->nobj)
+                if (Is_box(otmp))
+                    (void) boxlock(otmp, obj);
+            /* trigger previously escaped trapdoor */
             (void) openfallingtrap(&youmonst, TRUE, &learn_it);
         }
         break;
@@ -3076,6 +3107,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
         /* iron bars will block anything big enough */
         if ((weapon == THROWN_WEAPON || weapon == KICKED_WEAPON)
             && typ == IRONBARS && hits_bars(pobj, x - ddx, y - ddy,
+                                            bhitpos.x, bhitpos.y,
                                             point_blank ? 0 : !rn2(5), 1)) {
             /* caveat: obj might now be null... */
             obj = *pobj;
@@ -4206,8 +4238,8 @@ short exploding_wand_typ;
 
     case ZT_COLD:
         if (is_pool(x, y) || is_lava(x, y)) {
-            boolean lava = is_lava(x, y);
-            boolean moat = is_moat(x, y);
+            boolean lava = is_lava(x, y),
+                    moat = is_moat(x, y);
 
             if (lev->typ == WATER) {
                 /* For now, don't let WATER freeze. */
@@ -4217,23 +4249,25 @@ short exploding_wand_typ;
                     You_hear("a soft crackling.");
                 rangemod -= 1000; /* stop */
             } else {
+                char buf[BUFSZ];
+
+                Strcpy(buf, waterbody_name(x, y)); /* for MOAT */
                 rangemod -= 3;
                 if (lev->typ == DRAWBRIDGE_UP) {
                     lev->drawbridgemask &= ~DB_UNDER; /* clear lava */
                     lev->drawbridgemask |= (lava ? DB_FLOOR : DB_ICE);
                 } else {
                     if (!lava)
-                        lev->icedpool =
-                            (lev->typ == POOL ? ICED_POOL : ICED_MOAT);
-                    lev->typ = (lava ? ROOM : ICE);
+                        lev->icedpool = (lev->typ == POOL) ? ICED_POOL
+                                                           : ICED_MOAT;
+                    lev->typ = lava ? ROOM : ICE;
                 }
                 bury_objs(x, y);
                 if (see_it) {
                     if (lava)
                         Norep("The lava cools and solidifies.");
                     else if (moat)
-                        Norep("The %s is bridged with ice!",
-                              waterbody_name(x, y));
+                        Norep("The %s is bridged with ice!", buf);
                     else
                         Norep("The water freezes.");
                     newsym(x, y);
@@ -4283,6 +4317,10 @@ short exploding_wand_typ;
             }
         }
         break; /* ZT_COLD */
+
+    case ZT_POISON_GAS:
+        (void) create_gas_cloud(x, y, 1, 8);
+        break;
 
     case ZT_ACID:
         if (lev->typ == IRONBARS) {
@@ -4592,8 +4630,8 @@ register int osym, dmgtyp;
                 break;
             case FOOD_CLASS:
                 if (obj->otyp == GLOB_OF_GREEN_SLIME) {
-                    dindx = obj->owt / 20;
-                    dmg = 1;
+                    dindx = 1; /* boil and explode */
+                    dmg = (obj->owt + 19) / 20;
                 } else {
                     skip++;
                 }
@@ -4670,6 +4708,8 @@ register int osym, dmgtyp;
                     const char *how = destroy_strings[dindx][2];
                     boolean one = (cnt == 1L);
 
+                    if (dmgtyp == AD_FIRE && osym == FOOD_CLASS)
+                        how = "exploding glob of slime";
                     if (physical_damage)
                         dmg = Maybe_Half_Phys(dmg);
                     losehp(dmg, one ? how : (const char *) makeplural(how),
@@ -4741,8 +4781,8 @@ int osym, dmgtyp;
                 break;
             case FOOD_CLASS:
                 if (obj->otyp == GLOB_OF_GREEN_SLIME) {
-                    dindx = obj->owt / 20;
-                    tmp++;
+                    dindx = 1; /* boil and explode */
+                    tmp += (obj->owt + 19) / 20;
                 } else {
                     skip++;
                 }

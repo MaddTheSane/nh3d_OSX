@@ -1,4 +1,4 @@
-/* NetHack 3.6	wintty.c	$NHDT-Date: 1449052583 2015/12/02 10:36:23 $  $NHDT-Branch: master $:$NHDT-Revision: 1.116 $ */
+/* NetHack 3.6	wintty.c	$NHDT-Date: 1453514601 2016/01/23 02:03:21 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.124 $ */
 /* Copyright (c) David Cohrs, 1991                                */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -35,6 +35,15 @@ extern void msmsg(const char *, ...);
     || defined(_BULL_SOURCE)
 #include <signal.h>
 #endif
+#endif
+
+#ifdef TTY_TILES_ESCCODES
+extern short glyph2tile[];
+#define TILE_ANSI_COMMAND 'z'
+#define AVTC_GLYPH_START   0
+#define AVTC_GLYPH_END     1
+#define AVTC_SELECT_WINDOW 2
+#define AVTC_INLINE_SYNC   3
 #endif
 
 extern char mapped_menu_cmds[]; /* from options.c */
@@ -174,6 +183,36 @@ static const char default_menu_cmds[] = {
     MENU_INVERT_ALL,    MENU_SELECT_PAGE, MENU_UNSELECT_PAGE,
     MENU_INVERT_PAGE,   MENU_SEARCH,      0 /* null terminator */
 };
+
+#ifdef TTY_TILES_ESCCODES
+static int vt_tile_current_window = -2;
+
+void
+print_vt_code(i, c, d)
+int i, c, d;
+{
+    if (iflags.vt_tiledata) {
+        if (c >= 0) {
+            if (i == AVTC_SELECT_WINDOW) {
+                if (c == vt_tile_current_window) return;
+                vt_tile_current_window = c;
+            }
+            if (d >= 0)
+                printf("\033[1;%d;%d;%d%c", i, c, d, TILE_ANSI_COMMAND);
+            else
+                printf("\033[1;%d;%d%c", i, c, TILE_ANSI_COMMAND);
+        } else {
+            printf("\033[1;%d%c", i, TILE_ANSI_COMMAND);
+        }
+    }
+}
+#else
+# define print_vt_code(i, c, d) ;
+#endif /* !TTY_TILES_ESCCODES */
+#define print_vt_code1(i)     print_vt_code((i), -1, -1)
+#define print_vt_code2(i,c)   print_vt_code((i), (c), -1)
+#define print_vt_code3(i,c,d) print_vt_code((i), (c), (d))
+
 
 /* clean up and quit */
 STATIC_OVL void
@@ -331,14 +370,25 @@ void
 tty_player_selection()
 {
     int i, k, n, choice, nextpick;
-    boolean getconfirmation;
+    boolean getconfirmation, picksomething;
     char pick4u = 'n';
     char pbuf[QBUFSZ], plbuf[QBUFSZ];
     winid win;
     anything any;
     menu_item *selected = 0;
 
-    if (flags.randomall) {
+    /* Used to avoid "Is this ok?" if player has already specified all
+     * four facets of role.
+     * Note that rigid_role_checks might force any unspecified facets to
+     * have a specific value, but that will still require confirmation;
+     * player can specify the forced ones if avoiding that is demanded.
+     */
+    picksomething = (ROLE == ROLE_NONE || RACE == ROLE_NONE
+                     || GEND == ROLE_NONE || ALGN == ROLE_NONE);
+    /* Used for '-@';
+     * choose randomly without asking for all unspecified facets.
+     */
+    if (flags.randomall && picksomething) {
         if (ROLE == ROLE_NONE)
             ROLE = ROLE_RANDOM;
         if (RACE == ROLE_NONE)
@@ -349,7 +399,8 @@ tty_player_selection()
             ALGN = ROLE_RANDOM;
     }
 
-    /* prevent an unnecessary prompt */
+    /* prevent unnecessary prompting if role forces race (samurai) or gender
+       (valkyrie) or alignment (rogue), or race forces alignment (orc), &c */
     rigid_role_checks();
 
     /* Should we randomly pick for the player? */
@@ -416,20 +467,35 @@ makepicks:
                     /* populate the menu with role choices */
                     setup_rolemenu(win, TRUE, RACE, GEND, ALGN);
                     /* add miscellaneous menu entries */
-                    role_menu_extra(ROLE_RANDOM, win);
+                    role_menu_extra(ROLE_RANDOM, win, TRUE);
                     any.a_int = 0; /* separator, not a choice */
-                    add_menu(win, NO_GLYPH, &any, ' ', 0, ATR_NONE, "",
+                    add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE, "",
                              MENU_UNSELECTED);
-                    role_menu_extra(RS_RACE, win);
-                    role_menu_extra(RS_GENDER, win);
-                    role_menu_extra(RS_ALGNMNT, win);
+                    role_menu_extra(RS_RACE, win, FALSE);
+                    role_menu_extra(RS_GENDER, win, FALSE);
+                    role_menu_extra(RS_ALGNMNT, win, FALSE);
                     if (gotrolefilter())
-                        role_menu_extra(RS_filter, win);
-                    role_menu_extra(ROLE_NONE, win); /* quit */
+                        role_menu_extra(RS_filter, win, FALSE);
+                    role_menu_extra(ROLE_NONE, win, FALSE); /* quit */
                     Strcpy(pbuf, "Pick a role or profession");
                     end_menu(win, pbuf);
                     n = select_menu(win, PICK_ONE, &selected);
-                    choice = (n == 1) ? selected[0].item.a_int : ROLE_NONE;
+                    /*
+                     * PICK_ONE with preselected choice behaves strangely:
+                     *  n == -1 -- <escape>, so use quit choice;
+                     *  n ==  0 -- explicitly chose preselected entry,
+                     *             toggling it off, so use it;
+                     *  n ==  1 -- implicitly chose preselected entry
+                     *             with <space> or <return>;
+                     *  n ==  2 -- explicitly chose a different entry, so
+                     *             both it and preselected one are in list.
+                     */
+                    if (n > 0) {
+                        choice = selected[0].item.a_int;
+                        if (n > 1 && choice == ROLE_RANDOM)
+                            choice = selected[1].item.a_int;
+                    } else
+                        choice = (n == 0) ? ROLE_RANDOM : ROLE_NONE;
                     if (selected)
                         free((genericptr_t) selected), selected = 0;
                     destroy_nhwindow(win);
@@ -500,21 +566,25 @@ makepicks:
                         /* populate the menu with role choices */
                         setup_racemenu(win, TRUE, ROLE, GEND, ALGN);
                         /* add miscellaneous menu entries */
-                        role_menu_extra(ROLE_RANDOM, win);
+                        role_menu_extra(ROLE_RANDOM, win, TRUE);
                         any.a_int = 0; /* separator, not a choice */
-                        add_menu(win, NO_GLYPH, &any, ' ', 0, ATR_NONE, "",
+                        add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE, "",
                                  MENU_UNSELECTED);
-                        role_menu_extra(RS_ROLE, win);
-                        role_menu_extra(RS_GENDER, win);
-                        role_menu_extra(RS_ALGNMNT, win);
+                        role_menu_extra(RS_ROLE, win, FALSE);
+                        role_menu_extra(RS_GENDER, win, FALSE);
+                        role_menu_extra(RS_ALGNMNT, win, FALSE);
                         if (gotrolefilter())
-                            role_menu_extra(RS_filter, win);
-                        role_menu_extra(ROLE_NONE, win); /* quit */
+                            role_menu_extra(RS_filter, win, FALSE);
+                        role_menu_extra(ROLE_NONE, win, FALSE); /* quit */
                         Strcpy(pbuf, "Pick a race or species");
                         end_menu(win, pbuf);
                         n = select_menu(win, PICK_ONE, &selected);
-                        choice = (n == 1) ? selected[0].item.a_int
-                                          : ROLE_NONE;
+                        if (n > 0) {
+                            choice = selected[0].item.a_int;
+                            if (n > 1 && choice == ROLE_RANDOM)
+                                choice = selected[1].item.a_int;
+                        } else
+                            choice = (n == 0) ? ROLE_RANDOM : ROLE_NONE;
                         if (selected)
                             free((genericptr_t) selected), selected = 0;
                         destroy_nhwindow(win);
@@ -589,21 +659,25 @@ makepicks:
                         /* populate the menu with gender choices */
                         setup_gendmenu(win, TRUE, ROLE, RACE, ALGN);
                         /* add miscellaneous menu entries */
-                        role_menu_extra(ROLE_RANDOM, win);
+                        role_menu_extra(ROLE_RANDOM, win, TRUE);
                         any.a_int = 0; /* separator, not a choice */
-                        add_menu(win, NO_GLYPH, &any, ' ', 0, ATR_NONE, "",
+                        add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE, "",
                                  MENU_UNSELECTED);
-                        role_menu_extra(RS_ROLE, win);
-                        role_menu_extra(RS_RACE, win);
-                        role_menu_extra(RS_ALGNMNT, win);
+                        role_menu_extra(RS_ROLE, win, FALSE);
+                        role_menu_extra(RS_RACE, win, FALSE);
+                        role_menu_extra(RS_ALGNMNT, win, FALSE);
                         if (gotrolefilter())
-                            role_menu_extra(RS_filter, win);
-                        role_menu_extra(ROLE_NONE, win); /* quit */
+                            role_menu_extra(RS_filter, win, FALSE);
+                        role_menu_extra(ROLE_NONE, win, FALSE); /* quit */
                         Strcpy(pbuf, "Pick a gender or sex");
                         end_menu(win, pbuf);
                         n = select_menu(win, PICK_ONE, &selected);
-                        choice = (n == 1) ? selected[0].item.a_int
-                                          : ROLE_NONE;
+                        if (n > 0) {
+                            choice = selected[0].item.a_int;
+                            if (n > 1 && choice == ROLE_RANDOM)
+                                choice = selected[1].item.a_int;
+                        } else
+                            choice = (n == 0) ? ROLE_RANDOM : ROLE_NONE;
                         if (selected)
                             free((genericptr_t) selected), selected = 0;
                         destroy_nhwindow(win);
@@ -674,21 +748,25 @@ makepicks:
                         start_menu(win);
                         any = zeroany; /* zero out all bits */
                         setup_algnmenu(win, TRUE, ROLE, RACE, GEND);
-                        role_menu_extra(ROLE_RANDOM, win);
+                        role_menu_extra(ROLE_RANDOM, win, TRUE);
                         any.a_int = 0; /* separator, not a choice */
-                        add_menu(win, NO_GLYPH, &any, ' ', 0, ATR_NONE, "",
+                        add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE, "",
                                  MENU_UNSELECTED);
-                        role_menu_extra(RS_ROLE, win);
-                        role_menu_extra(RS_RACE, win);
-                        role_menu_extra(RS_GENDER, win);
+                        role_menu_extra(RS_ROLE, win, FALSE);
+                        role_menu_extra(RS_RACE, win, FALSE);
+                        role_menu_extra(RS_GENDER, win, FALSE);
                         if (gotrolefilter())
-                            role_menu_extra(RS_filter, win);
-                        role_menu_extra(ROLE_NONE, win); /* quit */
+                            role_menu_extra(RS_filter, win, FALSE);
+                        role_menu_extra(ROLE_NONE, win, FALSE); /* quit */
                         Strcpy(pbuf, "Pick an alignment or creed");
                         end_menu(win, pbuf);
                         n = select_menu(win, PICK_ONE, &selected);
-                        choice = (n == 1) ? selected[0].item.a_int
-                                          : ROLE_NONE;
+                        if (n > 0) {
+                            choice = selected[0].item.a_int;
+                            if (n > 1 && choice == ROLE_RANDOM)
+                                choice = selected[1].item.a_int;
+                        } else
+                            choice = (n == 0) ? ROLE_RANDOM : ROLE_NONE;
                         if (selected)
                             free((genericptr_t) selected), selected = 0;
                         destroy_nhwindow(win);
@@ -742,7 +820,7 @@ makepicks:
      *           q - quit
      *           (end)
      */
-    getconfirmation = (pick4u != 'a' && !flags.randomall);
+    getconfirmation = (picksomething && pick4u != 'a' && !flags.randomall);
     while (getconfirmation) {
         tty_clear_nhwindow(BASE_WINDOW);
         role_selection_prolog(ROLE_NONE, BASE_WINDOW);
@@ -760,11 +838,11 @@ makepicks:
                 races[RACE].adj,
                 (GEND == 1 && roles[ROLE].name.f) ? roles[ROLE].name.f
                                                   : roles[ROLE].name.m);
-        add_menu(win, NO_GLYPH, &any, ' ', 0, ATR_NONE, pbuf,
+        add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE, pbuf,
                  MENU_UNSELECTED);
         /* blank separator */
         any.a_int = 0;
-        add_menu(win, NO_GLYPH, &any, ' ', 0, ATR_NONE, "", MENU_UNSELECTED);
+        add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE, "", MENU_UNSELECTED);
         /* [ynaq] menu choices */
         any.a_int = 1;
         add_menu(win, NO_GLYPH, &any, 'y', 0, ATR_NONE, "Yes; start game",
@@ -1414,6 +1492,8 @@ winid window;
         panic(winpanicstr, window);
     ttyDisplay->lastwin = window;
 
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
+
     switch (cw->type) {
     case NHW_MESSAGE:
         if (ttyDisplay->toplin) {
@@ -2047,6 +2127,8 @@ boolean blocking; /* with ttys, all windows are blocking */
     ttyDisplay->lastwin = window;
     ttyDisplay->rawprint = 0;
 
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
+
     switch (cw->type) {
     case NHW_MESSAGE:
         if (ttyDisplay->toplin == 1) {
@@ -2095,13 +2177,15 @@ boolean blocking; /* with ttys, all windows are blocking */
         if (ttyDisplay->toplin == 1)
             tty_display_nhwindow(WIN_MESSAGE, TRUE);
 #ifdef H2344_BROKEN
-        if (cw->maxrow >= (int) ttyDisplay->rows)
+        if (cw->maxrow >= (int) ttyDisplay->rows
+            || !iflags.menu_overlay)
 #else
-        if (cw->offx == 10 || cw->maxrow >= (int) ttyDisplay->rows)
+        if (cw->offx == 10 || cw->maxrow >= (int) ttyDisplay->rows
+            || !iflags.menu_overlay)
 #endif
         {
             cw->offx = 0;
-            if (cw->offy) {
+            if (cw->offy || iflags.menu_overlay) {
                 tty_curs(window, 1, 0);
                 cl_eos();
             } else
@@ -2129,6 +2213,8 @@ winid window;
 
     if (window == WIN_ERR || (cw = wins[window]) == (struct WinDesc *) 0)
         panic(winpanicstr, window);
+
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
 
     switch (cw->type) {
     case NHW_MESSAGE:
@@ -2198,6 +2284,8 @@ register int x, y; /* not xchar: perhaps xchar is unsigned and
     if (window == WIN_ERR || (cw = wins[window]) == (struct WinDesc *) 0)
         panic(winpanicstr, window);
     ttyDisplay->lastwin = window;
+
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
 
 #if defined(USE_TILES) && defined(MSDOS)
     adjust_cursor_flags(cw);
@@ -2287,6 +2375,8 @@ char ch;
     if (window == WIN_ERR || (cw = wins[window]) == (struct WinDesc *) 0)
         panic(winpanicstr, window);
 
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
+
     switch (cw->type) {
     case NHW_STATUS:
     case NHW_MAP:
@@ -2353,6 +2443,8 @@ const char *str;
         str = compress_str(str);
 
     ttyDisplay->lastwin = window;
+
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
 
     switch (cw->type) {
     case NHW_MESSAGE:
@@ -3050,8 +3142,12 @@ int bkglyph UNUSED;
     /* map glyph to character and color */
     (void) mapglyph(glyph, &ch, &color, &special, x, y);
 
+    print_vt_code2(AVTC_SELECT_WINDOW, window);
+
     /* Move the cursor. */
     tty_curs(window, x, y);
+
+    print_vt_code3(AVTC_GLYPH_START, glyph2tile[glyph], special);
 
 #ifndef NO_TERMS
     if (ul_hack && ch == '_') { /* non-destructive underscore */
@@ -3096,6 +3192,8 @@ int bkglyph UNUSED;
 #endif
     }
 
+    print_vt_code1(AVTC_GLYPH_END);
+
     wins[window]->curx++; /* one character over */
     ttyDisplay->curx++;   /* the real cursor moved too */
 }
@@ -3106,6 +3204,7 @@ const char *str;
 {
     if (ttyDisplay)
         ttyDisplay->rawprint++;
+    print_vt_code2(AVTC_SELECT_WINDOW, NHW_BASE);
 #if defined(MICRO) || defined(WIN32CON)
     msmsg("%s\n", str);
 #else
@@ -3120,6 +3219,7 @@ const char *str;
 {
     if (ttyDisplay)
         ttyDisplay->rawprint++;
+    print_vt_code2(AVTC_SELECT_WINDOW, NHW_BASE);
     term_start_raw_bold();
 #if defined(MICRO) || defined(WIN32CON)
     msmsg("%s", str);
@@ -3149,6 +3249,7 @@ tty_nhgetch()
     char nestbuf;
 #endif
 
+    print_vt_code1(AVTC_INLINE_SYNC);
     (void) fflush(stdout);
     /* Note: if raw_print() and wait_synch() get called to report terminal
      * initialization problems, then wins[] and ttyDisplay might not be
@@ -3171,6 +3272,14 @@ tty_nhgetch()
         i = '\033'; /* same for EOF */
     if (ttyDisplay && ttyDisplay->toplin == 1)
         ttyDisplay->toplin = 2;
+#ifdef TTY_TILES_ESCCODES
+    {
+        /* hack to force output of the window select code */
+        int tmp = vt_tile_current_window;
+        vt_tile_current_window++;
+        print_vt_code2(AVTC_SELECT_WINDOW, tmp);
+    }
+#endif /* TTY_TILES_ESCCODES */
     return i;
 }
 
@@ -3304,17 +3413,23 @@ tty_status_init()
  *      -- ptr is usually a "char *", unless fldindex is BL_CONDITION.
  *         If fldindex is BL_CONDITION, then ptr is a long value with
  *         any or none of the following bits set (from botl.h):
- *              BL_MASK_BLIND           0x00000001L
- *              BL_MASK_CONF            0x00000002L
- *              BL_MASK_FOODPOIS        0x00000004L
- *              BL_MASK_ILL             0x00000008L
- *              BL_MASK_HALLU           0x00000010L
- *              BL_MASK_STUNNED         0x00000020L
- *              BL_MASK_SLIMED          0x00000040L
- *      -- The value passed for BL_GOLD includes a leading
- *         symbol for GOLD "$:nnn". If the window port needs to use
- *         the textual gold amount without the leading "$:" the port
- *         will have to add 2 to the passed "ptr" for the BL_GOLD case.
+ *              BL_MASK_STONE           0x00000001L
+ *              BL_MASK_SLIME           0x00000002L
+ *              BL_MASK_STRNGL          0x00000004L
+ *              BL_MASK_FOODPOIS        0x00000008L
+ *              BL_MASK_TERMILL         0x00000010L
+ *              BL_MASK_BLIND           0x00000020L
+ *              BL_MASK_DEAF            0x00000040L
+ *              BL_MASK_STUN            0x00000080L
+ *              BL_MASK_CONF            0x00000100L
+ *              BL_MASK_HALLU           0x00000200L
+ *              BL_MASK_LEV             0x00000400L
+ *              BL_MASK_FLY             0x00000800L
+ *              BL_MASK_RIDE            0x00001000L
+ *      -- The value passed for BL_GOLD includes an encoded leading
+ *         symbol for GOLD "\GXXXXNNNN:nnn". If the window port needs to use
+ *         the textual gold amount without the leading "$:" the port will
+ *         have to skip past ':' in the passed "ptr" for the BL_GOLD case.
  */
 void
 tty_status_update(fldidx, ptr, chg, percent)
@@ -3329,8 +3444,6 @@ genericptr_t ptr;
      * BL_HILITE_INVERSE  -2 + 3 = 1 (statusattr[1])
      * BL_HILITE_BOLD     -3 + 3 = 0 (statusattr[0])
      */
-    int statusattr[] = { ATR_BOLD, ATR_INVERSE, ATR_NONE };
-    int attridx = 0;
     long value = -1L;
     static boolean beenhere = FALSE;
     enum statusfields fieldorder[2][15] = {
@@ -3341,6 +3454,13 @@ genericptr_t ptr;
           BL_AC, BL_XP, BL_EXP, BL_HD, BL_TIME, BL_HUNGER,
           BL_CAP, BL_CONDITION, BL_FLUSH }
     };
+#ifdef STATUS_HILITES
+    static int statusattr[] = { ATR_BOLD, ATR_INVERSE, ATR_NONE };
+    int attridx = 0;
+#else
+    nhUse(chg);
+    nhUse(percent);
+#endif
 
     if (fldidx != BL_FLUSH) {
         if (!status_activefields[fldidx])
@@ -3349,20 +3469,32 @@ genericptr_t ptr;
         case BL_CONDITION:
             cond = *condptr;
             *status_vals[fldidx] = '\0';
-            if (cond & BL_MASK_BLIND)
-                Strcat(status_vals[fldidx], " Blind");
-            if (cond & BL_MASK_CONF)
-                Strcat(status_vals[fldidx], " Conf");
+            if (cond & BL_MASK_STONE)
+                Strcat(status_vals[fldidx], " Stone");
+            if (cond & BL_MASK_SLIME)
+                Strcat(status_vals[fldidx], " Slime");
+            if (cond & BL_MASK_STRNGL)
+                Strcat(status_vals[fldidx], " Strngl");
             if (cond & BL_MASK_FOODPOIS)
                 Strcat(status_vals[fldidx], " FoodPois");
-            if (cond & BL_MASK_ILL)
-                Strcat(status_vals[fldidx], " Ill");
-            if (cond & BL_MASK_STUNNED)
+            if (cond & BL_MASK_TERMILL)
+                Strcat(status_vals[fldidx], " TermIll");
+            if (cond & BL_MASK_BLIND)
+                Strcat(status_vals[fldidx], " Blind");
+            if (cond & BL_MASK_DEAF)
+                Strcat(status_vals[fldidx], " Deaf");
+            if (cond & BL_MASK_STUN)
                 Strcat(status_vals[fldidx], " Stun");
+            if (cond & BL_MASK_CONF)
+                Strcat(status_vals[fldidx], " Conf");
             if (cond & BL_MASK_HALLU)
                 Strcat(status_vals[fldidx], " Hallu");
-            if (cond & BL_MASK_SLIMED)
-                Strcat(status_vals[fldidx], " Slime");
+            if (cond & BL_MASK_LEV)
+                Strcat(status_vals[fldidx], " Lev");
+            if (cond & BL_MASK_FLY)
+                Strcat(status_vals[fldidx], " Fly");
+            if (cond & BL_MASK_RIDE)
+                Strcat(status_vals[fldidx], " Ride");
             value = cond;
             break;
         default:
@@ -3471,23 +3603,26 @@ genericptr_t ptr;
         int fldidx1 = fieldorder[0][i];
 
         if (status_activefields[fldidx1]) {
-            if (tty_status_colors[fldidx1] < 0 &&
-                    tty_status_colors[fldidx1] >= -3) {
+#ifdef STATUS_HILITES
+            if (tty_status_colors[fldidx1] < 0
+                && tty_status_colors[fldidx1] >= -3) {
                 /* attribute, not a color */
                 attridx = tty_status_colors[fldidx1] + 3;
                 term_start_attr(statusattr[attridx]);
                 putstr(WIN_STATUS, 0, status_vals[fldidx1]);
                 term_end_attr(statusattr[attridx]);
+            } else
 #ifdef TEXTCOLOR
-            } else if (tty_status_colors[fldidx1] != CLR_MAX) {
+            if (tty_status_colors[fldidx1] != CLR_MAX) {
                 if (tty_status_colors[fldidx1] != NO_COLOR)
                     term_start_color(tty_status_colors[fldidx1]);
                 putstr(WIN_STATUS, 0, status_vals[fldidx1]);
                 if (tty_status_colors[fldidx1] != NO_COLOR)
                     term_end_color();
-#endif
             } else
-                putstr(WIN_STATUS, 0, status_vals[fldidx1]);
+#endif
+#endif /* STATUS_HILITES */
+            putstr(WIN_STATUS, 0, status_vals[fldidx1]);
         }
     }
     curs(WIN_STATUS, 1, 1);
@@ -3495,28 +3630,31 @@ genericptr_t ptr;
         int fldidx2 = fieldorder[1][i];
 
         if (status_activefields[fldidx2]) {
-            if (tty_status_colors[fldidx2] < 0 &&
-                    tty_status_colors[fldidx2] >= -3) {
+#ifdef STATUS_HILITES
+            if (tty_status_colors[fldidx2] < 0
+                && tty_status_colors[fldidx2] >= -3) {
                 /* attribute, not a color */
                 attridx = tty_status_colors[fldidx2] + 3;
                 term_start_attr(statusattr[attridx]);
                 putstr(WIN_STATUS, 0, status_vals[fldidx2]);
                 term_end_attr(statusattr[attridx]);
+            } else
 #ifdef TEXTCOLOR
-            } else if (tty_status_colors[fldidx2] != CLR_MAX) {
+            if (tty_status_colors[fldidx2] != CLR_MAX) {
                 if (tty_status_colors[fldidx2] != NO_COLOR)
                     term_start_color(tty_status_colors[fldidx2]);
                 if (fldidx2 == BL_GOLD) {
                     /* putmixed() due to GOLD glyph */
-                   putmixed(WIN_STATUS, 0, status_vals[fldidx2]);
+                    putmixed(WIN_STATUS, 0, status_vals[fldidx2]);
                 } else {
-                   putstr(WIN_STATUS, 0, status_vals[fldidx2]);
+                    putstr(WIN_STATUS, 0, status_vals[fldidx2]);
                 }
                 if (tty_status_colors[fldidx2] != NO_COLOR)
                     term_end_color();
-#endif
             } else
-                putstr(WIN_STATUS, 0, status_vals[fldidx2]);
+#endif
+#endif /* STATUS_HILITES */
+            putstr(WIN_STATUS, 0, status_vals[fldidx2]);
         }
     }
     return;

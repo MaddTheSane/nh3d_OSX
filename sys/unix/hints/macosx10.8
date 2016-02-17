@@ -1,13 +1,20 @@
 #
-# NetHack 3.6  macosx10.11 $NHDT-Date: 1445622451 2015/10/23 17:47:31 $  $NHDT-Branch: master $:$NHDT-Revision: 1.0 $
-# Copyright (c) Kenneth Lorber, Kensington, Maryland, 2015.
+# NetHack 3.6  macosx10.8 $NHDT-Date: 1455397109 2016/02/13 20:58:29 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.0 $
+# Copyright (c) Kenneth Lorber, Kensington, Maryland, 2009.
 # NetHack may be freely redistributed.  See license for details.
 #
 #-PRE
 # Mac OS X (Darwin) hints file
-# This is for Mac OS X 10.10 or later.  If this doesn't work for some other
-# version of Mac OS X, make a new file for that OS, don't change this one.
-# And let us know about it.
+# This is for Mac OS X 10.8, Mountain Lion.
+#
+# X11 is no longer included with OSX.
+# To regain X11, download and install XQuartz.  (Attempting to run X11.app
+# will describe how.)  Xcode (not related to X11) has also changed since
+# earlier versions and some tools are no longer in their previous locations.
+#
+# If this doesn't work for some other version
+# of Mac OS X, make a new file for that OS, don't change this one.  And
+# let us know about it.
 # Useful info: http://www.opensource.apple.com/darwinsource/index.html
 
 # This hints file can build several different types of installations.
@@ -45,7 +52,7 @@ endif	# WANT_WIN_QT
 #	  NB: the group will be created locally; if your computer is centrally
 #	   administered this may not be what you (or your admin) want.
 #	   Consider a non-shared install (WANT_SHARE_INSTALL=0) instead.
-#	- 'make install' must be run as "sudo make install"    
+#	- 'make install' must be run as "sudo make install"
 #WANT_SHARE_INSTALL=1
 GAMEUID  = $(USER)
 GAMEGRP  = games
@@ -76,6 +83,7 @@ CFLAGS+= -DNOMAIL -DNOTPARMDECL -DHACKDIR=\"$(HACKDIR)\"
 CFLAGS+= -DDEFAULT_WINDOW_SYS=\"$(WANT_DEFAULT)\" -DDLB
 
 CFLAGS+= -DGREPPATH=\"/usr/bin/grep\"
+CFLAGS+= -DGDBPATH=\"/Developer/usr/bin/gdb\"
 
 ifdef WANT_WIN_CHAIN
 CFLAGS+= -DWINCHAIN
@@ -98,8 +106,10 @@ WINOBJ += $(WINX11OBJ)
 WINLIB += $(WINX11LIB)
 LFLAGS=-L/opt/X11/lib
 VARDATND = x11tiles NetHack.ad pet_mark.xbm pilemark.xbm
-POSTINSTALL+= bdftopcf win/X11/nh10.bdf > $(HACKDIR)/nh10.pcf; (cd $(HACKDIR); mkfontdir);
+POSTINSTALL+= bdftopcf win/X11/nh10.bdf > $(INSTDIR)/nh10.pcf; (cd $(INSTDIR); mkfontdir);
 CFLAGS += -DX11_GRAPHICS -I/opt/X11/include
+# avoid repeated complaints about _X_NONNULL(args...) in <X11/Xfuncproto.h>
+CFLAGS += -Wno-variadic-macros
 endif	# WANT_WIN_X11
 
 ifdef WANT_WIN_QT
@@ -136,6 +146,8 @@ ifeq ($(GAMEUID),root)
 PREFIX:=/Library/NetHack
 SHELLDIR=/usr/local/bin
 HACKDIR=$(PREFIX)/nethackdir
+INSTDIR=$(HACKDIR)
+VARDIR=$(HACKDIR)
 CHOWN=chown
 CHGRP=chgrp
 # We run sgid so the game has access to both HACKDIR and user preferences.
@@ -143,7 +155,9 @@ GAMEPERM = 02755
 else	# ! root
 PREFIX:=/Users/$(GAMEUID)
 SHELLDIR=$(PREFIX)/bin
-HACKDIR=$(PREFIX)/Library/NetHack/nethackdir
+HACKDIR=$(PREFIX)/nethackdir
+INSTDIR=$(HACKDIR)
+VARDIR=$(HACKDIR)
 CHOWN=/usr/bin/true
 CHGRP=/usr/bin/true
 GAMEPERM = 0500
@@ -154,13 +168,15 @@ ROOTCHECK= [[ `id -u` == 0 ]] || ( echo "Must run install with sudo."; exit 1)
 # XXX it's nice we don't write over sysconf, but we've already erased it
 # make sure we have group GAMEUID and group GAMEGRP
 PREINSTALL= . sys/unix/hints/macosx.sh user2 $(GAMEUID); . sys/unix/hints/macosx.sh group2 $(GAMEGRP); mkdir $(SHELLDIR); chown $(GAMEUID) $(SHELLDIR)
-POSTINSTALL+= sys/unix/hints/macosx.sh editsysconf sys/unix/sysconf $(HACKDIR)/sysconf; $(CHOWN) $(GAMEUID) $(HACKDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(HACKDIR)/sysconf; chmod $(VARFILEPERM) $(HACKDIR)/sysconf;
+POSTINSTALL+= sys/unix/hints/macosx.sh editsysconf sys/unix/sysconf $(INSTDIR)/sysconf; $(CHOWN) $(GAMEUID) $(INSTDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(INSTDIR)/sysconf; chmod $(VARFILEPERM) $(INSTDIR)/sysconf;
 CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
 else ifdef WANT_SOURCE_INSTALL
 PREFIX=$(abspath $(NHSROOT))
 # suppress nethack.sh
 #SHELLDIR=
 HACKDIR=$(PREFIX)/playground
+INSTDIR=$(HACKDIR)
+VARDIR=$(HACKDIR)
 CHOWN=/usr/bin/true
 CHGRP=/usr/bin/true
 GAMEPERM = 0700
@@ -173,6 +189,8 @@ else	# !WANT_SOURCE_INSTALL
 PREFIX:=$(wildcard ~)
 SHELLDIR=$(PREFIX)/bin
 HACKDIR=$(PREFIX)/nethackdir
+INSTDIR=$(HACKDIR)
+VARDIR=$(HACKDIR)
 CHOWN=/usr/bin/true
 CHGRP=/usr/bin/true
 GAMEPERM = 0700
@@ -182,12 +200,9 @@ ifdef WANT_WIN_X11
 # install nethack.rc as ~/.nethackrc if no ~/.nethackrc exists
 PREINSTALL= cp -n win/X11/nethack.rc ~/.nethackrc
 endif	# WANT_WIN_X11
-POSTINSTALL+= sys/unix/hints/macosx.sh editsysconf sys/unix/sysconf $(HACKDIR)/sysconf; $(CHOWN) $(GAMEUID) $(HACKDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(HACKDIR)/sysconf; chmod $(VARFILEPERM) $(HACKDIR)/sysconf;
+POSTINSTALL+= sys/unix/hints/macosx.sh editsysconf sys/unix/sysconf $(INSTDIR)/sysconf; $(CHOWN) $(GAMEUID) $(INSTDIR)/sysconf; $(CHGRP) $(GAMEGRP) $(INSTDIR)/sysconf; chmod $(VARFILEPERM) $(INSTDIR)/sysconf;
 CFLAGS+=-DSYSCF -DSYSCF_FILE=\"$(HACKDIR)/sysconf\" -DSECURE
 endif	# !WANT_SOURCE_INSTALL
-
-INSTDIR=$(HACKDIR)
-VARDIR=$(HACKDIR)
 
 
 # ~/Library/Preferences/NetHack Defaults
@@ -210,12 +225,12 @@ ifdef MAKEFILE_TOP
 
 ifdef WANT_WIN_TTY
 DEVUTIL=/Developer/Applications/Utilities
+PKGR=$(DEVUTIL)/PackageMaker.app/Contents/MacOS/PackageMaker
 SVS=$(shell $(NHSROOT)/util/makedefs --svs)
 SVSDOT=$(shell $(NHSROOT)/util/makedefs --svs .)
 
-PKGROOT_UG	= PKGROOT/$(PREFIX)
-PKGROOT_UGLN	= PKGROOT/$(HACKDIR)
-PKGROOT_BIN	= PKGROOT/$(SHELLDIR)
+PKGROOT_UG	= PKGROOT/usr/games
+PKGROOT_UGLN	= PKGROOT/usr/games/lib/nethackdir
 build_tty_pkg:
 ifneq (,$(WANT_WIN_X11)$(WANT_WIN_QT))
 	-echo build_tty_pkg only works for a tty-only build
@@ -242,59 +257,32 @@ else
 
 	# XXX integrate into Makefile.doc
 	(cd doc; cat Guidebook.mn | ../util/makedefs --grep --input - --output - \
-	| tbl tmac.n - | groff | pstopdf -i -o Guidebook.pdf)
+	| tbl tmac.n - | groff |ps2pdf - > Guidebook.pdf)
 	cp doc/Guidebook.pdf $(PKGROOT_UG)/doc/NetHackGuidebook.pdf
 
 	osacompile -o PKGROOT/Applications/NetHackGuidebook.app \
 		 win/macosx/NetHackGuidebook.applescript
 
-	mkdir -p PKG
-	pkgbuild --root PKGROOT --identifier org.nethack.term --scripts PKGSCRIPTS PKG/NH-Term.pkg
-	productbuild --synthesize --product Info.plist --package PKG/NH-Term.pkg Distribution.xml
-	productbuild --distribution Distribution.xml --resources RESOURCES --package-path PKG NetHack-$(SVS)-mac-Term.pkg
+	$(PKGR) --root PKGROOT --info Info.plist -e RESOURCES -v -o NetHack-$(SVS)-mac-Term.pkg
 	hdiutil create -verbose -srcfolder NetHack-$(SVS)-mac-Term.pkg NetHack-$(SVS)-mac-Term.dmg
 
 build_package_root:
 	cd src/..       # make sure we are at TOP
 	rm -rf PKGROOT
-	mkdir -p $(PKGROOT_UG)/lib $(PKGROOT_BIN) $(PKGROOT_UG)/man/man6 $(PKGROOT_UG)/doc $(PKGROOT_UGLN)
-	install -p src/nethack $(PKGROOT_BIN)
+	mkdir -p $(PKGROOT_UG)/lib $(PKGROOT_UG)/bin $(PKGROOT_UG)/man/man6 $(PKGROOT_UG)/doc $(PKGROOT_UGLN)
+	install -p src/nethack $(PKGROOT_UG)/bin
 	# XXX should this be called nethackrecover?
-	install -p util/recover $(PKGROOT_BIN)
+	install -p util/recover $(PKGROOT_UG)/bin
 	install -p doc/nethack.6 $(PKGROOT_UG)/man/man6
 	install -p doc/recover.6 $(PKGROOT_UG)/man/man6
 	install -p doc/Guidebook $(PKGROOT_UG)/doc
 	install -p dat/nhdat $(PKGROOT_UGLN)
-	sys/unix/hints/macosx.sh editsysconf sys/unix/sysconf $(PKGROOT_UGLN)/sysconf
 	cd dat; install -p $(DATNODLB) ../$(PKGROOT_UGLN)
 # XXX these files should be somewhere else for good Mac form
-	touch $(PKGROOT_UGLN)/perm $(PKGROOT_UGLN)/record $(PKGROOT_UGLN)/logfile $(PKGROOT_UGLN)/xlogfile
+	touch $(PKGROOT_UGLN)/perm $(PKGROOT_UGLN)/record $(PKGROOT_UGLN)/logfile
+# XXX may need postinstall script to get perms right for sgid, etc.
 	mkdir $(PKGROOT_UGLN)/save
 # XXX what about a news file?
-
-	mkdir -p PKGSCRIPTS
-	echo '#!/bin/sh'                              >  PKGSCRIPTS/postinstall
-	echo dseditgroup -o create -r '"Games Group"' -s 3600 $(GAMEGRP) >> PKGSCRIPTS/postinstall
-	echo $(CHOWN) -R $(GAMEUID) $(HACKDIR)        >> PKGSCRIPTS/postinstall
-	echo $(CHGRP) -R $(GAMEGRP) $(HACKDIR)        >> PKGSCRIPTS/postinstall
-	echo $(CHOWN) $(GAMEUID) $(SHELLDIR)/nethack  >> PKGSCRIPTS/postinstall
-	echo $(CHGRP) $(GAMEGRP) $(SHELLDIR)/nethack  >> PKGSCRIPTS/postinstall
-	echo $(CHOWN) $(GAMEUID) $(SHELLDIR)/recover  >> PKGSCRIPTS/postinstall
-	echo $(CHGRP) $(GAMEGRP) $(SHELLDIR)/recover  >> PKGSCRIPTS/postinstall
-	echo chmod $(VARDIRPERM)  $(HACKDIR)          >> PKGSCRIPTS/postinstall
-	echo chmod $(VARDIRPERM)  $(HACKDIR)/save     >> PKGSCRIPTS/postinstall
-	echo chmod $(FILEPERM)    $(HACKDIR)/license  >> PKGSCRIPTS/postinstall
-	echo chmod $(FILEPERM)    $(HACKDIR)/nhdat    >> PKGSCRIPTS/postinstall
-	echo chmod $(FILEPERM)    $(HACKDIR)/symbols  >> PKGSCRIPTS/postinstall
-	echo chmod $(VARFILEPERM) $(HACKDIR)/perm     >> PKGSCRIPTS/postinstall
-	echo chmod $(VARFILEPERM) $(HACKDIR)/record   >> PKGSCRIPTS/postinstall
-	echo chmod $(VARFILEPERM) $(HACKDIR)/logfile  >> PKGSCRIPTS/postinstall
-	echo chmod $(VARFILEPERM) $(HACKDIR)/xlogfile >> PKGSCRIPTS/postinstall
-	echo chmod $(VARFILEPERM) $(HACKDIR)/sysconf  >> PKGSCRIPTS/postinstall
-	echo chmod $(GAMEPERM)   $(SHELLDIR)/nethack  >> PKGSCRIPTS/postinstall
-	echo chmod $(EXEPERM)    $(SHELLDIR)/recover  >> PKGSCRIPTS/postinstall
-	chmod 0775 PKGSCRIPTS/postinstall
-
 endif	# end of build_tty_pkg
 endif	# WANT_WIN_TTY for packaging
 

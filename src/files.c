@@ -1,4 +1,4 @@
-/* NetHack 3.6	files.c	$NHDT-Date: 1449296293 2015/12/05 06:18:13 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.192 $ */
+/* NetHack 3.6	files.c	$NHDT-Date: 1454035130 2016/01/29 02:38:50 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.202 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -2116,7 +2116,7 @@ int src;
 #ifdef SYSCF
     int n;
 #endif
-    char *bufp, *altp, buf[BUFSZ];
+    char *bufp, *altp, buf[4 * BUFSZ];
     uchar translate[MAXPCHARS];
     int len;
 
@@ -2155,8 +2155,6 @@ int src;
         ++bufp; /* skip '='; parseoptions() handles spaces */
 
         parseoptions(bufp, TRUE, TRUE);
-        if (plname[0])      /* If a name was given */
-            plnamesuffix(); /* set the character class */
     } else if (match_varname(buf, "AUTOPICKUP_EXCEPTION", 5)) {
         add_autopickup_exception(bufp);
     } else if (match_varname(buf, "MSGTYPE", 7)) {
@@ -2231,7 +2229,6 @@ int src;
 
     } else if (match_varname(buf, "NAME", 4)) {
         (void) strncpy(plname, bufp, PL_NSIZ - 1);
-        plnamesuffix();
     } else if (match_varname(buf, "ROLE", 4)
                || match_varname(buf, "CHARACTER", 4)) {
         if ((len = str2role(bufp)) >= 0)
@@ -2283,6 +2280,10 @@ int src;
                && match_varname(buf, "CHECK_SAVE_UID", 14)) {
         n = atoi(bufp);
         sysopt.check_save_uid = n;
+    } else if (src == SET_IN_SYS
+               && match_varname(buf, "CHECK_PLNAME", 12)) {
+        n = atoi(bufp);
+        sysopt.check_plname = n;
     } else if (match_varname(buf, "SEDUCE", 6)) {
         n = !!atoi(bufp); /* XXX this could be tighter */
         /* allow anyone to turn it off, but only sysconf to turn it on*/
@@ -2295,7 +2296,7 @@ int src;
     } else if (src == SET_IN_SYS && match_varname(buf, "MAXPLAYERS", 10)) {
         n = atoi(bufp);
         /* XXX to get more than 25, need to rewrite all lock code */
-        if (n < 1 || n > 25) {
+        if (n < 0 || n > 25) {
             raw_printf("Illegal value in MAXPLAYERS (maximum is 25).");
             return 0;
         }
@@ -2405,7 +2406,10 @@ int src;
                     *op = '\0';
             }
             /* parse here */
-            parsesymbols(bufp);
+            if (!parsesymbols(bufp)) {
+                raw_printf("Error in SYMBOLS definition '%s'.\n", bufp);
+                wait_synch();
+            }
             if (morelines) {
                 do {
                     *symbuf = '\0';
@@ -2579,7 +2583,7 @@ read_config_file(filename, src)
 const char *filename;
 int src;
 {
-    char buf[4 * BUFSZ], *p;
+    char buf[4 * BUFSZ];
     FILE *fp;
     boolean rv = TRUE; /* assume successful parse */
 
@@ -2597,9 +2601,7 @@ line at this level.
 OR: Forbid multiline stuff for alternate config sources.
 */
 #endif
-        if ((p = index(buf, '\n')) != 0)
-            *p = '\0';
-        if (!parse_config_line(fp, buf, src)) {
+        if (!parse_config_line(fp, strip_newline(buf), src)) {
             static const char badoptionline[] = "Bad option line: \"%s\"";
 
             /* truncate buffer if it's long; this is actually conservative */
@@ -2799,8 +2801,17 @@ int which_set;
         }
     }
     (void) fclose(fp);
-    if (!chosen_symset_end && !chosen_symset_start)
+    if (!chosen_symset_start && !chosen_symset_end) {
+        /* name caller put in symset[which_set].name was not found;
+           if it looks like "Default symbols", null it out and return
+           success to use the default; otherwise, return failure */
+        if (symset[which_set].name
+            && (fuzzymatch(symset[which_set].name, "Default symbols",
+                           " -_", TRUE)
+                || !strcmpi(symset[which_set].name, "default")))
+            clear_symsetentry(which_set, TRUE);
         return (symset[which_set].name == 0) ? 1 : 0;
+    }
     if (!chosen_symset_end) {
         raw_printf("Missing finish for symset \"%s\"",
                    symset[which_set].name ? symset[which_set].name
@@ -3129,6 +3140,11 @@ const char *reason; /* explanation */
         program_state.in_paniclog = 1;
         lfile = fopen_datafile(PANICLOG, "a", TROUBLEPREFIX);
         if (lfile) {
+#ifdef PANICLOG_FMT2
+            (void) fprintf(lfile, "%ld %s: %s %s\n",
+                           ubirthday, (plname ? plname : "(none)"),
+                           type, reason);
+#else
             time_t now = getnow();
             int uid = getuid();
             char playmode = wizard ? 'D' : discover ? 'X' : '-';
@@ -3136,6 +3152,7 @@ const char *reason; /* explanation */
             (void) fprintf(lfile, "%s %08ld %06ld %d %c: %s %s\n",
                            version_string(buf), yyyymmdd(now), hhmmss(now),
                            uid, playmode, type, reason);
+#endif /* !PANICLOG_FMT2 */
             (void) fclose(lfile);
         }
         program_state.in_paniclog = 0;
@@ -3364,7 +3381,11 @@ assure_syscf_file()
      * VMS overrides open() usage with a macro which requires it.
      */
 #ifndef VMS
+# if defined(NOCWD_ASSUMPTIONS) && defined(WIN32)
+    fd = open(fqname(SYSCF_FILE, SYSCONFPREFIX, 0), O_RDONLY);
+# else
     fd = open(SYSCF_FILE, O_RDONLY);
+# endif
 #else
     fd = open(SYSCF_FILE, O_RDONLY, 0);
 #endif
@@ -3508,7 +3529,6 @@ char *nowin_buf;
 unsigned oid; /* book identifier */
 {
     dlb *fp;
-    char *endp;
     char line[BUFSZ], lastline[BUFSZ];
 
     int scope = 0;
@@ -3518,6 +3538,9 @@ unsigned oid; /* book identifier */
     winid tribwin = WIN_ERR;
     boolean grasped = FALSE;
     boolean foundpassage = FALSE;
+
+    if (nowin_buf)
+        *nowin_buf = '\0';
 
     /* check for mandatories */
     if (!tribsection || !tribtitle) {
@@ -3559,19 +3582,15 @@ unsigned oid; /* book identifier */
     *line = *lastline = '\0';
     while (dlb_fgets(line, sizeof line, fp) != 0) {
         linect++;
-        if ((endp = index(line, '\n')) != 0)
-            *endp = 0;
+        (void) strip_newline(line);
         switch (line[0]) {
         case '%':
-            if (!strncmpi(&line[1], "section ", sizeof("section ") - 1)) {
+            if (!strncmpi(&line[1], "section ", sizeof "section " - 1)) {
                 char *st = &line[9]; /* 9 from "%section " */
 
                 scope = SECTIONSCOPE;
-                if (!strcmpi(st, tribsection))
-                    matchedsection = TRUE;
-                else
-                    matchedsection = FALSE;
-            } else if (!strncmpi(&line[1], "title ", sizeof("title ") - 1)) {
+                matchedsection = !strcmpi(st, tribsection) ? TRUE : FALSE;
+            } else if (!strncmpi(&line[1], "title ", sizeof "title " - 1)) {
                 char *st = &line[7]; /* 7 from "%title " */
                 char *p1, *p2;
 
@@ -3596,27 +3615,25 @@ unsigned oid; /* book identifier */
                     }
                 }
             } else if (!strncmpi(&line[1], "passage ",
-                                 sizeof("passage ") - 1)) {
+                                 sizeof "passage " - 1)) {
                 int passagenum = 0;
                 char *st = &line[9]; /* 9 from "%passage " */
 
-                while (*st == ' ' || *st == '\t')
-                    st++;
-                if (*st && digit(*st) && (strlen(st) < 3))
-                    passagenum = atoi(st);
-                if (passagenum && (passagenum <= passagecnt)) {
+                mungspaces(st);
+                passagenum = atoi(st);
+                if (passagenum > 0 && passagenum <= passagecnt) {
                     scope = PASSAGESCOPE;
-                    if (matchedtitle && (passagenum == targetpassage)) {
-                        if (!nowin_buf)
+                    if (matchedtitle && passagenum == targetpassage) {
+                        foundpassage = TRUE;
+                        if (!nowin_buf) {
                             tribwin = create_nhwindow(NHW_MENU);
-                        else
-                            foundpassage = TRUE;
+                            if (tribwin == WIN_ERR)
+                                goto cleanup;
+                        }
                     }
                 }
-            } else if (!strncmpi(&line[1], "e ", sizeof("e ") - 1)) {
-                if (matchedtitle && scope == PASSAGESCOPE
-                    && ((!nowin_buf && tribwin != WIN_ERR)
-                        || (nowin_buf && foundpassage)))
+            } else if (!strncmpi(&line[1], "e ", sizeof "e " - 1)) {
+                if (foundpassage)
                     goto cleanup;
                 if (scope == TITLESCOPE)
                     matchedtitle = FALSE;
@@ -3633,13 +3650,16 @@ unsigned oid; /* book identifier */
             /* comment only, next! */
             break;
         default:
-            if (matchedtitle && scope == PASSAGESCOPE) {
-                if (!nowin_buf && tribwin != WIN_ERR) {
+            if (foundpassage) {
+                if (!nowin_buf) {
+                    /* outputting multi-line passage to text window */
                     putstr(tribwin, 0, line);
-                    Strcpy(lastline, line);
-                } else if (nowin_buf) {
-                    if ((int) strlen(line) < bufsz - 1)
-                        Strcpy(nowin_buf, line);
+                    if (*line)
+                        Strcpy(lastline, line);
+                } else {
+                    /* fetching one-line passage into buffer */
+                    copynchars(nowin_buf, line, bufsz - 1);
+                    goto cleanup; /* don't wait for "%e passage" */
                 }
             }
         }
@@ -3647,26 +3667,30 @@ unsigned oid; /* book identifier */
 
 cleanup:
     (void) dlb_fclose(fp);
-    if (!nowin_buf && tribwin != WIN_ERR) {
-        if (matchedtitle && scope == PASSAGESCOPE) {
-            display_nhwindow(tribwin, FALSE);
-            /* put the final attribution line into message history,
-               analogous to the summary line from long quest messages */
-            if (index(lastline, '['))
-                mungspaces(lastline); /* to remove leading spaces */
-            else /* construct one if necessary */
-                Sprintf(lastline, "[%s, by Terry Pratchett]", tribtitle);
-            putmsghistory(lastline, FALSE);
-        }
-        destroy_nhwindow(tribwin);
-        tribwin = WIN_ERR;
-        grasped = TRUE;
+    if (nowin_buf) {
+        /* one-line buffer */
+        grasped = *nowin_buf ? TRUE : FALSE;
     } else {
-        if (!nowin_buf)
-            pline("It seems to be %s of \"%s\"!", badtranslation, tribtitle);
-        else
-            if (foundpassage)
+        if (tribwin != WIN_ERR) { /* implies 'foundpassage' */
+            /* multi-line window, normal case;
+               if lastline is empty, there were no non-empty lines between
+               "%passage n" and "%e passage" so we leave 'grasped' False */
+            if (*lastline) {
+                display_nhwindow(tribwin, FALSE);
+                /* put the final attribution line into message history,
+                   analogous to the summary line from long quest messages */
+                if (index(lastline, '['))
+                    mungspaces(lastline); /* to remove leading spaces */
+                else /* construct one if necessary */
+                    Sprintf(lastline, "[%s, by Terry Pratchett]", tribtitle);
+                putmsghistory(lastline, FALSE);
                 grasped = TRUE;
+            }
+            destroy_nhwindow(tribwin);
+        }
+        if (!grasped)
+            /* multi-line window, problem */
+            pline("It seems to be %s of \"%s\"!", badtranslation, tribtitle);
     }
     return grasped;
 }

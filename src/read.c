@@ -1,4 +1,4 @@
-/* NetHack 3.6	read.c	$NHDT-Date: 1448862378 2015/11/30 05:46:18 $  $NHDT-Branch: master $:$NHDT-Revision: 1.125 $ */
+/* NetHack 3.6	read.c	$NHDT-Date: 1450577673 2015/12/20 02:14:33 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.131 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -970,12 +970,16 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
 #ifdef MAIL
     case SCR_MAIL:
         known = TRUE;
-        if (sobj->spe)
+        if (sobj->spe == 2)
+            /* "stamped scroll" created via magic marker--without a stamp */
+            pline("This scroll is marked \"postage due\".");
+        else if (sobj->spe)
+            /* scroll of mail obtained from bones file or from wishing;
+             * note to the puzzled: the game Larn actually sends you junk
+             * mail if you win!
+             */
             pline(
     "This seems to be junk mail addressed to the finder of the Eye of Larn.");
-        /* note to the puzzled: the game Larn actually sends you junk
-         * mail if you win!
-         */
         else
             readmail(sobj);
         break;
@@ -1050,9 +1054,12 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
             useup(otmp);
             break;
         }
-        s = scursed ? -1 : otmp->spe >= 9
-                               ? (rn2(otmp->spe) == 0)
-                               : sblessed ? rnd(3 - otmp->spe / 3) : 1;
+        s = scursed ? -1
+                    : (otmp->spe >= 9)
+                       ? (rn2(otmp->spe) == 0)
+                       : sblessed
+                          ? rnd(3 - otmp->spe / 3)
+                          : 1;
         if (s >= 0 && Is_dragon_scales(otmp)) {
             /* dragon scales get turned into dragon scale mail */
             pline("%s merges and hardens!", Yname2(otmp));
@@ -1075,8 +1082,8 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
               s == 0 ? "violently " : "",
               otense(otmp, Blind ? "vibrate" : "glow"),
               (!Blind && !same_color) ? " " : "",
-              (Blind || same_color) ? ""
-                                    : hcolor(scursed ? NH_BLACK : NH_SILVER),
+              (Blind || same_color)
+                 ? "" : hcolor(scursed ? NH_BLACK : NH_SILVER),
               (s * s > 1) ? "while" : "moment");
         /* [this cost handling will need updating if shop pricing is
            ever changed to care about curse/bless status of armor] */
@@ -1086,6 +1093,8 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
             curse(otmp);
         else if (sblessed && !otmp->blessed)
             bless(otmp);
+        else if (!scursed && otmp->cursed)
+            uncurse(otmp);
         if (s) {
             otmp->spe += s;
             adj_abon(otmp, s);
@@ -1228,6 +1237,7 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
         } else {
             for (obj = invent; obj; obj = obj->nobj) {
                 long wornmask;
+
                 /* gold isn't subject to cursing and blessing */
                 if (obj->oclass == COIN_CLASS)
                     continue;
@@ -1260,8 +1270,7 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
                 if (sblessed || wornmask || obj->otyp == LOADSTONE
                     || (obj->otyp == LEASH && obj->leashmon)) {
                     /* water price varies by curse/bless status */
-                    boolean shop_h2o =
-                        (obj->unpaid && obj->otyp == POT_WATER);
+                    boolean shop_h2o = (obj->unpaid && obj->otyp == POT_WATER);
 
                     if (confused) {
                         blessorcurse(obj, 2);
@@ -1331,13 +1340,11 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
             uwep->oerodeproof = new_erodeproof ? 1 : 0;
             break;
         }
-        if (!chwepon(sobj,
-                     scursed
-                         ? -1
-                         : !uwep ? 1 : (uwep->spe >= 9)
-                                           ? !rn2(uwep->spe)
-                                           : sblessed ? rnd(3 - uwep->spe / 3)
-                                                      : 1))
+        if (!chwepon(sobj, scursed ? -1
+                             : !uwep ? 1
+                               : (uwep->spe >= 9) ? !rn2(uwep->spe)
+                                 : sblessed ? rnd(3 - uwep->spe / 3)
+                                   : 1))
             sobj = 0; /* nothing enchanted: strange_feeling -> useup */
         break;
     case SCR_TAMING:
@@ -1378,7 +1385,8 @@ struct obj *sobj; /* scroll, or fake spellbook object for scroll-like spell */
             if (vis_results > 0)
                 known = TRUE;
         }
-    } break;
+        break;
+    }
     case SCR_GENOCIDE:
         if (!already_known)
             You("have found a scroll of genocide!");
@@ -2111,6 +2119,10 @@ int how;
     } else {
         for (i = 0;; i++) {
             if (i >= 5) {
+                /* cursed effect => no free pass (unless rndmonst() fails) */
+                if (!(how & REALLY) && (ptr = rndmonst()) != 0)
+                    break;
+
                 pline1(thats_enough_tries);
                 return;
             }
@@ -2118,16 +2130,13 @@ int how;
                    buf);
             (void) mungspaces(buf);
             /* choosing "none" preserves genocideless conduct */
-            if (!strcmpi(buf, "none") || !strcmpi(buf, "nothing")) {
+            if (*buf == '\033' || !strcmpi(buf, "none")
+                || !strcmpi(buf, "nothing")) {
                 /* ... but no free pass if cursed */
-                if (!(how & REALLY)) {
-                    ptr = rndmonst();
-                    if (!ptr)
-                        return; /* no message, like normal case */
-                    mndx = monsndx(ptr);
+                if (!(how & REALLY) && (ptr = rndmonst()) != 0)
                     break; /* remaining checks don't apply */
-                } else
-                    return;
+
+                return;
             }
 
             mndx = name_to_mon(buf);
@@ -2151,11 +2160,12 @@ int how;
 
             if (!(ptr->geno & G_GENO)) {
                 if (!Deaf) {
-                    /* fixme: unconditional "caverns" will be silly in some
-                     * circumstances */
+                    /* FIXME: unconditional "caverns" will be silly in some
+                     * circumstances.  Who's speaking?  Divine pronouncements
+                     * aren't supposed to be hampered by deafness....
+                     */
                     if (flags.verbose)
-                        pline(
-                            "A thunderous voice booms through the caverns:");
+                        pline("A thunderous voice booms through the caverns:");
                     verbalize("No, mortal!  That will not be done.");
                 }
                 continue;
@@ -2165,6 +2175,7 @@ int how;
                 killplayer++;
             break;
         }
+        mndx = monsndx(ptr); /* needed for the 'no free pass' cases */
     }
 
     which = "all ";
@@ -2260,7 +2271,7 @@ struct obj *sobj;
         You("are being punished for your misbehavior!");
     if (Punished) {
         Your("iron ball gets heavier.");
-        uball->owt += 160 * (1 + sobj->cursed);
+        uball->owt += IRON_BALL_W_INCR * (1 + sobj->cursed);
         return;
     }
     if (amorphous(youmonst.data) || is_whirly(youmonst.data)
@@ -2351,22 +2362,34 @@ boolean
 create_particular()
 {
     char buf[BUFSZ], *bufp, monclass;
+    char *tmpp;
     int which, tryct, i, firstchoice = NON_PM;
     struct permonst *whichpm = NULL;
     struct monst *mtmp;
     boolean madeany = FALSE;
     boolean maketame, makepeaceful, makehostile;
     boolean randmonst = FALSE;
+    boolean saddled = FALSE;
+    boolean invisible = FALSE;
 
     tryct = 5;
     do {
         monclass = MAXMCLASSES;
         which = urole.malenum; /* an arbitrary index into mons[] */
         maketame = makepeaceful = makehostile = FALSE;
+        saddled = invisible = FALSE;
         getlin("Create what kind of monster? [type the name or symbol]", buf);
         bufp = mungspaces(buf);
         if (*bufp == '\033')
             return FALSE;
+        if ((tmpp = strstri(bufp, "saddled ")) != 0) {
+            saddled = TRUE;
+            memset(tmpp, ' ', sizeof("saddled ")-1);
+        }
+        if ((tmpp = strstri(bufp, "invisible ")) != 0) {
+            invisible = TRUE;
+            memset(tmpp, ' ', sizeof("invisible ")-1);
+        }
         /* allow the initial disposition to be specified */
         if (!strncmpi(bufp, "tame ", 5)) {
             bufp += 5;
@@ -2432,6 +2455,12 @@ create_particular()
                 mtmp->mpeaceful = makepeaceful ? 1 : 0;
                 set_malign(mtmp);
             }
+            if (saddled && can_saddle(mtmp) && !which_armor(mtmp, W_SADDLE)) {
+                struct obj *otmp = mksobj(SADDLE, TRUE, FALSE);
+                put_saddle_on_mon(otmp, mtmp);
+            }
+            if (invisible)
+                mon_set_minvis(mtmp);
             madeany = TRUE;
             /* in case we got a doppelganger instead of what was asked
                for, make it start out looking like what was asked for */

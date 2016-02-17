@@ -1,4 +1,4 @@
-/* NetHack 3.6	muse.c	$NHDT-Date: 1447987786 2015/11/20 02:49:46 $  $NHDT-Branch: master $:$NHDT-Revision: 1.68 $ */
+/* NetHack 3.6	muse.c	$NHDT-Date: 1449799863 2015/12/11 02:11:03 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.69 $ */
 /*      Copyright (C) 1990 by Ken Arromdee                         */
 /* NetHack may be freely redistributed.  See license for details.  */
 
@@ -138,12 +138,19 @@ struct obj *obj;
         && !rn2(WAND_BACKFIRE_CHANCE)) {
         int dam = d(obj->spe + 2, 6);
 
-        if (!Deaf) {
-            if (vis)
-                pline("%s zaps %s, which suddenly explodes!", Monnam(mon),
-                      an(xname(obj)));
-            else
-                You_hear("a zap and an explosion in the distance.");
+        /* 3.6.1: no Deaf filter; 'if' message doesn't warrant it, 'else'
+           message doesn't need it since Your_hear() has one of its own */
+        if (vis) {
+            pline("%s zaps %s, which suddenly explodes!", Monnam(mon),
+                  an(xname(obj)));
+        } else {
+            /* same near/far threshold as mzapmsg() */
+            int range = couldsee(mon->mx, mon->my) /* 9 or 5 */
+                           ? (BOLT_LIM + 1) : (BOLT_LIM - 3);
+
+            You_hear("a zap and an explosion %s.",
+                     (distu(mon->mx, mon->my) <= range * range)
+                        ? "nearby" : "in the distance");
         }
         m_useup(mon, obj);
         if (mon->mhp <= dam) {
@@ -164,11 +171,11 @@ struct obj *otmp;
 boolean self;
 {
     if (!canseemon(mtmp)) {
-        if (!Deaf)
-            You_hear("a %s zap.", (distu(mtmp->mx, mtmp->my)
-                                   <= (BOLT_LIM + 1) * (BOLT_LIM + 1))
-                                      ? "nearby"
-                                      : "distant");
+        int range = couldsee(mtmp->mx, mtmp->my) /* 9 or 5 */
+                       ? (BOLT_LIM + 1) : (BOLT_LIM - 3);
+
+        You_hear("a %s zap.", (distu(mtmp->mx, mtmp->my) <= range * range)
+                                 ? "nearby" : "distant");
     } else if (self) {
         pline("%s zaps %sself with %s!", Monnam(mtmp), mhim(mtmp),
               doname(otmp));
@@ -382,9 +389,7 @@ struct monst *mtmp;
             if (!is_floater(mtmp->data))
                 m.has_defense = MUSE_DOWNSTAIRS;
         } else if (x == xupstair && y == yupstair) {
-            /* don't let monster leave the dungeon with the Amulet */
-            if (ledger_no(&u.uz) != 1)
-                m.has_defense = MUSE_UPSTAIRS;
+            m.has_defense = MUSE_UPSTAIRS;
         } else if (sstairs.sx && x == sstairs.sx && y == sstairs.sy) {
             if (sstairs.up || !is_floater(mtmp->data))
                 m.has_defense = MUSE_SSTAIRS;
@@ -841,21 +846,9 @@ struct monst *mtmp;
                          (coord *) 0);
         return 2;
     case MUSE_UPSTAIRS:
-        /* Monsters without amulets escape the dungeon and are
-         * gone for good when they leave up the up stairs.
-         * Monsters with amulets would reach the endlevel,
-         * which we cannot allow since that would leave the
-         * player stranded.
-         */
-        if (ledger_no(&u.uz) == 1) {
-            if (mon_has_special(mtmp))
-                return 0;
-            if (vismon)
-                pline("%s escapes the dungeon!", Monnam(mtmp));
-            mongone(mtmp);
-            return 2;
-        }
         m_flee(mtmp);
+        if (ledger_no(&u.uz) == 1)
+            goto escape; /* impossible; level 1 upstairs are SSTAIRS */
         if (Inhell && mon_has_amulet(mtmp) && !rn2(4)
             && (dunlev(&u.uz) < dunlevs_in_dungeon(&u.uz) - 3)) {
             if (vismon)
@@ -898,6 +891,22 @@ struct monst *mtmp;
         return 2;
     case MUSE_SSTAIRS:
         m_flee(mtmp);
+        if (ledger_no(&u.uz) == 1) {
+        escape:
+            /* Monsters without the Amulet escape the dungeon and
+             * are gone for good when they leave up the up stairs.
+             * A monster with the Amulet would leave it behind
+             * (mongone -> mdrop_special_objs) but we force any
+             * monster who manages to acquire it or the invocation
+             * tools to stick around instead of letting it escape.
+             */
+            if (mon_has_special(mtmp))
+                return 0;
+            if (vismon)
+                pline("%s escapes the dungeon!", Monnam(mtmp));
+            mongone(mtmp);
+            return 2;
+        }
         if (vismon)
             pline("%s escapes %sstairs!", Monnam(mtmp),
                   sstairs.up ? "up" : "down");
