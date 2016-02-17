@@ -358,8 +358,6 @@
 		5560A2B91C3481CC00BF77F7 /* epitaph in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B61C3481CC00BF77F7 /* epitaph */; };
 		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
-		556A21B71C670E9C00DB226F /* NH3DTeleportationDestinationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */; };
-		556A21B81C670E9C00DB226F /* NH3DTeleportationDestinationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -1233,8 +1231,6 @@
 		5560A2B61C3481CC00BF77F7 /* epitaph */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = epitaph; sourceTree = "<group>"; };
 		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
-		556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DTeleportationDestinationController.swift; sourceTree = "<group>"; };
-		556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NH3DTeleportationDestinationController.xib; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1353,7 +1349,6 @@
 				55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */,
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
-				556A21B51C670E9C00DB226F /* NH3DTeleportationDestinationController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1418,7 +1413,6 @@
 				2B6F3EDE091AF3E500367391 /* Sound */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,
 				2B578FFD08AB66570080498F /* Resources */,
-				556A21B61C670E9C00DB226F /* NH3DTeleportationDestinationController.xib */,
 				2B3539190915A2F4002CC8AD /* MainMenu.xib */,
 				2BE3649D095D20F500D34027 /* Usermakesheet.xib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
@@ -2743,7 +2737,6 @@
 				2B5CC081088EB5A600940C58 /* minetn-6.lev in Resources */,
 				2B5CC082088EB5A600940C58 /* minetn-7.lev in Resources */,
 				2B5CC083088EB5A600940C58 /* Mon-fila.lev in Resources */,
-				556A21B81C670E9C00DB226F /* NH3DTeleportationDestinationController.xib in Resources */,
 				2B5CC084088EB5A600940C58 /* Mon-filb.lev in Resources */,
 				2B5CC085088EB5A600940C58 /* Mon-goal.lev in Resources */,
 				2B5CC086088EB5A600940C58 /* Mon-loca.lev in Resources */,
@@ -3049,7 +3042,6 @@
 				2B5CC1AD088EB7DF00940C58 /* timeout.c in Sources */,
 				2B5CC1AE088EB7DF00940C58 /* topten.c in Sources */,
 				2B5CC1AF088EB7DF00940C58 /* track.c in Sources */,
-				556A21B71C670E9C00DB226F /* NH3DTeleportationDestinationController.swift in Sources */,
 				2B5CC1B0088EB7DF00940C58 /* trap.c in Sources */,
 				2B5CC1B1088EB7DF00940C58 /* u_init.c in Sources */,
 				2B5CC1B2088EB7DF00940C58 /* uhitm.c in Sources */,
