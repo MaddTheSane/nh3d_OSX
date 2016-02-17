@@ -402,7 +402,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 147 "lev_comp.y" /* yacc.c:1909  */
+#line 150 "lev_comp.y" /* yacc.c:1909  */
 
 	long	i;
 	char*	map;

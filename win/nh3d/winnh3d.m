@@ -1005,7 +1005,7 @@ void nh3d_outrip(winid wid, int how, time_t when)
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		/* Put together death description */
-		formatkiller(buf, BUFSZ, how);
+		formatkiller(buf, BUFSZ, how, FALSE);
 		
 		/* Put death type on stone */
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
@@ -1740,3 +1740,20 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 	}
 	return file;
 }
+
+/* XXX should be ifdef PANICTRACE_GDB, but there's no such symbol yet */
+#ifdef PANICTRACE
+boolean
+file_exists(const char *path)
+{
+	/* Just see if it's there - trying to figure out if we can actually
+	 * execute it in all cases is too hard - we really just want to
+	 * catch typos in SYSCF. */
+	struct stat sb;
+	if (stat(path, &sb)) {
+		return FALSE;
+	}
+	return TRUE;
+}
+#endif
+
