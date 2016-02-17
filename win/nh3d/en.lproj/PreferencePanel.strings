@@ -140,6 +140,9 @@
 /* Class = "NSFormCell"; title = "Field:"; ObjectID = "301"; */
 "301.title" = "Field:";
 
+/* Class = "NSButtonCell"; title = "Use Retina OpenGL"; ObjectID = "CtN-9v-cCC"; */
+"CtN-9v-cCC.title" = "Use Retina OpenGL";
+
 /* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
 "LN5-mm-Rkn.title" = "Maximum messages:";
 

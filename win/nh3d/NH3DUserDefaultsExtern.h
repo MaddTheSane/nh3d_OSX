@@ -44,6 +44,7 @@ extern NSString *NH3DOpenGLWaitRateKey;
 extern NSString *NH3DOpenGLWaitSyncKey;
 extern NSString *NH3DOpenGLUseWaitRateKey;
 extern NSString *NH3DOpenGLNumberOfThreadsKey;
+extern NSString *const NH3DUseRetinaOpenGL;
 
 #define OPENGLVIEW_WAITRATE [ [NSUserDefaults standardUserDefaults] doubleForKey:NH3DOpenGLWaitRateKey ]
 #define OPENGLVIEW_WAITSYNC	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLWaitSyncKey ]

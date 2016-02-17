@@ -564,7 +564,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		wantsBestResolutionOpenGLSurface = true
+		if NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL) {
+			wantsBestResolutionOpenGLSurface = true
+		}
 		let nCenter = NSNotificationCenter.defaultCenter()
 		nCenter.addObserver(self, selector: "defaultsDidChange:", name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
@@ -3488,6 +3490,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		guard !oglParamNowChanging else {
 			return
 		}
+		
+		if NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
+			wantsBestResolutionOpenGLSurface = NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL)
+		}
+
 		
 		if TRADITIONAL_MAP && !firstTime {
 			mapModel.playerDirection = PL_DIRECTION_FORWARD

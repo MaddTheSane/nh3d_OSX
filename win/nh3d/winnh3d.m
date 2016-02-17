@@ -99,6 +99,8 @@ NSString *const NH3DTileSizeHeightKey = @"TileSizeHeight";
 NSString *const NH3DTilesPerLineKey = @"TilesPerLine";
 NSString *const NH3DNumberOfTilesRowKey = @"NumberOfTilesRow";
 
+NSString *const NH3DUseRetinaOpenGL = @"Use Retina";
+
 NSString *NH3DSoundMuteKey = @"SoundMute";
 
 NSString * const NHUseNumPad = @"Use Num Pad";
@@ -1224,6 +1226,7 @@ wd_message()
 						  
 						  NHUseNumPad: @NO,
 						  NHMaxMessages: @30,
+						  NH3DUseRetinaOpenGL: @YES,
 						  };
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
