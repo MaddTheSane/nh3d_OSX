@@ -1,0 +1,4 @@
+Install.nt NHSUBST
+Makefile.* NHSUBST
+*.rc NHSUBST
+*.bat NHSUBST

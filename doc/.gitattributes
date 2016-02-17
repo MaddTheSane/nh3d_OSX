@@ -1,0 +1,5 @@
+*.mn	NHSUBST
+*.6	NHSUBST
+fixes.*	NHSUBST
+window.doc NHSUBST
+

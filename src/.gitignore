@@ -1,3 +1,14 @@
+config.h-t
+vis_tab.c
+monstr.c
+hack.h-t
+tile.c
+Sysunix
+nethack
+NetHack3D
+*.o
+tiles.bmp
+
 NetHack3D-Swift.h
 NetHack3D.swiftdoc
 *.swiftmodule

@@ -1,9 +1,61 @@
+# CVS default ignores begin
+tags
+TAGS
+.make.state
+.nse_depinfo
+*~
+\#*
+.#*
+,*
+_$*
+*$
+*.old
+*.bak
+*.BAK
+*.orig
+*.rej
+.del-*
+*.a
+*.olb
+*.o
+*.obj
+*.so
+*.exe
+*.Z
+*.elc
+*.ln
+core
+# CVS default ignores end
+.*.swp
+
+# We generate makefiles by shell script
+Makefile
+
+# Win32-specific ignores
+Debug/
+Release/
+binary/
+build/
+ipch/
+Nethack.sln
+Nethack.sdf
+Nethack.opensdf
+Makefile.bcc
+Makefile.gcc
+Makefile-orig
+Makefile.bcc-orig
+Makefile.gcc-orig
+*.suo
+*.pdb
+*.ilk
+# VS2013 extension to auto-whine about questionable code generates these
+*.lastcodeanalysissucceeded
+# Win32-specific ignores end
+
+# Mac-specific ignores
 .DS_Store
 *.pbxuser
 *.perspective
 project.xcworkspace/
 xcuserdata/
-*.o
-*.h-t
-src/NetHack3D
-Makefile
+# Mac-specific ignores end
