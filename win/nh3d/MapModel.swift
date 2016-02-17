@@ -65,8 +65,8 @@ class MapModel: NSObject {
 	private(set) var loadingStatus = 0
 	private var indicatorTimer: NSTimer?
 	
-	var cursX: Int32 = 0
-	var cursY: Int32 = 0
+	private(set) var cursX: Int32 = 0
+	private(set) var cursY: Int32 = 0
 	var mapArray = [[NH3DMapItem!]](count: Int(MAPSIZE_COLUMN), repeatedValue: [NH3DMapItem!](count: Int(MAPSIZE_ROW), repeatedValue: nil))
 
 	private var lock = NSRecursiveLock()
@@ -173,7 +173,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	func setPosCursorAtX(x: Int32, atY y: Int32) {
+	@objc(setPosCursorAtX:atY:) func setPosCursor(x x: Int32, y: Int32) {
 		if (cursX == x && cursY == y) {
 			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].hasCursor = true
 			return;
@@ -186,11 +186,13 @@ class MapModel: NSObject {
 			if Invisible {
 				mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].player = true
 				
-				//set player pos for asciiview,openGlview
-				asciiMapView.setCenterAtX(x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
+				// Only center the 3D view on the player's current position
 				glMapView.setCenterAt(x: x + MAP_MARGIN, z: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 			}
 			
+			// center the map on the cursor, not the player.
+			asciiMapView.setCenterAtX(x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
+
 			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].hasCursor = true
 			asciiMapView.needClear = true
 			updateAllMaps()

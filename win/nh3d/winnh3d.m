@@ -38,11 +38,11 @@ static void FDECL(process_options, (int, char **));
 
 
 #ifdef WIZARD
- static boolean wiz_error_flag = FALSE;
+static boolean wiz_error_flag = FALSE;
 #endif
 
 
-NH3DWinData nh3d_windowlist[ 10 ];
+NH3DWinData nh3d_windowlist[10];
 
 extern int NXArgc;
 extern char **NXArgv;
@@ -203,8 +203,6 @@ char *argv[ ];
 #endif
 }
 
-
-
 #ifdef CHDIR
 static void
 chdirx(dir, wr)
@@ -275,7 +273,6 @@ port_help()
 #pragma mark -- bind to NH3D Objects --
 //--------------------------------------------------------------//
 
-
 void nh3d_init_nhwindows(int* argc, char** argv)
 {
 	/*All window incetance are already completion when loaded .nib file*/
@@ -290,14 +287,12 @@ void nh3d_init_nhwindows(int* argc, char** argv)
 #endif
 }
 
-
 void nh3d_player_selection()
 {			
 	@autoreleasepool {
 		[_NH3DBindController showUserMakeSheet];
 	}
 }
-
 
 void nh3d_askname()
 {
@@ -397,19 +392,16 @@ soundDict[aName] = soundEffect; \
 	}
 }
 
-
 void nh3d_exit_nhwindows(const char *str)
 {
 	[_NH3DOpenGLView setRunning:NO];
 }
-
 
 void nh3d_suspend_nhwindows(const char *str)
 {
 	/*Do Nothing.*/
 	return;
 }
-
 
 void nh3d_resume_nhwindows()
 {
@@ -525,7 +517,6 @@ void nh3d_display_nhwindow(winid wid, BOOLEAN_P block)
 	}
 }
 
-
 void nh3d_destroy_nhwindow(winid wid)
 {
 	@autoreleasepool {
@@ -547,7 +538,7 @@ void nh3d_destroy_nhwindow(winid wid)
 				break;
 
 			case NHW_TEXT:
-				[ _NH3DMenuWindow clearTextMessage ];
+				[_NH3DMenuWindow clearTextMessage];
 				nh3d_windowlist[wid].win = nil;
 				nh3d_windowlist[wid].type = 0;
 				break;
@@ -564,7 +555,6 @@ void nh3d_curs(winid wid, int x, int y)
 			[_NH3DBindController updateAll];
 		}
     }
-	
 }
 
 void nh3d_putstr(winid wid, int attr, const char *text)
@@ -741,7 +731,6 @@ void nh3d_raw_print(const char *str)
 	}
 }
 
-
 void nh3d_raw_print_bold(const char *str)
 {
 	@autoreleasepool {
@@ -754,18 +743,15 @@ void nh3d_raw_print_bold(const char *str)
 	}
 }
 
-
 int nh3d_nhgetch()
 {
 	return [_NH3DBindController nhGetKey];
 }
 
-
 int nh3d_nh_poskey(int *x, int *y, int *mod)
 {
-	return [ _NH3DBindController nhPosKeyAtX:x atY:y keyMod:mod ];
+	return [_NH3DBindController nhPosKeyAtX:x atY:y keyMod:mod];
 }
-
 
 void nh3d_nhbell()
 {
@@ -775,13 +761,11 @@ void nh3d_nhbell()
 	}
 }
 
-
 int nh3d_doprev_message()
 {
 	/*Do Nothing... They can read old messages using the scrollbar. */
 	return 0;
 }
-
 
 char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 {
@@ -928,10 +912,10 @@ void nh3d_getlin(const char *prompt, char *line)
 	int ret = 0;
 	
 	@autoreleasepool {
-		ret = [ _NH3DMessenger showInputPanel:prompt line:line ];
+		ret = [_NH3DMessenger showInputPanel:prompt line:line];
 	}
 	if (ret == -1)
-		line[ 0 ] = (char)0;
+		line[0] = (char)0;
 }
 
 int nh3d_get_ext_cmd()
@@ -948,11 +932,11 @@ int nh3d_get_ext_cmd()
 		int win = create_nhwindow( NHW_MENU );
 		start_menu( win );
 		[ _NH3DMenuWindow setIsExtendMenu:YES ];
-		 for (ret = 0; extcmdlist[ ret ].ef_txt != NULL; ++ret) {
-			 ident.a_char = extcmdlist[ ret ].ef_txt[ 0 ];
-			 sprintf( buf, "%-10s - %s ",
-					  extcmdlist[ ret ].ef_txt,
-					  extcmdlist[ ret ].ef_desc );
+		 for (ret = 0; extcmdlist[ret].ef_txt != NULL; ++ret) {
+			 ident.a_char = extcmdlist[ret].ef_txt[0];
+			 sprintf(buf, "%-10s - %s ",
+					 extcmdlist[ret].ef_txt,
+					 extcmdlist[ret].ef_desc );
 			 add_menu(win, NO_GLYPH, &ident, 0, 0, 0, buf, MENU_UNSELECTED);
 		 }
 		 
@@ -973,12 +957,10 @@ int nh3d_get_ext_cmd()
 	}
 }
 
-
 void nh3d_number_pad(int num)
 {
 	/* Do Nothing */
 }
-
 
 void nh3d_delay_output()
 {
@@ -988,7 +970,6 @@ void nh3d_delay_output()
 	}
 }
 
-
 void nh3d_start_screen()
 {
 	NSLog(@"StartScreen");
@@ -996,14 +977,12 @@ void nh3d_start_screen()
 	return;
 }
 
-
 void nh3d_end_screen()
 {
 	NSLog(@"EndScreen");
 	/* Do Nothing */
 	return;
 }
-
 
 void nh3d_outrip(winid wid, int how, time_t when)
 {
@@ -1195,12 +1174,10 @@ wd_message()
 #pragma mark -- NH3D Window port --
 //--------------------------------------------------------------//
 
-
 @implementation NH3DBindController {
 	NH3DPreferenceController *_prefPanel;
 	NH3DTileCache			*_tileCache;
 }
-
 
 // for UserDefaults
 // set user defaults
@@ -1257,8 +1234,9 @@ wd_message()
 
 - (instancetype)init
 {
-	self = [ super init ];
-	_prefPanel = nil;
+	if (self = [super init]) {
+		_prefPanel = nil;
+	}
 	return self;
 }
 
@@ -1327,7 +1305,6 @@ wd_message()
 	
 	return ret;
 }
-
 
 //-------------------------------------------------------------
 //  over App delgates. 
@@ -1436,7 +1413,7 @@ wd_message()
 
 - (void)updateAll
 {
-	char buf[ BUFSZ ] = " ";
+	char buf[BUFSZ] = " ";
 	_asciiMapView.needClear = YES;
 	[_asciiMapView updateMap];
 	[_glMapView updateMap];
@@ -1444,9 +1421,9 @@ wd_message()
 	[_userStatus updatePlayer];
 	
 	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
-/*
-	Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
-*/
+	/*
+	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
+	 */
 	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
 }
 
@@ -1540,7 +1517,6 @@ wd_message()
 		}
 	}
 	dir = aURL.fileSystemRepresentation;
-	
 #endif
 	
 	if(argc > 1) {
@@ -1568,7 +1544,7 @@ wd_message()
 		 * Now we know the directory containing 'record' and
 		 * may do a prscore().  Exclude `-style' - it's a Qt option.
 		 */
-			if (!strncmp(argv[ 1 ], "-s", 2) && strncmp(argv[ 1 ], "-style", 6)) {
+			if (!strncmp(argv[1], "-s", 2) && strncmp(argv[1], "-style", 6)) {
 #ifdef CHDIR
 				chdirx(dir,0);
 #endif
@@ -1620,7 +1596,7 @@ wd_message()
 	// Always get the background glyph
 	iflags.use_background_glyph = TRUE;
 	
-	[ self showMainWindow ];
+	[self showMainWindow];
 	
 #ifdef WIZARD
 	if (wizard)
@@ -1731,9 +1707,9 @@ wd_message()
 		(void) pickup(1);
 	}
 	
-	[ _userStatus updatePlayer ];
+	[_userStatus updatePlayer];
 	
-	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
+	Sprintf(buf, "%s, level %d", dungeons[u.uz.dnum].dname, depth(&u.uz));
 	/*
 	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
 	 */
