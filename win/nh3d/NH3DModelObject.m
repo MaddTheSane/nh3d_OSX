@@ -264,7 +264,7 @@ static const NH3DMaterial defaultMat = {
 	// Magic number check
 	[file_3ds getBytes:mName range:NSMakeRange(0, 2)];
 	if (memcmp("MM", mName, 2) != 0) {
-		return nil;
+		return NO;
 	}
 	
 	memset(mName, 0, sizeof(mName));

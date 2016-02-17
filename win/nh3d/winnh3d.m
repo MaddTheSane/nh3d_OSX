@@ -9,6 +9,7 @@
 #import "NetHack3D-Swift.h"
 #import "NH3DMapView.h"
 #import "NetHack3D-Swift.h"
+#import "NetHack3D-Bridging-Header.h"
 
 #import <sys/stat.h>
 #import <signal.h>

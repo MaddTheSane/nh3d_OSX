@@ -9,9 +9,14 @@
 #import "NH3DMapView.h"
 #import "NH3DModelObject.h"
 #import "winnh3d.h"
+#include "extern.h"
 
 static inline BOOL Swift_Invis() {
 	return !!Invis;
+}
+
+static inline BOOL Swift_Stealth() {
+	return !!Stealth;
 }
 
 static inline BOOL Swift_Blind() {
@@ -20,6 +25,38 @@ static inline BOOL Swift_Blind() {
 
 static inline BOOL Swift_Underwater() {
 	return !!Underwater;
+}
+
+static inline BOOL Swift_Teleportation() {
+	return !!Teleportation;
+}
+
+static inline BOOL Swift_Teleport_control() {
+	return !!Teleport_control;
+}
+
+static inline BOOL Swift_Hallucination() {
+	return !!Hallucination;
+}
+
+static inline BOOL Swift_Flying() {
+	return !!Flying;
+}
+
+static inline BOOL Swift_Levitation() {
+	return !!Levitation;
+}
+
+static inline BOOL Swift_Swimming() {
+	return !!Swimming;
+}
+
+static inline BOOL Swift_Amphibious() {
+	return !!Amphibious;
+}
+
+static inline BOOL Swift_Infravision() {
+	return !!Infravision;
 }
 
 static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
@@ -42,18 +79,6 @@ static inline short glyphToTile(size_t i)
 {
 	extern short glyph2tile[];
 	return glyph2tile[i];
-}
-
-static inline BOOL Swift_Hallucination() {
-	return !!Hallucination;
-}
-
-static inline BOOL Swift_Flying() {
-	return !!Flying;
-}
-
-static inline BOOL Swift_Levitation() {
-	return !!Levitation;
 }
 
 __dead2
