@@ -1311,7 +1311,7 @@
 										}
 										break;
 									case '8':
-										if ( iflags.num_pad ) {
+										if (iflags.num_pad) {
 											[_num8 performClick:self];
 										} else {
 											self.keyBuffer = (int)ch[0];

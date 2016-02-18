@@ -60,7 +60,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 	
-	switch ( attribute ) {
+	switch (attribute) {
 		case ATR_NONE:
 			break;
 		case ATR_ULINE:
@@ -85,17 +85,17 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	// Set shadow for Cursed/Blessed item.
 	
-	if ([name isLike:NSLocalizedString(@"*blessed*",@"")]
-		|| ( ![name isLike:NSLocalizedString(@"*called*", @"")] && [name isLike:NSLocalizedString(@"*holy water*",@"")])) {
+	if ([name isCaseInsensitiveLike:NSLocalizedString(@"*blessed*",@"")]
+		|| ( ![name isCaseInsensitiveLike:NSLocalizedString(@"*called*", @"")] && [name isCaseInsensitiveLike:NSLocalizedString(@"*holy water*",@"")])) {
 		
 		NSShadow *lightShadow = [[NSShadow alloc] init];
 		lightShadow.shadowColor = [NSColor cyanColor];
 		lightShadow.shadowOffset = NSMakeSize(0, 0);
-		lightShadow.shadowBlurRadius = 6.0 ;
+		lightShadow.shadowBlurRadius = 6.0;
 		
 		strAttributes[NSShadowAttributeName] = lightShadow;
-	} else if (([ name isLike:NSLocalizedString(@"*cursed*",@"")] || [name isLike:NSLocalizedString(@"*cursed *",@"") ])
-			   && (![name isLike:NSLocalizedString(@"*uncursed*",@"")] && ![name isLike:NSLocalizedString(@"*called*",@"")])) {
+	} else if (([ name isCaseInsensitiveLike:NSLocalizedString(@"*cursed*",@"")] || [name isCaseInsensitiveLike:NSLocalizedString(@"*cursed *",@"") ])
+			   && (![name isCaseInsensitiveLike:NSLocalizedString(@"*uncursed*",@"")] && ![name isCaseInsensitiveLike:NSLocalizedString(@"*called*",@"")])) {
 		
 		NSShadow *cursedShadow = [[NSShadow alloc] init];
 		cursedShadow.shadowColor = [NSColor redColor];
@@ -107,7 +107,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	strAttributes[NSForegroundColorAttributeName] = [NSColor whiteColor];
 	
-	aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ .",name]
+	aStr = [[NSAttributedString alloc] initWithString:name
 										   attributes:strAttributes];
 	
 	stringSize = [aStr size];

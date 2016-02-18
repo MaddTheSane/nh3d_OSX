@@ -880,7 +880,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 				if (p == NULL)
 					result = 'n';
 				
-				sprintf(buf,"> [ %c ]",result);
+				sprintf(buf, "> [ %c ]", result);
 				putstr(WIN_MESSAGE, ATR_ULINE, buf);
 			}
 		}
@@ -902,7 +902,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 		}
 		
 		if (ynfunc) {
-			sprintf(buf,"> [ %c ]", yn);
+			sprintf(buf, "> [ %c ]", yn);
 			putstr(WIN_MESSAGE, ATR_ULINE, buf);
 		}
 		
@@ -931,29 +931,29 @@ int nh3d_get_ext_cmd()
 	} else {
 		menu_item *mi;
 		anything ident;
-		char buf[ 100 ];
-		int win = create_nhwindow( NHW_MENU );
-		start_menu( win );
+		char buf[100];
+		int win = create_nhwindow(NHW_MENU);
+		start_menu(win);
 		[ _NH3DMenuWindow setIsExtendMenu:YES ];
 		 for (ret = 0; extcmdlist[ret].ef_txt != NULL; ++ret) {
 			 ident.a_char = extcmdlist[ret].ef_txt[0];
 			 sprintf(buf, "%-10s - %s ",
 					 extcmdlist[ret].ef_txt,
-					 extcmdlist[ret].ef_desc );
+					 extcmdlist[ret].ef_desc);
 			 add_menu(win, NO_GLYPH, &ident, 0, 0, 0, buf, MENU_UNSELECTED);
 		 }
 		 
-		 end_menu(win,(char*)0);
-		 ret = select_menu(win, PICK_ONE, &mi );
+		 end_menu(win, (char*)0);
+		 ret = select_menu(win, PICK_ONE, &mi);
 		 destroy_nhwindow(win);
 		 
 		 if (ret >= 1) {
-			 ret = _NH3DMenuWindow.selectedRow ;
+			 ret = _NH3DMenuWindow.selectedRow;
 		 } else {
 			 ret = -1;
 		 }
 			 
-		 _NH3DKeyBuffer.extendKey = -1 ;
+		 _NH3DKeyBuffer.extendKey = -1;
 		 free(mi);
 		 return ret;
 	}
