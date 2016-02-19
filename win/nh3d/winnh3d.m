@@ -1276,7 +1276,7 @@ wd_message()
 {
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = NSLocalizedString(@"Quit NetHack3D",@"");
-	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?",@"");
+	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"");
 	[alert addButtonWithTitle:@"Cancel"];
 	[alert addButtonWithTitle:@"Quit"];
 	NSInteger choise = [alert runModal];
@@ -1299,7 +1299,7 @@ wd_message()
 		[_stDrawer close:self];
 	} 
 	
-	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING]);
+	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
 	ret = [_messenger showLogPanel];
 	
 	if (ret == NSTerminateNow) {

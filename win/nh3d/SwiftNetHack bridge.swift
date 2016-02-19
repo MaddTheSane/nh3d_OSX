@@ -172,19 +172,19 @@ func IS_DOOR(typ: schar) -> Bool {
 }
 
 func Is_rogue_level(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_rogue_level) != 0
+	return on_level(x, &dungeon_topology.d_rogue_level)
 }
 
 func Is_knox(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_knox_level) != 0
+	return on_level(x, &dungeon_topology.d_knox_level)
 }
 
 func Is_sanctum(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_sanctum_level) != 0
+	return on_level(x, &dungeon_topology.d_sanctum_level)
 }
 
 func Is_stronghold(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_stronghold_level) != 0
+	return on_level(x, &dungeon_topology.d_stronghold_level)
 }
 
 func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
@@ -192,21 +192,21 @@ func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
 }
 
 func Is_earthlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_earth_level) != 0
+	return on_level(x, &dungeon_topology.d_earth_level)
 }
 
 func Is_waterlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_water_level) != 0
+	return on_level(x, &dungeon_topology.d_water_level)
 }
 
 func Is_firelevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_fire_level) != 0
+	return on_level(x, &dungeon_topology.d_fire_level)
 }
 
 func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_air_level) != 0
+	return on_level(x, &dungeon_topology.d_air_level)
 }
 
 func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_astral_level) != 0
+	return on_level(x, &dungeon_topology.d_astral_level) 
 }

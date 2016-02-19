@@ -1355,12 +1355,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			//}
 			
 			// Setup speciallevels
-			if In_mines(&u.uz) != 0 {
+			if In_mines(&u.uz) {
 				changeWallsTexture(1)
 				floorCurrent = minesTex;
 				cellingCurrent = cellingTex;
 				elementalLevel = 0;
-			} else if In_hell(&u.uz) != 0 {
+			} else if In_hell(&u.uz) {
 				changeWallsTexture(2)
 				floorCurrent = hellTex;
 				cellingCurrent = cellingTex;

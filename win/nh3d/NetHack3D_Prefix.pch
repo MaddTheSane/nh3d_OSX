@@ -5,9 +5,14 @@
 #include <math.h>
 #include <tgmath.h>
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <sys/time.h>
+#include <stdio.h>
 #include <TargetConditionals.h>
 
 #ifdef __OBJC__
+	#include "C99Bool.h"
     #import <Cocoa/Cocoa.h>
     #import "NH3Dcommon.h"
 #endif
