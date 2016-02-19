@@ -33,11 +33,11 @@ extern int total_tiles_used;
 		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:imageName]];
 		}
-		NSData  *tiffData;
+		NSData *tiffData;
 		
-		if ( tileSource == nil ) {
+		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:imageName];
-			if ( tileSource == nil ) {
+			if (tileSource == nil) {
 				NSAlert *alert = [[NSAlert alloc] init];
 				alert.messageText = @"Tile Load Error";
 				alert.informativeText = [[NSString alloc] initWithFormat:@"Can't find tile file: %@!", imageName];

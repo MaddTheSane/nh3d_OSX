@@ -373,7 +373,7 @@ class NH3DMessaging: NSObject {
 		#endif
 	}
 	
-	func showLogPanel() -> Bool {
+	func showLogPanel() -> NSApplicationTerminateReply {
 		var ripOrMainWindow: NSWindow
 		
 		rawPrintPanel.alphaValue = 0
@@ -394,8 +394,10 @@ class NH3DMessaging: NSObject {
 			}, completionHandler: {
 				NSApp.runModalForWindow(self.rawPrintPanel)
 				self.rawPrintPanel.orderOut(self)
+				clearlocks();
+				NSApp.replyToApplicationShouldTerminate(true)
 		})
 		
-		return true
+		return .TerminateLater
 	}
 }

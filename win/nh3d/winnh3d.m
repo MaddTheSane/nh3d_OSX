@@ -714,7 +714,7 @@ void nh3d_cliparound_window(winid wid, int x, int y)
 }
 
 
-void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph, int under)
+void nh3d_print_glyph(winid wid, XCHAR_P x, XCHAR_P y, int glyph, int under)
 {
 	@autoreleasepool {
 		[_NH3DBindController printGlyph:wid xPos:x yPos:y glyph:glyph bkglyph:under];
@@ -1290,10 +1290,10 @@ wd_message()
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-	BOOL ret;
+	NSApplicationTerminateReply ret;
 	
 	if (!iflags.window_inited)
-		return YES;
+		return NSTerminateNow;
 	
 	if (_stDrawer.state != NSDrawerClosedState) {
 		[_stDrawer close:self];
@@ -1302,8 +1302,11 @@ wd_message()
 	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'",@"") cStringUsingEncoding:NH3DTEXTENCODING]);
 	ret = [_messenger showLogPanel];
 	
-	if (ret == YES) {
+	if (ret == NSTerminateNow) {
 		clearlocks();
+	}
+	
+	if (ret != NSTerminateCancel) {
 		[_glMapView setRunning:NO];
 	}
 	
@@ -1424,11 +1427,11 @@ wd_message()
 	[_userStatus updatePlayerInventory];
 	[_userStatus updatePlayer];
 	
-	Sprintf(buf, "%s, level %d", dungeons[ u.uz.dnum ].dname, depth(&u.uz));
+	Sprintf(buf, "%s, level %d", dungeons[u.uz.dnum].dname, depth(&u.uz));
 	/*
 	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
 	 */
-	[_mapModel setDungeonName:[ NSString stringWithCString:buf encoding:NH3DTEXTENCODING ]];
+	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 }
 
 - (IBAction)showPreferencePanel:(id)sender

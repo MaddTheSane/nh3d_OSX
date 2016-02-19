@@ -1411,7 +1411,7 @@ int status;
     nethack_exit(status);
 #ifdef NH3D_GRAPHICS
     /* quiet a warning */
-    exit(status);
+    //exit(status);
 #endif
 }
 
