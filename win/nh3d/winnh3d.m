@@ -102,15 +102,13 @@ NSString *const NH3DNumberOfTilesRowKey = @"NumberOfTilesRow";
 
 NSString *const NH3DUseRetinaOpenGL = @"Use Retina";
 
-NSString *NH3DSoundMuteKey = @"SoundMute";
+NSString *const NH3DSoundMuteKey = @"SoundMute";
 
-NSString * const NHUseNumPad = @"Use Num Pad";
-NSString * const NHMaxMessages = @"Max messages";
+NSString *const NHUseNumPad = @"Use Num Pad";
+NSString *const NHMaxMessages = @"Max messages";
 
 static void
-process_options(argc, argv)
-int argc;
-char *argv[ ];
+process_options(int argc, char *argv[])
 {
 	int i;
 	int l;
@@ -480,7 +478,7 @@ void nh3d_clear_nhwindow(winid wid)
 				break;
 				
 			case NHW_MESSAGE:
-				//	[ _NH3DMessenger clearMainMessage ];
+				//[_NH3DMessenger clearMainMessage];
 				break;
 				
 			case NHW_STATUS:

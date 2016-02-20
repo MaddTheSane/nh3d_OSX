@@ -39,6 +39,14 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize playerAc;
 @synthesize playerLv;
 
+
+@synthesize playerRole;
+@synthesize playerRace;
+@synthesize playerAlign;
+@synthesize playerGender;
+
+@synthesize playerStatusLine;
+
 - (instancetype)init
 {
     if (self = [super init]) {
@@ -182,37 +190,12 @@ extern NH3DTileCache *_NH3DTileCache;
 										   attributes:strAttributes];
 }
 
-- (NSString*)playerRole 
-{
-	return playerRole;
-}
-
-- (NSString*)playerRace 
-{
-	return playerRace;
-}
-
-- (NSString*)playerAlign 
-{
-	return playerAlign;
-}
-
-- (NSString*)playerGender 
-{
-	return playerGender;
-}
-
 - (NSAttributedString *)playerClass
 {
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
 														 size: 13];
 	return [[NSAttributedString alloc] initWithString:playerClass
 										   attributes:strAttributes];
-}
-
-- (NSString*)playerStatusLine
-{
-	return playerStatusLine;
 }
 
 - (CGFloat)playerWaningHp
@@ -595,7 +578,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerName:(NSString *)aString {
 	if (![playerName isEqualToString:aString] && aString.length <= PL_NSIZ-11) {
-		playerName = aString;
+		playerName = [aString copy];
 		//strcpy( plname,[ playerName cStringUsingEncoding:NH3DTEXTENCODING ] );
 	}
 }
@@ -632,7 +615,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerStatusLine:(NSString *)aString
 {
-	if (![ playerStatusLine isEqualToString:aString]) {
+	if (![playerStatusLine isEqualToString:aString]) {
 		playerStatusLine = [aString copy];
 	}
 }
@@ -648,7 +631,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		strcount = playerTime;
 	} else {
 		playerStr = aValue;
-		if (strcount < playerTime-15)
+		if (strcount < playerTime - 15)
 			[self setStrUpdate:NO];
 	}
 }
@@ -662,7 +645,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		dexcount = playerTime;
 	} else {
 		playerDex = aValue;
-		if (dexcount < playerTime-15)
+		if (dexcount < playerTime - 15)
 			[self setDexUpdate:NO];
 	}
 }
@@ -676,7 +659,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		concount = playerTime;
 	} else {
 		playerCon = aValue;
-		if (concount < playerTime-15)
+		if (concount < playerTime - 15)
 			[self setConUpdate:NO];
 	}
 }
@@ -690,7 +673,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		intcount = playerTime;
 	} else {
 		playerInt = aValue;
-		if (intcount < playerTime-15)
+		if (intcount < playerTime - 15)
 			[self setIntUpdate:NO];
 	}
 }
@@ -704,7 +687,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		wiscount = playerTime;
 	} else {
 		playerWis = aValue;
-		if (wiscount < playerTime-15)
+		if (wiscount < playerTime - 15)
 			[self setWisUpdate:NO];
 	}
 }
@@ -718,7 +701,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		chacount = playerTime;
 	} else {
 		playerCha = aValue;
-		if (chacount < playerTime-15)
+		if (chacount < playerTime - 15)
 			[self setChaUpdate:NO];
 	}
 }
@@ -740,7 +723,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		[self setPlayerWaningHp:aValue];
 		[self setPlayerCriticalHp:aValue];
 	}
-	if (hpcount < playerTime-15)
+	if (hpcount < playerTime - 15)
 		[self setHpUpdate:NO];
 }
 
@@ -760,7 +743,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		[self setPlayerWaningPow:aValue];
 		[self setPlayerCriticalPow:aValue];
 	}
-	if (powcount < playerTime-15)
+	if (powcount < playerTime - 15)
 		[self setPowUpdate:NO];
 }
 
@@ -773,7 +756,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		account = playerTime;
 	} else {
 		playerAc = aValue;
-		if (account < playerTime-15)
+		if (account < playerTime - 15)
 			[self setAcUpdate:NO];
 	}
 }
@@ -787,29 +770,29 @@ extern NH3DTileCache *_NH3DTileCache;
 		lvcount = playerTime;
 	} else {
 		playerLv = aValue;
-		if (lvcount < playerTime-15)
+		if (lvcount < playerTime - 15)
 			[self setLvUpdate:NO];
 	}
 }
 
 - (void)setPlayerWaningHp:(int)maxHp
 {
-	playerWaningHp = (CGFloat)maxHp/10*5;
+	playerWaningHp = (CGFloat)maxHp / 10 * 5;
 }
 
 - (void)setPlayerCriticalHp:(int)maxHp
 {
-	playerCriticalHp = (CGFloat)maxHp/10*3;
+	playerCriticalHp = (CGFloat)maxHp / 10 * 3;
 }
 
 - (void)setPlayerWaningPow:(int)maxPow
 {
-	playerWaningPow = (CGFloat)maxPow/10*5;
+	playerWaningPow = (CGFloat)maxPow / 10 * 5;
 }
 
 - (void)setPlayerCriticalPow:(int)maxPow
 {
-	playerCriticalPow = (CGFloat)maxPow/10*3;
+	playerCriticalPow = (CGFloat)maxPow / 10 * 3;
 }
 
 #pragma mark -
@@ -918,8 +901,8 @@ extern NH3DTileCache *_NH3DTileCache;
 	const char* hung = hu_stat[u.uhs];
 	
 	[self setPlayerClass:[NSString stringWithFormat:NSLocalizedString(@"the %@", @""),
-							[NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
-											   encoding:NH3DTEXTENCODING]]];
+						  [NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
+											 encoding:NH3DTEXTENCODING]]];
 	
 	[self setPlayerTime:moves];
 	
@@ -988,25 +971,28 @@ extern NH3DTileCache *_NH3DTileCache;
 		[self setStHunger:NO];
 	
 	switch (u.ualign.type) {
-		case 1 : 
+		case A_LAWFUL:
 			[self setPlayerAlign:@"Lowful"];
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:NO];
 			break;
-		case 0 :
+			
+		case A_NEUTRAL:
 			[self setPlayerAlign:@"Newtral"];
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:NO];
 			break;
-		case -1 :
+			
+		case A_CHAOTIC:
 			[self setPlayerAlign:@"Chaotic"];
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:YES];
 			break;
-		case -128 :
+			
+		case A_NONE:
 			[self setPlayerAlign:@"Evil"];
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:YES];

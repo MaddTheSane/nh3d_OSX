@@ -9,6 +9,7 @@
 #include <math.h>
 #include <tgmath.h>
 #import "NH3DModelObject.h"
+#include <OpenGL/gl.h>
 
 
 static GLfloat colors[16][3] = {
@@ -31,13 +32,12 @@ static GLfloat colors[16][3] = {
 };
 
 static const NH3DMaterial defaultMat = {
-		{ 0.5, 0.5, 0.5, 1.0 },
-		{ 1.0 , 1.0 , 1.0 , 1.0 },
-		{ 0.0 , 0.0 , 0.0 , 1.0},
-		{ 0.1 , 0.1 , 0.1 , 1.0 },
+		{0.5, 0.5, 0.5, 1.0},
+		{1.0, 1.0, 1.0, 1.0},
+		{0.0, 0.0, 0.0, 1.0},
+		{0.1, 0.1, 0.1, 1.0},
 		1.0 
 };
-
 
 @implementation NH3DModelObject
 @synthesize currentMaterial;
@@ -256,7 +256,7 @@ static const NH3DMaterial defaultMat = {
 		file_3ds = [[NSDataAsset alloc] initWithName:name].data;
 	}
 	
-	char	mName[21];
+	char mName[21];
 	
 	if (file_3ds == nil)
 		return NO;
@@ -301,7 +301,7 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			case 0x4000:	// MODELBLOCK ..read model name
-				i=0;
+				i = 0;
 				do {
 					[file_3ds getBytes:&l_Name range:NSMakeRange(fileRange.location,1)];
 					fileRange.location = fileRange.location + 1;

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import OpenGL
+import OpenGL.GL
 
 func glMaterialfv(face: GLenum, _ pname: GLenum, _ params: (GLfloat, GLfloat, GLfloat, GLfloat)) {
 	let passedArr: [GLfloat] = [params.0, params.1, params.2, params.3]

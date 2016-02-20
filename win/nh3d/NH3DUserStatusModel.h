@@ -108,12 +108,12 @@
 - (void)setPlayerName:(NSString *)aString;
 - (NSAttributedString *)playerClass;
 - (void)setPlayerClass:(NSString *)aString;
-@property (copy) NSString *playerRace;
-@property (copy) NSString *playerRole;
-@property (copy) NSString *playerAlign;
-@property (copy) NSString *playerGender;
+@property (nonatomic, copy) NSString *playerRace;
+@property (nonatomic, copy) NSString *playerRole;
+@property (nonatomic, copy) NSString *playerAlign;
+@property (nonatomic, copy) NSString *playerGender;
 
-@property (copy) NSString *playerStatusLine;
+@property (nonatomic, copy) NSString *playerStatusLine;
 
 
 - (NSString *)playerStr;

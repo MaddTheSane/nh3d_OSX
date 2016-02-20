@@ -58,7 +58,7 @@ extern NSString *NH3DUseSightRestrictionKey;
 #define TILED_LEVELMAP	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTileInLevelMapKey]
 
 // Sound Mute
-extern NSString *NH3DSoundMuteKey;
+extern NSString *const NH3DSoundMuteKey;
 #define SOUND_MUTE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey]
 
 // Map Mode

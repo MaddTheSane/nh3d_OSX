@@ -121,11 +121,11 @@ class MapModel: NSObject {
 	}
 	
 	@objc private func updateEnemyIndicator(timer: NSTimer) {
-		var value = enemyWarnBase + (random() % 3 + 1);
+		var value = enemyWarnBase + (random() % 3 + 1)
 		let alert = NSSound(named: "Hero")!
 		
 		if enemyIndicator.intValue == value {
-			value = enemyWarnBase - (random() % 3 + 1);
+			value = enemyWarnBase - (random() % 3 + 1)
 			
 		}
 		enemyIndicator.intValue = value
@@ -162,7 +162,7 @@ class MapModel: NSObject {
 			if (x2-MAP_MARGIN) == Int32(u.ux) && (y2-MAP_MARGIN) == Int32(u.uy) {
 				mapArray[Int(x2)][Int(y2)].player = true
 				
-				//set player pos for asciiview,openGlview
+				//set player pos for asciiview, openGLView
 				asciiMapView.setCenterAtX(x2, y: y2, depth: Int32(depth(&u.uz)))
 				glMapView.setCenterAt(x: x2, z: y2, depth: Int32(depth(&u.uz)))
 			}
