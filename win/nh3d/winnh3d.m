@@ -24,13 +24,13 @@
 #if !defined(_BULL_SOURCE) && !defined(__sgi) && !defined(_M_UNIX)
 # if !defined(SUNOS4) && !(defined(ULTRIX) && defined(__GNUC__))
 #  if defined(POSIX_TYPES) || defined(SVR4) || defined(HPUX)
-extern struct passwd *FDECL(getpwuid,(uid_t));
+extern struct passwd *FDECL(getpwuid, (uid_t));
 #  else
-extern struct passwd *FDECL(getpwuid,(int));
+extern struct passwd *FDECL(getpwuid, (int));
 #  endif
 # endif
 #endif
-extern struct passwd *FDECL(getpwnam,(const char *));
+extern struct passwd *FDECL(getpwnam, (const char *));
 #ifdef CHDIR
 static void FDECL(chdirx, (const char *,BOOLEAN_P));
 #endif /* CHDIR */
@@ -575,9 +575,9 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 			case NHW_MENU:
 				if (!_NH3DMenuWindow.isMenu) {
 					[_NH3DMenuWindow putTextMessage:
-							[NSString stringWithCString:text
-												encoding:NH3DTEXTENCODING]];
-				} 
+					 [NSString stringWithCString:text
+										encoding:NH3DTEXTENCODING]];
+				}
 				break;
 				
 			case NHW_MAP:
@@ -586,11 +586,11 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 				
 			case NHW_STATUS:
 				[_NH3DUserStatusModel setPlayerStatusLine:
-					[NSString stringWithCString:text encoding:NH3DTEXTENCODING]];
+				 [NSString stringWithCString:text encoding:NH3DTEXTENCODING]];
 				break;
 				
 			default:
-				NSLog (@"ERROR Window type does not exist. win id is %d :type is %d:messarge %@"
+				NSLog (@"ERROR Window type does not exist. win id is %d,type is %d, message %@"
 					   , wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:NH3DTEXTENCODING]);
 				break;
 
@@ -817,8 +817,8 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 				abutt.tag = NSAlertThirdButtonReturn;
 			}
 			result = [alert runModal];
-		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING ] isLike:
-												NSLocalizedString(@"*what direction*",@"") ] ) {
+		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING] isLike:
+					NSLocalizedString(@"*what direction*",@"")]) {
 			// hmm... These letters from cmd.c will not there be a good method?
 			int x = u.ux; int y = u.uy; int mod = 0;
 			ynfunc = NO;
@@ -874,7 +874,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 			if (choices != nil) {
 				buf[0] = result;
 				buf[1] = '\0';
-				p = strstr(choices,buf);
+				p = strstr(choices, buf);
 				if (p == NULL)
 					result = 'n';
 				
@@ -885,11 +885,9 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 		
 		if(result == NSAlertFirstButtonReturn && ynfunc) {
 			yn = 'y';
-		}
-		else if(result == NSAlertSecondButtonReturn && ynfunc) {
+		} else if(result == NSAlertSecondButtonReturn && ynfunc) {
 			yn = 'n';
-		}
-		else if(result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
+		} else if(result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
 			yn = 'q';
 		} else if (result == NSAlertThirdButtonReturn + 1 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
 			yn = 'a';
@@ -922,39 +920,39 @@ void nh3d_getlin(const char *prompt, char *line)
 int nh3d_get_ext_cmd()
 {
 	@autoreleasepool {
-	int ret = _NH3DKeyBuffer.extendKey ;
-	if (ret != -1 ) {
-		_NH3DKeyBuffer.extendKey = -1 ;
-		return ret;
-	} else {
-		menu_item *mi;
-		anything ident;
-		char buf[100];
-		int win = create_nhwindow(NHW_MENU);
-		start_menu(win);
-		[ _NH3DMenuWindow setIsExtendMenu:YES ];
-		 for (ret = 0; extcmdlist[ret].ef_txt != NULL; ++ret) {
-			 ident.a_char = extcmdlist[ret].ef_txt[0];
-			 sprintf(buf, "%-10s - %s ",
-					 extcmdlist[ret].ef_txt,
-					 extcmdlist[ret].ef_desc);
-			 add_menu(win, NO_GLYPH, &ident, 0, 0, 0, buf, MENU_UNSELECTED);
-		 }
-		 
-		 end_menu(win, (char*)0);
-		 ret = select_menu(win, PICK_ONE, &mi);
-		 destroy_nhwindow(win);
-		 
-		 if (ret >= 1) {
-			 ret = _NH3DMenuWindow.selectedRow;
-		 } else {
-			 ret = -1;
-		 }
-			 
-		 _NH3DKeyBuffer.extendKey = -1;
-		 free(mi);
-		 return ret;
-	}
+		int ret = _NH3DKeyBuffer.extendKey;
+		if (ret != -1 ) {
+			_NH3DKeyBuffer.extendKey = -1;
+			return ret;
+		} else {
+			menu_item *mi;
+			anything ident;
+			char buf[100];
+			int win = create_nhwindow(NHW_MENU);
+			start_menu(win);
+			[_NH3DMenuWindow setIsExtendMenu:YES];
+			for (ret = 0; extcmdlist[ret].ef_txt != NULL; ++ret) {
+				ident.a_char = extcmdlist[ret].ef_txt[0];
+				sprintf(buf, "%-10s - %s ",
+						extcmdlist[ret].ef_txt,
+						extcmdlist[ret].ef_desc);
+				add_menu(win, NO_GLYPH, &ident, 0, 0, 0, buf, MENU_UNSELECTED);
+			}
+			
+			end_menu(win, (char*)0);
+			ret = select_menu(win, PICK_ONE, &mi);
+			destroy_nhwindow(win);
+			
+			if (ret >= 1) {
+				ret = _NH3DMenuWindow.selectedRow;
+			} else {
+				ret = -1;
+			}
+			
+			_NH3DKeyBuffer.extendKey = -1;
+			free(mi);
+			return ret;
+		}
 	}
 }
 
@@ -1255,18 +1253,16 @@ wd_message()
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {	
 	@autoreleasepool {
-	
-	_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
-	
-	_NH3DBindController = self;
-	_NH3DUserStatusModel = _userStatus;
-	_NH3DMapModel = _mapModel;
-	_NH3DMessenger = _messenger;
-	_NH3DMenuWindow = _menuWindow;
-	_NH3DKeyBuffer = _asciiMapView;
-	_NH3DOpenGLView = _glMapView;
-	_NH3DTileCache = _tileCache;
-	
+		_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
+		
+		_NH3DBindController = self;
+		_NH3DUserStatusModel = _userStatus;
+		_NH3DMapModel = _mapModel;
+		_NH3DMessenger = _messenger;
+		_NH3DMenuWindow = _menuWindow;
+		_NH3DKeyBuffer = _asciiMapView;
+		_NH3DOpenGLView = _glMapView;
+		_NH3DTileCache = _tileCache;
 	}
 }
 
@@ -1694,12 +1690,12 @@ wd_message()
 			 */
 				(void) delete_savefile();
 			else {
-				(void) chmod(fq_save,FCMASK); /* back to readable */
+				(void) chmod(fq_save, FCMASK); /* back to readable */
 				//compress(fq_save);
 			}
 		}
 		//flags.move = 0;
-		[ _userStatus setPlayerName:[ NSString stringWithCString:plname encoding:NH3DTEXTENCODING ] ];
+		[_userStatus setPlayerName:[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 	} else {
 	not_recovered:
 		
