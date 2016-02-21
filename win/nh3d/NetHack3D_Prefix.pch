@@ -7,8 +7,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include <sys/time.h>
 #include <stdio.h>
+#include <signal.h>
+#include <pwd.h>
+#include <sys/time.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
 #include <TargetConditionals.h>
 
 #ifdef __OBJC__

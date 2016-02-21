@@ -393,7 +393,7 @@
 		2B123DBB0931F05F00E894EE /* arrowtrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = arrowtrap.3ds; sourceTree = "<group>"; };
 		2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NH3DUserStatusModel.m; sourceTree = "<group>"; };
 		2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DUserStatusModel.h; sourceTree = "<group>"; };
-		2B25C9A708F28B47009163CD /* dungeon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dungeon.pdf; sourceTree = "<group>"; };
+		2B25C9A708F28B47009163CD /* dungeon.pdf */ = {isa = PBXFileReference; explicitFileType = text; path = dungeon.pdf; sourceTree = "<group>"; };
 		2B26129909233E7800CA7A64 /* corner.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = corner.3ds; sourceTree = "<group>"; };
 		2B26129C09233E7800CA7A64 /* hwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = hwall.3ds; sourceTree = "<group>"; };
 		2B26129E09233E7800CA7A64 /* invisible.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = invisible.3ds; sourceTree = "<group>"; };

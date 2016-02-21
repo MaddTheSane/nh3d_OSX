@@ -64,14 +64,6 @@
 - (void)clearMenuWindow;
 
 
-/*
-- (void)tableView:(NSTableView *)tableView
-   setObjectValue:(id)object 
-   forTableColumn:(NSTableColumn *)tableColumn 
-			  row:(int)rowIndex;
-*/
-
-
 - (void)updateMenuWindow;
 - (void)addMenuItem:(winid)wid
 			  glyph:(int)glyph

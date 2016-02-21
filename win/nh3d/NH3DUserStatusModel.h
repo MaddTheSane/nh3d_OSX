@@ -228,8 +228,4 @@
 //- (IBAction)checkRole:(id)sender;
 //- (IBAction)checkGender:(id)sender;
 
-
-
-
-
 @end

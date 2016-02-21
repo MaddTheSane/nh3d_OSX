@@ -5,17 +5,19 @@
 //  Created by Haruumi Yoshino on 05/08/21.
 //  Copyright 2005 Haruumi Yoshino.
 //
+
+#include "C99Bool.h"
 #import "winnh3d.h"
 #import "NetHack3D-Swift.h"
 #import "NH3DMapView.h"
 #import "NetHack3D-Swift.h"
 #import "NetHack3D-Bridging-Header.h"
 
-#import <sys/stat.h>
-#import <signal.h>
-#import <pwd.h>
+#include <sys/stat.h>
+#include <signal.h>
+#include <pwd.h>
 #ifndef O_RDONLY
-#import <sys/fcntl.h>
+#include <sys/fcntl.h>
 #endif
 #ifdef XI18N
 #include <X11/Xlocale.h>
@@ -612,8 +614,8 @@ void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
 		
 		while (contentsOfFile == nil) {
 			contentsOfFile = [[NSString alloc] initWithContentsOfFile:loc
-													   encoding:fileEncoding[i]
-														  error:&lerror];
+															 encoding:fileEncoding[i]
+																error:&lerror];
 			
 			if (contentsOfFile != nil || i == 6) {
 				break;
@@ -623,12 +625,12 @@ void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
 		}
 		
 		if (contentsOfFile != nil) {
-			[ _NH3DMenuWindow putTextMessage:contentsOfFile ];
-			[ _NH3DMenuWindow showTextPanel ];
+			[_NH3DMenuWindow putTextMessage:contentsOfFile];
+			[_NH3DMenuWindow showTextPanel];
 		} else {
-			if ( must_exist ) {
-				NSLog(@"Failed to Load %s",filename);
-				[ _NH3DBindController didPresentError:lerror ];
+			if (must_exist) {
+				NSLog(@"Failed to Load %s", filename);
+				[_NH3DBindController didPresentError:lerror];
 			}
 		}
 	}
@@ -1054,7 +1056,9 @@ struct window_procs nh3d_procs = {
 	WC_ASCII_MAP|
 	WC_POPUP_DIALOG|
 	WC_MOUSE_SUPPORT|
-	WC_PLAYER_SELECTION,
+	WC_PLAYER_SELECTION|
+	WC_FONT_TEXT|
+	WC_TILED_MAP,
     0L,
 	nh3d_init_nhwindows,
 	nh3d_player_selection,
