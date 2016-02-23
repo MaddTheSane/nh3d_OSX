@@ -15,6 +15,7 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize strLength;
 @synthesize selectable;
 @synthesize selected;
+@synthesize attribute;
 
 //Override NSObject designated initializer. this does not work!! don't use this.
 - (instancetype)init
@@ -37,7 +38,7 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (self = [super init]) {
 		name = [[NSString alloc] initWithCString:cName
-										encoding:NH3DTEXTENCODING ];
+										encoding:NH3DTEXTENCODING];
 		identifier = *ident;
 		if (ident->a_void == 0) {
 			[self setSelectable:NO];
@@ -146,15 +147,13 @@ extern NH3DTileCache *_NH3DTileCache;
 				strAttributes[NSBackgroundColorAttributeName] = [NSColor alternateSelectedControlColor];
 		}
 		
-		aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c",accelerator]
-												 attributes:strAttributes];
+		aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c", accelerator]
+											   attributes:strAttributes];
 		
 		return aStr;
-		
 	} else 
 		return nil;
 }
-
 
 - (NSImage *)glyph
 {
@@ -165,7 +164,6 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-
 - (NSImage *)smallGlyph
 {
 	if (glyph == NO_GLYPH) {
@@ -173,14 +171,8 @@ extern NH3DTileCache *_NH3DTileCache;
 	} else if ([_NH3DTileCache tileSize_X] == 16 && [_NH3DTileCache tileSize_Y] == 16) {
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	} else {
-		NSImage *smallTile = [[NSImage alloc] initWithSize:NSMakeSize(16.0, 16.0)];
-		
-		[smallTile lockFocus];
-		[[_NH3DTileCache tileImageFromGlyph:glyph] drawInRect:NSMakeRect(0, 0, 16.0 , 16.0)
-													 fromRect:NSZeroRect
-													operation:NSCompositeSourceOver
-													 fraction:1.0];
-		[smallTile unlockFocus];
+		NSImage *smallTile = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		smallTile.size = NSMakeSize(16.0, 16.0);
 		
 		return smallTile;
 	}
@@ -191,7 +183,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	return identifier;
 }
 
-- (BOOL)isPreSelected
+- (BOOL)isPreselected
 {
 	if (preselect == MENU_SELECTED) {
 		return YES;
@@ -216,12 +208,12 @@ extern NH3DTileCache *_NH3DTileCache;
 	}
 }
 
-- (void)setAccelerator:(CHAR_P)acceleratorValue
+- (void)setAccelerator:(char)acceleratorValue
 {
 	accelerator = acceleratorValue;
 }
 
-- (void)setGroup_accel:(CHAR_P)group_accelValue
+- (void)setGroup_accel:(char)group_accelValue
 {
 	group_accel = group_accelValue;
 }
@@ -229,11 +221,6 @@ extern NH3DTileCache *_NH3DTileCache;
 - (void)setGlyph:(int)glyphValue
 {
 	glyph = glyphValue;
-}
-
-- (void)setAttribute:(int)attrValue
-{
-	attribute = attrValue;
 }
 
 - (void)setPreselect:(BOOLEAN_P)preselectValue

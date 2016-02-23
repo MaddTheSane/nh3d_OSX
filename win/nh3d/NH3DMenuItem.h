@@ -42,12 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 					   preSelect:(boolean)presel NS_DESIGNATED_INITIALIZER;
 
 - (NSAttributedString *)name;
-- (NSAttributedString *)accelerator;
+- (nullable NSAttributedString *)accelerator;
 - (nullable NSImage *)glyph;
 @property (readonly, copy, nullable) NSImage *smallGlyph;
+@property int attribute;
 - (anything)identifier;
 @property (readwrite, getter=isSelectable) BOOL selectable;
-@property (readonly, getter=isPreSelected) BOOL preSelected;
+@property (readonly, getter=isPreselected) BOOL preselected;
 @property (readwrite, getter=isSelected) BOOL selected;
 
 @property (readonly) NSSize stringSize;
@@ -56,10 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setName:(const char*)nameStr;
 - (void)setIdentifier:(const ANY_P *)identifierValue;
-- (void)setAccelerator:(CHAR_P)acceleratorValue;
-- (void)setGroup_accel:(CHAR_P)group_accelValue;
+- (void)setAccelerator:(char)acceleratorValue;
+- (void)setGroup_accel:(char)group_accelValue;
 - (void)setGlyph:(int)glyphValue;
-- (void)setAttribute:(int)attrValue;
 
 - (void)setPreselect:(BOOLEAN_P)preselectValue;
 @end

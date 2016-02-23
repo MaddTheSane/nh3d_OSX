@@ -316,7 +316,7 @@ void nh3d_askname()
 	}
 }
 
-static NSMutableDictionary<NSString*,NSSound *> *soundDict = nil;
+static NSMutableDictionary<NSString*, NSSound*> *soundDict = nil;
 
 void nh3d_get_nh_event()
 {
@@ -439,7 +439,7 @@ winid nh3d_create_nhwindow(int type)
 	}
 }
 
-void nh3d_create_nhwindow_by_id( int type, winid i)
+void nh3d_create_nhwindow_by_id(int type, winid i)
 {
 	@autoreleasepool {
 		switch (type) {
@@ -592,15 +592,14 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 				break;
 				
 			default:
-				NSLog (@"ERROR Window type does not exist. win id is %d,type is %d, message %@"
-					   , wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:NH3DTEXTENCODING]);
+				NSLog (@"ERROR Window type does not exist. win id is %d, type is %d, message: %@",
+					   wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:
+														NH3DTEXTENCODING]);
 				break;
 
 		}
-	
 	}
 }
-
 
 void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
 {
@@ -658,7 +657,6 @@ void nh3d_add_menu(winid wid, int glyph, const ANY_P *identifier,
 	}
 }
 
-
 void nh3d_end_menu(winid wid, const char *prompt)
 {
 	@autoreleasepool {
@@ -668,7 +666,6 @@ void nh3d_end_menu(winid wid, const char *prompt)
 		}
 	}
 }
-
 
 int nh3d_select_menu(winid wid, int how, menu_item **selected)
 {
@@ -685,7 +682,6 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 	return ret;
 }
 
-
 void nh3d_update_inventory()
 {
 	/* Do nothing */
@@ -701,18 +697,15 @@ void nh3d_wait_synch()
 	/* Do nothing */
 }
 
-
 void nh3d_cliparound(int x, int y)
 {
 	/* view objects,texts clipping do self.*/
 }
 
-
 void nh3d_cliparound_window(winid wid, int x, int y)
 {
 	/* view objects,texts clipping do self.*/
 }
-
 
 void nh3d_print_glyph(winid wid, XCHAR_P x, XCHAR_P y, int glyph, int under)
 {
@@ -720,7 +713,6 @@ void nh3d_print_glyph(winid wid, XCHAR_P x, XCHAR_P y, int glyph, int under)
 		[_NH3DBindController printGlyph:wid xPos:x yPos:y glyph:glyph bkglyph:under];
 	}
 }
-
 
 void nh3d_raw_print(const char *str)
 {
@@ -784,7 +776,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 			Strcat(buf,choices);
 		putstr(WIN_MESSAGE, ATR_BOLD, buf);
 		
-		if (choices && strcmp(choices, ynchars) == 0 ) {
+		if (choices && strcmp(choices, ynchars) == 0) {
 			ynfunc = YES;
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
@@ -793,7 +785,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 			[alert addButtonWithTitle:@"No"];
 			
 			result = [alert runModal];
-		} else if (choices && strcmp(choices, ynqchars) == 0 ) {
+		} else if (choices && strcmp(choices, ynqchars) == 0) {
 			ynfunc = YES;
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
@@ -820,7 +812,7 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 			}
 			result = [alert runModal];
 		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING] isLike:
-					NSLocalizedString(@"*what direction*",@"")]) {
+					NSLocalizedString(@"*what direction*", @"")]) {
 			// hmm... These letters from cmd.c will not there be a good method?
 			int x = u.ux; int y = u.uy; int mod = 0;
 			ynfunc = NO;
@@ -835,35 +827,35 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 				
 				switch ( hdirect + vdirect ) {
 					case 1 : // choice right
-						result = ( iflags.num_pad ) ? '6' : 'l' ;
+						result = (iflags.num_pad) ? '6' : 'l';
 						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 2 : // choice left
-						result = ( iflags.num_pad ) ? '4' : 'h' ;
+						result = (iflags.num_pad) ? '4' : 'h';
 						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 3 : // choice front
-						result = ( iflags.num_pad ) ? '8' : 'k' ;
+						result = (iflags.num_pad) ? '8' : 'k';
 						[_NH3DMessenger setLastAttackDirection:2];
 						break;
 					case 4 : // choice front right
-						result = ( iflags.num_pad ) ? '9' : 'u' ;
+						result = (iflags.num_pad) ? '9' : 'u';
 						[_NH3DMessenger setLastAttackDirection:3];
 						break;
 					case 5 : // choice front left
-						result = ( iflags.num_pad ) ? '7' : 'y' ;
+						result = (iflags.num_pad) ? '7' : 'y';
 						[_NH3DMessenger setLastAttackDirection:1];
 						break;
 					case 6 : // choice back
-						result = ( iflags.num_pad ) ? '2' : 'j' ;
+						result = (iflags.num_pad) ? '2' : 'j';
 						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 7 : // choice back right
-						result = ( iflags.num_pad ) ? '3' : 'n' ;
+						result = (iflags.num_pad) ? '3' : 'n';
 						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 					case 8 : // choice back left
-						result = ( iflags.num_pad ) ? '1' : 'b' ;
+						result = (iflags.num_pad) ? '1' : 'b';
 						[_NH3DMessenger setLastAttackDirection:0];
 						break;
 				}
@@ -990,7 +982,6 @@ void nh3d_outrip(winid wid, int how, time_t when)
 	@autoreleasepool {
 		char buf[BUFSZ];
 		NSMutableString *ripString = [[NSMutableString alloc] initWithCapacity:100];
-		extern const char *killed_by_prefix[];
 		
 		_NH3DMenuWindow.doneRip = YES;
 		
@@ -1212,8 +1203,8 @@ wd_message()
 						  NH3DMsgFontKey: @"Hiragino Maru Gothic Pro",
 						  NH3DMapFontKey: @"Courier Bold",
 						  NH3DBoldFontKey: @"Lucida Grande Bold",
-						  NH3DInventryFontKey: @"Courier New Bold",
-						  NH3DWindowFontKey: @"Optima Bold",
+						  NH3DInventryFontKey: @"Courier New",
+						  NH3DWindowFontKey: @"Optima",
 						  
 						  NH3DGLTileKey: @NO,
 						  
@@ -1317,7 +1308,7 @@ wd_message()
 
 - (void)setTile
 {
-	_tileCache = [ [ NH3DTileCache alloc ] initWithNamed:TILE_FILE_NAME ];
+	_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
 	_NH3DTileCache = _tileCache;
 	
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey ];

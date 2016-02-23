@@ -223,7 +223,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		}
 	}
 	
-	if (aMenuItem.preSelected) {
+	if (aMenuItem.preselected) {
 		[tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:YES];
 		[aMenuItem setPreselect:MENU_UNSELECTED];
 	}
