@@ -65,7 +65,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		case ATR_NONE:
 			break;
 		case ATR_ULINE:
-			strAttributes[NSUnderlineStyleAttributeName] = @1;
+			strAttributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
 			break;
 		case ATR_BOLD:
 			strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE];

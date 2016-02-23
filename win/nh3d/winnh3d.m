@@ -1029,7 +1029,7 @@ void nh3d_set_savefile_name()
 {
 	@autoreleasepool {
 		NSString *saveString;
-		saveString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+		saveString = [NSString stringWithFormat:@"%d%@", (int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(SAVEF, saveString.fileSystemRepresentation);
 	}
 }
@@ -1201,7 +1201,7 @@ wd_message()
 						  NH3DOpenGLWaitRateKey: @(WAIT_NORMAL),
 						  
 						  NH3DMsgFontKey: @"Hiragino Maru Gothic Pro",
-						  NH3DMapFontKey: @"Courier Bold",
+						  NH3DMapFontKey: @"Courier",
 						  NH3DBoldFontKey: @"Lucida Grande Bold",
 						  NH3DInventryFontKey: @"Courier New",
 						  NH3DWindowFontKey: @"Optima",
@@ -1487,7 +1487,7 @@ wd_message()
 	if (![aURL checkResourceIsReachableAndReturnError:NULL]) {
 		[fm createDirectoryAtURL:aURL withIntermediateDirectories:YES attributes:@{NSFilePosixPermissions:@(S_IRWXU)} error:NULL];
 	}
-	{
+	@autoreleasepool {
 		//Make sure the rest of the directory structure is okay
 		NSURL *permURL = [aURL URLByAppendingPathComponent:@"perm"];
 		NSURL *logURL = [aURL URLByAppendingPathComponent:@"logfile"];

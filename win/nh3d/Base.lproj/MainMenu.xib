@@ -91,6 +91,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6929"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerBlindFold" id="6416"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerBlindFoldString" id="BBe-r6-Amn">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">nothing</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6402">
@@ -102,6 +107,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6916"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerHelmet" id="6379"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerHelmetString" id="d8X-ol-ZkU"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6406">
@@ -113,6 +119,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6924"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerRingR" id="6412"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerRingRString" id="PJA-Iq-3rs"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6377">
@@ -120,6 +127,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6925"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerShoes" id="6388"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerShoesString" id="Vvu-NB-OVt">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">none</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6378">
@@ -127,6 +139,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6926"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerRingL" id="6411"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerRingLString" id="KgQ-cB-7hu"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6375">
@@ -134,6 +147,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6923"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerGloves" id="6386"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="I9c-so-YBO">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">none</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6374">
@@ -141,6 +159,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6922"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerCloak" id="6385"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerCloakString" id="eEN-vI-jGe"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6373">
@@ -151,6 +170,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6921"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerGloves" id="6384"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="AF6-VV-WaW"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6370">
@@ -158,6 +178,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6918"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerWeapon" id="6410"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerWeaponString" id="yJd-ik-W1C"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6371">
@@ -165,6 +186,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6919"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerArmour" id="6382"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerArmorString" id="Uga-Ds-3l1"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372">
@@ -172,6 +194,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6920"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerShield" id="6409"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerShieldString" id="67D-6M-wtB">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">none</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6369">
@@ -179,6 +206,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6917"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerAmulet" id="6407"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerAmuletString" id="aWq-Om-j9C"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6366">
@@ -190,6 +218,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6915"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerSubWeapon" id="6408"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerSubWeaponString" id="pcN-AF-IZT">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">none</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5255">

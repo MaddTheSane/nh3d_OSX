@@ -228,4 +228,17 @@
 //- (IBAction)checkRole:(id)sender;
 //- (IBAction)checkGender:(id)sender;
 
+@property (copy) NSString *playerArmorString;
+@property (copy) NSString *playerCloakString;
+@property (copy) NSString *playerHelmetString;
+@property (copy) NSString *playerShieldString;
+@property (copy) NSString *playerGlovesString;
+@property (copy) NSString *playerShoesString;
+@property (copy) NSString *playerRingLString;
+@property (copy) NSString *playerRingRString;
+@property (copy) NSString *playerWeaponString;
+@property (copy) NSString *playerSubWeaponString;
+@property (copy) NSString *playerAmuletString;
+@property (copy) NSString *playerBlindFoldString;
+
 @end

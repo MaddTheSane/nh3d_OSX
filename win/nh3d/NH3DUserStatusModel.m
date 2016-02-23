@@ -390,82 +390,109 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
+		self.playerArmorString = @(doname(uarm));
 	} else {
 		[self setPlayerArmour:0];
+		self.playerArmorString = @"";
 	}
 
 	if (uarmu && !uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
+		self.playerArmorString = @(doname(uarmu));
 	} else if (!uarm) {
 		[self setPlayerArmour:0];
+		self.playerArmorString = @"";
 	}
 	
 	if (uarmc) {
 		[self setPlayerCloak:obj_to_glyph(uarmc)];
+		self.playerCloakString = @(doname(uarmc));
 	} else {
 		[self setPlayerCloak:0];
+		self.playerCloakString = @"";
 	}
 	
 	if (uarmh) {
 		[self setPlayerHelmet:obj_to_glyph(uarmh)];
+		self.playerHelmetString = @(doname(uarmh));
 	} else {
 		[self setPlayerHelmet:0];
+		self.playerHelmetString = @"";
 	}
 		
 	if (uarmg) {
 		[self setPlayerGloves:obj_to_glyph(uarmg)];
+		self.playerGlovesString = @(doname(uarmg));
 	} else {
 		[self setPlayerGloves:0];
+		self.playerGlovesString = @"";
 	}
 	
 	if (uarmf) {
 		[self setPlayerShoes:obj_to_glyph(uarmf)];
+		self.playerShoesString = @(doname(uarmf));
 	} else {
 		[self setPlayerShoes:0];
+		self.playerShoesString = @"";
 	}
 	
 	if (uleft) {
 		[self setPlayerRingL:obj_to_glyph(uleft)];
+		self.playerRingLString = @(doname(uleft));
 	} else {
 		[self setPlayerRingL:0];
+		self.playerRingLString = @"";
 	}
 	
 	if (uright) {
 		[self setPlayerRingR:obj_to_glyph(uright)];
+		self.playerRingRString = @(doname(uright));
 	} else {
 		[self setPlayerRingR:0];
+		self.playerRingRString = @"";
 	}
 	
-	if (uwep ) {
+	if (uwep) {
 		[self setPlayerWeapon:obj_to_glyph(uwep)];
+		self.playerWeaponString = @(doname(uwep));
 	} else {
 		[self setPlayerWeapon:0];
+		self.playerWeaponString = @"";
 	}
 	
 	if (uswapwep && !u.twoweap) {
 		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
+		self.playerSubWeaponString = @(doname(uswapwep));
 	} else {
 		[self setPlayerSubWeapon:0];
+		self.playerSubWeaponString = @"";
 	}
 	
 	if (uarms && !u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uarms)];
+		self.playerShieldString = @(doname(uarms));
 	} else if (u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uswapwep)];
+		self.playerShieldString = @(doname(uswapwep));
 	} else {
 		[self setPlayerShield:0];
+		self.playerShieldString = @"";
 	}
 	
 	if (uamul) {
 		[self setPlayerAmulet:obj_to_glyph(uamul)];
+		self.playerAmuletString = @(doname(uamul));
 	} else {
 		[self setPlayerAmulet:0];
+		self.playerAmuletString = @"";
 	}
 	
 	if (ublindf) {
 		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
+		self.playerBlindFoldString = @(doname(ublindf));
 	} else {
 		[self setPlayerBlindFold:0];
+		self.playerBlindFoldString = @"";
 	}
 }
 //

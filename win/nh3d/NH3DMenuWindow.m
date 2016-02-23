@@ -50,6 +50,7 @@
 
 
 - (void)awakeFromNib {
+	[super awakeFromNib];
 	_textPanel.backgroundColor = [NSColor clearColor];
 	_textPanel.opaque = NO;
 	_menuPanel.backgroundColor = [NSColor clearColor];
