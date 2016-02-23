@@ -130,7 +130,7 @@ class MapModel: NSObject {
 		}
 		enemyIndicator.intValue = value
 		
-		if (value >= 60 && !alert.playing ) {
+		if (value >= 60 && !alert.playing) {
 			alert.play()
 		}
 	}

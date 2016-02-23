@@ -12,10 +12,25 @@ import AVFoundation
 private let DIALOG_OK		= 128
 private let DIALOG_CANCEL	= 129
 
-private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], effects: [NH3DMessaging.Effect]) {
-	let bundleURL = NSBundle.mainBundle().bundleURL
-	guard let soundConfURL = bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent("soundconfig.txt", isDirectory: false) else {
-		throw NSError(domain: "notneeded", code: 0, userInfo: nil)
+private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], effects: [NH3DMessaging.Effect], folder: NSURL?) {
+	guard let soundConfURL: NSURL = {
+		let bundleURL = NSBundle.mainBundle().bundleURL
+		if let aURL =
+			bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent("soundconfig.txt", isDirectory: false)
+			where aURL.checkResourceIsReachableAndReturnError(nil) {
+				return aURL
+		}
+		// If that's not found, use the one in our Application Support directory
+		if let bURL = (try? NSFileManager.defaultManager().URLForDirectory(.ApplicationSupportDirectory,
+			inDomain: .UserDomainMask, appropriateForURL: nil,
+			create: false))?.URLByAppendingPathComponent("NetHack3D")  {
+				return bURL.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent("soundconfig.txt", isDirectory: false)
+		}
+		
+		return nil
+		}()
+		else {
+			throw NSError(domain: "notneeded", code: 0, userInfo: nil)
 	}
 	
 	let configFile = try String(contentsOfURL: soundConfURL, encoding: NSUTF8StringEncoding)
@@ -58,7 +73,7 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 		}
 	}
 	
-	return (sounds1, effects1)
+	return (sounds1, effects1, soundConfURL.URLByDeletingLastPathComponent!)
 }
 
 class NH3DMessaging: NSObject {
@@ -82,7 +97,7 @@ class NH3DMessaging: NSObject {
 	@IBOutlet weak var inputTextField: NSTextField!
 	@IBOutlet weak var questionTextField: NSTextField!
 	
-	private var audioPlayer: AVAudioPlayer?
+	private var audioDict = [String: AVAudioPlayer]()
 	
 	private var msgArray = [Int]()
 	
@@ -113,6 +128,7 @@ class NH3DMessaging: NSObject {
 	
 	private var soundArray = [SoundMesg]()
 	private var effectArray = [Effect]()
+	private var baseSoundFolder: NSURL?
 	
 	private struct SoundMesg {
 		var message: String
@@ -151,7 +167,7 @@ class NH3DMessaging: NSObject {
 
 	override init() {
 		do {
-			(soundArray, effectArray) = try loadSoundConfig()
+			(soundArray, effectArray, baseSoundFolder) = try loadSoundConfig()
 			userSound = true
 		} catch _ {
 			userSound = false
@@ -181,22 +197,33 @@ class NH3DMessaging: NSObject {
 		}
 		
 		if userSound && !SOUND_MUTE {
-			let bundleURL = NSBundle.mainBundle().bundleURL
-			
 			for soundEntry in soundArray {
 				if (textStr as NSString).isLike(soundEntry.message) {
-					guard let soundURL = bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent(soundEntry.name) else {
+					func playAud(playSound: AVAudioPlayer) {
+						if playSound.playing {
+							playSound.pause()
+							playSound.currentTime = 0
+						}
+						playSound.volume = soundEntry.volume * 0.01
+						playSound.play()
+					}
+					
+					if let playSound1 = audioDict[soundEntry.name] {
+						playAud(playSound1)
+						break
+					}
+					guard let soundURL = baseSoundFolder?.URLByAppendingPathComponent(soundEntry.name) else {
 						continue
 					}
 					guard soundURL.checkResourceIsReachableAndReturnError(nil) else {
 						break
 					}
+					
 					guard let playSound = try? AVAudioPlayer(contentsOfURL: soundURL) else {
 						break
 					}
-					playSound.volume = soundEntry.volume * 0.01
-					playSound.play()
-					audioPlayer = playSound
+					audioDict[soundEntry.name] = playSound
+					playAud(playSound)
 					break
 				}
 			}
@@ -240,7 +267,8 @@ class NH3DMessaging: NSObject {
 		if msgArray.count < Int(iflags.msg_history) {
 			msgArray.append(putString.length)
 		} else {
-			messageWindow.textStorage?.deleteCharactersInRange(NSRange(location: 0, length: msgArray.removeFirst()))
+			let txtRange = NSRange(location: 0, length: msgArray.removeFirst())
+			messageWindow.textStorage?.deleteCharactersInRange(txtRange)
 			msgArray.append(putString.length)
 		}
 		
@@ -327,7 +355,7 @@ class NH3DMessaging: NSObject {
 	}
 	
 	func showOutRip(ripString: UnsafePointer<CChar>) {
-		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died. Nothing eventful happened, though"
+		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died. Nothing eventful happened, though."
 		showOutRip(conv)
 	}
 	
