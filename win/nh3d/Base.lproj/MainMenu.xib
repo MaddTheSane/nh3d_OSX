@@ -2721,6 +2721,18 @@
                 <string>playerSubWeapon</string>
                 <string>playerAmulet</string>
                 <string>playerBlindFold</string>
+                <string>playerArmorString</string>
+                <string>playerCloakString</string>
+                <string>playerHelmetString</string>
+                <string>playerShieldString</string>
+                <string>playerGlovesString</string>
+                <string>playerShoesString</string>
+                <string>playerRingLString</string>
+                <string>playerRingRString</string>
+                <string>playerWeaponString</string>
+                <string>playerSubWeaponString</string>
+                <string>playerAmuletString</string>
+                <string>playerBlindFoldString</string>
             </declaredKeys>
             <connections>
                 <outlet property="content" destination="4755" id="4805"/>
