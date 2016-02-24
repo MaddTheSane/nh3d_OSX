@@ -1120,7 +1120,10 @@
 			break;
 		case 7: keyBuffer = 'C';	/* Name Creature */
 			break;
-		case 8: keyBuffer = M('e'); /* Qualificatuons */
+		case 8: keyBuffer = M('e'); /* Qualifications */
+			break;
+		case 9:
+			keyBuffer = C('o'); /* Dungeon Overview */
 			break;
 	}
 		
@@ -1503,6 +1506,8 @@
 - (IBAction)showGlobalMap:(id)sender
 {
 	@autoreleasepool {
+		//reset magnification
+		_mapLview.enclosingScrollView.magnification =1;
 		int cusx, cusy;
 		NSRect mapwindowRect = NSMakeRect(0,0,_mapLpanel.maxSize.width,_mapLpanel.maxSize.height);
 		NSSize drawSize;
@@ -1525,7 +1530,6 @@
 		
 		for (int x = 0; x < MAPSIZE_COLUMN; x++) {
 			for (int y = 0; y < MAPSIZE_ROW; y++) {
-				
 				NH3DMapItem *mapcell = [_mapModel mapArrayAtX:x atY:y];
 				
 				if (TILED_LEVELMAP) { // Draw Tiled Map.
@@ -1627,41 +1631,11 @@
 
 - (IBAction)zoomLevelMap:(id)sender
 {
-	NSImage *newImg;
-	NSSize	mapSize = mapImage.size;
-	NSSize	newSize = _mapLview.image.size;
-	
-	if (newSize.height > mapSize.height * 1.5) {
-		newSize.height = mapSize.height * 1.5;
-		newSize.width = mapSize.width * 1.5;
-	} else if (newSize.height < mapSize.height * 0.5) {
-		newSize.height = mapSize.height * 0.5;
-		newSize.width = mapSize.width * 0.5;
-	}
-		
 	if ([sender tag]) {
-		// zoom in
-		newSize = NSMakeSize(newSize.width * 0.75, newSize.height * 0.75);
+		[_mapLview.enclosingScrollView animator].magnification *= 0.75;
 	} else {
-		// zoom out
-		newSize = NSMakeSize(newSize.width * 1.25, newSize.height * 1.25);
+		[_mapLview.enclosingScrollView animator].magnification *= 1.25;
 	}
-	
-	newImg = [[NSImage alloc] initWithSize:newSize];
-	NSGraphicsContext* gc = [NSGraphicsContext currentContext];
-	gc.imageInterpolation = NSImageInterpolationHigh;
-	
-	[newImg lockFocus];
-	[mapImage drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height)
-				 fromRect:NSZeroRect
-				operation:NSCompositeSourceOver
-				 fraction:1.0];
-	[newImg unlockFocus];
-	
-	_mapLview.frame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height);
-	_mapLview.image = newImg;
-	
-	[_mapLview setNeedsDisplay];
 }
 
 @end

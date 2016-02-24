@@ -2575,10 +2575,16 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="85V-Xl-zoL"/>
-                            <menuItem title="Map…" id="ske-b7-lNY">
+                            <menuItem title="Level Map…" id="ske-b7-lNY">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showGlobalMap:" target="5648" id="D5p-b9-OKo"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Dungeon Overview" tag="9" keyEquivalent="o" id="sbe-4J-BhS">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="infoMenuActions:" target="5648" id="9ri-27-oSr"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -3897,7 +3903,7 @@ DQ
                         </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="ScrollPaper" id="6963"/>
                     </imageView>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6443">
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6443">
                         <rect key="frame" x="45" y="59" width="650" height="450"/>
                         <clipView key="contentView" autoresizesSubviews="NO" drawsBackground="NO" copiesOnScroll="NO" id="qFK-Qf-Zkl">
                             <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
@@ -3985,11 +3991,11 @@ DQ
                     <constraint firstItem="6810" firstAttribute="bottom" secondItem="6454" secondAttribute="bottom" id="BhB-V6-E7s"/>
                     <constraint firstItem="6445" firstAttribute="top" secondItem="6443" secondAttribute="bottom" constant="20" symbolic="YES" id="Dhl-fP-caV"/>
                     <constraint firstItem="6454" firstAttribute="leading" secondItem="6810" secondAttribute="trailing" constant="7" id="Goh-u4-fwN"/>
+                    <constraint firstItem="6810" firstAttribute="leading" secondItem="6808" secondAttribute="trailing" constant="-1" id="HR6-w9-Xh4"/>
                     <constraint firstItem="6443" firstAttribute="leading" secondItem="6442" secondAttribute="leading" constant="45" id="NSd-ZI-oIh"/>
                     <constraint firstAttribute="trailing" secondItem="6445" secondAttribute="trailing" constant="49" id="OB8-Dc-Ltt"/>
                     <constraint firstItem="6808" firstAttribute="top" secondItem="6443" secondAttribute="bottom" constant="17" id="T8m-cf-5dR"/>
                     <constraint firstItem="6454" firstAttribute="leading" secondItem="6808" secondAttribute="trailing" constant="41" id="TS8-LR-hif"/>
-                    <constraint firstItem="6810" firstAttribute="leading" secondItem="6442" secondAttribute="leading" constant="68" id="a4V-Hx-GX8"/>
                     <constraint firstItem="6445" firstAttribute="leading" secondItem="6454" secondAttribute="trailing" constant="7" id="bVE-5H-982"/>
                     <constraint firstItem="6446" firstAttribute="leading" secondItem="6442" secondAttribute="leading" id="d49-mA-Ug8"/>
                     <constraint firstAttribute="bottom" secondItem="6445" secondAttribute="bottom" constant="20" symbolic="YES" id="gJy-Sh-dHT"/>

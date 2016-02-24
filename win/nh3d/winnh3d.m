@@ -592,9 +592,9 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 				break;
 				
 			default:
-				NSLog (@"ERROR Window type does not exist. win id is %d, type is %d, message: %@",
-					   wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:
-														NH3DTEXTENCODING]);
+				NSLog(@"ERROR Window type does not exist. win id is %d, type is %d, message: %@",
+					  wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:
+													   NH3DTEXTENCODING]);
 				break;
 
 		}
