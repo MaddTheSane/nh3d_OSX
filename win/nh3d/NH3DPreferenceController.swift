@@ -149,9 +149,10 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		openPanel.allowsMultipleSelection = false
 		openPanel.allowedFileTypes = NSImage.imageTypes()
 		//openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
-		let result = openPanel.runModal()
-		if result == NSFileHandlingPanelOKButton {
-			NSUserDefaults.standardUserDefaults().setObject(openPanel.URL?.path, forKey: NH3DTileNameKey)
+		openPanel.beginSheetModalForWindow(window!) { (result) -> Void in
+			if result == NSFileHandlingPanelOKButton {
+				NSUserDefaults.standardUserDefaults().setObject(openPanel.URL?.path, forKey: NH3DTileNameKey)
+			}
 		}
 	}
 
