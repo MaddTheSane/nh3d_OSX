@@ -1,5 +1,5 @@
 /*
- *  NH3DModelObject.h"
+ *  NH3DModelObject.h
  *  NetHack3D
  *
  *  Created by Haruumi Yoshino on 05/10/20.
@@ -45,21 +45,35 @@ typedef struct {
 
 
 typedef struct {
-	BOOL active;	
-	float life;    /* model life */
-	float fade;    /* Fade speed */	
-	float r;       /* Red value */
-	float g;       /* Green value */
-	float b;       /* Blue value */	
-	float x;       /* X position */
-	float y;       /* Y position */
-	float z;       /* Z position */
-	float xi;      /* X direction */
-	float yi;      /* Y direction */
-	float zi;      /* Z direction */	
-	float xg;      /* X gravity */
-	float yg;      /* Y gravity */
-	float zg;      /* Z gravity */
+	BOOL active;
+	/*! model life */
+	float life;
+	/*! Fade speed */
+	float fade;
+	/*! Red value */
+	float r;
+	/*! Green value */
+	float g;
+	/*! Blue value */
+	float b;
+	/*! X position */
+	float x;
+	/*! Y position */
+	float y;
+	/*! Z position */
+	float z;
+	/*! X direction */
+	float xi;
+	/*! Y direction */
+	float yi;
+	/*! Z direction */
+	float zi;
+	/*! X gravity */
+	float xg;
+	/*! Y gravity */
+	float yg;
+	/*! Z gravity */
+	float zg;
 } NH3DParticle;
 
 
@@ -130,18 +144,29 @@ typedef struct {
 
 @property (getter=isActive) BOOL active;
 
+/*! model name from data */
 @property (readonly, copy) NSString *modelName;
+/*! vertex counts */
 @property (readonly) int verts_qty;
+/*! faces counts */
 @property (readonly) int face_qty;
+/*! normal counts */
 @property (readonly) int normal_qty;
+/*! texcoords counts */
 @property (readonly) int texcords_qty;
 
+/*! vertex points */
 @property (readonly) NH3DVertexType *verts NS_RETURNS_INNER_POINTER;
+/*! normals */
 @property (readonly) NH3DVertexType *norms NS_RETURNS_INNER_POINTER;
 
+/*! faces */
 @property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER;
-- (NH3DFaceType *)texReference NS_RETURNS_INNER_POINTER;
-- (NH3DFaceType *)normReference NS_RETURNS_INNER_POINTER;
+/*! OBJ face optional texture reference */
+- (nullable NH3DFaceType *)texReference NS_RETURNS_INNER_POINTER;
+/*! OBJ face optional normal reference */
+- (nullable NH3DFaceType *)normReference NS_RETURNS_INNER_POINTER;
+/*! TextureCoords */
 @property (readonly) NH3DMapCoordType *texcoords NS_RETURNS_INNER_POINTER;
 
 - (GLuint)texture;
@@ -166,13 +191,13 @@ typedef struct {
 @property (nonatomic) float particleSize;
 
 @property (readonly) BOOL hasChildren;
-@property (readonly) NSInteger numberOfChildObjects;
+@property (readonly) NSInteger countOfChildObjects;
 
 @property BOOL isChild;
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
 - (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
-@property (readonly, strong, nullable) NH3DModelObject *childObjectAtLast;
+@property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
 @property (readwrite) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;

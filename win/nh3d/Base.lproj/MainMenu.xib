@@ -86,7 +86,7 @@
                             <outlet property="menu" destination="6569" id="6659"/>
                         </connections>
                     </customView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6414">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6414" userLabel="blindfold">
                         <rect key="frame" x="72" y="317" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6929"/>
                         <connections>
@@ -102,7 +102,7 @@
                         <rect key="frame" x="17" y="162" width="147" height="198"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="human" id="6927"/>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6368">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6368" userLabel="helmet">
                         <rect key="frame" x="72" y="317" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6916"/>
                         <connections>
@@ -114,7 +114,7 @@
                         <rect key="frame" x="172" y="22" width="451" height="131"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="axesIndependently" image="ScrollParchment" id="6928"/>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6376">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6376" userLabel="right ring">
                         <rect key="frame" x="25" y="170" width="32" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6924"/>
                         <connections>
@@ -122,7 +122,7 @@
                             <binding destination="4761" name="toolTip" keyPath="selection.playerRingRString" id="PJA-Iq-3rs"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6377">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6377" userLabel="shoes">
                         <rect key="frame" x="72" y="167" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6925"/>
                         <connections>
@@ -134,7 +134,7 @@
                             </binding>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6378">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6378" userLabel="left ring">
                         <rect key="frame" x="125" y="170" width="32" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6926"/>
                         <connections>
@@ -142,7 +142,7 @@
                             <binding destination="4761" name="toolTip" keyPath="selection.playerRingLString" id="KgQ-cB-7hu"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6375">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6375" userLabel="gloves">
                         <rect key="frame" x="125" y="220" width="32" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6923"/>
                         <connections>
@@ -154,7 +154,7 @@
                             </binding>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6374">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6374" userLabel="cloak">
                         <rect key="frame" x="72" y="217" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6922"/>
                         <connections>
@@ -162,7 +162,7 @@
                             <binding destination="4761" name="toolTip" keyPath="selection.playerCloakString" id="eEN-vI-jGe"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6373">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6373" userLabel="gloves">
                         <rect key="frame" x="25" y="220" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="d1M-dK-H81"/>
@@ -173,7 +173,7 @@
                             <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="AF6-VV-WaW"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6370">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6370" userLabel="weapon">
                         <rect key="frame" x="22" y="267" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6918"/>
                         <connections>
@@ -181,15 +181,15 @@
                             <binding destination="4761" name="toolTip" keyPath="selection.playerWeaponString" id="yJd-ik-W1C"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6371">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6371" userLabel="armor">
                         <rect key="frame" x="72" y="267" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6919"/>
                         <connections>
-                            <binding destination="4761" name="value" keyPath="selection.playerArmour" id="6382"/>
                             <binding destination="4761" name="toolTip" keyPath="selection.playerArmorString" id="Uga-Ds-3l1"/>
+                            <binding destination="4761" name="value" keyPath="selection.playerArmour" id="6382"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372" userLabel="shield">
                         <rect key="frame" x="122" y="267" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6920"/>
                         <connections>
@@ -201,7 +201,7 @@
                             </binding>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6369">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6369" userLabel="amulet">
                         <rect key="frame" x="125" y="320" width="32" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6917"/>
                         <connections>
@@ -209,7 +209,7 @@
                             <binding destination="4761" name="toolTip" keyPath="selection.playerAmuletString" id="aWq-Om-j9C"/>
                         </connections>
                     </imageView>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6366">
+                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6366" userLabel="subWeapon">
                         <rect key="frame" x="25" y="320" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="6sx-Lc-BAh"/>

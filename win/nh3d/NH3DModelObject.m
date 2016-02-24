@@ -57,8 +57,9 @@ static const NH3DMaterial defaultMat = {
 @synthesize particleSlowdown;
 @synthesize particleGravity;
 @synthesize particleSize;
+@synthesize modelName;
 
-- (NSInteger)numberOfChildObjects
+- (NSInteger)countOfChildObjects
 {
 	return [childObjects count];
 }
@@ -71,7 +72,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	return modObj;
 }
-
 
 - (NSInteger)numberOfTextures
 {
@@ -179,7 +179,6 @@ static const NH3DMaterial defaultMat = {
 				norms[normal_qty].z = [destText floatValue];
 				
 				normal_qty++;
-				
 			} else if ([destText isEqualToString:@"vt"]) {
 				// scan texture coords
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
@@ -189,7 +188,6 @@ static const NH3DMaterial defaultMat = {
 				//NSLog(@"vt %d:%f,%f",texcords_qty,texcoords[texcords_qty].s,texcoords[texcords_qty].t);
 				
 				texcords_qty++;
-				
 			} else if ([destText isEqualToString:@"f"]) {
 				// scan faces
 				// a format of 'f' section its vertex reference number,
@@ -772,8 +770,6 @@ static const NH3DMaterial defaultMat = {
 
 //--------------------------------------------
 
-@synthesize modelName;
-
 - (int)verts_qty
 {
 	return verts_qty;
@@ -971,7 +967,7 @@ static const NH3DMaterial defaultMat = {
 	return childObjects[index];
 }
 
-- (NH3DModelObject *)childObjectAtLast
+- (NH3DModelObject *)lastChildObject
 {
 	return childObjects.lastObject;
 }
@@ -1023,7 +1019,7 @@ static const NH3DMaterial defaultMat = {
 - (void)drawSelf
 {
 	int i;
-	float px , py, pz;
+	GLfloat px , py, pz;
 	
 	if (active) {
 		GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
@@ -1165,7 +1161,7 @@ static const NH3DMaterial defaultMat = {
 				glDisable(GL_TEXTURE_2D);
 				
 				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA ,GL_ONE);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 				
 				for (i = 0; i < MAX_PARTICLES; i++) {
 					GLfloat colorArray[4] = {particles[i].r, particles[i].g, particles[i].b, particles[i].life};
