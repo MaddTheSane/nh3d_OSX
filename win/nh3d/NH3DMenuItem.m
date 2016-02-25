@@ -22,7 +22,9 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	anything anyChar;
 	anyChar.a_char = ' ';
-	self = [self initWithParameter:"" identifier:&anyChar accelerator:0 group_accel:0 glyph:0 attribute:0 preSelect:false];
+	if (self = [self initWithParameter:"" identifier:&anyChar accelerator:0 group_accel:0 glyph:0 attribute:0 preSelect:false]) {
+		
+	}
 	return nil;
 }
 

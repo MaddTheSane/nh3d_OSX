@@ -1311,8 +1311,8 @@ wd_message()
 	_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
 	_NH3DTileCache = _tileCache;
 	
-	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey ];
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey ];
+	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey];
+	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey];
 }
 
 // show user make panel.
@@ -1353,10 +1353,10 @@ wd_message()
 
 - (void)didPresentError:(NSError *)error
 {
-	NSInteger result;
+	//NSInteger result;
 	NSAlert *alert = [NSAlert alertWithError:error];
 	NSLog(@"%@", error);
-	result = [alert runModal];
+	/*result = */[alert runModal];
 }
 
 - (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph bkglyph:(int)bkglyph

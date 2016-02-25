@@ -408,7 +408,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
 {
-	NSRect windowRect = window.frame;
+	NSRect windowRect;
 	NSSize windowMaxSize = window.maxSize;
 	NSSize windowMinSize = window.minSize;
 	
@@ -417,12 +417,12 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 	//set height
 	while (scrollView.verticalScroller.usableParts != NSNoScrollerParts) {
-		windowRect = window.frame ;
+		windowRect = window.frame;
 		if (windowRect.size.height < windowMaxSize.height) {
-			 windowRect.size.height = windowRect.size.height+32.0;
+			windowRect.size.height = windowRect.size.height + 32.0;
 			[window setFrame:windowRect display:NO];
 		} else {
-			windowRect.size.height = windowMaxSize.height-16;
+			windowRect.size.height = windowMaxSize.height - 16;
 			[window setFrame:windowRect display:NO];
 			break;
 		}
