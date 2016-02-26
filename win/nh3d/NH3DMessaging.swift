@@ -375,7 +375,7 @@ class NH3DMessaging: NSObject {
 		ripPanel.orderFront(self)
 		// window fade out/in
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
-			ctx.duration = 1.1
+			ctx.duration = 0.6
 			self.window.animator().alphaValue = 0
 			self.ripPanel.animator().alphaValue = 1
 			}, completionHandler: {

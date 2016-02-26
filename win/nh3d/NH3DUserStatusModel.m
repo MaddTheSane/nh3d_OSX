@@ -415,16 +415,9 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (uarmh) {
 		[self setPlayerHelmet:obj_to_glyph(uarmh)];
 		self.playerHelmetString = @(doname(uarmh));
-		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.
-		if (!ublindf) {
-			self.playerBlindFoldString = self.playerHelmetString;
-		}
 	} else {
 		[self setPlayerHelmet:0];
 		self.playerHelmetString = @"";
-		if (!ublindf) {
-			self.playerBlindFoldString = @"";
-		}
 	}
 		
 	if (uarmg) {
@@ -497,6 +490,10 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (ublindf) {
 		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
 		self.playerBlindFoldString = @(doname(ublindf));
+	} else if (uarmh) {
+		[self setPlayerBlindFold:0];
+		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.
+		self.playerBlindFoldString = self.playerHelmetString;
 	} else {
 		[self setPlayerBlindFold:0];
 		self.playerBlindFoldString = @"";

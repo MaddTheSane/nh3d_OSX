@@ -56,8 +56,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) int modelDrawingType;
 
+
+@property (readonly, getter=isCorpse) BOOL corpse;
+
+@property (readonly, getter=isInvis) BOOL invis;
+
+@property (readonly, getter=isDetected) BOOL detected;
+
+/// Returns \c YES if the tile has a pet from the player.
 @property (readonly, getter=isPet) BOOL pet;
+
+@property (readonly) BOOL wasRidden;
+
+
+/// Returns \c YES if there is a pile of objects on the block.
 @property (readonly, getter=isPile) BOOL pile;
+
 
 @end
 

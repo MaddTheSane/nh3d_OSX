@@ -181,9 +181,34 @@ extern NH3DTileCache *_NH3DTileCache;
 	return self;
 }
 
+- (BOOL)isCorpse
+{
+	return (special & MG_CORPSE) == MG_CORPSE;
+}
+
+- (BOOL)isInvis
+{
+	return (special & MG_INVIS) == MG_INVIS;
+}
+
+- (BOOL)isDetected
+{
+	return (special & MG_DETECT) == MG_DETECT;
+}
+
 - (BOOL)isPet
 {
 	return (special & MG_PET) == MG_PET;
+}
+
+- (BOOL)wasRidden
+{
+	return (special & MG_RIDDEN) == MG_RIDDEN;
+}
+
+- (BOOL)isStatue
+{
+	return (special & MG_STATUE) == MG_STATUE;
 }
 
 - (BOOL)isPile
