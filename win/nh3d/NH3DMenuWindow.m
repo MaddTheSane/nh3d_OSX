@@ -48,17 +48,16 @@
 	return self;
 }
 
-
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	_textPanel.backgroundColor = [NSColor clearColor];
 	_textPanel.opaque = NO;
 	_menuPanel.backgroundColor = [NSColor clearColor];
 	_menuPanel.opaque = NO;
-	[_textWindow setDrawsBackground:NO];
+	_textWindow.drawsBackground = NO;
 	_menuTableWindow.backgroundColor = [NSColor clearColor];
-	[_textScrollView setDrawsBackground:NO];
-	[_menuScrollview setDrawsBackground:NO];
+	_textScrollView.drawsBackground = NO;
+	_menuScrollview.drawsBackground = NO;
 	
 	//[_textWindow setAutoresizingMask:NSViewWidthSizable];
 	//[_menuTableWindow setAutoresizingMask:NSViewWidthSizable];
@@ -294,7 +293,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (int)selectMenu:(winid)wid how:(int)how selected:(menu_item **)selected
 {
-	int i,ret = 0;
+	int i, ret = 0;
 	NH3DMenuItem *aMenuItem;
 	menu_item *mi;
 	
@@ -325,14 +324,14 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 	*selected = (menu_item *)0;
 	
-	if ( how != PICK_NONE && ret == DIALOG_OK ) {
+	if (how != PICK_NONE && ret == DIALOG_OK) {
 		ret = _menuTableWindow.numberOfSelectedRows;
 	} else {
 		ret = -1;
 	}
 	
 	if (ret > 0) {
-		*selected = mi = ( menu_item * )alloc(ret * sizeof(menu_item));
+		*selected = mi = (menu_item *)alloc(ret * sizeof(menu_item));
 		for (i = 0; i < nh3dMenu.count; i++) {
 			aMenuItem = nh3dMenu[i];
 			if ([_menuTableWindow isRowSelected:i]) {

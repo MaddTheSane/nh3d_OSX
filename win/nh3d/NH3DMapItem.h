@@ -56,6 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) int modelDrawingType;
 
+@property (readonly, getter=isPet) BOOL pet;
+@property (readonly, getter=isPile) BOOL pile;
+
 @end
 
 NS_ASSUME_NONNULL_END

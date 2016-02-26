@@ -306,8 +306,8 @@ void nh3d_askname()
 			plname[0] = 0;
 			
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = NSLocalizedString(@"A name is too long, and it is difficult to learn.",@"");
-			alert.informativeText = NSLocalizedString(@"Please input it within 1 to 20 characters.",@"");
+			alert.messageText = NSLocalizedString(@"A name is too long, and it is difficult to learn.", @"");
+			alert.informativeText = NSLocalizedString(@"Please input it within 1 to 20 characters.", @"");
 			[alert runModal];
 		} else {
 			NSString *pcName = [[NSString alloc] initWithCString:plname encoding:NH3DTEXTENCODING];
@@ -1201,9 +1201,9 @@ wd_message()
 						  NH3DOpenGLWaitRateKey: @(WAIT_NORMAL),
 						  
 						  NH3DMsgFontKey: @"Hiragino Maru Gothic Pro",
-						  NH3DMapFontKey: @"Courier",
+						  NH3DMapFontKey: @"Courier New",
 						  NH3DBoldFontKey: @"Lucida Grande Bold",
-						  NH3DInventryFontKey: @"Courier New",
+						  NH3DInventryFontKey: @"Menlo",
 						  NH3DWindowFontKey: @"Optima",
 						  
 						  NH3DGLTileKey: @NO,

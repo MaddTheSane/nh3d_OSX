@@ -181,6 +181,16 @@ extern NH3DTileCache *_NH3DTileCache;
 	return self;
 }
 
+- (BOOL)isPet
+{
+	return (special & MG_PET) == MG_PET;
+}
+
+- (BOOL)isPile
+{
+	return (special & MG_OBJPILE) == MG_OBJPILE;
+}
+
 - (NSString *)symbol
 {
 	return [NSString stringWithFormat:@"%c", symbol];
