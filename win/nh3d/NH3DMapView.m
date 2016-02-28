@@ -1533,8 +1533,8 @@
 				NH3DMapItem *mapcell = [_mapModel mapArrayAtX:x atY:y];
 				
 				if (TILED_LEVELMAP) { // Draw Tiled Map.
-					NSImage *tileImg = mapcell.tile ;
-					drawSize = tileImg.size ;
+					NSImage *tileImg = mapcell.tile;
+					drawSize = tileImg.size;
 					
 					[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
 													 imgSize.height - (drawSize.height * (CGFloat)y))

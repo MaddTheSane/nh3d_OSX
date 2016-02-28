@@ -1174,7 +1174,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 					var f: Float = 0
 					var angle: Float = 5.0
 					
-					glPushMatrix();
+					glPushMatrix()
+					defer {
+						glPopMatrix()
+					}
 					glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0);
 					
 					if defaultTex[Int(glyph)] == 0 {
@@ -1226,8 +1229,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 					
 					glDisable(GLenum(GL_ALPHA_TEST))
 					glDisable(GLenum(GL_TEXTURE_2D))
-					
-					glPopMatrix();
 			} else { // Draw model
 				guard let model = model else {
 					return
@@ -1241,16 +1242,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 					let materialCol = mapItem.material
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
-					
 				} else if glyph == S_vwall + GLYPH_CMAP_OFF {
-					
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posz) % 5) != 0 {
 						model.childObjectAtIndex(0).active = false
 					} else {
 						model.childObjectAtIndex(0).active = true
 					}
-					
 				} else if glyph == S_hwall + GLYPH_CMAP_OFF {
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posx) % 5) != 0 {
@@ -1258,9 +1256,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 					} else {
 						model.childObjectAtIndex(0).active = true
 					}
-					
 				} else if glyph >= PM_GIANT_ANT+GLYPH_STATUE_OFF && glyph <= (NUMMONS + GLYPH_STATUE_OFF) {
-					model.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
+					model.currentMaterial = nh3dMaterialArray[Int(CLR_WHITE)]
+				} else if glyph >= PM_GIANT_ANT+GLYPH_PET_OFF && glyph <= NUMMONS+GLYPH_PET_OFF {
+					let materialCol = mapItem.material
+					// setMaterial
+					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
 				} else {
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 				}
@@ -3751,7 +3752,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if let ret = ret where !ret.hasChildren {
 			//Just add a simple texture for now
 			ret.setTexture(Int32(cellingTex))
-			//ret.addTexture("ceiling")
 			ret.animated = true
 			ret.useEnvironment = true
 			ret.animationRate = ((Float(random() % 5) * 0.1) + 0.5) / 2
@@ -3759,7 +3759,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
 			ret.setPivotX(0.0, atY: 0.0, atZ: 0.0)
 			ret.addChildObject(loadDat.modelName, type: .Object)
-			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
+			ret.lastChildObject?.setTexture(Int32(cellingTex))
+			ret.lastChildObject?.useEnvironment = true
+			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_BROWN)]
 			ret.lastChildObject?.animationRate = (Float(random() % 5) * 0.1) + 0.5
 			ret.lastChildObject?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
 			ret.lastChildObject?.modelShift = NH3DVertexType(x: 0, y: 1.5, z: 0)

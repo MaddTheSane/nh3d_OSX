@@ -1019,7 +1019,7 @@ static const NH3DMaterial defaultMat = {
 - (void)drawSelf
 {
 	int i;
-	GLfloat px , py, pz;
+	GLfloat px, py, pz;
 	
 	if (active) {
 		GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
@@ -1110,7 +1110,7 @@ static const NH3DMaterial defaultMat = {
 			case NH3DModelTypeTexturedObject:
 				glActiveTexture(GL_TEXTURE0);
 				glEnable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, textures[texture]);
+				glBindTexture(GL_TEXTURE_2D, [self texture]);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				
 				glBegin(GL_TRIANGLES);
