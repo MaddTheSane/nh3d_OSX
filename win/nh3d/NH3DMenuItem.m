@@ -225,7 +225,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	glyph = glyphValue;
 }
 
-- (void)setPreselect:(BOOLEAN_P)preselectValue
+- (void)setPreselect:(boolean)preselectValue
 {
 	preselect = preselectValue;
 }

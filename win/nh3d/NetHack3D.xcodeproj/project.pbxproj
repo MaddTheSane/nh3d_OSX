@@ -341,6 +341,7 @@
 		2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5553AA2E1C73B79400A903B5 /* pillar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 5553AA2D1C73B79400A903B5 /* pillar.3ds */; };
 		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
@@ -1208,6 +1209,7 @@
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
+		55388FDA1C8340C2002D3B99 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
@@ -1305,6 +1307,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
 				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
@@ -1428,6 +1431,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55388FDA1C8340C2002D3B99 /* GLKit.framework */,
 				55F544C01C3614A100A1A1EE /* AVFoundation.framework */,
 				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
 				2B02FB1F09497C03008FEDB0 /* OpenGL.framework */,

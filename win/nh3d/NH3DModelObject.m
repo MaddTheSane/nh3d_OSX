@@ -58,6 +58,7 @@ static const NH3DMaterial defaultMat = {
 @synthesize particleGravity;
 @synthesize particleSize;
 @synthesize modelName;
+@synthesize modelType;
 
 - (NSInteger)countOfChildObjects
 {

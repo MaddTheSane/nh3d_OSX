@@ -395,12 +395,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			var aMatrix = GLKMatrix4MakePerspective(
 				GLKMathDegreesToRadians(76),				/* View angle */
-				Float(frameRect.width / frameRect.height),	/*Aspect rasio */
+				Float(frameRect.width / frameRect.height),	/* Aspect ratio */
 				0.1,										/* Near limit Distance from origin*/
 				30)											/* Far limit  */
-			var anArr = Array<GLfloat>(count: 16, repeatedValue: 0)
-			withUnsafeMutablePointer(&aMatrix) { (arr) -> () in
-				memcpy(&anArr, UnsafePointer(arr), sizeof(GLKMatrix4))
+			let anArr = withUnsafeMutablePointer(&aMatrix) { (arr) -> UnsafePointer<GLfloat> in
+				return UnsafePointer<GLfloat>(arr)
 			}
 			glMultMatrixf(anArr)
 		}
@@ -1830,9 +1829,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		magicItem.particleLife = 0.4
 		magicItem.particleSize = 35
 	}
-	
-	//MARK: - Load model methods. Used as closures
-	
+}
+
+//MARK: - Load model methods. Used as closures
+
+extension NH3DOpenGLView {
 	/// insect class
 	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
@@ -2444,7 +2445,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_ELVENKING + GLYPH_MON_OFF:
+		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: -0.18, atZ: 0)
@@ -2891,7 +2892,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(-0.34, atY:2.68, atZ:0.65)
 			ret?.lastChildObject?.setParticleGravityX(0, y: 0.1, z: 0.08)
-			ret?.lastChildObject?.particleType = .Both ;
+			ret?.lastChildObject?.particleType = .Both
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_BLUE
 			ret?.lastChildObject?.setParticleSpeedX(0.0, y: -130.0)
 			ret?.lastChildObject?.particleSlowdown = 4.2
@@ -3775,8 +3776,30 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return nil
 		}
 		
-		//TODO: add star? heart?
+		struct PetHelper {
+		static let pinkMaterial =
+			NH3DMaterial(ambient: (0.01, 0.01, 0.01, 1.0),	//	ambient color
+			diffuse: (0.5, 0.25, 0.25, 1.0),		//	diffuse color
+			specular: (0.7, 0.6, 0.6, 1.0),			//	specular color
+			emission: (0.1, 0.1, 0.1, 1.0),			//  emission
+			shininess: 0.25)						//	shininess
+		}
+		if let lastChild = model.lastChildObject where lastChild.modelType == .Emitter && lastChild.currentMaterial == PetHelper.pinkMaterial {
+			// Already set up, return model unedited
+			return model
+		}
 		
+		model.addChildObject("emitter", type: .Emitter)
+		model.lastChildObject?.setModelScaleX(2, scaleY: 1, scaleZ: 2)
+		model.lastChildObject?.setPivotX(0, atY: 3, atZ: 0)
+		model.lastChildObject?.particleType = .Both
+		model.lastChildObject?.particleColor = CLR_BRIGHT_MAGENTA
+		model.lastChildObject?.currentMaterial = PetHelper.pinkMaterial
+		model.lastChildObject?.setParticleGravityX(0.0, y: 2.5, z: 0.0)
+		model.lastChildObject?.setParticleSpeedX(1.0, y: 1.00)
+		model.lastChildObject?.particleSlowdown = 12
+		model.lastChildObject?.particleLife = 1.2
+		model.lastChildObject?.particleSize = 4.0
 		
 		return model
 	}
@@ -4939,6 +4962,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)..<Int(PM_APPRENTICE + GLYPH_PET_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Pets
 		}
+		
 		// statues
 		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)..<Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Statues

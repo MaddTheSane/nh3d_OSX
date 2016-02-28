@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setGroup_accel:(char)group_accelValue;
 - (void)setGlyph:(int)glyphValue;
 
-- (void)setPreselect:(BOOLEAN_P)preselectValue;
+- (void)setPreselect:(boolean)preselectValue;
 @end
 
 NS_ASSUME_NONNULL_END

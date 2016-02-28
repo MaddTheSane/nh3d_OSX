@@ -215,6 +215,8 @@ typedef struct {
 
 - (void)drawSelf;
 
+@property (readonly) NH3DModelType modelType;
+
 @end
 
 NS_ASSUME_NONNULL_END
