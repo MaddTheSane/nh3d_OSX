@@ -661,24 +661,18 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, without: Int32...) -> NH3DModelObject? {
 		var withoutFlag = false;
 		
-		func nums() -> [Int32] {
-			let theRange = (startNum)...(endNum)
-			let theArray = Array(theRange)
-			return theArray.map({return $0 + offset})
-		}
-		
-		for i in nums() {
+		for i in (startNum+offset)...(endNum+offset) {
 			if modelDictionary[i] != nil {
 				if without.count > 1 && without[0] != 0 {
 					for wo in without {
 						if i == wo+offset {
-							withoutFlag = true;
+							withoutFlag = true
 							break;
 						}
 					}
 					
 					if withoutFlag {
-						withoutFlag = false;
+						withoutFlag = false
 						continue;
 					} else {
 						return modelDictionary[i]
@@ -1147,7 +1141,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			if model == nil && defaultTex[Int(glyph)] == 0 {
 				if let newModel = loadModelBlocks[Int(glyph)](glyph: glyph) {
-					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_MON_OFF {
+					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_PET_OFF {
 						newModel.animated = true;
 						newModel.animationRate = (Float(random() % 5) * 0.1) + 0.5
 						newModel.setPivotX(0.0, atY: 0.3, atZ: 0.0)
@@ -1840,62 +1834,122 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// insect class
 	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, modelName: "lowerA")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, offset: offset, modelName: "lowerA")
 	}
 	
 	/// blob class
 	private func loadModelFunc_blob(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_ACID_BLOB, to: PM_GELATINOUS_CUBE, modelName: "lowerB")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_ACID_BLOB, to: PM_GELATINOUS_CUBE, offset: offset, modelName: "lowerB")
 	}
 	
 	/// cockatrice class
 	private func loadModelFunc_cockatrice(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_CHICKATRICE, to: PM_PYROLISK, modelName: "lowerC")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_CHICKATRICE, to: PM_PYROLISK, offset: offset, modelName: "lowerC")
 	}
 	
 	/// dog or canine class
 	private func loadModelFunc_dog(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, modelName: "lowerD")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, offset: offset, modelName: "lowerD")
 	}
 	
 	/// eye or sphere class
 	private func loadModelFunc_sphere(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, modelName: "lowerE")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, offset: offset, modelName: "lowerE")
 	}
 	
 	/// cat or feline class
 	private func loadModelFunc_cat(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, modelName: "lowerF")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, offset: offset, modelName: "lowerF")
 	}
 	
 	/// gremlins and gagoyles class
 	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerG")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, offset: offset, modelName: "lowerG")
 	}
 	
 	/// humanoids class
 	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		if glyph == PM_DWARF_KING+GLYPH_MON_OFF {
+		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+GLYPH_PET_OFF {
 			ret = NH3DModelObject(with3DSFile:"lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: 0.2, atZ: -0.21)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
-			ret = checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, modelName: "lowerH", without: PM_DWARF_KING)
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
+			ret = checkLoadedModels(at: PM_HOBBIT, to: PM_MASTER_MIND_FLAYER, offset: offset, modelName: "lowerH", without: PM_DWARF_KING)
 		}
 		return ret
 	}
 	
 	/// imp and minor demons
 	private func loadModelFunc_imp(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_MANES, to: PM_TENGU, modelName: "lowerI")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_MANES, to: PM_TENGU, offset: offset, modelName: "lowerI")
 	}
 	
 	
 	/// jellys
 	private func loadModelFunc_jellys(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BLUE_JELLY, to: PM_OCHRE_JELLY, modelName: "lowerJ")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_BLUE_JELLY, to: PM_OCHRE_JELLY, offset: offset, modelName: "lowerJ")
 	}
 	
 	// kobolds
@@ -1903,8 +1957,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF:
-			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, modelName: "lowerK")
+		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF,
+		PM_KOBOLD+GLYPH_PET_OFF, PM_LARGE_KOBOLD+GLYPH_PET_OFF:
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
+
+			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK")
 			
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
@@ -1932,7 +1994,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	// mimics
 	private func loadModelFunc_mimics(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_SMALL_MIMIC, to: PM_GIANT_MIMIC, modelName: "lowerM")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_SMALL_MIMIC, to: PM_GIANT_MIMIC, offset: offset, modelName: "lowerM")
 	}
 	
 	/// nymphs
@@ -1949,9 +2017,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.15, atZ: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
-			
 		} else {
-			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, modelName: "lowerO", without: PM_ORC_SHAMAN)
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
+			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, offset: offset, modelName: "lowerO", without: PM_ORC_SHAMAN)
 		}
 		
 		return nil
@@ -1959,47 +2032,101 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// piercers
 	private final func loadModelFunc_piercers(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_ROCK_PIERCER, to: PM_GLASS_PIERCER, modelName: "lowerP")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_ROCK_PIERCER, to: PM_GLASS_PIERCER, offset: offset, modelName: "lowerP")
 	}
 	
 	/// quadrupeds
 	private final func loadModelFunc_quadrupeds(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_ROTHE, to: PM_MASTODON, modelName: "lowerQ")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_ROTHE, to: PM_MASTODON, offset: offset, modelName: "lowerQ")
 	}
 	
 	/// rodents
 	private final func loadModelFunc_rodents(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_SEWER_RAT, to: PM_WOODCHUCK, modelName: "lowerR")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_SEWER_RAT, to: PM_WOODCHUCK, offset: offset, modelName: "lowerR")
 	}
 	
 	/// spiders
 	private final func loadModelFunc_spiders(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_CAVE_SPIDER, to: PM_SCORPION, modelName: "lowerS")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_CAVE_SPIDER, to: PM_SCORPION, offset: offset, modelName: "lowerS")
 	}
 	
 	/// trapper
 	private final func loadModelFunc_trapper(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_LURKER_ABOVE, to: PM_TRAPPER, modelName: "lowerT")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_LURKER_ABOVE, to: PM_TRAPPER, offset: offset, modelName: "lowerT")
 	}
 	
 	/// unicorns and horses
 	private final func loadModelFunc_unicorns(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_WHITE_UNICORN, to: PM_WARHORSE, modelName: "lowerU")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_WHITE_UNICORN, to: PM_WARHORSE, offset: offset, modelName: "lowerU")
 	}
 	
 	/// vortices
 	private final func loadModelFunc_vortices(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_FOG_CLOUD, to: PM_FIRE_VORTEX, modelName: "lowerV")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_FOG_CLOUD, to: PM_FIRE_VORTEX, offset: offset, modelName: "lowerV")
 	}
 	
 	/// worms
 	private final func loadModelFunc_worms(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BABY_LONG_WORM, to: PM_PURPLE_WORM, modelName: "lowerW")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_BABY_LONG_WORM, to: PM_PURPLE_WORM, offset: offset, modelName: "lowerW")
 	}
 	
 	/// xan
 	private final func loadModelFunc_xan(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GRID_BUG, to: PM_XAN, modelName: "lowerX")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GRID_BUG, to: PM_XAN, offset: offset, modelName: "lowerX")
 	}
 	
 	/// lights
@@ -2009,22 +2136,46 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Angels
 	private final func loadModelFunc_Angels(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, modelName: "upperA")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, offset: offset, modelName: "upperA")
 	}
 	
 	/// Bats
 	private final func loadModelFunc_Bats(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BAT, to: PM_VAMPIRE_BAT, modelName: "upperB")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_BAT, to: PM_VAMPIRE_BAT, offset: offset, modelName: "upperB")
 	}
 	
 	/// Centaurs
 	private final func loadModelFunc_Centaurs(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_PLAINS_CENTAUR, to: PM_MOUNTAIN_CENTAUR, modelName: "upperC")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_PLAINS_CENTAUR, to: PM_MOUNTAIN_CENTAUR, offset: offset, modelName: "upperC")
 	}
 	
 	/// Dragons
 	private final func loadModelFunc_Dragons(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BABY_GRAY_DRAGON, to: PM_YELLOW_DRAGON, modelName: "upperD")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_BABY_GRAY_DRAGON, to: PM_YELLOW_DRAGON, offset: offset, modelName: "upperD")
 	}
 	
 	/// Elementals
@@ -2041,19 +2192,29 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Gnomes(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		switch glyph {
-		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF:
+		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF,
+		PM_GNOME+GLYPH_PET_OFF, PM_GNOME_LORD+GLYPH_PET_OFF:
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
 			ret = checkLoadedModels(at: PM_GNOME,
 				to: PM_GNOME_LORD,
+				offset: offset,
 				modelName: "upperG",
 				textured: false);
 			
-		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF:
+		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF,
+		PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY:-0.01, atZ:-0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_GNOME_KING + GLYPH_MON_OFF:
+		case PM_GNOME_KING + GLYPH_MON_OFF,
+		PM_GNOME_KING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.05, atZ: -0.25)
@@ -2068,37 +2229,74 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Giant Humanoids
 	private final func loadModelFunc_giantHumanoids(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, modelName: "upperH")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, offset: offset, modelName: "upperH")
 	}
 	
 	/// Kops
 	private final func loadModelFunc_Kops(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KEYSTONE_KOP, to: PM_KOP_KAPTAIN, modelName: "upperK")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_KEYSTONE_KOP, to: PM_KOP_KAPTAIN, offset: offset, modelName: "upperK")
 	}
 	
 	/// Liches
 	private final func loadModelFunc_Liches(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_LICH, to: PM_ARCH_LICH, modelName: "upperL")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_LICH, to: PM_ARCH_LICH, offset: offset, modelName: "upperL")
 	}
 	
 	/// Mummies
 	private final func loadModelFunc_Mummies(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KOBOLD_MUMMY, to: PM_GIANT_MUMMY, modelName: "upperM")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_KOBOLD_MUMMY, to: PM_GIANT_MUMMY, offset: offset, modelName: "upperM")
 	}
 	
 	/// Nagas
 	private final func loadModelFunc_Nagas(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_RED_NAGA_HATCHLING, to: PM_GUARDIAN_NAGA, modelName: "upperN")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_RED_NAGA_HATCHLING, to: PM_GUARDIAN_NAGA, offset: offset, modelName: "upperN")
 	}
 	
 	/// Ogres
 	private final func loadModelFunc_Ogres(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
-		case PM_OGRE + GLYPH_MON_OFF, PM_OGRE_LORD + GLYPH_MON_OFF:
-			ret = checkLoadedModels(at: PM_OGRE, to: PM_OGRE_LORD, modelName: "upperO")
+		case PM_OGRE + GLYPH_MON_OFF, PM_OGRE_LORD + GLYPH_MON_OFF,
+		PM_OGRE + GLYPH_PET_OFF, PM_OGRE_LORD + GLYPH_PET_OFF:
+		let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
+			ret = checkLoadedModels(at: PM_OGRE, to: PM_OGRE_LORD, offset: offset, modelName: "upperO")
 			
-		case PM_OGRE_KING + GLYPH_MON_OFF:
+		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 0.15, atZ: -0.18)
@@ -2112,7 +2310,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Puddings
 	private final func loadModelFunc_Puddings(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GRAY_OOZE, to: PM_GREEN_SLIME, modelName: "upperP")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GRAY_OOZE, to: PM_GREEN_SLIME, offset: offset, modelName: "upperP")
 	}
 	
 	/// Quantum mechanics
@@ -2122,17 +2326,35 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Rust monster or disenchanter
 	private final func loadModelFunc_Rustmonster(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_RUST_MONSTER, to: PM_DISENCHANTER, modelName: "upperR")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_RUST_MONSTER, to: PM_DISENCHANTER, offset: offset, modelName: "upperR")
 	}
 	
 	/// Snakes
 	private final func loadModelFunc_Snakes(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GARTER_SNAKE, to: PM_COBRA, modelName: "upperS")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_GARTER_SNAKE, to: PM_COBRA, offset: offset, modelName: "upperS")
 	}
 	
 	/// Trolls
 	private final func loadModelFunc_Trolls(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_TROLL, to: PM_OLOG_HAI, modelName: "upperT")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_TROLL, to: PM_OLOG_HAI, offset: offset, modelName: "upperT")
 	}
 	
 	/// Umber hulk
@@ -2144,8 +2366,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Vampires(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		switch glyph {
-		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF:
-			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, modelName: "upperV")
+		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF,
+			PM_VAMPIRE + GLYPH_PET_OFF, PM_VAMPIRE_LORD + GLYPH_PET_OFF:
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
+			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, offset: offset, modelName: "upperV")
 			
 		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF:
 			ret =  NH3DModelObject(with3DSFile: "upperV", withTexture: false)
@@ -2162,7 +2391,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Wraiths
 	private final func loadModelFunc_Wraiths(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, modelName: "upperW")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, offset: offset, modelName: "upperW")
 	}
 	
 	/// Xorn
@@ -2172,17 +2407,35 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Yeti and other large beasts
 	private final func loadModelFunc_Yeti(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, modelName: "upperY")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, offset: offset, modelName: "upperY")
 	}
 	
 	/// Zombie
 	private final func loadModelFunc_Zombie(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, modelName: "upperZ")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, offset: offset, modelName: "upperZ")
 	}
 	
 	/// Golems
 	private final func loadModelFunc_Golems(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, modelName: "backslash")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, offset: offset, modelName: "backslash")
 	}
 	
 	/// Human or Elves
@@ -2197,7 +2450,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.setModelRotateX(0, rotateY: 11.7, rotateZ: 0)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_NURSE + GLYPH_MON_OFF:
+		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("nurse", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: -0.28, atZ: 1)
@@ -2240,8 +2493,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		default:
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
 			ret = checkLoadedModels(at: PM_HUMAN,
 				to: PM_WIZARD_OF_YENDOR,
+				offset: offset,
 				modelName: "atmark",
 				textured: false,
 				without: PM_ELVENKING, PM_NURSE, PM_HIGH_PRIEST, PM_MEDUSA,
@@ -2258,10 +2518,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Major Daemons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObject? {
-		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF {
-			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, modelName: "ampersand")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
 		} else {
-			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, modelName: "ampersand")
+			offset = GLYPH_MON_OFF
+		}
+		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ||
+		glyph != PM_DJINNI+GLYPH_PET_OFF || glyph != PM_SANDESTIN+GLYPH_PET_OFF {
+			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, offset: offset, modelName: "ampersand")
+		} else {
+			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, offset: offset, modelName: "ampersand")
 		}
 	}
 	
@@ -2269,7 +2536,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_GraterDamons(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		
-		if glyph == PM_JUIBLEX + GLYPH_MON_OFF {
+		if glyph == PM_JUIBLEX + GLYPH_MON_OFF || glyph == PM_JUIBLEX + GLYPH_PET_OFF {
 			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura;
@@ -2280,7 +2547,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.24
 			ret?.lastChildObject?.particleSize = 8.0
 		} else {
-			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, modelName: "ampersand")
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
+			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, offset: offset, modelName: "ampersand")
 			if let ret = ret where !ret.hasChildren {
 				ret.addChildObject("emitter", type: .Emitter)
 				ret.lastChildObject?.particleType = .Aura
@@ -2329,12 +2602,24 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// sea monsters
 	private final func loadModelFunc_seamonsters(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, modelName: "semicolon")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, offset: offset, modelName: "semicolon")
 	}
 	
 	/// lizards
 	private final func loadModelFunc_lizards(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, modelName: "colon")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, offset: offset, modelName: "colon")
 	}
 	
 	/// Adventurers
@@ -2512,9 +2797,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		default:
+			let offset: Int32
+			if glyph > GLYPH_PET_OFF {
+				offset = GLYPH_PET_OFF
+			} else {
+				offset = GLYPH_MON_OFF
+			}
 			if glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF {
 				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
 					to: PM_NORN,
+					offset: offset,
 					modelName: "atmark",
 					without: PM_KING_ARTHUR)
 				
@@ -2531,6 +2823,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			} else {
 				ret = checkLoadedModels(at: PM_STUDENT,
 					to: PM_APPRENTICE,
+					offset: offset,
 					modelName: "atmark",
 					textured: false)
 			}
@@ -3356,10 +3649,97 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case (PM_ACID_BLOB + GLYPH_STATUE_OFF)...(PM_GELATINOUS_CUBE + GLYPH_STATUE_OFF):
 			loadDat = (PM_ACID_BLOB, PM_GELATINOUS_CUBE, "lowerB")
-		
+			
+		case (PM_CHICKATRICE + GLYPH_STATUE_OFF)...(PM_PYROLISK + GLYPH_STATUE_OFF):
+			loadDat = (PM_CHICKATRICE, PM_PYROLISK, "lowerC")
+			
 		case (PM_JACKAL + GLYPH_STATUE_OFF)...(PM_HELL_HOUND + GLYPH_STATUE_OFF):
 			loadDat = (PM_JACKAL, PM_HELL_HOUND, "lowerD")
+			
+		case (PM_GAS_SPORE + GLYPH_STATUE_OFF)...(PM_SHOCKING_SPHERE + GLYPH_STATUE_OFF):
+			loadDat = (PM_GAS_SPORE, PM_SHOCKING_SPHERE, "lowerE")
+			
+		case (PM_KITTEN + GLYPH_STATUE_OFF)...(PM_TIGER + GLYPH_STATUE_OFF):
+			loadDat = (PM_KITTEN, PM_TIGER, "lowerF")
+			
+		case (PM_GREMLIN + GLYPH_STATUE_OFF)...(PM_WINGED_GARGOYLE + GLYPH_STATUE_OFF):
+			loadDat = (PM_GREMLIN, PM_WINGED_GARGOYLE, "lowerG")
+			
+		case (PM_HOBBIT + GLYPH_STATUE_OFF)...(PM_MASTER_MIND_FLAYER + GLYPH_STATUE_OFF):
+			loadDat = (PM_HOBBIT, PM_MASTER_MIND_FLAYER, "lowerH")
+			
+		case (PM_MANES + GLYPH_STATUE_OFF)...(PM_TENGU + GLYPH_STATUE_OFF):
+			loadDat = (PM_MANES, PM_TENGU, "lowerI")
+			
+		case (PM_BLUE_JELLY + GLYPH_STATUE_OFF)...(PM_OCHRE_JELLY + GLYPH_STATUE_OFF):
+			loadDat = (PM_BLUE_JELLY, PM_OCHRE_JELLY, "lowerJ")
+			
+		case (PM_KOBOLD + GLYPH_STATUE_OFF)...(PM_KOBOLD_SHAMAN + GLYPH_STATUE_OFF):
+			loadDat = (PM_KOBOLD, PM_KOBOLD_SHAMAN, "lowerK")
+			
+		case (PM_LEPRECHAUN + GLYPH_STATUE_OFF):
+			loadDat = (PM_LEPRECHAUN, PM_LEPRECHAUN, "lowerL")
+			
+		case (PM_SMALL_MIMIC + GLYPH_STATUE_OFF)...(PM_GIANT_MIMIC + GLYPH_STATUE_OFF):
+			loadDat = (PM_SMALL_MIMIC, PM_GIANT_MIMIC, "lowerM")
+			
+		case (PM_WOOD_NYMPH + GLYPH_STATUE_OFF)...(PM_MOUNTAIN_NYMPH + GLYPH_STATUE_OFF):
+			loadDat = (PM_WOOD_NYMPH, PM_MOUNTAIN_NYMPH, "lowerN")
+			
+		case (PM_GOBLIN + GLYPH_STATUE_OFF)...(PM_ORC_CAPTAIN + GLYPH_STATUE_OFF):
+			loadDat = (PM_GOBLIN, PM_ORC_CAPTAIN, "lowerO")
+			
+		case (PM_ROCK_PIERCER + GLYPH_STATUE_OFF)...(PM_GLASS_PIERCER + GLYPH_STATUE_OFF):
+			loadDat = (PM_ROCK_PIERCER, PM_GLASS_PIERCER, "lowerP")
+			
+		case (PM_ROTHE + GLYPH_STATUE_OFF)...(PM_MASTODON + GLYPH_STATUE_OFF):
+			loadDat = (PM_ROTHE, PM_MASTODON, "lowerQ")
+			
+		case (PM_SEWER_RAT + GLYPH_STATUE_OFF)...(PM_WOODCHUCK + GLYPH_STATUE_OFF):
+			loadDat = (PM_SEWER_RAT, PM_WOODCHUCK, "lowerR")
+			
+		case (PM_CAVE_SPIDER + GLYPH_STATUE_OFF)...(PM_SCORPION + GLYPH_STATUE_OFF):
+			loadDat = (PM_CAVE_SPIDER, PM_SCORPION, "lowerS")
 
+		case (PM_LURKER_ABOVE + GLYPH_STATUE_OFF)...(PM_TRAPPER + GLYPH_STATUE_OFF):
+			loadDat = (PM_LURKER_ABOVE, PM_TRAPPER, "lowerT")
+
+		case (PM_PONY + GLYPH_STATUE_OFF)...(PM_WARHORSE + GLYPH_STATUE_OFF):
+			loadDat = (PM_PONY, PM_WARHORSE, "lowerU")
+			
+		case (PM_FOG_CLOUD + GLYPH_STATUE_OFF)...(PM_FIRE_VORTEX + GLYPH_STATUE_OFF):
+			loadDat = (PM_FOG_CLOUD, PM_FIRE_VORTEX, "lowerV")
+
+		case (PM_BABY_LONG_WORM + GLYPH_STATUE_OFF)...(PM_PURPLE_WORM + GLYPH_STATUE_OFF):
+			loadDat = (PM_BABY_LONG_WORM, PM_PURPLE_WORM, "lowerW")
+			
+		case (PM_GRID_BUG + GLYPH_STATUE_OFF)...(PM_XAN + GLYPH_STATUE_OFF):
+			loadDat = (PM_GRID_BUG, PM_XAN, "lowerX")
+			
+		case (PM_YELLOW_LIGHT + GLYPH_STATUE_OFF)...(PM_BLACK_LIGHT + GLYPH_STATUE_OFF):
+			loadDat = (PM_YELLOW_LIGHT, PM_BLACK_LIGHT, "lowerY")
+			
+		case (PM_ZRUTY + GLYPH_STATUE_OFF):
+			loadDat = (PM_ZRUTY, PM_ZRUTY, "lowerZ")
+			
+		case (PM_COUATL + GLYPH_STATUE_OFF)...(PM_ARCHON + GLYPH_STATUE_OFF):
+			loadDat = (PM_COUATL, PM_ARCHON, "upperA")
+			
+		case (PM_BAT + GLYPH_STATUE_OFF)...(PM_VAMPIRE_BAT + GLYPH_STATUE_OFF):
+			loadDat = (PM_BAT, PM_VAMPIRE_BAT, "upperB")
+
+		case (PM_BAT + GLYPH_STATUE_OFF)...(PM_VAMPIRE_BAT + GLYPH_STATUE_OFF):
+			loadDat = (PM_BAT, PM_VAMPIRE_BAT, "upperB")
+			
+		case (PM_PLAINS_CENTAUR + GLYPH_STATUE_OFF)...(PM_MOUNTAIN_CENTAUR + GLYPH_STATUE_OFF):
+			loadDat = (PM_PLAINS_CENTAUR, PM_MOUNTAIN_CENTAUR, "upperC")
+			
+		case (PM_BABY_GRAY_DRAGON + GLYPH_STATUE_OFF)...(PM_YELLOW_DRAGON + GLYPH_STATUE_OFF):
+			loadDat = (PM_BABY_GRAY_DRAGON, PM_YELLOW_DRAGON, "upperD")
+			
+		case (PM_STALKER + GLYPH_STATUE_OFF)...(PM_WATER_ELEMENTAL + GLYPH_STATUE_OFF):
+			loadDat = (PM_STALKER, PM_WATER_ELEMENTAL, "upperE")
+			
 		case (PM_LICHEN + GLYPH_STATUE_OFF)...(PM_VIOLET_FUNGUS + GLYPH_STATUE_OFF):
 			loadDat = (PM_LICHEN, PM_VIOLET_FUNGUS, "upperF")
 			
@@ -3370,6 +3750,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar")
 		if let ret = ret where !ret.hasChildren {
 			//Just add a simple texture for now
+			ret.setTexture(Int32(cellingTex))
 			//ret.addTexture("ceiling")
 			ret.animated = true
 			ret.useEnvironment = true
@@ -3387,6 +3768,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return ret
 	}
 	
+	private final func loadModelFunc_Pets(glyph: Int32) -> NH3DModelObject? {
+		guard let model = loadModelBlocks[Int(glyph - GLYPH_PET_OFF)](glyph: glyph) else {
+			return nil
+		}
+		
+		//TODO: add star? heart?
+		
+		
+		return model
+	}
+	
 	// MARK: -
 	
 	/// wait for vSync...
@@ -3397,7 +3789,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			let hi: Int = sender.state
 			NSUserDefaults.standardUserDefaults().setBool(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
-			NSUserDefaultsController.sharedUserDefaultsController().values.setValue(hi != NSOnState, forKey:NH3DOpenGLWaitSyncKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
 		}
 		
 		nowUpdating = false
@@ -4541,6 +4933,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
 		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
 		
+		// pets
+		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)..<Int(PM_APPRENTICE + GLYPH_PET_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Pets
+		}
 		// statues
 		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)..<Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Statues
