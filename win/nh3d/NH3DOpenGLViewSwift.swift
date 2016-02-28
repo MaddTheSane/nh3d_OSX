@@ -35,15 +35,15 @@ private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
 
 
 
-private let keyLightAmb: [GLfloat] = [0.1 ,0.1 ,0.1 ,1] ;
-private let keyLightspec: [GLfloat] = [1 ,1 ,1 ,1];
+private let keyLightAmb: [GLfloat] = [0.1, 0.1, 0.1, 1]
+private let keyLightspec: [GLfloat] = [1, 1, 1, 1]
 
-private let keyLightAltCol: [GLfloat] = [0.04 ,0.01 ,0.00 ,1];
-private let keyLightAltAmb: [GLfloat] = [0.08 ,0.08 ,0.08 ,1];
-private let keyLightAltspec: [GLfloat] = [0.04 ,0.09 ,0.18 ,1];
+private let keyLightAltCol: [GLfloat] = [0.04, 0.01, 0.00, 1]
+private let keyLightAltAmb: [GLfloat] = [0.08, 0.08, 0.08, 1]
+private let keyLightAltspec: [GLfloat] = [0.04, 0.09, 0.18, 1]
 
-private let defaultBackGroundCol: [GLfloat] = [0.00 ,0.00 ,0.00 ,0] ;
-private let underwaterColor: [GLfloat] = [0.00 ,0.00 ,0.80 ,1.0] ;
+private let defaultBackGroundCol: [GLfloat] = [0.00, 0.00, 0.00, 0]
+private let underwaterColor: [GLfloat] = [0.00, 0.00, 0.80, 1.0]
 
 private let vsyncWait: GLint = 1;
 private let vsyncNoWait: GLint = 0;
@@ -77,17 +77,17 @@ private var FloorVertNorms: [NH3DVertexType] = [
 //////////////////////////////
 
 private var CeilingVerts: [NH3DVertexType] = [
-	NH3DVertexType( x: 2.0, y: 6.0, z: -2.0 ),
-	NH3DVertexType( x: 2.0, y: 6.0, z: 2.0 ),
-	NH3DVertexType( x: -2.0, y: 6.0, z: -2.0 ),
-	NH3DVertexType( x: -2.0, y: 6.0, z: 2.0 )
+	NH3DVertexType(x: 2.0, y: 6.0, z: -2.0),
+	NH3DVertexType(x: 2.0, y: 6.0, z: 2.0),
+	NH3DVertexType(x: -2.0, y: 6.0, z: -2.0),
+	NH3DVertexType(x: -2.0, y: 6.0, z: 2.0)
 ]
 
 private var CeilingTexVerts: [NH3DMapCoordType] = [
-	NH3DMapCoordType(s: 1.0,t: 1.0),
-	NH3DMapCoordType(s: 0.0,t: 1.0),
-	NH3DMapCoordType(s: 1.0,t: 0.0),
-	NH3DMapCoordType(s: 0.0,t: 0.0)
+	NH3DMapCoordType(s: 1.0, t: 1.0),
+	NH3DMapCoordType(s: 0.0, t: 1.0),
+	NH3DMapCoordType(s: 1.0, t: 0.0),
+	NH3DMapCoordType(s: 0.0, t: 0.0)
 ]
 
 
@@ -105,9 +105,9 @@ private var CeilingVertNorms: [NH3DVertexType] = [
 
 private var defaultVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: -1.5, y: 0.5, z: 0),
-	NH3DVertexType( x: 1.5, y: 0.5, z: 0),
+	NH3DVertexType(x:  1.5, y: 0.5, z: 0),
 	NH3DVertexType(x: -1.5, y: 3.5, z: 0),
-	NH3DVertexType( x: 1.5, y: 3.5, z: 0)
+	NH3DVertexType(x:  1.5, y: 3.5, z: 0)
 ]
 
 private var defaultTexVerts: [NH3DMapCoordType] = [
@@ -141,10 +141,10 @@ private var nullObjectTexVerts: [NH3DMapCoordType] = [
 ]
 
 private var nullObjectNorms: [NH3DVertexType] = [
-	NH3DVertexType(x: 0.20,  y: 0.50, z: -0.30 ),NH3DVertexType( x: 0.20, y: 0.50, z: -0.30 ),
-	NH3DVertexType(x: -0.30,  y: -0.50, z: 0.20 ),NH3DVertexType( x: -0.30, y: -0.50, z: 0.20 ),
-	NH3DVertexType(x: 0.20,  y: 0.50, z: 0.30 ),NH3DVertexType( x: 0.20, y: 0.50, z: 0.30 ),
-	NH3DVertexType(x: 0.30,  y: -0.50, z: -0.20 ),NH3DVertexType( x: 0.30, y: -0.50, z: -0.20 )
+	NH3DVertexType(x: 0.20,  y: 0.50, z: -0.30), NH3DVertexType(x: 0.20, y: 0.50, z: -0.30),
+	NH3DVertexType(x: -0.30,  y: -0.50, z: 0.20), NH3DVertexType(x: -0.30, y: -0.50, z: 0.20),
+	NH3DVertexType(x: 0.20,  y: 0.50, z: 0.30), NH3DVertexType(x: 0.20, y: 0.50, z: 0.30),
+	NH3DVertexType(x: 0.30,  y: -0.50, z: -0.20), NH3DVertexType(x: 0.30, y: -0.50, z: -0.20)
 ]
 
 
@@ -159,15 +159,15 @@ private var nh3dMaterialArray: [NH3DMaterial] = [
 		shininess: 0.01),									//	shininess
 	// Red
 	NH3DMaterial(ambient: ( 0.1745 , 0.01175 , 0.01175 , 1.0 ),
-		diffuse: ( 0.81424, 0.04136 , 0.04136 , 1.0 ),
-		specular: ( 0.427811 , 0.126959 , 0.126959 , 1.0),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+		diffuse: (0.81424, 0.04136 , 0.04136 , 1.0 ),
+		specular: (0.427811 , 0.126959 , 0.126959 , 1.0),
+		emission: (0.1 , 0.1 , 0.1 , 1.0 ),
 		shininess: 0.01),
 	// Green
-	NH3DMaterial(ambient: ( 0.0215 , 0.1745 , 0.0215 , 1.0 ),
-		diffuse: ( 0.07568 , 0.81424 , 0.07568 , 1.0 ),
-		specular: ( 0.133 , 0.427811 , 0.133 , 1.0 ),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.0215, 0.1745, 0.0215, 1.0),
+		diffuse: (0.07568, 0.81424, 0.07568, 1.0),
+		specular: (0.133, 0.427811, 0.133, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// Brown
 	NH3DMaterial(ambient: ( 0.19125 , 0.0735 , 0.0225 , 1.0 ),
@@ -236,16 +236,16 @@ private var nh3dMaterialArray: [NH3DMaterial] = [
 		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
 		shininess: 0.1),
 	// Bright Cyan
-	NH3DMaterial(ambient: ( 0.0215 , 0.2745 , 0.2745 , 1.0 ),
-		diffuse: ( 0.17568 , 0.91424 , 0.91424 , 1.0 ),
-		specular: ( 0.133 , 0.427811 , 0.427811 , 1.0 ),
-		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
+	NH3DMaterial(ambient: (0.0215, 0.2745, 0.2745, 1.0),
+		diffuse: (0.17568, 0.91424, 0.91424, 1.0),
+		specular: (0.133, 0.427811, 0.427811, 1.0),
+		emission: (0.3, 0.3, 0.3, 1.0),
 		shininess: 0.1),
 	// White
-	NH3DMaterial(ambient: ( 0.25 , 0.20725 , 0.20725 , 1.0 ),
-		diffuse: ( 1.0 , 0.929 , 0.929 , 1.0 ),
-		specular: ( 0.296648 , 0.296648 , 0.296648 , 1.0 ),
-		emission: ( 0.6 , 0.6 , 0.6 , 1.0 ),
+	NH3DMaterial(ambient: (0.25, 0.20725, 0.20725, 1.0),
+		diffuse: (1.0, 0.929, 0.929, 1.0),
+		specular: (0.296648, 0.296648, 0.296648, 1.0),
+		emission: (0.6, 0.6, 0.6, 1.0),
 		shininess: 0.088)
 ]
 

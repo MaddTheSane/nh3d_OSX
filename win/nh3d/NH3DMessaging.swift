@@ -196,9 +196,11 @@ class NH3DMessaging: NSObject {
 			return
 		}
 		
+		let textNSStr = textStr as NSString
+		
 		if userSound && !SOUND_MUTE {
 			for soundEntry in soundArray {
-				if (textStr as NSString).isLike(soundEntry.message) {
+				if textNSStr.isLike(soundEntry.message) {
 					func playAud(playSound: AVAudioPlayer) {
 						if playSound.playing {
 							playSound.pause()
@@ -229,7 +231,7 @@ class NH3DMessaging: NSObject {
 			}
 			
 			for msgEffect in effectArray {
-				if (textStr as NSString).isLike(msgEffect.message) {
+				if textNSStr.isLike(msgEffect.message) {
 					switch msgEffect.type {
 					case 1: // hit enemy attack to player
 						glView.isShocked = true
@@ -416,7 +418,7 @@ class NH3DMessaging: NSObject {
 		}
 		
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
-			ctx.duration = 1.1
+			ctx.duration = 0.55
 			ripOrMainWindow.animator().alphaValue = 0
 			self.rawPrintPanel.animator().alphaValue = 1
 			}, completionHandler: {

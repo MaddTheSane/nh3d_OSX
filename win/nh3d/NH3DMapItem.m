@@ -172,8 +172,6 @@ extern NH3DTileCache *_NH3DTileCache;
 		hasCursor = NO;
 		bgGlyph = bg;
 		
-		//tile = nil;
-		
 		[self checkDrawingType];
 		
 		[lock unlock];
@@ -325,7 +323,10 @@ extern NH3DTileCache *_NH3DTileCache;
 		return nil;
 	}
 	
-	NSImage *bgtile = [self backgroundTile];
+	NSImage *bgtile;
+	if (glyph != bgGlyph) {
+		bgtile = [self backgroundTile];
+	}
 	if (bgtile != nil) {
 		NSImage *tmpFG = tmpTile;
 		tmpTile = [bgtile copy];
@@ -342,12 +343,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)foregroundTile
 {
-/*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
-		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
-		tile = [ img copy ];
-		[ img release ]; 
-	}*/
-	if ( glyph != S_stone + GLYPH_CMAP_OFF )
+	if (glyph != S_stone + GLYPH_CMAP_OFF)
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	else 
 		return nil;
@@ -355,11 +351,6 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)backgroundTile
 {
-	/*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
-		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
-		tile = [ img copy ];
-		[ img release ];
-	 }*/
 	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && (bgGlyph != (S_darkroom + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
 		return [_NH3DTileCache tileImageFromGlyph:bgGlyph];
 	else
