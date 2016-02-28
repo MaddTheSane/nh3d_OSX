@@ -596,7 +596,6 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 					  wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:
 													   NH3DTEXTENCODING]);
 				break;
-
 		}
 	}
 }
@@ -1573,6 +1572,7 @@ wd_message()
 	 */
 	//	setrandom();
 	
+	iflags.hilite_pile = true;
 	initoptions();
 	init_nhwindows(&argc,argv);
 	[_NH3DBindController loadNethackOptions];

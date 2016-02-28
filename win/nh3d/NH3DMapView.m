@@ -490,7 +490,7 @@
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
 							(mapItemValue[x][y]).cSymbol = '-';
-							[ mapItemValue[x][y] setHasAlternateSymbol:YES ];
+							[mapItemValue[x][y] setHasAlternateSymbol:YES];
 							break;
 						case S_hwall+GLYPH_CMAP_OFF:			/* hwall */
 						case S_tlcorn+GLYPH_CMAP_OFF:			/* tlcorn */
@@ -510,7 +510,7 @@
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
 							(mapItemValue[x][y]).cSymbol = '|';
-							[ mapItemValue[x][y] setHasAlternateSymbol:YES ];
+							[mapItemValue[x][y] setHasAlternateSymbol:YES];
 							break;
 					}
 				}
@@ -550,11 +550,28 @@
 							 operation:NSCompositeSourceOver
 							  fraction:cursOpacity];
 				
-				/*
-				 [ posCursor dissolveToPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
-				 fraction:cursOpacity ];*/
 				viewCursX = x;
 				viewCursY = MAPVIEWSIZE_ROW-y-1;
+			}
+			
+			if (iflags.wc_hilite_pet && mapItemValue[x][y].pet) {
+				//draw pet icon
+				[_petIcon drawInRect:NSMakeRect(bounds.origin.x+(x*16.0),
+												 (NSMaxY(bounds) - ((y+1)*16.0)),
+												 16.0, 16.0)
+							 fromRect:NSZeroRect
+							operation:NSCompositeSourceOver
+							 fraction:1.0];
+			}
+			
+			if (iflags.hilite_pile && mapItemValue[x][y].pile) {
+				//draw pet icon
+				[_stackIcon drawInRect:NSMakeRect(bounds.origin.x+(x*16.0),
+												(NSMaxY(bounds) - ((y+1)*16.0)),
+												16.0, 16.0)
+							  fromRect:NSZeroRect
+							 operation:NSCompositeSourceOver
+							  fraction:1.0];
 			}
 			
 			[self unlockFocus];
@@ -1590,9 +1607,29 @@
 								  fraction:1.0];
 					posCursor.size = cursOrigin;
 					[NSGraphicsContext restoreGraphicsState];
-					
 				}
 				
+				if (iflags.wc_hilite_pet && mapcell.pet) { //draw pet icon
+					NSSize petOriginal = _petIcon.size;
+					self.petIcon.size = drawSize;
+					[_petIcon drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+													  imgSize.height - (drawSize.height * (CGFloat)y))
+								 fromRect:NSZeroRect
+								operation:NSCompositeSourceOver
+								 fraction:1.0];
+					self.petIcon.size = petOriginal;
+				}
+				
+				if (iflags.hilite_pile && mapcell.pile) { //draw pile icon
+					NSSize petOriginal = _stackIcon.size;
+					self.stackIcon.size = drawSize;
+					[_stackIcon drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+														imgSize.height - (drawSize.height * (CGFloat)y))
+								   fromRect:NSZeroRect
+								  operation:NSCompositeSourceOver
+								   fraction:1.0];
+					self.stackIcon.size = petOriginal;
+				}
 			} // end for y
 		} // end for x
 		
