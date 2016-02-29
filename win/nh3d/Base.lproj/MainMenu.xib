@@ -3205,7 +3205,7 @@ DQ
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="6993">
+                                            <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" usesSingleLineMode="YES" id="6993">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3287,7 +3287,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5600">
-                        <rect key="frame" x="93" y="20" width="53" height="20"/>
+                        <rect key="frame" x="93" y="20" width="56" height="20"/>
                         <buttonCell key="cell" type="smallSquare" title="Deselect" bezelStyle="smallSquare" alignment="center" controlSize="small" borderStyle="border" inset="2" id="6958">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -3323,6 +3323,7 @@ DQ
                     <constraint firstItem="5562" firstAttribute="top" secondItem="5498" secondAttribute="bottom" constant="20" symbolic="YES" id="Wxf-fM-ciy"/>
                     <constraint firstItem="5562" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5600" secondAttribute="trailing" constant="8" symbolic="YES" id="YMy-55-iRw"/>
                     <constraint firstItem="5762" firstAttribute="top" secondItem="5497" secondAttribute="top" constant="-26" id="aFb-YF-g1G"/>
+                    <constraint firstItem="5600" firstAttribute="width" secondItem="5599" secondAttribute="width" id="acE-OJ-Gjd"/>
                     <constraint firstItem="5579" firstAttribute="width" secondItem="5589" secondAttribute="width" id="cFG-Ni-JWp"/>
                     <constraint firstItem="5600" firstAttribute="leading" secondItem="5599" secondAttribute="trailing" constant="8" symbolic="YES" id="cOE-9X-Avt"/>
                     <constraint firstAttribute="bottom" secondItem="5562" secondAttribute="bottom" constant="20" symbolic="YES" id="gUP-LB-wHc"/>

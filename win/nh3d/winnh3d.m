@@ -70,6 +70,8 @@ static void NDECL(wd_message);
 //const NSStringEncoding NH3DTEXTENCODING = NSASCIIStringEncoding;
 const NSStringEncoding NH3DTEXTENCODING = NSUTF8StringEncoding;
 
+extern BOOL CocoaPortIsReady;
+BOOL CocoaPortIsReady = NO;
 
 // UserDefaultKeys
 NSString *NH3DMsgFontKey = @"MainFontName";
@@ -1731,7 +1733,7 @@ static char ynPreReady(const char *str)
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 	[_mapModel updateAllMaps];
-	
+	CocoaPortIsReady = YES;
 	moveloop(false);
 }
 

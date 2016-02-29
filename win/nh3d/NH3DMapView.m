@@ -31,6 +31,8 @@
 #define MODKEY_CTRL 2
 #define MODKEY_COMMAND 3
 
+extern BOOL CocoaPortIsReady;
+
 @interface NH3DMapView ()
 @property (strong) NSImage *mapBezel;
 @property (strong) NSImage *mapBase;
@@ -451,6 +453,9 @@
 
 - (void)drawAsciiItemAtX:(int)x atY:(int)y
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	@autoreleasepool {
 		NSRect bounds = self.bounds;
 		NSShadow *lshadow = [[NSShadow alloc] init];
@@ -655,43 +660,46 @@
 
 - (void)drawMask
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	NSMutableDictionary *attributes_alt = [[NSMutableDictionary alloc] init];
 	attributes_alt[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE - 2.0];
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 		
-	[self lockFocusIfCanDraw];
-	
-	if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
-		[mapRestrictedBezel drawAtPoint:NSZeroPoint
-							   fromRect:NSZeroRect
-							  operation:NSCompositeSourceOver
-							   fraction:1.0];
-	} else {
-		[mapBezel drawInRect:self.bounds
-					fromRect:NSZeroRect
-				   operation:NSCompositeSourceOver
-					fraction:1.0];
-	}
-	
-	if (!TRADITIONAL_MAP) {
-		if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
-			[@"Center of Map" drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
-		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-			[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
-			[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-		} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-			[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+	if ([self lockFocusIfCanDraw]) {
+		if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
+			[mapRestrictedBezel drawAtPoint:NSZeroPoint
+								   fromRect:NSZeroRect
+								  operation:NSCompositeSourceOver
+								   fraction:1.0];
 		} else {
-			[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			[mapBezel drawInRect:self.bounds
+						fromRect:NSZeroRect
+					   operation:NSCompositeSourceOver
+						fraction:1.0];
 		}
+		
+		if (!TRADITIONAL_MAP) {
+			if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
+				[@"Center of Map" drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
+			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
+				[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
+				[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
+				[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			} else {
+				[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			}
+		}
+		
+		[self unlockFocus];
 	}
-	
-	[self unlockFocus];
 }
 
 - (void)enemyCheck
