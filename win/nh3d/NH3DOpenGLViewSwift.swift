@@ -3643,7 +3643,6 @@ extension NH3DOpenGLView {
 	
 	/// Statues
 	private final func loadModelFunc_Statues(glyph: Int32) -> NH3DModelObject? {
-		//TODO: implement
 		var loadDat: (at: Int32, to: Int32, modelName: String)
 		switch glyph {
 		case (PM_GIANT_ANT + GLYPH_STATUE_OFF)...(PM_QUEEN_BEE + GLYPH_STATUE_OFF):
@@ -3702,16 +3701,16 @@ extension NH3DOpenGLView {
 			
 		case (PM_CAVE_SPIDER + GLYPH_STATUE_OFF)...(PM_SCORPION + GLYPH_STATUE_OFF):
 			loadDat = (PM_CAVE_SPIDER, PM_SCORPION, "lowerS")
-
+			
 		case (PM_LURKER_ABOVE + GLYPH_STATUE_OFF)...(PM_TRAPPER + GLYPH_STATUE_OFF):
 			loadDat = (PM_LURKER_ABOVE, PM_TRAPPER, "lowerT")
-
+			
 		case (PM_PONY + GLYPH_STATUE_OFF)...(PM_WARHORSE + GLYPH_STATUE_OFF):
 			loadDat = (PM_PONY, PM_WARHORSE, "lowerU")
 			
 		case (PM_FOG_CLOUD + GLYPH_STATUE_OFF)...(PM_FIRE_VORTEX + GLYPH_STATUE_OFF):
 			loadDat = (PM_FOG_CLOUD, PM_FIRE_VORTEX, "lowerV")
-
+			
 		case (PM_BABY_LONG_WORM + GLYPH_STATUE_OFF)...(PM_PURPLE_WORM + GLYPH_STATUE_OFF):
 			loadDat = (PM_BABY_LONG_WORM, PM_PURPLE_WORM, "lowerW")
 			
@@ -3729,7 +3728,7 @@ extension NH3DOpenGLView {
 			
 		case (PM_BAT + GLYPH_STATUE_OFF)...(PM_VAMPIRE_BAT + GLYPH_STATUE_OFF):
 			loadDat = (PM_BAT, PM_VAMPIRE_BAT, "upperB")
-
+			
 		case (PM_BAT + GLYPH_STATUE_OFF)...(PM_VAMPIRE_BAT + GLYPH_STATUE_OFF):
 			loadDat = (PM_BAT, PM_VAMPIRE_BAT, "upperB")
 			
@@ -3744,6 +3743,143 @@ extension NH3DOpenGLView {
 			
 		case (PM_LICHEN + GLYPH_STATUE_OFF)...(PM_VIOLET_FUNGUS + GLYPH_STATUE_OFF):
 			loadDat = (PM_LICHEN, PM_VIOLET_FUNGUS, "upperF")
+			
+		case (PM_GNOME+GLYPH_STATUE_OFF)...(PM_GNOME_KING+GLYPH_STATUE_OFF):
+			loadDat = (PM_GNOME, PM_GNOME_KING, "upperG")
+			
+		case (PM_GIANT+GLYPH_STATUE_OFF)...(PM_MINOTAUR+GLYPH_STATUE_OFF):
+			loadDat = (PM_GIANT, PM_MINOTAUR, "upperH")
+			
+		case PM_JABBERWOCK+GLYPH_STATUE_OFF:
+			loadDat = (PM_JABBERWOCK, PM_JABBERWOCK, "upperJ")
+			
+		case (PM_KEYSTONE_KOP+GLYPH_STATUE_OFF)...(PM_KOP_KAPTAIN+GLYPH_STATUE_OFF):
+			loadDat = (PM_KEYSTONE_KOP, PM_KOP_KAPTAIN, "upperK")
+			
+		case (PM_LICH+GLYPH_STATUE_OFF)...(PM_ARCH_LICH+GLYPH_STATUE_OFF):
+			loadDat = (PM_LICH, PM_ARCH_LICH, "upperL")
+			
+		case (PM_KOBOLD_MUMMY+GLYPH_STATUE_OFF)...(PM_GIANT_MUMMY+GLYPH_STATUE_OFF):
+			loadDat = (PM_KOBOLD_MUMMY, PM_GIANT_MUMMY, "upperM")
+			
+		case (PM_RED_NAGA_HATCHLING+GLYPH_STATUE_OFF)...(PM_GUARDIAN_NAGA+GLYPH_STATUE_OFF):
+			loadDat = (PM_RED_NAGA_HATCHLING, PM_GUARDIAN_NAGA, "upperN")
+			
+		case (PM_OGRE+GLYPH_STATUE_OFF)...(PM_OGRE_KING+GLYPH_STATUE_OFF):
+			loadDat = (PM_OGRE, PM_OGRE_KING, "upperO")
+			
+		case (PM_GRAY_OOZE+GLYPH_STATUE_OFF)...(PM_GREEN_SLIME+GLYPH_STATUE_OFF):
+			loadDat = (PM_GRAY_OOZE, PM_GREEN_SLIME, "upperP")
+			
+		case PM_QUANTUM_MECHANIC+GLYPH_STATUE_OFF:
+			loadDat = (PM_QUANTUM_MECHANIC, PM_QUANTUM_MECHANIC, "upperQ")
+			
+		case (PM_RUST_MONSTER+GLYPH_STATUE_OFF)...(PM_DISENCHANTER+GLYPH_STATUE_OFF):
+			loadDat = (PM_RUST_MONSTER, PM_DISENCHANTER, "upperR")
+			
+		case (PM_GARTER_SNAKE+GLYPH_STATUE_OFF)...(PM_COBRA+GLYPH_STATUE_OFF):
+			loadDat = (PM_GARTER_SNAKE, PM_COBRA, "upperS")
+			
+		case (PM_TROLL+GLYPH_STATUE_OFF)...(PM_OLOG_HAI+GLYPH_STATUE_OFF):
+			loadDat = (PM_TROLL, PM_OLOG_HAI, "upperT")
+			
+		case PM_UMBER_HULK+GLYPH_STATUE_OFF:
+			loadDat = (PM_UMBER_HULK, PM_UMBER_HULK, "upperU")
+			
+		case (PM_VAMPIRE+GLYPH_STATUE_OFF)...(PM_VLAD_THE_IMPALER+GLYPH_STATUE_OFF):
+			loadDat = (PM_VAMPIRE, PM_VLAD_THE_IMPALER, "upperV")
+			
+		case (PM_BARROW_WIGHT+GLYPH_STATUE_OFF)...(PM_NAZGUL+GLYPH_STATUE_OFF):
+			loadDat = (PM_BARROW_WIGHT, PM_NAZGUL, "upperW")
+			
+		case PM_XORN+GLYPH_STATUE_OFF:
+			loadDat = (PM_XORN, PM_XORN, "upperX")
+			
+		case (PM_MONKEY+GLYPH_STATUE_OFF)...(PM_SASQUATCH+GLYPH_STATUE_OFF):
+			loadDat = (PM_MONKEY, PM_SASQUATCH, "upperY")
+			
+		case (PM_KOBOLD_ZOMBIE+GLYPH_STATUE_OFF)...(PM_SKELETON+GLYPH_STATUE_OFF):
+			loadDat = (PM_KOBOLD_ZOMBIE, PM_SKELETON, "upperZ")
+			
+		case (PM_STRAW_GOLEM+GLYPH_STATUE_OFF)...(PM_IRON_GOLEM+GLYPH_STATUE_OFF):
+			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, "backslash")
+			
+		case (PM_STRAW_GOLEM+GLYPH_STATUE_OFF)...(PM_IRON_GOLEM+GLYPH_STATUE_OFF):
+			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, "backslash")
+			
+		case (PM_ELVENKING+GLYPH_STATUE_OFF)...(PM_WIZARD_OF_YENDOR+GLYPH_STATUE_OFF):
+			loadDat = (PM_ELVENKING, PM_WIZARD_OF_YENDOR, "atmark")
+			
+			/*
+			//Ghosts aren't handled
+			// Ghosts
+			loadModelBlocks[ Int(PM_GHOST + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
+			loadModelBlocks[ Int(PM_SHADE + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
+			*/
+		case (PM_WATER_DEMON+GLYPH_STATUE_OFF)...(PM_SANDESTIN+GLYPH_STATUE_OFF):
+			loadDat = (PM_WATER_DEMON, PM_SANDESTIN, "ampersand")
+			
+		case (PM_JUIBLEX+GLYPH_STATUE_OFF)...(PM_DEMOGORGON+GLYPH_STATUE_OFF):
+			loadDat = (PM_JUIBLEX, PM_DEMOGORGON, "ampersand")
+			
+			// daemon "The Riders"
+		case (PM_DEATH+GLYPH_STATUE_OFF)...(PM_FAMINE+GLYPH_STATUE_OFF):
+			loadDat = (PM_DEATH, PM_FAMINE, "ampersand")
+			
+		case (PM_JELLYFISH+GLYPH_STATUE_OFF)...(PM_KRAKEN+GLYPH_STATUE_OFF):
+			loadDat = (PM_JELLYFISH, PM_KRAKEN, "semicolon")
+			
+		case (PM_NEWT+GLYPH_STATUE_OFF)...(PM_SALAMANDER+GLYPH_STATUE_OFF):
+			loadDat = (PM_NEWT, PM_SALAMANDER, "colon")
+			
+		case PM_LONG_WORM_TAIL+GLYPH_STATUE_OFF:
+			loadDat = (PM_LONG_WORM_TAIL, PM_LONG_WORM_TAIL, "wormtail")
+			
+		case (PM_ARCHEOLOGIST+GLYPH_STATUE_OFF)...(PM_WIZARD+GLYPH_STATUE_OFF):
+			loadDat = (PM_ARCHEOLOGIST, PM_WIZARD, "atmark")
+			/*
+			//TODO: implement
+			// Unique person
+			loadModelBlocks[Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_PELIAS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_SHAMAN_KARNOV+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_HIPPOCRATES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_GRAND_MASTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ARCH_PRIEST+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ORION+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_MASTER_OF_THIEVES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_LORD_SATO+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_TWOFLOWER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_NORN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_KING_ARTHUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_NEFERET_THE_GREEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_MINION_OF_HUHETOTL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_THOTH_AMON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_CHROMATIC_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_CYCLOPS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_IXOTH+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_MASTER_KAEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_NALZOK+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_SCORPIUS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_MASTER_ASSASSIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ASHIKAGA_TAKAUJI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_LORD_SURTUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_DARK_ONE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_STUDENT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_CHIEFTAIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_NEANDERTHAL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ATTENDANT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_PAGE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ABBOT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ACOLYTE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_HUNTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_THUG+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_NINJA+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_ROSHI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_GUIDE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_WARRIOR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			loadModelBlocks[Int(PM_APPRENTICE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
+			*/
 			
 		default:
 			return nil
