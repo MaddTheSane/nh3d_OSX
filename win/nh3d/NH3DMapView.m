@@ -117,6 +117,9 @@ extern BOOL CocoaPortIsReady;
 
 - (void)defaultDidChange:(NSNotification *)notification
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	if (TRADITIONAL_MAP) {
 		if (isReady) {
 			[self lockFocusIfCanDraw];
@@ -587,6 +590,9 @@ extern BOOL CocoaPortIsReady;
 
 - (void)reloadMap
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	if (TRADITIONAL_MAP)
 		return;
 	
