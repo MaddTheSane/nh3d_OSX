@@ -3981,7 +3981,7 @@ extension NH3DOpenGLView {
 			ret.addChildObject(loadDat.modelName, type: .Object)
 			ret.lastChildObject?.setTexture(Int32(cellingTex))
 			ret.lastChildObject?.useEnvironment = false
-			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_BROWN)]
+			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			ret.lastChildObject?.animationRate = (Float(random() % 5) * 0.1) + 0.5
 			ret.lastChildObject?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
 			ret.lastChildObject?.modelShift = NH3DVertexType(x: 0, y: 1.5, z: 0)

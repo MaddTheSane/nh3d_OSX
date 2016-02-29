@@ -45,7 +45,11 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 		while !scanner.atEnd {
 			scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
 			
-			if destText == "SOUND=MESG" {
+			if let destTextUn = destText as String?, firstChar = destTextUn.characters.first
+				where firstChar == "#" {
+					scanner.scanUpToCharactersFromSet(NSCharacterSet.newlineCharacterSet(), intoString: nil)
+					continue
+			} else if destText == "SOUND=MESG" {
 				let soundMessage: String
 				let soundName: String
 				let volume: Float
