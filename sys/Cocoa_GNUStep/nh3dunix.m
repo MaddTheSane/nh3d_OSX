@@ -168,11 +168,17 @@ getlock()
 		(void) close(fd);
 		
 		if(iflags.window_inited) {
+			NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
+			eraseSaveAlert.messageText = NSLocalizedString(@"Remove old save?", @"");
+			eraseSaveAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Destroy old game?", @"");
 			
-			c = yn("There is already a game in progress under your name.  Destroy old game?");
-			/*JP
-			 c = yn("あなたの名前で不正終了したゲームが残っています．破棄しますか？");
-			 */
+			NSButton *noButton = [eraseSaveAlert addButtonWithTitle:@"No"];
+			noButton.tag = 'n';
+			
+			noButton = [eraseSaveAlert addButtonWithTitle:@"Yes"];
+			noButton.tag = 'y';
+			
+			c = [eraseSaveAlert runModal];
 		} else {
 			
 			(void) printf("\nThere is already a game in progress under your name.");

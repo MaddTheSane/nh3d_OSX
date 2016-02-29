@@ -36,6 +36,7 @@
 "*uncursed*" = "*呪われていない*";
 "*holy water*" = "*聖水*";
 "*called*" = "*と呼ばれる*";
+"*what direction*" = "*方向*";
 
 "Do you really want to Force Quit?" = "本当に強制的に終了しますか？";
 "Quit NetHack3D" = "NetHack3Dの終了";
@@ -45,4 +46,9 @@
 "Please input it within 1 to 20 characters." = "英数字で1~20文字、日本語で10文字以内でお願いします。";
 "Who are you?" = "ふむ。どなたかな？";
 "Grater than MacOS 10.4 are necessary so that NetHack3D start." = "NetHack3Dの起動にはMacOS 10.4以上が必要です。";
-"*what direction*" = "*方向*";
+
+
+"There is already a game in progress under your name.  Destroy old game?" = "あなたの名前で不正終了したゲームが残っています．破棄しますか？";
+"Remove old save?" = "Remove old save?";
+"Old Save File" = "Old Save File";
+"Do you want to keep the save file?" = "セーブファイルを残しておきますか？";

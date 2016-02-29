@@ -136,11 +136,12 @@
 		[[_bindController mainWindow] displayIfNeeded];
 	} else if (!TRADITIONAL_MAP) {
 		if (isReady) {
-			[self lockFocusIfCanDraw];
-			NSEraseRect(self.bounds);
-			[[NSColor windowBackgroundColor] set];
-			[NSBezierPath fillRect:self.bounds];
-			[self unlockFocus];
+			if ([self lockFocusIfCanDraw]) {
+				NSEraseRect(self.bounds);
+				[[NSColor windowBackgroundColor] set];
+				[NSBezierPath fillRect:self.bounds];
+				[self unlockFocus];
+			}
 		}
 		
 		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);

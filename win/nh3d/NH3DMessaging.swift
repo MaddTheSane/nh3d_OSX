@@ -154,16 +154,14 @@ class NH3DMessaging: NSObject {
 		
 		//Text attributes in View or backgrounded text field.
 		
-		darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DMSGFONT,
-			size:NH3DMSGFONTSIZE)
+		darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
 		darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
 		darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 		darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 		
 		//Text attributes on Panel or Window.
 		
-		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT,
-			size: NH3DWINDOWFONTSIZE)
+		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
 		lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
 		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 		lightShadowStrAttributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
@@ -222,7 +220,7 @@ class NH3DMessaging: NSObject {
 						continue
 					}
 					guard soundURL.checkResourceIsReachableAndReturnError(nil) else {
-						break
+						continue
 					}
 					
 					guard let playSound = try? AVAudioPlayer(contentsOfURL: soundURL) else {

@@ -44,6 +44,7 @@
 "*uncursed*" = "*uncursed*";
 "*holy water*" = "*holy water*";
 "*called*" = "*called*";
+"*what direction*" = "*what direction*";
 
 "Do you really want to Force Quit?" = "Do you really want to quit without saving?";
 "Quit NetHack3D" = "Quit NetHack3D";
@@ -53,4 +54,9 @@
 "Please input it within 1 to 20 characters." = "Make sure the name is between 1 to 20 characters.";
 "Who are you?" = "Who are you?";
 "Grater than MacOS 10.4 are necessary so that NetHack3D start." = "Mac OS X 10.4 or later is needed for NetHack3D to start.";
-"*what direction*" = "*what direction*";
+
+
+"There is already a game in progress under your name.  Destroy old game?" = "There is already a game in progress under your name.\n\nDestroy old game?";
+"Remove old save?" = "Remove old save?";
+"Old Save File" = "Old Save File";
+"Do you want to keep the save file?" = "Do you want to keep the save file?";

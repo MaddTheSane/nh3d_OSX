@@ -773,6 +773,10 @@ char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
 			Strcpy(buf,question);
 		if (choices != nil)
 			Strcat(buf,choices);
+		//Just in case the message window isn't up yet.
+		if (WIN_MESSAGE == WIN_ERR) {
+			return 'y';
+		}
 		putstr(WIN_MESSAGE, ATR_BOLD, buf);
 		
 		if (choices && strcmp(choices, ynchars) == 0) {
@@ -1452,6 +1456,24 @@ wd_message()
 // START NETHACK 3D
 // ---------------------------------------------------------------------------- //
 
+static char ynPreReady(const char *str)
+{
+	NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
+	eraseSaveAlert.messageText = NSLocalizedString(@"Old Save File", @"");
+	eraseSaveAlert.informativeText = NSLocalizedString(@(str), @"");
+	
+	[eraseSaveAlert addButtonWithTitle:@"No"];
+	[eraseSaveAlert addButtonWithTitle:@"Yes"];
+	
+	NSInteger result = [eraseSaveAlert runModal];
+	
+	if (result == NSAlertSecondButtonReturn) {
+		return 'y';
+	}
+	
+	return 'n';
+}
+
 - (IBAction)startNetHack3D:(id)sender
 {
 	int fd;
@@ -1679,10 +1701,7 @@ wd_message()
 		wd_message();
 		
 		if (discover || wizard) {
-			if(yn("Do you want to keep the save file?") == 'n')
-			/*
-			 if(yn("セーブファイルを残しておきますか？") == 'n')
-			 */
+			if(ynPreReady("Do you want to keep the save file?") == 'n')
 				(void) delete_savefile();
 			else {
 				(void) chmod(fq_save, FCMASK); /* back to readable */
