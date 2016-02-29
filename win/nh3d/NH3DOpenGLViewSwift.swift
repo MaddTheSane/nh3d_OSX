@@ -1025,7 +1025,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				updateGLViewHelper.clearCnt++
 			}
 			
-			glPushMatrix();
+			glPushMatrix()
 			
 			panCamera()
 			dorryCamera()
@@ -1828,6 +1828,89 @@ final class NH3DOpenGLView: NSOpenGLView {
 		magicItem.particleSlowdown = 8.8
 		magicItem.particleLife = 0.4
 		magicItem.particleSize = 35
+	}
+	
+	@objc private func defaultsDidChange(notification: NSNotification?) {
+		guard !oglParamNowChanging else {
+			return
+		}
+		
+		if NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
+			wantsBestResolutionOpenGLSurface = NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL)
+			reshape()
+		}
+		
+		if TRADITIONAL_MAP && !firstTime {
+			mapModel.playerDirection = PL_DIRECTION_FORWARD
+			//[ self clearGLContext ];
+			openGLContext?.clearDrawable()
+			hidden = true
+			//[ [self openGLContext] setView:nil ];
+			threadRunning = false
+			//[ self update ];
+		}
+		if !TRADITIONAL_MAP && !firstTime {
+			hidden = false
+			openGLContext?.view = self
+			if !threadRunning {
+				detachOpenGLThread()
+			}
+		}
+		
+		viewLock.lock()
+		
+		let oglFrameRateMenu = self.menu?.itemWithTag(1000)?.submenu?.itemWithTag(1002)?.submenu
+		
+		nowUpdating = true
+		hasWait = OPENGLVIEW_USEWAIT
+		
+		if !hasWait {
+			let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
+			dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+			waitRate = dRefreshRate;
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
+		} else if OPENGLVIEW_WAITRATE == WAIT_FAST {
+			waitRate = WAIT_FAST
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOnState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
+		} else if OPENGLVIEW_WAITRATE == WAIT_NORMAL {
+			waitRate = WAIT_NORMAL
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOnState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
+		} else {
+			waitRate = WAIT_SLOW
+			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
+			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOnState
+		}
+		
+		cameraStep = Float(waitRate / 8.5)
+		
+		do {
+			var vsType: GLint
+			if OPENGLVIEW_WAITSYNC {
+				vsType = vsyncWait
+			} else {
+				vsType = vsyncNoWait
+			}
+			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+		}
+		
+		if useTile != NH3DGL_USETILE {
+			for i in 0..<Int(MAX_GLYPH) {
+				var texid = defaultTex[i]
+				glDeleteTextures(1, &texid)
+				defaultTex[i] = 0
+			}
+			useTile = NH3DGL_USETILE;
+		}
+		
+		nowUpdating = false
+		viewLock.unlock()
 	}
 }
 
@@ -3897,7 +3980,7 @@ extension NH3DOpenGLView {
 			ret.setPivotX(0.0, atY: 0.0, atZ: 0.0)
 			ret.addChildObject(loadDat.modelName, type: .Object)
 			ret.lastChildObject?.setTexture(Int32(cellingTex))
-			ret.lastChildObject?.useEnvironment = true
+			ret.lastChildObject?.useEnvironment = false
 			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_BROWN)]
 			ret.lastChildObject?.animationRate = (Float(random() % 5) * 0.1) + 0.5
 			ret.lastChildObject?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
@@ -4044,90 +4127,6 @@ extension NH3DOpenGLView {
 		NSUserDefaults.standardUserDefaults().setDouble(waitRate, forKey:NH3DOpenGLWaitRateKey)
 		NSUserDefaultsController.sharedUserDefaultsController().values.setValue((waitRate as NSNumber),
 			forKey: NH3DOpenGLWaitRateKey)
-	}
-	
-	@objc private func defaultsDidChange(notification: NSNotification?) {
-		guard !oglParamNowChanging else {
-			return
-		}
-		
-		if NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
-			wantsBestResolutionOpenGLSurface = NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL)
-			reshape()
-		}
-
-		
-		if TRADITIONAL_MAP && !firstTime {
-			mapModel.playerDirection = PL_DIRECTION_FORWARD
-			//[ self clearGLContext ];
-			openGLContext?.clearDrawable()
-			hidden = true
-			//[ [self openGLContext] setView:nil ];
-			threadRunning = false
-			//[ self update ];
-		}
-		if !TRADITIONAL_MAP && !firstTime {
-			hidden = false
-			openGLContext?.view = self
-			if !threadRunning {
-				detachOpenGLThread()
-			}
-		}
-		
-		viewLock.lock()
-		
-		let oglFrameRateMenu = self.menu?.itemWithTag(1000)?.submenu?.itemWithTag(1002)?.submenu
-		
-		nowUpdating = true
-		hasWait = OPENGLVIEW_USEWAIT
-		
-		if !hasWait {
-			let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
-			dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
-			waitRate = dRefreshRate;
-			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
-			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
-			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
-		} else if OPENGLVIEW_WAITRATE == WAIT_FAST {
-			waitRate = WAIT_FAST
-			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOnState
-			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
-			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
-		} else if OPENGLVIEW_WAITRATE == WAIT_NORMAL {
-			waitRate = WAIT_NORMAL
-			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
-			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOnState
-			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOffState
-		} else {
-			waitRate = WAIT_SLOW
-			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
-			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
-			oglFrameRateMenu?.itemWithTag(1006)?.state = NSOnState
-		}
-		
-		cameraStep = Float(waitRate / 8.5)
-		
-		do {
-			var vsType: GLint
-			if OPENGLVIEW_WAITSYNC {
-				vsType = vsyncWait
-			} else {
-				vsType = vsyncNoWait
-			}
-			openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
-		}
-		
-		if useTile != NH3DGL_USETILE {
-			for i in 0..<Int(MAX_GLYPH) {
-				var texid = defaultTex[i]
-				glDeleteTextures(1, &texid)
-				defaultTex[i] = 0
-			}
-			useTile = NH3DGL_USETILE;
-		}
-		
-		nowUpdating = false
-		viewLock.unlock()
 	}
 	
 	/// cache func address
