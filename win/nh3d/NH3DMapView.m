@@ -563,21 +563,21 @@ extern BOOL CocoaPortIsReady;
 				viewCursY = MAPVIEWSIZE_ROW-y-1;
 			}
 			
+			NSRect petRect = NSMakeRect(bounds.origin.x+(x*16.0),
+										(NSMaxY(bounds) - ((y+1)*16.0)),
+										16.0, 16.0);
+			
 			if (iflags.wc_hilite_pet && mapItemValue[x][y].pet) {
 				//draw pet icon
-				[_petIcon drawInRect:NSMakeRect(bounds.origin.x+(x*16.0),
-												 (NSMaxY(bounds) - ((y+1)*16.0)),
-												 16.0, 16.0)
-							 fromRect:NSZeroRect
-							operation:NSCompositeSourceOver
-							 fraction:1.0];
+				[_petIcon drawInRect:petRect
+							fromRect:NSZeroRect
+						   operation:NSCompositeSourceOver
+							fraction:1.0];
 			}
 			
 			if (iflags.hilite_pile && mapItemValue[x][y].pile) {
-				//draw pet icon
-				[_stackIcon drawInRect:NSMakeRect(bounds.origin.x+(x*16.0),
-												(NSMaxY(bounds) - ((y+1)*16.0)),
-												16.0, 16.0)
+				//draw pile icon
+				[_stackIcon drawInRect:petRect
 							  fromRect:NSZeroRect
 							 operation:NSCompositeSourceOver
 							  fraction:1.0];
@@ -1551,6 +1551,10 @@ extern BOOL CocoaPortIsReady;
 - (IBAction)showGlobalMap:(id)sender
 {
 	@autoreleasepool {
+		NSShadow* sd = [[NSShadow alloc] init];
+		sd.shadowOffset = NSMakeSize(2, -2);
+		sd.shadowBlurRadius = 3;
+		sd.shadowColor = [NSColor blackColor];
 		//reset magnification
 		_mapLview.enclosingScrollView.magnification =1;
 		int cusx, cusy;
@@ -1618,14 +1622,10 @@ extern BOOL CocoaPortIsReady;
 				}
 				
 				if (mapcell.hasCursor) { // Check cursor postion and drawing.
-					NSShadow* sd = [[NSShadow alloc] init];
 					NSSize cursOrigin = posCursor.size;
 					cusx = x;
 					cusy = y;
 					[NSGraphicsContext saveGraphicsState];
-					sd.shadowOffset = NSMakeSize(2, -2);
-					sd.shadowBlurRadius = 3 ;
-					sd.shadowColor = [NSColor blackColor];
 					[sd set];
 					posCursor.size = drawSize;
 					[posCursor drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
@@ -1637,27 +1637,29 @@ extern BOOL CocoaPortIsReady;
 					[NSGraphicsContext restoreGraphicsState];
 				}
 				
+				NSRect petRect = NSMakeRect(drawSize.width * (CGFloat)x,
+											imgSize.height - (drawSize.height * (CGFloat)y),
+											drawSize.width,
+											drawSize.height);
+				
+				[NSGraphicsContext saveGraphicsState];
+				[sd set];
+				
 				if (iflags.wc_hilite_pet && mapcell.pet) { //draw pet icon
-					NSSize petOriginal = _petIcon.size;
-					self.petIcon.size = drawSize;
-					[_petIcon drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-													  imgSize.height - (drawSize.height * (CGFloat)y))
-								 fromRect:NSZeroRect
-								operation:NSCompositeSourceOver
-								 fraction:1.0];
-					self.petIcon.size = petOriginal;
+					[_petIcon drawInRect:petRect
+								fromRect:NSZeroRect
+							   operation:NSCompositeSourceOver
+								fraction:1.0];
 				}
 				
 				if (iflags.hilite_pile && mapcell.pile) { //draw pile icon
-					NSSize petOriginal = _stackIcon.size;
-					self.stackIcon.size = drawSize;
-					[_stackIcon drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-														imgSize.height - (drawSize.height * (CGFloat)y))
-								   fromRect:NSZeroRect
-								  operation:NSCompositeSourceOver
-								   fraction:1.0];
-					self.stackIcon.size = petOriginal;
+					[_stackIcon drawInRect:petRect
+								  fromRect:NSZeroRect
+								 operation:NSCompositeSourceOver
+								  fraction:1.0];
 				}
+				
+				[NSGraphicsContext restoreGraphicsState];
 			} // end for y
 		} // end for x
 		
