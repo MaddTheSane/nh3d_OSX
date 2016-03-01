@@ -7,6 +7,7 @@
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -22,7 +23,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="580"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6823">
                         <rect key="frame" x="26" y="385" width="128" height="23"/>
@@ -57,8 +58,6 @@
                         <rect key="frame" x="4" y="366" width="176" height="176"/>
                         <connections>
                             <outlet property="_bindController" destination="5089" id="5849"/>
-                            <outlet property="_cmdGroup1" destination="5972" id="5997"/>
-                            <outlet property="_cmdGroup2" destination="5959" id="5998"/>
                             <outlet property="_help1" destination="293" id="5946"/>
                             <outlet property="_help2" destination="275" id="5947"/>
                             <outlet property="_mapLpanel" destination="6441" id="6478"/>
@@ -76,7 +75,15 @@
                             <outlet property="_num9" destination="284" id="5956"/>
                             <outlet property="_turnLeft" destination="5463" id="6163"/>
                             <outlet property="_turnRight" destination="5358" id="6164"/>
+                            <outlet property="againButton" destination="XGZ-lm-wXf" id="8qm-w3-K33"/>
+                            <outlet property="fireArrowButton" destination="R1X-KA-2BD" id="7cT-pt-bcY"/>
+                            <outlet property="kickButton" destination="YSQ-yz-IJi" id="LAx-kh-8Xh"/>
                             <outlet property="menu" destination="6240" id="6243"/>
+                            <outlet property="openButton" destination="Xgt-Jt-ORS" id="EAG-tJ-lB9"/>
+                            <outlet property="pickUpButton" destination="84z-Fq-US6" id="geK-Ri-KIW"/>
+                            <outlet property="searchButton" destination="9Sm-65-g4R" id="4id-FZ-y0a"/>
+                            <outlet property="throwButton" destination="DKt-pB-xVh" id="rbF-ah-ZWh"/>
+                            <outlet property="zapSpellButton" destination="S5s-Xf-pjS" id="Olj-Gg-8dR"/>
                         </connections>
                     </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="6193" customClass="NH3DOpenGLView" customModule="NetHack3D" customModuleProvider="target">
@@ -775,53 +782,6 @@
                             <binding destination="4761" name="value" keyPath="selection.chaosIcon" id="4998"/>
                         </connections>
                     </imageView>
-                    <matrix verticalHuggingPriority="750" tag="50" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5972">
-                        <rect key="frame" x="483" y="154" width="113" height="31"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        <size key="cellSize" width="32" height="31"/>
-                        <size key="intercellSpacing" width="-5" height="-3"/>
-                        <buttonCell key="prototype" type="round" title="A" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="-1" allowsMixedState="YES" inset="2" id="6990">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="11" name="Optima-Bold"/>
-                            <string key="keyEquivalent">a</string>
-                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                        </buttonCell>
-                        <cells>
-                            <column>
-                                <buttonCell type="round" title="a" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Again" tag="51" inset="2" id="417">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="5976"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="square" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" enabled="NO" transparent="YES" inset="2" id="5973">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="round" title="s" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Search" tag="52" inset="2" id="5974">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="6004"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="round" title="," bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Get" tag="53" inset="2" id="5975">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="6005"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                        </cells>
-                    </matrix>
                     <box title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4994">
                         <rect key="frame" x="639" y="34" width="140" height="142"/>
                         <view key="contentView" id="xxO-LO-yVl">
@@ -1518,64 +1478,6 @@
                             <outlet property="menu" destination="5915" id="6208"/>
                         </connections>
                     </box>
-                    <matrix verticalHuggingPriority="750" tag="60" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5959">
-                        <rect key="frame" x="177" y="154" width="140" height="31"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        <size key="cellSize" width="32" height="31"/>
-                        <size key="intercellSpacing" width="-5" height="-3"/>
-                        <buttonCell key="prototype" type="round" title="o" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="-1" allowsMixedState="YES" id="6989">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="11" name="Optima-Bold"/>
-                            <string key="keyEquivalent">o</string>
-                        </buttonCell>
-                        <cells>
-                            <column>
-                                <buttonCell type="round" title="f" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Fire from Quiver" tag="61" id="5957">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="5999"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="round" title="k" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Kick" tag="62" id="5960">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="6000"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="round" title="Z" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Use Magic" tag="63" id="5961">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="6001"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="round" title="t" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Throw" tag="64" id="5962">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="6002"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                            <column>
-                                <buttonCell type="round" title="o" bezelStyle="circular" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" toolTip="Open" tag="65" id="5963">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="11" name="Optima-Bold"/>
-                                    <connections>
-                                        <action selector="controllerActions:" target="5648" id="6003"/>
-                                    </connections>
-                                </buttonCell>
-                            </column>
-                        </cells>
-                    </matrix>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6214" userLabel="Message Scroll View">
                         <rect key="frame" x="197" y="32" width="400" height="110"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rlo-zh-kH1">
@@ -1656,6 +1558,129 @@
                             <binding destination="6780" name="value" keyPath="values.SoundMute" id="6844"/>
                         </connections>
                     </button>
+                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iX5-hr-ywf">
+                        <rect key="frame" x="183" y="161" width="128" height="20"/>
+                        <subviews>
+                            <button toolTip="Fire from Quiver" verticalHuggingPriority="750" tag="61" translatesAutoresizingMaskIntoConstraints="NO" id="R1X-KA-2BD">
+                                <rect key="frame" x="-6" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="f" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cap-43-Uu2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="aQt-xu-BVe"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Kick" verticalHuggingPriority="750" tag="62" translatesAutoresizingMaskIntoConstraints="NO" id="YSQ-yz-IJi">
+                                <rect key="frame" x="21" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="k" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MrC-BN-3Jd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="o4h-dm-bk0"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Use Magic" verticalHuggingPriority="750" tag="63" translatesAutoresizingMaskIntoConstraints="NO" id="S5s-Xf-pjS">
+                                <rect key="frame" x="48" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="Z" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6nm-el-2DC">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="2HB-3D-O3z"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Throw" verticalHuggingPriority="750" tag="64" translatesAutoresizingMaskIntoConstraints="NO" id="DKt-pB-xVh">
+                                <rect key="frame" x="75" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="t" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2vX-8R-dH4">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="gjI-AP-ZjK"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Open" verticalHuggingPriority="750" tag="65" translatesAutoresizingMaskIntoConstraints="NO" id="Xgt-Jt-ORS">
+                                <rect key="frame" x="102" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="o" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oNa-iN-bfd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="zAD-Of-d0E"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sY4-eG-jWZ">
+                        <rect key="frame" x="495" y="161" width="101" height="20"/>
+                        <subviews>
+                            <button toolTip="Again" verticalHuggingPriority="750" tag="51" translatesAutoresizingMaskIntoConstraints="NO" id="XGZ-lm-wXf">
+                                <rect key="frame" x="-6" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="a" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AXU-wL-KKa">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="4ew-Th-RSU"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Kick" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w1P-Hp-jlj">
+                                <rect key="frame" x="21" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="k" bezelStyle="circular" alignment="center" controlSize="small" enabled="NO" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="G6z-2d-BO3">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                            </button>
+                            <button toolTip="Search" verticalHuggingPriority="750" tag="52" translatesAutoresizingMaskIntoConstraints="NO" id="9Sm-65-g4R">
+                                <rect key="frame" x="48" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="s" bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PVC-Wr-dLk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="PRA-u3-Rem"/>
+                                </connections>
+                            </button>
+                            <button toolTip="Pick Up" verticalHuggingPriority="750" tag="53" translatesAutoresizingMaskIntoConstraints="NO" id="84z-Fq-US6">
+                                <rect key="frame" x="75" y="-7" width="32" height="32"/>
+                                <buttonCell key="cell" type="round" title="," bezelStyle="circular" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tiT-la-Gr7">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="controllerActions:" target="5648" id="n26-Ik-9kw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <real value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="5264" firstAttribute="leading" secondItem="365" secondAttribute="trailing" constant="5" id="09a-Dk-65Q"/>
@@ -1684,7 +1709,6 @@
                     <constraint firstItem="465" firstAttribute="top" secondItem="316" secondAttribute="bottom" constant="11" id="3En-nm-5oV"/>
                     <constraint firstItem="6841" firstAttribute="centerY" secondItem="5249" secondAttribute="centerY" id="3Nv-u8-vNz"/>
                     <constraint firstItem="5108" firstAttribute="top" secondItem="316" secondAttribute="bottom" constant="8" symbolic="YES" id="3ab-nj-mkt"/>
-                    <constraint firstItem="5959" firstAttribute="top" secondItem="5249" secondAttribute="bottom" constant="11" id="3ev-bZ-1Pt"/>
                     <constraint firstItem="344" firstAttribute="trailing" secondItem="368" secondAttribute="trailing" id="3zQ-HV-ers"/>
                     <constraint firstItem="5457" firstAttribute="top" secondItem="4994" secondAttribute="bottom" constant="6" id="3zU-SY-5Qv"/>
                     <constraint firstItem="316" firstAttribute="trailing" secondItem="5108" secondAttribute="trailing" id="4QF-FD-tXL"/>
@@ -1713,9 +1737,11 @@
                     <constraint firstItem="6823" firstAttribute="centerX" secondItem="6822" secondAttribute="centerX" id="8mh-Zo-9pL"/>
                     <constraint firstItem="5459" firstAttribute="top" secondItem="5457" secondAttribute="bottom" constant="4" id="8oI-8z-ZwF"/>
                     <constraint firstItem="5152" firstAttribute="trailing" secondItem="5149" secondAttribute="trailing" id="8qc-eT-9oR"/>
+                    <constraint firstItem="293" firstAttribute="leading" secondItem="sY4-eG-jWZ" secondAttribute="trailing" constant="3" id="9GD-5a-qmq"/>
                     <constraint firstItem="461" firstAttribute="leading" secondItem="581" secondAttribute="leading" id="9OJ-RC-xvb"/>
                     <constraint firstItem="5748" firstAttribute="trailing" secondItem="5746" secondAttribute="trailing" id="9Om-Ks-8WD"/>
                     <constraint firstItem="469" firstAttribute="baseline" secondItem="5153" secondAttribute="firstBaseline" id="9Rx-W3-za6"/>
+                    <constraint firstItem="5249" firstAttribute="top" secondItem="6193" secondAttribute="bottom" constant="14" id="9ZU-SX-Nxu"/>
                     <constraint firstItem="6371" firstAttribute="top" secondItem="6372" secondAttribute="top" id="9dm-Y1-AOU"/>
                     <constraint firstItem="375" firstAttribute="leading" secondItem="378" secondAttribute="leading" id="9wH-84-o16"/>
                     <constraint firstItem="585" firstAttribute="centerY" secondItem="5128" secondAttribute="centerY" id="A8f-QH-Rtr"/>
@@ -1734,9 +1760,9 @@
                     <constraint firstItem="6368" firstAttribute="leading" secondItem="6366" secondAttribute="trailing" constant="18" id="BIW-P7-ayr"/>
                     <constraint firstItem="469" firstAttribute="firstBaseline" secondItem="5152" secondAttribute="firstBaseline" id="BIn-QE-l4t"/>
                     <constraint firstAttribute="bottom" secondItem="5463" secondAttribute="bottom" constant="46" id="BKS-gc-FrY"/>
-                    <constraint firstItem="6214" firstAttribute="top" secondItem="5959" secondAttribute="bottom" constant="12" id="BbA-3P-NVK"/>
                     <constraint firstItem="6341" firstAttribute="top" secondItem="6402" secondAttribute="top" id="CE1-Ru-Veq"/>
                     <constraint firstItem="316" firstAttribute="leading" secondItem="5108" secondAttribute="leading" id="CTh-Oa-kzT"/>
+                    <constraint firstItem="6841" firstAttribute="top" secondItem="6193" secondAttribute="bottom" constant="10" id="CUQ-Op-tIf"/>
                     <constraint firstItem="475" firstAttribute="centerY" secondItem="6470" secondAttribute="centerY" id="Cia-p7-bqP"/>
                     <constraint firstItem="368" firstAttribute="top" secondItem="365" secondAttribute="bottom" constant="2" id="D2t-Kf-zy9"/>
                     <constraint firstItem="589" firstAttribute="centerX" secondItem="587" secondAttribute="centerX" id="D9Y-xs-Dc0"/>
@@ -1814,7 +1840,6 @@
                     <constraint firstItem="5461" firstAttribute="trailing" secondItem="5464" secondAttribute="trailing" id="Nn1-oQ-UIP"/>
                     <constraint firstItem="580" firstAttribute="firstBaseline" secondItem="577" secondAttribute="firstBaseline" id="Nph-CH-m1o"/>
                     <constraint firstItem="5463" firstAttribute="top" secondItem="386" secondAttribute="bottom" constant="33" id="Nyj-v1-s9x"/>
-                    <constraint firstItem="5959" firstAttribute="top" secondItem="5972" secondAttribute="top" id="OQV-3d-mnY"/>
                     <constraint firstItem="590" firstAttribute="leading" secondItem="589" secondAttribute="leading" id="OYo-hT-jVL"/>
                     <constraint firstItem="6376" firstAttribute="centerX" secondItem="6373" secondAttribute="centerX" id="Of4-fH-GiJ"/>
                     <constraint firstItem="5437" firstAttribute="bottom" secondItem="5005" secondAttribute="bottom" id="PIo-eO-jj3"/>
@@ -1860,6 +1885,7 @@
                     <constraint firstItem="467" firstAttribute="top" secondItem="5127" secondAttribute="bottom" constant="6" id="VU2-CW-vbF"/>
                     <constraint firstItem="5115" firstAttribute="leading" secondItem="5159" secondAttribute="trailing" constant="3" id="VUS-z8-di0"/>
                     <constraint firstItem="5114" firstAttribute="trailing" secondItem="5115" secondAttribute="trailing" id="VYL-eV-Kqc"/>
+                    <constraint firstItem="5006" firstAttribute="top" secondItem="6214" secondAttribute="bottom" constant="18" id="VcJ-2g-7gt"/>
                     <constraint firstItem="6375" firstAttribute="leading" secondItem="6374" secondAttribute="trailing" constant="15" id="VdJ-qt-itw"/>
                     <constraint firstItem="5125" firstAttribute="leading" secondItem="5126" secondAttribute="leading" id="VgX-FL-Ri2"/>
                     <constraint firstItem="5144" firstAttribute="top" secondItem="378" secondAttribute="bottom" constant="8" symbolic="YES" id="Vgr-XM-rpw"/>
@@ -1874,21 +1900,21 @@
                     <constraint firstItem="5128" firstAttribute="leading" secondItem="5127" secondAttribute="leading" id="X1S-Uy-mSX"/>
                     <constraint firstItem="380" firstAttribute="leading" secondItem="5437" secondAttribute="leading" id="XFm-Ry-MLc"/>
                     <constraint firstItem="5112" firstAttribute="leading" secondItem="5113" secondAttribute="leading" id="Xcg-Jf-Tbw"/>
+                    <constraint firstItem="sY4-eG-jWZ" firstAttribute="top" secondItem="5263" secondAttribute="bottom" constant="8" id="Xl7-Tw-tcf"/>
                     <constraint firstItem="453" firstAttribute="trailing" secondItem="467" secondAttribute="trailing" id="Y36-YV-Z3o"/>
                     <constraint firstItem="378" firstAttribute="trailing" secondItem="390" secondAttribute="trailing" id="Y8E-gS-NiF"/>
                     <constraint firstItem="6376" firstAttribute="trailing" secondItem="6366" secondAttribute="trailing" id="YQW-tt-C3Q"/>
                     <constraint firstItem="5127" firstAttribute="trailing" secondItem="5126" secondAttribute="trailing" id="Yno-Ks-ggT"/>
+                    <constraint firstItem="iX5-hr-ywf" firstAttribute="top" secondItem="5263" secondAttribute="bottom" constant="8" id="YpX-pu-eQL"/>
                     <constraint firstItem="459" firstAttribute="leading" secondItem="350" secondAttribute="trailing" constant="2" id="Yzx-wU-ynS"/>
                     <constraint firstItem="5114" firstAttribute="firstBaseline" secondItem="5113" secondAttribute="firstBaseline" id="Z76-DU-Y0Q"/>
                     <constraint firstItem="6371" firstAttribute="leading" secondItem="6370" secondAttribute="trailing" constant="12" id="Z7f-RW-nsQ"/>
-                    <constraint firstItem="5959" firstAttribute="top" secondItem="6841" secondAttribute="bottom" constant="6" id="ZFA-lq-Hia"/>
                     <constraint firstItem="6193" firstAttribute="leading" secondItem="6841" secondAttribute="leading" id="ZNq-q9-TLx"/>
                     <constraint firstItem="275" firstAttribute="leading" secondItem="5255" secondAttribute="trailing" constant="9" id="Zl2-T3-gzb"/>
                     <constraint firstItem="6378" firstAttribute="leading" secondItem="6369" secondAttribute="leading" id="Zww-n4-ssa"/>
                     <constraint firstItem="5264" firstAttribute="bottom" secondItem="5094" secondAttribute="bottom" id="a3m-LH-3Cr"/>
                     <constraint firstAttribute="trailing" secondItem="5093" secondAttribute="trailing" constant="19" id="a8c-Hl-qIo"/>
                     <constraint firstItem="579" firstAttribute="leading" secondItem="585" secondAttribute="leading" id="aAR-Ii-kxs"/>
-                    <constraint firstItem="6406" firstAttribute="top" secondItem="5959" secondAttribute="bottom" constant="1" id="aAU-ar-WHp"/>
                     <constraint firstItem="467" firstAttribute="leading" secondItem="457" secondAttribute="leading" id="aHF-TH-F3q"/>
                     <constraint firstItem="4994" firstAttribute="top" secondItem="5455" secondAttribute="bottom" constant="5" id="aLH-oc-wnx"/>
                     <constraint firstItem="5744" firstAttribute="bottom" secondItem="5437" secondAttribute="bottom" id="ace-mc-eUZ"/>
@@ -1936,17 +1962,16 @@
                     <constraint firstItem="5744" firstAttribute="centerX" secondItem="471" secondAttribute="centerX" id="eop-rY-9x8"/>
                     <constraint firstItem="6366" firstAttribute="bottom" secondItem="6369" secondAttribute="bottom" id="exJ-TE-fY4"/>
                     <constraint firstItem="5453" firstAttribute="top" secondItem="5748" secondAttribute="top" id="f1n-EL-qiV"/>
-                    <constraint firstItem="5959" firstAttribute="top" secondItem="5263" secondAttribute="bottom" constant="4" id="f6v-Nk-xXH"/>
                     <constraint firstItem="375" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="fE4-w4-F8J"/>
                     <constraint firstItem="387" firstAttribute="bottom" secondItem="388" secondAttribute="bottom" id="fHP-lc-X5E"/>
                     <constraint firstItem="6378" firstAttribute="trailing" secondItem="6369" secondAttribute="trailing" id="fMA-79-wal"/>
-                    <constraint firstItem="5959" firstAttribute="leading" secondItem="6341" secondAttribute="trailing" constant="12" id="fSI-Ud-6mr"/>
                     <constraint firstItem="350" firstAttribute="leading" secondItem="5125" secondAttribute="trailing" constant="1" id="fip-9c-77j"/>
                     <constraint firstItem="6193" firstAttribute="centerX" secondItem="475" secondAttribute="centerX" id="flc-WW-Jxb"/>
                     <constraint firstItem="359" firstAttribute="leading" secondItem="353" secondAttribute="leading" id="g0Z-Db-Bna"/>
                     <constraint firstItem="455" firstAttribute="top" secondItem="577" secondAttribute="bottom" constant="3" id="g4e-OF-7hV"/>
                     <constraint firstItem="356" firstAttribute="leading" secondItem="455" secondAttribute="trailing" constant="17" id="g6z-Je-kfT"/>
                     <constraint firstItem="275" firstAttribute="top" secondItem="6193" secondAttribute="bottom" constant="17" id="gCv-Fs-HH4"/>
+                    <constraint firstItem="6406" firstAttribute="top" secondItem="sY4-eG-jWZ" secondAttribute="bottom" constant="8" id="gMt-m6-y3e"/>
                     <constraint firstItem="5143" firstAttribute="leading" secondItem="5144" secondAttribute="leading" id="gSP-29-4Dg"/>
                     <constraint firstItem="368" firstAttribute="leading" secondItem="365" secondAttribute="leading" id="gg8-uX-Lnr"/>
                     <constraint firstItem="5141" firstAttribute="trailing" secondItem="5142" secondAttribute="trailing" id="giR-1G-08O"/>
@@ -1965,6 +1990,7 @@
                     <constraint firstItem="585" firstAttribute="firstBaseline" secondItem="586" secondAttribute="firstBaseline" id="ikj-9D-pF5"/>
                     <constraint firstItem="5737" firstAttribute="centerX" secondItem="4994" secondAttribute="centerX" id="itm-sV-9Hg"/>
                     <constraint firstItem="6406" firstAttribute="leading" secondItem="589" secondAttribute="trailing" constant="43" id="jGf-Tm-YqF"/>
+                    <constraint firstItem="293" firstAttribute="centerY" secondItem="iX5-hr-ywf" secondAttribute="centerY" id="jJD-1Z-4NS"/>
                     <constraint firstItem="455" firstAttribute="top" secondItem="5125" secondAttribute="bottom" constant="4" id="jeE-QV-fSC"/>
                     <constraint firstItem="6193" firstAttribute="leading" secondItem="5648" secondAttribute="trailing" constant="3" id="jrk-sW-hi8"/>
                     <constraint firstItem="5141" firstAttribute="top" secondItem="6406" secondAttribute="top" id="k6T-Nk-qrI"/>
@@ -2007,7 +2033,6 @@
                     <constraint firstItem="6366" firstAttribute="leading" secondItem="6823" secondAttribute="leading" id="qQf-lZ-0JE"/>
                     <constraint firstItem="6402" firstAttribute="top" secondItem="5648" secondAttribute="bottom" constant="6" id="qdO-uL-1Xh"/>
                     <constraint firstItem="5142" firstAttribute="top" secondItem="5141" secondAttribute="bottom" constant="8" symbolic="YES" id="r0X-I9-WqH"/>
-                    <constraint firstItem="293" firstAttribute="leading" secondItem="5972" secondAttribute="trailing" constant="3" id="r1M-KN-0om"/>
                     <constraint firstItem="6414" firstAttribute="trailing" secondItem="6368" secondAttribute="trailing" id="rZd-HO-gvg"/>
                     <constraint firstItem="6373" firstAttribute="top" secondItem="6370" secondAttribute="bottom" constant="15" id="rbI-tT-kyq"/>
                     <constraint firstItem="5005" firstAttribute="centerY" secondItem="5263" secondAttribute="centerY" id="riB-FJ-QxF"/>
@@ -2021,13 +2046,13 @@
                     <constraint firstItem="6366" firstAttribute="top" secondItem="5648" secondAttribute="bottom" constant="17" id="t4B-CU-NH8"/>
                     <constraint firstItem="5648" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="4" id="tFq-IZ-hov"/>
                     <constraint firstItem="579" firstAttribute="leading" secondItem="578" secondAttribute="leading" id="tIg-kf-e5A"/>
-                    <constraint firstItem="5453" firstAttribute="top" secondItem="5972" secondAttribute="top" id="tSq-km-zhT"/>
                     <constraint firstItem="5459" firstAttribute="leading" secondItem="5461" secondAttribute="leading" id="ta5-ew-2B1"/>
                     <constraint firstItem="5461" firstAttribute="top" secondItem="5459" secondAttribute="bottom" constant="4" id="tqV-mZ-Xbb"/>
                     <constraint firstItem="455" firstAttribute="top" secondItem="453" secondAttribute="bottom" constant="17" id="trn-Xm-Qr1"/>
                     <constraint firstItem="589" firstAttribute="top" secondItem="588" secondAttribute="bottom" constant="6" id="u8u-wT-weJ"/>
                     <constraint firstItem="5094" firstAttribute="leading" secondItem="5093" secondAttribute="leading" id="uI0-Mz-emY"/>
                     <constraint firstItem="586" firstAttribute="leading" secondItem="471" secondAttribute="leading" id="uJc-YY-t0M"/>
+                    <constraint firstItem="6406" firstAttribute="top" secondItem="iX5-hr-ywf" secondAttribute="bottom" constant="8" id="uO7-t3-4gc"/>
                     <constraint firstItem="6368" firstAttribute="leading" secondItem="6371" secondAttribute="leading" id="uPU-9a-JUQ"/>
                     <constraint firstItem="582" firstAttribute="trailing" secondItem="586" secondAttribute="trailing" id="uSY-V3-IL1"/>
                     <constraint firstItem="581" firstAttribute="trailing" secondItem="582" secondAttribute="trailing" id="uYV-Up-gUq"/>
@@ -2058,6 +2083,7 @@
                     <constraint firstItem="5152" firstAttribute="leading" secondItem="5149" secondAttribute="leading" id="ybg-tz-Ep4"/>
                     <constraint firstItem="362" firstAttribute="bottom" secondItem="359" secondAttribute="bottom" id="ydO-Os-zPL"/>
                     <constraint firstItem="275" firstAttribute="leading" secondItem="293" secondAttribute="leading" id="ysG-yg-Hzb"/>
+                    <constraint firstItem="iX5-hr-ywf" firstAttribute="leading" secondItem="6341" secondAttribute="trailing" constant="18" id="z6D-rk-uPq"/>
                     <constraint firstItem="375" firstAttribute="centerY" secondItem="588" secondAttribute="centerY" id="z8S-N3-4FD"/>
                     <constraint firstItem="459" firstAttribute="centerX" secondItem="5746" secondAttribute="centerX" id="zHl-6T-c8B"/>
                     <constraint firstItem="353" firstAttribute="trailing" secondItem="344" secondAttribute="trailing" id="zWZ-NJ-C3K"/>

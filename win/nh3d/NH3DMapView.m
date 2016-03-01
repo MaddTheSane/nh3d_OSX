@@ -527,10 +527,10 @@ extern BOOL CocoaPortIsReady;
 			default:
 				if ([[mapItemValue[x][y] symbol] isEqualToString:@"-"] && mapItemValue[x][y].hasAlternateSymbol) {
 					(mapItemValue[x][y]).cSymbol = '|';
-					[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
+					[mapItemValue[x][y] setHasAlternateSymbol:NO];
 				} else if ([[mapItemValue[x][y] symbol] isEqualToString:@"|"] && mapItemValue[x][y].hasAlternateSymbol) {
 					(mapItemValue[x][y]).cSymbol = '-';
-					[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
+					[mapItemValue[x][y] setHasAlternateSymbol:NO];
 				}
 				
 				break;
@@ -951,30 +951,43 @@ extern BOOL CocoaPortIsReady;
 				//[self setKeyBuffer:lkey];
 				break;
 		}
-	} else {
-		switch ([sender selectedTag]) {
+	} else if ([sender tag] < 70) {
+		switch ([sender tag]) {
 			//ButtonMatrix 1 (window rightside)
-			case 51: lkey = lastKeyBuffer;
+			case 51:
+				lkey = lastKeyBuffer;
 				break;
-			case 52: lkey = 's';
+			case 52:
+				lkey = 's';
 				break;
-			case 53: lkey = ',';
+			case 53:
+				lkey = ',';
 				break;
 			//ButtonMatrix 2 (window leftside)
-			case 61: lkey = 'f';
+			case 61:
+				lkey = 'f';
 				break;
-			case 62: lkey = C('d');
+			case 62:
+				lkey = C('d');
 				break;
-			case 63: lkey = 'Z';
+			case 63:
+				lkey = 'Z';
 				break;
-			case 64: lkey = 't';
+			case 64:
+				lkey = 't';
 				break;
-			case 65: lkey = 'o';
+			case 65:
+				lkey = 'o';
 				break;
+		}
+	} else {
+		switch ([sender selectedTag]) {
 			//Help Buttons
-			case 71: lkey = ':';
+			case 71:
+				lkey = ':';
 				break;
-			case 72: lkey = ';';
+			case 72:
+				lkey = ';';
 				break;
 		}
 	}
@@ -1271,7 +1284,7 @@ extern BOOL CocoaPortIsReady;
 								ch[0] = (isupper((int)ch[0])) ? tolower((int)ch[0]) : ch[0];
 							} else if (event.modifierFlags & NSControlKeyMask) {
 								if (ch[0]=='d') {
-									[[_cmdGroup2 cellWithTag:62] performClick:self];
+									[_kickButton performClick:self];
 									continue;
 								} else {
 									modKeyFlag = MODKEY_CTRL;
@@ -1281,7 +1294,7 @@ extern BOOL CocoaPortIsReady;
 							if (event.modifierFlags & NSAlternateKeyMask) {
 								switch (ch[0]) {
 									case 'a':
-										[[_cmdGroup1 cellWithTag:51] performClick:self];
+										[_againButton performClick:self];
 										break;
 										
 									default:
@@ -1362,27 +1375,27 @@ extern BOOL CocoaPortIsReady;
 										break;
 										
 									case 'f':
-										[[_cmdGroup2 cellWithTag:61] performClick:self];
+										[_fireArrowButton performClick:self];
 										break;
 										
 									case 'Z':
-										[[_cmdGroup2 cellWithTag:63] performClick:self];
+										[_zapSpellButton performClick:self];
 										break;
 										
 									case 't':
-										[[_cmdGroup2 cellWithTag:64] performClick:self];
+										[_throwButton performClick:self];
 										break;
 										
 									case 'o':
-										[[_cmdGroup2 cellWithTag:65] performClick:self];
+										[_openButton performClick:self];
 										break;
 										
 									case 's':
-										[[_cmdGroup1 cellWithTag:52] performClick:self];
+										[_searchButton performClick:self];
 										break;
 										
 									case ',':
-										[[_cmdGroup1 cellWithTag:53] performClick:self];
+										[_pickUpButton performClick:self];
 										break;
 										
 									case ';':

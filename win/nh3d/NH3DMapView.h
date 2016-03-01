@@ -60,9 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 	IBOutlet NSButton *_turnRight;
 	IBOutlet NSButton *_turnLeft;
 	
-	IBOutlet NSMatrix *_cmdGroup1;
-	IBOutlet NSMatrix *_cmdGroup2;
-	
 	IBOutlet NSButton *_help1;
 	IBOutlet NSButton *_help2;
 
@@ -94,6 +91,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, strong) NSColor *bgColor;
+@property (weak) IBOutlet NSButton *fireArrowButton;
+@property (weak) IBOutlet NSButton *kickButton;
+@property (weak) IBOutlet NSButton *zapSpellButton;
+@property (weak) IBOutlet NSButton *throwButton;
+@property (weak) IBOutlet NSButton *openButton;
+
+@property (weak) IBOutlet NSButton *againButton;
+@property (weak) IBOutlet NSButton *searchButton;
+@property (weak) IBOutlet NSButton *pickUpButton;
+
 
 - (void)setCenterAtX:(int)x y:(int)y depth:(int)depth;
 @property BOOL isReady;
