@@ -34,7 +34,7 @@ extern struct passwd *FDECL(getpwuid, (int));
 #endif
 extern struct passwd *FDECL(getpwnam, (const char *));
 #ifdef CHDIR
-static void FDECL(chdirx, (const char *,BOOLEAN_P));
+static void FDECL(chdirx, (const char *,boolean));
 #endif /* CHDIR */
 static boolean NDECL(whoami);
 static void FDECL(process_options, (int, char **));
@@ -210,9 +210,7 @@ process_options(int argc, char *argv[])
 
 #ifdef CHDIR
 static void
-chdirx(dir, wr)
-const char *dir;
-boolean wr;
+chdirx(const char *dir, boolean wr)
 {
 	if (dir					/* User specified directory? */
 # ifdef HACKDIR
@@ -503,7 +501,7 @@ void nh3d_clear_nhwindow(winid wid)
 	}
 }
 
-void nh3d_display_nhwindow(winid wid, BOOLEAN_P block)
+void nh3d_display_nhwindow(winid wid, boolean block)
 {
 	@autoreleasepool {
 		switch (nh3d_windowlist[wid].type) {
@@ -602,7 +600,7 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 	}
 }
 
-void nh3d_display_file(const char *filename, BOOLEAN_P must_exist)
+void nh3d_display_file(const char *filename, boolean must_exist)
 {
 	@autoreleasepool {
 		NSString *loc = [[NSBundle mainBundle] pathForResource:[NSString stringWithCString:filename encoding:NH3DTEXTENCODING] ofType:nil];
@@ -648,8 +646,8 @@ void nh3d_start_menu(winid wid)
 
 
 void nh3d_add_menu(winid wid, int glyph, const ANY_P *identifier,
-		CHAR_P accelerator, CHAR_P group_accel, int attr, 
-		const char *str, BOOLEAN_P presel)
+		char accelerator, char group_accel, int attr,
+		const char *str, boolean presel)
 {
 	@autoreleasepool {
 		if (nh3d_windowlist[wid].win != nil && nh3d_windowlist[wid].type == NHW_MENU) {
@@ -708,7 +706,7 @@ void nh3d_cliparound_window(winid wid, int x, int y)
 	/* view objects,texts clipping do self.*/
 }
 
-void nh3d_print_glyph(winid wid, XCHAR_P x, XCHAR_P y, int glyph, int under)
+void nh3d_print_glyph(winid wid, xchar x, xchar y, int glyph, int under)
 {
 	@autoreleasepool {
 		[_NH3DBindController printGlyph:wid xPos:x yPos:y glyph:glyph bkglyph:under];
@@ -763,7 +761,7 @@ int nh3d_doprev_message()
 	return 0;
 }
 
-char nh3d_yn_function(const char *question, const char *choices, CHAR_P def)
+char nh3d_yn_function(const char *question, const char *choices, char def)
 {
 	@autoreleasepool {
 		char yn;
@@ -1364,7 +1362,7 @@ wd_message()
 	/*result = */[alert runModal];
 }
 
-- (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph bkglyph:(int)bkglyph
+- (void)printGlyph:(winid)wid xPos:(xchar)x yPos:(xchar)y glyph:(int)glyph bkglyph:(int)bkglyph
 {
 	switch (nh3d_windowlist[wid].type) {
 	case NHW_MAP:
