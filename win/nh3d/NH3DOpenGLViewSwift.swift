@@ -1912,6 +1912,110 @@ final class NH3DOpenGLView: NSOpenGLView {
 		nowUpdating = false
 		viewLock.unlock()
 	}
+	
+	/// wait for vSync...
+	@IBAction func drawAllFrameFunction(sender: AnyObject) {
+		viewLock.lock()
+		nowUpdating = true
+		
+		do {
+			let hi: Int = sender.state
+			NSUserDefaults.standardUserDefaults().setBool(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
+		}
+		
+		nowUpdating = false
+		viewLock.unlock()
+		
+		var vsType: GLint
+		if OPENGLVIEW_WAITSYNC {
+			vsType = vsyncWait
+		} else {
+			vsType = vsyncNoWait
+		}
+		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
+	}
+	
+	@IBAction func useAntiAlias(sender: NSMenuItem) {
+		viewLock.lock()
+		nowUpdating = true
+		if sender.state == NSOffState {
+			turnOnSmooth()
+			sender.state = NSOnState
+		} else {
+			turnOffSmooth()
+			sender.state = NSOffState
+		}
+		nowUpdating = false
+		viewLock.unlock()
+	}
+	
+	@IBAction func changeWaitRate(sender: NSMenuItem) {
+		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
+		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+		
+		viewLock.lock()
+		nowUpdating = true
+		oglParamNowChanging = true
+		switch sender.tag {
+		case 1003: // no wait
+			waitRate = dRefreshRate;
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (false as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
+			
+			sender.menu?.itemWithTag(1004)?.state = NSOffState
+			sender.menu?.itemWithTag(1005)?.state = NSOffState
+			sender.menu?.itemWithTag(1006)?.state = NSOffState
+			
+		case 1004:
+			waitRate = WAIT_FAST;
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
+			
+			sender.menu?.itemWithTag(1003)?.state = NSOffState
+			sender.menu?.itemWithTag(1005)?.state = NSOffState
+			sender.menu?.itemWithTag(1006)?.state = NSOffState
+			
+		case 1005:
+			waitRate = WAIT_NORMAL;
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
+			
+			sender.menu?.itemWithTag(1003)?.state = NSOffState
+			sender.menu?.itemWithTag(1004)?.state = NSOffState
+			sender.menu?.itemWithTag(1006)?.state = NSOffState
+			
+		case 1006:
+			waitRate = WAIT_SLOW;
+			sender.state = NSOnState
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
+			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
+				forKey: NH3DOpenGLUseWaitRateKey)
+			
+			sender.menu?.itemWithTag(1003)?.state = NSOffState
+			sender.menu?.itemWithTag(1004)?.state = NSOffState
+			sender.menu?.itemWithTag(1005)?.state = NSOffState
+			
+		default:
+			break
+		}
+		
+		cameraStep = Float(waitRate / 8.5)
+		
+		nowUpdating = false;
+		oglParamNowChanging = false;
+		viewLock.unlock()
+		
+		NSUserDefaults.standardUserDefaults().setDouble(waitRate, forKey:NH3DOpenGLWaitRateKey)
+		NSUserDefaultsController.sharedUserDefaultsController().values.setValue((waitRate as NSNumber),
+			forKey: NH3DOpenGLWaitRateKey)
+	}
 }
 
 //MARK: - Load model methods. Used as closures
@@ -4024,110 +4128,6 @@ extension NH3DOpenGLView {
 	}
 	
 	// MARK: -
-	
-	/// wait for vSync...
-	@IBAction func drawAllFrameFunction(sender: AnyObject) {
-		viewLock.lock()
-		nowUpdating = true
-		
-		do {
-			let hi: Int = sender.state
-			NSUserDefaults.standardUserDefaults().setBool(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
-			NSUserDefaultsController.sharedUserDefaultsController().values.setValue(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
-		}
-		
-		nowUpdating = false
-		viewLock.unlock()
-		
-		var vsType: GLint
-		if OPENGLVIEW_WAITSYNC {
-			vsType = vsyncWait
-		} else {
-			vsType = vsyncNoWait
-		}
-		openGLContext?.setValues(&vsType, forParameter: NSOpenGLContextParameter.GLCPSwapInterval)
-	}
-	
-	@IBAction func useAntiAlias(sender: NSMenuItem) {
-		viewLock.lock()
-		nowUpdating = true
-		if sender.state == NSOffState {
-			turnOnSmooth()
-			sender.state = NSOnState
-		} else {
-			turnOffSmooth()
-			sender.state = NSOffState
-		}
-		nowUpdating = false
-		viewLock.unlock()
-	}
-	
-	@IBAction func changeWaitRate(sender: NSMenuItem) {
-		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
-		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
-		
-		viewLock.lock()
-		nowUpdating = true
-		oglParamNowChanging = true
-		switch sender.tag {
-		case 1003: // no wait
-			waitRate = dRefreshRate;
-			sender.state = NSOnState
-			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (false as NSNumber),
-				forKey: NH3DOpenGLUseWaitRateKey)
-			
-			sender.menu?.itemWithTag(1004)?.state = NSOffState
-			sender.menu?.itemWithTag(1005)?.state = NSOffState
-			sender.menu?.itemWithTag(1006)?.state = NSOffState
-			
-		case 1004:
-			waitRate = WAIT_FAST;
-			sender.state = NSOnState
-			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
-				forKey: NH3DOpenGLUseWaitRateKey)
-			
-			sender.menu?.itemWithTag(1003)?.state = NSOffState
-			sender.menu?.itemWithTag(1005)?.state = NSOffState
-			sender.menu?.itemWithTag(1006)?.state = NSOffState
-			
-		case 1005:
-			waitRate = WAIT_NORMAL;
-			sender.state = NSOnState
-			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
-				forKey: NH3DOpenGLUseWaitRateKey)
-			
-			sender.menu?.itemWithTag(1003)?.state = NSOffState
-			sender.menu?.itemWithTag(1004)?.state = NSOffState
-			sender.menu?.itemWithTag(1006)?.state = NSOffState
-			
-		case 1006:
-			waitRate = WAIT_SLOW;
-			sender.state = NSOnState
-			NSUserDefaults.standardUserDefaults().setBool(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.sharedUserDefaultsController().values.setValue( (true as NSNumber),
-				forKey: NH3DOpenGLUseWaitRateKey)
-			
-			sender.menu?.itemWithTag(1003)?.state = NSOffState
-			sender.menu?.itemWithTag(1004)?.state = NSOffState
-			sender.menu?.itemWithTag(1005)?.state = NSOffState
-			
-		default:
-			break
-		}
-		
-		cameraStep = Float(waitRate / 8.5)
-		
-		nowUpdating = false;
-		oglParamNowChanging = false;
-		viewLock.unlock()
-		
-		NSUserDefaults.standardUserDefaults().setDouble(waitRate, forKey:NH3DOpenGLWaitRateKey)
-		NSUserDefaultsController.sharedUserDefaultsController().values.setValue((waitRate as NSNumber),
-			forKey: NH3DOpenGLWaitRateKey)
-	}
 	
 	/// cache func address
 	private func cacheMethods() {
