@@ -32,11 +32,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)checkDrawingType
 {
-	if ( glyph ==  S_stone+GLYPH_CMAP_OFF &&
-		(!IS_ROOM( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) && !IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) )
-		) {
+	if (glyph ==  S_stone+GLYPH_CMAP_OFF &&
+		(!IS_ROOM(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) && !IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ))) {
 		// draw type is corrwall object (10 = stone wall type / 0 = black wall type)
-		modelDrawingType = 0 ;
+		modelDrawingType = 0;
 	} else if (player) {
 		// draw type is playerpositon
 		modelDrawingType = 1;

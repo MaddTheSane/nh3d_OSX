@@ -43,7 +43,6 @@
 		lightShadow.shadowBlurRadius = 1.8;
 		
 		pickType = 0;
-		
 	}
 	return self;
 }
@@ -383,9 +382,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	 */
 	//	for 2byte letter Strings (e,g,Japanese)any size method of Cocoa, does not acquire size of a 2byte letter well for some reason. Why?
 	//contentSize = NSMakeSize( 0,0 );
-	for (NSInteger i = 0; i < nh3dMenu.count; i++) {
-		NH3DMenuItem *aMenuItem = nh3dMenu[i];
-		unsigned len = [aMenuItem name].length ;
+	for (NH3DMenuItem *aMenuItem in nh3dMenu) {
+		NSUInteger len = [aMenuItem name].length;
 		strSize.width = len * (NH3DINVFONTSIZE + 4.0);
 		//strSize = [[nh3dMenu objectAtIndex:i] stringSize];  // fmm...  does not acquire size of a 2byte letter well, too.
 		if (strSize.width > contentSize.width) {

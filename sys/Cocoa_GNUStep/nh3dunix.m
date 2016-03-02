@@ -10,6 +10,8 @@
 
 /* This file collects some Unix dependencies */
 
+
+#import <AppKit/AppKit.h>
 #include "hack.h" /* mainly for index() which depends on BSD */
 
 #include <errno.h>

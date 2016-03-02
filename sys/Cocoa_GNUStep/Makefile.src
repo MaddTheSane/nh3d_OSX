@@ -351,7 +351,7 @@ WINLIB = $(WINNH3DLIB)
 # If ZLIB_COMP is defined in config.h this is necessary to link with zlib.
 # LIBS = -lz
 #
-LIBS =
+LIBS = -lz
 
 # make NetHack
 #JP by issei(96/5/27)

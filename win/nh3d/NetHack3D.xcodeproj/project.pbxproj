@@ -688,10 +688,6 @@
 		2B31DD3208CD73D5008CCAAC /* vmstty.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vmstty.c; sourceTree = "<group>"; };
 		2B31DD3308CD73D5008CCAAC /* vmsunix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vmsunix.c; sourceTree = "<group>"; };
 		2B31DD3508CD73D5008CCAAC /* bootstrp.mak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = bootstrp.mak; sourceTree = "<group>"; };
-		2B31DD3708CD73D5008CCAAC /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
-		2B31DD3808CD73D5008CCAAC /* errno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errno.h; sourceTree = "<group>"; };
-		2B31DD3908CD73D5008CCAAC /* fcntl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fcntl.h; sourceTree = "<group>"; };
-		2B31DD3B08CD73D5008CCAAC /* stat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stat.h; sourceTree = "<group>"; };
 		2B31DD3C08CD73D5008CCAAC /* celib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = celib.c; sourceTree = "<group>"; };
 		2B31DD3D08CD73D5008CCAAC /* cesetup.bat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cesetup.bat; sourceTree = "<group>"; };
 		2B31DD3E08CD73D5008CCAAC /* cesound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cesound.c; sourceTree = "<group>"; };
@@ -1925,7 +1921,6 @@
 			isa = PBXGroup;
 			children = (
 				2B31DD3508CD73D5008CCAAC /* bootstrp.mak */,
-				2B31DD3608CD73D5008CCAAC /* ceinc */,
 				2B31DD3C08CD73D5008CCAAC /* celib.c */,
 				2B31DD3D08CD73D5008CCAAC /* cesetup.bat */,
 				2B31DD3E08CD73D5008CCAAC /* cesound.c */,
@@ -1972,25 +1967,6 @@
 				2B31DD6708CD73D5008CCAAC /* winMS.h */,
 			);
 			path = wince;
-			sourceTree = "<group>";
-		};
-		2B31DD3608CD73D5008CCAAC /* ceinc */ = {
-			isa = PBXGroup;
-			children = (
-				2B31DD3708CD73D5008CCAAC /* assert.h */,
-				2B31DD3808CD73D5008CCAAC /* errno.h */,
-				2B31DD3908CD73D5008CCAAC /* fcntl.h */,
-				2B31DD3A08CD73D5008CCAAC /* sys */,
-			);
-			path = ceinc;
-			sourceTree = "<group>";
-		};
-		2B31DD3A08CD73D5008CCAAC /* sys */ = {
-			isa = PBXGroup;
-			children = (
-				2B31DD3B08CD73D5008CCAAC /* stat.h */,
-			);
-			path = sys;
 			sourceTree = "<group>";
 		};
 		2B31DD6808CD73D5008CCAAC /* winnt */ = {

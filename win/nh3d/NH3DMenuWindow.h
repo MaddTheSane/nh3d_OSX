@@ -31,7 +31,7 @@
 	IBOutlet NSTextView *_ripTextwindow;
 	
 @private
-	NSMutableArray *nh3dMenu;
+	NSMutableArray<NH3DMenuItem*> *nh3dMenu;
 	NSMutableDictionary *darkShadowStrAttributes;
 	NSMutableDictionary *lightShadowStrAttributes;
 	NSShadow *darkShadow;
