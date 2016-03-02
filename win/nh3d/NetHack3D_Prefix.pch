@@ -2,6 +2,7 @@
 // Prefix header for all source files of the 'NetHack3D' target in the 'NetHack3D' project
 //
 
+#include "C99Bool.h"
 #include <math.h>
 #include <tgmath.h>
 #include <errno.h>
@@ -17,7 +18,6 @@
 #include <TargetConditionals.h>
 
 #ifdef __OBJC__
-	#include "C99Bool.h"
     #import <Cocoa/Cocoa.h>
     #import "NH3Dcommon.h"
 #endif

@@ -60,7 +60,7 @@ STATIC_DCL void FDECL(topten_print, (const char *));
 STATIC_DCL void FDECL(topten_print_bold, (const char *));
 STATIC_DCL xchar FDECL(observable_depth, (d_level *));
 STATIC_DCL void NDECL(outheader);
-STATIC_DCL void FDECL(outentry, (int, struct toptenentry *, boolean));
+STATIC_DCL void FDECL(outentry, (int, struct toptenentry *, xchar));
 STATIC_DCL void FDECL(discardexcess, (FILE *));
 STATIC_DCL void FDECL(readentry, (FILE *, struct toptenentry *));
 STATIC_DCL void FDECL(writeentry, (FILE *, struct toptenentry *));
@@ -737,7 +737,7 @@ outheader()
 
 /* so>0: standout line; so=0: ordinary line */
 STATIC_OVL void
-outentry(int rank, struct toptenentry *t1, boolean so)
+outentry(int rank, struct toptenentry *t1, xchar so)
 {
     boolean second_line = TRUE;
     char linebuf[BUFSZ];
