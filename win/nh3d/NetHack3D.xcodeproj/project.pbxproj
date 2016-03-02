@@ -359,6 +359,7 @@
 		5560A2B91C3481CC00BF77F7 /* epitaph in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B61C3481CC00BF77F7 /* epitaph */; };
 		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
+		5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585264A1C868A2F00813BF2 /* libz.tbd */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -1234,6 +1235,7 @@
 		5560A2B61C3481CC00BF77F7 /* epitaph */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = epitaph; sourceTree = "<group>"; };
 		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
+		5585264A1C868A2F00813BF2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1307,6 +1309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */,
 				55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
@@ -1431,6 +1434,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5585264A1C868A2F00813BF2 /* libz.tbd */,
 				55388FDA1C8340C2002D3B99 /* GLKit.framework */,
 				55F544C01C3614A100A1A1EE /* AVFoundation.framework */,
 				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
@@ -3179,7 +3183,6 @@
 				GCC_THREADSAFE_STATICS = YES;
 				GCC_UNROLL_LOOPS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = YES;
@@ -3227,7 +3230,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = NO;
@@ -3262,7 +3264,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3292,7 +3293,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = NOMAIL;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

@@ -260,6 +260,9 @@
  *
  */
 
+/* Use Zlib compression */
+#define ZLIB_COMP
+
 #if defined(UNIX) && !defined(ZLIB_COMP) && !defined(COMPRESS)
 /* path and file name extension for compression program */
 #define COMPRESS "/usr/bin/compress" /* Lempel-Ziv compression */
