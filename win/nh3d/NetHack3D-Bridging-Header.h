@@ -82,8 +82,6 @@ static inline short glyphToTile(size_t i)
 	return glyph2tile[i];
 }
 
-extern char *sounddir;
-
 __dead2
 static inline void Swift_Panic(const char *panicText)
 {

@@ -98,9 +98,9 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6929"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerBlindFold" id="6416"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerBlindFoldString" id="BBe-r6-Amn">
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerBlindFoldString" id="MrB-Yl-ORA">
                                 <dictionary key="options">
-                                    <string key="NSNullPlaceholder">nothing</string>
+                                    <string key="NSNullPlaceholder">blindfold slot</string>
                                 </dictionary>
                             </binding>
                         </connections>
@@ -114,7 +114,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6916"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerHelmet" id="6379"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerHelmetString" id="d8X-ol-ZkU"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerHelmetString" id="qqU-Tg-6UE">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Helmet slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6406">
@@ -126,7 +130,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6924"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerRingR" id="6412"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerRingRString" id="PJA-Iq-3rs"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerRingRString" id="XFs-bG-BgX">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Right ring slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6377" userLabel="shoes">
@@ -134,9 +142,9 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6925"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerShoes" id="6388"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerShoesString" id="Vvu-NB-OVt">
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerShoesString" id="oUZ-5r-TMc">
                                 <dictionary key="options">
-                                    <string key="NSNullPlaceholder">none</string>
+                                    <string key="NSNullPlaceholder">Shoes slot</string>
                                 </dictionary>
                             </binding>
                         </connections>
@@ -146,7 +154,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6926"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerRingL" id="6411"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerRingLString" id="KgQ-cB-7hu"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerRingLString" id="8U4-Uc-vdF">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Left ring slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6375" userLabel="gloves">
@@ -154,9 +166,9 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6923"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerGloves" id="6386"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="I9c-so-YBO">
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="Azr-fb-WJi">
                                 <dictionary key="options">
-                                    <string key="NSNullPlaceholder">none</string>
+                                    <string key="NSNullPlaceholder">Gloves slot</string>
                                 </dictionary>
                             </binding>
                         </connections>
@@ -166,7 +178,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6922"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerCloak" id="6385"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerCloakString" id="eEN-vI-jGe"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerCloakString" id="LjC-a9-yh9">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Cloak slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6373" userLabel="gloves">
@@ -177,7 +193,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6921"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerGloves" id="6384"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="AF6-VV-WaW"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerGlovesString" id="DCX-Co-TEa">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Gloves slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6370" userLabel="weapon">
@@ -185,15 +205,23 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6918"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerWeapon" id="6410"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerWeaponString" id="yJd-ik-W1C"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerWeaponString" id="Wmh-CX-7kn">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Weapon slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6371" userLabel="armor">
                         <rect key="frame" x="72" y="267" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6919"/>
                         <connections>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerArmorString" id="Uga-Ds-3l1"/>
                             <binding destination="4761" name="value" keyPath="selection.playerArmour" id="6382"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerArmorString" id="0G0-hH-8Ck">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Body armor slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372" userLabel="shield">
@@ -201,9 +229,9 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6920"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerShield" id="6409"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerShieldString" id="67D-6M-wtB">
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerShieldString" id="paO-SC-cTf">
                                 <dictionary key="options">
-                                    <string key="NSNullPlaceholder">none</string>
+                                    <string key="NSNullPlaceholder">Shield slot</string>
                                 </dictionary>
                             </binding>
                         </connections>
@@ -213,7 +241,11 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6917"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerAmulet" id="6407"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerAmuletString" id="aWq-Om-j9C"/>
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerAmuletString" id="Caw-w7-sGP">
+                                <dictionary key="options">
+                                    <string key="NSNullPlaceholder">Amulet slot</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6366" userLabel="subWeapon">
@@ -225,9 +257,9 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" imageFrameStyle="grayBezel" id="6915"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerSubWeapon" id="6408"/>
-                            <binding destination="4761" name="toolTip" keyPath="selection.playerSubWeaponString" id="pcN-AF-IZT">
+                            <binding destination="4761" name="toolTip" keyPath="selection.playerSubWeaponString" id="oc1-F0-Bt9">
                                 <dictionary key="options">
-                                    <string key="NSNullPlaceholder">none</string>
+                                    <string key="NSNullPlaceholder">Secondary weapon slot</string>
                                 </dictionary>
                             </binding>
                         </connections>

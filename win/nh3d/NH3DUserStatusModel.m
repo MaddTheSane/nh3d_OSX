@@ -393,7 +393,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerArmorString = @(doname(uarm)); //[NSString stringWithCString:doname(uarm) encoding:NH3DTEXTENCODING]
 	} else {
 		[self setPlayerArmour:0];
-		self.playerArmorString = @"";
+		self.playerArmorString = nil;
 	}
 
 	if (uarmu && !uarm) {
@@ -401,7 +401,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerArmorString = @(doname(uarmu));
 	} else if (!uarm) {
 		[self setPlayerArmour:0];
-		self.playerArmorString = @"";
+		self.playerArmorString = nil;
 	}
 	
 	if (uarmc) {
@@ -409,7 +409,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerCloakString = @(doname(uarmc));
 	} else {
 		[self setPlayerCloak:0];
-		self.playerCloakString = @"";
+		self.playerCloakString = nil;
 	}
 	
 	if (uarmh) {
@@ -417,7 +417,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerHelmetString = @(doname(uarmh));
 	} else {
 		[self setPlayerHelmet:0];
-		self.playerHelmetString = @"";
+		self.playerHelmetString = nil;
 	}
 		
 	if (uarmg) {
@@ -425,7 +425,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerGlovesString = @(doname(uarmg));
 	} else {
 		[self setPlayerGloves:0];
-		self.playerGlovesString = @"";
+		self.playerGlovesString = nil;
 	}
 	
 	if (uarmf) {
@@ -433,7 +433,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerShoesString = @(doname(uarmf));
 	} else {
 		[self setPlayerShoes:0];
-		self.playerShoesString = @"";
+		self.playerShoesString = nil;
 	}
 	
 	if (uleft) {
@@ -441,7 +441,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerRingLString = @(doname(uleft));
 	} else {
 		[self setPlayerRingL:0];
-		self.playerRingLString = @"";
+		self.playerRingLString = nil;
 	}
 	
 	if (uright) {
@@ -449,7 +449,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerRingRString = @(doname(uright));
 	} else {
 		[self setPlayerRingR:0];
-		self.playerRingRString = @"";
+		self.playerRingRString = nil;
 	}
 	
 	if (uwep) {
@@ -457,7 +457,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerWeaponString = @(doname(uwep));
 	} else {
 		[self setPlayerWeapon:0];
-		self.playerWeaponString = @"";
+		self.playerWeaponString = nil;
 	}
 	
 	if (uswapwep && !u.twoweap) {
@@ -465,7 +465,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerSubWeaponString = @(doname(uswapwep));
 	} else {
 		[self setPlayerSubWeapon:0];
-		self.playerSubWeaponString = @"";
+		self.playerSubWeaponString = nil;
 	}
 	
 	if (uarms && !u.twoweap) {
@@ -476,7 +476,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerShieldString = @(doname(uswapwep));
 	} else {
 		[self setPlayerShield:0];
-		self.playerShieldString = @"";
+		self.playerShieldString = nil;
 	}
 	
 	if (uamul) {
@@ -484,7 +484,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerAmuletString = @(doname(uamul));
 	} else {
 		[self setPlayerAmulet:0];
-		self.playerAmuletString = @"";
+		self.playerAmuletString = nil;
 	}
 	
 	if (ublindf) {
@@ -496,7 +496,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		self.playerBlindFoldString = self.playerHelmetString;
 	} else {
 		[self setPlayerBlindFold:0];
-		self.playerBlindFoldString = @"";
+		self.playerBlindFoldString = nil;
 	}
 }
 //
