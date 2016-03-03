@@ -621,7 +621,7 @@ extern BOOL CocoaPortIsReady;
 		for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
 			@autoreleasepool {
 			//setColor and shadow for special-flag
-				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color  highlightWithLevel:0.2];
+				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
 				
 				if (mapItemValue[x][y].special > 0) {
 					lshadow.shadowColor = mapItemValue[x][y].color;
@@ -635,9 +635,9 @@ extern BOOL CocoaPortIsReady;
 																	  (NSMaxY(bounds)-((y+1)*16.0)),
 																	  16.0,16.0)
 												   options:NSStringDrawingUsesDeviceMetrics
-												attributes:attributes ];
+												attributes:attributes];
 				
-				if ( mapItemValue[x][y].hasCursor ) {
+				if (mapItemValue[x][y].hasCursor) {
 					[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
 								  fromRect:NSZeroRect
 								 operation:NSCompositeSourceOver
@@ -645,9 +645,7 @@ extern BOOL CocoaPortIsReady;
 					viewCursX = x;
 					viewCursY = MAPVIEWSIZE_ROW-y-1;
 				}
-			
 			}
-			
 		} // end for y
 	} // end for x
 	

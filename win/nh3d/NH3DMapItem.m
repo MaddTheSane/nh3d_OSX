@@ -215,7 +215,13 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSString *)symbol
 {
-	return [NSString stringWithFormat:@"%c", symbol];
+	if (SYMHANDLING(H_IBM)) {
+		char tinyStr[] = {symbol, 0};
+		NSString *toRet = [NSString stringWithCString:tinyStr encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingDOSLatinUS)];
+		return toRet;
+	} else {
+		return [NSString stringWithFormat:@"%c", symbol];
+	}
 }
 
 - (NSColor *)color

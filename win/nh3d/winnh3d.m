@@ -1534,6 +1534,13 @@ static char ynPreReady(const char *str)
 		if (![localSyscf checkResourceIsReachableAndReturnError:NULL]) {
 			[fm copyItemAtURL:[[NSBundle mainBundle] URLForResource:syscf withExtension:nil] toURL:localSyscf error:NULL];
 		}
+		
+		//symbols file
+		syscf = @"symbols";
+		localSyscf = [aURL URLByAppendingPathComponent:syscf isDirectory:NO];
+		if (![localSyscf checkResourceIsReachableAndReturnError:NULL]) {
+			[fm copyItemAtURL:[[NSBundle mainBundle] URLForResource:syscf withExtension:nil] toURL:localSyscf error:NULL];
+		}
 	}
 	dir = aURL.fileSystemRepresentation;
 #endif
@@ -1733,8 +1740,8 @@ static char ynPreReady(const char *str)
 	 */
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
-	[_mapModel updateAllMaps];
 	CocoaPortIsReady = YES;
+	[_mapModel updateAllMaps];
 	
 	moveloop(isResuming);
 }

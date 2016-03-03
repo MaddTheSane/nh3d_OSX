@@ -155,7 +155,7 @@ class MapModel: NSObject {
 			lock.lock()
 			
 			//  make map
-			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
+			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingBitPattern: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
 			
 			lock.unlock()
 			
