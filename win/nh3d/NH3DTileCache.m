@@ -101,8 +101,8 @@ extern int total_tiles_used;
 		return nil;
 	}
 	
-	t_x = ( tile % TILES_PER_LINE ) * tileSize_X;
-	t_y = ( tile / TILES_PER_LINE ) * tileSize_Y;
+	t_x = (tile % TILES_PER_LINE) * tileSize_X;
+	t_y = (tile / TILES_PER_LINE) * tileSize_Y;
 
 #if GET_RAW_PIXELS
 	for (x = 0; x <= tileSize_X; x++) {

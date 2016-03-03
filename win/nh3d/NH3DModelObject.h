@@ -126,9 +126,9 @@ typedef struct {
 /// init for particle emitter
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
-/// this method work for TRIANGLES ONLY.
-/// not yet impliment other mesh type. do not work well texturecood, and face infomation.
-/// plz use method '- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag ' and 3ds format files.
+/// this method work for <b>TRIANGLES ONLY</b>.
+/// not yet impliment other mesh type. Does not work well texturecood, and face infomation.
+/// plz use method <code>- (id) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag</code> and 3ds format files.
 /// ---- A kind has too abundant an OBJ file and is hard. I am too unpleasant to accept. hal.
 - (nullable instancetype) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag;
 
@@ -163,9 +163,9 @@ typedef struct {
 /*! faces */
 @property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER;
 /*! OBJ face optional texture reference */
-- (nullable NH3DFaceType *)texReference NS_RETURNS_INNER_POINTER;
+@property (readonly) NH3DFaceType * _Nullable texReference NS_RETURNS_INNER_POINTER;
 /*! OBJ face optional normal reference */
-- (nullable NH3DFaceType *)normReference NS_RETURNS_INNER_POINTER;
+@property (readonly) NH3DFaceType * _Nullable normReference NS_RETURNS_INNER_POINTER;
 /*! TextureCoords */
 @property (readonly) NH3DMapCoordType *texcoords NS_RETURNS_INNER_POINTER;
 

@@ -589,8 +589,7 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 				break;
 				
 			case NHW_STATUS:
-				[_NH3DUserStatusModel setPlayerStatusLine:
-				 [NSString stringWithCString:text encoding:NH3DTEXTENCODING]];
+				_NH3DUserStatusModel.playerStatusLine = [NSString stringWithCString:text encoding:NH3DTEXTENCODING];
 				break;
 				
 			default:
@@ -833,35 +832,35 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 				switch ( hdirect + vdirect ) {
 					case 1 : // choice right
 						result = (iflags.num_pad) ? '6' : 'l';
-						[_NH3DMessenger setLastAttackDirection:0];
+						_NH3DMessenger.lastAttackDirection = 0;
 						break;
 					case 2 : // choice left
 						result = (iflags.num_pad) ? '4' : 'h';
-						[_NH3DMessenger setLastAttackDirection:0];
+						_NH3DMessenger.lastAttackDirection = 0;
 						break;
 					case 3 : // choice front
 						result = (iflags.num_pad) ? '8' : 'k';
-						[_NH3DMessenger setLastAttackDirection:2];
+						_NH3DMessenger.lastAttackDirection = 2;
 						break;
 					case 4 : // choice front right
 						result = (iflags.num_pad) ? '9' : 'u';
-						[_NH3DMessenger setLastAttackDirection:3];
+						_NH3DMessenger.lastAttackDirection = 3;
 						break;
 					case 5 : // choice front left
 						result = (iflags.num_pad) ? '7' : 'y';
-						[_NH3DMessenger setLastAttackDirection:1];
+						_NH3DMessenger.lastAttackDirection = 1;
 						break;
 					case 6 : // choice back
 						result = (iflags.num_pad) ? '2' : 'j';
-						[_NH3DMessenger setLastAttackDirection:0];
+						_NH3DMessenger.lastAttackDirection = 0;
 						break;
 					case 7 : // choice back right
 						result = (iflags.num_pad) ? '3' : 'n';
-						[_NH3DMessenger setLastAttackDirection:0];
+						_NH3DMessenger.lastAttackDirection = 0;
 						break;
 					case 8 : // choice back left
 						result = (iflags.num_pad) ? '1' : 'b';
-						[_NH3DMessenger setLastAttackDirection:0];
+						_NH3DMessenger.lastAttackDirection = 0;
 						break;
 				}
 			}
@@ -1748,7 +1747,7 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 	static NSURL *resDir;
 	@autoreleasepool {
 		if (!resDir) {
-			resDir = [[NSBundle mainBundle] resourceURL];
+			resDir = [NSBundle mainBundle].resourceURL;
 		}
 		NSString *aFile = @(filename);
 		NSURL *toRet = [resDir URLByAppendingPathComponent:aFile];

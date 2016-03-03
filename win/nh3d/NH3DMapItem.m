@@ -317,14 +317,14 @@ extern NH3DTileCache *_NH3DTileCache;
 - (NSImage *)tile
 {
 #if 1
-	NSImage *tmpTile = [self foregroundTile];
+	NSImage *tmpTile = self.foregroundTile;
 	if (!tmpTile) {
 		return nil;
 	}
 	
 	NSImage *bgtile;
 	if (glyph != bgGlyph) {
-		bgtile = [self backgroundTile];
+		bgtile = self.backgroundTile;
 	}
 	if (bgtile != nil) {
 		NSImage *tmpFG = tmpTile;

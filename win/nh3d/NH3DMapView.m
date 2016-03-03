@@ -138,7 +138,7 @@ extern BOOL CocoaPortIsReady;
 		
 		[self updateMap];
 		[self setNeedsDisplay:YES];
-		[[_bindController mainWindow] displayIfNeeded];
+		[_bindController.mainWindow displayIfNeeded];
 	} else if (!TRADITIONAL_MAP) {
 		if (isReady) {
 			if ([self lockFocusIfCanDraw]) {
@@ -158,7 +158,7 @@ extern BOOL CocoaPortIsReady;
 		
 		[self updateMap];
 		[self setNeedsDisplay:YES];
-		[[_bindController mainWindow] displayIfNeeded];
+		[_bindController.mainWindow displayIfNeeded];
 	}
 }
 
@@ -280,17 +280,17 @@ extern BOOL CocoaPortIsReady;
 		float fontsize = NH3DMAPFONTSIZE;
 		float drawMargin = fontsize/4;
 		
-		if ([[mapItem symbol] isEqualToString:@"-" ] && mapItem.hasAlternateSymbol) {
+		if ([mapItem.symbol isEqualToString:@"-" ] && mapItem.hasAlternateSymbol) {
 			mapItem.cSymbol = '|';
 			mapItem.hasAlternateSymbol = NO;
-		} else if ([[mapItem symbol] isEqualToString:@"|"] && mapItem.hasAlternateSymbol) {
+		} else if ([mapItem.symbol isEqualToString:@"|"] && mapItem.hasAlternateSymbol) {
 			mapItem.cSymbol = '-';
 			mapItem.hasAlternateSymbol = NO;
 		}
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: fontsize];
 		
-		attributes[NSForegroundColorAttributeName] = [mapItem color];
+		attributes[NSForegroundColorAttributeName] = mapItem.color;
 		
 
 		if (fontsize > 12.0) {
@@ -300,8 +300,8 @@ extern BOOL CocoaPortIsReady;
 			lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
 			lshadow.shadowBlurRadius = drawMargin ;
 			
-			if ([mapItem special] > 0) {
-				lshadow.shadowColor = [mapItem color];
+			if (mapItem.special > 0) {
+				lshadow.shadowColor = mapItem.color;
 			} else {
 				lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 			}
@@ -316,7 +316,7 @@ extern BOOL CocoaPortIsReady;
 							  (NSMaxY(bounds)-(y*fontsize)),
 							  fontsize+drawMargin, fontsize+drawMargin));
 		
-		[[mapItem symbol] drawInRect:NSMakeRect(bounds.origin.x+drawMargin+(x*fontsize),
+		[mapItem.symbol drawInRect:NSMakeRect(bounds.origin.x+drawMargin+(x*fontsize),
 												(NSMaxY(bounds)+drawMargin-(y*fontsize)),
 												fontsize, fontsize)
 					  withAttributes:attributes];
@@ -470,10 +470,10 @@ extern BOOL CocoaPortIsReady;
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
 		
 		//setColor and shadow for special-flag
-		attributes[NSForegroundColorAttributeName] = [[mapItemValue[x][y] color] highlightWithLevel:0.2];
+		attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
 		
-		if ([mapItemValue[x][y] special] > 0 ) {
-			lshadow.shadowColor = [mapItemValue[x][y] color];
+		if (mapItemValue[x][y].special > 0) {
+			lshadow.shadowColor = mapItemValue[x][y].color;
 		} else {
 			lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 		}
@@ -485,7 +485,7 @@ extern BOOL CocoaPortIsReady;
 			case PL_DIRECTION_RIGHT:
 			case PL_DIRECTION_LEFT:
 				if (!mapItemValue[x][y].hasAlternateSymbol) {
-					switch ([mapItemValue[x][y] glyph]) {
+					switch (mapItemValue[x][y].glyph) {
 						case S_vwall+GLYPH_CMAP_OFF:			/* vwall */
 						case S_tlwall+GLYPH_CMAP_OFF:			/* tlwall */
 						case S_trwall+GLYPH_CMAP_OFF:			/* trwall */
@@ -525,10 +525,10 @@ extern BOOL CocoaPortIsReady;
 				}
 				break;
 			default:
-				if ([[mapItemValue[x][y] symbol] isEqualToString:@"-"] && mapItemValue[x][y].hasAlternateSymbol) {
+				if ([mapItemValue[x][y].symbol isEqualToString:@"-"] && mapItemValue[x][y].hasAlternateSymbol) {
 					(mapItemValue[x][y]).cSymbol = '|';
 					[mapItemValue[x][y] setHasAlternateSymbol:NO];
-				} else if ([[mapItemValue[x][y] symbol] isEqualToString:@"|"] && mapItemValue[x][y].hasAlternateSymbol) {
+				} else if ([mapItemValue[x][y].symbol isEqualToString:@"|"] && mapItemValue[x][y].hasAlternateSymbol) {
 					(mapItemValue[x][y]).cSymbol = '-';
 					[mapItemValue[x][y] setHasAlternateSymbol:NO];
 				}
@@ -547,7 +547,7 @@ extern BOOL CocoaPortIsReady;
 				needClear = NO;
 			}
 			
-			[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+			[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																 (NSMaxY(bounds) - ((y+1)*16.0)),
 																 16.0, 16.0)
 											  options:NSStringDrawingUsesDeviceMetrics
@@ -621,17 +621,17 @@ extern BOOL CocoaPortIsReady;
 		for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
 			@autoreleasepool {
 			//setColor and shadow for special-flag
-				attributes[NSForegroundColorAttributeName] = [[mapItemValue[x][y] color]  highlightWithLevel:0.2];
+				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color  highlightWithLevel:0.2];
 				
-				if ([mapItemValue[x][y] special] > 0) {
-					lshadow.shadowColor = [mapItemValue[x][y] color];
+				if (mapItemValue[x][y].special > 0) {
+					lshadow.shadowColor = mapItemValue[x][y].color;
 				} else {
 					lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0] ;
 				}
 				attributes[NSShadowAttributeName] = lshadow;
 				
 				
-				[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+				[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																	  (NSMaxY(bounds)-((y+1)*16.0)),
 																	  16.0,16.0)
 												   options:NSStringDrawingUsesDeviceMetrics
@@ -723,17 +723,17 @@ extern BOOL CocoaPortIsReady;
 				int posy = mapItemValue[x][y].posY - MAP_MARGIN;
 				
 				if ((posx >= 0 && posx <=78) && (posy >= 0 && posy <= 20)) {
-					if (MON_AT(posx, posy) && (!mapItemValue[x][y].player && [mapItemValue[x][y] special] != 8)) {
+					if (MON_AT(posx, posy) && (!mapItemValue[x][y].player && mapItemValue[x][y].special != 8)) {
 						enemyCatch++;
 					}
 				}
 			} // end y
 		} // end x
 	
-		if (enemyCatch && [_mapModel enemyWarnBase] != 10 + (enemyCatch*8)) {
-			[_mapModel setEnemyWarnBase:10 + (enemyCatch*8)];
-		} else if ([_mapModel enemyWarnBase] != 10) {
-			[_mapModel setEnemyWarnBase:10];
+		if (enemyCatch && _mapModel.enemyWarnBase != 10 + (enemyCatch*8)) {
+			_mapModel.enemyWarnBase = 10 + (enemyCatch*8);
+		} else if (_mapModel.enemyWarnBase != 10) {
+			_mapModel.enemyWarnBase = 10;
 		}
 	}
 }
@@ -790,39 +790,39 @@ extern BOOL CocoaPortIsReady;
 				switch ([sender tag]) {
 					case 1:
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4:
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:1];
+						_messenger.lastAttackDirection = 1;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:2];
+						_messenger.lastAttackDirection = 2;
 						break;
 					case 9:
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:3];
+						_messenger.lastAttackDirection = 3;
 						break;
 				}
 				//[ self setKeyBuffer:lkey ];
@@ -831,39 +831,39 @@ extern BOOL CocoaPortIsReady;
 				switch ([sender tag]) {
 					case 1:
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4:
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:4];
+						_messenger.lastAttackDirection = 4;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:5];
+						_messenger.lastAttackDirection = 5;
 						break;
 					case 9: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:6];
+						_messenger.lastAttackDirection = 6;
 						break;
 				}
 				//[ self setKeyBuffer:lkey ];
@@ -872,39 +872,39 @@ extern BOOL CocoaPortIsReady;
 				switch ([sender tag]) {
 					case 1: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:7];
+						_messenger.lastAttackDirection = 7;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:8];
+						_messenger.lastAttackDirection = 8;
 						break;
 					case 9: 
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:9];
+						_messenger.lastAttackDirection = 9;
 						break;
 				}
 				//[ self setKeyBuffer:lkey ];
@@ -913,39 +913,39 @@ extern BOOL CocoaPortIsReady;
 				switch ([sender tag]) {
 					case 1: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:10];
+						_messenger.lastAttackDirection = 10;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:11];
+						_messenger.lastAttackDirection = 11;
 						break;
 					case 9: 
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:12];
+						_messenger.lastAttackDirection = 12;
 						break;
 				}
 				//[self setKeyBuffer:lkey];
@@ -1243,7 +1243,7 @@ extern BOOL CocoaPortIsReady;
 												  dequeue:YES];
 			
 			if (event) {
-				if (![_bindController mainWindow].keyWindow ) {
+				if (!_bindController.mainWindow.keyWindow) {
 					[NSApp sendEvent:event];
 					continue;
 				} else {
@@ -1597,16 +1597,16 @@ extern BOOL CocoaPortIsReady;
 					attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE];
 					
 					
-					if ([[mapcell symbol] isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
+					if ([mapcell.symbol isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
 						mapcell.cSymbol = '|';
 						mapcell.hasAlternateSymbol = NO;
-					} else if ([[mapcell symbol] isEqualToString:@"|"] && mapcell.hasAlternateSymbol) {
+					} else if ([mapcell.symbol isEqualToString:@"|"] && mapcell.hasAlternateSymbol) {
 						mapcell.cSymbol = '-';
 						mapcell.hasAlternateSymbol = NO;
 					}
 					
-					attributes[NSForegroundColorAttributeName] = [[mapcell color] highlightWithLevel:0.2];
-					drawSize = [[mapcell symbol] sizeWithAttributes:attributes];
+					attributes[NSForegroundColorAttributeName] = [mapcell.color highlightWithLevel:0.2];
+					drawSize = [mapcell.symbol sizeWithAttributes:attributes];
 					
 					lshadow.shadowOffset = NSMakeSize(0.8, 0.8);
 					lshadow.shadowBlurRadius = 5.5;
@@ -1614,7 +1614,7 @@ extern BOOL CocoaPortIsReady;
 					
 					attributes[NSShadowAttributeName] = lshadow;
 					
-					[[mapcell symbol] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+					[mapcell.symbol drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
 															  imgSize.height - (drawSize.height * (CGFloat)y))
 							    withAttributes:attributes];
 					

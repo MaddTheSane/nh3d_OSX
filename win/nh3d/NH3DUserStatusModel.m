@@ -61,22 +61,22 @@ extern NH3DTileCache *_NH3DTileCache;
 		
 		[self setPlayerName:@""];
 		[self setPlayerClass:@""];
-		[self setPlayerMaxhp:9999];
-		[self setPlayerMaxpow:9999];
-		[self setPlayerHp:9999];
-		[self setPlayerPow:9999];
+		self.playerMaxhp = 9999;
+		self.playerMaxpow = 9999;
+		self.playerHp = 9999;
+		self.playerPow = 9999;
 		[self setPlayerStr:9999];
-		[self setPlayerDex:9999];
-		[self setPlayerCon:9999];
-		[self setPlayerInt:9999];
-		[self setPlayerWis:9999];
-		[self setPlayerCha:9999];
-		[self setPlayerGold:9999];
-		[self setPlayerScore:9999];
-		[self setPlayerTime:9999];
-		[self setPlayerExp:9999];
-		[self setPlayerAc:-9999];
-		[self setPlayerLv:9999];
+		self.playerDex = 9999;
+		self.playerCon = 9999;
+		self.playerInt = 9999;
+		self.playerWis = 9999;
+		self.playerCha = 9999;
+		self.playerGold = 9999;
+		self.playerScore = 9999;
+		self.playerTime = 9999;
+		self.playerExp = 9999;
+		self.playerAc = -9999;
+		self.playerLv = 9999;
 
 		[self setStrUpdate:NO];
 		[self setHpUpdate:NO];
@@ -935,21 +935,21 @@ extern NH3DTileCache *_NH3DTileCache;
 						  [NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
 											 encoding:NH3DTEXTENCODING]]];
 	
-	[self setPlayerTime:moves];
+	self.playerTime = moves;
 	
 	if (u.mtimedone) {
 		// You're a monster.
-		[self setPlayerMaxhp:u.mhmax];
-		[self setPlayerHp:u.mh];
-		[self setPlayerLv:mons[u.umonnum].mlevel];
+		self.playerMaxhp = u.mhmax;
+		self.playerHp = u.mh;
+		self.playerLv = mons[u.umonnum].mlevel;
 	} else {
 		// You're normal.
-		[self setPlayerMaxhp:u.uhpmax];
-		[self setPlayerHp:u.uhp];
-		[self setPlayerLv:u.ulevel];
+		self.playerMaxhp = u.uhpmax;
+		self.playerHp = u.uhp;
+		self.playerLv = u.ulevel;
 	}
-	[self setPlayerMaxpow:u.uenmax];
-	[self setPlayerPow:u.uen];
+	self.playerMaxpow = u.uenmax;
+	self.playerPow = u.uen;
 	
 	[self setPlayerStr:ACURR(A_STR)];
 	[self setPlayerDex:ACURR(A_DEX)];
@@ -957,14 +957,14 @@ extern NH3DTileCache *_NH3DTileCache;
 	[self setPlayerInt:ACURR(A_INT)];
 	[self setPlayerWis:ACURR(A_WIS)];
 	[self setPlayerCha:ACURR(A_CHA)];
-	[self setPlayerGold:money_cnt(invent)];
+	self.playerGold = money_cnt(invent);
 #ifdef SCORE_ON_BOTL
-	[self setPlayerScore:botl_score()];
+	self.playerScore = botl_score();
 #else
 	[self setPlayerScore:0];
 #endif
-	[self setPlayerExp:u.uexp];
-	[self setPlayerAc:u.uac];
+	self.playerExp = u.uexp;
+	self.playerAc = u.uac;
 	
 	if (Hallucination)
 		[self setStHallu:YES];
@@ -1003,28 +1003,28 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	switch (u.ualign.type) {
 		case A_LAWFUL:
-			[self setPlayerAlign:@"Lowful"];
+			self.playerAlign = @"Lowful";
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:NO];
 			break;
 			
 		case A_NEUTRAL:
-			[self setPlayerAlign:@"Newtral"];
+			self.playerAlign = @"Newtral";
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:NO];
 			break;
 			
 		case A_CHAOTIC:
-			[self setPlayerAlign:@"Chaotic"];
+			self.playerAlign = @"Chaotic";
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:YES];
 			break;
 			
 		case A_NONE:
-			[self setPlayerAlign:@"Evil"];
+			self.playerAlign = @"Evil";
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:YES];

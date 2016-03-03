@@ -208,7 +208,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		
 		[cell setImagePosition:NSImageLeft];
 		//[ cell setImage:[aMenuItem glyph] ];
-		((NSCell*)cell).image = [aMenuItem smallGlyph];
+		((NSCell*)cell).image = aMenuItem.smallGlyph;
 		
 		if (!aMenuItem.selectable) {
 			[cell setBordered:NO];

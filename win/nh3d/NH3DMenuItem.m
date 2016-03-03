@@ -170,7 +170,7 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (glyph == NO_GLYPH) {
 		return nil;
-	} else if ([_NH3DTileCache tileSize_X] == 16 && [_NH3DTileCache tileSize_Y] == 16) {
+	} else if (_NH3DTileCache.tileSize_X == 16 && _NH3DTileCache.tileSize_Y == 16) {
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	} else {
 		NSImage *smallTile = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];

@@ -62,7 +62,7 @@ static const NH3DMaterial defaultMat = {
 
 - (NSInteger)countOfChildObjects
 {
-	return [childObjects count];
+	return childObjects.count;
 }
 
 + (instancetype)modelNamed:(NSString*)name textureNamed:(NSString*)texName
@@ -131,9 +131,9 @@ static const NH3DMaterial defaultMat = {
 	NSCharacterSet *chSet;
 	NSURL *sourceURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"obj"];
 	if (!sourceURL) {
-		if ([name isAbsolutePath]) {
+		if (name.absolutePath) {
 			sourceURL = [NSURL fileURLWithPath:name];
-			name = [[name lastPathComponent] stringByDeletingPathExtension];
+			name = name.lastPathComponent.stringByDeletingPathExtension;
 		} else {
 			return NO;
 		}
@@ -155,37 +155,37 @@ static const NH3DMaterial defaultMat = {
 	chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	scanner = [[NSScanner alloc] initWithString:sourceObj];
 	
-	while(![scanner isAtEnd] && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
+	while(!scanner.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
 		@autoreleasepool {
 			[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 			
 			if ([destText isEqualToString:@"v"]) {
 				// scan vertexes
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				verts[verts_qty].x = [destText floatValue];
+				verts[verts_qty].x = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				verts[verts_qty].y = [destText floatValue];
+				verts[verts_qty].y = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				verts[verts_qty].z = [destText floatValue];
+				verts[verts_qty].z = destText.floatValue;
 				
 				verts_qty++;
 				
 			} else if ([destText isEqualToString:@"vn"]) {
 				// scan normals
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				norms[normal_qty].x = [destText floatValue];
+				norms[normal_qty].x = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				norms[normal_qty].y = [destText floatValue];
+				norms[normal_qty].y = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				norms[normal_qty].z = [destText floatValue];
+				norms[normal_qty].z = destText.floatValue;
 				
 				normal_qty++;
 			} else if ([destText isEqualToString:@"vt"]) {
 				// scan texture coords
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				texcoords[texcords_qty].s = [destText floatValue];
+				texcoords[texcords_qty].s = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				texcoords[texcords_qty].t = [destText floatValue];
+				texcoords[texcords_qty].t = destText.floatValue;
 				//NSLog(@"vt %d:%f,%f",texcords_qty,texcoords[texcords_qty].s,texcoords[texcords_qty].t);
 				
 				texcords_qty++;
@@ -200,21 +200,21 @@ static const NH3DMaterial defaultMat = {
 				//if ( aRange.length != 0) {
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
-				faces[face_qty].a = [[faceArray_A objectAtIndex:0] intValue];
-				texReference[face_qty].a = [[faceArray_A objectAtIndex:1] intValue];
-				normReference[face_qty].a = [[faceArray_A objectAtIndex:2] intValue];
+				faces[face_qty].a = [faceArray_A[0] intValue];
+				texReference[face_qty].a = [faceArray_A[1] intValue];
+				normReference[face_qty].a = [faceArray_A[2] intValue];
 				//}
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_B = [destText componentsSeparatedByString:@"/"];
-				faces[face_qty].b = [[faceArray_B objectAtIndex:0] intValue];
-				texReference[face_qty].b = [[faceArray_B objectAtIndex:1] intValue];
-				normReference[face_qty].b = [[faceArray_B objectAtIndex:2] intValue];
+				faces[face_qty].b = [faceArray_B[0] intValue];
+				texReference[face_qty].b = [faceArray_B[1] intValue];
+				normReference[face_qty].b = [faceArray_B[2] intValue];
 				
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_C = [destText componentsSeparatedByString:@"/"];
-				faces[face_qty].c = [[faceArray_C objectAtIndex:0] intValue];
-				texReference[face_qty].c = [[faceArray_C objectAtIndex:1] intValue];
-				normReference[face_qty].c = [[faceArray_C objectAtIndex:2] intValue];
+				faces[face_qty].c = [faceArray_C[0] intValue];
+				texReference[face_qty].c = [faceArray_C[1] intValue];
+				normReference[face_qty].c = [faceArray_C[2] intValue];
 				
 				face_qty++;
 			} else if ([destText isEqualToString:@"mtllib"]) {
@@ -660,12 +660,12 @@ static const NH3DMaterial defaultMat = {
 	return self;
 }
 
-- (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag
+- (instancetype) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag
 {
 	return [self initWithOBJFile:name textureNamed:flag ? name : nil];
 }
 
-- (id) initWithOBJFile:(NSString *)name textureNamed:(NSString *)texName
+- (instancetype) initWithOBJFile:(NSString *)name textureNamed:(NSString *)texName
 {
 	self = [super init];
 	if (self != nil) {
