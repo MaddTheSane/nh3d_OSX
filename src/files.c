@@ -2476,6 +2476,10 @@ parse_config_line(FILE *fp, char *origbuf, int src)
     } else if (match_varname(buf, "SOUND", 5)) {
         add_sound_mapping(bufp);
 #endif
+#ifdef NH3D_GRAPHICS
+    } else if (match_varname(buf, "EFFECT", 6)) {
+        add_effect_mapping(bufp);
+#endif
 #ifdef QT_GRAPHICS
         /* These should move to wc_ options */
     } else if (match_varname(buf, "QT_TILEWIDTH", 12)) {

@@ -12,76 +12,6 @@ import AVFoundation
 private let DIALOG_OK		= 128
 private let DIALOG_CANCEL	= 129
 
-private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], effects: [NH3DMessaging.Effect], folder: NSURL?) {
-	guard let soundConfURL: NSURL = {
-		let bundleURL = NSBundle.mainBundle().bundleURL
-		if let aURL =
-			bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent("soundconfig.txt", isDirectory: false)
-			where aURL.checkResourceIsReachableAndReturnError(nil) {
-				return aURL
-		}
-		// If that's not found, use the one in our Application Support directory
-		if let bURL = (try? NSFileManager.defaultManager().URLForDirectory(.ApplicationSupportDirectory,
-			inDomain: .UserDomainMask, appropriateForURL: nil,
-			create: false))?.URLByAppendingPathComponent("NetHack3D")  {
-				return bURL.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent("soundconfig.txt", isDirectory: false)
-		}
-		
-		return nil
-		}()
-		else {
-			throw NSError(domain: "notneeded", code: 0, userInfo: nil)
-	}
-	
-	let configFile = try String(contentsOfURL: soundConfURL, encoding: NSUTF8StringEncoding)
-	
-	let chSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-	let scanner = NSScanner(string: configFile)
-	var sounds1 = Array<NH3DMessaging.SoundMesg>()
-	var effects1 = Array<NH3DMessaging.Effect>()
-	
-	autoreleasepool() {
-		var destText: NSString?
-		while !scanner.atEnd {
-			scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-			
-			if let destTextUn = destText as String?, firstChar = destTextUn.characters.first
-				where firstChar == "#" {
-					scanner.scanUpToCharactersFromSet(NSCharacterSet.newlineCharacterSet(), intoString: nil)
-					continue
-			} else if destText == "SOUND=MESG" {
-				let soundMessage: String
-				let soundName: String
-				let volume: Float
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				soundMessage = (destText ?? "") as String
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				soundName = (destText ?? "") as String
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				volume = Float((destText ?? "100") as String) ?? 100
-				
-				sounds1.append(NH3DMessaging.SoundMesg(message: soundMessage, name: soundName, volume: volume))
-			} else if destText == "EFFECT=MESG" {
-				let soundMessage: String
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				soundMessage = (destText ?? "") as String
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				let effectType = Int32((destText ?? "1") as String) ?? 1
-				
-				effects1.append(NH3DMessaging.Effect(message: soundMessage, type: effectType))
-			}
-		}
-	}
-	
-	sounddir = strdup(soundConfURL.URLByDeletingLastPathComponent!.fileSystemRepresentation)
-	
-	return (sounds1, effects1, soundConfURL.URLByDeletingLastPathComponent!)
-}
-
 class NH3DMessaging: NSObject {
 	var messageWindow: NSTextView! {
 		return messageScrollView.contentView.documentView as? NSTextView
@@ -128,36 +58,14 @@ class NH3DMessaging: NSObject {
 	private var style = NSMutableParagraphStyle()
 	
 	private var ripFlag = false
-	private let userSound: Bool
 	
 	var lastAttackDirection: Int32 = 0
 	
-	private var soundArray = [SoundMesg]()
 	private var effectArray = [Effect]()
-	let baseSoundFolder: NSURL?
-	
-	private struct SoundMesg {
-		var message: String
-		var name: String
-		var volume: Float
-	}
 	
 	private struct Effect {
 		var message: String
 		var type: Int32
-	}
-	
-	func migrateSoundDefs() {
-		var deleteMappings = [Int]()
-		for (i, value) in soundArray.enumerate() {
-			if add_sound_mapping("MESG \"\(value.message)\" \"\(value.name)\" \(Int(value.volume))") {
-				deleteMappings.append(i)
-			}
-		}
-		
-		for i in deleteMappings.reverse() {
-			soundArray.removeAtIndex(i)
-		}
 	}
 	
 	func prepareAttributes() {
@@ -183,13 +91,6 @@ class NH3DMessaging: NSObject {
 	}
 
 	override init() {
-		do {
-			(soundArray, effectArray, baseSoundFolder) = try loadSoundConfig()
-			userSound = true
-		} catch _ {
-			baseSoundFolder = nil
-			userSound = false
-		}
 		super.init()
 		msgArray.reserveCapacity(Int(iflags.msg_history))
 	}
@@ -199,6 +100,14 @@ class NH3DMessaging: NSObject {
 		prepareAttributes()
 		messageWindow.drawsBackground = false
 		messageScrollView.drawsBackground = false
+	}
+
+	func addEffectMessage(newMsg: String, effectType: Int32) -> Bool {
+		guard effectType != 1 || effectType != 2 else {
+			return false
+		}
+		effectArray.append(NH3DMessaging.Effect(message: newMsg, type: effectType))
+		return true
 	}
 
 	@objc(playSoundAtURL:volume:) func playSound(URL URL: NSURL, volume: Float) -> Bool {
@@ -215,7 +124,7 @@ class NH3DMessaging: NSObject {
 			playSound.play()
 		}
 		
-		if let playSound1 = audioDict[URL.lastPathComponent!] {
+		if let playSound1 = audioDict[URL.path!] {
 			playAud(playSound1)
 			return true
 		}
@@ -226,7 +135,7 @@ class NH3DMessaging: NSObject {
 		guard let playSound = try? AVAudioPlayer(contentsOfURL: URL) else {
 			return false
 		}
-		audioDict[URL.lastPathComponent!] = playSound
+		audioDict[URL.path!] = playSound
 		playAud(playSound)
 		return true
 	}
@@ -246,19 +155,7 @@ class NH3DMessaging: NSObject {
 		
 		let textNSStr = textStr as NSString
 		
-		if userSound && !SOUND_MUTE {
-			for soundEntry in soundArray {
-				if textNSStr.isLike(soundEntry.message) {
-					guard let soundURL = baseSoundFolder?.URLByAppendingPathComponent(soundEntry.name) else {
-						continue
-					}
-					
-					if playSound(URL: soundURL, volume: soundEntry.volume) {
-						break
-					}
-				}
-			}
-			
+		if !SOUND_MUTE {
 			for msgEffect in effectArray {
 				if textNSStr.isLike(msgEffect.message) {
 					switch msgEffect.type {

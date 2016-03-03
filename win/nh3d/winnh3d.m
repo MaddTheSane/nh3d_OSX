@@ -1737,8 +1737,6 @@ static char ynPreReady(const char *str)
 	[_mapModel updateAllMaps];
 	CocoaPortIsReady = YES;
 	
-	[_NH3DMessenger migrateSoundDefs];
-	
 	moveloop(isResuming);
 }
 
@@ -1765,13 +1763,23 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 void
 play_usersound(const char *filename, int volume)
 {
-	NSURL *baseFolder = nil;
-	if (!strcmp(sounddir, ".")) {
-		baseFolder = _NH3DMessenger.baseSoundFolder;
-	}
-	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:baseFolder];
+	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:nil];
 	
 	[_NH3DMessenger playSoundAtURL:url volume:volume];
 }
 
 #endif
+
+boolean add_effect_mapping(const char *mesgTxt)
+{
+	char text[256];
+	int type;
+	
+	if (sscanf(mesgTxt, "MESG \"%255[^\"]\" %d", text,
+			    &type) == 2) {
+		
+		return [_NH3DMessenger addEffectMessage:@(text) effectType:type];
+	} else {
+		return false;
+	}
+}

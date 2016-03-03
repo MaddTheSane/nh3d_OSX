@@ -2770,6 +2770,11 @@ E int FDECL(destroy_mitem, (struct monst *, int, int));
 E int FDECL(resist, (struct monst *, char, int, int));
 E void NDECL(makewish);
 
+#ifdef NH3D_GRAPHICS
+/* ### winnh3d.m ### */
+E boolean FDECL(add_effect_mapping, (const char *));
+#endif
+
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 
 #undef E
