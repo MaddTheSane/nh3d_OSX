@@ -365,11 +365,27 @@
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
+		55E41B9B1C88E03A00803A9C /* NHMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E41B9A1C88E03A00803A9C /* NHMail.m */; };
+		55E41BA41C88E24B00803A9C /* Mail.app in Resources */ = {isa = PBXBuildFile; fileRef = 55E41BA31C88E24B00803A9C /* Mail.app */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		55E41BA01C88E11C00803A9C /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.app";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE)-AppleScript.h",
+			);
+			script = "sdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR/$INPUT_FILE_BASE-AppleScript.h\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -1248,6 +1264,8 @@
 		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
 		55CD9CEF1C45A439007F36B2 /* cppregex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cppregex.cpp; sourceTree = "<group>"; };
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
+		55E41B9A1C88E03A00803A9C /* NHMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHMail.m; sourceTree = "<group>"; };
+		55E41BA31C88E24B00803A9C /* Mail.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = Mail.app; path = /Applications/Mail.app; sourceTree = "<absolute>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1321,6 +1339,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				55E41BA31C88E24B00803A9C /* Mail.app */,
+				55E41B9A1C88E03A00803A9C /* NHMail.m */,
 				551659B51C77CBDB00013270 /* C99Bool.h */,
 				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
 				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
@@ -2607,6 +2627,7 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 			);
 			buildRules = (
+				55E41BA01C88E11C00803A9C /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -2783,6 +2804,7 @@
 				2B5CC0C7088EB5A600940C58 /* Val-goal.lev in Resources */,
 				2B5CC0C8088EB5A600940C58 /* Val-loca.lev in Resources */,
 				2B5CC0C9088EB5A600940C58 /* Val-strt.lev in Resources */,
+				55E41BA41C88E24B00803A9C /* Mail.app in Resources */,
 				2B5CC0CB088EB5A600940C58 /* valley.lev in Resources */,
 				2B5CC0CC088EB5A600940C58 /* water.lev in Resources */,
 				2B5CC0CD088EB5A600940C58 /* Wiz-fila.lev in Resources */,
@@ -3026,6 +3048,7 @@
 				2B5CC1AB088EB7DF00940C58 /* teleport.c in Sources */,
 				2B5CC1AC088EB7DF00940C58 /* tile.c in Sources */,
 				2B5CC1AD088EB7DF00940C58 /* timeout.c in Sources */,
+				55E41B9B1C88E03A00803A9C /* NHMail.m in Sources */,
 				2B5CC1AE088EB7DF00940C58 /* topten.c in Sources */,
 				2B5CC1AF088EB7DF00940C58 /* track.c in Sources */,
 				2B5CC1B0088EB7DF00940C58 /* trap.c in Sources */,
