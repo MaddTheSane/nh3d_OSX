@@ -77,6 +77,8 @@ private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], eff
 		}
 	}
 	
+	sounddir = strdup(soundConfURL.URLByDeletingLastPathComponent!.fileSystemRepresentation)
+	
 	return (sounds1, effects1, soundConfURL.URLByDeletingLastPathComponent!)
 }
 
@@ -145,6 +147,19 @@ class NH3DMessaging: NSObject {
 		var type: Int32
 	}
 	
+	func migrateSoundDefs() {
+		var deleteMappings = [Int]()
+		for (i, value) in soundArray.enumerate() {
+			if add_sound_mapping("MESG \"\(value.message)\" \"\(value.name)\" \(Int(value.volume))") {
+				deleteMappings.append(i)
+			}
+		}
+		
+		for i in deleteMappings.reverse() {
+			soundArray.removeAtIndex(i)
+		}
+	}
+	
 	func prepareAttributes() {
 		style = NSMutableParagraphStyle()
 		style.lineSpacing = -2
@@ -187,7 +202,7 @@ class NH3DMessaging: NSObject {
 	}
 
 	@objc(playSoundAtURL:volume:) func playSound(URL URL: NSURL, volume: Float) -> Bool {
-		guard userSound else {
+		guard !SOUND_MUTE else {
 			return false
 		}
 		

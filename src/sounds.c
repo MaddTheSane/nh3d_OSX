@@ -1093,7 +1093,7 @@ static audio_mapping *soundmap = 0;
 char *sounddir = ".";
 
 /* adds a sound file mapping, returns 0 on failure, 1 on success */
-int
+boolean
 add_sound_mapping(const char *mapping)
 {
     char text[256];

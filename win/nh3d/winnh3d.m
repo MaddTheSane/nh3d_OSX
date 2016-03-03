@@ -566,6 +566,7 @@ void nh3d_putstr(winid wid, int attr, const char *text)
 	@autoreleasepool {
 		switch (nh3d_windowlist[wid].type) {
 			case NHW_MESSAGE:
+				play_sound_for_message(text);
 				[_NH3DMessenger putMainMessage:attr text:text];
 				break;
 				
@@ -1477,6 +1478,7 @@ static char ynPreReady(const char *str)
 
 - (IBAction)startNetHack3D:(id)sender
 {
+	bool isResuming = true;
 	int fd;
 	int argc = NXArgc;
 	char **argv = NXArgv;
@@ -1677,6 +1679,7 @@ static char ynPreReady(const char *str)
 #endif
 	
 	if ((fd = restore_saved_game()) >= 0) {
+		isResuming = false;
 		const char *fq_save = fqname(SAVEF, SAVEPREFIX, 1);
 		
 		(void) chmod(fq_save,0);	/* disallow parallel restores */
@@ -1733,7 +1736,10 @@ static char ynPreReady(const char *str)
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 	[_mapModel updateAllMaps];
 	CocoaPortIsReady = YES;
-	moveloop(false);
+	
+	[_NH3DMessenger migrateSoundDefs];
+	
+	moveloop(isResuming);
 }
 
 @end
@@ -1759,7 +1765,11 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 void
 play_usersound(const char *filename, int volume)
 {
-	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:_NH3DMessenger.baseSoundFolder];
+	NSURL *baseFolder = nil;
+	if (!strcmp(sounddir, ".")) {
+		baseFolder = _NH3DMessenger.baseSoundFolder;
+	}
+	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:baseFolder];
 	
 	[_NH3DMessenger playSoundAtURL:url volume:volume];
 }
