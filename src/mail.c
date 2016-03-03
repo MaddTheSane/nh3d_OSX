@@ -43,7 +43,7 @@ extern char *viz_rmin, *viz_rmax; /* line-of-sight limits (vision.c) */
 int mustgetmail = -1;
 #endif
 
-#ifdef UNIX
+#if defined(UNIX) && !defined(NH3D_GRAPHICS)
 #include <sys/stat.h>
 #include <pwd.h>
 /* DON'T trust all Unices to declare getpwuid() in <pwd.h> */
@@ -457,7 +457,7 @@ readmail(struct obj *otmp)
 
 #endif /* !UNIX && !VMS */
 
-#ifdef UNIX
+#if defined(UNIX) && !defined(NH3D_GRAPHICS)
 
 void
 ckmailstatus()
@@ -582,6 +582,32 @@ readmail(struct obj *otmp)
 }
 
 #endif /* VMS */
+
+#ifdef NH3D_GRAPHICS
+
+void
+ckmailstatus()
+{
+    struct mail_info *brdcst;
+    extern struct mail_info *NH3DCheckMail();
+    if ( u.uswallow || !flags.biff )
+        return;
+
+    brdcst = NH3DCheckMail();
+    
+    if (brdcst != NULL) {
+        newmail(brdcst);
+    }
+}
+
+void
+readmail(struct obj *otmp)
+{
+    
+}
+
+#endif /* NH3D_GRAPHICS */
+
 #endif /* MAIL */
 
 /*mail.c*/

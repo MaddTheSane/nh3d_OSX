@@ -79,7 +79,7 @@ CFLAGS+=-Wall -Wextra -Wno-missing-field-initializers -Wimplicit -Wreturn-type -
 CFLAGS+=-g -I../include
 # older binaries use NOCLIPPING, but that disables SIGWINCH
 #CFLAGS+=-DNOCLIPPING
-CFLAGS+= -DNOMAIL -DNOTPARMDECL -DHACKDIR=\"$(HACKDIR)\"
+CFLAGS+= -DNOTPARMDECL -DHACKDIR=\"$(HACKDIR)\"
 CFLAGS+= -DDEFAULT_WINDOW_SYS=\"$(WANT_DEFAULT)\"
 
 CFLAGS+= -DGREPPATH=\"/usr/bin/grep\"
