@@ -242,6 +242,11 @@
 #endif
 #endif
 
+/* Use user-provided sounds */
+#ifdef NH3D_GRAPHICS
+#define USER_SOUNDS
+#endif
+
 /*
  *      If COMPRESS is defined, it should contain the full path name of your
  *      'compress' program.

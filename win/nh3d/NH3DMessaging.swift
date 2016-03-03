@@ -132,7 +132,7 @@ class NH3DMessaging: NSObject {
 	
 	private var soundArray = [SoundMesg]()
 	private var effectArray = [Effect]()
-	private var baseSoundFolder: NSURL?
+	let baseSoundFolder: NSURL?
 	
 	private struct SoundMesg {
 		var message: String
@@ -172,6 +172,7 @@ class NH3DMessaging: NSObject {
 			(soundArray, effectArray, baseSoundFolder) = try loadSoundConfig()
 			userSound = true
 		} catch _ {
+			baseSoundFolder = nil
 			userSound = false
 		}
 		super.init()
@@ -185,6 +186,36 @@ class NH3DMessaging: NSObject {
 		messageScrollView.drawsBackground = false
 	}
 
+	@objc(playSoundAtURL:volume:) func playSound(URL URL: NSURL, volume: Float) -> Bool {
+		guard userSound else {
+			return false
+		}
+		
+		func playAud(playSound: AVAudioPlayer) {
+			if playSound.playing {
+				playSound.pause()
+				playSound.currentTime = 0
+			}
+			playSound.volume = volume * 0.01
+			playSound.play()
+		}
+		
+		if let playSound1 = audioDict[URL.lastPathComponent!] {
+			playAud(playSound1)
+			return true
+		}
+		guard URL.checkResourceIsReachableAndReturnError(nil) else {
+			return false
+		}
+		
+		guard let playSound = try? AVAudioPlayer(contentsOfURL: URL) else {
+			return false
+		}
+		audioDict[URL.lastPathComponent!] = playSound
+		playAud(playSound)
+		return true
+	}
+	
 	@objc(putMainMessage:text:) func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>) {
 		prepareAttributes()
 		style.alignment = .Left
@@ -203,32 +234,13 @@ class NH3DMessaging: NSObject {
 		if userSound && !SOUND_MUTE {
 			for soundEntry in soundArray {
 				if textNSStr.isLike(soundEntry.message) {
-					func playAud(playSound: AVAudioPlayer) {
-						if playSound.playing {
-							playSound.pause()
-							playSound.currentTime = 0
-						}
-						playSound.volume = soundEntry.volume * 0.01
-						playSound.play()
-					}
-					
-					if let playSound1 = audioDict[soundEntry.name] {
-						playAud(playSound1)
-						break
-					}
 					guard let soundURL = baseSoundFolder?.URLByAppendingPathComponent(soundEntry.name) else {
 						continue
 					}
-					guard soundURL.checkResourceIsReachableAndReturnError(nil) else {
-						continue
-					}
 					
-					guard let playSound = try? AVAudioPlayer(contentsOfURL: soundURL) else {
+					if playSound(URL: soundURL, volume: soundEntry.volume) {
 						break
 					}
-					audioDict[soundEntry.name] = playSound
-					playAud(playSound)
-					break
 				}
 			}
 			
@@ -359,7 +371,7 @@ class NH3DMessaging: NSObject {
 	}
 	
 	func showOutRip(ripString: UnsafePointer<CChar>) {
-		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died. Nothing eventful happened, though."
+		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died.\n\nNothing eventful happened, though."
 		showOutRip(conv)
 	}
 	

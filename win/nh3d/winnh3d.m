@@ -49,6 +49,7 @@ NH3DWinData nh3d_windowlist[10];
 
 extern int NXArgc;
 extern char **NXArgv;
+extern char *sounddir;
 
 //bind NetHack C routines to NH3DObjects.
 //set object's instance pointer to work.
@@ -1751,3 +1752,16 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 	}
 	return file;
 }
+
+
+#ifdef USER_SOUNDS
+
+void
+play_usersound(const char *filename, int volume)
+{
+	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:_NH3DMessenger.baseSoundFolder];
+	
+	[_NH3DMessenger playSoundAtURL:url volume:volume];
+}
+
+#endif
