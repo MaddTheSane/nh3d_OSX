@@ -2118,7 +2118,7 @@ extension NH3DOpenGLView {
 		return ret
 	}
 	
-	/// imp and minor demons
+	/// imps and minor demons
 	private func loadModelFunc_imp(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2130,7 +2130,7 @@ extension NH3DOpenGLView {
 	}
 	
 	
-	/// jellys
+	/// jellies
 	private func loadModelFunc_jellys(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2194,14 +2194,20 @@ extension NH3DOpenGLView {
 	
 	/// nymphs
 	private func loadModelFunc_nymphs(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, modelName: "lowerN")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, offset: offset, modelName: "lowerN")
 	}
 	
 	/// orc class
 	private func loadModelFunc_orc(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
-		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF {
+		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + GLYPH_PET_OFF {
 			ret = NH3DModelObject(with3DSFile: "lowerO", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.15, atZ: -0.15)
@@ -2320,7 +2326,13 @@ extension NH3DOpenGLView {
 	
 	/// lights
 	private final func loadModelFunc_lights(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_YELLOW_LIGHT, to: PM_BLACK_LIGHT, modelName: "lowerY")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_YELLOW_LIGHT, to: PM_BLACK_LIGHT, offset: offset, modelName: "lowerY")
 	}
 	
 	/// Angels
@@ -2369,15 +2381,27 @@ extension NH3DOpenGLView {
 	
 	/// Elementals
 	private final func loadModelFunc_Elementals(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_STALKER, to: PM_WATER_ELEMENTAL, modelName: "upperE")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_STALKER, to: PM_WATER_ELEMENTAL, offset: offset, modelName: "upperE")
 	}
 	
 	/// Fungi
 	private final func loadModelFunc_Fungi(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, modelName: "upperF")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_MON_OFF
+		}
+		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, offset: offset, modelName: "upperF")
 	}
 	
-	/// gnomes
+	/// Gnomes
 	private final func loadModelFunc_Gnomes(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		switch glyph {
@@ -2393,7 +2417,7 @@ extension NH3DOpenGLView {
 				to: PM_GNOME_LORD,
 				offset: offset,
 				modelName: "upperG",
-				textured: false);
+				without: PM_GNOMISH_WIZARD, PM_GNOME_KING)
 			
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF,
 		PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
@@ -2483,7 +2507,11 @@ extension NH3DOpenGLView {
 			} else {
 				offset = GLYPH_MON_OFF
 			}
-			ret = checkLoadedModels(at: PM_OGRE, to: PM_OGRE_LORD, offset: offset, modelName: "upperO")
+			ret = checkLoadedModels(at: PM_OGRE,
+				to: PM_OGRE_LORD,
+				offset: offset,
+				modelName: "upperO",
+				without: PM_OGRE_KING)
 			
 		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
@@ -2702,10 +2730,16 @@ extension NH3DOpenGLView {
 	
 	/// Ghosts
 	private final func loadModelFunc_Ghosts(glyph: Int32) -> NH3DModelObject? {
-		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: GLYPH_INVIS_OFF, modelName: "invisible")
+		let offset: Int32
+		if glyph > GLYPH_PET_OFF {
+			offset = GLYPH_PET_OFF
+		} else {
+			offset = GLYPH_INVIS_OFF
+		}
+		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: offset, modelName: "invisible")
 	}
 	
-	/// Major Daemons
+	/// Major Demons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2721,7 +2755,7 @@ extension NH3DOpenGLView {
 		}
 	}
 	
-	/// Greater Daemons
+	/// Greater Demons
 	private final func loadModelFunc_GraterDamons(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil;
 		
@@ -2761,7 +2795,7 @@ extension NH3DOpenGLView {
 		return ret;
 	}
 	
-	/// daemon "The Riders"
+	/// demon "The Riders"
 	private final func loadModelFunc_Riders(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
@@ -2992,7 +3026,8 @@ extension NH3DOpenGLView {
 			} else {
 				offset = GLYPH_MON_OFF
 			}
-			if glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF {
+			if (glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF) ||
+			(glyph >= PM_LORD_CARNARVON + GLYPH_PET_OFF && glyph <= PM_NORN + GLYPH_PET_OFF) {
 				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
 					to: PM_NORN,
 					offset: offset,
@@ -3259,7 +3294,7 @@ extension NH3DOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.4
 			ret?.lastChildObject?.particleSize = 2.0
 			
-			//TODO: implement
+			//TODO: implement web and statue trap
 			//case S_web + GLYPH_CMAP_OFF :
 			//case S_statue_trap + GLYPH_CMAP_OFF :
 			
@@ -3299,7 +3334,16 @@ extension NH3DOpenGLView {
 		case S_vibrating_square + GLYPH_CMAP_OFF:
 			//TODO: implement proper vibrating square model
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
-
+			ret?.addChildObject("emitter", type: .Emitter)
+			ret?.lastChildObject?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
+			ret?.lastChildObject?.particleType = .Both
+			ret?.lastChildObject?.particleSize = 4.0
+			ret?.lastChildObject?.setParticleGravityX(0, y: -1.0, z: 0)
+			ret?.lastChildObject?.particleColor = CLR_YELLOW
+			ret?.lastChildObject?.setParticleSpeedX(0.0, y: 200)
+			ret?.lastChildObject?.particleSlowdown = 2.0
+			ret?.lastChildObject?.particleLife = 0.5
+			
 		default:
 			break;
 		}
@@ -4024,49 +4068,9 @@ extension NH3DOpenGLView {
 			
 		case (PM_ARCHEOLOGIST+GLYPH_STATUE_OFF)...(PM_WIZARD+GLYPH_STATUE_OFF):
 			loadDat = (PM_ARCHEOLOGIST, PM_WIZARD, "atmark")
-			/*
-			//TODO: implement
-			// Unique person
-			loadModelBlocks[Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_PELIAS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_SHAMAN_KARNOV+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_HIPPOCRATES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_GRAND_MASTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ARCH_PRIEST+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ORION+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_MASTER_OF_THIEVES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_LORD_SATO+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_TWOFLOWER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_NORN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_KING_ARTHUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_NEFERET_THE_GREEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_MINION_OF_HUHETOTL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_THOTH_AMON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_CHROMATIC_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_CYCLOPS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_IXOTH+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_MASTER_KAEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_NALZOK+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_SCORPIUS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_MASTER_ASSASSIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ASHIKAGA_TAKAUJI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_LORD_SURTUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_DARK_ONE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_STUDENT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_CHIEFTAIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_NEANDERTHAL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ATTENDANT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_PAGE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ABBOT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ACOLYTE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_HUNTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_THUG+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_NINJA+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_ROSHI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_GUIDE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_WARRIOR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			loadModelBlocks[Int(PM_APPRENTICE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-			*/
+			
+		case (PM_LORD_CARNARVON+GLYPH_STATUE_OFF)...(PM_APPRENTICE+GLYPH_STATUE_OFF):
+			loadDat = (PM_LORD_CARNARVON, PM_APPRENTICE, "atmark")
 			
 		default:
 			return nil
@@ -4265,8 +4269,8 @@ extension NH3DOpenGLView {
 			glTexGeni(GLenum(GL_T), GLenum(GL_TEXTURE_GEN_MODE), GL_SPHERE_MAP)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
-			glTexCoordPointer( 2, GLenum(GL_FLOAT), 0, FloorTexVerts)
-			glVertexPointer( 3 , GLenum(GL_FLOAT), 0, FloorVerts)
+			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glDisable(GLenum(GL_TEXTURE_GEN_S))
@@ -4370,7 +4374,7 @@ extension NH3DOpenGLView {
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
 			glTexCoordPointer(2, GLenum(GL_FLOAT), 0, FloorTexVerts)
-			glVertexPointer(3 , GLenum(GL_FLOAT), 0, FloorVerts)
+			glVertexPointer(3, GLenum(GL_FLOAT), 0, FloorVerts)
 			glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
 			
 			glDisable(GLenum(GL_TEXTURE_2D))
