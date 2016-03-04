@@ -182,11 +182,11 @@ class NH3DMessaging: NSObject {
 			
 		case ATR_BOLD:
 			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name:NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
-
+			
 		case ATR_BLINK, ATR_INVERSE:
 			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlTextColor()
 			darkShadowStrAttributes[NSBackgroundColorAttributeName] = NSColor.alternateSelectedControlColor()
-
+			
 		default:
 			break
 		}
@@ -210,9 +210,9 @@ class NH3DMessaging: NSObject {
 	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
 	func clearMainMessage() {
 		if hasAddedText {
-		messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
-			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
-			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
+			messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
+				value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
+				range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 			hasAddedText = false
 		}
 	}
@@ -222,10 +222,10 @@ class NH3DMessaging: NSObject {
 			return -1
 		}
 		var result = 0;
-
+		
 		prepareAttributes()
 		style.alignment = .Center
-
+		
 		let putString = NSAttributedString(string: questionStr,
 			attributes: lightShadowStrAttributes)
 		
@@ -327,9 +327,6 @@ class NH3DMessaging: NSObject {
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		
 		rawPrintWindow.textStorage?.appendAttributedString(putStr)
-		#if DEBUG
-			NSLog("%@", rawText);
-		#endif
 	}
 	
 	func showLogPanel() -> NSApplicationTerminateReply {
