@@ -465,7 +465,7 @@ extern BOOL CocoaPortIsReady;
 		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
 		
 		lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
-		lshadow.shadowBlurRadius = 3.5 ;
+		lshadow.shadowBlurRadius = 3.5;
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
 		

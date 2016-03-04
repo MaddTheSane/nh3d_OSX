@@ -1290,12 +1290,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			for x in (centerX-MAP_MARGIN)..<(centerX+1+MAP_MARGIN) {
 				for z in (centerZ-MAP_MARGIN)..<(centerZ+1+MAP_MARGIN) {
-					let mapItem = mapModel.mapArray(x: x, y: z);
-					mapItemValue[ localx ][ localz ] = mapItem;
-					localz++;
+					let mapItem = mapModel.mapArray(x: x, y: z)
+					mapItemValue[localx][localz] = mapItem
+					localz++
 				}
-				localx++;
-				localz = 0;
+				localx++
+				localz = 0
 			}
 			
 			isFloating = false;

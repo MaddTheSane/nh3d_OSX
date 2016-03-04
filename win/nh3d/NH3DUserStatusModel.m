@@ -996,7 +996,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	else
 		[self setStIll:NO];
 	
-	if (hung[0] != ' ')
+	if (hung[0] != ' ' && strcmp(hung, hu_stat[0]) != 0)
 		[self setStHunger:YES];
 	else
 		[self setStHunger:NO];

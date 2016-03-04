@@ -201,7 +201,7 @@ class MapModel: NSObject {
 	
 	@objc(mapArrayAtX:atY:) func mapArray(x x: Int32, y: Int32) -> NH3DMapItem? {
 		if (x < MAPSIZE_COLUMN) && (y < MAPSIZE_ROW) && (x >= 0) && (y >= 0) && (mapArray[Int(x)][Int(y)] != nil) {
-			return  mapArray[Int(x)][Int(y)];
+			return mapArray[Int(x)][Int(y)]
 		} else {
 			//NSLog(@"MapLoadError atX:%d,Y:%d",x,y);
 			return nil;
@@ -212,7 +212,7 @@ class MapModel: NSObject {
 		if playerDirection != 3 {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
-			self.playerDirection = playerDirection + 1;
+			self.playerDirection = playerDirection + 1
 		} else {
 			self.playerDirection = 0
 		}
