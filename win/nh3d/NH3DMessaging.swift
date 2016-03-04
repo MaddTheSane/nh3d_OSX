@@ -200,18 +200,15 @@ class NH3DMessaging: NSObject {
 			msgArray.append(putString.length)
 		}
 		
+		messageWindow.textStorage?.appendAttributedString(putString)
+		messageWindow.scrollToEndOfDocument(self)
+	}
+	
+	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
+	func clearMainMessage() {
 		messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
 			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
 			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
-		
-		messageWindow.textStorage?.appendAttributedString(putString)
-		messageWindow.scrollToEndOfDocument(self)
-			//scrollRangeToVisible(NSRange(location: messageWindow.textStorage!.length, length: 0))
-	}
-
-	func clearMainMessage() {
-		msgArray.removeAll()
-		messageWindow.string = ""
 	}
 
 	func showInputPanel(messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {

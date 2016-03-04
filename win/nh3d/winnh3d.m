@@ -481,7 +481,7 @@ void nh3d_clear_nhwindow(winid wid)
 				break;
 				
 			case NHW_MESSAGE:
-				//[_NH3DMessenger clearMainMessage];
+				[_NH3DMessenger clearMainMessage];
 				break;
 				
 			case NHW_STATUS:
