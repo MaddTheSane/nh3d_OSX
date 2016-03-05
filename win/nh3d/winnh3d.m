@@ -8,7 +8,6 @@
 
 #include "C99Bool.h"
 #import "winnh3d.h"
-#import "NetHack3D-Swift.h"
 #import "NH3DMapView.h"
 #import "NetHack3D-Swift.h"
 #import "NetHack3D-Bridging-Header.h"

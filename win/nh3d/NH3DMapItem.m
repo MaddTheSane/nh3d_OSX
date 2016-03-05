@@ -9,8 +9,6 @@
 #import "NH3DMapItem.h"
 #import "NH3DTileCache.h"
 
-#import "NetHack3D-Swift.h"
-
 /*from winnh3d.m*/
 extern NH3DTileCache *_NH3DTileCache;
 
