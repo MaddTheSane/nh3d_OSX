@@ -691,7 +691,7 @@ nh3dunix.o: ../sys/Cocoa_GNUStep/nh3dunix.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../sys/Cocoa_GNUStep/nh3dunix.m
 winnh3d.o: ../win/nh3d/winnh3d.m $(HACK_H) NetHack3D-Swift.h
 	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/winnh3d.m
-NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m $(HACK_H) NetHack3D-Swift.h
+NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DMapItem.m
 NH3DMapModel.o: ../win/nh3d/NH3DMapModel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapModel.m
