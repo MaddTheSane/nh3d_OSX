@@ -398,7 +398,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				Float(frameRect.width / frameRect.height),	/* Aspect ratio */
 				0.1,										/* Near limit Distance from origin*/
 				30)											/* Far limit  */
-			let anArr = withUnsafeMutablePointer(&aMatrix) { (arr) -> UnsafePointer<GLfloat> in
+			let anArr = withUnsafePointer(&aMatrix) { (arr) -> UnsafePointer<GLfloat> in
 				return UnsafePointer<GLfloat>(arr)
 			}
 			glMultMatrixf(anArr)
@@ -411,7 +411,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		//[ self turnOnSmooth ];
 		
 		glShadeModel(GLenum(GL_SMOOTH))
-		//glShadeModel( GL_FLAT );
+		//glShadeModel(GL_FLAT);
 		
 		glMatrixMode(GLenum(GL_MODELVIEW))
 		glLoadIdentity()
@@ -420,7 +420,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glEnable(GLenum(GL_POINT_SMOOTH))
 		
 		glPolygonMode(GLenum(GL_FRONT_AND_BACK), GLenum(GL_FILL))
-		//glPolygonMode( GL_BACK,GL_LINE );
+		//glPolygonMode(GL_BACK, GL_LINE);
 		
 		glEnable(GLenum(GL_CULL_FACE))
 		glCullFace(GLenum(GL_BACK))
@@ -763,7 +763,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func createLightAndFog() {
-		let gblight = 1.0 - (Float(u.uhp) / Float(u.uhpmax))
+		let gblight = 1.0 - (GLfloat(u.uhp) / GLfloat(u.uhpmax))
 		
 		let AmbLightPos: [GLfloat] = [0.0, 4.0, 0.0, 0]
 		let keyLightPos: [GLfloat] = [0.01, 3.0, 0.0, 1]
