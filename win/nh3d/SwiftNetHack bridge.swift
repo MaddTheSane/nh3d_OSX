@@ -210,3 +210,8 @@ func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_astral_level) 
 }
+
+
+func raw_print(str: UnsafePointer<CChar>) {
+	windowprocs.win_raw_print(str)
+}

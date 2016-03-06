@@ -360,6 +360,7 @@
 		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
 		5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585264A1C868A2F00813BF2 /* libz.tbd */; };
+		55A570FF1C8CAF7900FE4A3B /* ScreenEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A570FE1C8CAF7900FE4A3B /* ScreenEffect.swift */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -1232,6 +1233,7 @@
 		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
 		5585264A1C868A2F00813BF2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		55A570FE1C8CAF7900FE4A3B /* ScreenEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenEffect.swift; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1353,6 +1355,7 @@
 				55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */,
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
+				55A570FE1C8CAF7900FE4A3B /* ScreenEffect.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -3001,6 +3004,7 @@
 				2B5CC18F088EB7DF00940C58 /* pline.c in Sources */,
 				55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */,
 				2B5CC190088EB7DF00940C58 /* polyself.c in Sources */,
+				55A570FF1C8CAF7900FE4A3B /* ScreenEffect.swift in Sources */,
 				2B5CC191088EB7DF00940C58 /* potion.c in Sources */,
 				2B5CC192088EB7DF00940C58 /* pray.c in Sources */,
 				2B5CC193088EB7DF00940C58 /* priest.c in Sources */,

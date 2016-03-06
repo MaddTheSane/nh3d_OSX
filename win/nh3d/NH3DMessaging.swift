@@ -60,12 +60,7 @@ class NH3DMessaging: NSObject {
 	private var ripFlag = false
 	var lastAttackDirection: Int32 = 0
 	
-	private var effectArray = [Effect]()
-	
-	private struct Effect {
-		var message: String
-		var type: Int32
-	}
+	private var effectArray = [ScreenEffect]()
 	
 	func prepareAttributes() {
 		style = NSMutableParagraphStyle()
@@ -105,7 +100,10 @@ class NH3DMessaging: NSObject {
 		guard effectType != 1 || effectType != 2 else {
 			return false
 		}
-		effectArray.append(NH3DMessaging.Effect(message: newMsg, type: effectType))
+		guard let newObj = ScreenEffect(message: newMsg, effect: effectType) else {
+			return false
+		}
+		effectArray.append(newObj)
 		return true
 	}
 
@@ -152,12 +150,10 @@ class NH3DMessaging: NSObject {
 			return
 		}
 		
-		let textNSStr = textStr as NSString
-		
 		if !SOUND_MUTE {
 			for msgEffect in effectArray {
-				if textNSStr.isLike(msgEffect.message) {
-					switch msgEffect.type {
+				if msgEffect.matches(textStr) {
+					switch msgEffect.effect {
 					case 1: // hit enemy attack to player
 						glView.isShocked = true
 						
@@ -205,7 +201,7 @@ class NH3DMessaging: NSObject {
 	
 	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
 	func clearMainMessage() {
-		messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
+		messageWindow.textStorage!.addAttribute(NSForegroundColorAttributeName,
 			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
 			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
