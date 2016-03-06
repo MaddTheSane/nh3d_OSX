@@ -2222,7 +2222,7 @@ extension NH3DOpenGLView {
 			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, offset: offset, modelName: "lowerO", without: PM_ORC_SHAMAN)
 		}
 		
-		return nil
+		return ret
 	}
 	
 	/// piercers

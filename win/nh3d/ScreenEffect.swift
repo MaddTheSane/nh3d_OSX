@@ -11,9 +11,11 @@ import Foundation
 final class ScreenEffect {
 	private var regex: COpaquePointer
 	let effect: Int32
+	let str: String
 	
 	init?(message text: String, effect: Int32) {
 		regex = regex_init()
+		str = text
 		self.effect = effect
 		guard regex_compile(text, regex) else {
 			raw_print(regex_error_desc(regex))
