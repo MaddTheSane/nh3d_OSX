@@ -58,8 +58,6 @@ class NH3DMessaging: NSObject {
 	private var style = NSMutableParagraphStyle()
 	
 	private var ripFlag = false
-	private var hasAddedText = false
-	
 	var lastAttackDirection: Int32 = 0
 	
 	private var effectArray = [Effect]()
@@ -203,18 +201,13 @@ class NH3DMessaging: NSObject {
 		
 		messageWindow.textStorage?.appendAttributedString(putString)
 		messageWindow.scrollToEndOfDocument(self)
-		
-		hasAddedText = true
 	}
 	
 	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
 	func clearMainMessage() {
-		if hasAddedText {
-			messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
-				value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
-				range: NSRange(location: 0, length: messageWindow.textStorage!.length))
-			hasAddedText = false
-		}
+		messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
+			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
+			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
 
 	func showInputPanel(messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
@@ -350,7 +343,7 @@ class NH3DMessaging: NSObject {
 			}, completionHandler: {
 				NSApp.runModalForWindow(self.rawPrintPanel)
 				self.rawPrintPanel.orderOut(self)
-				clearlocks();
+				clearlocks()
 				NSApp.replyToApplicationShouldTerminate(true)
 		})
 		
