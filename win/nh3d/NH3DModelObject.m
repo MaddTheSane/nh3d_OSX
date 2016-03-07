@@ -10,6 +10,7 @@
 #include <tgmath.h>
 #import "NH3DModelObject.h"
 #include <OpenGL/gl.h>
+#include "NetHack3D-Swift.h"
 
 
 static GLfloat colors[16][3] = {
@@ -59,6 +60,10 @@ static const NH3DMaterial defaultMat = {
 @synthesize particleSize;
 @synthesize modelName;
 @synthesize modelType;
+@synthesize verts;
+@synthesize norms;
+@synthesize faces;
+@synthesize texcoords;
 
 - (NSInteger)countOfChildObjects
 {
@@ -315,14 +320,14 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			case 0x4110:	// read VERTICES
-				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
+				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location, sizeof(unsigned short))];
 				fileRange.location = fileRange.location + sizeof(unsigned short);
 				
 				verts_qty =  NSSwapLittleShortToHost(l_Counts);
 				
 				if (verts_qty > MAX_VERTICES) {
 					verts_qty = MAX_VERTICES;
-					NSLog(@"Model %@|%@ reache to MaxVertices. it does not complete.",modelCode,modelName);
+					NSLog(@"Model %@|%@ reached MaxVertices. It does not complete.", modelCode, modelName);
 				}
 				
 				normal_qty = verts_qty;
@@ -357,7 +362,7 @@ static const NH3DMaterial defaultMat = {
 						//NSLog(@"%d Vertices list z: %f",i,verts[i].z);
 					}
 				} else {
-					NSLog(@"Model %@|%@ does not have effective data. check modelformat or data.",modelCode,modelName);
+					NSLog(@"Model %@|%@ does not have effective data. Check model format or data.", modelCode, modelName);
 					return NO;
 				}
 				break;
@@ -370,7 +375,7 @@ static const NH3DMaterial defaultMat = {
 				
 				if (face_qty > MAX_POLYGONS) {
 					face_qty = MAX_POLYGONS;
-					NSLog(@"Model %@|%@ reache to MaxPolygons. it does not complete.",modelCode,modelName);
+					NSLog(@"Model %@|%@ reached MaxPolygons. It does not complete.", modelCode, modelName);
 				}
 				
 				if (face_qty) {
@@ -421,7 +426,7 @@ static const NH3DMaterial defaultMat = {
 				
 				if (texcords_qty > MAX_POLYGONS) {
 					texcords_qty = MAX_POLYGONS;
-					NSLog(@"Model %@|%@ TextureCoods reache to MaxPolygons. it does not complete.",modelCode,modelName);
+					NSLog(@"Model %@|%@ TextureCoods reached MaxPolygons. It does not complete.", modelCode, modelName);
 				}
 				
 				if (texcords_qty) {
@@ -457,97 +462,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	
 	return YES;
-}
-
-- (float)vectorLength:(NH3DVertexType *)p_vector
-{
-	return sqrtf(p_vector->x*p_vector->x + p_vector->y*p_vector->y + p_vector->z*p_vector->z);
-}
-
-- (void)vectorNormalize:(NH3DVertexType *)p_vector
-{
-	float l_length;
-	
-	l_length = [self vectorLength:p_vector];
-	if (l_length==0)
-		l_length=1;
-	p_vector->x /= l_length;
-	p_vector->y /= l_length;
-	p_vector->z /= l_length;
-}
-
-- (void)createVectorWithStart:(NH3DVertexType *)p_start endingAt:(NH3DVertexType *)p_end outVector:(NH3DVertexType *)p_vector
-{
-    p_vector->x = p_end->x - p_start->x;
-    p_vector->y = p_end->y - p_start->y;
-    p_vector->z = p_end->z - p_start->z;
-	[self vectorNormalize:p_vector];
-}
-
-- (float)vectScalarProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2
-{
-    return (p_vector1->x*p_vector2->x + p_vector1->y*p_vector2->y + p_vector1->z*p_vector2->z);
-}
-
-- (void)vectDotProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2 normal:(NH3DVertexType *)p_normal
-{
-    p_normal->x=(p_vector1->y * p_vector2->z) - (p_vector1->z * p_vector2->y);
-    p_normal->y=(p_vector1->z * p_vector2->x) - (p_vector1->x * p_vector2->z);
-    p_normal->z=(p_vector1->x * p_vector2->y) - (p_vector1->y * p_vector2->x);
-}
-
-- (void)calculateNormals
-{
-	int i;
-	NH3DVertexType l_vect1,l_vect2,l_vect3,l_vect_b1,l_vect_b2,l_normal;
-	int l_Connect[verts_qty];
-	
-	for (i = 0; i< verts_qty; i++) {
-		norms[i].x = 0.0;
-		norms[i].y = 0.0;
-		norms[i].z = 0.0;
-		l_Connect[i]=0;
-	}
-	
-	for (i = 0; i < face_qty; i++) {
-        l_vect1.x = verts[faces[i].a].x;
-        l_vect1.y = verts[faces[i].a].y;
-        l_vect1.z = verts[faces[i].a].z;
-        l_vect2.x = verts[faces[i].b].x;
-        l_vect2.y = verts[faces[i].b].y;
-        l_vect2.z = verts[faces[i].b].z;
-        l_vect3.x = verts[faces[i].c].x;
-        l_vect3.y = verts[faces[i].c].y;
-        l_vect3.z = verts[faces[i].c].z;
-		
-        // Polygon normal calculation
-		[self createVectorWithStart:&l_vect1 endingAt:&l_vect2 outVector:&l_vect_b1];
-        [self createVectorWithStart:&l_vect1 endingAt:&l_vect3 outVector:&l_vect_b2];
-        [self vectDotProduct:&l_vect_b1 second:&l_vect_b2 normal:&l_normal];
-        [self vectorNormalize:&l_normal];
-		
-		l_Connect[faces[i].a] += 1;
-		l_Connect[faces[i].b] += 1;
-		l_Connect[faces[i].c] += 1;
-		
-		norms[faces[i].a].x += l_normal.x;
-		norms[faces[i].a].y += l_normal.y;
-		norms[faces[i].a].z += l_normal.z;
-		norms[faces[i].b].x += l_normal.x;
-		norms[faces[i].b].y += l_normal.y;
-		norms[faces[i].b].z += l_normal.z;
-		norms[faces[i].c].x += l_normal.x;
-		norms[faces[i].c].y += l_normal.y;
-		norms[faces[i].c].z += l_normal.z;
-	}	
-	
-    for (i = 0; i < verts_qty; i++) {
-		if (l_Connect[i] > 0) {
-			norms[i].x /= l_Connect[i];
-			norms[i].y /= l_Connect[i];
-			norms[i].z /= l_Connect[i];
-		}
-	}
 }
 
 
@@ -791,21 +705,6 @@ static const NH3DMaterial defaultMat = {
 	return texcords_qty;
 }
 
-- (NH3DVertexType *)verts
-{
-	return verts;
-}
-
-- (NH3DVertexType *)norms
-{
-	return norms;
-}
-
-- (NH3DFaceType *)faces
-{
-	return faces;
-}
-
 - (NH3DFaceType *)texReference
 {
 	return texReference;
@@ -815,11 +714,6 @@ static const NH3DMaterial defaultMat = {
 - (NH3DFaceType *)normReference
 {
 	return normReference;
-}
-
-- (NH3DMapCoordType *)texcoords
-{
-	return texcoords;
 }
 
 - (GLuint)texture
@@ -842,7 +736,7 @@ static const NH3DMaterial defaultMat = {
 		++numberOfTextures;
 		return YES;
 	} else {
-		NSLog(@"Model %@: Can't add new Texture %@. Limit of textures reached.", modelCode, textureName);
+		NSLog(@"Model %@: Can't add new texture %@. Limit of textures reached.", modelCode, textureName);
 		return NO;
 	}
 }
@@ -1217,7 +1111,7 @@ static const NH3DMaterial defaultMat = {
 								glEnd();
 								break;
 								
-							case NH3DParticleTypeAura :
+							case NH3DParticleTypeAura:
 								glLineWidth(((random() % 200)*0.01) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);

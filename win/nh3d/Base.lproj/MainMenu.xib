@@ -216,12 +216,12 @@
                         <rect key="frame" x="72" y="267" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" id="6919"/>
                         <connections>
-                            <binding destination="4761" name="value" keyPath="selection.playerArmour" id="6382"/>
                             <binding destination="4761" name="toolTip" keyPath="selection.playerArmorString" id="0G0-hH-8Ck">
                                 <dictionary key="options">
                                     <string key="NSNullPlaceholder">Body armor slot</string>
                                 </dictionary>
                             </binding>
+                            <binding destination="4761" name="value" keyPath="selection.playerArmour" id="6382"/>
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372" userLabel="shield">
@@ -1516,7 +1516,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="400" height="110"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6215" userLabel="Message Window">
+                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6215" userLabel="Message Window">
                                     <rect key="frame" x="0.0" y="-50" width="400" height="110"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.94509803999999997" green="0.84313726" blue="0.67450982000000004" alpha="1" colorSpace="deviceRGB"/>

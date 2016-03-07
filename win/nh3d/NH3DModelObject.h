@@ -140,8 +140,6 @@ typedef struct {
 
 + (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName;
 
-- (void)calculateNormals;
-
 @property (getter=isActive) BOOL active;
 
 /*! model name from data */
