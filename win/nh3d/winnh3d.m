@@ -1204,10 +1204,10 @@ wd_message()
 						  NH3DOpenGLWaitRateKey: @(WAIT_NORMAL),
 						  
 						  NH3DMsgFontKey: @"Hiragino Maru Gothic Pro",
-						  NH3DMapFontKey: @"Courier New",
+						  NH3DMapFontKey: @"Courier Bold",
 						  NH3DBoldFontKey: @"Lucida Grande Bold",
-						  NH3DInventryFontKey: @"Menlo",
-						  NH3DWindowFontKey: @"Optima",
+						  NH3DInventryFontKey: @"Courier New Bold",
+						  NH3DWindowFontKey: @"Optima Bold",
 						  
 						  NH3DGLTileKey: @NO,
 						  
