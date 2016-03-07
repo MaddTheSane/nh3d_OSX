@@ -2375,7 +2375,7 @@ func_param_part	: any_var_or_arr ':' func_param_type
 		      } else if (!tmp) {
 			  lc_error("Could not alloc function params.");
 		      } else {
-			  long vt;
+			  long vt = 0;
 			  tmp->name = strdup($1);
 			  tmp->parmtype = (char) $3;
 			  tmp->next = curr_function->params;
