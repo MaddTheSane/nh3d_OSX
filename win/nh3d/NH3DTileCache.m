@@ -43,7 +43,7 @@ extern int total_tiles_used;
 				alert.informativeText = [[NSString alloc] initWithFormat:@"Can't find tile file: %@!", imageName];
 				alert.alertStyle = NSCriticalAlertStyle;
 				[alert runModal];
-				NSLog(@"Can't find Tilefile: %@!!",imageName);
+				NSLog(@"Can't find tile file: %@!!", imageName);
 				return nil; 
 			}
 		}
@@ -58,7 +58,7 @@ extern int total_tiles_used;
 			alert.informativeText = [[NSString alloc] initWithFormat:@"\"%@\" Does not support this tile pattern.", imageName];
 			[alert runModal];
 			
-			NSLog(@"%@: Does not support this TILE Pattern.", imageName);
+			NSLog(@"%@ does not support this tile pattern.", imageName);
 			return nil;
 		} else {
 			tileSize_X = bitMap.pixelsWide / TILES_PER_LINE;
@@ -97,7 +97,7 @@ extern int total_tiles_used;
 	int t_x,t_y;
 	
 	if (tile >= total_tiles_used || tile < 0) {
-		NSLog(@"ERROR:Asked for a TILE %d outside the allowed range.",tile);
+		NSLog(@"ERROR: Asked for a tile %d outside the allowed range.", tile);
 		return nil;
 	}
 	

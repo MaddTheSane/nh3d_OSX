@@ -469,7 +469,7 @@
 		2B31DBB708CD73C5008CCAAC /* other.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = other.txt; sourceTree = "<group>"; };
 		2B31DBB808CD73C5008CCAAC /* ppmwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ppmwrite.c; sourceTree = "<group>"; };
 		2B31DBB908CD73C5008CCAAC /* thintile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thintile.c; sourceTree = "<group>"; };
-		2B31DBBA08CD73C5008CCAAC /* tile.doc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tile.doc; sourceTree = "<group>"; };
+		2B31DBBA08CD73C5008CCAAC /* tile.doc */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = tile.doc; sourceTree = "<group>"; };
 		2B31DBBB08CD73C5008CCAAC /* tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tile.h; sourceTree = "<group>"; };
 		2B31DBBC08CD73C5008CCAAC /* tile2bmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tile2bmp.c; sourceTree = "<group>"; };
 		2B31DBBD08CD73C5008CCAAC /* tilemap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tilemap.c; sourceTree = "<group>"; };

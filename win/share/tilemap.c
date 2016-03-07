@@ -20,7 +20,7 @@ extern void FDECL(exit, (int));
 #endif
 #endif
 
-#if defined(WIN32)
+#if defined(WIN32) || defined(NH3D_GRAPHICS)
 #define STATUES_LOOK_LIKE_MONSTERS
 #endif
 
@@ -461,8 +461,11 @@ process_substitutions(FILE *ofp)
         fprintf(ofp, "%s\n", epilog[i]);
     }
 
-    fprintf(ofp, "\nint total_tiles_used = %d;\n", start);
     lastothtile = start - 1;
+#ifdef STATUES_LOOK_LIKE_MONSTERS
+    start = laststatuetile + 1;
+#endif
+	fprintf(ofp, "\nint total_tiles_used = %d;\n", start);
 }
 
 int
@@ -497,6 +500,9 @@ main()
     fprintf(ofp, "\n#define MAXMONTILE %d\n", lastmontile);
     fprintf(ofp, "#define MAXOBJTILE %d\n", lastobjtile);
     fprintf(ofp, "#define MAXOTHTILE %d\n", lastothtile);
+#ifdef STATUES_LOOK_LIKE_MONSTERS
+    fprintf(ofp, "#define MAXSTATUETILE %d\n", laststatuetile);
+#endif
 
     fprintf(ofp, "\n/*tile.c*/\n");
 
