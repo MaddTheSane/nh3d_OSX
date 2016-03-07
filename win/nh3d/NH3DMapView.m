@@ -7,6 +7,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
+#include "C99Bool.h"
 #import "NH3DMapView.h"
 
 #import "winnh3d.h"

@@ -6,11 +6,12 @@
 //  Copyright 2005 Haruumi Yoshino. All rights reserved.
 //
 
+#include "C99Bool.h"
 #include <math.h>
 #include <tgmath.h>
 #import "NH3DModelObject.h"
 #include <OpenGL/gl.h>
-#include "NetHack3D-Swift.h"
+#import "NetHack3D-Swift.h"
 
 
 static GLfloat colors[16][3] = {

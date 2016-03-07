@@ -758,9 +758,9 @@ ScreenEffect.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	-emit-module -emit-module-path ScreenEffect-partial.swiftmodule -o ScreenEffect.o
 NH3dModelObject+Swift.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file \
-	../win/nh3d/NH3dModelObject+Swift.swift  
+	../win/nh3d/NH3dModelObject+Swift.swift \
 	$(filter-out ../win/nh3d/NH3dModelObject+Swift.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path NH3dModelObject+Swift-partial.swiftmodule 
+	-emit-module -emit-module-path NH3dModelObject+Swift-partial.swiftmodule \
 	-o NH3dModelObject+Swift.o
 
 
@@ -872,7 +872,7 @@ xshmmap.o: ../win/gtk/xshmmap.c ../include/hack.h ../include/winGTK.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
 xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
-NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m
+NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m NetHack3D-Swift.h
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObject.m
 Cocoa-compat.o: ../win/nh3d/compat/Cocoa-compat.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/compat/Cocoa-compat.m
