@@ -7,17 +7,30 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		557CE1C11C8E1EE100B43765 /* needed src */ = {
+		557CE1C11C8E1EE100B43765 /* src */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "needed src" */;
+			buildConfigurationList = 557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "src" */;
 			buildPhases = (
 				557CE1C71C8E1EF900B43765 /* ShellScript */,
 			);
 			dependencies = (
+				557CE1D61C8E256600B43765 /* PBXTargetDependency */,
 				557CE1C61C8E1EF500B43765 /* PBXTargetDependency */,
 			);
-			name = "needed src";
+			name = src;
 			productName = "needed src";
+		};
+		557CE1CC1C8E242500B43765 /* util */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 557CE1CF1C8E242500B43765 /* Build configuration list for PBXAggregateTarget "util" */;
+			buildPhases = (
+				557CE1D01C8E242C00B43765 /* ShellScript */,
+			);
+			dependencies = (
+				557CE1D21C8E255A00B43765 /* PBXTargetDependency */,
+			);
+			name = util;
+			productName = headers;
 		};
 		55D0E4871C8E18EA0074B7C4 /* dat */ = {
 			isa = PBXAggregateTarget;
@@ -26,6 +39,7 @@
 				55D0E48B1C8E18F50074B7C4 /* ShellScript */,
 			);
 			dependencies = (
+				557CE1D41C8E256100B43765 /* PBXTargetDependency */,
 				55D0E4921C8E1A280074B7C4 /* PBXTargetDependency */,
 			);
 			name = dat;
@@ -432,6 +446,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 557CE1C11C8E1EE100B43765;
 			remoteInfo = "needed src";
+		};
+		557CE1D11C8E255A00B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E48C1C8E190B0074B7C4;
+			remoteInfo = makefiles;
+		};
+		557CE1D31C8E256100B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
+			remoteInfo = headers;
+		};
+		557CE1D51C8E256600B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
+			remoteInfo = headers;
 		};
 		55D0E4911C8E1A280074B7C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2706,6 +2741,9 @@
 					557CE1C11C8E1EE100B43765 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
+					557CE1CC1C8E242500B43765 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
 					55D0E4871C8E18EA0074B7C4 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -2736,7 +2774,8 @@
 				2BCAABD40913A7A500AF1C59 /* tiletext */,
 				55D0E48C1C8E190B0074B7C4 /* makefiles */,
 				55D0E4871C8E18EA0074B7C4 /* dat */,
-				557CE1C11C8E1EE100B43765 /* needed src */,
+				557CE1C11C8E1EE100B43765 /* src */,
+				557CE1CC1C8E242500B43765 /* util */,
 			);
 		};
 /* End PBXProject section */
@@ -2961,12 +3000,52 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/../../src/Makefile",
+				"$(SRCROOT)/../../win/share/tilemap.c",
+				"$(SRCROOT)/../../include/lev_comp.h",
+				"$(SRCROOT)/../../include/dgn_comp.h",
+				"$(SRCROOT)/../../include/onames.h",
+				"$(SRCROOT)/../../include/pm.h",
+				"$(SRCROOT)/../../include/vis_tab.h",
 			);
 			outputPaths = (
 				"$(SRCROOT)/../../src/tile.c",
 				"$(SRCROOT)/../../src/vis_tab.c",
 				"$(SRCROOT)/../../src/monstr.c",
 				"$(SRCROOT)/../../include/date.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd src\n\nmake ../include/date.h\nmake tile.c vis_tab.c monstr.c\n#make everyone else happy\ntouch Sysunix\n";
+		};
+		557CE1D01C8E242C00B43765 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../util/Makefile",
+				"$(SRCROOT)/../../include/permonst.h",
+				"$(SRCROOT)/../../include/objclass.h",
+				"$(SRCROOT)/../../include/monsym.h",
+				"$(SRCROOT)/../../include/artilist.h",
+				"$(SRCROOT)/../../include/dungeon.h",
+				"$(SRCROOT)/../../include/obj.h",
+				"$(SRCROOT)/../../include/monst.h",
+				"$(SRCROOT)/../../include/you.h",
+				"$(SRCROOT)/../../include/flag.h",
+				"$(SRCROOT)/../../include/dlb.h",
+				"$(SRCROOT)/../../include/patchlevel.h",
+				"$(SRCROOT)/../../include/qtext.h",
+				"$(SRCROOT)/../../util/dgn_comp.y",
+				"$(SRCROOT)/../../util/dgn_comp.l",
+				"$(SRCROOT)/../../util/lev_comp.y",
+				"$(SRCROOT)/../../util/lev_comp.l",
+				"$(SRCROOT)/../../util/mdgrep.h",
+				"$(SRCROOT)/../../util/makedefs.c",
+				"$(SRCROOT)/../../util/panic.c",
+				"$(SRCROOT)/../../src/alloc.c",
+			);
+			outputPaths = (
 				"$(SRCROOT)/../../include/lev_comp.h",
 				"$(SRCROOT)/../../include/dgn_comp.h",
 				"$(SRCROOT)/../../include/onames.h",
@@ -2975,7 +3054,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$(SRCROOT)\"\ncd ../..\ncd src\n# make headers first\nmake ../include/date.h ../include/lev_comp.h ../include/dgn_comp.h ../include/onames.h ../include/pm.h ../include/vis_tab.h\nmake tile.c vis_tab.c monstr.c\n#make everyone else happy\ntouch Sysunix";
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd util\n# make headers first\nmake ../include/lev_comp.h ../include/dgn_comp.h ../include/onames.h ../include/pm.h ../include/vis_tab.h\nmake lev_comp\nmake dgn_comp\n";
 		};
 		55D0E48B1C8E18F50074B7C4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2984,6 +3063,18 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/../../dat/Makefile",
+				"$(SRCROOT)/../../include/permonst.h",
+				"$(SRCROOT)/../../include/objclass.h",
+				"$(SRCROOT)/../../include/monsym.h",
+				"$(SRCROOT)/../../include/artilist.h",
+				"$(SRCROOT)/../../include/dungeon.h",
+				"$(SRCROOT)/../../include/obj.h",
+				"$(SRCROOT)/../../include/monst.h",
+				"$(SRCROOT)/../../include/you.h",
+				"$(SRCROOT)/../../include/flag.h",
+				"$(SRCROOT)/../../include/dlb.h",
+				"$(SRCROOT)/../../include/patchlevel.h",
+				"$(SRCROOT)/../../include/qtext.h",
 			);
 			outputPaths = (
 				"$(SRCROOT)/../../dat/Arc-fila.lev",
@@ -3121,7 +3212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$(SRCROOT)\"\ncd ../..\ncd dat\nmake";
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd dat\nmake\n";
 		};
 		55D0E4901C8E19110074B7C4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3146,7 +3237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$(SRCROOT)\"\ncd ../..\ncd sys/Cocoa_GNUStep\nsh setup.sh hints/macosx10.10";
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd sys/Cocoa_GNUStep\nsh setup.sh hints/macosx10.10\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3370,8 +3461,23 @@
 		};
 		557CE1CB1C8E207900B43765 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 557CE1C11C8E1EE100B43765 /* needed src */;
+			target = 557CE1C11C8E1EE100B43765 /* src */;
 			targetProxy = 557CE1CA1C8E207900B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1D21C8E255A00B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E48C1C8E190B0074B7C4 /* makefiles */;
+			targetProxy = 557CE1D11C8E255A00B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1D41C8E256100B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 557CE1CC1C8E242500B43765 /* util */;
+			targetProxy = 557CE1D31C8E256100B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1D61C8E256600B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 557CE1CC1C8E242500B43765 /* util */;
+			targetProxy = 557CE1D51C8E256600B43765 /* PBXContainerItemProxy */;
 		};
 		55D0E4921C8E1A280074B7C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3854,6 +3960,20 @@
 			};
 			name = Release;
 		};
+		557CE1CD1C8E242500B43765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		557CE1CE1C8E242500B43765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		55D0E4891C8E18EA0074B7C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3957,13 +4077,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "needed src" */ = {
+		557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "src" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				557CE1C31C8E1EE100B43765 /* Debug */,
 				557CE1C41C8E1EE100B43765 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		557CE1CF1C8E242500B43765 /* Build configuration list for PBXAggregateTarget "util" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				557CE1CD1C8E242500B43765 /* Debug */,
+				557CE1CE1C8E242500B43765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55D0E4881C8E18EA0074B7C4 /* Build configuration list for PBXAggregateTarget "dat" */ = {
 			isa = XCConfigurationList;
