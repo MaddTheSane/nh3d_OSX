@@ -604,6 +604,10 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Hallu", (int)stHallu]];
 }
+- (NSImage *)stLoad
+{
+	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Load", (int)stLoad]];
+}
 
 #pragma mark -
 
@@ -871,7 +875,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	chaosIcon = enable;
 }
 
-- (void)setStHunger:(BOOL)aBool
+- (void)setStHunger:(char)aBool
 {
 	stHunger = aBool;
 	[self checkStDrawer];
@@ -913,9 +917,16 @@ extern NH3DTileCache *_NH3DTileCache;
 	[self checkStDrawer];
 }
 
+- (void)setStLoad:(char)curVal
+{
+	stLoad = curVal;
+	[self checkStDrawer];
+}
+
+
 - (void)checkStDrawer
 {
-	if ( stHunger || stConfuse || stSick || stIll || stBlind || stStun || stHallu ) {
+	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
 		if (stDrawer.state == NSDrawerClosedState) {
 			[stDrawer open];
 			[[NSSound soundNamed:@"Purr"] play];
@@ -929,7 +940,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)updatePlayer
 {
-	const char* hung = hu_stat[u.uhs];
+	//const char* hung = hu_stat[u.uhs];
 	
 	[self setPlayerClass:[NSString stringWithFormat:NSLocalizedString(@"the %@", @""),
 						  [NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
@@ -996,10 +1007,8 @@ extern NH3DTileCache *_NH3DTileCache;
 	else
 		[self setStIll:NO];
 	
-	if (hung[0] != ' ' && strcmp(hung, hu_stat[0]) != 0)
-		[self setStHunger:YES];
-	else
-		[self setStHunger:NO];
+	[self setStHunger:u.uhs];
+	[self setStLoad:near_capacity()];
 	
 	switch (u.ualign.type) {
 		case A_LAWFUL:

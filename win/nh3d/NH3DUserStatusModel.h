@@ -68,13 +68,14 @@
 	NSImage *playerBlindFold;
 	
 	
-	BOOL stHunger;
+	char stHunger;
 	BOOL stConfuse;
 	BOOL stSick;
 	BOOL stIll;
 	BOOL stBlind;
 	BOOL stStun;
 	BOOL stHallu;
+	char stLoad;
 	
 	BOOL strUpdate;
 	BOOL dexUpdate;
@@ -188,6 +189,7 @@
 - (NSImage *)stBlind;
 - (NSImage *)stStun;
 - (NSImage *)stHallu;
+- (NSImage *)stLoad;
 
 
 - (void)setPlayerStr:(int)aValue;
@@ -212,13 +214,14 @@
 - (void)setNewtralIcon:(BOOL)enable;
 - (void)setChaosIcon:(BOOL)enable;
 
-- (void)setStHunger:(BOOL)aBool;
+- (void)setStHunger:(char)curVal;
 - (void)setStConfuse:(BOOL)aBool;
 - (void)setStSick:(BOOL)aBool;
 - (void)setStIll:(BOOL)aBool;
 - (void)setStBlind:(BOOL)aBool;
 - (void)setStStun:(BOOL)aBool;
 - (void)setStHallu:(BOOL)aBool;
+- (void)setStLoad:(char)curVal;
 - (void)checkStDrawer;
 
 //- (void)createPlayer;
