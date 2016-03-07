@@ -2773,9 +2773,9 @@
 				2BCAABBF0913A70000AF1C59 /* tilemap */,
 				2BCAABD40913A7A500AF1C59 /* tiletext */,
 				55D0E48C1C8E190B0074B7C4 /* makefiles */,
+				557CE1CC1C8E242500B43765 /* util */,
 				55D0E4871C8E18EA0074B7C4 /* dat */,
 				557CE1C11C8E1EE100B43765 /* src */,
-				557CE1CC1C8E242500B43765 /* util */,
 			);
 		};
 /* End PBXProject section */
@@ -3051,10 +3051,13 @@
 				"$(SRCROOT)/../../include/onames.h",
 				"$(SRCROOT)/../../include/pm.h",
 				"$(SRCROOT)/../../include/vis_tab.h",
+				"$(SRCROOT)/../../util/makedefs",
+				"$(SRCROOT)/../../util/lev_comp",
+				"$(SRCROOT)/../../util/dgn_comp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd util\n# make headers first\nmake ../include/lev_comp.h ../include/dgn_comp.h ../include/onames.h ../include/pm.h ../include/vis_tab.h\nmake lev_comp\nmake dgn_comp\n";
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd util\n# make headers first\nmake makedefs\nmake ../include/lev_comp.h ../include/dgn_comp.h ../include/onames.h ../include/pm.h ../include/vis_tab.h\nmake lev_comp\nmake dgn_comp\n";
 		};
 		55D0E48B1C8E18F50074B7C4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3075,6 +3078,9 @@
 				"$(SRCROOT)/../../include/dlb.h",
 				"$(SRCROOT)/../../include/patchlevel.h",
 				"$(SRCROOT)/../../include/qtext.h",
+				"$(SRCROOT)/../../util/makedefs",
+				"$(SRCROOT)/../../util/lev_comp",
+				"$(SRCROOT)/../../util/dgn_comp",
 			);
 			outputPaths = (
 				"$(SRCROOT)/../../dat/Arc-fila.lev",
