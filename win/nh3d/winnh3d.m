@@ -1009,7 +1009,7 @@ void nh3d_outrip(winid wid, int how, time_t when)
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		[_NH3DMapModel stopIndicator];
-		[_NH3DMessenger showOutRipString:[ripString copy]];
+		[_NH3DMessenger showOutRipString:ripString];
 	}
 }
 
@@ -1338,17 +1338,6 @@ wd_message()
 	[userMakeSheet startSheet:_userStatus];
 }
 
-- (void)showMainWindow
-{
-	// window fade in
-	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-		context.duration = 1.0;
-		_window.animator.alphaValue = 1;
-	} completionHandler:^{
-		
-	}];
-}
-
 - (NSWindow*)mainWindow
 {
 	return _window;
@@ -1474,13 +1463,136 @@ static char ynPreReady(const char *str)
 	return 'n';
 }
 
-- (IBAction)startNetHack3D:(id)sender
+- (void)mainRun
 {
 	bool isResuming = true;
+	char buf[ BUFSZ ];
 	int fd;
+#ifdef WIZARD
+	if (wizard)
+		Strcpy(plname, "wizard");
+	else
+#endif
+		
+		if(!*plname || !strncmp(plname, "player", 4)
+		   || !strncmp(plname, "games", 4)) {
+			askname();
+		}
+	
+	plnamesuffix();		/* strip suffix from name; calls askname() */
+	/* again if suffix was whole name */
+	/* accepts any suffix */
+	/*
+	 * check for multiple games under the same name
+	 * (if !locknum) or check max nr of players (otherwise)
+	 */
+	(void) signal(SIGQUIT,SIG_IGN);
+	(void) signal(SIGINT,SIG_IGN);
+	if(!locknum) {
+#ifndef GNUSTEP
+		//for OSX (UTF8) File System
+		NSString *lockString;
+		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+		Strcpy(lock, lockString.fileSystemRepresentation);
+#else
+		Sprintf(lock, "%d%s", (int)getuid(), plname);
+#endif
+	}
+	getlock();
+	
+	dlb_init();	/* must be before newgame() */
+	
+	/*
+	 * Initialization of the boundaries of the mazes
+	 * Both boundaries have to be even.
+	 */
+	x_maze_max = COLNO-1;
+	if (x_maze_max % 2)
+		x_maze_max--;
+	y_maze_max = ROWNO-1;
+	if (y_maze_max % 2)
+		y_maze_max--;
+	
+	/*
+	 *  Initialize the vision system.  This must be before mklev() on a
+	 *  new game or before a level restore on a saved game.
+	 */
+	vision_init();
+	
+	//switch_graphics(ASCII_GRAPHICS);
+	display_gamewindows();
+	
+	
+#ifdef TEXTCOLOR
+	iflags.use_color = TRUE;
+#endif
+	
+	if ((fd = restore_saved_game()) >= 0) {
+		isResuming = false;
+		const char *fq_save = fqname(SAVEF, SAVEPREFIX, 1);
+		
+		(void) chmod(fq_save,0);	/* disallow parallel restores */
+		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
+		
+#ifdef NEWS
+		if(iflags.news) {
+			display_file(NEWS, FALSE);
+			iflags.news = FALSE; /* in case dorecover() fails */
+		}
+#endif
+		
+		pline("Restoring save file...");
+		
+		/*
+		 pline("セーブファイルを復元中．．．");
+		 */
+		mark_synch();	/* flush output */
+		if(!dorecover(fd))
+			goto not_recovered;
+		
+		check_special_room(FALSE);
+		wd_message();
+		
+		if (discover || wizard) {
+			if(ynPreReady("Do you want to keep the save file?") == 'n')
+				(void) delete_savefile();
+			else {
+				(void) chmod(fq_save, FCMASK); /* back to readable */
+				//compress(fq_save);
+			}
+		}
+		//flags.move = 0;
+		[_userStatus setPlayerName:[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+	} else {
+	not_recovered:
+		
+		player_selection();
+		
+		newgame();
+		wd_message();
+		//flags.move = 0;
+		set_wear(NULL);
+		(void) pickup(1);
+	}
+	
+	[_userStatus updatePlayer];
+	
+	Sprintf(buf, "%s, level %d", dungeons[u.uz.dnum].dname, depth(&u.uz));
+	/*
+	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
+	 */
+	
+	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
+	CocoaPortIsReady = YES;
+	[_mapModel updateAllMaps];
+	
+	moveloop(isResuming);
+}
+
+- (IBAction)startNetHack3D:(id)sender
+{
 	int argc = NXArgc;
 	char **argv = NXArgv;
-	char buf[ BUFSZ ];
 #ifndef GNUSTEP
 #ifdef CHDIR
 	const char *dir;
@@ -1622,127 +1734,14 @@ static char ynPreReady(const char *str)
 	// Always get the background glyph
 	iflags.use_background_glyph = TRUE;
 	
-	[self showMainWindow];
-	
-#ifdef WIZARD
-	if (wizard)
-		Strcpy(plname, "wizard");
-	else
-#endif
-		
-		if(!*plname || !strncmp(plname, "player", 4)
-		   || !strncmp(plname, "games", 4)) {
-			askname();
-		}
-	
-	plnamesuffix();		/* strip suffix from name; calls askname() */
-	/* again if suffix was whole name */
-	/* accepts any suffix */
-	/*
-	 * check for multiple games under the same name
-	 * (if !locknum) or check max nr of players (otherwise)
-	 */
-	(void) signal(SIGQUIT,SIG_IGN);
-	(void) signal(SIGINT,SIG_IGN);
-	if(!locknum) {
-#ifndef GNUSTEP
-		//for OSX (UTF8) File System
-		NSString *lockString;
-		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
-		Strcpy(lock, lockString.fileSystemRepresentation);
-#else
-		Sprintf(lock, "%d%s", (int)getuid(), plname);
-#endif
-	}
-	getlock();
-	
-	dlb_init();	/* must be before newgame() */
-	
-	/*
-	 * Initialization of the boundaries of the mazes
-	 * Both boundaries have to be even.
-	 */
-	x_maze_max = COLNO-1;
-	if (x_maze_max % 2)
-		x_maze_max--;
-	y_maze_max = ROWNO-1;
-	if (y_maze_max % 2)
-		y_maze_max--;
-	
-	/*
-	 *  Initialize the vision system.  This must be before mklev() on a
-	 *  new game or before a level restore on a saved game.
-	 */
-	vision_init();
-	
-	//switch_graphics(ASCII_GRAPHICS);
-	display_gamewindows();
-	
-	
-#ifdef TEXTCOLOR
-	iflags.use_color = TRUE;
-#endif
-	
-	if ((fd = restore_saved_game()) >= 0) {
-		isResuming = false;
-		const char *fq_save = fqname(SAVEF, SAVEPREFIX, 1);
-		
-		(void) chmod(fq_save,0);	/* disallow parallel restores */
-		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
-		
-#ifdef NEWS
-		if(iflags.news) {
-			display_file(NEWS, FALSE);
-			iflags.news = FALSE; /* in case dorecover() fails */
-		}
-#endif
-		
-		pline("Restoring save file...");
-		
-		/*
-		 pline("セーブファイルを復元中．．．");
-		 */
-		mark_synch();	/* flush output */
-		if(!dorecover(fd))
-			goto not_recovered;
-		
-		check_special_room(FALSE);
-		wd_message();
-		
-		if (discover || wizard) {
-			if(ynPreReady("Do you want to keep the save file?") == 'n')
-				(void) delete_savefile();
-			else {
-				(void) chmod(fq_save, FCMASK); /* back to readable */
-				//compress(fq_save);
-			}
-		}
-		//flags.move = 0;
-		[_userStatus setPlayerName:[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
-	} else {
-	not_recovered:
-		
-		player_selection();
-		
-		newgame();
-		wd_message();
-		//flags.move = 0;
-		set_wear(NULL);
-		(void) pickup(1);
-	}
-	
-	[_userStatus updatePlayer];
-	
-	Sprintf(buf, "%s, level %d", dungeons[u.uz.dnum].dname, depth(&u.uz));
-	/*
-	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
-	 */
-	
-	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
-	CocoaPortIsReady = YES;
-	[_mapModel updateAllMaps];
-	
-	moveloop(isResuming);
+	// window fade in
+	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+		context.duration = 0.7;
+		_window.animator.alphaValue = 1;
+	} completionHandler:^{
+		/* I could only get this to play nicely when told to perform as a selector*/
+		[self performSelector:@selector(mainRun) withObject:nil afterDelay:0.01];
+	}];
 }
 
 @end
