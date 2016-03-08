@@ -1614,8 +1614,8 @@ extern BOOL CocoaPortIsReady;
 					attributes[NSShadowAttributeName] = lshadow;
 					
 					[mapcell.symbol drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-															  imgSize.height - (drawSize.height * (CGFloat)y))
-							    withAttributes:attributes];
+															imgSize.height - (drawSize.height * (CGFloat)y))
+								 withAttributes:attributes];
 					
 					[attributes removeAllObjects];
 				}
@@ -1661,6 +1661,8 @@ extern BOOL CocoaPortIsReady;
 				[NSGraphicsContext restoreGraphicsState];
 			} // end for y
 		} // end for x
+
+		drawSize = NSMakeSize((TILED_LEVELMAP) ? TILE_SIZE_X : NH3DMAPFONTSIZE, (TILED_LEVELMAP) ? TILE_SIZE_Y : NH3DMAPFONTSIZE);
 		
 		// draw direction symbol
 		[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
@@ -1675,8 +1677,9 @@ extern BOOL CocoaPortIsReady;
 		_mapLview.image = mapImage;
 		
 		// Scroll to Cursor Postion (shift 7 tiles added to Right)
-		[_mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
-										   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)))];
+		NSPoint newpt = NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
+									imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)));
+		[_mapLview scrollPoint:newpt];
 	}
 	
 	// Sheet is Up.
