@@ -940,8 +940,6 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)updatePlayer
 {
-	//const char* hung = hu_stat[u.uhs];
-	
 	[self setPlayerClass:[NSString stringWithFormat:NSLocalizedString(@"the %@", @""),
 						  [NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
 											 encoding:NH3DTEXTENCODING]]];

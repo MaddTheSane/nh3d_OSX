@@ -2797,15 +2797,16 @@
                 <string>playerSubWeaponString</string>
                 <string>playerAmuletString</string>
                 <string>playerBlindFoldString</string>
+                <string>stLoad</string>
             </declaredKeys>
             <connections>
                 <outlet property="content" destination="4755" id="4805"/>
             </connections>
         </objectController>
-        <drawer preferredEdge="minY" leadingOffset="160" trailingOffset="160" id="4999" userLabel="StatusDrawer">
-            <size key="contentSize" width="464" height="75"/>
-            <size key="minContentSize" width="464" height="75"/>
-            <size key="maxContentSize" width="464" height="75"/>
+        <drawer preferredEdge="minY" leadingOffset="130" trailingOffset="130" id="4999" userLabel="StatusDrawer">
+            <size key="contentSize" width="528" height="75"/>
+            <size key="minContentSize" width="528" height="75"/>
+            <size key="maxContentSize" width="528" height="75"/>
             <connections>
                 <outlet property="contentView" destination="5000" id="5009"/>
                 <outlet property="delegate" destination="5089" id="5772"/>
@@ -2813,101 +2814,116 @@
             </connections>
         </drawer>
         <customView id="5000" userLabel="StatusView">
-            <rect key="frame" x="0.0" y="0.0" width="462" height="67"/>
+            <rect key="frame" x="0.0" y="0.0" width="526" height="67"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <imageView toolTip="Hallucinating" translatesAutoresizingMaskIntoConstraints="NO" id="5018" userLabel="Hallucinating">
-                    <rect key="frame" x="392" y="3" width="62" height="62"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hallu0" id="6940"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stHallu" id="5193"/>
-                    </connections>
-                </imageView>
-                <imageView toolTip="Stunned" translatesAutoresizingMaskIntoConstraints="NO" id="5017" userLabel="Stunned">
-                    <rect key="frame" x="328" y="3" width="62" height="62"/>
+                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jt1-iU-EBU">
+                    <rect key="frame" x="8" y="0.0" width="510" height="65"/>
+                    <subviews>
+                        <imageView toolTip="Hunger" translatesAutoresizingMaskIntoConstraints="NO" id="5012" userLabel="Hungry">
+                            <rect key="frame" x="0.0" y="3" width="62" height="62"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="62" id="SJb-ue-hud"/>
+                                <constraint firstAttribute="width" constant="62" id="nbm-ky-dbX"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hunger0" id="6934"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stHunger" id="5466"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Confused" translatesAutoresizingMaskIntoConstraints="NO" id="5013" userLabel="Confused">
+                            <rect key="frame" x="64" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Confuse0" id="6935"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stConfuse" id="5188"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Sick" translatesAutoresizingMaskIntoConstraints="NO" id="5014" userLabel="Sick">
+                            <rect key="frame" x="128" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Sick0" id="6936"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stSick" id="5189"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Ill" translatesAutoresizingMaskIntoConstraints="NO" id="5015" userLabel="Ill">
+                            <rect key="frame" x="192" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Ill0" id="6937"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stIll" id="5190"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Blind" translatesAutoresizingMaskIntoConstraints="NO" id="5016" userLabel="Blind">
+                            <rect key="frame" x="256" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blind0" id="6938"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stBlind" id="5191"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Stunned" translatesAutoresizingMaskIntoConstraints="NO" id="5017" userLabel="Stunned">
+                            <rect key="frame" x="320" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Stun0" id="6939"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stStun" id="5192"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Hallucinating" translatesAutoresizingMaskIntoConstraints="NO" id="eUY-GY-Zq8" userLabel="Hallucinating">
+                            <rect key="frame" x="384" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hallu0" id="e0V-lr-lVg"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stHallu" id="9gY-pC-WAm"/>
+                            </connections>
+                        </imageView>
+                        <imageView toolTip="Load" translatesAutoresizingMaskIntoConstraints="NO" id="5018" userLabel="Load">
+                            <rect key="frame" x="448" y="3" width="62" height="62"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Load0" id="6940"/>
+                            <connections>
+                                <binding destination="4761" name="value" keyPath="selection.stLoad" id="aEW-xX-QZd"/>
+                            </connections>
+                        </imageView>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="width" constant="62" id="nhH-li-ir9"/>
+                        <constraint firstItem="5015" firstAttribute="width" secondItem="5012" secondAttribute="width" id="9ii-So-57J"/>
+                        <constraint firstItem="5014" firstAttribute="height" secondItem="5012" secondAttribute="height" id="BW1-Bu-c73"/>
+                        <constraint firstItem="5018" firstAttribute="height" secondItem="5012" secondAttribute="height" id="KMe-1h-Rwb"/>
+                        <constraint firstItem="5017" firstAttribute="width" secondItem="5012" secondAttribute="width" id="Ler-6X-kS2"/>
+                        <constraint firstItem="5013" firstAttribute="width" secondItem="5012" secondAttribute="width" id="OaU-9K-JV2"/>
+                        <constraint firstItem="5016" firstAttribute="height" secondItem="5012" secondAttribute="height" id="QWn-dr-PgF"/>
+                        <constraint firstItem="5018" firstAttribute="width" secondItem="5012" secondAttribute="width" id="eFv-YW-npf"/>
+                        <constraint firstItem="eUY-GY-Zq8" firstAttribute="width" secondItem="5012" secondAttribute="width" id="ecV-wZ-rnT"/>
+                        <constraint firstItem="5013" firstAttribute="height" secondItem="5012" secondAttribute="height" id="fB6-Ns-4iF"/>
+                        <constraint firstItem="5014" firstAttribute="width" secondItem="5012" secondAttribute="width" id="ong-C8-jMA"/>
+                        <constraint firstItem="5015" firstAttribute="height" secondItem="5012" secondAttribute="height" id="tDl-27-s4U"/>
+                        <constraint firstItem="5016" firstAttribute="width" secondItem="5012" secondAttribute="width" id="vv8-hJ-l8k"/>
+                        <constraint firstItem="eUY-GY-Zq8" firstAttribute="height" secondItem="5012" secondAttribute="height" id="wQ2-4x-l1L"/>
+                        <constraint firstItem="5017" firstAttribute="height" secondItem="5012" secondAttribute="height" id="x5Y-So-lFs"/>
                     </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Stun0" id="6939"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stStun" id="5192"/>
-                    </connections>
-                </imageView>
-                <imageView toolTip="Blind" translatesAutoresizingMaskIntoConstraints="NO" id="5016" userLabel="Blind">
-                    <rect key="frame" x="264" y="3" width="62" height="62"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="62" id="c9q-sO-4VR"/>
-                    </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blind0" id="6938"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stBlind" id="5191"/>
-                    </connections>
-                </imageView>
-                <imageView toolTip="Ill" translatesAutoresizingMaskIntoConstraints="NO" id="5015" userLabel="Ill">
-                    <rect key="frame" x="200" y="3" width="62" height="62"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="62" id="cwD-Uf-r0L"/>
-                    </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Ill0" id="6937"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stIll" id="5190"/>
-                    </connections>
-                </imageView>
-                <imageView toolTip="Sick" translatesAutoresizingMaskIntoConstraints="NO" id="5014" userLabel="Sick">
-                    <rect key="frame" x="136" y="3" width="62" height="62"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="62" id="EvC-SD-bVH"/>
-                    </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Sick0" id="6936"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stSick" id="5189"/>
-                    </connections>
-                </imageView>
-                <imageView toolTip="Confused" translatesAutoresizingMaskIntoConstraints="NO" id="5013" userLabel="Confused">
-                    <rect key="frame" x="72" y="3" width="62" height="62"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="62" id="QyZ-1q-oa9"/>
-                    </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Confuse0" id="6935"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stConfuse" id="5188"/>
-                    </connections>
-                </imageView>
-                <imageView toolTip="Hunger" translatesAutoresizingMaskIntoConstraints="NO" id="5012" userLabel="Hungry">
-                    <rect key="frame" x="8" y="3" width="62" height="62"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="62" id="SJb-ue-hud"/>
-                        <constraint firstAttribute="width" constant="62" id="nbm-ky-dbX"/>
-                    </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hunger0" id="6934"/>
-                    <connections>
-                        <binding destination="4761" name="value" keyPath="selection.stHunger" id="5466"/>
-                    </connections>
-                </imageView>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="5016" firstAttribute="bottom" secondItem="5017" secondAttribute="bottom" id="53w-P0-PFF"/>
-                <constraint firstItem="5012" firstAttribute="top" secondItem="5013" secondAttribute="top" id="9lx-Dr-cMI"/>
-                <constraint firstItem="5014" firstAttribute="bottom" secondItem="5015" secondAttribute="bottom" id="BAs-vG-GfS"/>
-                <constraint firstItem="5015" firstAttribute="leading" secondItem="5014" secondAttribute="trailing" constant="2" id="FDe-yS-nWx"/>
-                <constraint firstItem="5014" firstAttribute="leading" secondItem="5013" secondAttribute="trailing" constant="2" id="LAQ-8Q-AFO"/>
-                <constraint firstItem="5017" firstAttribute="bottom" secondItem="5018" secondAttribute="bottom" id="O0r-Cc-cGw"/>
-                <constraint firstItem="5012" firstAttribute="leading" secondItem="5000" secondAttribute="leading" constant="8" id="RG6-8J-cwm"/>
-                <constraint firstAttribute="trailing" secondItem="5018" secondAttribute="trailing" constant="8" id="UDL-wB-Svc"/>
-                <constraint firstItem="5013" firstAttribute="leading" secondItem="5012" secondAttribute="trailing" constant="2" id="ULJ-qk-qlJ"/>
-                <constraint firstItem="5016" firstAttribute="leading" secondItem="5015" secondAttribute="trailing" constant="2" id="WCR-1W-Ztz"/>
-                <constraint firstItem="5018" firstAttribute="centerY" secondItem="5000" secondAttribute="centerY" id="Zir-0P-fh8"/>
-                <constraint firstItem="5013" firstAttribute="top" secondItem="5014" secondAttribute="top" id="ab6-eB-ANy"/>
-                <constraint firstItem="5014" firstAttribute="bottom" secondItem="5013" secondAttribute="bottom" id="akc-U2-rvj"/>
-                <constraint firstItem="5016" firstAttribute="top" secondItem="5017" secondAttribute="top" id="eeW-i6-tgW"/>
-                <constraint firstItem="5018" firstAttribute="top" secondItem="5017" secondAttribute="top" id="eiv-7a-Ayn"/>
-                <constraint firstItem="5015" firstAttribute="centerX" secondItem="5000" secondAttribute="centerX" id="f30-Xg-ehW"/>
-                <constraint firstItem="5014" firstAttribute="top" secondItem="5015" secondAttribute="top" id="iIc-Uo-rRN"/>
-                <constraint firstItem="5016" firstAttribute="top" secondItem="5015" secondAttribute="top" id="mGq-aI-tUj"/>
-                <constraint firstItem="5013" firstAttribute="bottom" secondItem="5012" secondAttribute="bottom" id="mQ7-ew-EF6"/>
-                <constraint firstItem="5017" firstAttribute="leading" secondItem="5016" secondAttribute="trailing" constant="2" id="pzL-ye-Gbz"/>
-                <constraint firstItem="5016" firstAttribute="bottom" secondItem="5015" secondAttribute="bottom" id="yX8-oo-TpD"/>
-                <constraint firstItem="5018" firstAttribute="leading" secondItem="5017" secondAttribute="trailing" constant="2" id="z6i-kz-Fxp"/>
+                <constraint firstItem="Jt1-iU-EBU" firstAttribute="top" secondItem="5000" secondAttribute="top" constant="2" id="OBx-zr-TuN"/>
+                <constraint firstAttribute="trailing" secondItem="Jt1-iU-EBU" secondAttribute="trailing" constant="8" id="UAt-ik-Man"/>
+                <constraint firstAttribute="bottom" secondItem="Jt1-iU-EBU" secondAttribute="bottom" id="lQM-Nu-dn0"/>
+                <constraint firstItem="Jt1-iU-EBU" firstAttribute="leading" secondItem="5000" secondAttribute="leading" constant="8" id="wCE-Zy-UmQ"/>
             </constraints>
         </customView>
         <customObject id="5089" userLabel="NH3DBindController" customClass="NH3DBindController">
@@ -4660,6 +4676,7 @@ DQ
         <image name="Hallu0" width="65" height="65"/>
         <image name="Hunger0" width="65" height="65"/>
         <image name="Ill0" width="65" height="65"/>
+        <image name="Load0" width="40" height="40"/>
         <image name="Lowful0" width="48" height="48"/>
         <image name="Newtral0" width="48" height="48"/>
         <image name="ScrollPaper" width="487" height="518"/>
