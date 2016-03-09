@@ -161,9 +161,9 @@ typedef struct {
 /*! faces */
 @property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER;
 /*! OBJ face optional texture reference */
-@property (readonly) NH3DFaceType * _Nullable texReference NS_RETURNS_INNER_POINTER;
+@property (readonly) NH3DFaceType *texReference NS_RETURNS_INNER_POINTER;
 /*! OBJ face optional normal reference */
-@property (readonly) NH3DFaceType * _Nullable normReference NS_RETURNS_INNER_POINTER;
+@property (readonly) NH3DFaceType *normReference NS_RETURNS_INNER_POINTER;
 /*! TextureCoords */
 @property (readonly) NH3DMapCoordType *texcoords NS_RETURNS_INNER_POINTER;
 

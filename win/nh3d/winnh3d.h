@@ -94,7 +94,7 @@ void nethack3d_exit(int status);
 #ifndef GNUSTEP
 void nh3d_set_savefile_name();
 #endif
-@interface NH3DBindController : NSObject <NSApplicationDelegate> {
+@interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
 
 	IBOutlet NSWindow *_window;
 	IBOutlet NSMenu  *_mainMenu;

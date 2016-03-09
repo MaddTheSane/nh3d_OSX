@@ -24,7 +24,6 @@
 	NSMutableParagraphStyle  *style;
 	
 	NSMutableDictionary *playerParams;
-
 	
 	NSString *playerName;
 	NSString *playerClass;
@@ -52,8 +51,7 @@
 	int playerPow;
 	int playerAc;
 	int playerLv;
-
-
+	
 	NSImage *playerArmour;
 	NSImage *playerCloak;
 	NSImage *playerHelmet;
@@ -66,7 +64,6 @@
 	NSImage *playerSubWeapon;
 	NSImage *playerAmulet;
 	NSImage *playerBlindFold;
-	
 	
 	char stHunger;
 	BOOL stConfuse;
@@ -93,7 +90,7 @@
 	BOOL chaosIcon;
 	
 	BOOL firstTime;
-		
+	
 //	NSLock *lock;
 }
 

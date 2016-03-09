@@ -13,7 +13,7 @@ import Foundation
 
 let GLYPH_PET_OFF: Int32 =		(NUMMONS	+ GLYPH_MON_OFF)
 let GLYPH_INVIS_OFF: Int32 =	(NUMMONS	+ GLYPH_PET_OFF)
-let GLYPH_DETECT_OFF: Int32 =	(1		+ GLYPH_INVIS_OFF)
+let GLYPH_DETECT_OFF: Int32 =	(1			+ GLYPH_INVIS_OFF)
 let GLYPH_BODY_OFF: Int32 =		(NUMMONS	+ GLYPH_DETECT_OFF)
 let GLYPH_RIDDEN_OFF: Int32 =	(NUMMONS	+ GLYPH_BODY_OFF)
 let GLYPH_OBJ_OFF: Int32 =		(NUMMONS	+ GLYPH_RIDDEN_OFF)
@@ -207,11 +207,12 @@ func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_air_level)
 }
 
+/// returns `true` if the passed in level is on the astral plain
 func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_astral_level) 
 }
 
-
+/// Print to the console.
 func raw_print(str: UnsafePointer<CChar>) {
 	windowprocs.win_raw_print(str)
 }

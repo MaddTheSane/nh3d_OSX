@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) int modelDrawingType;
 
-
+/// Returns \c YES if the tile has a corpse.
 @property (readonly, getter=isCorpse) BOOL corpse;
 
 @property (readonly, getter=isInvis) BOOL invis;
@@ -68,10 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) BOOL wasRidden;
 
-
 /// Returns \c YES if there is a pile of objects on the block.
 @property (readonly, getter=isPile) BOOL pile;
-
 
 @end
 

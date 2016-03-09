@@ -119,22 +119,23 @@ process_options(int argc, char *argv[])
 	/*
 	 * Process options.
 	 */
-	while(argc > 1 && argv[ 1 ][ 0 ] == '-'){
+	while (argc > 1 && argv[1][0] == '-') {
 		argv++;
 		argc--;
 		l = (int) strlen(*argv);
 		/* must supply at least 4 chars to match "-XXXgraphics" */
 		if (l < 4)
 			l = 4;
-		switch(argv[ 0 ][ 1 ]){
+		switch (argv[ 0 ][ 1 ]){
 			case 'D':
 			case 'd':
 				if ((argv[0][1] == 'D' && !argv[0][2])
 					|| !strcmpi(*argv, "-debug")) {
 					wizard = TRUE, discover = FALSE;
 				} else if (!strncmpi(*argv, "-DECgraphics", l)) {
-					load_symset("DECGraphics", PRIMARY);
-					switch_symbols(TRUE);
+					raw_print("-DECgraphics aren't supported on this windowing system.");
+					//load_symset("DECGraphics", PRIMARY);
+					//switch_symbols(TRUE);
 				} else {
 					//raw_printf("Unknown option: %s", *argv);
 				}
@@ -149,18 +150,18 @@ process_options(int argc, char *argv[])
 				break;
 #endif
 			case 'u':
-				if(argv[ 0 ][ 2 ])
+				if (argv[0][2])
 					(void) strncpy(plname, argv[ 0 ]+2, sizeof(plname)-1);
-				else if(argc > 1) {
+				else if (argc > 1) {
 					argc--;
 					argv++;
-					(void) strncpy(plname, argv[ 0 ], sizeof(plname)-1);
+					(void) strncpy(plname, argv[0], sizeof(plname)-1);
 				} else
 					raw_print("Player name expected after -u");
 				break;
 			case 'I':
 			case 'i':
-				if (!strncmpi(argv[ 0 ]+1, "IBM", 3)) {
+				if (!strncmpi(argv[0]+1, "IBM", 3)) {
 					load_symset("IBMGraphics", PRIMARY);
 					load_symset("RogueIBM", ROGUESET);
 					switch_symbols(TRUE);
@@ -200,10 +201,10 @@ process_options(int argc, char *argv[])
 		}
 	}
 	
-	if(argc > 1)
+	if (argc > 1)
 		locknum = atoi(argv[ 1 ]);
 #ifdef MAX_NR_OF_PLAYERS
-	if(!locknum || locknum > MAX_NR_OF_PLAYERS)
+	if (!locknum || locknum > MAX_NR_OF_PLAYERS)
 		locknum = MAX_NR_OF_PLAYERS;
 #endif
 }
@@ -880,11 +881,11 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			}
 		}
 		
-		if(result == NSAlertFirstButtonReturn && ynfunc) {
+		if (result == NSAlertFirstButtonReturn && ynfunc) {
 			yn = 'y';
-		} else if(result == NSAlertSecondButtonReturn && ynfunc) {
+		} else if (result == NSAlertSecondButtonReturn && ynfunc) {
 			yn = 'n';
-		} else if(result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
+		} else if (result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
 			yn = 'q';
 		} else if (result == NSAlertThirdButtonReturn + 1 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
 			yn = 'a';
@@ -918,7 +919,7 @@ int nh3d_get_ext_cmd()
 {
 	@autoreleasepool {
 		int ret = _NH3DKeyBuffer.extendKey;
-		if (ret != -1 ) {
+		if (ret != -1) {
 			_NH3DKeyBuffer.extendKey = -1;
 			return ret;
 		} else {
@@ -1134,7 +1135,7 @@ void nh3d_putmsghistory(const char*msg, boolean is_restoring)
 
 void nh3d_preference_update(const char *pref)
 {
-	genl_preference_update(pref);
+	//genl_preference_update(pref);
 }
 
 static void
@@ -1466,7 +1467,7 @@ static char ynPreReady(const char *str)
 - (void)mainRun
 {
 	bool isResuming = true;
-	char buf[ BUFSZ ];
+	char buf[BUFSZ];
 	int fd;
 #ifdef WIZARD
 	if (wizard)
@@ -1474,7 +1475,7 @@ static char ynPreReady(const char *str)
 	else
 #endif
 		
-		if(!*plname || !strncmp(plname, "player", 4)
+		if (!*plname || !strncmp(plname, "player", 4)
 		   || !strncmp(plname, "games", 4)) {
 			askname();
 		}
@@ -1488,7 +1489,7 @@ static char ynPreReady(const char *str)
 	 */
 	(void) signal(SIGQUIT,SIG_IGN);
 	(void) signal(SIGINT,SIG_IGN);
-	if(!locknum) {
+	if (!locknum) {
 #ifndef GNUSTEP
 		//for OSX (UTF8) File System
 		NSString *lockString;
@@ -1535,7 +1536,7 @@ static char ynPreReady(const char *str)
 		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
 		
 #ifdef NEWS
-		if(iflags.news) {
+		if (iflags.news) {
 			display_file(NEWS, FALSE);
 			iflags.news = FALSE; /* in case dorecover() fails */
 		}
@@ -1547,14 +1548,14 @@ static char ynPreReady(const char *str)
 		 pline("セーブファイルを復元中．．．");
 		 */
 		mark_synch();	/* flush output */
-		if(!dorecover(fd))
+		if (!dorecover(fd))
 			goto not_recovered;
 		
 		check_special_room(FALSE);
 		wd_message();
 		
 		if (discover || wizard) {
-			if(ynPreReady("Do you want to keep the save file?") == 'n')
+			if (ynPreReady("Do you want to keep the save file?") == 'n')
 				(void) delete_savefile();
 			else {
 				(void) chmod(fq_save, FCMASK); /* back to readable */
@@ -1656,7 +1657,7 @@ static char ynPreReady(const char *str)
 	dir = aURL.fileSystemRepresentation;
 #endif
 	
-	if(argc > 1) {
+	if (argc > 1) {
 #ifdef CHDIR
 		if (!strncmp(argv[ 1 ], "-d", 2) && argv[ 1 ][ 2 ] != 'e') {
 			/* avoid matching "-dec" for DECgraphics; since the man page
@@ -1665,13 +1666,14 @@ static char ynPreReady(const char *str)
 			argc--;
 			argv++;
 			dir = argv[ 0 ]+2;
-			if(*dir == '=' || *dir == ':') dir++;
-			if(!*dir && argc > 1) {
+			if (*dir == '=' || *dir == ':')
+				dir++;
+			if (!*dir && argc > 1) {
 				argc--;
 				argv++;
 				dir = argv[ 0 ];
 			}
-			if(!*dir)
+			if (!*dir)
 				error("Flag -d must be followed by a directory name.");
 		}
 		if (argc > 1)
