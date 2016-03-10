@@ -716,18 +716,18 @@ void nh3d_print_glyph(winid wid, xchar x, xchar y, int glyph, int under)
 
 void nh3d_raw_print(const char *str)
 {
+	fprintf(stderr, "%s\n", str);
 	@autoreleasepool {
 		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
-		fprintf(stderr, "%s\n", str);
 		[_NH3DMessenger putLogMessage:aStr bold:NO];
 	}
 }
 
 void nh3d_raw_print_bold(const char *str)
 {
+	fprintf(stderr, "%s\n", str);
 	@autoreleasepool {
 		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
-		fprintf(stderr, "%s\n", str);
 		[_NH3DMessenger putLogMessage:aStr bold:YES];
 	}
 }
@@ -983,9 +983,8 @@ void nh3d_outrip(winid wid, int how, time_t when)
 		
 		_NH3DMenuWindow.doneRip = YES;
 		
-		Sprintf(buf, "%s\n", plname);
-		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
-		//Strcat(ripString, buf);
+		[ripString appendString:[NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+		[ripString appendString:@"\n"];
 		
 		/* Put $ on stone */
 		Sprintf(buf, "%ld Gold\n", done_money);

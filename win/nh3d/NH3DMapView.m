@@ -244,7 +244,9 @@ extern BOOL CocoaPortIsReady;
 	
 	for (int x = MAP_MARGIN; x < MAPSIZE_COLUMN - MAP_MARGIN; x++) {
 		for (int y = MAP_MARGIN; y < MAPSIZE_ROW - MAP_MARGIN; y++) {
-			[self drawTraditionalMapAtX:x atY:y];
+			@autoreleasepool {
+				[self drawTraditionalMapAtX:x atY:y];
+			}
 		}
 	}
 }

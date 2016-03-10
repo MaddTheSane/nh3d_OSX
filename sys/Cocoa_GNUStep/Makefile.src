@@ -873,7 +873,7 @@ xshmmap.o: ../win/gtk/xshmmap.c ../include/hack.h ../include/winGTK.h
 xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
 NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m NetHack3D-Swift.h
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObject.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DModelObject.m
 Cocoa-compat.o: ../win/nh3d/compat/Cocoa-compat.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/compat/Cocoa-compat.m
 qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \

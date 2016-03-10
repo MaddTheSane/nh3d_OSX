@@ -3006,6 +3006,7 @@
 				"$(SRCROOT)/../../include/onames.h",
 				"$(SRCROOT)/../../include/pm.h",
 				"$(SRCROOT)/../../include/vis_tab.h",
+				"$(SRCROOT)/../../include/config.h",
 			);
 			outputPaths = (
 				"$(SRCROOT)/../../src/tile.c",
@@ -3044,6 +3045,7 @@
 				"$(SRCROOT)/../../util/makedefs.c",
 				"$(SRCROOT)/../../util/panic.c",
 				"$(SRCROOT)/../../src/alloc.c",
+				"$(SRCROOT)/../../include/config.h",
 			);
 			outputPaths = (
 				"$(SRCROOT)/../../include/lev_comp.h",
@@ -3081,6 +3083,7 @@
 				"$(SRCROOT)/../../util/makedefs",
 				"$(SRCROOT)/../../util/lev_comp",
 				"$(SRCROOT)/../../util/dgn_comp",
+				"$(SRCROOT)/../../include/config.h",
 			);
 			outputPaths = (
 				"$(SRCROOT)/../../dat/Arc-fila.lev",
