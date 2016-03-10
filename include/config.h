@@ -318,7 +318,9 @@
  *      a tar-like file, thus making a neater installation.  See *conf.h
  *      for detailed configuration.
  */
-/* #define DLB */ /* not supported on all platforms */
+#define DLB /* not supported on all platforms */
+extern const char *nh3d_playground();
+#define VAR_PLAYGROUND nh3d_playground()
 
 /*
  *      Defining INSURANCE slows down level changes, but allows games that

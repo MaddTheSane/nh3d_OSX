@@ -1781,3 +1781,8 @@ boolean add_effect_mapping(const char *mesgTxt)
 		return false;
 	}
 }
+
+const char *nh3d_playground()
+{
+	return [[[NSBundle mainBundle] resourceURL] fileSystemRepresentation];
+}
