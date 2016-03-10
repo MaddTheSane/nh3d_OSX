@@ -8,12 +8,14 @@
 
 #import "NH3DMapItem.h"
 #import "NH3DTileCache.h"
+#import <QuartzCore/QuartzCore.h>
 
 /*from winnh3d.m*/
 extern NH3DTileCache *_NH3DTileCache;
 
 @implementation NH3DMapItem {
 	NSRecursiveLock *lock;
+	NSImage *tile;
 }
 
 @synthesize player;
@@ -321,6 +323,9 @@ extern NH3DTileCache *_NH3DTileCache;
 - (NSImage *)tile
 {
 #if 1
+	if (tile) {
+		return tile;
+	}
 	NSImage *tmpTile = self.foregroundTile;
 	if (!tmpTile) {
 		return nil;
@@ -331,13 +336,18 @@ extern NH3DTileCache *_NH3DTileCache;
 		bgtile = self.backgroundTile;
 	}
 	if (bgtile != nil) {
-		NSImage *tmpFG = tmpTile;
-		tmpTile = [bgtile copy];
-		[tmpTile lockFocus];
-		[tmpFG drawInRect:NSMakeRect(0, 0, tmpTile.size.width, tmpTile.size.height)];
-		[tmpTile unlockFocus];
+		NSImage *img = [[NSImage alloc] initWithSize:tmpTile.size];
+		[img lockFocus];
+		CIContext *ciCtx = [CIContext contextWithCGContext:[NSGraphicsContext currentContext].CGContext options:nil];
+		CIImage *tmpFG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[tmpTile representations] firstObject]];
+		CIImage *tmpBG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[bgtile representations] firstObject]];
+		[ciCtx drawImage:tmpBG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
+		[ciCtx drawImage:tmpFG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
+		[img unlockFocus];
+		tmpTile = img;
 	}
 	
+	tile = tmpTile;
 	return tmpTile;
 #else
 	return [self foregroundTile];

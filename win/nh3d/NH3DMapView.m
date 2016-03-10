@@ -216,7 +216,7 @@ extern BOOL CocoaPortIsReady;
 
  - (void)resetCursorRects
 {
-	NSRect rect = self.bounds ;
+	NSRect rect = self.bounds;
 	NSCursor* cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
 											   hotSpot:NSMakePoint(7, 7)];
 	[self addCursorRect:rect cursor:cursor];
@@ -327,7 +327,7 @@ extern BOOL CocoaPortIsReady;
 		[trMapImage unlockFocus];
 	}
 	
-	[_mapModel mapArrayAtX:x atY:y];
+	//[_mapModel mapArrayAtX:x atY:y];
 }
 
 - (void)updateMap

@@ -1709,7 +1709,6 @@ static char ynPreReady(const char *str)
 	 */
 	//	setrandom();
 	
-	iflags.hilite_pile = true;
 	initoptions();
 	init_nhwindows(&argc,argv);
 	[_NH3DBindController loadNethackOptions];
