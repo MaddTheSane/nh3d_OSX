@@ -718,10 +718,7 @@ void nh3d_raw_print(const char *str)
 {
 	@autoreleasepool {
 		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
-//#if DEBUG
-#if 1
-		NSLog(@"%@", aStr);
-#endif
+		fprintf(stderr, "%s\n", str);
 		[_NH3DMessenger putLogMessage:aStr bold:NO];
 	}
 }
@@ -730,10 +727,7 @@ void nh3d_raw_print_bold(const char *str)
 {
 	@autoreleasepool {
 		NSString *aStr = [[NSString alloc] initWithCString:str encoding:NH3DTEXTENCODING];
-//#if DEBUG
-#if 1
-		NSLog(@"%@", aStr);
-#endif
+		fprintf(stderr, "%s\n", str);
 		[_NH3DMessenger putLogMessage:aStr bold:YES];
 	}
 }
