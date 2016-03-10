@@ -44,6 +44,7 @@ extern BOOL CocoaPortIsReady;
 @property (copy) NSImage *stackIcon;
 @property int centerX;
 @property int centerY;
+- (void)drawTraditionalMapInContextAtX:(int)x atY:(int)y;
 @end
 
 @implementation NH3DMapView
@@ -242,17 +243,35 @@ extern BOOL CocoaPortIsReady;
 																   NH3DMAPFONTSIZE*MAPSIZE_ROW)];
 	}
 	
+	[trMapImage lockFocus];
 	for (int x = MAP_MARGIN; x < MAPSIZE_COLUMN - MAP_MARGIN; x++) {
 		for (int y = MAP_MARGIN; y < MAPSIZE_ROW - MAP_MARGIN; y++) {
 			@autoreleasepool {
-				[self drawTraditionalMapAtX:x atY:y];
+				[self drawTraditionalMapInContextAtX:x atY:y];
 			}
 		}
 	}
+	[trMapImage unlockFocus];
 }
 
 - (void)drawTraditionalMapAtX:(int)x atY:(int)y
 {
+	// oops, we're not ready.
+	if (!trMapImage) {
+		return;
+	}
+
+	[trMapImage lockFocus];
+	[self drawTraditionalMapInContextAtX:x atY:y];
+	[trMapImage unlockFocus];
+}
+
+- (void)drawTraditionalMapInContextAtX:(int)x atY:(int)y
+{
+	// oops, we're not ready.
+	if (!trMapImage) {
+		return;
+	}
 	NSRect bounds = NSMakeRect(0, 0, trMapImage.size.width, trMapImage.size.height);
 	NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 	
@@ -261,8 +280,6 @@ extern BOOL CocoaPortIsReady;
 		NSSize tileSize = tileImg.size;
 		
 		if (tileImg != nil) {
-			[trMapImage lockFocus];
-			
 			[[NSColor clearColor] set];
 			NSRectFill(NSMakeRect(bounds.origin.x + (x*TILE_SIZE_X),
 								  (NSMaxY(bounds) - (y*TILE_SIZE_Y)),
@@ -275,8 +292,6 @@ extern BOOL CocoaPortIsReady;
 										   tileSize.width, tileSize.height)
 					  operation:NSCompositeSourceOver
 					   fraction:1.0];
-										
-			[trMapImage unlockFocus];
 		}
 	} else if (mapItem != nil) {
 		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
@@ -312,8 +327,6 @@ extern BOOL CocoaPortIsReady;
 			attributes[NSShadowAttributeName] = lshadow;
 		}
 		
-		[trMapImage lockFocus];
-		
 		[[NSColor clearColor] set];
 		NSRectFill(NSMakeRect(bounds.origin.x+(x*fontsize),
 							  (NSMaxY(bounds)-(y*fontsize)),
@@ -323,8 +336,6 @@ extern BOOL CocoaPortIsReady;
 												(NSMaxY(bounds)+drawMargin-(y*fontsize)),
 												fontsize, fontsize)
 					  withAttributes:attributes];
-		
-		[trMapImage unlockFocus];
 	}
 	
 	//[_mapModel mapArrayAtX:x atY:y];
