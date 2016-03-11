@@ -76,7 +76,7 @@ extern int total_tiles_used;
 	if (tileImg) {
 		return tileImg;
 	}
-	tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)];
+	tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X, tileSize_Y)];
 #if GET_RAW_PIXELS
 	NSUInteger p[10];
 	NSBitmapImageRep *bmpRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL

@@ -12,10 +12,10 @@ extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
 		
+		let zeroVert = NH3DVertexType(x: 0, y: 0, z: 0)
+		
 		for i in 0..<Int(verts_qty) {
-			norms[i].x = 0.0
-			norms[i].y = 0.0
-			norms[i].z = 0.0
+			norms[i] = zeroVert
 		}
 		
 		//faces
@@ -27,7 +27,6 @@ extension NH3DModelObject {
 			let l_vect3 = verts[Int(face.c)]
 			
 			// Polygon normal calculation
-			
 			let l_vect_b1 = NH3DVertexType(start: l_vect1, endingAt: l_vect2)
 			let l_vect_b2 = NH3DVertexType(start: l_vect1, endingAt: l_vect3)
 			let l_normal = dotProduct(l_vect_b1, l_vect_b2).normalize
@@ -44,9 +43,7 @@ extension NH3DModelObject {
 		for (i, connect) in l_Connect.enumerate() {
 			if connect > 0 {
 				let connFloat = Float(connect)
-				norms[i].x /= connFloat
-				norms[i].y /= connFloat
-				norms[i].z /= connFloat
+				norms[i] /= connFloat
 			}
 		}
 	}
@@ -101,11 +98,16 @@ func +=(inout lhs: NH3DVertexType, rhs: NH3DVertexType) {
 	lhs.z += rhs.z
 }
 
+func /=(inout lhs: NH3DVertexType, rhs: Float) {
+	lhs.x /= rhs
+	lhs.y /= rhs
+	lhs.z /= rhs
+}
+
 private func dotProduct(p_vector1: NH3DVertexType, _ p_vector2: NH3DVertexType) -> NH3DVertexType {
-	var p_normal = NH3DVertexType()
-	p_normal.x = (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y)
-	p_normal.y = (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z)
-	p_normal.z = (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x)
+	let p_normal = NH3DVertexType(x: (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y),
+		y: (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z),
+		z: (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x))
 
 	return p_normal
 }

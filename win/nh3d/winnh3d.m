@@ -1652,19 +1652,19 @@ static char ynPreReady(const char *str)
 	
 	if (argc > 1) {
 #ifdef CHDIR
-		if (!strncmp(argv[ 1 ], "-d", 2) && argv[ 1 ][ 2 ] != 'e') {
+		if (!strncmp(argv[1], "-d", 2) && argv[1][2] != 'e') {
 			/* avoid matching "-dec" for DECgraphics; since the man page
 			 * says -d directory, hope nobody's using -desomething_else
 			 */
 			argc--;
 			argv++;
-			dir = argv[ 0 ]+2;
+			dir = argv[0]+2;
 			if (*dir == '=' || *dir == ':')
 				dir++;
 			if (!*dir && argc > 1) {
 				argc--;
 				argv++;
-				dir = argv[ 0 ];
+				dir = argv[0];
 			}
 			if (!*dir)
 				error("Flag -d must be followed by a directory name.");

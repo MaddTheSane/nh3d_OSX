@@ -317,12 +317,11 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (BOOL)hasBackground
 {
-	return bgGlyph != NO_GLYPH;
+	return bgGlyph != NO_GLYPH && bgGlyph != glyph;
 }
 
 - (NSImage *)tile
 {
-#if 1
 	if (tile) {
 		return tile;
 	}
@@ -349,9 +348,6 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	tile = tmpTile;
 	return tmpTile;
-#else
-	return [self foregroundTile];
-#endif
 }
 
 - (NSImage *)foregroundTile

@@ -1347,6 +1347,11 @@ extern BOOL CocoaPortIsReady;
 										break;
 										
 									case '5':
+										if (!iflags.num_pad) {
+											self.keyBuffer = (int)ch[0];
+											break;
+										}
+										//fall-though
 									case '.':
 										[_num5 performClick:self];
 										break;
@@ -1590,7 +1595,19 @@ extern BOOL CocoaPortIsReady;
 				NH3DMapItem *mapcell = [_mapModel mapArrayAtX:x atY:y];
 				
 				if (TILED_LEVELMAP) { // Draw Tiled Map.
-					NSImage *tileImg = mapcell.tile;
+					NSImage *tileImg;
+					if (mapcell.hasBackground) {
+						tileImg = mapcell.backgroundTile;
+						drawSize = tileImg.size;
+						
+						[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+														 imgSize.height - (drawSize.height * (CGFloat)y))
+									fromRect:NSZeroRect
+								   operation:NSCompositeSourceOver
+									fraction:1.0];
+					}
+					
+					tileImg = mapcell.foregroundTile;
 					drawSize = tileImg.size;
 					
 					[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
