@@ -268,10 +268,6 @@ extern BOOL CocoaPortIsReady;
 
 - (void)drawTraditionalMapInContextAtX:(int)x atY:(int)y
 {
-	// oops, we're not ready.
-	if (!trMapImage) {
-		return;
-	}
 	NSRect bounds = NSMakeRect(0, 0, trMapImage.size.width, trMapImage.size.height);
 	NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 	
