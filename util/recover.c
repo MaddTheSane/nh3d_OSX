@@ -17,15 +17,15 @@
 #endif
 
 #ifdef VMS
-extern int FDECL(vms_creat, (const char *, unsigned));
-extern int FDECL(vms_open, (const char *, int, unsigned));
+extern int vms_creat(const char *, unsigned);
+extern int vms_open(const char *, int, unsigned);
 #endif /* VMS */
 
-int FDECL(restore_savefile, (char *));
-void FDECL(set_levelfile_name, (int));
-int FDECL(open_levelfile, (int));
-int NDECL(create_savefile);
-void FDECL(copy_bytes, (int, int));
+int restore_savefile(char *);
+void set_levelfile_name(int);
+int open_levelfile(int);
+int create_savefile(void);
+void copy_bytes(int, int);
 
 #ifndef WIN_CE
 #define Fprintf (void) fprintf
@@ -51,7 +51,7 @@ static void nhce_message(FILE *, const char *, ...);
 #endif
 
 #if defined(EXEPATH)
-char *FDECL(exepath, (char *));
+char *exepath(char *);
 #endif
 
 #if defined(__BORLANDC__) && !defined(_WIN32)
@@ -61,9 +61,7 @@ char
     savename[SAVESIZE]; /* holds relative path of save file from playground */
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
     int argno;
     const char *dir = (char *) 0;
@@ -152,8 +150,7 @@ char *argv[];
 static char lock[256];
 
 void
-set_levelfile_name(lev)
-int lev;
+set_levelfile_name(int lev)
 {
     char *tf;
 
@@ -167,8 +164,7 @@ int lev;
 }
 
 int
-open_levelfile(lev)
-int lev;
+open_levelfile(int lev)
 {
     int fd;
 
@@ -195,8 +191,7 @@ create_savefile()
 }
 
 void
-copy_bytes(ifd, ofd)
-int ifd, ofd;
+copy_bytes(int ifd, int ofd)
 {
     char buf[BUFSIZ];
     int nfrom, nto;
@@ -212,8 +207,7 @@ int ifd, ofd;
 }
 
 int
-restore_savefile(basename)
-char *basename;
+restore_savefile(char *basename)
 {
     int gfd, lfd, sfd;
     int lev, savelev, hpid, pltmpsiz;
@@ -396,8 +390,7 @@ char *basename;
 char exepathbuf[EXEPATHBUFSZ];
 
 char *
-exepath(str)
-char *str;
+exepath(char *str)
 {
     char *tmp, *tmp2;
     int bsize;

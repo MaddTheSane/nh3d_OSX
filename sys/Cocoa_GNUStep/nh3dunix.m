@@ -37,9 +37,9 @@ extern void NDECL(linux_mapon);
 extern void NDECL(linux_mapoff);
 #endif
 
-static void NDECL(wd_message);
+static void wd_message(void);
 static boolean wiz_error_flag = FALSE;
-static struct passwd *NDECL(get_unix_pw);
+static struct passwd *get_unix_pw(void);
 
 
 #ifndef NHSTDC
@@ -393,8 +393,7 @@ gid_t
 #endif	/* GETRES_SUPPORT */
 
 void
-sethanguphandler(handler)
-void FDECL((*handler), (int));
+sethanguphandler(void (*handler)(int))
 {
 #ifdef SA_RESTART
     /* don't want reads to restart.  If SA_RESTART is defined, we know

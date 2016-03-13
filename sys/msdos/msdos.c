@@ -45,18 +45,18 @@
 #define GETKEYFLAGS 0x02    /* Get Keyboard Flags */
 /*#define KEY_DEBUG	 */ /* print values of unexpected key codes - devel*/
 
-void FDECL(get_cursor, (int *, int *));
+void get_cursor(int *, int *);
 
 /* direct bios calls are used only when iflags.BIOS is set */
 
-STATIC_DCL char NDECL(DOSgetch);
-STATIC_DCL char NDECL(BIOSgetch);
+STATIC_DCL char DOSgetch(void);
+STATIC_DCL char BIOSgetch(void);
 #ifndef __GO32__
-STATIC_DCL char *NDECL(getdta);
+STATIC_DCL char *getdta(void);
 #endif
-STATIC_DCL unsigned int FDECL(dos_ioctl, (int, int, unsigned));
+STATIC_DCL unsigned int dos_ioctl(int, int, unsigned);
 #ifdef USE_TILES
-extern boolean FDECL(pckeys, (unsigned char, unsigned char)); /* pckeys.c */
+extern boolean pckeys(unsigned char, unsigned char); /* pckeys.c */
 #endif
 
 int
@@ -425,8 +425,7 @@ getdta()
 }
 
 long
-filesize_nh(file)
-char *file;
+filesize_nh(char *file)
 {
     char *dta;
 
@@ -443,8 +442,7 @@ char *file;
  * Chdrive() changes the default drive.
  */
 void
-chdrive(str)
-char *str;
+chdrive(char *str)
 {
 #define SELECTDISK 0x0E
     char *ptr;
@@ -504,9 +502,7 @@ enable_ctrlP()
 }
 
 STATIC_OVL unsigned int
-dos_ioctl(handle, mode, setvalue)
-int handle, mode;
-unsigned setvalue;
+dos_ioctl(int handle, int mode, unsigned setvalue)
 {
     union REGS regs;
 

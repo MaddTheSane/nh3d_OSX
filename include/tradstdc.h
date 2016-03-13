@@ -63,7 +63,6 @@
 #endif
 #endif
 
-#ifdef NEED_VARARGS /* only define these if necessary */
 /*
  * These have changed since 3.4.3.  VA_END() now provides an explicit
  * closing brace to complement VA_DECL()'s hidden opening brace, so code
@@ -83,106 +82,14 @@
  * potentially trickier, but nethack uses it in a straightforward manner.
  */
 
-#ifdef USE_STDARG
 #include <stdarg.h>
-#define VA_DECL(typ1, var1) \
-    (typ1 var1, ...)        \
-    {                       \
-        va_list the_args;
-#define VA_DECL2(typ1, var1, typ2, var2) \
-    (typ1 var1, typ2 var2, ...)          \
-    {                                    \
-        va_list the_args;
 #define VA_INIT(var1, typ1)
 #define VA_NEXT(var1, typ1) var1 = va_arg(the_args, typ1)
 #define VA_ARGS the_args
 #define VA_START(x) va_start(the_args, x)
-#define VA_END()      \
-    va_end(the_args); \
-    }
-#if defined(ULTRIX_PROTO) && !defined(_VA_LIST_)
-#define _VA_LIST_ /* prevents multiple def in stdio.h */
-#endif
-#else
-
-#ifdef USE_VARARGS
-#include <varargs.h>
-#define VA_DECL(typ1, var1) \
-    (va_alist) va_dcl       \
-    {                       \
-        va_list the_args;   \
-        typ1 var1;
-#define VA_DECL2(typ1, var1, typ2, var2) \
-    (va_alist) va_dcl                    \
-    {                                    \
-        va_list the_args;                \
-        typ1 var1;                       \
-        typ2 var2;
-#define VA_ARGS the_args
-#define VA_START(x) va_start(the_args)
-#define VA_INIT(var1, typ1) var1 = va_arg(the_args, typ1)
-#define VA_NEXT(var1, typ1) var1 = va_arg(the_args, typ1)
-#define VA_END()      \
-    va_end(the_args); \
-    }
-#else
-
-/*USE_OLDARGS*/
-#define VA_ARGS arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
-#define VA_DECL(typ1, var1)                                             \
-    (var1, VA_ARGS) typ1 var1;                                          \
-    char *arg1, *arg2, *arg3, *arg4, *arg5, *arg6, *arg7, *arg8, *arg9; \
-    {
-#define VA_DECL2(typ1, var1, typ2, var2)                                \
-    (var1, var2, VA_ARGS) typ1 var1;                                    \
-    typ2 var2;                                                          \
-    char *arg1, *arg2, *arg3, *arg4, *arg5, *arg6, *arg7, *arg8, *arg9; \
-    {
-#define VA_START(x)
-#define VA_INIT(var1, typ1)
-/* This is inherently risky, and should only be attempted as a
-   very last resort; manipulating arguments which haven't actually
-   been passed may or may not cause severe trouble depending on
-   the function-calling/argument-passing mechanism being used.
-
-   [nethack's core doesn't use VA_NEXT() so doesn't use VA_SHIFT()
-   either, and this definition is just retained for completeness.
-   lev_comp does use VA_NEXT(), but it passes all 'argX' arguments.]
- */
-#define VA_SHIFT()                                                    \
-    (arg1 = arg2, arg2 = arg3, arg3 = arg4, arg4 = arg5, arg5 = arg6, \
-     arg6 = arg7, arg7 = arg8, arg8 = arg9)
-#define VA_NEXT(var1, typ1) ((var1 = (typ1) arg1), VA_SHIFT(), var1)
-#define VA_END() }
-#endif
-#endif
-
-#endif /* NEED_VARARGS */
 
 #if defined(NHSTDC) || defined(MSDOS) || defined(MAC) \
     || defined(ULTRIX_PROTO) || defined(__BEOS__)
-
-/*
- * Used for robust ANSI parameter forward declarations:
- * int VDECL(sprintf, (char *, const char *, ...));
- *
- * NDECL() is used for functions with zero arguments;
- * FDECL() is used for functions with a fixed number of arguments;
- * VDECL() is used for functions with a variable number of arguments.
- * Separate macros are needed because ANSI will mix old-style declarations
- * with prototypes, except in the case of varargs, and the OVERLAY-specific
- * trampoli.* mechanism conflicts with the ANSI <<f(void)>> syntax.
- */
-
-#define NDECL(f) f(void) /* overridden later if USE_TRAMPOLI set */
-
-#define FDECL(f, p) f p
-
-#if defined(MSDOS) || defined(USE_STDARG)
-#define VDECL(f, p) f p
-#else
-#define VDECL(f, p) f()
-#endif
 
 /*
  * Used for definitions of functions which take no arguments to force
@@ -225,7 +132,7 @@
 
 #else /* NHSTDC */ /* a "traditional" C  compiler */
 
-#define NDECL(f) f()
+#define f(void) f()
 #define FDECL(f, p) f()
 #define VDECL(f, p) f()
 
@@ -338,7 +245,7 @@ typedef genericptr genericptr_t; /* (void *) or (char *) */
 #undef NDECL
 #undef FDECL
 #undef VDECL
-#define NDECL(f) f()
+#define f(void) f()
 #define FDECL(f, p) f()
 #define VDECL(f, p) f()
 #undef VOID_ARGS

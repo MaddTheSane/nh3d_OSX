@@ -25,18 +25,18 @@
 #if !defined(_BULL_SOURCE) && !defined(__sgi) && !defined(_M_UNIX)
 # if !defined(SUNOS4) && !(defined(ULTRIX) && defined(__GNUC__))
 #  if defined(POSIX_TYPES) || defined(SVR4) || defined(HPUX)
-extern struct passwd *FDECL(getpwuid, (uid_t));
+extern struct passwd *getpwuid(uid_t);
 #  else
-extern struct passwd *FDECL(getpwuid, (int));
+extern struct passwd *getpwuid(int);
 #  endif
 # endif
 #endif
-extern struct passwd *FDECL(getpwnam, (const char *));
+extern struct passwd *getpwnam(const char *);
 #ifdef CHDIR
-static void FDECL(chdirx, (const char *,boolean));
+static void chdirx(const char *,boolean);
 #endif /* CHDIR */
-static boolean NDECL(whoami);
-static void FDECL(process_options, (int, char **));
+static boolean whoami(void);
+static void process_options(int, char **);
 
 
 #ifdef WIZARD
@@ -62,7 +62,7 @@ static __strong NH3DOpenGLView *_NH3DOpenGLView;
 
 __strong NH3DTileCache *_NH3DTileCache;
 
-static void NDECL(wd_message);
+static void wd_message(void);
 
 // set Localized String's Text encoding(used only for hard corded strings in 'C' source files)
 // localized 'Cocoa' Strings use '<your locale>.iproj/Localizable.strings'file. that format is "baseStr"="LocalStr";.  
