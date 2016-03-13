@@ -1484,8 +1484,8 @@ extern BOOL CocoaPortIsReady;
 										
 									default:
 										self.keyBuffer = (int)ch[0];
-										
 										break;
+										
 								} // end switch (ch[0])
 							}
 							lastKeyBuffer = keyBuffer;
@@ -1496,7 +1496,7 @@ extern BOOL CocoaPortIsReady;
 							
 						case NSLeftMouseUp:
 						{
-							NSPoint p = event.locationInWindow ;
+							NSPoint p = event.locationInWindow;
 							NSRect bounds = self.bounds;
 							downPoint = [self convertPoint:p fromView:nil];
 							
@@ -1569,7 +1569,7 @@ extern BOOL CocoaPortIsReady;
 		sd.shadowBlurRadius = 3;
 		sd.shadowColor = [NSColor blackColor];
 		//reset magnification
-		_mapLview.enclosingScrollView.magnification =1;
+		_mapLview.enclosingScrollView.magnification = 1;
 		int cusx, cusy;
 		NSRect mapwindowRect = NSMakeRect(0,0,_mapLpanel.maxSize.width,_mapLpanel.maxSize.height);
 		NSSize drawSize;

@@ -4780,16 +4780,16 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
 		
 		// Zombie
-		loadModelBlocks[Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_GNOME_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_ORC_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_DWARF_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_ELF_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_HUMAN_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_ETTIN_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_GIANT_ZOMBIE + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_GHOUL + GLYPH_MON_OFF)] = loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_SKELETON + GLYPH_MON_OFF)] = loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)] =	loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_GNOME_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_ORC_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_DWARF_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_ELF_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_HUMAN_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_ETTIN_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_GIANT_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_GHOUL + GLYPH_MON_OFF)] =			loadModelFunc_Zombie
+		loadModelBlocks[Int(PM_SKELETON + GLYPH_MON_OFF)] =			loadModelFunc_Zombie
 		
 		// Golems
 		loadModelBlocks[Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
@@ -5077,8 +5077,8 @@ extension NH3DOpenGLView {
 			return ret
 		}
 		// boomerang
-		//loadModelBlocks[ S_boomleft + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
-		//loadModelBlocks[ S_boomright + GLYPH_CMAP_OFF ] = [ self methodForSelector:@selector( loadModelFunc_MagicETC:) ];
+		loadModelBlocks[Int(S_boomleft + GLYPH_CMAP_OFF)] = loadModelFunc_MagicETC
+		loadModelBlocks[Int(S_boomright + GLYPH_CMAP_OFF)] = loadModelFunc_MagicETC
 		
 		// magic shild
 		loadModelBlocks[Int(S_ss1 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
