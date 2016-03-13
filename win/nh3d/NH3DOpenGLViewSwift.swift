@@ -2786,8 +2786,8 @@ extension NH3DOpenGLView {
 				ret.lastChildObject?.particleLife = 0.24
 				ret.lastChildObject?.particleSize = 8.0
 				ret.addChildObject("kingset", type: .TexturedObject)
-				ret.lastChildObject?.setPivotX(0.0, atY:0.52, atZ:0.0)
-				ret.lastChildObject?.setModelRotateX(0.0, rotateY:0.7, rotateZ:0.0)
+				ret.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: 0.52, z: 0)
+				ret.lastChildObject?.modelRotate = NH3DVertexType(x: 0, y: 0.7, z: 0)
 				ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			}
 		}
@@ -3689,6 +3689,24 @@ extension NH3DOpenGLView {
 		return ret
 	}
 	
+	/// boomerang
+	private final func loadModelFunc_Boomerang(glyph: Int32) -> NH3DModelObject? {
+		let ret: NH3DModelObject? = NH3DModelObject(OBJFile: "boomerang", withTexture: true)
+		
+		switch glyph {
+		case S_boomleft + GLYPH_CMAP_OFF:
+			break
+			
+		case S_boomright + GLYPH_CMAP_OFF:
+			break
+			
+		default:
+			return nil
+		}
+		
+		return ret
+	}
+
 	// magic shild
 	private final func loadModelFunc_MagicSHILD(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
@@ -5077,8 +5095,8 @@ extension NH3DOpenGLView {
 			return ret
 		}
 		// boomerang
-		loadModelBlocks[Int(S_boomleft + GLYPH_CMAP_OFF)] = loadModelFunc_MagicETC
-		loadModelBlocks[Int(S_boomright + GLYPH_CMAP_OFF)] = loadModelFunc_MagicETC
+		loadModelBlocks[Int(S_boomleft + GLYPH_CMAP_OFF)] = loadModelFunc_Boomerang
+		loadModelBlocks[Int(S_boomright + GLYPH_CMAP_OFF)] = loadModelFunc_Boomerang
 		
 		// magic shild
 		loadModelBlocks[Int(S_ss1 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD

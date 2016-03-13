@@ -419,6 +419,8 @@
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
+		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
+		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
@@ -1356,6 +1358,8 @@
 		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
 		55CD9CEF1C45A439007F36B2 /* cppregex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cppregex.cpp; sourceTree = "<group>"; };
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
+		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
+		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1553,6 +1557,8 @@
 		2B26129509233E7800CA7A64 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				55D555351C96019E001B0ECB /* boomerang.mtl */,
+				55D555361C96019E001B0ECB /* boomerang.obj */,
 				2B5181E00973EBD600C91C6E /* downladder.3ds */,
 				2B5181E20973EBD600C91C6E /* upladder.3ds */,
 				2B9A473E096DD7530074B10D /* bridge_opt.3ds */,
@@ -2871,6 +2877,7 @@
 				2B5CC099088EB5A600940C58 /* quest.txt in Resources */,
 				2B5CC09A088EB5A600940C58 /* quest_levs in Resources */,
 				2B5CC09B088EB5A600940C58 /* Ran-fila.lev in Resources */,
+				55D555371C96019E001B0ECB /* boomerang.mtl in Resources */,
 				2B5CC09C088EB5A600940C58 /* Ran-filb.lev in Resources */,
 				2B5CC09D088EB5A600940C58 /* Ran-goal.lev in Resources */,
 				2B5CC09E088EB5A600940C58 /* Ran-loca.lev in Resources */,
@@ -2911,6 +2918,7 @@
 				2B5CC0C5088EB5A600940C58 /* Val-fila.lev in Resources */,
 				2B5CC0C6088EB5A600940C58 /* Val-filb.lev in Resources */,
 				2B5CC0C7088EB5A600940C58 /* Val-goal.lev in Resources */,
+				55D555381C96019E001B0ECB /* boomerang.obj in Resources */,
 				2B5CC0C8088EB5A600940C58 /* Val-loca.lev in Resources */,
 				2B5CC0C9088EB5A600940C58 /* Val-strt.lev in Resources */,
 				2B5CC0CB088EB5A600940C58 /* valley.lev in Resources */,

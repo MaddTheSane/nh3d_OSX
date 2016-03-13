@@ -37,8 +37,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef struct nh3d_nhwindow_data {
-	__unsafe_unretained id			win;
-	int         type;
+	__unsafe_unretained id	win;
+	int						type;
 } NH3DWinData;
 
 extern struct window_procs nh3d_procs;
