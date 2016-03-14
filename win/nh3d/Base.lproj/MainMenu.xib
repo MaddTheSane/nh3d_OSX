@@ -100,7 +100,7 @@
                             <binding destination="4761" name="value" keyPath="selection.playerBlindFold" id="6416"/>
                             <binding destination="4761" name="toolTip" keyPath="selection.playerBlindFoldString" id="MrB-Yl-ORA">
                                 <dictionary key="options">
-                                    <string key="NSNullPlaceholder">blindfold slot</string>
+                                    <string key="NSNullPlaceholder">Blindfold slot</string>
                                 </dictionary>
                             </binding>
                         </connections>
@@ -2309,7 +2309,7 @@
                 <menuItem title="Action" id="523">
                     <menu key="submenu" title="Action" id="524">
                         <items>
-                            <menuItem title="Again " keyEquivalent="a" id="525">
+                            <menuItem title="Again" keyEquivalent="a" id="525">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES"/>
                                 <connections>
                                     <action selector="actionMenuActions:" target="5648" id="5864"/>
@@ -2873,7 +2873,7 @@
                                 <binding destination="4761" name="value" keyPath="selection.stHallu" id="9gY-pC-WAm"/>
                             </connections>
                         </imageView>
-                        <imageView toolTip="Load" translatesAutoresizingMaskIntoConstraints="NO" id="5018" userLabel="Load">
+                        <imageView toolTip="Encumbrance" translatesAutoresizingMaskIntoConstraints="NO" id="5018" userLabel="Load">
                             <rect key="frame" x="448" y="3" width="62" height="62"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Load0" id="6940"/>
                             <connections>
@@ -3502,7 +3502,7 @@ DQ
                 <menuItem title="Action" id="5927">
                     <menu key="submenu" title="Action" id="5928">
                         <items>
-                            <menuItem title="Again " id="6020">
+                            <menuItem title="Again" id="6020">
                                 <connections>
                                     <action selector="actionMenuActions:" target="5648" id="6107"/>
                                 </connections>
@@ -4089,7 +4089,7 @@ DQ
                 <menuItem title="Action" id="6606">
                     <menu key="submenu" title="Action" id="6607">
                         <items>
-                            <menuItem title="Again " id="6625">
+                            <menuItem title="Again" id="6625">
                                 <connections>
                                     <action selector="actionMenuActions:" target="5648" id="6666"/>
                                 </connections>

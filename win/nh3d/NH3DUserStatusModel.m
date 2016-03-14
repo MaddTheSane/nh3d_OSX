@@ -390,7 +390,7 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
-		self.playerArmorString = @(doname(uarm)); //[NSString stringWithCString:doname(uarm) encoding:NH3DTEXTENCODING]
+		self.playerArmorString = @(Doname2(uarm)); //[NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]
 	} else {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
@@ -398,7 +398,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 	if (uarmu && !uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
-		self.playerArmorString = @(doname(uarmu));
+		self.playerArmorString = @(Doname2(uarmu));
 	} else if (!uarm) {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
@@ -406,7 +406,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uarmc) {
 		[self setPlayerCloak:obj_to_glyph(uarmc)];
-		self.playerCloakString = @(doname(uarmc));
+		self.playerCloakString = @(Doname2(uarmc));
 	} else {
 		[self setPlayerCloak:0];
 		self.playerCloakString = nil;
@@ -414,7 +414,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uarmh) {
 		[self setPlayerHelmet:obj_to_glyph(uarmh)];
-		self.playerHelmetString = @(doname(uarmh));
+		self.playerHelmetString = @(Doname2(uarmh));
 	} else {
 		[self setPlayerHelmet:0];
 		self.playerHelmetString = nil;
@@ -422,7 +422,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		
 	if (uarmg) {
 		[self setPlayerGloves:obj_to_glyph(uarmg)];
-		self.playerGlovesString = @(doname(uarmg));
+		self.playerGlovesString = @(Doname2(uarmg));
 	} else {
 		[self setPlayerGloves:0];
 		self.playerGlovesString = nil;
@@ -430,7 +430,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uarmf) {
 		[self setPlayerShoes:obj_to_glyph(uarmf)];
-		self.playerShoesString = @(doname(uarmf));
+		self.playerShoesString = @(Doname2(uarmf));
 	} else {
 		[self setPlayerShoes:0];
 		self.playerShoesString = nil;
@@ -438,7 +438,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uleft) {
 		[self setPlayerRingL:obj_to_glyph(uleft)];
-		self.playerRingLString = @(doname(uleft));
+		self.playerRingLString = @(Doname2(uleft));
 	} else {
 		[self setPlayerRingL:0];
 		self.playerRingLString = nil;
@@ -446,7 +446,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uright) {
 		[self setPlayerRingR:obj_to_glyph(uright)];
-		self.playerRingRString = @(doname(uright));
+		self.playerRingRString = @(Doname2(uright));
 	} else {
 		[self setPlayerRingR:0];
 		self.playerRingRString = nil;
@@ -454,7 +454,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uwep) {
 		[self setPlayerWeapon:obj_to_glyph(uwep)];
-		self.playerWeaponString = @(doname(uwep));
+		self.playerWeaponString = @(Doname2(uwep));
 	} else {
 		[self setPlayerWeapon:0];
 		self.playerWeaponString = nil;
@@ -462,7 +462,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uswapwep && !u.twoweap) {
 		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
-		self.playerSubWeaponString = @(doname(uswapwep));
+		self.playerSubWeaponString = @(Doname2(uswapwep));
 	} else {
 		[self setPlayerSubWeapon:0];
 		self.playerSubWeaponString = nil;
@@ -470,10 +470,10 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uarms && !u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uarms)];
-		self.playerShieldString = @(doname(uarms));
+		self.playerShieldString = @(Doname2(uarms));
 	} else if (u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uswapwep)];
-		self.playerShieldString = @(doname(uswapwep));
+		self.playerShieldString = @(Doname2(uswapwep));
 	} else {
 		[self setPlayerShield:0];
 		self.playerShieldString = nil;
@@ -481,7 +481,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (uamul) {
 		[self setPlayerAmulet:obj_to_glyph(uamul)];
-		self.playerAmuletString = @(doname(uamul));
+		self.playerAmuletString = @(Doname2(uamul));
 	} else {
 		[self setPlayerAmulet:0];
 		self.playerAmuletString = nil;
@@ -489,7 +489,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	if (ublindf) {
 		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
-		self.playerBlindFoldString = @(doname(ublindf));
+		self.playerBlindFoldString = @(Doname2(ublindf));
 	} else if (uarmh) {
 		[self setPlayerBlindFold:0];
 		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.
@@ -878,65 +878,62 @@ extern NH3DTileCache *_NH3DTileCache;
 - (void)setStHunger:(char)aBool
 {
 	stHunger = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStConfuse:(BOOL)aBool
 {
 	stConfuse = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStSick:(BOOL)aBool
 {
 	stSick = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStIll:(BOOL)aBool
 {
 	stIll = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStBlind:(BOOL)aBool
 {
 	stBlind = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStStun:(BOOL)aBool
 {
 	stStun = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStHallu:(BOOL)aBool
 {
 	stHallu = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStLoad:(char)curVal
 {
 	stLoad = curVal;
-	[self checkStDrawer];
 }
-
 
 - (void)checkStDrawer
 {
 	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
-		if (stDrawer.state == NSDrawerClosedState) {
+		if (stDrawer.state == NSDrawerClosedState || stDrawer.state == NSDrawerClosingState) {
 			[stDrawer open];
 			[[NSSound soundNamed:@"Purr"] play];
 		}
-	} else if (stDrawer.state != NSDrawerClosedState) {
+	} else if (stDrawer.state == NSDrawerOpenState || stDrawer.state == NSDrawerOpeningState) {
 		[stDrawer close];
 	}
 }
 
 #pragma mark -
+
+- (void)pokeDrawer
+{
+	[window displayIfNeeded];
+	[stDrawer.contentView display];
+}
 
 - (void)updatePlayer
 {
@@ -1040,7 +1037,11 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	firstTime = NO;
 
-	[window displayIfNeeded];
+	[self checkStDrawer];
+	if (stDrawer.state != NSDrawerClosedState) {
+		[stDrawer.contentView setNeedsDisplay:YES];
+		//[self performSelector:@selector(pokeDrawer) withObject:nil afterDelay:0.01];
+	}
 }
 
 @end

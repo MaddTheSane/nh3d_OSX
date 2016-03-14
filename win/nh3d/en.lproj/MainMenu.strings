@@ -135,7 +135,7 @@
 "524.title" = "Action";
 
 /* Class = "NSMenuItem"; title = "Again "; ObjectID = "525"; */
-"525.title" = "Again ";
+"525.title" = "Again";
 
 /* Class = "NSMenuItem"; title = "Gear"; ObjectID = "526"; */
 "526.title" = "Gear";
@@ -245,8 +245,8 @@
 /* Class = "NSImageView"; ibShadowedToolTip = "Stunned"; ObjectID = "5017"; */
 "5017.ibShadowedToolTip" = "Stunned";
 
-/* Class = "NSImageView"; ibShadowedToolTip = "Hallucinating"; ObjectID = "5018"; */
-"5018.ibShadowedToolTip" = "Hallucinating";
+/* Class = "NSImageView"; ibShadowedToolTip = "Encumbrance"; ObjectID = "5018"; */
+"5018.ibShadowedToolTip" = "Encumbrance";
 
 /* Class = "NSMenuItem"; title = "Version"; ObjectID = "5027"; */
 "5027.title" = "Version";
@@ -521,7 +521,7 @@
 /* Class = "NSMenuItem"; title = "Exchange Weapon"; ObjectID = "6012"; */
 "6012.title" = "Exchange Weapon";
 
-/* Class = "NSMenuItem"; title = "Two Weapon Combat"; ObjectID = "6013"; */
+/* Class = "NSMenuItem"; title = "Two-Weapon Combat"; ObjectID = "6013"; */
 "6013.title" = "Two-Weapon Combat";
 
 /* Class = "NSMenuItem"; title = "Load quiver"; ObjectID = "6014"; */
@@ -540,7 +540,7 @@
 "6019.title" = "Remove non-Armour";
 
 /* Class = "NSMenuItem"; title = "Again "; ObjectID = "6020"; */
-"6020.title" = "Again ";
+"6020.title" = "Again";
 
 /* Class = "NSMenuItem"; title = "Fight"; ObjectID = "6022"; */
 "6022.title" = "Fight";
@@ -698,10 +698,10 @@
 /* Class = "NSMenuItem"; title = "Use Sight Restriction"; ObjectID = "6241"; */
 "6241.title" = "Use Sight Restriction";
 
-/* Class = "NSImageCell"; ibShadowedToolTip = "Ring(Left)"; ObjectID = "6342"; */
+/* Class = "NSImageCell"; ibShadowedToolTip = "Ring (Left)"; ObjectID = "6342"; */
 "6342.ibShadowedToolTip" = "Ring (Left)";
 
-/* Class = "NSImageCell"; ibShadowedToolTip = "SubWeapon"; ObjectID = "6343"; */
+/* Class = "NSImageCell"; ibShadowedToolTip = "Secondary Weapon"; ObjectID = "6343"; */
 "6343.ibShadowedToolTip" = "Secondary Weapon";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Weapon"; ObjectID = "6344"; */
@@ -719,7 +719,7 @@
 /* Class = "NSImageCell"; ibShadowedToolTip = "Shoes"; ObjectID = "6348"; */
 "6348.ibShadowedToolTip" = "Shoes";
 
-/* Class = "NSImageCell"; ibShadowedToolTip = "Ring(Right)"; ObjectID = "6349"; */
+/* Class = "NSImageCell"; ibShadowedToolTip = "Ring (Right)"; ObjectID = "6349"; */
 "6349.ibShadowedToolTip" = "Ring (Right)";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Gloves"; ObjectID = "6350"; */
@@ -782,7 +782,7 @@
 /* Class = "NSMenuItem"; title = "Wield Weapon"; ObjectID = "6582"; */
 "6582.title" = "Wield Weapon";
 
-/* Class = "NSMenuItem"; title = "Two Weapon Combat"; ObjectID = "6583"; */
+/* Class = "NSMenuItem"; title = "Two-Weapon Combat"; ObjectID = "6583"; */
 "6583.title" = "Two-Weapon Combat";
 
 /* Class = "NSMenuItem"; title = "Load quiver"; ObjectID = "6584"; */
@@ -888,7 +888,7 @@
 "6623.title" = "Engrave";
 
 /* Class = "NSMenuItem"; title = "Again "; ObjectID = "6625"; */
-"6625.title" = "Again ";
+"6625.title" = "Again";
 
 /* Class = "NSMenuItem"; title = "Loot"; ObjectID = "6626"; */
 "6626.title" = "Loot";
@@ -963,7 +963,7 @@
 "6651.title" = "Name Creature";
 
 /* Class = "NSMenuItem"; title = "Qualificatuons"; ObjectID = "6653"; */
-"6653.title" = "Qualificatuons";
+"6653.title" = "Qualifications";
 
 /* Class = "NSMenuItem"; title = "Name Object"; ObjectID = "6655"; */
 "6655.title" = "Name Object";
@@ -984,22 +984,22 @@
 "6662.title" = "Wait for vSync (recommended)";
 
 /* Class = "NSMenuItem"; title = "FrameRateSetting"; ObjectID = "6744"; */
-"6744.title" = "FrameRateSetting";
+"6744.title" = "Framerate Setting";
 
 /* Class = "NSMenu"; title = "FrameRateSetting"; ObjectID = "6745"; */
-"6745.title" = "FrameRateSetting";
+"6745.title" = "Framerate Setting";
 
 /* Class = "NSMenuItem"; title = "No limit."; ObjectID = "6747"; */
-"6747.title" = "No limit.";
+"6747.title" = "No Limit";
 
 /* Class = "NSMenuItem"; title = "Fast framerate. (1/60sec.)"; ObjectID = "6748"; */
-"6748.title" = "Fast framerate. (1/60sec.)";
+"6748.title" = "Fast framerate. (60 FPS)";
 
 /* Class = "NSMenuItem"; title = "Normal framerate. (1/45sec.)"; ObjectID = "6749"; */
-"6749.title" = "Normal framerate. (1/45sec.)";
+"6749.title" = "Normal framerate. (45 FPS)";
 
 /* Class = "NSMenuItem"; title = "Slow framerate. (1/30sec.)"; ObjectID = "6750"; */
-"6750.title" = "Slow framerate. (1/30sec.)";
+"6750.title" = "Slow framerate. (30 FPS)";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "6799"; */
 "6799.title" = "Preferences…";
@@ -1232,17 +1232,20 @@
 /* Class = "NSButtonCell"; title = "5"; ObjectID = "6988"; */
 "6988.title" = "5";
 
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Body armor slot"; ObjectID = "0G0-hH-8Ck"; */
+"0G0-hH-8Ck.ibShadowedIsNilPlaceholder" = "Body armor slot";
+
 /* Class = "NSButtonCell"; title = "t"; ObjectID = "2vX-8R-dH4"; */
 "2vX-8R-dH4.title" = "t";
-
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "none"; ObjectID = "67D-6M-wtB"; */
-"67D-6M-wtB.ibShadowedIsNilPlaceholder" = "none";
 
 /* Class = "NSButtonCell"; title = "Z"; ObjectID = "6nm-el-2DC"; */
 "6nm-el-2DC.title" = "Z";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Pick Up"; ObjectID = "84z-Fq-US6"; */
-"84z-Fq-US6.ibShadowedToolTip" = "Pick Up";
+"84z-Fq-US6.ibShadowedToolTip" = "拾う";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Left ring slot"; ObjectID = "8U4-Uc-vdF"; */
+"8U4-Uc-vdF.ibShadowedIsNilPlaceholder" = "Left ring slot";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Search"; ObjectID = "9Sm-65-g4R"; */
 "9Sm-65-g4R.ibShadowedToolTip" = "Search";
@@ -1250,11 +1253,17 @@
 /* Class = "NSButtonCell"; title = "a"; ObjectID = "AXU-wL-KKa"; */
 "AXU-wL-KKa.title" = "a";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "nothing"; ObjectID = "BBe-r6-Amn"; */
-"BBe-r6-Amn.ibShadowedIsNilPlaceholder" = "nothing";
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "Azr-fb-WJi"; */
+"Azr-fb-WJi.ibShadowedIsNilPlaceholder" = "Gloves slot";
 
 /* Class = "NSButtonCell"; title = "f"; ObjectID = "Cap-43-Uu2"; */
 "Cap-43-Uu2.title" = "f";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Amulet slot"; ObjectID = "Caw-w7-sGP"; */
+"Caw-w7-sGP.ibShadowedIsNilPlaceholder" = "Amulet slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "DCX-Co-TEa"; */
+"DCX-Co-TEa.ibShadowedIsNilPlaceholder" = "Gloves slot";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Throw"; ObjectID = "DKt-pB-xVh"; */
 "DKt-pB-xVh.ibShadowedToolTip" = "Throw";
@@ -1262,8 +1271,11 @@
 /* Class = "NSButtonCell"; title = "k"; ObjectID = "G6z-2d-BO3"; */
 "G6z-2d-BO3.title" = "k";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "none"; ObjectID = "I9c-so-YBO"; */
-"I9c-so-YBO.ibShadowedIsNilPlaceholder" = "none";
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Cloak slot"; ObjectID = "LjC-a9-yh9"; */
+"LjC-a9-yh9.ibShadowedIsNilPlaceholder" = "Cloak slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "blindfold slot"; ObjectID = "MrB-Yl-ORA"; */
+"MrB-Yl-ORA.ibShadowedIsNilPlaceholder" = "Blindfold slot";
 
 /* Class = "NSButtonCell"; title = "k"; ObjectID = "MrC-BN-3Jd"; */
 "MrC-BN-3Jd.title" = "k";
@@ -1277,8 +1289,11 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Use Magic"; ObjectID = "S5s-Xf-pjS"; */
 "S5s-Xf-pjS.ibShadowedToolTip" = "Use Magic";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "none"; ObjectID = "Vvu-NB-OVt"; */
-"Vvu-NB-OVt.ibShadowedIsNilPlaceholder" = "none";
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Weapon slot"; ObjectID = "Wmh-CX-7kn"; */
+"Wmh-CX-7kn.ibShadowedIsNilPlaceholder" = "Weapon slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Right ring slot"; ObjectID = "XFs-bG-BgX"; */
+"XFs-bG-BgX.ibShadowedIsNilPlaceholder" = "Right ring slot";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Again"; ObjectID = "XGZ-lm-wXf"; */
 "XGZ-lm-wXf.ibShadowedToolTip" = "Again";
@@ -1289,11 +1304,23 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Kick"; ObjectID = "YSQ-yz-IJi"; */
 "YSQ-yz-IJi.ibShadowedToolTip" = "Kick";
 
+/* Class = "NSImageView"; ibShadowedToolTip = "Hallucinating"; ObjectID = "eUY-GY-Zq8"; */
+"eUY-GY-Zq8.ibShadowedToolTip" = "Hallucinating";
+
 /* Class = "NSButtonCell"; title = "o"; ObjectID = "oNa-iN-bfd"; */
 "oNa-iN-bfd.title" = "o";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "none"; ObjectID = "pcN-AF-IZT"; */
-"pcN-AF-IZT.ibShadowedIsNilPlaceholder" = "none";
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shoes slot"; ObjectID = "oUZ-5r-TMc"; */
+"oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "Shoes slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Secondary weapon slot"; ObjectID = "oc1-F0-Bt9"; */
+"oc1-F0-Bt9.ibShadowedIsNilPlaceholder" = "Secondary weapon slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shield slot"; ObjectID = "paO-SC-cTf"; */
+"paO-SC-cTf.ibShadowedIsNilPlaceholder" = "Shield slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Helmet slot"; ObjectID = "qqU-Tg-6UE"; */
+"qqU-Tg-6UE.ibShadowedIsNilPlaceholder" = "Helmet slot";
 
 /* Class = "NSMenuItem"; title = "Dungeon Overview"; ObjectID = "sbe-4J-BhS"; */
 "sbe-4J-BhS.title" = "Dungeon Overview";
