@@ -185,9 +185,6 @@ class MapModel: NSObject {
 			
 			if Invisible {
 				mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].player = true
-				
-				// Only center the 3D view on the player's current position
-				glMapView.setCenterAt(x: x + MAP_MARGIN, z: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 			}
 			
 			// center the map on the cursor, not the player.
