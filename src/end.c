@@ -510,8 +510,7 @@ done_in_by(struct monst *mtmp, int how)
 void panic(const char *str, ...)
 {
     va_list the_args;
-    VA_START(str);
-    VA_INIT(str, char *);
+    va_start(the_args, str);
 
     if (program_state.panicking++)
         NH_abort(); /* avoid loops - this should never happen*/
@@ -567,7 +566,7 @@ void panic(const char *str, ...)
     {
         char buf[BUFSZ];
 
-        Vsprintf(buf, str, VA_ARGS);
+        Vsprintf(buf, str, the_args);
         raw_print(buf);
         paniclog("panic", buf);
     }
