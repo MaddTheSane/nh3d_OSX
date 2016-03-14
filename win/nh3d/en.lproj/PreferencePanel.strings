@@ -84,10 +84,10 @@
 "277.title" = "Traditional NetHack Mode";
 
 /* Class = "NSTextFieldCell"; title = "Slow          Midium         Fast"; ObjectID = "278"; */
-"278.title" = "Slow          Midium         Fast";
+"278.title" = "Slow          Medium         Fast";
 
 /* Class = "NSButtonCell"; title = "Enable Framerate limit"; ObjectID = "280"; */
-"280.title" = "Enable Framerate limit";
+"280.title" = "Enable Frame rate limit";
 
 /* Class = "NSButtonCell"; title = "Use tiled graphics for Alt. Objects"; ObjectID = "281"; */
 "281.title" = "Use tiled graphics for Alt. Objects";
