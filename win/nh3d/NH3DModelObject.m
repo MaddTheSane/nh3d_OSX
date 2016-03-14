@@ -56,7 +56,7 @@ static const NH3DMaterial defaultMat = {
 @synthesize modelPivot;
 @synthesize hasChildren = hasChildObject;
 @synthesize particleLife;
-@synthesize particleSlowdown;
+@synthesize particleSlowdown = slowdown;
 @synthesize particleGravity;
 @synthesize particleSize;
 @synthesize modelName;
