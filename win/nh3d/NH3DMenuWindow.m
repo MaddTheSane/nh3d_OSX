@@ -20,6 +20,11 @@
 @synthesize selectedRow;
 @synthesize nh3dMenu;
 
+- (BOOL)multipleSelection
+{
+	return pickType == PICK_ANY;
+}
+
 - (instancetype)init
 {
 	if (self = [super init]) {

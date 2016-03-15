@@ -3358,6 +3358,11 @@ DQ
                         </buttonCell>
                         <connections>
                             <action selector="selectAll:" target="5499" id="5601"/>
+                            <binding destination="5507" name="hidden" keyPath="self.multipleSelection" id="IW9-Se-uA4">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5600">
@@ -3370,6 +3375,11 @@ DQ
                         </buttonCell>
                         <connections>
                             <action selector="deselectAll:" target="5499" id="5602"/>
+                            <binding destination="5507" name="hidden" keyPath="self.multipleSelection" id="ARH-Nl-SVK">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5589">

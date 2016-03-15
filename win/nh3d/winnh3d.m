@@ -22,16 +22,6 @@
 #include <X11/Xlocale.h>
 #endif
 
-#if !defined(_BULL_SOURCE) && !defined(__sgi) && !defined(_M_UNIX)
-# if !defined(SUNOS4) && !(defined(ULTRIX) && defined(__GNUC__))
-#  if defined(POSIX_TYPES) || defined(SVR4) || defined(HPUX)
-extern struct passwd *getpwuid(uid_t);
-#  else
-extern struct passwd *getpwuid(int);
-#  endif
-# endif
-#endif
-extern struct passwd *getpwnam(const char *);
 #ifdef CHDIR
 static void chdirx(const char *,boolean);
 #endif /* CHDIR */
@@ -126,7 +116,7 @@ process_options(int argc, char *argv[])
 		/* must supply at least 4 chars to match "-XXXgraphics" */
 		if (l < 4)
 			l = 4;
-		switch (argv[ 0 ][ 1 ]){
+		switch (argv[0][1]){
 			case 'D':
 			case 'd':
 				if ((argv[0][1] == 'D' && !argv[0][2])

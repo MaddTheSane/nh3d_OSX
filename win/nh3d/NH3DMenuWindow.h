@@ -15,7 +15,6 @@
 #import "NH3DUserDefaultsExtern.h"
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
-	
 	IBOutlet NSPanel *_menuPanel;
 	IBOutlet NSTableView *_menuTableWindow;
 	IBOutlet NSTextField *_menuPanelStrings;
@@ -53,6 +52,7 @@
 @property (readonly) NSInteger selectedRow;
 
 @property BOOL doneRip;
+@property (readonly) BOOL multipleSelection;
 
 @property (readonly, strong) NSMutableArray *nh3dMenu;
 

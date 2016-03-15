@@ -135,7 +135,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:) func setMapModelGlyph(glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
+	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:) func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
 		var ch: Int32 = 0
 		var color: Int32 = 0
 		var special: UInt32 = 0
