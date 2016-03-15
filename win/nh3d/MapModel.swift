@@ -183,10 +183,6 @@ class MapModel: NSObject {
 			cursX = x
 			cursY = y
 			
-			if Invisible {
-				mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].player = true
-			}
-			
 			// center the map on the cursor, not the player.
 			asciiMapView.setCenterAtX(x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 

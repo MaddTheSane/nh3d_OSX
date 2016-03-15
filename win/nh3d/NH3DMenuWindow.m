@@ -301,6 +301,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	NH3DMenuItem *aMenuItem;
 	menu_item *mi;
 	
+	[self willChangeValueForKey:@"multipleSelection"];
 	switch (how) {
 		case PICK_ONE:
 			[_menuTableWindow setAllowsMultipleSelection:NO];
@@ -313,9 +314,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			break;
 			
 		case PICK_NONE:
+			[_menuTableWindow setAllowsMultipleSelection:NO];
 			pickType = PICK_NONE;
 			break;
 	}
+	[self didChangeValueForKey:@"multipleSelection"];
 	
 	@autoreleasepool {
 		ret = [NSApp runModalForWindow: _menuPanel];
