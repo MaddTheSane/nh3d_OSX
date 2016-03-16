@@ -289,6 +289,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	frameRect = [_menuPanel frameRectForContentRect:((NSView*)_menuPanel.contentView).frame];
 	[_menuPanel setFrame:frameRect display:YES];
 	
+	[_menuTableWindow scrollToBeginningOfDocument:nil];
 	[_window.attachedSheet orderOut:nil];
 	[_window beginSheet:_menuPanel completionHandler:^(NSModalResponse returnCode) {
 		

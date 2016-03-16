@@ -147,6 +147,7 @@ extern NH3DTileCache *_NH3DTileCache;
 			case ATR_INVERSE:
 				strAttributes[NSForegroundColorAttributeName] = [NSColor alternateSelectedControlTextColor];
 				strAttributes[NSBackgroundColorAttributeName] = [NSColor alternateSelectedControlColor];
+				break;
 		}
 		
 		aStr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%c", accelerator]

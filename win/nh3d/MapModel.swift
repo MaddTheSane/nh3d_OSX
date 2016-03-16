@@ -62,12 +62,12 @@ class MapModel: NSObject {
 		}
 	}
 	private var enemyWarnBaseInternal: Int32 = 0
-	private(set) var loadingStatus = 0
+	private(set) final var loadingStatus = 0
 	private var indicatorTimer: NSTimer?
 	
-	private(set) var cursX: Int32 = 0
-	private(set) var cursY: Int32 = 0
-	var mapArray = [[NH3DMapItem!]](count: Int(MAPSIZE_COLUMN), repeatedValue: [NH3DMapItem!](count: Int(MAPSIZE_ROW), repeatedValue: nil))
+	private(set) final var cursX: Int32 = 0
+	private(set) final var cursY: Int32 = 0
+	final var mapArray = [[NH3DMapItem!]](count: Int(MAPSIZE_COLUMN), repeatedValue: [NH3DMapItem!](count: Int(MAPSIZE_ROW), repeatedValue: nil))
 
 	private var lock = NSRecursiveLock()
 	
@@ -82,7 +82,7 @@ class MapModel: NSObject {
 		enemyWarnBase = 10
 	}
 	
-	override func awakeFromNib() {
+	final override func awakeFromNib() {
 		super.awakeFromNib()
 		prepareAttributes()
 	}
@@ -108,13 +108,13 @@ class MapModel: NSObject {
 		strAttributes[NSParagraphStyleAttributeName] = style;
 	}
 	
-	func stopIndicator() {
+	final func stopIndicator() {
 		indicatorTimer?.invalidate()
 		indicatorTimer = nil;
 		indicatorIsActive = false;
 	}
 	
-	func startIndicator() {
+	final func startIndicator() {
 		indicatorIsActive = true;
 		indicatorTimer = NSTimer.scheduledTimerWithTimeInterval(1.0 / 20, target: self, selector: "updateEnemyIndicator:", userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSEventTrackingRunLoopMode)
@@ -135,7 +135,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:) func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
+	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:) final func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
 		var ch: Int32 = 0
 		var color: Int32 = 0
 		var special: UInt32 = 0
@@ -173,7 +173,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(setPosCursorAtX:atY:) func setPosCursor(x x: Int32, y: Int32) {
+	@objc(setPosCursorAtX:atY:) final func setPosCursor(x x: Int32, y: Int32) {
 		if (cursX == x && cursY == y) {
 			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].hasCursor = true
 			return;
@@ -192,7 +192,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(mapArrayAtX:atY:) func mapArray(x x: Int32, y: Int32) -> NH3DMapItem? {
+	@objc(mapArrayAtX:atY:) final func mapArray(x x: Int32, y: Int32) -> NH3DMapItem? {
 		if (x < MAPSIZE_COLUMN) && (y < MAPSIZE_ROW) && (x >= 0) && (y >= 0) && (mapArray[Int(x)][Int(y)] != nil) {
 			return mapArray[Int(x)][Int(y)]
 		} else {
@@ -201,7 +201,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@IBAction func turnPlayerRight(sender: AnyObject?) {
+	@IBAction final func turnPlayerRight(sender: AnyObject?) {
 		if playerDirection != 3 {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
@@ -211,7 +211,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@IBAction func turnPlayerLeft(sender: AnyObject?) {
+	@IBAction final func turnPlayerLeft(sender: AnyObject?) {
 		if playerDirection != 0 {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
@@ -221,7 +221,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	func clearMapModel() {
+	final func clearMapModel() {
 		lock.lock()
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
@@ -231,17 +231,17 @@ class MapModel: NSObject {
 		lock.unlock()
 	}
 
-	func updateAllMaps() {
+	final func updateAllMaps() {
 		asciiMapView.updateMap()
 		glMapView.updateMap()
 	}
 
-	func reloadAllMaps() {
+	final func reloadAllMaps() {
 		asciiMapView.reloadMap()
 		glMapView.updateMap()
 	}
 
-	func setDungeonName(str: String) {
+	final func setDungeonName(str: String) {
 		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}

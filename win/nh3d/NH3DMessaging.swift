@@ -175,7 +175,7 @@ class NH3DMessaging: NSObject {
 			darkShadowStrAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
 			
 		case ATR_BOLD:
-			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name:NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
+			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
 			
 		case ATR_BLINK, ATR_INVERSE:
 			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlTextColor()

@@ -23,7 +23,7 @@
 #endif
 
 #ifdef CHDIR
-static void chdirx(const char *,boolean);
+static void chdirx(const char *, boolean);
 #endif /* CHDIR */
 static boolean whoami(void);
 static void process_options(int, char **);
@@ -700,7 +700,14 @@ void nh3d_cliparound_window(winid wid, int x, int y)
 void nh3d_print_glyph(winid wid, xchar x, xchar y, int glyph, int under)
 {
 	@autoreleasepool {
-		[_NH3DBindController printGlyph:wid xPos:x yPos:y glyph:glyph bkglyph:under];
+		switch (nh3d_windowlist[wid].type) {
+			case NHW_MAP:
+				[_NH3DMapModel setMapModelGlyph:glyph xPos:x yPos:y bgGlyph:under];
+				break;
+				
+			default:
+				break;
+		}
 	}
 }
 
@@ -754,10 +761,53 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 		int result;
 		BOOL ynfunc;
 		
+		void (^addButtonToAlert)(NSAlert* alert, char choice) = ^(NSAlert* alert, char choice)
+		{
+			static const struct ynaqDefaults {
+				char choice;
+				CFStringRef value;
+				NSInteger tag;
+			} ynaqDefaults[] = {
+				{
+					'y',
+					CFSTR("Yes"),
+					NSAlertFirstButtonReturn,
+				},
+				{
+					'n',
+					CFSTR("No"),
+					NSAlertSecondButtonReturn,
+				},
+				{
+					'q',
+					CFSTR("Quit"),
+					NSAlertThirdButtonReturn,
+				},
+				{
+					'a',
+					CFSTR("Auto"),
+					NSAlertThirdButtonReturn + 1,
+				},
+			};
+			for (NSInteger i = 0; i < sizeof(ynaqDefaults) / sizeof(ynaqDefaults[0]); i++) {
+				if (choice == ynaqDefaults[i].choice) {
+					NSButton *button = [alert addButtonWithTitle:(__bridge NSString *)(ynaqDefaults[i].value)];
+					button.tag = ynaqDefaults[i].tag;
+					if (choice == def) {
+						button.keyEquivalent = @"\r";
+					} else {
+						button.keyEquivalent = [NSString stringWithFormat:@"%c", choice];
+					}
+					return;
+				}
+			}
+			raw_printf("Unknown choice: %c.\nNo button added.", choice);
+		};
+		
 		if (question != nil)
-			Strcpy(buf,question);
+			Strcpy(buf, question);
 		if (choices != nil)
-			Strcat(buf,choices);
+			Strcat(buf, choices);
 		//Just in case the message window isn't up yet.
 		if (WIN_MESSAGE == WIN_ERR) {
 			return 'y';
@@ -769,8 +819,8 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
 			alert.informativeText = @" ";
-			[alert addButtonWithTitle:@"Yes"];
-			[alert addButtonWithTitle:@"No"];
+			addButtonToAlert(alert, 'y');
+			addButtonToAlert(alert, 'n');
 			
 			result = [alert runModal];
 		} else if (choices && strcmp(choices, ynqchars) == 0) {
@@ -778,9 +828,9 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
 			alert.informativeText = @" ";
-			[alert addButtonWithTitle:@"Yes"];
-			[alert addButtonWithTitle:@"No"];
-			[alert addButtonWithTitle:@"Quit"];
+			addButtonToAlert(alert, 'y');
+			addButtonToAlert(alert, 'n');
+			addButtonToAlert(alert, 'q');
 			
 			result = [alert runModal];
 		} else if (choices && strcmp(choices, ynaqchars) == 0) {
@@ -788,17 +838,37 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
 			alert.informativeText = @" ";
-			[alert addButtonWithTitle:@"Yes"];
-			[alert addButtonWithTitle:@"No"];
+			addButtonToAlert(alert, 'y');
+			addButtonToAlert(alert, 'n');
+			addButtonToAlert(alert, 'a');
+			addButtonToAlert(alert, 'q');
 			
-			{
-				NSButton *abutt = [alert addButtonWithTitle:@"Auto"];
-				abutt.tag = NSAlertThirdButtonReturn + 1;
-				
-				abutt = [alert addButtonWithTitle:@"Quit"];
-				abutt.tag = NSAlertThirdButtonReturn;
-			}
 			result = [alert runModal];
+		} else if (choices && strcmp(choices, "rl") == 0) {
+			// Special case for rings
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
+			alert.informativeText = @" ";
+			NSButton *button = [alert addButtonWithTitle:@"Right"];
+			button.keyEquivalent = @"r";
+			button = [alert addButtonWithTitle:@"Left"];
+			button.keyEquivalent = @"l";
+			button = [alert addButtonWithTitle:@"Cancel"];
+			button.keyEquivalent = @"\r";
+			
+			switch ([alert runModal]) {
+				case NSAlertFirstButtonReturn:
+					result = 'r';
+					break;
+					
+				case NSAlertSecondButtonReturn:
+					result = 'l';
+					break;
+					
+				default:
+					result = '\0';
+					break;
+			}
 		} else if ([[NSString stringWithCString:question encoding:NH3DTEXTENCODING] isLike:
 					NSLocalizedString(@"*what direction*", @"")]) {
 			// hmm... These letters from cmd.c will not there be a good method?
@@ -813,7 +883,7 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 				hdirect = (x == u.ux) ? 0 : hdirect;
 				vdirect = (y == u.uy) ? 0 : vdirect;
 				
-				switch ( hdirect + vdirect ) {
+				switch (hdirect + vdirect) {
 					case 1 : // choice right
 						result = (iflags.num_pad) ? '6' : 'l';
 						_NH3DMessenger.lastAttackDirection = 0;
@@ -1251,7 +1321,7 @@ wd_message()
 - (BOOL)windowShouldClose:(id)sender
 {
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = NSLocalizedString(@"Quit NetHack3D",@"");
+	alert.messageText = NSLocalizedString(@"Quit NetHack3D", @"");
 	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"");
 	[alert addButtonWithTitle:@"Cancel"];
 	[alert addButtonWithTitle:@"Quit"];
@@ -1337,13 +1407,7 @@ wd_message()
 
 - (void)printGlyph:(winid)wid xPos:(xchar)x yPos:(xchar)y glyph:(int)glyph bkglyph:(int)bkglyph
 {
-	switch (nh3d_windowlist[wid].type) {
-	case NHW_MAP:
-		[_mapModel setMapModelGlyph:glyph xPos:x yPos:y bgGlyph:bkglyph];
-		break;
-	default:
-		break;
-	}
+	nh3d_print_glyph(wid, x, y, glyph, bkglyph);
 }	
 
 - (int)nhPosKeyAtX:(int *)x atY:(int *)y keyMod:(int *)mod
@@ -1392,10 +1456,7 @@ wd_message()
 	[_userStatus updatePlayerInventory];
 	[_userStatus updatePlayer];
 	
-	Sprintf(buf, "%s, level %d", dungeons[u.uz.dnum].dname, depth(&u.uz));
-	/*
-	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
-	 */
+	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 }
 
@@ -1470,17 +1531,13 @@ static char ynPreReady(const char *str)
 	 * check for multiple games under the same name
 	 * (if !locknum) or check max nr of players (otherwise)
 	 */
-	(void) signal(SIGQUIT,SIG_IGN);
-	(void) signal(SIGINT,SIG_IGN);
+	(void) signal(SIGQUIT, SIG_IGN);
+	(void) signal(SIGINT, SIG_IGN);
 	if (!locknum) {
-#ifndef GNUSTEP
 		//for OSX (UTF8) File System
 		NSString *lockString;
 		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(lock, lockString.fileSystemRepresentation);
-#else
-		Sprintf(lock, "%d%s", (int)getuid(), plname);
-#endif
 	}
 	getlock();
 	
@@ -1512,7 +1569,6 @@ static char ynPreReady(const char *str)
 #endif
 	
 	if ((fd = restore_saved_game()) >= 0) {
-		isResuming = false;
 		const char *fq_save = fqname(SAVEF, SAVEPREFIX, 1);
 		
 		(void) chmod(fq_save,0);	/* disallow parallel restores */
@@ -1525,11 +1581,8 @@ static char ynPreReady(const char *str)
 		}
 #endif
 		
-		pline("Restoring save file...");
+		pline([NSLocalizedString(@"Restoring save file...", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
 		
-		/*
-		 pline("セーブファイルを復元中．．．");
-		 */
 		mark_synch();	/* flush output */
 		if (!dorecover(fd))
 			goto not_recovered;
@@ -1557,14 +1610,12 @@ static char ynPreReady(const char *str)
 		//flags.move = 0;
 		set_wear(NULL);
 		(void) pickup(1);
+		isResuming = false;
 	}
 	
 	[_userStatus updatePlayer];
 	
-	Sprintf(buf, "%s, level %d", dungeons[u.uz.dnum].dname, depth(&u.uz));
-	/*
-	 Sprintf(buf, "%s  地下%d階", jtrns_obj('d',dungeons[ u.uz.dnum ].dname), depth(&u.uz));
-	 */
+	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 	CocoaPortIsReady = YES;

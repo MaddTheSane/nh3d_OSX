@@ -52,3 +52,7 @@
 "Remove old save?" = "Remove old save?";
 "Old Save File" = "Old Save File";
 "Do you want to keep the save file?" = "セーブファイルを残しておきますか？";
+
+/* From mainRun and startNetHack3D: */
+"Restoring save file..." = "セーブファイルを復元中．．．";
+"%s, level %d" = "%s  地下%d階";
