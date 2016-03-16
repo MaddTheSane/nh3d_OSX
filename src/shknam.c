@@ -142,6 +142,9 @@ static const char *const shktools[] = {
 #ifdef VMS
     "Lez-tneg", "Ytnu-haled",
 #endif
+#ifdef NH3D_GRAPHICS
+    "=Haruumi Yoshino", "+Madd the Sane", "Betts",
+#endif
     0
 };
 
