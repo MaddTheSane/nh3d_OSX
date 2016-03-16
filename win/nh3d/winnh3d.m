@@ -814,34 +814,15 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 		}
 		putstr(WIN_MESSAGE, ATR_BOLD, buf);
 		
-		if (choices && strcmp(choices, ynchars) == 0) {
+		if (choices && (strcmp(choices, ynchars) == 0 || strcmp(choices, ynqchars) == 0 ||
+						strcmp(choices, ynaqchars) == 0)) {
 			ynfunc = YES;
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
 			alert.informativeText = @" ";
-			addButtonToAlert(alert, 'y');
-			addButtonToAlert(alert, 'n');
-			
-			result = [alert runModal];
-		} else if (choices && strcmp(choices, ynqchars) == 0) {
-			ynfunc = YES;
-			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
-			alert.informativeText = @" ";
-			addButtonToAlert(alert, 'y');
-			addButtonToAlert(alert, 'n');
-			addButtonToAlert(alert, 'q');
-			
-			result = [alert runModal];
-		} else if (choices && strcmp(choices, ynaqchars) == 0) {
-			ynfunc = YES;
-			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
-			alert.informativeText = @" ";
-			addButtonToAlert(alert, 'y');
-			addButtonToAlert(alert, 'n');
-			addButtonToAlert(alert, 'a');
-			addButtonToAlert(alert, 'q');
+			for (const char *ynBeg = choices; *ynBeg; ynBeg++) {
+				addButtonToAlert(alert, *ynBeg);
+			}
 			
 			result = [alert runModal];
 		} else if (choices && strcmp(choices, "rl") == 0) {
@@ -1636,13 +1617,15 @@ static char ynPreReady(const char *str)
 	[[sender window] close];
 	[_window makeKeyAndOrderFront:self];
 	
+	sys_early_init();
+	
 #ifndef GNUSTEP
 	
 #ifdef XI18N
 	setlocale(LC_ALL, "");
 #endif
 	
-	hname = argv[ 0 ];
+	hname = argv[0];
 	hackpid = getpid();
 	(void) umask(0777 & ~FCMASK);
 	
