@@ -229,8 +229,8 @@ regularize(register char *s)	/* normalize file name - we don't like .'s, /'s, sp
 {
     char *lp;
     
-    while ((lp = index(s, '.')) || (lp = index(s, '/'))
-           || (lp = index(s, ' ')))
+    while ((lp = strchr(s, '.')) || (lp = strchr(s, '/'))
+           || (lp = strchr(s, ' ')))
         *lp = '_';
 #if defined(SYSV) && !defined(AIX_31) && !defined(SVR4) && !defined(LINUX) \
 && !defined(__APPLE__)

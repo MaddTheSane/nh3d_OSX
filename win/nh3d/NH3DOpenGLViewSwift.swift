@@ -1421,11 +1421,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 				cellingCurrent = cellingTex
 				elementalLevel = 0
 			}
-			
-			//playerdepth = depth
-		} //else {
-			playerdepth = depth
-		//}
+		}
+		playerdepth = depth
 		
 		viewLock.unlock()
 		
@@ -4451,12 +4448,9 @@ extension NH3DOpenGLView {
 		}
 		
 		// insect class
-		loadModelBlocks[Int(PM_GIANT_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect
-		loadModelBlocks[Int(PM_KILLER_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect
-		loadModelBlocks[Int(PM_SOLDIER_ANT+GLYPH_MON_OFF)] =	loadModelFunc_insect
-		loadModelBlocks[Int(PM_FIRE_ANT+GLYPH_MON_OFF)] =		loadModelFunc_insect
-		loadModelBlocks[Int(PM_GIANT_BEETLE+GLYPH_MON_OFF)] =	loadModelFunc_insect
-		loadModelBlocks[Int(PM_QUEEN_BEE+GLYPH_MON_OFF)] =		loadModelFunc_insect
+		for i in Int(PM_GIANT_ANT+GLYPH_MON_OFF)...Int(PM_QUEEN_BEE+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_insect
+		}
 		
 		// blob class
 		loadModelBlocks[Int(PM_ACID_BLOB+GLYPH_MON_OFF)] =			loadModelFunc_blob
@@ -4469,21 +4463,9 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(PM_PYROLISK+GLYPH_MON_OFF)] =		loadModelFunc_cockatrice
 		
 		// dog or canine class
-		loadModelBlocks[Int(PM_JACKAL+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_FOX+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_COYOTE+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_WEREJACKAL+GLYPH_MON_OFF)] =			loadModelFunc_dog
-		loadModelBlocks[Int(PM_LITTLE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog
-		loadModelBlocks[Int(PM_DOG+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_LARGE_DOG+GLYPH_MON_OFF)] =			loadModelFunc_dog
-		loadModelBlocks[Int(PM_DINGO+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_WOLF+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_WEREWOLF+GLYPH_MON_OFF)] =			loadModelFunc_dog
-		loadModelBlocks[Int(PM_WARG+GLYPH_MON_OFF)] =				loadModelFunc_dog
-		loadModelBlocks[Int(PM_WINTER_WOLF_CUB+GLYPH_MON_OFF)] =	loadModelFunc_dog
-		loadModelBlocks[Int(PM_WINTER_WOLF+GLYPH_MON_OFF)] =		loadModelFunc_dog
-		loadModelBlocks[Int(PM_HELL_HOUND_PUP+GLYPH_MON_OFF)] =		loadModelFunc_dog
-		loadModelBlocks[Int(PM_HELL_HOUND+GLYPH_MON_OFF)] =			loadModelFunc_dog
+		for i in Int(PM_JACKAL+GLYPH_MON_OFF)...Int(PM_HELL_HOUND+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_dog
+		}
 		
 		// eye or sphere class
 		loadModelBlocks[Int(PM_GAS_SPORE+GLYPH_MON_OFF)] =			loadModelFunc_sphere
@@ -4550,14 +4532,9 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs
 		
 		// orc class
-		loadModelBlocks[Int(PM_ORC_SHAMAN + GLYPH_MON_OFF)] =	loadModelFunc_orc
-		loadModelBlocks[Int(PM_GOBLIN+GLYPH_MON_OFF)] =			loadModelFunc_orc
-		loadModelBlocks[Int(PM_HOBGOBLIN+GLYPH_MON_OFF)] =		loadModelFunc_orc
-		loadModelBlocks[Int(PM_ORC+GLYPH_MON_OFF)] =			loadModelFunc_orc
-		loadModelBlocks[Int(PM_HILL_ORC+GLYPH_MON_OFF)] =		loadModelFunc_orc
-		loadModelBlocks[Int(PM_MORDOR_ORC+GLYPH_MON_OFF)] =		loadModelFunc_orc
-		loadModelBlocks[Int(PM_URUK_HAI+GLYPH_MON_OFF)] =		loadModelFunc_orc
-		loadModelBlocks[Int(PM_ORC_CAPTAIN+GLYPH_MON_OFF)] =	loadModelFunc_orc
+		for i in Int(PM_GOBLIN+GLYPH_MON_OFF)...Int(PM_ORC_CAPTAIN+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_orc
+		}
 		
 		// piercers
 		loadModelBlocks[Int(PM_ROCK_PIERCER+GLYPH_MON_OFF)] =	loadModelFunc_piercers
@@ -4645,24 +4622,9 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
 		
 		// Dragons
-		loadModelBlocks[Int(PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_SILVER_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_RED_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_WHITE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_ORANGE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_BLACK_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_BLUE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_GREEN_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BABY_YELLOW_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_GRAY_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_SILVER_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_RED_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_WHITE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_ORANGE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BLACK_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_BLUE_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_GREEN_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
-		loadModelBlocks[Int(PM_YELLOW_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Dragons
+		for i in Int(PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF)...Int(PM_YELLOW_DRAGON+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Dragons
+		}
 		
 		// Elementals
 		loadModelBlocks[Int(PM_STALKER+GLYPH_MON_OFF)] =			loadModelFunc_Elementals
@@ -4798,80 +4760,28 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
 		
 		// Zombie
-		loadModelBlocks[Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)] =	loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_GNOME_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_ORC_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_DWARF_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_ELF_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_HUMAN_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_ETTIN_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_GIANT_ZOMBIE + GLYPH_MON_OFF)] =		loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_GHOUL + GLYPH_MON_OFF)] =			loadModelFunc_Zombie
-		loadModelBlocks[Int(PM_SKELETON + GLYPH_MON_OFF)] =			loadModelFunc_Zombie
+		for i in Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)...Int(PM_SKELETON + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Zombie
+		}
 		
 		// Golems
-		loadModelBlocks[Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_PAPER_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_ROPE_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_GOLD_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_LEATHER_GOLEM + GLYPH_MON_OFF)] =	loadModelFunc_Golems
-		loadModelBlocks[Int(PM_WOOD_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_FLESH_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_CLAY_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_STONE_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_GLASS_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
-		loadModelBlocks[Int(PM_IRON_GOLEM + GLYPH_MON_OFF)] =		loadModelFunc_Golems
+		for i in Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)...Int(PM_IRON_GOLEM + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Golems
+		}
 		
 		// Human or Elves
-		loadModelBlocks[Int(PM_ELVENKING + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_NURSE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_HIGH_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_MEDUSA + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_CROESUS + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_HUMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_HUMAN_WERERAT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_HUMAN_WEREJACKAL + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_HUMAN_WEREWOLF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_WOODLAND_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_GREEN_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_GREY_ELF + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_ELF_LORD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_DOPPELGANGER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_SHOPKEEPER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_GUARD + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_PRISONER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_ORACLE + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_ALIGNED_PRIEST + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_SOLDIER + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_SERGEANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_LIEUTENANT + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_WATCHMAN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_WATCH_CAPTAIN + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
-		loadModelBlocks[Int(PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF) ] = loadModelFunc_HumanOrElves
+		for i in Int(PM_HUMAN+GLYPH_MON_OFF)...Int(PM_CROESUS+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_HumanOrElves
+		}
 		
 		// Ghosts
 		loadModelBlocks[Int(PM_GHOST + GLYPH_INVIS_OFF)] = loadModelFunc_Ghosts
 		loadModelBlocks[Int(PM_SHADE + GLYPH_INVIS_OFF)] = loadModelFunc_Ghosts
 		
 		// Major Daemons
-		loadModelBlocks[Int(PM_WATER_DEMON + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_HORNED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_SUCCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_INCUBUS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_ERINYS + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_BARBED_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_MARILITH + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_VROCK + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_HEZROU + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_BONE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_ICE_DEVIL + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_NALFESHNEE + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_PIT_FIEND + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_BALROG + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_DJINNI + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
-		loadModelBlocks[Int(PM_SANDESTIN + GLYPH_MON_OFF)] = loadModelFunc_MajorDamons
+		for i in Int(PM_WATER_DEMON+GLYPH_MON_OFF)...Int(PM_BALROG+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_MajorDamons
+		}
 		
 		// Greater Daemons
 		loadModelBlocks[Int(PM_JUIBLEX + GLYPH_MON_OFF)] = loadModelFunc_GraterDamons
@@ -4912,79 +4822,26 @@ extension NH3DOpenGLView {
 		}
 		
 		// Adventures
-		loadModelBlocks[Int(PM_ARCHEOLOGIST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_BARBARIAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_CAVEMAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_CAVEWOMAN + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_HEALER + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_KNIGHT + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_MONK + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_PRIEST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_PRIESTESS + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_RANGER + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_ROGUE + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_SAMURAI + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_TOURIST + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_VALKYRIE + GLYPH_MON_OFF)] = loadModelFunc_Adventures
-		loadModelBlocks[Int(PM_WIZARD + GLYPH_MON_OFF)] = loadModelFunc_Adventures
+		for i in Int(PM_ARCHEOLOGIST+GLYPH_MON_OFF)...Int(PM_WIZARD+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Adventures
+		}
 		
 		// Unique person
-		loadModelBlocks[Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_PELIAS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_SHAMAN_KARNOV+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_HIPPOCRATES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_GRAND_MASTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ARCH_PRIEST+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ORION+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_MASTER_OF_THIEVES+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_LORD_SATO+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_TWOFLOWER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_NORN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_KING_ARTHUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_NEFERET_THE_GREEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_MINION_OF_HUHETOTL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_THOTH_AMON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_CHROMATIC_DRAGON+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_CYCLOPS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_IXOTH+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_MASTER_KAEN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_NALZOK+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_SCORPIUS+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_MASTER_ASSASSIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ASHIKAGA_TAKAUJI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_LORD_SURTUR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_DARK_ONE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_STUDENT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_CHIEFTAIN+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_NEANDERTHAL+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ATTENDANT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_PAGE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ABBOT+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ACOLYTE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_HUNTER+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_THUG+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_NINJA+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_ROSHI+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_GUIDE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_WARRIOR+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		loadModelBlocks[Int(PM_APPRENTICE+GLYPH_MON_OFF)] = loadModelFunc_Uniqueperson
-		// -------------------------- Map Symbol Section ----------------------------- //
+		for i in Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)...Int(PM_APPRENTICE+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Uniqueperson
+		}
 		
+		// -------------------------- Map Symbol Section ----------------------------- //
 		loadModelBlocks[Int(S_bars + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
 		loadModelBlocks[Int(S_tree + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_upstair + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_dnstair + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_upladder + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_dnladder + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_altar + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_grave + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_throne + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_sink + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_fountain + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_vodbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_hodbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_vcdbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_hcdbridge + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
+		for i in Int(S_upstair + GLYPH_CMAP_OFF)...Int(S_fountain + GLYPH_CMAP_OFF) {
+			loadModelBlocks[i] = loadModelFunc_MapSymbols
+		}
+		
+		for i in Int(S_vodbridge + GLYPH_CMAP_OFF)...Int(S_hcdbridge + GLYPH_CMAP_OFF) {
+			loadModelBlocks[i] = loadModelFunc_MapSymbols
+		}
+		
 		//  ------------------------------  Boulder ---------------------------------- //
 		loadModelBlocks[Int(BOULDER + GLYPH_OBJ_OFF)] = { _ in
 			return NH3DModelObject(with3DSFile: "boulder", withTexture: true)
