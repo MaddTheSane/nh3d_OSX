@@ -11,30 +11,15 @@
 
 int main(int argc, char *argv[])
 {
-	
-/*	long uiVer;
-	
-	Gestalt( gestaltSystemVersion, &uiVer );
-	
-	if (uiVer < 0x1040) {
-		
-		NSRunCriticalAlertPanel(@"Sorry",
-								NSLocalizedString(@"Grater than MacOS 10.4 are necessary so that NetHack3D start.",@"")
-								,@"OK",nil,nil);
-		
-		exit(EXIT_SUCCESS);
-	}
-*/	
-	return NSApplicationMain(argc,  (const char **) argv);
+	return NSApplicationMain(argc, (const char **) argv);
 }
 
-/*
+/**
  * Add a slash to any name not ending in /. There must
  * be room for the /
  */
 void
-append_slash(name)
-char *name;
+append_slash(char *name)
 {
 	char *ptr;
 
