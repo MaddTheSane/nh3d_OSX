@@ -1757,7 +1757,7 @@ static char ynPreReady(const char *str)
 	
 	// window fade in
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-		context.duration = 0.7;
+		context.duration = 0.57;
 		_window.animator.alphaValue = 1;
 	} completionHandler:^{
 		/* I could only get this to play nicely when told to perform as a selector*/

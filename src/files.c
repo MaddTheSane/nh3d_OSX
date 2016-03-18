@@ -1727,6 +1727,13 @@ lock_file(const char *filename, int whichprefix, int retryct)
     }
 #endif /* AMIGA || WIN32 || MSDOS */
     return TRUE;
+#if 0
+        /* Make Xcode's code parsing happy */
+    }
+    }
+}
+
+#endif
 }
 
 #ifdef VMS /* for unlock_file, use the unlink() routine in vmsunix.c */
@@ -3041,6 +3048,10 @@ check_recordfile(const char *dir UNUSED_if_not_OS2_CODEVIEW)
 #endif /* MAC */
 
 #endif /* MICRO || WIN32*/
+#if 0
+        /* Make Xcode's code sense happy */
+    }
+#endif
 }
 
 /* ----------  END SCOREBOARD CREATION ----------- */
