@@ -126,7 +126,6 @@ class MapModel: NSObject {
 		
 		if enemyIndicator.intValue == value {
 			value = enemyWarnBase - (random() % 3 + 1)
-			
 		}
 		enemyIndicator.intValue = value
 		

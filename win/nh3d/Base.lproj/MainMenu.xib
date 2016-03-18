@@ -21,6 +21,8 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="196" y="123" width="800" height="580"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <value key="minSize" type="size" width="800" height="580"/>
+            <value key="maxSize" type="size" width="800" height="580"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="580"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2803,7 +2805,7 @@
                 <outlet property="content" destination="4755" id="4805"/>
             </connections>
         </objectController>
-        <drawer preferredEdge="minY" leadingOffset="130" trailingOffset="130" id="4999" userLabel="StatusDrawer">
+        <drawer preferredEdge="minY" leadingOffset="131" trailingOffset="131" id="4999" userLabel="StatusDrawer">
             <size key="contentSize" width="528" height="75"/>
             <size key="minContentSize" width="528" height="75"/>
             <size key="maxContentSize" width="528" height="75"/>

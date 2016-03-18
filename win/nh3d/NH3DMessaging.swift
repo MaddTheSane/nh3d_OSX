@@ -114,8 +114,9 @@ class NH3DMessaging: NSObject {
 		
 		func playAud(playSound: AVAudioPlayer) {
 			if playSound.playing {
-				playSound.pause()
-				playSound.currentTime = 0
+				return
+				//playSound.pause()
+				//playSound.currentTime = 0
 			}
 			playSound.volume = volume * 0.01
 			playSound.play()

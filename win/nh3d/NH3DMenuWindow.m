@@ -160,7 +160,7 @@
 	}
 	
 	[_window beginSheet:_textPanel completionHandler:^(NSModalResponse res){
-		
+		[_textPanel orderOut:self];
 	}];
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
@@ -292,7 +292,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	[_menuTableWindow scrollToBeginningOfDocument:nil];
 	[_window.attachedSheet orderOut:nil];
 	[_window beginSheet:_menuPanel completionHandler:^(NSModalResponse returnCode) {
-		
+		[_menuPanel orderOut:self];
 	}];
 }
 
@@ -361,11 +361,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (IBAction)closeModalDialog:(id)sender
 {
 	if ([sender tag]) {
-		[[sender window] orderOut:self];
+		//[[sender window] orderOut:self];
 		[NSApp stopModalWithCode:DIALOG_CANCEL];
 		[_window endSheet: [sender window]];
 	} else { 
-		[[sender window] close];
+		//[[sender window] close];
 		[NSApp stopModalWithCode:DIALOG_OK];
 		[_window endSheet: [sender window]];
 	}

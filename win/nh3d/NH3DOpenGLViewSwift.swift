@@ -843,7 +843,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glClearColor(0.0, 0.0, 0.8, 0.0)
 			glFogf(GLenum(GL_FOG_END), 6.0)
 			glFogfv(GLenum(GL_FOG_COLOR), underwaterColor)
-		} else if Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy).typ) {
+		} else if Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy).typ) || (!Swift_Underwater() && (schar(MOAT) == Swift_RoomAtLocation(u.ux, u.uy).typ)) {
 			// in room
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
@@ -857,7 +857,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 30.0)
 			
 			// check lit position.
-			glFogf(GLenum(GL_FOG_END) , 4.5 + GLfloat(MAP_MARGIN) * NH3DGL_TILE_SIZE)
+			glFogf(GLenum(GL_FOG_END), 4.5 + GLfloat(MAP_MARGIN) * NH3DGL_TILE_SIZE)
 			
 			for i in 1...MAP_MARGIN {
 				if ((Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ))
@@ -2012,11 +2012,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		NSUserDefaultsController.sharedUserDefaultsController().values.setValue((waitRate as NSNumber),
 			forKey: NH3DOpenGLWaitRateKey)
 	}
-}
 
-//MARK: - Load model methods. Used as closures
+	//MARK: - Load model methods. Used as closures
 
-extension NH3DOpenGLView {
 	/// insect class
 	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
