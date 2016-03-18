@@ -89,7 +89,7 @@ void nh3d_outrip(winid wid, int how, time_t when);
 @class NH3DMessaging;
 @class NH3DOpenGLView;
 
-void nh3d_create_nhwindow_by_id( int type, winid i);
+void nh3d_create_nhwindow_by_id(int type, winid i);
 void nethack3d_exit(int status);
 #ifndef GNUSTEP
 void nh3d_set_savefile_name();

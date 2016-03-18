@@ -422,7 +422,7 @@ winid nh3d_create_nhwindow(int type)
 			}
 		}
 		if (i > 10) {
-			NSLog(@"ERROR:  No windows available...\n");
+			NSLog(@"ERROR: No windows available...\n");
 		}
 		nh3d_create_nhwindow_by_id(type, i);
 		
@@ -674,7 +674,9 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 
 void nh3d_update_inventory()
 {
-	/* Do nothing */
+	if (CocoaPortIsReady) {
+		[_NH3DUserStatusModel updatePlayerInventory];
+	}
 }
 
 void nh3d_mark_synch()
@@ -780,7 +782,7 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 				},
 				{
 					'q',
-					CFSTR("Quit"),
+					CFSTR("Cancel"),
 					NSAlertThirdButtonReturn,
 				},
 				{
@@ -1434,7 +1436,6 @@ wd_message()
 	_asciiMapView.needClear = YES;
 	[_asciiMapView updateMap];
 	[_glMapView updateMap];
-	[_userStatus updatePlayerInventory];
 	[_userStatus updatePlayer];
 	
 	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
@@ -1601,6 +1602,8 @@ static char ynPreReady(const char *str)
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 	CocoaPortIsReady = YES;
 	[_mapModel updateAllMaps];
+	/* first-time inventory */
+	[_NH3DUserStatusModel updatePlayerInventory];
 	
 	moveloop(isResuming);
 }
