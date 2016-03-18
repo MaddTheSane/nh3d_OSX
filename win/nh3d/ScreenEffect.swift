@@ -11,6 +11,8 @@ import Foundation
 final class ScreenEffect {
 	private var regex: COpaquePointer
 	let effect: Int32
+	/// The regex string used to match against.<br>
+	/// Useful for debugging
 	let str: String
 	
 	init?(message text: String, effect: Int32) {

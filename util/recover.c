@@ -21,11 +21,11 @@ extern int vms_creat(const char *, unsigned);
 extern int vms_open(const char *, int, unsigned);
 #endif /* VMS */
 
-int restore_savefile(char *);
-void set_levelfile_name(int);
-int open_levelfile(int);
-int create_savefile(void);
-void copy_bytes(int, int);
+static int restore_savefile(char *);
+static void set_levelfile_name(int);
+static int open_levelfile(int);
+static int create_savefile(void);
+static void copy_bytes(int, int);
 
 #ifndef WIN_CE
 #define Fprintf (void) fprintf
@@ -57,7 +57,7 @@ char *exepath(char *);
 #if defined(__BORLANDC__) && !defined(_WIN32)
 extern unsigned _stklen = STKSIZ;
 #endif
-char
+static char
     savename[SAVESIZE]; /* holds relative path of save file from playground */
 
 int

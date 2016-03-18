@@ -416,6 +416,7 @@
 		55A571031C8D61A000FE4A3B /* NH3DModelObject+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
+		55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */ = {isa = PBXBuildFile; fileRef = 2BACF9EF090258000095C8A4 /* recover */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
@@ -470,6 +471,20 @@
 			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
 			remoteInfo = headers;
 		};
+		55BCFCAB1C9C87410076210F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BACF9EE090258000095C8A4;
+			remoteInfo = recover;
+		};
+		55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E4871C8E18EA0074B7C4;
+			remoteInfo = dat;
+		};
 		55D0E4911C8E1A280074B7C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -478,6 +493,20 @@
 			remoteInfo = makefiles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		55BCFCA91C9C87110076210F /* Copy Addl. Executables */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */,
+			);
+			name = "Copy Addl. Executables";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -2676,6 +2705,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55BCFCAE1C9C87780076210F /* PBXTargetDependency */,
 			);
 			name = recover;
 			productName = recover;
@@ -2721,10 +2751,12 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				55BCFCA91C9C87110076210F /* Copy Addl. Executables */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				55BCFCAC1C9C87410076210F /* PBXTargetDependency */,
 				557CE1C91C8E207900B43765 /* PBXTargetDependency */,
 				557CE1CB1C8E207900B43765 /* PBXTargetDependency */,
 			);
@@ -3495,6 +3527,16 @@
 			isa = PBXTargetDependency;
 			target = 557CE1CC1C8E242500B43765 /* util */;
 			targetProxy = 557CE1D51C8E256600B43765 /* PBXContainerItemProxy */;
+		};
+		55BCFCAC1C9C87410076210F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2BACF9EE090258000095C8A4 /* recover */;
+			targetProxy = 55BCFCAB1C9C87410076210F /* PBXContainerItemProxy */;
+		};
+		55BCFCAE1C9C87780076210F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E4871C8E18EA0074B7C4 /* dat */;
+			targetProxy = 55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */;
 		};
 		55D0E4921C8E1A280074B7C4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

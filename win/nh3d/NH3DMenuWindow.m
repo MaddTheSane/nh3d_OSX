@@ -28,7 +28,7 @@
 - (instancetype)init
 {
 	if (self = [super init]) {
-		nh3dMenu = nil;
+		nh3dMenu = [[NSMutableArray alloc] init];
 		isMenu = NO;
 		doneRip = NO;
 		
@@ -172,7 +172,7 @@
 
 - (void)createMenuWindow:(int)wid
 {
-	nh3dMenu = [[NSMutableArray alloc] init];
+	[nh3dMenu removeAllObjects];
 	[self updateMenuWindow];
 }
 
@@ -363,11 +363,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if ([sender tag]) {
 		//[[sender window] orderOut:self];
 		[NSApp stopModalWithCode:DIALOG_CANCEL];
-		[_window endSheet: [sender window]];
+		[_window endSheet: [sender window] returnCode:DIALOG_CANCEL];
 	} else { 
 		//[[sender window] close];
 		[NSApp stopModalWithCode:DIALOG_OK];
-		[_window endSheet: [sender window]];
+		[_window endSheet: [sender window] returnCode:DIALOG_OK];
 	}
 }
 

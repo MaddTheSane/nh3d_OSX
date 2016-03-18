@@ -9,8 +9,8 @@
 import Cocoa
 import AVFoundation
 
-private let DIALOG_OK		= 128
-private let DIALOG_CANCEL	= 129
+let DIALOG_OK		= 128
+let DIALOG_CANCEL	= 129
 
 class NH3DMessaging: NSObject {
 	var messageWindow: NSTextView! {

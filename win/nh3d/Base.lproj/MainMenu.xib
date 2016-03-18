@@ -2973,7 +2973,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5311">
-                        <rect key="frame" x="0.0" y="82" width="365" height="16"/>
+                        <rect key="frame" x="18" y="82" width="329" height="16"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="6942">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3026,7 +3026,7 @@ DQ
                     <constraint firstItem="5312" firstAttribute="top" secondItem="5309" secondAttribute="bottom" constant="11" id="LiD-LH-vv8"/>
                     <constraint firstItem="5311" firstAttribute="top" secondItem="5308" secondAttribute="top" constant="20" symbolic="YES" id="Nks-Qr-hrL"/>
                     <constraint firstItem="5312" firstAttribute="baseline" secondItem="5313" secondAttribute="baseline" id="Zpy-em-l5C"/>
-                    <constraint firstItem="5311" firstAttribute="leading" secondItem="5308" secondAttribute="leading" constant="2" id="acP-rC-d82"/>
+                    <constraint firstItem="5311" firstAttribute="leading" secondItem="5308" secondAttribute="leading" constant="20" symbolic="YES" id="acP-rC-d82"/>
                     <constraint firstAttribute="bottom" secondItem="5312" secondAttribute="bottom" constant="20" symbolic="YES" id="eHi-Yj-z0P"/>
                     <constraint firstItem="5312" firstAttribute="leading" secondItem="5313" secondAttribute="trailing" constant="12" symbolic="YES" id="kL7-SV-Z2g"/>
                     <constraint firstItem="5311" firstAttribute="centerX" secondItem="5308" secondAttribute="centerX" id="nGd-mL-a7m"/>

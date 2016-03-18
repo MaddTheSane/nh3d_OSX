@@ -919,8 +919,8 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
 		if (stDrawer.state == NSDrawerClosedState || stDrawer.state == NSDrawerClosingState) {
-			[stDrawer open];
 			[[NSSound soundNamed:@"Purr"] play];
+			[stDrawer open];
 		}
 	} else if (stDrawer.state == NSDrawerOpenState || stDrawer.state == NSDrawerOpeningState) {
 		[stDrawer close];
