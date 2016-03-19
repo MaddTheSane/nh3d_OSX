@@ -229,8 +229,7 @@ coord_desc(int x, int y, char *outbuf, char cmode)
 }
 
 STATIC_OVL void
-auto_describe(cx, cy)
-int cx, cy;
+auto_describe(int cx, int cy)
 {
     coord cc;
     int sym = 0;
@@ -606,9 +605,7 @@ christen_monst(struct monst *mtmp, const char *name)
 /* check whether user-supplied name matches or nearly matches an unnameable
    monster's name; if so, give an alternate reject message for do_mname() */
 STATIC_OVL boolean
-alreadynamed(mtmp, monnambuf, usrbuf)
-struct monst *mtmp;
-char *monnambuf, *usrbuf;
+alreadynamed(struct monst *mtmp, char *monnambuf, char *usrbuf)
 {
     char pronounbuf[10], *p;
 

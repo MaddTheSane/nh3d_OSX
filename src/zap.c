@@ -1,4 +1,4 @@
-/* NetHack 3.6	zap.c	$NHDT-Date: 1449669396 2015/12/09 13:56:36 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.238 $ */
+/* NetHack 3.6	zap.c	$NHDT-Date: 1457570259 2016/03/10 00:37:39 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.249 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -55,21 +55,21 @@ STATIC_DCL int spell_hit_bonus(int);
 STATIC_VAR const char are_blinded_by_the_flash[] =
     "are blinded by the flash!";
 
-const char *const flash_types[] =
-    {                  /* also used in buzzmu(mcastu.c) */
-      "magic missile", /* Wands must be 0-9 */
-      "bolt of fire", "bolt of cold", "sleep ray", "death ray",
-      "bolt of lightning", "", "", "", "",
+const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
+    {
+        "magic missile", /* Wands must be 0-9 */
+        "bolt of fire", "bolt of cold", "sleep ray", "death ray",
+        "bolt of lightning", "", "", "", "",
 
-      "magic missile", /* Spell equivalents must be 10-19 */
-      "fireball", "cone of cold", "sleep ray", "finger of death",
-      "bolt of lightning", /* There is no spell, used for retribution */
-      "", "", "", "",
+        "magic missile", /* Spell equivalents must be 10-19 */
+        "fireball", "cone of cold", "sleep ray", "finger of death",
+        "bolt of lightning", /* there is no spell, used for retribution */
+        "", "", "", "",
 
-      "blast of missiles", /* Dragon breath equivalents 20-29*/
-      "blast of fire", "blast of frost", "blast of sleep gas",
-      "blast of disintegration", "blast of lightning", "blast of poison gas",
-      "blast of acid", "", ""
+        "blast of missiles", /* Dragon breath equivalents 20-29*/
+        "blast of fire", "blast of frost", "blast of sleep gas",
+        "blast of disintegration", "blast of lightning",
+        "blast of poison gas", "blast of acid", "", ""
     };
 
 /*
@@ -137,12 +137,13 @@ bhitm(struct monst *mtmp, struct obj *otmp)
     int dmg, otyp = otmp->otyp;
     const char *zap_type_text = "spell";
     struct obj *obj;
-    boolean disguised_mimic =
-        (mtmp->data->mlet == S_MIMIC && mtmp->m_ap_type != M_AP_NOTHING);
+    boolean disguised_mimic = (mtmp->data->mlet == S_MIMIC
+                               && mtmp->m_ap_type != M_AP_NOTHING);
 
     if (u.uswallow && mtmp == u.ustuck)
         reveal_invis = FALSE;
 
+    notonhead = (mtmp->mx != bhitpos.x || mtmp->my != bhitpos.y);
     switch (otyp) {
     case WAN_STRIKING:
         zap_type_text = "wand";
@@ -1396,14 +1397,15 @@ poly_obj(struct obj *obj, int id)
 
     otmp->cursed = obj->cursed;
     otmp->blessed = obj->blessed;
-    otmp->oeroded = obj->oeroded;
-    otmp->oeroded2 = obj->oeroded2;
-    if (!is_flammable(otmp) && !is_rustprone(otmp))
-        otmp->oeroded = 0;
-    if (!is_corrodeable(otmp) && !is_rottable(otmp))
-        otmp->oeroded2 = 0;
-    if (is_damageable(otmp))
-        otmp->oerodeproof = obj->oerodeproof;
+
+    if (erosion_matters(otmp)) {
+        if (is_flammable(otmp) || is_rustprone(otmp))
+            otmp->oeroded = obj->oeroded;
+        if (is_corrodeable(otmp) || is_rottable(otmp))
+            otmp->oeroded2 = obj->oeroded2;
+        if (is_damageable(otmp))
+            otmp->oerodeproof = obj->oerodeproof;
+    }
 
     /* Keep chest/box traps and poisoned ammo if we may */
     if (obj->otrapped && Is_box(otmp))
@@ -2083,6 +2085,7 @@ dozap()
                && !(objects[obj->otyp].oc_dir == NODIR)) {
         if ((damage = zapyourself(obj, TRUE)) != 0) {
             char buf[BUFSZ];
+
             Sprintf(buf, "zapped %sself with a wand", uhim());
             losehp(Maybe_Half_Phys(damage), buf, NO_KILLER_PREFIX);
         }
@@ -2482,6 +2485,8 @@ zap_steed(struct obj *obj) /* wand or spell */
 {
     int steedhit = FALSE;
 
+    bhitpos.x = u.usteed->mx, bhitpos.y = u.usteed->my;
+    notonhead = FALSE;
     switch (obj->otyp) {
     /*
      * Wands that are allowed to hit the steed
@@ -3044,7 +3049,7 @@ bhit(register int ddx, register int ddy,    /* direction */
         }
 
         if (is_pick(obj) && inside_shop(x, y)
-            && (mtmp = shkcatch(obj, x, y))) {
+            && (mtmp = shkcatch(obj, x, y)) != 0) {
             tmp_at(DISP_END, 0);
             return mtmp;
         }
@@ -3053,9 +3058,9 @@ bhit(register int ddx, register int ddy,    /* direction */
 
         /* iron bars will block anything big enough */
         if ((weapon == THROWN_WEAPON || weapon == KICKED_WEAPON)
-            && typ == IRONBARS && hits_bars(pobj, x - ddx, y - ddy,
-                                            bhitpos.x, bhitpos.y,
-                                            point_blank ? 0 : !rn2(5), 1)) {
+            && typ == IRONBARS
+            && hits_bars(pobj, x - ddx, y - ddy, bhitpos.x, bhitpos.y,
+                         point_blank ? 0 : !rn2(5), 1)) {
             /* caveat: obj might now be null... */
             obj = *pobj;
             bhitpos.x -= ddx;
@@ -3230,6 +3235,7 @@ bhit(register int ddx, register int ddy,    /* direction */
             && obj->otyp == HEAVY_IRON_BALL) {
             struct obj *bobj;
             struct trap *t;
+
             if ((bobj = sobj_at(BOULDER, x, y)) != 0) {
                 if (cansee(x, y))
                     pline("%s hits %s.", The(distant_name(obj, xname)),
@@ -3778,7 +3784,6 @@ void
 buzz(register int type, register int nd, register xchar sx, register xchar sy, register int dx, register int dy)
 {
     int range, abstype = abs(type) % 10;
-    struct rm *lev;
     register xchar lsx, lsy;
     struct monst *mon;
     coord save_bhitpos;
@@ -3822,22 +3827,23 @@ buzz(register int type, register int nd, register xchar sx, register xchar sy, r
         sx += dx;
         lsy = sy;
         sy += dy;
-        if (isok(sx, sy) && (lev = &levl[sx][sy])->typ) {
-            mon = m_at(sx, sy);
-            if (cansee(sx, sy)) {
-                /* reveal/unreveal invisible monsters before tmp_at() */
-                if (mon && !canspotmon(mon))
-                    map_invisible(sx, sy);
-                else if (!mon && glyph_is_invisible(levl[sx][sy].glyph)) {
-                    unmap_object(sx, sy);
-                    newsym(sx, sy);
-                }
-                if (ZAP_POS(lev->typ) || (isok(lsx, lsy) && cansee(lsx, lsy)))
-                    tmp_at(sx, sy);
-                delay_output(); /* wait a little */
-            }
-        } else
+        if (!isok(sx, sy) || levl[sx][sy].typ == STONE)
             goto make_bounce;
+
+        mon = m_at(sx, sy);
+        if (cansee(sx, sy)) {
+            /* reveal/unreveal invisible monsters before tmp_at() */
+            if (mon && !canspotmon(mon))
+                map_invisible(sx, sy);
+            else if (!mon && glyph_is_invisible(levl[sx][sy].glyph)) {
+                unmap_object(sx, sy);
+                newsym(sx, sy);
+            }
+            if (ZAP_POS(levl[sx][sy].typ)
+                || (isok(lsx, lsy) && cansee(lsx, lsy)))
+                tmp_at(sx, sy);
+            delay_output(); /* wait a little */
+        }
 
         /* hit() and miss() need bhitpos to match the target */
         bhitpos.x = sx, bhitpos.y = sy;
@@ -3851,6 +3857,7 @@ buzz(register int type, register int nd, register xchar sx, register xchar sy, r
             if (type >= 0)
                 mon->mstrategy &= ~STRAT_WAITMASK;
         buzzmonst:
+            notonhead = (mon->mx != bhitpos.x || mon->my != bhitpos.y);
             if (zap_hit(find_mac(mon), spell_type)) {
                 if (mon_reflects(mon, (char *) 0)) {
                     if (cansee(mon->mx, mon->my)) {
@@ -3949,24 +3956,28 @@ buzz(register int type, register int nd, register xchar sx, register xchar sy, r
             nomul(0);
         }
 
-        if (!ZAP_POS(lev->typ) || (closed_door(sx, sy) && (range >= 0))) {
+        if (!ZAP_POS(levl[sx][sy].typ)
+            || (closed_door(sx, sy) && range >= 0)) {
             int bounce;
             uchar rmn;
+            boolean fireball;
 
         make_bounce:
-            if (type == ZT_SPELL(ZT_FIRE)) {
-                sx = lsx;
-                sy = lsy;
-                break; /* fireballs explode before the wall */
-            }
             bounce = 0;
-            range--;
-            if (range && isok(lsx, lsy) && cansee(lsx, lsy)) {
-                    pline("%s %s!", The(fltxt),
-                          Is_airlevel(&u.uz)
-                          ? "vanishes into the aether"
-                          : "bounces");
-                    if (Is_airlevel(&u.uz)) goto get_out_buzz;
+            fireball = (type == ZT_SPELL(ZT_FIRE));
+            if ((--range > 0 && isok(lsx, lsy) && cansee(lsx, lsy))
+                || fireball) {
+                if (Is_airlevel(&u.uz)) { /* nothing to bounce off of */
+                    pline_The("%s vanishes into the aether!", fltxt);
+                    if (fireball)
+                        type = ZT_WAND(ZT_FIRE); /* skip pending fireball */
+                    break;
+                } else if (fireball) {
+                    sx = lsx;
+                    sy = lsy;
+                    break; /* fireballs explode before the obstacle */
+                } else
+                    pline_The("%s bounces!", fltxt);
             }
             if (!dx || !dy || !rn2(20)) {
                 dx = -dx;
@@ -4001,7 +4012,6 @@ buzz(register int type, register int nd, register xchar sx, register xchar sy, r
     tmp_at(DISP_END, 0);
     if (type == ZT_SPELL(ZT_FIRE))
         explode(sx, sy, type, d(12, 6), 0, EXPL_FIERY);
- get_out_buzz:
     if (shopdamage)
         pay_for_damage(abstype == ZT_FIRE
                           ? "burn away"

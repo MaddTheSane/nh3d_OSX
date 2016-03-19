@@ -20,7 +20,7 @@ STATIC_DCL void kickdmg(struct monst *, boolean);
 STATIC_DCL boolean maybe_kick_monster(struct monst *,
                                               xchar, xchar);
 STATIC_DCL void kick_monster(struct monst *, xchar, xchar);
-STATIC_DCL int kick_object(xchar, xchar, char*);
+STATIC_DCL int kick_object(xchar, xchar, char *);
 STATIC_DCL int really_kick_object(xchar, xchar);
 STATIC_DCL char *kickstr(char *, const char *);
 STATIC_DCL void otransit_msg(struct obj *, boolean, long);

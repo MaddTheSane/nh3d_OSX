@@ -1,4 +1,4 @@
-/* NetHack 3.6	role.c	$NHDT-Date: 1453514597 2016/01/23 02:03:17 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.36 $ */
+/* NetHack 3.6	role.c	$NHDT-Date: 1456907852 2016/03/02 08:37:32 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.37 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985-1999. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -768,7 +768,7 @@ const struct Align aligns[] = {
 static struct {
     boolean roles[SIZE(roles)];
     short mask;
-} nhfilter;
+} rfilter;
 
 STATIC_DCL int randrole_filtered(void);
 STATIC_DCL char *promptsep(char *, int);
@@ -1034,7 +1034,7 @@ ok_role(int rolenum, int racenum, int gendnum, int alignnum)
     short allow;
 
     if (rolenum >= 0 && rolenum < SIZE(roles) - 1) {
-        if (nhfilter.roles[rolenum])
+        if (rfilter.roles[rolenum])
             return FALSE;
         allow = roles[rolenum].allow;
         if (racenum >= 0 && racenum < SIZE(races) - 1
@@ -1050,7 +1050,7 @@ ok_role(int rolenum, int racenum, int gendnum, int alignnum)
     } else {
         /* random; check whether any selection is possible */
         for (i = 0; i < SIZE(roles) - 1; i++) {
-            if (nhfilter.roles[i])
+            if (rfilter.roles[i])
                 continue;
             allow = roles[i].allow;
             if (racenum >= 0 && racenum < SIZE(races) - 1
@@ -1100,7 +1100,7 @@ ok_race(int rolenum, int racenum, int gendnum, int alignnum)
     short allow;
 
     if (racenum >= 0 && racenum < SIZE(races) - 1) {
-        if (nhfilter.mask & races[racenum].selfmask)
+        if (rfilter.mask & races[racenum].selfmask)
             return FALSE;
         allow = races[racenum].allow;
         if (rolenum >= 0 && rolenum < SIZE(roles) - 1
@@ -1116,7 +1116,7 @@ ok_race(int rolenum, int racenum, int gendnum, int alignnum)
     } else {
         /* random; check whether any selection is possible */
         for (i = 0; i < SIZE(races) - 1; i++) {
-            if (nhfilter.mask & races[i].selfmask)
+            if (rfilter.mask & races[i].selfmask)
                 continue;
             allow = races[i].allow;
             if (rolenum >= 0 && rolenum < SIZE(roles) - 1
@@ -1170,7 +1170,7 @@ ok_gend(int rolenum, int racenum, int gendnum, int alignnum UNUSED)
     short allow;
 
     if (gendnum >= 0 && gendnum < ROLE_GENDERS) {
-        if (nhfilter.mask & genders[gendnum].allow)
+        if (rfilter.mask & genders[gendnum].allow)
             return FALSE;
         allow = genders[gendnum].allow;
         if (rolenum >= 0 && rolenum < SIZE(roles) - 1
@@ -1183,7 +1183,7 @@ ok_gend(int rolenum, int racenum, int gendnum, int alignnum UNUSED)
     } else {
         /* random; check whether any selection is possible */
         for (i = 0; i < ROLE_GENDERS; i++) {
-            if (nhfilter.mask & genders[i].allow)
+            if (rfilter.mask & genders[i].allow)
                 continue;
             allow = genders[i].allow;
             if (rolenum >= 0 && rolenum < SIZE(roles) - 1
@@ -1235,7 +1235,7 @@ ok_align(int rolenum, int racenum, int gendnum UNUSED, int alignnum)
     short allow;
 
     if (alignnum >= 0 && alignnum < ROLE_ALIGNS) {
-        if (nhfilter.mask & aligns[alignnum].allow)
+        if (rfilter.mask & aligns[alignnum].allow)
             return FALSE;
         allow = aligns[alignnum].allow;
         if (rolenum >= 0 && rolenum < SIZE(roles) - 1
@@ -1248,7 +1248,7 @@ ok_align(int rolenum, int racenum, int gendnum UNUSED, int alignnum)
     } else {
         /* random; check whether any selection is possible */
         for (i = 0; i < ROLE_ALIGNS; i++) {
-            if (nhfilter.mask & aligns[i].allow)
+            if (rfilter.mask & aligns[i].allow)
                 return FALSE;
             allow = aligns[i].allow;
             if (rolenum >= 0 && rolenum < SIZE(roles) - 1
@@ -1333,13 +1333,13 @@ setrolefilter(const char *bufp)
     boolean reslt = TRUE;
 
     if ((i = str2role(bufp)) != ROLE_NONE && i != ROLE_RANDOM)
-        nhfilter.roles[i] = TRUE;
+        rfilter.roles[i] = TRUE;
     else if ((i = str2race(bufp)) != ROLE_NONE && i != ROLE_RANDOM)
-        nhfilter.mask |= races[i].selfmask;
+        rfilter.mask |= races[i].selfmask;
     else if ((i = str2gend(bufp)) != ROLE_NONE && i != ROLE_RANDOM)
-        nhfilter.mask |= genders[i].allow;
+        rfilter.mask |= genders[i].allow;
     else if ((i = str2align(bufp)) != ROLE_NONE && i != ROLE_RANDOM)
-        nhfilter.mask |= aligns[i].allow;
+        rfilter.mask |= aligns[i].allow;
     else
         reslt = FALSE;
     return reslt;
@@ -1350,10 +1350,10 @@ gotrolefilter()
 {
     int i;
 
-    if (nhfilter.mask)
+    if (rfilter.mask)
         return TRUE;
     for (i = 0; i < SIZE(roles); ++i)
-        if (nhfilter.roles[i])
+        if (rfilter.roles[i])
             return TRUE;
     return FALSE;
 }
@@ -1364,8 +1364,8 @@ clearrolefilter()
     int i;
 
     for (i = 0; i < SIZE(roles); ++i)
-        nhfilter.roles[i] = FALSE;
-    nhfilter.mask = 0;
+        rfilter.roles[i] = FALSE;
+    rfilter.mask = 0;
 }
 
 #define BP_ALIGN 0
@@ -1800,7 +1800,7 @@ role_menu_extra(int which, winid where, boolean preselect)
         what = "role";
         f = r;
         for (i = 0; i < SIZE(roles); ++i)
-            if (i != f && !nhfilter.roles[i])
+            if (i != f && !rfilter.roles[i])
                 break;
         if (i == SIZE(roles)) {
             constrainer = "filter";
@@ -1819,7 +1819,7 @@ role_menu_extra(int which, winid where, boolean preselect)
                 constrainer = "role";
                 forcedvalue = races[c].noun;
             } else if (f >= 0
-                       && (allowmask & ~nhfilter.mask) == races[f].selfmask) {
+                       && (allowmask & ~rfilter.mask) == races[f].selfmask) {
                 /* if there is only one race choice available due to user
                    options disallowing others, race menu entry is disabled */
                 constrainer = "filter";
@@ -1841,7 +1841,7 @@ role_menu_extra(int which, winid where, boolean preselect)
                 constrainer = "role";
                 forcedvalue = genders[g].adj;
             } else if (f >= 0
-                       && (allowmask & ~nhfilter.mask) == genders[f].allow) {
+                       && (allowmask & ~rfilter.mask) == genders[f].allow) {
                 /* if there is only one gender choice available due to user
                    options disallowing other, gender menu entry is disabled */
                 constrainer = "filter";
@@ -1876,7 +1876,7 @@ role_menu_extra(int which, winid where, boolean preselect)
                 constrainer = "race";
         }
         if (f >= 0 && !constrainer
-            && (ROLE_ALIGNMASK & ~nhfilter.mask) == aligns[f].allow) {
+            && (ROLE_ALIGNMASK & ~rfilter.mask) == aligns[f].allow) {
             /* if there is only one alignment choice available due to user
                options disallowing others, algn menu entry is disabled */
             constrainer = "filter";

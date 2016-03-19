@@ -76,10 +76,9 @@ self_lookat(char *outbuf)
 /* describe a hidden monster; used for look_at during extended monster
    detection and for probing */
 void
-mhidden_description(mon, altmon, outbuf)
-struct monst *mon;
-boolean altmon; /* for probing: if mimicking a monster, say so */
-char *outbuf;
+mhidden_description(struct monst *mon,
+                    boolean altmon, /* for probing: if mimicking a monster, say so */
+                    char *outbuf)
 {
     struct obj *otmp;
     boolean fakeobj;

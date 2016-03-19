@@ -36,16 +36,16 @@ align.h         amiconf.h       artifact.h      artilist.h      attrib.h
 beconf.h        botl.h          color.h         config.h        config1.h
 context.h       coord.h         decl.h          def_os2.h       dgn_file.h
 display.h       dlb.h           dungeon.h       engrave.h       extern.h
-flag.h          func_tab.h      global.h        hack.h          lev.h
-lint.h          mail.h          mextra.h        mfndpos.h       micro.h
-mkroom.h        monattk.h       mondata.h       monflag.h       monst.h
-monsym.h        ntconf.h        obj.h           objclass.h      os2conf.h
-patchlevel.h    pcconf.h        permonst.h      prop.h          qtext.h
-quest.h         rect.h          region.h        rm.h            skills.h
-sp_lev.h        spell.h         sys.h           system.h        tcap.h
-timeout.h       tosconf.h       tradstdc.h      trampoli.h      trap.h
-unixconf.h      vision.h        vmsconf.h       wceconf.h       winami.h
-winprocs.h      wintype.h       you.h           youprop.h
+flag.h          func_tab.h      global.h        hack.h          integer.h
+lev.h           lint.h          mail.h          mextra.h        mfndpos.h
+micro.h         mkroom.h        monattk.h       mondata.h       monflag.h
+monst.h         monsym.h        ntconf.h        obj.h           objclass.h
+os2conf.h       patchlevel.h    pcconf.h        permonst.h      prop.h
+qtext.h         quest.h         rect.h          region.h        rm.h
+skills.h        sp_lev.h        spell.h         sys.h           system.h
+tcap.h          timeout.h       tosconf.h       tradstdc.h      trampoli.h
+trap.h          unixconf.h      vision.h        vmsconf.h       wceconf.h
+winami.h        winprocs.h      wintype.h       you.h           youprop.h
 (file for tty versions)
 wintty.h
 (files for X versions)
@@ -120,7 +120,7 @@ Install.dos     Makefile.BC     Makefile.GCC    Makefile.MSC    moveinit.pat
 msdos.c         msdoshlp.txt    ovlinit.c       pckeys.c        pctiles.c
 pctiles.h       pcvideo.h       portio.h        schema1.BC      schema2.BC
 schema3.MSC     SCHEMA35.MSC    setup.bat       sound.c         tile2bin.c
-video.c         vidtxt.c        vidvga.c
+video.c         vidtxt.c        vidvesa.c       vidvga.c
 (files for running MSDOS binary under Windows)
 nhico.uu        nhpif.uu
 
@@ -264,9 +264,9 @@ NetHackTerm.applescript         recover.pl
 
 win/share:
 (files for versions using optional tiles)
-gifread.c       monsters.txt    objects.txt     other.txt       ppmwrite.c
-renumtiles.pl   thintile.c      tile.doc        tile.h          tile2bmp.c
-tilemap.c       tiletext.c
+gifread.c       giftiles.c      monsters.txt    objects.txt     other.txt
+ppmwrite.c      renumtiles.pl   thintile.c      tile.doc        tile.h
+tile2bmp.c      tilemap.c       tiletext.c
 
 win/tty:
 (files for tty versions)

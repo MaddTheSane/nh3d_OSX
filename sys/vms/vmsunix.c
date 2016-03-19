@@ -533,7 +533,8 @@ struct dsc {
     char *adr;
 };                             /* descriptor */
 typedef unsigned long vmscond; /* vms condition value */
-vmscond lib$find_file(const struct dsc *, struct dsc *, genericptr *);
+vmscond lib$find_file
+              (const struct dsc *, struct dsc *, genericptr *);
 vmscond lib$find_file_end(void **);
 
 /* collect a list of character names from all save files for this player */

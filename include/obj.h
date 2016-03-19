@@ -1,4 +1,4 @@
-/* NetHack 3.6	obj.h	$NHDT-Date: 1450306176 2015/12/16 22:49:36 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.51 $ */
+/* NetHack 3.6	obj.h	$NHDT-Date: 1456618994 2016/02/28 00:23:14 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.53 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -40,12 +40,13 @@ struct obj {
     unsigned owt;
     long quan; /* number of items */
 
-    schar spe; /* quality of weapon, armor or ring (+ or -)
-                  number of charges for wand ( >= -1 )
-                  marks your eggs, tin variety and spinach tins
-                  royal coffers for a court ( == 2)
-                  tells which fruit a fruit is
-                  special for uball and amulet
+    schar spe; /* quality of weapon, armor or ring (+ or -);
+                  number of charges for wand or charged tool ( >= -1 );
+                  marks your eggs, tin variety and spinach tins;
+                  Schroedinger's Box (1) or royal coffers for a court (2);
+                  tells which fruit a fruit is;
+                  special for uball and amulet;
+                  scroll of mail (normal==0, bones or wishing==1, written==2);
                   historic and gender for statues */
 #define STATUE_HISTORIC 0x01
 #define STATUE_MALE 0x02
@@ -200,6 +201,8 @@ struct obj {
      && objects[otmp->otyp].oc_skill >= -P_SHURIKEN \
      && objects[otmp->otyp].oc_skill <= -P_BOW)
 #define uslinging() (uwep && objects[uwep->otyp].oc_skill == P_SLING)
+/* 'is_quest_artifact()' only applies to the current role's artifact */
+#define any_quest_artifact(o) ((o)->oartifact >= ART_ORB_OF_DETECTION)
 
 /* Armor */
 #define is_shield(otmp)          \

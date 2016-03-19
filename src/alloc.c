@@ -22,9 +22,7 @@ static boolean tried_heaplog = FALSE;
 #endif
 
 long *alloc(unsigned int);
-extern void
-panic(const char *, ...)
-PRINTF_F(1, 2);
+extern void panic(const char *, ...) PRINTF_F(1, 2);
 
 long *
 alloc(register unsigned int lth)

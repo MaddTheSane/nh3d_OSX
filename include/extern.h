@@ -1,4 +1,4 @@
-/* NetHack 3.6	extern.h	$NHDT-Date: 1455672983 2016/02/17 01:36:23 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.548 $ */
+/* NetHack 3.6	extern.h	$NHDT-Date: 1457570257 2016/03/10 00:37:37 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.552 $ */
 /* Copyright (c) Steve Creps, 1988.				  */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -885,8 +885,7 @@ E int midnight(void);
 
 /* ### invent.c ### */
 
-E struct obj **objarr_init(int);
-E void objarr_set(struct obj *, int, struct obj **, boolean);
+E void sortloot(struct obj **, unsigned, boolean);
 E void assigninvlet(struct obj *);
 E struct obj *merge_choice(struct obj *, struct obj *);
 E int merged(struct obj **, struct obj **);
@@ -1128,7 +1127,7 @@ E const char *mpoisons_subj(struct monst *, struct attack *);
 E void u_slow_down(void);
 E struct monst *cloneu(void);
 E void expels(struct monst *, struct permonst *, boolean);
-E struct attack *getmattk(struct permonst *, int, int *, struct attack *);
+E struct attack *getmattk(struct monst *, struct monst *, int, int *, struct attack *);
 E int mattacku(struct monst *);
 E int magic_negation(struct monst *);
 E boolean gulp_blnd_check(void);
@@ -1495,7 +1494,7 @@ E void m_useupall(struct monst *, struct obj *);
 E void m_useup(struct monst *, struct obj *);
 E void m_throw(struct monst *, int, int, int, int, int, struct obj *);
 E void hit_bars(struct obj **, int, int, int, int,
-                        boolean, boolean);
+                boolean, boolean);
 E boolean hits_bars(struct obj **, int, int, int, int, int, int);
 
 /* ### muse.c ### */
@@ -1578,6 +1577,7 @@ E char *xname(struct obj *);
 E char *mshot_xname(struct obj *);
 E boolean the_unique_obj(struct obj *);
 E boolean the_unique_pm(struct permonst *);
+E boolean erosion_matters(struct obj *);
 E char *doname(struct obj *);
 E char *doname_with_price(struct obj *);
 E boolean not_fully_identified(struct obj *);
@@ -1662,7 +1662,8 @@ E void msgtype_free(void);
 E char *self_lookat(char *);
 E void mhidden_description(struct monst *, boolean, char *);
 E boolean object_from_map(int,int,int,struct obj **);
-E int do_screen_description(coord, boolean, int, char *, const char **);
+E int do_screen_description(coord, boolean, int, char *,
+                            const char **);
 E int do_look(int, coord *);
 E int dowhatis(void);
 E int doquickwhatis(void);
@@ -1739,14 +1740,14 @@ E int out_container(struct obj *);
 E int pickup(int);
 E int pickup_object(struct obj *, long, boolean);
 E int query_category(const char *, struct obj *, int, menu_item **, int);
-E int query_objlist(const char *, struct obj *, int, menu_item **,
+E int query_objlist(const char *, struct obj **, int, menu_item **,
                             int, boolean (*)(OBJ_P));
 E struct obj *pick_obj(struct obj *);
 E int encumber_msg(void);
 E int doloot(void);
 E boolean container_gone(int (*)(OBJ_P));
 E boolean u_handsy(void);
-E int use_container(struct obj **, int);
+E int use_container(struct obj **, int, boolean);
 E int loot_mon(struct monst *, int *, boolean *);
 E int dotip(void);
 E boolean is_autopickup_exception(struct obj *, boolean);
@@ -2690,6 +2691,7 @@ E void place_worm_tail_randomly(struct monst *, xchar, xchar);
 E int count_wsegs(struct monst *);
 E boolean worm_known(struct monst *);
 E boolean worm_cross(int, int, int, int);
+E int wseg_at(struct monst *, int, int);
 
 /* ### worn.c ### */
 

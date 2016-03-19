@@ -22,9 +22,8 @@ STATIC_DCL boolean
 bane_applies(const struct artifact *, struct monst *);
 STATIC_DCL int spec_applies(const struct artifact *, struct monst *);
 STATIC_DCL int arti_invoke(struct obj *);
-STATIC_DCL boolean
-Mb_hit(struct monst * magr, struct monst *mdef, struct obj *, int *,
-               int, boolean, char *);
+STATIC_DCL boolean Mb_hit(struct monst * magr, struct monst *mdef,
+                          struct obj *, int *, int, boolean, char *);
 STATIC_DCL unsigned long abil_to_spfx(long *);
 STATIC_DCL uchar abil_to_adtyp(long *);
 STATIC_DCL boolean untouchable(struct obj *, boolean);

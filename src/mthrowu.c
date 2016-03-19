@@ -819,10 +819,9 @@ m_carrying(struct monst *mtmp, int type)
 }
 
 void
-hit_bars(objp, objx, objy, barsx, barsy, your_fault, from_invent)
-struct obj **objp;      /* *objp will be set to NULL if object breaks */
-int objx, objy, barsx, barsy;
-boolean your_fault, from_invent;
+hit_bars(struct obj **objp, /* *objp will be set to NULL if object breaks */
+         int objx, int objy, int barsx, int barsy,
+         boolean your_fault, boolean from_invent)
 {
     struct obj *otmp = *objp;
     int obj_type = otmp->otyp;
@@ -856,8 +855,8 @@ boolean your_fault, from_invent;
 boolean
 hits_bars(struct obj **obj_p, /* *obj_p will be set to NULL if object breaks */
           int x, int y, int barsx, int barsy,
-          int always_hit, /* caller can force a hit for items which would fit through */
-          int whodidit)   /* 1==hero, 0=other, -1==just check whether it'll pass thru */
+          int always_hit,     /* caller can force a hit for items which would fit through */
+          int whodidit)       /* 1==hero, 0=other, -1==just check whether it'll pass thru */
 {
     struct obj *otmp = *obj_p;
     int obj_type = otmp->otyp;

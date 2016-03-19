@@ -42,7 +42,7 @@ static Widget create_fancy_status(Widget, Widget);
 static void destroy_fancy_status(struct xwindow *);
 
 void
-create_status_window(struct xwindow *wp,/* window pointer */
+create_status_window(struct xwindow *wp, /* window pointer */
                      boolean create_popup,
                      Widget parent)
 {
@@ -207,7 +207,8 @@ static const char *width_string(int);
 static void create_widget(Widget, struct X_status_value *, int);
 static void get_widths(struct X_status_value *, int *, int *);
 static void set_widths(struct X_status_value *, int, int);
-static Widget init_column(const char *, Widget, Widget, Widget, int *);
+static Widget init_column(const char *, Widget, Widget, Widget,
+                          int *);
 static void fixup_cond_widths(void);
 static Widget init_info_form(Widget, Widget, Widget);
 

@@ -73,7 +73,7 @@ STATIC_DCL long encodeachieve(void);
 STATIC_DCL void free_ttlist(struct toptenentry *);
 STATIC_DCL int classmon(char *, boolean);
 STATIC_DCL int score_wanted(boolean, int, struct toptenentry *, int,
-                                    const char **, int);
+                            const char **, int);
 #ifdef NO_SCAN_BRACK
 STATIC_DCL void nsb_mung_line(char *);
 STATIC_DCL void nsb_unmung_line(char *);

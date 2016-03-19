@@ -459,8 +459,7 @@ xputs(const char *s)
  * on the display.
  */
 void
-xputc_core(ch)
-char ch;
+xputc_core(char ch)
 {
     boolean inverse = FALSE;
     switch (ch) {

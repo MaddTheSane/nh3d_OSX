@@ -1,5 +1,5 @@
 %{
-/* NetHack 3.6  lev_comp.y	$NHDT-Date: 1448074095 2015/11/21 02:48:15 $  $NHDT-Branch: master $:$NHDT-Revision: 1.18 $ */
+/* NetHack 3.6  lev_comp.y	$NHDT-Date: 1455746893 2016/02/17 22:08:13 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.21 $ */
 /*      Copyright (c) 1989 by Jean-Christophe Collet */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -58,7 +58,7 @@ extern char what_map_char(char);
 extern void scan_map(char *, sp_lev *);
 extern void add_opcode(sp_lev *, int, genericptr_t);
 extern genericptr_t get_last_opcode_data1(sp_lev *, int);
-extern genericptr_t get_last_opcode_data2(sp_lev *, int,int);
+extern genericptr_t get_last_opcode_data2(sp_lev *, int, int);
 extern boolean check_subrooms(sp_lev *);
 extern boolean write_level_file(char *,sp_lev *);
 extern struct opvar *set_opvar_int(struct opvar *, long);
@@ -2377,16 +2377,23 @@ func_param_part	: any_var_or_arr ':' func_param_type
 		      } else if (!tmp) {
 			  lc_error("Could not alloc function params.");
 		      } else {
-			  long vt = 0;
+			  long vt = SPOVAR_NULL;
+
 			  tmp->name = strdup($1);
 			  tmp->parmtype = (char) $3;
 			  tmp->next = curr_function->params;
 			  curr_function->params = tmp;
 			  curr_function->n_params++;
 			  switch (tmp->parmtype) {
-			  case 'i': vt = SPOVAR_INT; break;
-			  case 's': vt = SPOVAR_STRING; break;
-			  default: lc_error("Unknown func param conversion."); break;
+			  case 'i':
+                              vt = SPOVAR_INT;
+                              break;
+			  case 's':
+                              vt = SPOVAR_STRING;
+                              break;
+			  default:
+                              lc_error("Unknown func param conversion.");
+                              break;
 			  }
 			  variable_definitions = add_vardef_type(
 							 variable_definitions,
