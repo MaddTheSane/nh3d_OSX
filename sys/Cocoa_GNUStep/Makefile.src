@@ -239,7 +239,7 @@ WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 WINNH3DSSRC = ../win/nh3d/GLHelpers.swift ../win/nh3d/SwiftNetHack\ bridge.swift \
 	../win/nh3d/MapModel.swift ../win/nh3d/NH3DOpenGLViewSwift.swift \
 	../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift \
-	../win/nh3d/ScreenEffect.swift ../win/nh3d/NH3DModelObject+Swift.swift
+	../win/nh3d/NH3DModelObject+Swift.swift
 WINNH3DSRC =  \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
 	../win/nh3d/NH3DModelObject.m \
@@ -249,7 +249,7 @@ WINNH3DSRC =  \
 	$(WINNH3DSSRC)
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DSOBJ = GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.o \
-	NH3DPreferenceController.o NH3DMessaging.o ScreenEffect.o NH3DModelObject+Swift.o
+	NH3DPreferenceController.o NH3DMessaging.o NH3DModelObject+Swift.o
 WINNH3DOBJ = NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DModelObject.o NH3DPanel.o \
 	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
@@ -752,10 +752,6 @@ NH3DMessaging.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/NH3DMessaging.swift \
 	$(filter-out ../win/nh3d/NH3DMessaging.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
 	-emit-module -emit-module-path NH3DMessaging-partial.swiftmodule -o NH3DMessaging.o
-ScreenEffect.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
-	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/ScreenEffect.swift \
-	$(filter-out ../win/nh3d/ScreenEffect.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
-	-emit-module -emit-module-path ScreenEffect-partial.swiftmodule -o ScreenEffect.o
 NH3DModelObject+Swift.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file \
 	../win/nh3d/NH3DModelObject+Swift.swift \

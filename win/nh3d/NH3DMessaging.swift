@@ -13,6 +13,33 @@ let DIALOG_OK		= 128
 let DIALOG_CANCEL	= 129
 
 class NH3DMessaging: NSObject {
+	private final class ScreenEffect {
+		private var regex: COpaquePointer
+		let effect: Int32
+		/// The regex string used to match against.<br>
+		/// Useful for debugging
+		let str: String
+		
+		init?(message text: String, effect: Int32) {
+			regex = regex_init()
+			str = text
+			self.effect = effect
+			guard regex_compile(text, regex) else {
+				raw_print(regex_error_desc(regex))
+				
+				return nil
+			}
+		}
+		
+		deinit {
+			regex_free(regex)
+		}
+		
+		func matches(str: String) -> Bool {
+			return regex_match(str, regex)
+		}
+	}
+	
 	var messageWindow: NSTextView! {
 		return messageScrollView.contentView.documentView as? NSTextView
 	}
