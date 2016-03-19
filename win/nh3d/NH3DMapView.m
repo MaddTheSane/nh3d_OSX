@@ -47,6 +47,7 @@ extern BOOL CocoaPortIsReady;
 @property int centerX;
 @property int centerY;
 - (void)drawTraditionalMapInContextAtX:(int)x atY:(int)y;
+- (void)clipSmallMap;
 @end
 
 @implementation NH3DMapView
@@ -176,9 +177,7 @@ extern BOOL CocoaPortIsReady;
 
 - (void)drawRect:(NSRect)rect
 {
-	NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
-	NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
-	[bPath addClip];
+	[self clipSmallMap];
 	NSRect bounds = self.bounds;
 	
 	[mapBase drawInRect:bounds
@@ -553,11 +552,7 @@ extern BOOL CocoaPortIsReady;
 		
 		//Draw view
 		if ([self lockFocusIfCanDraw]) {
-			if (!TRADITIONAL_MAP) {
-			NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
-			NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
-			[bPath addClip];
-			}
+			[self clipSmallMap];
 			if (needClear) {
 				NSEraseRect(bounds);
 				[mapBase drawInRect:bounds
@@ -627,9 +622,7 @@ extern BOOL CocoaPortIsReady;
 	
 	//Draw view
 	if ([self lockFocusIfCanDraw]) {
-		NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
-		NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
-		[bPath addClip];
+		[self clipSmallMap];
 	
 	if (needClear) {
 		NSEraseRect(bounds);
@@ -694,9 +687,7 @@ extern BOOL CocoaPortIsReady;
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 		
 	if ([self lockFocusIfCanDraw]) {
-		NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
-		NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
-		[bPath addClip];
+		[self clipSmallMap];
 		if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
 			[mapRestrictedBezel drawAtPoint:NSZeroPoint
 								   fromRect:NSZeroRect
@@ -792,7 +783,7 @@ extern BOOL CocoaPortIsReady;
 {
 	int ret = -1;
 	for (int i = 0; extcmdlist[i].ef_txt; i++) {
-		if (strstr( extcmdlist[i].ef_txt, excmd) != NULL) {
+		if (strstr(extcmdlist[i].ef_txt, excmd) != NULL) {
 			ret = i;
 			break;
 		} else {
@@ -1746,6 +1737,19 @@ extern BOOL CocoaPortIsReady;
 	} else {
 		[_mapLview.enclosingScrollView animator].magnification *= 1.25;
 	}
+}
+
+- (void)clipSmallMap
+{
+	if (TRADITIONAL_MAP) {
+		return;
+	}
+	NSRect inset;
+	inset.origin = NSZeroPoint;
+	inset.size = self.bounds.size;
+	inset = NSInsetRect(inset, SMALL_MAP_BORDER, SMALL_MAP_BORDER);
+	NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect:inset xRadius: 48 yRadius: 48];
+	[bPath addClip];
 }
 
 @end
