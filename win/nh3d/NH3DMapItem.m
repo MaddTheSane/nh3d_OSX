@@ -8,14 +8,14 @@
 
 #import "NH3DMapItem.h"
 #import "NH3DTileCache.h"
-
-#import "NetHack3D-Swift.h"
+#import <QuartzCore/QuartzCore.h>
 
 /*from winnh3d.m*/
 extern NH3DTileCache *_NH3DTileCache;
 
 @implementation NH3DMapItem {
 	NSRecursiveLock *lock;
+	NSImage *tile;
 }
 
 @synthesize player;
@@ -32,11 +32,10 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)checkDrawingType
 {
-	if ( glyph ==  S_stone+GLYPH_CMAP_OFF &&
-		(!IS_ROOM( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) && !IS_WALL( levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ ) )
-		) {
+	if (glyph ==  S_stone+GLYPH_CMAP_OFF &&
+		(!IS_ROOM(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) && !IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ))) {
 		// draw type is corrwall object (10 = stone wall type / 0 = black wall type)
-		modelDrawingType = 0 ;
+		modelDrawingType = 0;
 	} else if (player) {
 		// draw type is playerpositon
 		modelDrawingType = 1;
@@ -172,8 +171,6 @@ extern NH3DTileCache *_NH3DTileCache;
 		hasCursor = NO;
 		bgGlyph = bg;
 		
-		//tile = nil;
-		
 		[self checkDrawingType];
 		
 		[lock unlock];
@@ -181,9 +178,50 @@ extern NH3DTileCache *_NH3DTileCache;
 	return self;
 }
 
+- (BOOL)isCorpse
+{
+	return (special & MG_CORPSE) == MG_CORPSE;
+}
+
+- (BOOL)isInvis
+{
+	return (special & MG_INVIS) == MG_INVIS;
+}
+
+- (BOOL)isDetected
+{
+	return (special & MG_DETECT) == MG_DETECT;
+}
+
+- (BOOL)isPet
+{
+	return (special & MG_PET) == MG_PET;
+}
+
+- (BOOL)wasRidden
+{
+	return (special & MG_RIDDEN) == MG_RIDDEN;
+}
+
+- (BOOL)isStatue
+{
+	return (special & MG_STATUE) == MG_STATUE;
+}
+
+- (BOOL)isPile
+{
+	return (special & MG_OBJPILE) == MG_OBJPILE;
+}
+
 - (NSString *)symbol
 {
-	return [NSString stringWithFormat:@"%c", symbol];
+	if (SYMHANDLING(H_IBM)) {
+		char tinyStr[] = {symbol, 0};
+		NSString *toRet = [NSString stringWithCString:tinyStr encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingDOSLatinUS)];
+		return toRet;
+	} else {
+		return [NSString stringWithFormat:@"%c", symbol];
+	}
 }
 
 - (NSColor *)color
@@ -279,40 +317,42 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (BOOL)hasBackground
 {
-	return bgGlyph != NO_GLYPH;
+	return bgGlyph != NO_GLYPH && bgGlyph != glyph;
 }
 
 - (NSImage *)tile
 {
-#if 1
-	NSImage *tmpTile = [self foregroundTile];
+	if (tile) {
+		return tile;
+	}
+	NSImage *tmpTile = self.foregroundTile;
 	if (!tmpTile) {
 		return nil;
 	}
 	
-	NSImage *bgtile = [self backgroundTile];
+	NSImage *bgtile;
+	if (glyph != bgGlyph) {
+		bgtile = self.backgroundTile;
+	}
 	if (bgtile != nil) {
-		NSImage *tmpFG = tmpTile;
-		tmpTile = [bgtile copy];
-		[tmpTile lockFocus];
-		[tmpFG drawInRect:NSMakeRect(0, 0, tmpTile.size.width, tmpTile.size.height)];
-		[tmpTile unlockFocus];
+		NSImage *img = [[NSImage alloc] initWithSize:tmpTile.size];
+		[img lockFocus];
+		CIContext *ciCtx = [CIContext contextWithCGContext:[NSGraphicsContext currentContext].CGContext options:nil];
+		CIImage *tmpFG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[tmpTile representations] firstObject]];
+		CIImage *tmpBG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[bgtile representations] firstObject]];
+		[ciCtx drawImage:tmpBG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
+		[ciCtx drawImage:tmpFG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
+		[img unlockFocus];
+		tmpTile = img;
 	}
 	
+	tile = tmpTile;
 	return tmpTile;
-#else
-	return [self foregroundTile];
-#endif
 }
 
 - (NSImage *)foregroundTile
 {
-/*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
-		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
-		tile = [ img copy ];
-		[ img release ]; 
-	}*/
-	if ( glyph != S_stone + GLYPH_CMAP_OFF )
+	if (glyph != S_stone + GLYPH_CMAP_OFF)
 		return [_NH3DTileCache tileImageFromGlyph:glyph];
 	else 
 		return nil;
@@ -320,12 +360,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (NSImage *)backgroundTile
 {
-	/*	if ( tile == nil && glyph != S_stone + GLYPH_CMAP_OFF ) {
-		NSImage *img = [ [_NH3DTileCache tileImageFromGlyph:glyph] retain ];
-		tile = [ img copy ];
-		[ img release ];
-	 }*/
-	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && (bgGlyph != (S_darkroom + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
+	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
 		return [_NH3DTileCache tileImageFromGlyph:bgGlyph];
 	else
 		return nil;

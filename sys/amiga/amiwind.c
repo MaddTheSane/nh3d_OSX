@@ -13,7 +13,7 @@
 #ifdef AMII_GRAPHICS /* too early in the file? too late? */
 
 #ifdef AMIFLUSH
-static struct Message *FDECL(GetFMsg, (struct MsgPort *));
+static struct Message *GetFMsg(struct MsgPort *);
 #endif
 
 static int BufferGetchar(void);
@@ -83,8 +83,7 @@ static enum { NoAction, CloseOver } delayed_key_action = NoAction;
  */
 
 struct Window *
-OpenShWindow(nw)
-struct NewWindow *nw;
+OpenShWindow(struct NewWindow *nw)
 {
     register struct Window *win;
     register ULONG idcmpflags;
@@ -109,10 +108,9 @@ struct NewWindow *nw;
  * Close a window that shared the HackPort IDCMP port.
  */
 
-void FDECL(CloseShWindow, (struct Window *));
+void CloseShWindow(struct Window *);
 void
-CloseShWindow(win)
-struct Window *win;
+CloseShWindow(struct Window *win)
 {
     register struct IntuiMessage *msg;
 
@@ -163,8 +161,7 @@ BufferGetchar()
  */
 
 int
-ConvertKey(message)
-register struct IntuiMessage *message;
+ConvertKey(register struct IntuiMessage *message)
 {
     static struct InputEvent theEvent;
     static char numpad[] = "bjnh.lyku";
@@ -356,8 +353,7 @@ register struct IntuiMessage *message;
  */
 
 static void
-ProcessMessage(message)
-register struct IntuiMessage *message;
+ProcessMessage(register struct IntuiMessage *message)
 {
     int c;
     int cnt;
@@ -696,8 +692,7 @@ amii_cleanup()
 
 #ifndef SHAREDLIB
 void
-Abort(rc)
-long rc;
+Abort(long rc)
 {
     int fault = 1;
 #ifdef CHDIR
@@ -759,8 +754,7 @@ CleanUp()
 #ifdef AMIFLUSH
 /* This routine adapted from AmigaMail IV-37 by Michael Sinz */
 static struct Message *
-GetFMsg(port)
-struct MsgPort *port;
+GetFMsg(struct MsgPort *port)
 {
     struct IntuiMessage *msg, *succ, *succ1;
 
@@ -786,8 +780,7 @@ struct MsgPort *port;
 #endif
 
 struct NewWindow *
-DupNewWindow(win)
-struct NewWindow *win;
+DupNewWindow(struct NewWindow *win)
 {
     struct NewWindow *nwin;
     struct Gadget *ngd, *gd, *pgd = NULL;
@@ -828,8 +821,7 @@ struct NewWindow *win;
 }
 
 void
-FreeNewWindow(win)
-struct NewWindow *win;
+FreeNewWindow(struct NewWindow *win)
 {
     register struct Gadget *gd, *pgd;
     register struct StringInfo *sip;
@@ -885,17 +877,16 @@ amii_loadlib(void)
 
 /* fatal error */
 /*VARARGS1*/
-void error
-VA_DECL(const char *, s)
+void error(const char *s, ...)
 {
-    VA_START(s);
-    VA_INIT(s, char *);
+    va_list the_args;
+    va_start(the_args, s);
 
     putchar('\n');
-    vprintf(s, VA_ARGS);
+    vprintf(s, the_args);
     putchar('\n');
 
-    VA_END();
+    va_end(the_args);
     Abort(0L);
 }
 #endif

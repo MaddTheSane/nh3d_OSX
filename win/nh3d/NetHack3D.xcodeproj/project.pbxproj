@@ -6,6 +6,58 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		557CE1C11C8E1EE100B43765 /* src */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "src" */;
+			buildPhases = (
+				557CE1C71C8E1EF900B43765 /* ShellScript */,
+			);
+			dependencies = (
+				557CE1D61C8E256600B43765 /* PBXTargetDependency */,
+				557CE1C61C8E1EF500B43765 /* PBXTargetDependency */,
+			);
+			name = src;
+			productName = "needed src";
+		};
+		557CE1CC1C8E242500B43765 /* util */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 557CE1CF1C8E242500B43765 /* Build configuration list for PBXAggregateTarget "util" */;
+			buildPhases = (
+				557CE1D01C8E242C00B43765 /* ShellScript */,
+			);
+			dependencies = (
+				557CE1D21C8E255A00B43765 /* PBXTargetDependency */,
+			);
+			name = util;
+			productName = headers;
+		};
+		55D0E4871C8E18EA0074B7C4 /* dat */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 55D0E4881C8E18EA0074B7C4 /* Build configuration list for PBXAggregateTarget "dat" */;
+			buildPhases = (
+				55D0E48B1C8E18F50074B7C4 /* ShellScript */,
+			);
+			dependencies = (
+				557CE1D41C8E256100B43765 /* PBXTargetDependency */,
+				55D0E4921C8E1A280074B7C4 /* PBXTargetDependency */,
+			);
+			name = dat;
+			productName = dat;
+		};
+		55D0E48C1C8E190B0074B7C4 /* makefiles */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 55D0E48D1C8E190B0074B7C4 /* Build configuration list for PBXAggregateTarget "makefiles" */;
+			buildPhases = (
+				55D0E4901C8E19110074B7C4 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = makefiles;
+			productName = makefiles;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B02FB1D09497BDB008FEDB0 /* AppKit.framework */; };
 		2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B02FB1F09497C03008FEDB0 /* OpenGL.framework */; };
@@ -341,6 +393,7 @@
 		2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5553AA2E1C73B79400A903B5 /* pillar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 5553AA2D1C73B79400A903B5 /* pillar.3ds */; };
 		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
@@ -358,16 +411,101 @@
 		5560A2B91C3481CC00BF77F7 /* epitaph in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2B61C3481CC00BF77F7 /* epitaph */; };
 		5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2BA1C348C4900BF77F7 /* posixregex.c */; };
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
+		5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585264A1C868A2F00813BF2 /* libz.tbd */; };
+		55A571031C8D61A000FE4A3B /* NH3DModelObject+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
+		55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */ = {isa = PBXBuildFile; fileRef = 2BACF9EF090258000095C8A4 /* recover */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
+		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
+		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		557CE1C51C8E1EF500B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E48C1C8E190B0074B7C4;
+			remoteInfo = makefiles;
+		};
+		557CE1C81C8E207900B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E4871C8E18EA0074B7C4;
+			remoteInfo = dat;
+		};
+		557CE1CA1C8E207900B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 557CE1C11C8E1EE100B43765;
+			remoteInfo = "needed src";
+		};
+		557CE1D11C8E255A00B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E48C1C8E190B0074B7C4;
+			remoteInfo = makefiles;
+		};
+		557CE1D31C8E256100B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
+			remoteInfo = headers;
+		};
+		557CE1D51C8E256600B43765 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
+			remoteInfo = headers;
+		};
+		55BCFCAB1C9C87410076210F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BACF9EE090258000095C8A4;
+			remoteInfo = recover;
+		};
+		55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E4871C8E18EA0074B7C4;
+			remoteInfo = dat;
+		};
+		55D0E4911C8E1A280074B7C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55D0E48C1C8E190B0074B7C4;
+			remoteInfo = makefiles;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		55BCFCA91C9C87110076210F /* Copy Addl. Executables */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */,
+			);
+			name = "Copy Addl. Executables";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -393,7 +531,7 @@
 		2B123DBB0931F05F00E894EE /* arrowtrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = arrowtrap.3ds; sourceTree = "<group>"; };
 		2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NH3DUserStatusModel.m; sourceTree = "<group>"; };
 		2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DUserStatusModel.h; sourceTree = "<group>"; };
-		2B25C9A708F28B47009163CD /* dungeon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dungeon.pdf; sourceTree = "<group>"; };
+		2B25C9A708F28B47009163CD /* dungeon.pdf */ = {isa = PBXFileReference; explicitFileType = text; path = dungeon.pdf; sourceTree = "<group>"; };
 		2B26129909233E7800CA7A64 /* corner.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = corner.3ds; sourceTree = "<group>"; };
 		2B26129C09233E7800CA7A64 /* hwall.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = hwall.3ds; sourceTree = "<group>"; };
 		2B26129E09233E7800CA7A64 /* invisible.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = invisible.3ds; sourceTree = "<group>"; };
@@ -465,7 +603,7 @@
 		2B31DBB708CD73C5008CCAAC /* other.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = other.txt; sourceTree = "<group>"; };
 		2B31DBB808CD73C5008CCAAC /* ppmwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ppmwrite.c; sourceTree = "<group>"; };
 		2B31DBB908CD73C5008CCAAC /* thintile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thintile.c; sourceTree = "<group>"; };
-		2B31DBBA08CD73C5008CCAAC /* tile.doc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tile.doc; sourceTree = "<group>"; };
+		2B31DBBA08CD73C5008CCAAC /* tile.doc */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = tile.doc; sourceTree = "<group>"; };
 		2B31DBBB08CD73C5008CCAAC /* tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tile.h; sourceTree = "<group>"; };
 		2B31DBBC08CD73C5008CCAAC /* tile2bmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tile2bmp.c; sourceTree = "<group>"; };
 		2B31DBBD08CD73C5008CCAAC /* tilemap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tilemap.c; sourceTree = "<group>"; };
@@ -686,10 +824,6 @@
 		2B31DD3208CD73D5008CCAAC /* vmstty.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vmstty.c; sourceTree = "<group>"; };
 		2B31DD3308CD73D5008CCAAC /* vmsunix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vmsunix.c; sourceTree = "<group>"; };
 		2B31DD3508CD73D5008CCAAC /* bootstrp.mak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = bootstrp.mak; sourceTree = "<group>"; };
-		2B31DD3708CD73D5008CCAAC /* assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = assert.h; sourceTree = "<group>"; };
-		2B31DD3808CD73D5008CCAAC /* errno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errno.h; sourceTree = "<group>"; };
-		2B31DD3908CD73D5008CCAAC /* fcntl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fcntl.h; sourceTree = "<group>"; };
-		2B31DD3B08CD73D5008CCAAC /* stat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stat.h; sourceTree = "<group>"; };
 		2B31DD3C08CD73D5008CCAAC /* celib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = celib.c; sourceTree = "<group>"; };
 		2B31DD3D08CD73D5008CCAAC /* cesetup.bat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cesetup.bat; sourceTree = "<group>"; };
 		2B31DD3E08CD73D5008CCAAC /* cesound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cesound.c; sourceTree = "<group>"; };
@@ -792,7 +926,7 @@
 		2B5CBF92088EB5A600940C58 /* cmdhelp */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = cmdhelp; sourceTree = "<group>"; };
 		2B5CBF93088EB5A600940C58 /* data */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = data; sourceTree = "<group>"; };
 		2B5CBF94088EB5A600940C58 /* data.base */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = data.base; sourceTree = "<group>"; };
-		2B5CBF95088EB5A600940C58 /* dungeon */ = {isa = PBXFileReference; lastKnownFileType = file; path = dungeon; sourceTree = "<group>"; };
+		2B5CBF95088EB5A600940C58 /* dungeon */ = {isa = PBXFileReference; lastKnownFileType = text; path = dungeon; sourceTree = "<group>"; };
 		2B5CBF96088EB5A600940C58 /* dungeon.def */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = dungeon.def; sourceTree = "<group>"; };
 		2B5CBF98088EB5A600940C58 /* earth.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = earth.lev; sourceTree = "<group>"; };
 		2B5CBF99088EB5A600940C58 /* endgame.des */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = endgame.des; sourceTree = "<group>"; };
@@ -1140,11 +1274,11 @@
 		2BA7A3A609774ABC00122932 /* cpp3.shr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cpp3.shr; sourceTree = "<group>"; };
 		2BA7A3A709774ABC00122932 /* depend.awk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = depend.awk; sourceTree = "<group>"; };
 		2BA7A3A809774ABC00122932 /* Install.unx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Install.unx; sourceTree = "<group>"; };
-		2BA7A3A909774ABC00122932 /* Makefile.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.dat; sourceTree = "<group>"; };
-		2BA7A3AA09774ABC00122932 /* Makefile.doc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.doc; sourceTree = "<group>"; };
-		2BA7A3AB09774ABC00122932 /* Makefile.src */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.src; sourceTree = "<group>"; };
-		2BA7A3AC09774ABC00122932 /* Makefile.top */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.top; sourceTree = "<group>"; };
-		2BA7A3AD09774ABC00122932 /* Makefile.utl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.utl; sourceTree = "<group>"; };
+		2BA7A3A909774ABC00122932 /* Makefile.dat */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.dat; sourceTree = "<group>"; };
+		2BA7A3AA09774ABC00122932 /* Makefile.doc */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.doc; sourceTree = "<group>"; };
+		2BA7A3AB09774ABC00122932 /* Makefile.src */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.src; sourceTree = "<group>"; };
+		2BA7A3AC09774ABC00122932 /* Makefile.top */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.top; sourceTree = "<group>"; };
+		2BA7A3AD09774ABC00122932 /* Makefile.utl */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.utl; sourceTree = "<group>"; };
 		2BA7A3AE09774ABC00122932 /* nethack.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = nethack.sh; sourceTree = "<group>"; };
 		2BA7A3AF09774ABC00122932 /* README.linux */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.linux; sourceTree = "<group>"; };
 		2BA7A3B009774ABC00122932 /* setup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup.sh; sourceTree = "<group>"; };
@@ -1174,11 +1308,11 @@
 		2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DTileCache.m; sourceTree = "<group>"; };
 		2BCAABC00913A70000AF1C59 /* tilemap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tilemap; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCAABD50913A7A500AF1C59 /* tiletext */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tiletext; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BCB3EA30A291D82009C988D /* Makefile.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.dat; sourceTree = "<group>"; };
-		2BCB3EA40A291D82009C988D /* Makefile.doc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.doc; sourceTree = "<group>"; };
-		2BCB3EA50A291D82009C988D /* Makefile.src */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.src; sourceTree = "<group>"; usesTabs = 1; };
-		2BCB3EA60A291D82009C988D /* Makefile.top */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.top; sourceTree = "<group>"; };
-		2BCB3EA70A291D82009C988D /* Makefile.utl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.utl; sourceTree = "<group>"; };
+		2BCB3EA30A291D82009C988D /* Makefile.dat */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.dat; sourceTree = "<group>"; };
+		2BCB3EA40A291D82009C988D /* Makefile.doc */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.doc; sourceTree = "<group>"; };
+		2BCB3EA50A291D82009C988D /* Makefile.src */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.src; sourceTree = "<group>"; usesTabs = 1; };
+		2BCB3EA60A291D82009C988D /* Makefile.top */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.top; sourceTree = "<group>"; };
+		2BCB3EA70A291D82009C988D /* Makefile.utl */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.utl; sourceTree = "<group>"; };
 		2BCB3EA80A291D82009C988D /* setup.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = setup.sh; sourceTree = "<group>"; };
 		2BD3B6E1090247C70091BDD5 /* winnh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winnh3d.h; sourceTree = "<group>"; };
 		2BD3BC860943D24500F782A6 /* beartrap.3ds */ = {isa = PBXFileReference; lastKnownFileType = file; path = beartrap.3ds; sourceTree = "<group>"; };
@@ -1204,9 +1338,11 @@
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
+		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
+		55388FDA1C8340C2002D3B99 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
@@ -1231,6 +1367,8 @@
 		5560A2B61C3481CC00BF77F7 /* epitaph */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = epitaph; sourceTree = "<group>"; };
 		5560A2BA1C348C4900BF77F7 /* posixregex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posixregex.c; sourceTree = "<group>"; };
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
+		5585264A1C868A2F00813BF2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NH3DModelObject+Swift.swift"; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
@@ -1247,6 +1385,8 @@
 		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
 		55CD9CEF1C45A439007F36B2 /* cppregex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cppregex.cpp; sourceTree = "<group>"; };
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
+		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
+		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -1304,6 +1444,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */,
+				55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
 				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
@@ -1318,6 +1460,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				551659B51C77CBDB00013270 /* C99Bool.h */,
 				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
 				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
 				2B6474FE096D5DF0005A4652 /* Cocoa-compat.h */,
@@ -1341,6 +1484,7 @@
 				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
+				55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */,
 				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
 				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
@@ -1426,6 +1570,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5585264A1C868A2F00813BF2 /* libz.tbd */,
+				55388FDA1C8340C2002D3B99 /* GLKit.framework */,
 				55F544C01C3614A100A1A1EE /* AVFoundation.framework */,
 				2B02FB3409497C21008FEDB0 /* Cocoa.framework */,
 				2B02FB1F09497C03008FEDB0 /* OpenGL.framework */,
@@ -1437,45 +1583,47 @@
 		2B26129509233E7800CA7A64 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				2B5181E00973EBD600C91C6E /* downladder.3ds */,
-				2B5181E20973EBD600C91C6E /* upladder.3ds */,
-				2B9A473E096DD7530074B10D /* bridge_opt.3ds */,
-				2B3D4EA509526D7C006921EA /* nurse.3ds */,
-				2B3D4EA109526CF8006921EA /* wizardset.3ds */,
-				2B56CD9E094E8CA500C22BA8 /* magicportal.3ds */,
-				2BC0192A094BA33400B386A8 /* kingset.3ds */,
-				2BC0192D094BA33400B386A8 /* levelteleporter.3ds */,
-				2BC0192E094BA33400B386A8 /* teleporter.3ds */,
-				2BD3BC860943D24500F782A6 /* beartrap.3ds */,
-				2BE4C327093CB52D00ACEEEE /* ironbar.3ds */,
-				2BE4C329093CB52D00ACEEEE /* tree.3ds */,
+				2BAF3B53092A041100C7BD42 /* altar.3ds */,
 				2B123DBB0931F05F00E894EE /* arrowtrap.3ds */,
-				2B123DB50931EA4F00E894EE /* spikepit.3ds */,
+				2BD3BC860943D24500F782A6 /* beartrap.3ds */,
+				55D555351C96019E001B0ECB /* boomerang.mtl */,
+				55D555361C96019E001B0ECB /* boomerang.obj */,
+				2BAF3BCF092A134F00C7BD42 /* boulder.3ds */,
+				2B9A473E096DD7530074B10D /* bridge_opt.3ds */,
 				2B123B4D09319B6B00E894EE /* bridge.3ds */,
 				2B123B4F09319B6B00E894EE /* bridgeUP.3ds */,
+				2B26129909233E7800CA7A64 /* corner.3ds */,
 				2B123B5109319B6B00E894EE /* dartTrap.3ds */,
-				2B123B5309319B6B00E894EE /* gastrap.3ds */,
-				2B123B5509319B6B00E894EE /* landmine.3ds */,
-				2B123B5709319B6B00E894EE /* pit.3ds */,
-				2B123B5909319B6B00E894EE /* rockfalltrap.3ds */,
-				2B123B5B09319B6B00E894EE /* torch.3ds */,
-				2BAF3BCF092A134F00C7BD42 /* boulder.3ds */,
-				2BAF3B53092A041100C7BD42 /* altar.3ds */,
+				2B5181E00973EBD600C91C6E /* downladder.3ds */,
 				2BAF3B55092A041100C7BD42 /* downStair.3ds */,
 				2BAF3B57092A041100C7BD42 /* fountain.3ds */,
+				2B123B5309319B6B00E894EE /* gastrap.3ds */,
+				2BAF3B5F092A041100C7BD42 /* grave.3ds */,
 				2BAF3B59092A041100C7BD42 /* hdoor.3ds */,
 				2BAF3B5B092A041100C7BD42 /* hopendoor.3ds */,
-				2BAF3B5D092A041100C7BD42 /* opulent_throne.3ds */,
-				2BAF3B5F092A041100C7BD42 /* grave.3ds */,
-				2BAF3B61092A041100C7BD42 /* sink.3ds */,
-				2BAF3B63092A041100C7BD42 /* vdoor.3ds */,
-				2BAF3B65092A041100C7BD42 /* vopendoor.3ds */,
-				2B26129909233E7800CA7A64 /* corner.3ds */,
 				2B26129C09233E7800CA7A64 /* hwall.3ds */,
 				2B26129E09233E7800CA7A64 /* invisible.3ds */,
-				2B2612D509233E7900CA7A64 /* upStair.3ds */,
-				2B2612D709233E7900CA7A64 /* vwall.3ds */,
+				2BE4C327093CB52D00ACEEEE /* ironbar.3ds */,
+				2BC0192A094BA33400B386A8 /* kingset.3ds */,
+				2B123B5509319B6B00E894EE /* landmine.3ds */,
+				2BC0192D094BA33400B386A8 /* levelteleporter.3ds */,
+				2B56CD9E094E8CA500C22BA8 /* magicportal.3ds */,
+				2B3D4EA509526D7C006921EA /* nurse.3ds */,
+				2BAF3B5D092A041100C7BD42 /* opulent_throne.3ds */,
 				5553AA2D1C73B79400A903B5 /* pillar.3ds */,
+				2B123B5709319B6B00E894EE /* pit.3ds */,
+				2B123B5909319B6B00E894EE /* rockfalltrap.3ds */,
+				2BAF3B61092A041100C7BD42 /* sink.3ds */,
+				2B123DB50931EA4F00E894EE /* spikepit.3ds */,
+				2BC0192E094BA33400B386A8 /* teleporter.3ds */,
+				2B123B5B09319B6B00E894EE /* torch.3ds */,
+				2BE4C329093CB52D00ACEEEE /* tree.3ds */,
+				2B5181E20973EBD600C91C6E /* upladder.3ds */,
+				2B2612D509233E7900CA7A64 /* upStair.3ds */,
+				2BAF3B63092A041100C7BD42 /* vdoor.3ds */,
+				2BAF3B65092A041100C7BD42 /* vopendoor.3ds */,
+				2B2612D709233E7900CA7A64 /* vwall.3ds */,
+				2B3D4EA109526CF8006921EA /* wizardset.3ds */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -1915,7 +2063,6 @@
 			isa = PBXGroup;
 			children = (
 				2B31DD3508CD73D5008CCAAC /* bootstrp.mak */,
-				2B31DD3608CD73D5008CCAAC /* ceinc */,
 				2B31DD3C08CD73D5008CCAAC /* celib.c */,
 				2B31DD3D08CD73D5008CCAAC /* cesetup.bat */,
 				2B31DD3E08CD73D5008CCAAC /* cesound.c */,
@@ -1962,25 +2109,6 @@
 				2B31DD6708CD73D5008CCAAC /* winMS.h */,
 			);
 			path = wince;
-			sourceTree = "<group>";
-		};
-		2B31DD3608CD73D5008CCAAC /* ceinc */ = {
-			isa = PBXGroup;
-			children = (
-				2B31DD3708CD73D5008CCAAC /* assert.h */,
-				2B31DD3808CD73D5008CCAAC /* errno.h */,
-				2B31DD3908CD73D5008CCAAC /* fcntl.h */,
-				2B31DD3A08CD73D5008CCAAC /* sys */,
-			);
-			path = ceinc;
-			sourceTree = "<group>";
-		};
-		2B31DD3A08CD73D5008CCAAC /* sys */ = {
-			isa = PBXGroup;
-			children = (
-				2B31DD3B08CD73D5008CCAAC /* stat.h */,
-			);
-			path = sys;
 			sourceTree = "<group>";
 		};
 		2B31DD6808CD73D5008CCAAC /* winnt */ = {
@@ -2574,6 +2702,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55BCFCAE1C9C87780076210F /* PBXTargetDependency */,
 			);
 			name = recover;
 			productName = recover;
@@ -2619,10 +2748,14 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				55BCFCA91C9C87110076210F /* Copy Addl. Executables */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				55BCFCAC1C9C87410076210F /* PBXTargetDependency */,
+				557CE1C91C8E207900B43765 /* PBXTargetDependency */,
+				557CE1CB1C8E207900B43765 /* PBXTargetDependency */,
 			);
 			name = NetHack3D;
 			productInstallPath = "$(HOME)/Applications";
@@ -2639,6 +2772,20 @@
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
+				TargetAttributes = {
+					557CE1C11C8E1EE100B43765 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					557CE1CC1C8E242500B43765 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					55D0E4871C8E18EA0074B7C4 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					55D0E48C1C8E190B0074B7C4 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
 			};
 			buildConfigurationList = 2B14B32C0890124A0051A4A9 /* Build configuration list for PBXProject "NetHack3D" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2660,6 +2807,10 @@
 				2BACF9EE090258000095C8A4 /* recover */,
 				2BCAABBF0913A70000AF1C59 /* tilemap */,
 				2BCAABD40913A7A500AF1C59 /* tiletext */,
+				55D0E48C1C8E190B0074B7C4 /* makefiles */,
+				557CE1CC1C8E242500B43765 /* util */,
+				55D0E4871C8E18EA0074B7C4 /* dat */,
+				557CE1C11C8E1EE100B43765 /* src */,
 			);
 		};
 /* End PBXProject section */
@@ -2755,6 +2906,7 @@
 				2B5CC099088EB5A600940C58 /* quest.txt in Resources */,
 				2B5CC09A088EB5A600940C58 /* quest_levs in Resources */,
 				2B5CC09B088EB5A600940C58 /* Ran-fila.lev in Resources */,
+				55D555371C96019E001B0ECB /* boomerang.mtl in Resources */,
 				2B5CC09C088EB5A600940C58 /* Ran-filb.lev in Resources */,
 				2B5CC09D088EB5A600940C58 /* Ran-goal.lev in Resources */,
 				2B5CC09E088EB5A600940C58 /* Ran-loca.lev in Resources */,
@@ -2795,6 +2947,7 @@
 				2B5CC0C5088EB5A600940C58 /* Val-fila.lev in Resources */,
 				2B5CC0C6088EB5A600940C58 /* Val-filb.lev in Resources */,
 				2B5CC0C7088EB5A600940C58 /* Val-goal.lev in Resources */,
+				55D555381C96019E001B0ECB /* boomerang.obj in Resources */,
 				2B5CC0C8088EB5A600940C58 /* Val-loca.lev in Resources */,
 				2B5CC0C9088EB5A600940C58 /* Val-strt.lev in Resources */,
 				2B5CC0CB088EB5A600940C58 /* valley.lev in Resources */,
@@ -2875,6 +3028,264 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		557CE1C71C8E1EF900B43765 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../src/Makefile",
+				"$(SRCROOT)/../../win/share/tilemap.c",
+				"$(SRCROOT)/../../include/lev_comp.h",
+				"$(SRCROOT)/../../include/dgn_comp.h",
+				"$(SRCROOT)/../../include/onames.h",
+				"$(SRCROOT)/../../include/pm.h",
+				"$(SRCROOT)/../../include/vis_tab.h",
+				"$(SRCROOT)/../../include/config.h",
+			);
+			outputPaths = (
+				"$(SRCROOT)/../../src/tile.c",
+				"$(SRCROOT)/../../src/vis_tab.c",
+				"$(SRCROOT)/../../src/monstr.c",
+				"$(SRCROOT)/../../include/date.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd src\n\nmake ../include/date.h\nmake tile.c vis_tab.c monstr.c\n#make everyone else happy\ntouch Sysunix\n";
+		};
+		557CE1D01C8E242C00B43765 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../util/Makefile",
+				"$(SRCROOT)/../../include/permonst.h",
+				"$(SRCROOT)/../../include/objclass.h",
+				"$(SRCROOT)/../../include/monsym.h",
+				"$(SRCROOT)/../../include/artilist.h",
+				"$(SRCROOT)/../../include/dungeon.h",
+				"$(SRCROOT)/../../include/obj.h",
+				"$(SRCROOT)/../../include/monst.h",
+				"$(SRCROOT)/../../include/you.h",
+				"$(SRCROOT)/../../include/flag.h",
+				"$(SRCROOT)/../../include/dlb.h",
+				"$(SRCROOT)/../../include/patchlevel.h",
+				"$(SRCROOT)/../../include/qtext.h",
+				"$(SRCROOT)/../../util/dgn_comp.y",
+				"$(SRCROOT)/../../util/dgn_comp.l",
+				"$(SRCROOT)/../../util/lev_comp.y",
+				"$(SRCROOT)/../../util/lev_comp.l",
+				"$(SRCROOT)/../../util/mdgrep.h",
+				"$(SRCROOT)/../../util/makedefs.c",
+				"$(SRCROOT)/../../util/panic.c",
+				"$(SRCROOT)/../../src/alloc.c",
+				"$(SRCROOT)/../../include/config.h",
+			);
+			outputPaths = (
+				"$(SRCROOT)/../../include/lev_comp.h",
+				"$(SRCROOT)/../../include/dgn_comp.h",
+				"$(SRCROOT)/../../include/onames.h",
+				"$(SRCROOT)/../../include/pm.h",
+				"$(SRCROOT)/../../include/vis_tab.h",
+				"$(SRCROOT)/../../util/makedefs",
+				"$(SRCROOT)/../../util/lev_comp",
+				"$(SRCROOT)/../../util/dgn_comp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd util\n# make headers first\nmake makedefs\nmake ../include/lev_comp.h ../include/dgn_comp.h ../include/onames.h ../include/pm.h ../include/vis_tab.h\nmake lev_comp\nmake dgn_comp\n";
+		};
+		55D0E48B1C8E18F50074B7C4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../dat/Makefile",
+				"$(SRCROOT)/../../include/permonst.h",
+				"$(SRCROOT)/../../include/objclass.h",
+				"$(SRCROOT)/../../include/monsym.h",
+				"$(SRCROOT)/../../include/artilist.h",
+				"$(SRCROOT)/../../include/dungeon.h",
+				"$(SRCROOT)/../../include/obj.h",
+				"$(SRCROOT)/../../include/monst.h",
+				"$(SRCROOT)/../../include/you.h",
+				"$(SRCROOT)/../../include/flag.h",
+				"$(SRCROOT)/../../include/dlb.h",
+				"$(SRCROOT)/../../include/patchlevel.h",
+				"$(SRCROOT)/../../include/qtext.h",
+				"$(SRCROOT)/../../util/makedefs",
+				"$(SRCROOT)/../../util/lev_comp",
+				"$(SRCROOT)/../../util/dgn_comp",
+				"$(SRCROOT)/../../include/config.h",
+			);
+			outputPaths = (
+				"$(SRCROOT)/../../dat/Arc-fila.lev",
+				"$(SRCROOT)/../../dat/Arc-filb.lev",
+				"$(SRCROOT)/../../dat/Arc-goal.lev",
+				"$(SRCROOT)/../../dat/Arc-loca.lev",
+				"$(SRCROOT)/../../dat/Arc-strt.lev",
+				"$(SRCROOT)/../../dat/Bar-fila.lev",
+				"$(SRCROOT)/../../dat/Bar-filb.lev",
+				"$(SRCROOT)/../../dat/Bar-goal.lev",
+				"$(SRCROOT)/../../dat/Bar-loca.lev",
+				"$(SRCROOT)/../../dat/Bar-strt.lev",
+				"$(SRCROOT)/../../dat/Cav-fila.lev",
+				"$(SRCROOT)/../../dat/Cav-filb.lev",
+				"$(SRCROOT)/../../dat/Cav-goal.lev",
+				"$(SRCROOT)/../../dat/Cav-loca.lev",
+				"$(SRCROOT)/../../dat/Cav-strt.lev",
+				"$(SRCROOT)/../../dat/Hea-fila.lev",
+				"$(SRCROOT)/../../dat/Hea-filb.lev",
+				"$(SRCROOT)/../../dat/Hea-goal.lev",
+				"$(SRCROOT)/../../dat/Hea-loca.lev",
+				"$(SRCROOT)/../../dat/Hea-strt.lev",
+				"$(SRCROOT)/../../dat/Kni-fila.lev",
+				"$(SRCROOT)/../../dat/Kni-filb.lev",
+				"$(SRCROOT)/../../dat/Kni-goal.lev",
+				"$(SRCROOT)/../../dat/Kni-loca.lev",
+				"$(SRCROOT)/../../dat/Kni-strt.lev",
+				"$(SRCROOT)/../../dat/Mon-fila.lev",
+				"$(SRCROOT)/../../dat/Mon-filb.lev",
+				"$(SRCROOT)/../../dat/Mon-goal.lev",
+				"$(SRCROOT)/../../dat/Mon-loca.lev",
+				"$(SRCROOT)/../../dat/Mon-strt.lev",
+				"$(SRCROOT)/../../dat/Pri-fila.lev",
+				"$(SRCROOT)/../../dat/Pri-filb.lev",
+				"$(SRCROOT)/../../dat/Pri-goal.lev",
+				"$(SRCROOT)/../../dat/Pri-loca.lev",
+				"$(SRCROOT)/../../dat/Pri-strt.lev",
+				"$(SRCROOT)/../../dat/Ran-fila.lev",
+				"$(SRCROOT)/../../dat/Ran-filb.lev",
+				"$(SRCROOT)/../../dat/Ran-goal.lev",
+				"$(SRCROOT)/../../dat/Ran-loca.lev",
+				"$(SRCROOT)/../../dat/Ran-strt.lev",
+				"$(SRCROOT)/../../dat/Rog-fila.lev",
+				"$(SRCROOT)/../../dat/Rog-filb.lev",
+				"$(SRCROOT)/../../dat/Rog-goal.lev",
+				"$(SRCROOT)/../../dat/Rog-loca.lev",
+				"$(SRCROOT)/../../dat/Rog-strt.lev",
+				"$(SRCROOT)/../../dat/Sam-fila.lev",
+				"$(SRCROOT)/../../dat/Sam-filb.lev",
+				"$(SRCROOT)/../../dat/Sam-goal.lev",
+				"$(SRCROOT)/../../dat/Sam-loca.lev",
+				"$(SRCROOT)/../../dat/Sam-strt.lev",
+				"$(SRCROOT)/../../dat/Tou-fila.lev",
+				"$(SRCROOT)/../../dat/Tou-filb.lev",
+				"$(SRCROOT)/../../dat/Tou-goal.lev",
+				"$(SRCROOT)/../../dat/Tou-loca.lev",
+				"$(SRCROOT)/../../dat/Tou-strt.lev",
+				"$(SRCROOT)/../../dat/Val-fila.lev",
+				"$(SRCROOT)/../../dat/Val-filb.lev",
+				"$(SRCROOT)/../../dat/Val-goal.lev",
+				"$(SRCROOT)/../../dat/Val-loca.lev",
+				"$(SRCROOT)/../../dat/Val-strt.lev",
+				"$(SRCROOT)/../../dat/Wiz-fila.lev",
+				"$(SRCROOT)/../../dat/Wiz-filb.lev",
+				"$(SRCROOT)/../../dat/Wiz-goal.lev",
+				"$(SRCROOT)/../../dat/Wiz-loca.lev",
+				"$(SRCROOT)/../../dat/Wiz-strt.lev",
+				"$(SRCROOT)/../../dat/air.lev",
+				"$(SRCROOT)/../../dat/asmodeus.lev",
+				"$(SRCROOT)/../../dat/astral.lev",
+				"$(SRCROOT)/../../dat/baalz.lev",
+				"$(SRCROOT)/../../dat/bigrm-1.lev",
+				"$(SRCROOT)/../../dat/bigrm-10.lev",
+				"$(SRCROOT)/../../dat/bigrm-2.lev",
+				"$(SRCROOT)/../../dat/bigrm-3.lev",
+				"$(SRCROOT)/../../dat/bigrm-4.lev",
+				"$(SRCROOT)/../../dat/bigrm-5.lev",
+				"$(SRCROOT)/../../dat/bigrm-6.lev",
+				"$(SRCROOT)/../../dat/bigrm-7.lev",
+				"$(SRCROOT)/../../dat/bigrm-8.lev",
+				"$(SRCROOT)/../../dat/bigrm-9.lev",
+				"$(SRCROOT)/../../dat/bogusmon",
+				"$(SRCROOT)/../../dat/castle.lev",
+				"$(SRCROOT)/../../dat/data",
+				"$(SRCROOT)/../../dat/dungeon",
+				"$(SRCROOT)/../../dat/dungeon.pdf",
+				"$(SRCROOT)/../../dat/earth.lev",
+				"$(SRCROOT)/../../dat/engrave",
+				"$(SRCROOT)/../../dat/epitaph",
+				"$(SRCROOT)/../../dat/fakewiz1.lev",
+				"$(SRCROOT)/../../dat/fakewiz2.lev",
+				"$(SRCROOT)/../../dat/fire.lev",
+				"$(SRCROOT)/../../dat/juiblex.lev",
+				"$(SRCROOT)/../../dat/knox.lev",
+				"$(SRCROOT)/../../dat/medusa-1.lev",
+				"$(SRCROOT)/../../dat/medusa-2.lev",
+				"$(SRCROOT)/../../dat/medusa-3.lev",
+				"$(SRCROOT)/../../dat/medusa-4.lev",
+				"$(SRCROOT)/../../dat/minefill.lev",
+				"$(SRCROOT)/../../dat/minend-1.lev",
+				"$(SRCROOT)/../../dat/minend-2.lev",
+				"$(SRCROOT)/../../dat/minend-3.lev",
+				"$(SRCROOT)/../../dat/minetn-1.lev",
+				"$(SRCROOT)/../../dat/minetn-2.lev",
+				"$(SRCROOT)/../../dat/minetn-3.lev",
+				"$(SRCROOT)/../../dat/minetn-4.lev",
+				"$(SRCROOT)/../../dat/minetn-5.lev",
+				"$(SRCROOT)/../../dat/minetn-6.lev",
+				"$(SRCROOT)/../../dat/minetn-7.lev",
+				"$(SRCROOT)/../../dat/options",
+				"$(SRCROOT)/../../dat/oracle.lev",
+				"$(SRCROOT)/../../dat/oracles",
+				"$(SRCROOT)/../../dat/orcus.lev",
+				"$(SRCROOT)/../../dat/quest.dat",
+				"$(SRCROOT)/../../dat/quest_levs",
+				"$(SRCROOT)/../../dat/rumors",
+				"$(SRCROOT)/../../dat/sanctum.lev",
+				"$(SRCROOT)/../../dat/soko1-1.lev",
+				"$(SRCROOT)/../../dat/soko1-2.lev",
+				"$(SRCROOT)/../../dat/soko2-1.lev",
+				"$(SRCROOT)/../../dat/soko2-2.lev",
+				"$(SRCROOT)/../../dat/soko3-1.lev",
+				"$(SRCROOT)/../../dat/soko3-2.lev",
+				"$(SRCROOT)/../../dat/soko4-1.lev",
+				"$(SRCROOT)/../../dat/soko4-2.lev",
+				"$(SRCROOT)/../../dat/spec_levs",
+				"$(SRCROOT)/../../dat/tower1.lev",
+				"$(SRCROOT)/../../dat/tower2.lev",
+				"$(SRCROOT)/../../dat/tower3.lev",
+				"$(SRCROOT)/../../dat/valley.lev",
+				"$(SRCROOT)/../../dat/water.lev",
+				"$(SRCROOT)/../../dat/wizard1.lev",
+				"$(SRCROOT)/../../dat/wizard2.lev",
+				"$(SRCROOT)/../../dat/wizard3.lev",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd dat\nmake\n";
+		};
+		55D0E4901C8E19110074B7C4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/Makefile.dat",
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/Makefile.doc",
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/Makefile.src",
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/Makefile.top",
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/Makefile.utl",
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/setup.sh",
+				"$(SRCROOT)/../../sys/Cocoa_GNUStep/hints/macosx10.10",
+			);
+			outputPaths = (
+				"$(SRCROOT)/../../dat/Makefile",
+				"$(SRCROOT)/../../doc/Makefile",
+				"$(SRCROOT)/../../src/Makefile",
+				"$(SRCROOT)/../../util/Makefile",
+				"$(SRCROOT)/../../Makefile",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}\"\ncd ../..\ncd sys/Cocoa_GNUStep\nsh setup.sh hints/macosx10.10\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2BACF9B40902550D0095C8A4 /* Sources */ = {
@@ -2985,6 +3396,7 @@
 				2B5CC171088EB7DF00940C58 /* light.c in Sources */,
 				2B5CC172088EB7DF00940C58 /* lock.c in Sources */,
 				2B5CC173088EB7DF00940C58 /* mail.c in Sources */,
+				55A571031C8D61A000FE4A3B /* NH3DModelObject+Swift.swift in Sources */,
 				2B5CC175088EB7DF00940C58 /* makemon.c in Sources */,
 				2B5CC176088EB7DF00940C58 /* mapglyph.c in Sources */,
 				2B5CC177088EB7DF00940C58 /* mcastu.c in Sources */,
@@ -3081,6 +3493,54 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		557CE1C61C8E1EF500B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E48C1C8E190B0074B7C4 /* makefiles */;
+			targetProxy = 557CE1C51C8E1EF500B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1C91C8E207900B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E4871C8E18EA0074B7C4 /* dat */;
+			targetProxy = 557CE1C81C8E207900B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1CB1C8E207900B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 557CE1C11C8E1EE100B43765 /* src */;
+			targetProxy = 557CE1CA1C8E207900B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1D21C8E255A00B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E48C1C8E190B0074B7C4 /* makefiles */;
+			targetProxy = 557CE1D11C8E255A00B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1D41C8E256100B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 557CE1CC1C8E242500B43765 /* util */;
+			targetProxy = 557CE1D31C8E256100B43765 /* PBXContainerItemProxy */;
+		};
+		557CE1D61C8E256600B43765 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 557CE1CC1C8E242500B43765 /* util */;
+			targetProxy = 557CE1D51C8E256600B43765 /* PBXContainerItemProxy */;
+		};
+		55BCFCAC1C9C87410076210F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2BACF9EE090258000095C8A4 /* recover */;
+			targetProxy = 55BCFCAB1C9C87410076210F /* PBXContainerItemProxy */;
+		};
+		55BCFCAE1C9C87780076210F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E4871C8E18EA0074B7C4 /* dat */;
+			targetProxy = 55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */;
+		};
+		55D0E4921C8E1A280074B7C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55D0E48C1C8E190B0074B7C4 /* makefiles */;
+			targetProxy = 55D0E4911C8E1A280074B7C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
@@ -3173,7 +3633,6 @@
 				GCC_THREADSAFE_STATICS = YES;
 				GCC_UNROLL_LOOPS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = YES;
@@ -3196,6 +3655,7 @@
 			buildSettings = {
 				APPLY_RULES_IN_COPY_FILES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = nh3d;
+				ASSETCATALOG_COMPILER_OPTIMIZATION = space;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -3221,18 +3681,19 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LLVM_LTO = YES;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.sbrain.portNetHack3D;
 				PRODUCT_NAME = NetHack3D;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3256,7 +3717,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3286,7 +3746,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = NOMAIL;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_MISSING_PARENTHESES = NO;
 				GCC_WARN_SHADOW = NO;
 				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -3543,6 +4002,62 @@
 			};
 			name = Release;
 		};
+		557CE1C31C8E1EE100B43765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		557CE1C41C8E1EE100B43765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		557CE1CD1C8E242500B43765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		557CE1CE1C8E242500B43765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55D0E4891C8E18EA0074B7C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55D0E48A1C8E18EA0074B7C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55D0E48E1C8E190B0074B7C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55D0E48F1C8E190B0074B7C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3614,6 +4129,42 @@
 			buildConfigurations = (
 				2BCAABDA0913A7B700AF1C59 /* Debug */,
 				2BCAABDB0913A7B700AF1C59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "src" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				557CE1C31C8E1EE100B43765 /* Debug */,
+				557CE1C41C8E1EE100B43765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		557CE1CF1C8E242500B43765 /* Build configuration list for PBXAggregateTarget "util" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				557CE1CD1C8E242500B43765 /* Debug */,
+				557CE1CE1C8E242500B43765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55D0E4881C8E18EA0074B7C4 /* Build configuration list for PBXAggregateTarget "dat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55D0E4891C8E18EA0074B7C4 /* Debug */,
+				55D0E48A1C8E18EA0074B7C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55D0E48D1C8E190B0074B7C4 /* Build configuration list for PBXAggregateTarget "makefiles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55D0E48E1C8E190B0074B7C4 /* Debug */,
+				55D0E48F1C8E190B0074B7C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

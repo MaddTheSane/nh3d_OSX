@@ -24,7 +24,7 @@
 
 extern int debuggable; /* defined in vmsmisc.c */
 
-extern void VDECL(lib$signal, (unsigned, ...));
+extern void lib$signal(unsigned, ...);
 extern unsigned long sys$setprv();
 extern unsigned long lib$getdvi(), lib$getjpi(), lib$spawn(), lib$attach();
 extern unsigned long smg$init_term_table_by_type(), smg$del_term_table();
@@ -33,18 +33,17 @@ extern unsigned long smg$init_term_table_by_type(), smg$del_term_table();
 /* this could be static; it's only used within this file;
    it won't be used at all if C_LIB$INTIALIZE gets commented out below,
    so make it global so that compiler won't complain that it's not used */
-int FDECL(vmsexeini, (const void *, const void *, const unsigned char *));
+int vmsexeini(const void *, const void *, const unsigned char *);
 
-static int FDECL(veryold, (int));
-static char *NDECL(verify_term);
+static int veryold(int);
+static char *verify_term(void);
 #if defined(SHELL) || defined(SUSPEND)
-static void FDECL(hack_escape, (BOOLEAN_P, const char *));
-static void FDECL(hack_resume, (BOOLEAN_P));
+static void hack_escape(boolean, const char *);
+static void hack_resume(boolean);
 #endif
 
 static int
-veryold(fd)
-int fd;
+veryold(int fd)
 {
     register int i;
     time_t date;
@@ -153,8 +152,7 @@ gotlock:
     }
 }
 
-void regularize(s) /* normalize file name */
-register char *s;
+void regularize(register char *s) /* normalize file name */
 {
     register char *lp;
 
@@ -175,8 +173,7 @@ vms_getuid()
 #endif
 /* check whether the open file specified by `fd' is in stream-lf format */
 boolean
-file_is_stmlf(fd)
-int fd;
+file_is_stmlf(int fd)
 {
     int rfm;
     struct stat buf;
@@ -204,10 +201,7 @@ int fd;
 
 /* vms_define() - assign a value to a logical name */
 int
-vms_define(name, value, flag)
-const char *name;
-const char *value;
-int flag;
+vms_define(const char *name, const char *value, int flag)
 {
     struct dsc {
         unsigned short len, mbz;
@@ -250,8 +244,7 @@ int flag;
 
 /* vms_putenv() - create or modify an environment value */
 int
-vms_putenv(string)
-const char *string;
+vms_putenv(const char *string)
 {
     char name[ENVSIZ + 1], value[ENVSIZ + 1], *p; /* [255+1] */
 
@@ -374,9 +367,7 @@ privon()
 
 #if defined(SHELL) || defined(SUSPEND)
 static void
-hack_escape(screen_manip, msg_str)
-boolean screen_manip;
-const char *msg_str;
+hack_escape(boolean screen_manip, const char *msg_str)
 {
     if (screen_manip)
         suspend_nhwindows(msg_str);  /* clear screen, reset terminal, &c */
@@ -385,8 +376,7 @@ const char *msg_str;
 }
 
 static void
-hack_resume(screen_manip)
-boolean screen_manip;
+hack_resume(boolean screen_manip)
 {
     (void) signal(SIGINT, (SIG_RET_TYPE) done1);
     if (wizard)
@@ -421,9 +411,7 @@ dosh()
  * will be piped into oblivion.  Used for silent phone call rejection.
  */
 int
-vms_doshell(execstring, screenoutput)
-const char *execstring;
-boolean screenoutput;
+vms_doshell(const char *execstring, boolean screenoutput)
 {
     unsigned long status, new_pid, spawnflags = 0;
     struct dsc$descriptor_s comstring, *command, *inoutfile = 0;
@@ -517,13 +505,10 @@ dosuspend()
 /* this would fit better in vmsfiles.c except that that gets linked
    with the utility programs and we don't want this code there */
 
-static void FDECL(savefile, (const char *, int, int *, char ***));
+static void savefile(const char *, int, int *, char ***);
 
 static void
-savefile(name, indx, asize, array)
-const char *name;
-int indx, *asize;
-char ***array;
+savefile(const char *name, int indx, int *asize, char ***array)
 {
     char **newarray;
     int i, oldsize;
@@ -548,14 +533,13 @@ struct dsc {
     char *adr;
 };                             /* descriptor */
 typedef unsigned long vmscond; /* vms condition value */
-vmscond FDECL(lib$find_file, (const struct dsc *, struct dsc *, genericptr *));
-vmscond FDECL(lib$find_file_end, (void **));
+vmscond lib$find_file(const struct dsc *, struct dsc *, genericptr *);
+vmscond lib$find_file_end(void **);
 
 /* collect a list of character names from all save files for this player */
 int
-vms_get_saved_games(savetemplate, outarray)
-const char *savetemplate; /* wildcarded save file name in native VMS format */
-char ***outarray;
+vms_get_saved_games(const char *savetemplate, /* wildcarded save file name in native VMS format */
+                    char ***outarray)
 {
     struct dsc in, out;
     unsigned short l;
@@ -593,8 +577,7 @@ char ***outarray;
 /* nethack has detected an internal error; try to give a trace of call stack
  */
 void
-vms_traceback(how)
-int how; /* 1: exit after traceback; 2: stay in debugger */
+vms_traceback(int how) /* 1: exit after traceback; 2: stay in debugger */
 {
     /* assumes that a static initializer applies to the first union
        field and that no padding will be placed between len and str */
@@ -665,16 +648,16 @@ int how; /* 1: exit after traceback; 2: stay in debugger */
  * It all takes place before nethack even starts, and sets up
  * `debuggable' to control possible use of lib$signal(SS$_DEBUG).
  */
-typedef unsigned FDECL((*condition_handler), (unsigned *, unsigned *));
-extern condition_handler FDECL(lib$establish, (condition_handler));
-extern unsigned FDECL(lib$sig_to_ret, (unsigned *, unsigned *));
+typedef unsigned (*condition_handler)(unsigned *, unsigned *);
+extern condition_handler lib$establish(condition_handler);
+extern unsigned lib$sig_to_ret(unsigned *, unsigned *);
 
 /* SYS$IMGSTA() is not documented:  if called at image startup, it controls
    access to the debugger; fortunately, the linker knows now to find it
    without needing to link against sys.stb (VAX) or use LINK/System (Alpha).
    We won't be calling it, but we indirectly check whether it has already
    been called by checking if nethack.exe has it as a transfer address. */
-extern unsigned FDECL(sys$imgsta, ());
+extern unsigned sys$imgsta();
 
 /*
  * These structures are in header files contained in sys$lib_c.tlb,
@@ -741,9 +724,7 @@ struct eiha { /* extended image header activation block, $EIHADEF */
    with magic arguments; C run-time library won't be initialized yet */
 /*ARGSUSED*/
 int
-vmsexeini(inirtn_unused, clirtn_unused, imghdr)
-const void *inirtn_unused, *clirtn_unused;
-const unsigned char *imghdr;
+vmsexeini(const void *inirtn_unused, const void *clirtn_unused, const unsigned char *imghdr)
 {
     const struct ihd *vax_hdr;
     const struct eihd *axp_hdr;

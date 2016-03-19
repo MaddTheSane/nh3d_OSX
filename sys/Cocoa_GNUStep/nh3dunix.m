@@ -10,6 +10,8 @@
 
 /* This file collects some Unix dependencies */
 
+
+#import <AppKit/AppKit.h>
 #include "hack.h" /* mainly for index() which depends on BSD */
 
 #include <errno.h>
@@ -35,9 +37,9 @@ extern void NDECL(linux_mapon);
 extern void NDECL(linux_mapoff);
 #endif
 
-static void NDECL(wd_message);
+static void wd_message(void);
 static boolean wiz_error_flag = FALSE;
-static struct passwd *NDECL(get_unix_pw);
+static struct passwd *get_unix_pw(void);
 
 
 #ifndef NHSTDC
@@ -168,11 +170,17 @@ getlock()
 		(void) close(fd);
 		
 		if(iflags.window_inited) {
+			NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
+			eraseSaveAlert.messageText = NSLocalizedString(@"Remove old save?", @"");
+			eraseSaveAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Destroy old game?", @"");
 			
-			c = yn("There is already a game in progress under your name.  Destroy old game?");
-			/*JP
-			 c = yn("あなたの名前で不正終了したゲームが残っています．破棄しますか？");
-			 */
+			NSButton *noButton = [eraseSaveAlert addButtonWithTitle:@"No"];
+			noButton.tag = 'n';
+			
+			noButton = [eraseSaveAlert addButtonWithTitle:@"Yes"];
+			noButton.tag = 'y';
+			
+			c = [eraseSaveAlert runModal];
 		} else {
 			
 			(void) printf("\nThere is already a game in progress under your name.");
@@ -221,8 +229,8 @@ regularize(register char *s)	/* normalize file name - we don't like .'s, /'s, sp
 {
     char *lp;
     
-    while ((lp = index(s, '.')) || (lp = index(s, '/'))
-           || (lp = index(s, ' ')))
+    while ((lp = strchr(s, '.')) || (lp = strchr(s, '/'))
+           || (lp = strchr(s, ' ')))
         *lp = '_';
 #if defined(SYSV) && !defined(AIX_31) && !defined(SVR4) && !defined(LINUX) \
 && !defined(__APPLE__)
@@ -252,8 +260,7 @@ regularize(register char *s)	/* normalize file name - we don't like .'s, /'s, sp
 #include <poll.h>
 
 void
-msleep(msec)
-unsigned msec;				/* milliseconds */
+msleep(unsigned msec) /* milliseconds */
 {
 	struct pollfd unused;
 	int msecs = msec;		/* poll API is signed */
@@ -289,8 +296,7 @@ dosh()
 
 #if defined(SHELL) || defined(DEF_PAGER) || defined(DEF_MAILREADER)
 int
-child(wt)
-int wt;
+child(int wt)
 {
 	register int f;
 	suspend_nhwindows((char *)0);	/* also calls end_screen() */
@@ -345,8 +351,7 @@ extern gid_t NDECL(nh_getgid);
 extern gid_t NDECL(nh_getegid);
 
 int
-(getresuid)(ruid, euid, suid)
-uid_t *ruid, *euid, *suid;
+(getresuid)(uid_t *ruid, uid_t *euid, uid_t *suid)
 {
     return nh_getresuid(ruid, euid, suid);
 }
@@ -385,8 +390,7 @@ gid_t
 #endif	/* GETRES_SUPPORT */
 
 void
-sethanguphandler(handler)
-void FDECL((*handler), (int));
+sethanguphandler(void (*handler)(int))
 {
 #ifdef SA_RESTART
     /* don't want reads to restart.  If SA_RESTART is defined, we know
@@ -425,8 +429,7 @@ authorize_wizard_mode()
 }
 
 boolean
-check_user_string(optstr)
-char *optstr;
+check_user_string(char *optstr)
 {
     struct passwd *pw = get_unix_pw();
     int pwlen;

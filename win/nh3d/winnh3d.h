@@ -37,8 +37,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef struct nh3d_nhwindow_data {
-	__unsafe_unretained id			win;
-	int         type;
+	__unsafe_unretained id	win;
+	int						type;
 } NH3DWinData;
 
 extern struct window_procs nh3d_procs;
@@ -53,15 +53,15 @@ void nh3d_suspend_nhwindows(const char *__null_unspecified str);
 void nh3d_resume_nhwindows();
 winid nh3d_create_nhwindow(int type);
 void nh3d_clear_nhwindow(winid wid);
-void nh3d_display_nhwindow(winid wid, BOOLEAN_P block);
+void nh3d_display_nhwindow(winid wid, boolean block);
 void nh3d_destroy_nhwindow(winid wid);
 void nh3d_curs(winid wid, int x, int y);
 void nh3d_putstr(winid wid, int attr, const char *__null_unspecified text);
-void nh3d_display_file(const char *__null_unspecified filename, BOOLEAN_P must_exist);
+void nh3d_display_file(const char *__null_unspecified filename, boolean must_exist);
 void nh3d_start_menu(winid wid);
 void nh3d_add_menu(winid wid, int glyph, const ANY_P *__null_unspecified identifier,
-		CHAR_P accelerator, CHAR_P group_accel, int attr, 
-		const char *__null_unspecified str, BOOLEAN_P presel);
+		char accelerator, char group_accel, int attr,
+		const char *__null_unspecified str, boolean presel);
 void nh3d_end_menu(winid wid, const char *prompt);
 int nh3d_select_menu(winid wid, int how, menu_item *__null_unspecified*__null_unspecified menu_list);
 void nh3d_update_inventory();
@@ -69,14 +69,14 @@ void nh3d_mark_synch();
 void nh3d_wait_synch();
 void nh3d_cliparound(int x, int y);
 void nh3d_cliparound_window(winid wid, int x, int y);
-void nh3d_print_glyph(winid wid,XCHAR_P x,XCHAR_P y,int glyph, int under);
-void nh3d_raw_print(const char *str);
-void nh3d_raw_print_bold(const char *str);
+void nh3d_print_glyph(winid wid,xchar x,xchar y,int glyph, int under);
+void nh3d_raw_print(const char *__null_unspecified str);
+void nh3d_raw_print_bold(const char *__null_unspecified str);
 int nh3d_nhgetch();
 int nh3d_nh_poskey(int *__null_unspecified x, int *__null_unspecified y, int *mod);
 void nh3d_nhbell();
 int nh3d_doprev_message();
-char nh3d_yn_function(const char *__null_unspecified question, const char *__null_unspecified choices, CHAR_P def);
+char nh3d_yn_function(const char *__null_unspecified question, const char *__null_unspecified choices, char def);
 void nh3d_getlin(const char *prompt, char *__null_unspecified line);
 int nh3d_get_ext_cmd();
 void nh3d_number_pad(int num);
@@ -89,12 +89,12 @@ void nh3d_outrip(winid wid, int how, time_t when);
 @class NH3DMessaging;
 @class NH3DOpenGLView;
 
-void nh3d_create_nhwindow_by_id( int type, winid i);
+void nh3d_create_nhwindow_by_id(int type, winid i);
 void nethack3d_exit(int status);
 #ifndef GNUSTEP
 void nh3d_set_savefile_name();
 #endif
-@interface NH3DBindController : NSObject <NSApplicationDelegate> {
+@interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
 
 	IBOutlet NSWindow *_window;
 	IBOutlet NSMenu  *_mainMenu;
@@ -116,12 +116,11 @@ void nh3d_set_savefile_name();
 
 //- (void)showSheet:(id)aSheet modalWindow:(id)aWindow;
 - (void)showUserMakeSheet;
-- (void)showMainWindow;
 @property (readonly, strong) NSWindow *mainWindow;
 
 - (void)didPresentError:(NSError *)error;
 
-- (void)printGlyph:(winid)wid xPos:(XCHAR_P)x yPos:(XCHAR_P)y glyph:(int)glyph bkglyph:(int)bkglyph;
+- (void)printGlyph:(winid)wid xPos:(xchar)x yPos:(xchar)y glyph:(int)glyph bkglyph:(int)bkglyph;
 - (int)nhPosKeyAtX:(int *)x atY:(int *)y keyMod:(int *)mod;
 - (int)nhGetKey;
 - (void)updateAll;

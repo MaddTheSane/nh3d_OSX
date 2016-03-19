@@ -39,6 +39,14 @@ extern NH3DTileCache *_NH3DTileCache;
 @synthesize playerAc;
 @synthesize playerLv;
 
+
+@synthesize playerRole;
+@synthesize playerRace;
+@synthesize playerAlign;
+@synthesize playerGender;
+
+@synthesize playerStatusLine;
+
 - (instancetype)init
 {
     if (self = [super init]) {
@@ -53,22 +61,22 @@ extern NH3DTileCache *_NH3DTileCache;
 		
 		[self setPlayerName:@""];
 		[self setPlayerClass:@""];
-		[self setPlayerMaxhp:9999];
-		[self setPlayerMaxpow:9999];
-		[self setPlayerHp:9999];
-		[self setPlayerPow:9999];
+		self.playerMaxhp = 9999;
+		self.playerMaxpow = 9999;
+		self.playerHp = 9999;
+		self.playerPow = 9999;
 		[self setPlayerStr:9999];
-		[self setPlayerDex:9999];
-		[self setPlayerCon:9999];
-		[self setPlayerInt:9999];
-		[self setPlayerWis:9999];
-		[self setPlayerCha:9999];
-		[self setPlayerGold:9999];
-		[self setPlayerScore:9999];
-		[self setPlayerTime:9999];
-		[self setPlayerExp:9999];
-		[self setPlayerAc:-9999];
-		[self setPlayerLv:9999];
+		self.playerDex = 9999;
+		self.playerCon = 9999;
+		self.playerInt = 9999;
+		self.playerWis = 9999;
+		self.playerCha = 9999;
+		self.playerGold = 9999;
+		self.playerScore = 9999;
+		self.playerTime = 9999;
+		self.playerExp = 9999;
+		self.playerAc = -9999;
+		self.playerLv = 9999;
 
 		[self setStrUpdate:NO];
 		[self setHpUpdate:NO];
@@ -182,37 +190,12 @@ extern NH3DTileCache *_NH3DTileCache;
 										   attributes:strAttributes];
 }
 
-- (NSString*)playerRole 
-{
-	return playerRole;
-}
-
-- (NSString*)playerRace 
-{
-	return playerRace;
-}
-
-- (NSString*)playerAlign 
-{
-	return playerAlign;
-}
-
-- (NSString*)playerGender 
-{
-	return playerGender;
-}
-
 - (NSAttributedString *)playerClass
 {
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT
 														 size: 13];
 	return [[NSAttributedString alloc] initWithString:playerClass
 										   attributes:strAttributes];
-}
-
-- (NSString*)playerStatusLine
-{
-	return playerStatusLine;
 }
 
 - (CGFloat)playerWaningHp
@@ -407,82 +390,113 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
+		self.playerArmorString = @(Doname2(uarm)); //[NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]
 	} else {
 		[self setPlayerArmour:0];
+		self.playerArmorString = nil;
 	}
 
 	if (uarmu && !uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
+		self.playerArmorString = @(Doname2(uarmu));
 	} else if (!uarm) {
 		[self setPlayerArmour:0];
+		self.playerArmorString = nil;
 	}
 	
 	if (uarmc) {
 		[self setPlayerCloak:obj_to_glyph(uarmc)];
+		self.playerCloakString = @(Doname2(uarmc));
 	} else {
 		[self setPlayerCloak:0];
+		self.playerCloakString = nil;
 	}
 	
 	if (uarmh) {
 		[self setPlayerHelmet:obj_to_glyph(uarmh)];
+		self.playerHelmetString = @(Doname2(uarmh));
 	} else {
 		[self setPlayerHelmet:0];
+		self.playerHelmetString = nil;
 	}
 		
 	if (uarmg) {
 		[self setPlayerGloves:obj_to_glyph(uarmg)];
+		self.playerGlovesString = @(Doname2(uarmg));
 	} else {
 		[self setPlayerGloves:0];
+		self.playerGlovesString = nil;
 	}
 	
 	if (uarmf) {
 		[self setPlayerShoes:obj_to_glyph(uarmf)];
+		self.playerShoesString = @(Doname2(uarmf));
 	} else {
 		[self setPlayerShoes:0];
+		self.playerShoesString = nil;
 	}
 	
 	if (uleft) {
 		[self setPlayerRingL:obj_to_glyph(uleft)];
+		self.playerRingLString = @(Doname2(uleft));
 	} else {
 		[self setPlayerRingL:0];
+		self.playerRingLString = nil;
 	}
 	
 	if (uright) {
 		[self setPlayerRingR:obj_to_glyph(uright)];
+		self.playerRingRString = @(Doname2(uright));
 	} else {
 		[self setPlayerRingR:0];
+		self.playerRingRString = nil;
 	}
 	
-	if (uwep ) {
+	if (uwep) {
 		[self setPlayerWeapon:obj_to_glyph(uwep)];
+		self.playerWeaponString = @(Doname2(uwep));
 	} else {
 		[self setPlayerWeapon:0];
+		self.playerWeaponString = nil;
 	}
 	
 	if (uswapwep && !u.twoweap) {
 		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
+		self.playerSubWeaponString = @(Doname2(uswapwep));
 	} else {
 		[self setPlayerSubWeapon:0];
+		self.playerSubWeaponString = nil;
 	}
 	
 	if (uarms && !u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uarms)];
+		self.playerShieldString = @(Doname2(uarms));
 	} else if (u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uswapwep)];
+		self.playerShieldString = @(Doname2(uswapwep));
 	} else {
 		[self setPlayerShield:0];
+		self.playerShieldString = nil;
 	}
 	
 	if (uamul) {
 		[self setPlayerAmulet:obj_to_glyph(uamul)];
+		self.playerAmuletString = @(Doname2(uamul));
 	} else {
 		[self setPlayerAmulet:0];
+		self.playerAmuletString = nil;
 	}
 	
 	if (ublindf) {
 		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
+		self.playerBlindFoldString = @(Doname2(ublindf));
+	} else if (uarmh) {
+		[self setPlayerBlindFold:0];
+		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.
+		self.playerBlindFoldString = self.playerHelmetString;
 	} else {
 		[self setPlayerBlindFold:0];
+		self.playerBlindFoldString = nil;
 	}
 }
 //
@@ -590,12 +604,16 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Hallu", (int)stHallu]];
 }
+- (NSImage *)stLoad
+{
+	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Load", (int)stLoad]];
+}
 
 #pragma mark -
 
 - (void)setPlayerName:(NSString *)aString {
 	if (![playerName isEqualToString:aString] && aString.length <= PL_NSIZ-11) {
-		playerName = aString;
+		playerName = [aString copy];
 		//strcpy( plname,[ playerName cStringUsingEncoding:NH3DTEXTENCODING ] );
 	}
 }
@@ -632,7 +650,7 @@ extern NH3DTileCache *_NH3DTileCache;
 
 - (void)setPlayerStatusLine:(NSString *)aString
 {
-	if (![ playerStatusLine isEqualToString:aString]) {
+	if (![playerStatusLine isEqualToString:aString]) {
 		playerStatusLine = [aString copy];
 	}
 }
@@ -648,7 +666,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		strcount = playerTime;
 	} else {
 		playerStr = aValue;
-		if (strcount < playerTime-15)
+		if (strcount < playerTime - 15)
 			[self setStrUpdate:NO];
 	}
 }
@@ -662,7 +680,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		dexcount = playerTime;
 	} else {
 		playerDex = aValue;
-		if (dexcount < playerTime-15)
+		if (dexcount < playerTime - 15)
 			[self setDexUpdate:NO];
 	}
 }
@@ -676,7 +694,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		concount = playerTime;
 	} else {
 		playerCon = aValue;
-		if (concount < playerTime-15)
+		if (concount < playerTime - 15)
 			[self setConUpdate:NO];
 	}
 }
@@ -690,7 +708,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		intcount = playerTime;
 	} else {
 		playerInt = aValue;
-		if (intcount < playerTime-15)
+		if (intcount < playerTime - 15)
 			[self setIntUpdate:NO];
 	}
 }
@@ -704,7 +722,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		wiscount = playerTime;
 	} else {
 		playerWis = aValue;
-		if (wiscount < playerTime-15)
+		if (wiscount < playerTime - 15)
 			[self setWisUpdate:NO];
 	}
 }
@@ -718,7 +736,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		chacount = playerTime;
 	} else {
 		playerCha = aValue;
-		if (chacount < playerTime-15)
+		if (chacount < playerTime - 15)
 			[self setChaUpdate:NO];
 	}
 }
@@ -740,7 +758,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		[self setPlayerWaningHp:aValue];
 		[self setPlayerCriticalHp:aValue];
 	}
-	if (hpcount < playerTime-15)
+	if (hpcount < playerTime - 15)
 		[self setHpUpdate:NO];
 }
 
@@ -760,7 +778,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		[self setPlayerWaningPow:aValue];
 		[self setPlayerCriticalPow:aValue];
 	}
-	if (powcount < playerTime-15)
+	if (powcount < playerTime - 15)
 		[self setPowUpdate:NO];
 }
 
@@ -773,7 +791,7 @@ extern NH3DTileCache *_NH3DTileCache;
 		account = playerTime;
 	} else {
 		playerAc = aValue;
-		if (account < playerTime-15)
+		if (account < playerTime - 15)
 			[self setAcUpdate:NO];
 	}
 }
@@ -787,29 +805,29 @@ extern NH3DTileCache *_NH3DTileCache;
 		lvcount = playerTime;
 	} else {
 		playerLv = aValue;
-		if (lvcount < playerTime-15)
+		if (lvcount < playerTime - 15)
 			[self setLvUpdate:NO];
 	}
 }
 
 - (void)setPlayerWaningHp:(int)maxHp
 {
-	playerWaningHp = (CGFloat)maxHp/10*5;
+	playerWaningHp = (CGFloat)maxHp / 10 * 5;
 }
 
 - (void)setPlayerCriticalHp:(int)maxHp
 {
-	playerCriticalHp = (CGFloat)maxHp/10*3;
+	playerCriticalHp = (CGFloat)maxHp / 10 * 3;
 }
 
 - (void)setPlayerWaningPow:(int)maxPow
 {
-	playerWaningPow = (CGFloat)maxPow/10*5;
+	playerWaningPow = (CGFloat)maxPow / 10 * 5;
 }
 
 - (void)setPlayerCriticalPow:(int)maxPow
 {
-	playerCriticalPow = (CGFloat)maxPow/10*3;
+	playerCriticalPow = (CGFloat)maxPow / 10 * 3;
 }
 
 #pragma mark -
@@ -857,85 +875,87 @@ extern NH3DTileCache *_NH3DTileCache;
 	chaosIcon = enable;
 }
 
-- (void)setStHunger:(BOOL)aBool
+- (void)setStHunger:(char)aBool
 {
 	stHunger = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStConfuse:(BOOL)aBool
 {
 	stConfuse = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStSick:(BOOL)aBool
 {
 	stSick = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStIll:(BOOL)aBool
 {
 	stIll = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStBlind:(BOOL)aBool
 {
 	stBlind = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStStun:(BOOL)aBool
 {
 	stStun = aBool;
-	[self checkStDrawer];
 }
 
 - (void)setStHallu:(BOOL)aBool
 {
 	stHallu = aBool;
-	[self checkStDrawer];
+}
+
+- (void)setStLoad:(char)curVal
+{
+	stLoad = curVal;
 }
 
 - (void)checkStDrawer
 {
-	if ( stHunger || stConfuse || stSick || stIll || stBlind || stStun || stHallu ) {
-		if (stDrawer.state == NSDrawerClosedState) {
-			[stDrawer open];
+	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
+		if (stDrawer.state == NSDrawerClosedState || stDrawer.state == NSDrawerClosingState) {
 			[[NSSound soundNamed:@"Purr"] play];
+			[stDrawer open];
 		}
-	} else if (stDrawer.state != NSDrawerClosedState) {
+	} else if (stDrawer.state == NSDrawerOpenState || stDrawer.state == NSDrawerOpeningState) {
 		[stDrawer close];
 	}
 }
 
 #pragma mark -
 
+- (void)pokeDrawer
+{
+	[window displayIfNeeded];
+	[stDrawer.contentView display];
+}
+
 - (void)updatePlayer
 {
-	const char* hung = hu_stat[u.uhs];
-	
 	[self setPlayerClass:[NSString stringWithFormat:NSLocalizedString(@"the %@", @""),
-							[NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
-											   encoding:NH3DTEXTENCODING]]];
+						  [NSString stringWithCString:rank_of(u.ulevel, pl_character[0], flags.female)
+											 encoding:NH3DTEXTENCODING]]];
 	
-	[self setPlayerTime:moves];
+	self.playerTime = moves;
 	
 	if (u.mtimedone) {
 		// You're a monster.
-		[self setPlayerMaxhp:u.mhmax];
-		[self setPlayerHp:u.mh];
-		[self setPlayerLv:mons[u.umonnum].mlevel];
+		self.playerMaxhp = u.mhmax;
+		self.playerHp = u.mh;
+		self.playerLv = mons[u.umonnum].mlevel;
 	} else {
 		// You're normal.
-		[self setPlayerMaxhp:u.uhpmax];
-		[self setPlayerHp:u.uhp];
-		[self setPlayerLv:u.ulevel];
+		self.playerMaxhp = u.uhpmax;
+		self.playerHp = u.uhp;
+		self.playerLv = u.ulevel;
 	}
-	[self setPlayerMaxpow:u.uenmax];
-	[self setPlayerPow:u.uen];
+	self.playerMaxpow = u.uenmax;
+	self.playerPow = u.uen;
 	
 	[self setPlayerStr:ACURR(A_STR)];
 	[self setPlayerDex:ACURR(A_DEX)];
@@ -943,14 +963,14 @@ extern NH3DTileCache *_NH3DTileCache;
 	[self setPlayerInt:ACURR(A_INT)];
 	[self setPlayerWis:ACURR(A_WIS)];
 	[self setPlayerCha:ACURR(A_CHA)];
-	[self setPlayerGold:money_cnt(invent)];
+	self.playerGold = money_cnt(invent);
 #ifdef SCORE_ON_BOTL
-	[self setPlayerScore:botl_score()];
+	self.playerScore = botl_score();
 #else
 	[self setPlayerScore:0];
 #endif
-	[self setPlayerExp:u.uexp];
-	[self setPlayerAc:u.uac];
+	self.playerExp = u.uexp;
+	self.playerAc = u.uac;
 	
 	if (Hallucination)
 		[self setStHallu:YES];
@@ -982,32 +1002,33 @@ extern NH3DTileCache *_NH3DTileCache;
 	else
 		[self setStIll:NO];
 	
-	if (hung[0] != ' ')
-		[self setStHunger:YES];
-	else
-		[self setStHunger:NO];
+	[self setStHunger:u.uhs];
+	[self setStLoad:near_capacity()];
 	
 	switch (u.ualign.type) {
-		case 1 : 
-			[self setPlayerAlign:@"Lowful"];
+		case A_LAWFUL:
+			self.playerAlign = @"Lowful";
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:NO];
 			break;
-		case 0 :
-			[self setPlayerAlign:@"Newtral"];
+			
+		case A_NEUTRAL:
+			self.playerAlign = @"Newtral";
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:NO];
 			break;
-		case -1 :
-			[self setPlayerAlign:@"Chaotic"];
+			
+		case A_CHAOTIC:
+			self.playerAlign = @"Chaotic";
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:YES];
 			break;
-		case -128 :
-			[self setPlayerAlign:@"Evil"];
+			
+		case A_NONE:
+			self.playerAlign = @"Evil";
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:YES];
@@ -1016,7 +1037,11 @@ extern NH3DTileCache *_NH3DTileCache;
 	
 	firstTime = NO;
 
-	[window displayIfNeeded];
+	[self checkStDrawer];
+	if (stDrawer.state != NSDrawerClosedState) {
+		[stDrawer.contentView setNeedsDisplay:YES];
+		//[self performSelector:@selector(pokeDrawer) withObject:nil afterDelay:0.01];
+	}
 }
 
 @end

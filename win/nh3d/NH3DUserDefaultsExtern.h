@@ -28,17 +28,17 @@ extern NSString *NH3DWindowFontSizeKey;
 extern const NSStringEncoding NH3DTEXTENCODING;
 
 // for font
-#define NH3DMSGFONT		[ [NSUserDefaults standardUserDefaults] stringForKey:NH3DMsgFontKey ]
-#define NH3DWINDOWFONT  [ [NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey ]
-#define NH3DMAPFONT		[ [NSUserDefaults standardUserDefaults] stringForKey:NH3DMapFontKey ]
-#define NH3DBOLDFONT	[ [NSUserDefaults standardUserDefaults] stringForKey:NH3DBoldFontKey ]
-#define NH3DINVFONT		[ [NSUserDefaults standardUserDefaults] stringForKey:NH3DInventryFontKey ]
+#define NH3DMSGFONT		[[NSUserDefaults standardUserDefaults] stringForKey:NH3DMsgFontKey]
+#define NH3DWINDOWFONT  [[NSUserDefaults standardUserDefaults] stringForKey:NH3DWindowFontKey]
+#define NH3DMAPFONT		[[NSUserDefaults standardUserDefaults] stringForKey:NH3DMapFontKey]
+#define NH3DBOLDFONT	[[NSUserDefaults standardUserDefaults] stringForKey:NH3DBoldFontKey]
+#define NH3DINVFONT		[[NSUserDefaults standardUserDefaults] stringForKey:NH3DInventryFontKey]
 // for fontsize
-#define NH3DMSGFONTSIZE		[ [NSUserDefaults standardUserDefaults] floatForKey:NH3DMsgFontSizeKey ]
-#define NH3DWINDOWFONTSIZE  [ [NSUserDefaults standardUserDefaults] floatForKey:NH3DWindowFontSizeKey ]
-#define NH3DMAPFONTSIZE		[ [NSUserDefaults standardUserDefaults] floatForKey:NH3DMapFontSizeKey ]
-#define NH3DBOLDFONTSIZE	[ [NSUserDefaults standardUserDefaults] floatForKey:NH3DBoldFontSizeKey ]
-#define NH3DINVFONTSIZE		[ [NSUserDefaults standardUserDefaults] floatForKey:NH3DInventryFontSizeKey ]
+#define NH3DMSGFONTSIZE		[[NSUserDefaults standardUserDefaults] floatForKey:NH3DMsgFontSizeKey]
+#define NH3DWINDOWFONTSIZE  [[NSUserDefaults standardUserDefaults] floatForKey:NH3DWindowFontSizeKey]
+#define NH3DMAPFONTSIZE		[[NSUserDefaults standardUserDefaults] floatForKey:NH3DMapFontSizeKey]
+#define NH3DBOLDFONTSIZE	[[NSUserDefaults standardUserDefaults] floatForKey:NH3DBoldFontSizeKey]
+#define NH3DINVFONTSIZE		[[NSUserDefaults standardUserDefaults] floatForKey:NH3DInventryFontSizeKey]
 
 extern NSString *NH3DOpenGLWaitRateKey;
 extern NSString *NH3DOpenGLWaitSyncKey;
@@ -46,20 +46,20 @@ extern NSString *NH3DOpenGLUseWaitRateKey;
 extern NSString *NH3DOpenGLNumberOfThreadsKey;
 extern NSString *const NH3DUseRetinaOpenGL;
 
-#define OPENGLVIEW_WAITRATE [ [NSUserDefaults standardUserDefaults] doubleForKey:NH3DOpenGLWaitRateKey ]
-#define OPENGLVIEW_WAITSYNC	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLWaitSyncKey ]
-#define OPENGLVIEW_USEWAIT	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLUseWaitRateKey ]
-#define OPENGLVIEW_NUMBER_OF_THREADS	[ [NSUserDefaults standardUserDefaults] integerForKey:NH3DOpenGLNumberOfThreadsKey ]
+#define OPENGLVIEW_WAITRATE [[NSUserDefaults standardUserDefaults] doubleForKey:NH3DOpenGLWaitRateKey]
+#define OPENGLVIEW_WAITSYNC	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLWaitSyncKey]
+#define OPENGLVIEW_USEWAIT	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLUseWaitRateKey]
+#define OPENGLVIEW_NUMBER_OF_THREADS	[[NSUserDefaults standardUserDefaults] integerForKey:NH3DOpenGLNumberOfThreadsKey]
 
 extern NSString *NH3DUseTileInLevelMapKey;
 extern NSString *NH3DUseSightRestrictionKey;
 
-#define RESTRICTED_VIEW	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DUseSightRestrictionKey ]
-#define TILED_LEVELMAP	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTileInLevelMapKey ]
+#define RESTRICTED_VIEW	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseSightRestrictionKey]
+#define TILED_LEVELMAP	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTileInLevelMapKey]
 
 // Sound Mute
-extern NSString *NH3DSoundMuteKey;
-#define SOUND_MUTE	[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey ]
+extern NSString *const NH3DSoundMuteKey;
+#define SOUND_MUTE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey]
 
 // Map Mode
 
@@ -109,7 +109,7 @@ extern NSString *NH3DGLTileKey;
 #define NH3DGL_MAPVIEWSIZE_ROW		11
 #define NH3D_MAX_EFFECTS			12
 
-#define NH3DGL_USETILE			[ [NSUserDefaults standardUserDefaults] boolForKey:NH3DGLTileKey ]
+#define NH3DGL_USETILE			[[NSUserDefaults standardUserDefaults] boolForKey:NH3DGLTileKey]
 
 #define ENEMY_IS_NONE	0
 #define ENEMY_IS_LEFT	1

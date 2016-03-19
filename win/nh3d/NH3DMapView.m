@@ -7,6 +7,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
+#include "C99Bool.h"
 #import "NH3DMapView.h"
 
 #import "winnh3d.h"
@@ -31,6 +32,8 @@
 #define MODKEY_CTRL 2
 #define MODKEY_COMMAND 3
 
+extern BOOL CocoaPortIsReady;
+
 @interface NH3DMapView ()
 @property (strong) NSImage *mapBezel;
 @property (strong) NSImage *mapBase;
@@ -41,6 +44,7 @@
 @property (copy) NSImage *stackIcon;
 @property int centerX;
 @property int centerY;
+- (void)drawTraditionalMapInContextAtX:(int)x atY:(int)y;
 @end
 
 @implementation NH3DMapView
@@ -115,6 +119,9 @@
 
 - (void)defaultDidChange:(NSNotification *)notification
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	if (TRADITIONAL_MAP) {
 		if (isReady) {
 			[self lockFocusIfCanDraw];
@@ -133,14 +140,15 @@
 		
 		[self updateMap];
 		[self setNeedsDisplay:YES];
-		[[_bindController mainWindow] displayIfNeeded];
+		[_bindController.mainWindow displayIfNeeded];
 	} else if (!TRADITIONAL_MAP) {
 		if (isReady) {
-			[self lockFocusIfCanDraw];
-			NSEraseRect(self.bounds);
-			[[NSColor windowBackgroundColor] set];
-			[NSBezierPath fillRect:self.bounds];
-			[self unlockFocus];
+			if ([self lockFocusIfCanDraw]) {
+				NSEraseRect(self.bounds);
+				[[NSColor windowBackgroundColor] set];
+				[NSBezierPath fillRect:self.bounds];
+				[self unlockFocus];
+			}
 		}
 		
 		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);
@@ -152,7 +160,7 @@
 		
 		[self updateMap];
 		[self setNeedsDisplay:YES];
-		[[_bindController mainWindow] displayIfNeeded];
+		[_bindController.mainWindow displayIfNeeded];
 	}
 }
 
@@ -209,7 +217,7 @@
 
  - (void)resetCursorRects
 {
-	NSRect rect = self.bounds ;
+	NSRect rect = self.bounds;
 	NSCursor* cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
 											   hotSpot:NSMakePoint(7, 7)];
 	[self addCursorRect:rect cursor:cursor];
@@ -235,14 +243,30 @@
 																   NH3DMAPFONTSIZE*MAPSIZE_ROW)];
 	}
 	
+	[trMapImage lockFocus];
 	for (int x = MAP_MARGIN; x < MAPSIZE_COLUMN - MAP_MARGIN; x++) {
 		for (int y = MAP_MARGIN; y < MAPSIZE_ROW - MAP_MARGIN; y++) {
-			[self drawTraditionalMapAtX:x atY:y];
+			@autoreleasepool {
+				[self drawTraditionalMapInContextAtX:x atY:y];
+			}
 		}
 	}
+	[trMapImage unlockFocus];
 }
 
 - (void)drawTraditionalMapAtX:(int)x atY:(int)y
+{
+	// oops, we're not ready.
+	if (!trMapImage) {
+		return;
+	}
+
+	[trMapImage lockFocus];
+	[self drawTraditionalMapInContextAtX:x atY:y];
+	[trMapImage unlockFocus];
+}
+
+- (void)drawTraditionalMapInContextAtX:(int)x atY:(int)y
 {
 	NSRect bounds = NSMakeRect(0, 0, trMapImage.size.width, trMapImage.size.height);
 	NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
@@ -252,8 +276,6 @@
 		NSSize tileSize = tileImg.size;
 		
 		if (tileImg != nil) {
-			[trMapImage lockFocus];
-			
 			[[NSColor clearColor] set];
 			NSRectFill(NSMakeRect(bounds.origin.x + (x*TILE_SIZE_X),
 								  (NSMaxY(bounds) - (y*TILE_SIZE_Y)),
@@ -266,25 +288,23 @@
 										   tileSize.width, tileSize.height)
 					  operation:NSCompositeSourceOver
 					   fraction:1.0];
-										
-			[trMapImage unlockFocus];
 		}
 	} else if (mapItem != nil) {
 		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
 		float fontsize = NH3DMAPFONTSIZE;
 		float drawMargin = fontsize/4;
 		
-		if ([[mapItem symbol] isEqualToString:@"-" ] && mapItem.hasAlternateSymbol) {
+		if ([mapItem.symbol isEqualToString:@"-" ] && mapItem.hasAlternateSymbol) {
 			mapItem.cSymbol = '|';
 			mapItem.hasAlternateSymbol = NO;
-		} else if ([[mapItem symbol] isEqualToString:@"|"] && mapItem.hasAlternateSymbol) {
+		} else if ([mapItem.symbol isEqualToString:@"|"] && mapItem.hasAlternateSymbol) {
 			mapItem.cSymbol = '-';
 			mapItem.hasAlternateSymbol = NO;
 		}
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: fontsize];
 		
-		attributes[NSForegroundColorAttributeName] = [mapItem color];
+		attributes[NSForegroundColorAttributeName] = mapItem.color;
 		
 
 		if (fontsize > 12.0) {
@@ -294,8 +314,8 @@
 			lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
 			lshadow.shadowBlurRadius = drawMargin ;
 			
-			if ([mapItem special] > 0) {
-				lshadow.shadowColor = [mapItem color];
+			if (mapItem.special > 0) {
+				lshadow.shadowColor = mapItem.color;
 			} else {
 				lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 			}
@@ -303,22 +323,18 @@
 			attributes[NSShadowAttributeName] = lshadow;
 		}
 		
-		[trMapImage lockFocus];
-		
 		[[NSColor clearColor] set];
 		NSRectFill(NSMakeRect(bounds.origin.x+(x*fontsize),
 							  (NSMaxY(bounds)-(y*fontsize)),
 							  fontsize+drawMargin, fontsize+drawMargin));
 		
-		[[mapItem symbol] drawInRect:NSMakeRect(bounds.origin.x+drawMargin+(x*fontsize),
+		[mapItem.symbol drawInRect:NSMakeRect(bounds.origin.x+drawMargin+(x*fontsize),
 												(NSMaxY(bounds)+drawMargin-(y*fontsize)),
 												fontsize, fontsize)
 					  withAttributes:attributes];
-		
-		[trMapImage unlockFocus];
 	}
 	
-	[_mapModel mapArrayAtX:x atY:y];
+	//[_mapModel mapArrayAtX:x atY:y];
 }
 
 - (void)updateMap
@@ -450,21 +466,24 @@
 
 - (void)drawAsciiItemAtX:(int)x atY:(int)y
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	@autoreleasepool {
 		NSRect bounds = self.bounds;
 		NSShadow *lshadow = [[NSShadow alloc] init];
 		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
 		
 		lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
-		lshadow.shadowBlurRadius = 3.5 ;
+		lshadow.shadowBlurRadius = 3.5;
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
 		
 		//setColor and shadow for special-flag
-		attributes[NSForegroundColorAttributeName] = [[mapItemValue[x][y] color] highlightWithLevel:0.2];
+		attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
 		
-		if ([mapItemValue[x][y] special] > 0 ) {
-			lshadow.shadowColor = [mapItemValue[x][y] color];
+		if (mapItemValue[x][y].special > 0) {
+			lshadow.shadowColor = mapItemValue[x][y].color;
 		} else {
 			lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 		}
@@ -476,7 +495,7 @@
 			case PL_DIRECTION_RIGHT:
 			case PL_DIRECTION_LEFT:
 				if (!mapItemValue[x][y].hasAlternateSymbol) {
-					switch ([mapItemValue[x][y] glyph]) {
+					switch (mapItemValue[x][y].glyph) {
 						case S_vwall+GLYPH_CMAP_OFF:			/* vwall */
 						case S_tlwall+GLYPH_CMAP_OFF:			/* tlwall */
 						case S_trwall+GLYPH_CMAP_OFF:			/* trwall */
@@ -490,7 +509,7 @@
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
 							(mapItemValue[x][y]).cSymbol = '-';
-							[ mapItemValue[x][y] setHasAlternateSymbol:YES ];
+							[mapItemValue[x][y] setHasAlternateSymbol:YES];
 							break;
 						case S_hwall+GLYPH_CMAP_OFF:			/* hwall */
 						case S_tlcorn+GLYPH_CMAP_OFF:			/* tlcorn */
@@ -510,18 +529,18 @@
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
 							(mapItemValue[x][y]).cSymbol = '|';
-							[ mapItemValue[x][y] setHasAlternateSymbol:YES ];
+							[mapItemValue[x][y] setHasAlternateSymbol:YES];
 							break;
 					}
 				}
 				break;
 			default:
-				if ([[mapItemValue[x][y] symbol] isEqualToString:@"-"] && mapItemValue[x][y].hasAlternateSymbol) {
+				if ([mapItemValue[x][y].symbol isEqualToString:@"-"] && mapItemValue[x][y].hasAlternateSymbol) {
 					(mapItemValue[x][y]).cSymbol = '|';
-					[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
-				} else if ([[mapItemValue[x][y] symbol] isEqualToString:@"|"] && mapItemValue[x][y].hasAlternateSymbol) {
+					[mapItemValue[x][y] setHasAlternateSymbol:NO];
+				} else if ([mapItemValue[x][y].symbol isEqualToString:@"|"] && mapItemValue[x][y].hasAlternateSymbol) {
 					(mapItemValue[x][y]).cSymbol = '-';
-					[ mapItemValue[x][y] setHasAlternateSymbol:NO ];
+					[mapItemValue[x][y] setHasAlternateSymbol:NO];
 				}
 				
 				break;
@@ -538,7 +557,7 @@
 				needClear = NO;
 			}
 			
-			[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+			[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																 (NSMaxY(bounds) - ((y+1)*16.0)),
 																 16.0, 16.0)
 											  options:NSStringDrawingUsesDeviceMetrics
@@ -550,11 +569,28 @@
 							 operation:NSCompositeSourceOver
 							  fraction:cursOpacity];
 				
-				/*
-				 [ posCursor dissolveToPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
-				 fraction:cursOpacity ];*/
 				viewCursX = x;
 				viewCursY = MAPVIEWSIZE_ROW-y-1;
+			}
+			
+			NSRect petRect = NSMakeRect(bounds.origin.x+(x*16.0),
+										(NSMaxY(bounds) - ((y+1)*16.0)),
+										16.0, 16.0);
+			
+			if (iflags.wc_hilite_pet && mapItemValue[x][y].pet) {
+				//draw pet icon
+				[_petIcon drawInRect:petRect
+							fromRect:NSZeroRect
+						   operation:NSCompositeSourceOver
+							fraction:1.0];
+			}
+			
+			if (iflags.hilite_pile && mapItemValue[x][y].pile) {
+				//draw pile icon
+				[_stackIcon drawInRect:petRect
+							  fromRect:NSZeroRect
+							 operation:NSCompositeSourceOver
+							  fraction:1.0];
 			}
 			
 			[self unlockFocus];
@@ -564,6 +600,9 @@
 
 - (void)reloadMap
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	if (TRADITIONAL_MAP)
 		return;
 	
@@ -592,23 +631,23 @@
 		for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
 			@autoreleasepool {
 			//setColor and shadow for special-flag
-				attributes[NSForegroundColorAttributeName] = [[mapItemValue[x][y] color]  highlightWithLevel:0.2];
+				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
 				
-				if ([mapItemValue[x][y] special] > 0) {
-					lshadow.shadowColor = [mapItemValue[x][y] color];
+				if (mapItemValue[x][y].special > 0) {
+					lshadow.shadowColor = mapItemValue[x][y].color;
 				} else {
 					lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0] ;
 				}
 				attributes[NSShadowAttributeName] = lshadow;
 				
 				
-				[[mapItemValue[x][y] symbol] drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+				[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																	  (NSMaxY(bounds)-((y+1)*16.0)),
 																	  16.0,16.0)
 												   options:NSStringDrawingUsesDeviceMetrics
-												attributes:attributes ];
+												attributes:attributes];
 				
-				if ( mapItemValue[x][y].hasCursor ) {
+				if (mapItemValue[x][y].hasCursor) {
 					[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
 								  fromRect:NSZeroRect
 								 operation:NSCompositeSourceOver
@@ -616,9 +655,7 @@
 					viewCursX = x;
 					viewCursY = MAPVIEWSIZE_ROW-y-1;
 				}
-			
 			}
-			
 		} // end for y
 	} // end for x
 	
@@ -637,43 +674,46 @@
 
 - (void)drawMask
 {
+	if (!CocoaPortIsReady) {
+		return;
+	}
 	NSMutableDictionary *attributes_alt = [[NSMutableDictionary alloc] init];
 	attributes_alt[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE - 2.0];
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 		
-	[self lockFocusIfCanDraw];
-	
-	if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
-		[mapRestrictedBezel drawAtPoint:NSZeroPoint
-							   fromRect:NSZeroRect
-							  operation:NSCompositeSourceOver
-							   fraction:1.0];
-	} else {
-		[mapBezel drawInRect:self.bounds
-					fromRect:NSZeroRect
-				   operation:NSCompositeSourceOver
-					fraction:1.0];
-	}
-	
-	if (!TRADITIONAL_MAP) {
-		if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
-			[@"Center of Map" drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
-		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-			[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
-			[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-		} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-			[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+	if ([self lockFocusIfCanDraw]) {
+		if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
+			[mapRestrictedBezel drawAtPoint:NSZeroPoint
+								   fromRect:NSZeroRect
+								  operation:NSCompositeSourceOver
+								   fraction:1.0];
 		} else {
-			[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			[mapBezel drawInRect:self.bounds
+						fromRect:NSZeroRect
+					   operation:NSCompositeSourceOver
+						fraction:1.0];
 		}
+		
+		if (!TRADITIONAL_MAP) {
+			if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
+				[@"Center of Map" drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
+			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
+				[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
+				[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
+				[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			} else {
+				[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
+				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			}
+		}
+		
+		[self unlockFocus];
 	}
-	
-	[self unlockFocus];
 }
 
 - (void)enemyCheck
@@ -691,17 +731,17 @@
 				int posy = mapItemValue[x][y].posY - MAP_MARGIN;
 				
 				if ((posx >= 0 && posx <=78) && (posy >= 0 && posy <= 20)) {
-					if (MON_AT(posx, posy) && (!mapItemValue[x][y].player && [mapItemValue[x][y] special] != 8)) {
+					if (MON_AT(posx, posy) && (!mapItemValue[x][y].player && mapItemValue[x][y].special != 8)) {
 						enemyCatch++;
 					}
 				}
 			} // end y
 		} // end x
 	
-		if (enemyCatch && [_mapModel enemyWarnBase] != 10 + (enemyCatch*8)) {
-			[_mapModel setEnemyWarnBase:10 + (enemyCatch*8)];
-		} else if ([_mapModel enemyWarnBase] != 10) {
-			[_mapModel setEnemyWarnBase:10];
+		if (enemyCatch && _mapModel.enemyWarnBase != 10 + (enemyCatch*8)) {
+			_mapModel.enemyWarnBase = 10 + (enemyCatch*8);
+		} else if (_mapModel.enemyWarnBase != 10) {
+			_mapModel.enemyWarnBase = 10;
 		}
 	}
 }
@@ -758,39 +798,39 @@
 				switch ([sender tag]) {
 					case 1:
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4:
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:1];
+						_messenger.lastAttackDirection = 1;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:2];
+						_messenger.lastAttackDirection = 2;
 						break;
 					case 9:
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:3];
+						_messenger.lastAttackDirection = 3;
 						break;
 				}
 				//[ self setKeyBuffer:lkey ];
@@ -799,39 +839,39 @@
 				switch ([sender tag]) {
 					case 1:
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4:
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:4];
+						_messenger.lastAttackDirection = 4;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:5];
+						_messenger.lastAttackDirection = 5;
 						break;
 					case 9: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:6];
+						_messenger.lastAttackDirection = 6;
 						break;
 				}
 				//[ self setKeyBuffer:lkey ];
@@ -840,39 +880,39 @@
 				switch ([sender tag]) {
 					case 1: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:7];
+						_messenger.lastAttackDirection = 7;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:8];
+						_messenger.lastAttackDirection = 8;
 						break;
 					case 9: 
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:9];
+						_messenger.lastAttackDirection = 9;
 						break;
 				}
 				//[ self setKeyBuffer:lkey ];
@@ -881,68 +921,81 @@
 				switch ([sender tag]) {
 					case 1: 
 						lkey = (iflags.num_pad) ? '3' : 'n';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 2: 
 						lkey = (iflags.num_pad) ? '6' : 'l';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 3: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 4: 
 						lkey = (iflags.num_pad) ? '2' : 'j';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 5:
 						lkey = '.';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 6: 
 						lkey = (iflags.num_pad) ? '8' : 'k';
-						[_messenger setLastAttackDirection:0];
+						_messenger.lastAttackDirection = 0;
 						break;
 					case 7: 
 						lkey = (iflags.num_pad) ? '1' : 'b';
-						[_messenger setLastAttackDirection:10];
+						_messenger.lastAttackDirection = 10;
 						break;
 					case 8: 
 						lkey = (iflags.num_pad) ? '4' : 'h';
-						[_messenger setLastAttackDirection:11];
+						_messenger.lastAttackDirection = 11;
 						break;
 					case 9: 
 						lkey = (iflags.num_pad) ? '7' : 'y';
-						[_messenger setLastAttackDirection:12];
+						_messenger.lastAttackDirection = 12;
 						break;
 				}
 				//[self setKeyBuffer:lkey];
 				break;
 		}
-	} else {
-		switch ([sender selectedTag]) {
+	} else if ([sender tag] < 70) {
+		switch ([sender tag]) {
 			//ButtonMatrix 1 (window rightside)
-			case 51: lkey = lastKeyBuffer;
+			case 51:
+				lkey = lastKeyBuffer;
 				break;
-			case 52: lkey = 's';
+			case 52:
+				lkey = 's';
 				break;
-			case 53: lkey = ',';
+			case 53:
+				lkey = ',';
 				break;
 			//ButtonMatrix 2 (window leftside)
-			case 61: lkey = 'f';
+			case 61:
+				lkey = 'f';
 				break;
-			case 62: lkey = C('d');
+			case 62:
+				lkey = C('d');
 				break;
-			case 63: lkey = 'Z';
+			case 63:
+				lkey = 'Z';
 				break;
-			case 64: lkey = 't';
+			case 64:
+				lkey = 't';
 				break;
-			case 65: lkey = 'o';
+			case 65:
+				lkey = 'o';
 				break;
+		}
+	} else {
+		switch ([sender selectedTag]) {
 			//Help Buttons
-			case 71: lkey = ':';
+			case 71:
+				lkey = ':';
 				break;
-			case 72: lkey = ';';
+			case 72:
+				lkey = ';';
 				break;
 		}
 	}
@@ -1120,7 +1173,10 @@
 			break;
 		case 7: keyBuffer = 'C';	/* Name Creature */
 			break;
-		case 8: keyBuffer = M('e'); /* Qualificatuons */
+		case 8: keyBuffer = M('e'); /* Qualifications */
+			break;
+		case 9:
+			keyBuffer = C('o'); /* Dungeon Overview */
 			break;
 	}
 		
@@ -1195,7 +1251,7 @@
 												  dequeue:YES];
 			
 			if (event) {
-				if (![_bindController mainWindow].keyWindow ) {
+				if (!_bindController.mainWindow.keyWindow) {
 					[NSApp sendEvent:event];
 					continue;
 				} else {
@@ -1236,7 +1292,7 @@
 								ch[0] = (isupper((int)ch[0])) ? tolower((int)ch[0]) : ch[0];
 							} else if (event.modifierFlags & NSControlKeyMask) {
 								if (ch[0]=='d') {
-									[[_cmdGroup2 cellWithTag:62] performClick:self];
+									[_kickButton performClick:self];
 									continue;
 								} else {
 									modKeyFlag = MODKEY_CTRL;
@@ -1246,7 +1302,7 @@
 							if (event.modifierFlags & NSAlternateKeyMask) {
 								switch (ch[0]) {
 									case 'a':
-										[[_cmdGroup1 cellWithTag:51] performClick:self];
+										[_againButton performClick:self];
 										break;
 										
 									default:
@@ -1291,6 +1347,11 @@
 										break;
 										
 									case '5':
+										if (!iflags.num_pad) {
+											self.keyBuffer = (int)ch[0];
+											break;
+										}
+										//fall-though
 									case '.':
 										[_num5 performClick:self];
 										break;
@@ -1311,7 +1372,7 @@
 										}
 										break;
 									case '8':
-										if ( iflags.num_pad ) {
+										if (iflags.num_pad) {
 											[_num8 performClick:self];
 										} else {
 											self.keyBuffer = (int)ch[0];
@@ -1327,27 +1388,27 @@
 										break;
 										
 									case 'f':
-										[[_cmdGroup2 cellWithTag:61] performClick:self];
+										[_fireArrowButton performClick:self];
 										break;
 										
 									case 'Z':
-										[[_cmdGroup2 cellWithTag:63] performClick:self];
+										[_zapSpellButton performClick:self];
 										break;
 										
 									case 't':
-										[[_cmdGroup2 cellWithTag:64] performClick:self];
+										[_throwButton performClick:self];
 										break;
 										
 									case 'o':
-										[[_cmdGroup2 cellWithTag:65] performClick:self];
+										[_openButton performClick:self];
 										break;
 										
 									case 's':
-										[[_cmdGroup1 cellWithTag:52] performClick:self];
+										[_searchButton performClick:self];
 										break;
 										
 									case ',':
-										[[_cmdGroup1 cellWithTag:53] performClick:self];
+										[_pickUpButton performClick:self];
 										break;
 										
 									case ';':
@@ -1423,8 +1484,8 @@
 										
 									default:
 										self.keyBuffer = (int)ch[0];
-										
 										break;
+										
 								} // end switch (ch[0])
 							}
 							lastKeyBuffer = keyBuffer;
@@ -1435,7 +1496,7 @@
 							
 						case NSLeftMouseUp:
 						{
-							NSPoint p = event.locationInWindow ;
+							NSPoint p = event.locationInWindow;
 							NSRect bounds = self.bounds;
 							downPoint = [self convertPoint:p fromView:nil];
 							
@@ -1503,6 +1564,12 @@
 - (IBAction)showGlobalMap:(id)sender
 {
 	@autoreleasepool {
+		NSShadow* sd = [[NSShadow alloc] init];
+		sd.shadowOffset = NSMakeSize(2, -2);
+		sd.shadowBlurRadius = 3;
+		sd.shadowColor = [NSColor blackColor];
+		//reset magnification
+		_mapLview.enclosingScrollView.magnification = 1;
 		int cusx, cusy;
 		NSRect mapwindowRect = NSMakeRect(0,0,_mapLpanel.maxSize.width,_mapLpanel.maxSize.height);
 		NSSize drawSize;
@@ -1525,12 +1592,23 @@
 		
 		for (int x = 0; x < MAPSIZE_COLUMN; x++) {
 			for (int y = 0; y < MAPSIZE_ROW; y++) {
-				
 				NH3DMapItem *mapcell = [_mapModel mapArrayAtX:x atY:y];
 				
 				if (TILED_LEVELMAP) { // Draw Tiled Map.
-					NSImage *tileImg = mapcell.tile ;
-					drawSize = tileImg.size ;
+					NSImage *tileImg;
+					if (mapcell.hasBackground) {
+						tileImg = mapcell.backgroundTile;
+						drawSize = tileImg.size;
+						
+						[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+														 imgSize.height - (drawSize.height * (CGFloat)y))
+									fromRect:NSZeroRect
+								   operation:NSCompositeSourceOver
+									fraction:1.0];
+					}
+					
+					tileImg = mapcell.foregroundTile;
+					drawSize = tileImg.size;
 					
 					[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
 													 imgSize.height - (drawSize.height * (CGFloat)y))
@@ -1544,16 +1622,16 @@
 					attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE];
 					
 					
-					if ([[mapcell symbol] isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
+					if ([mapcell.symbol isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
 						mapcell.cSymbol = '|';
 						mapcell.hasAlternateSymbol = NO;
-					} else if ([[mapcell symbol] isEqualToString:@"|"] && mapcell.hasAlternateSymbol) {
+					} else if ([mapcell.symbol isEqualToString:@"|"] && mapcell.hasAlternateSymbol) {
 						mapcell.cSymbol = '-';
 						mapcell.hasAlternateSymbol = NO;
 					}
 					
-					attributes[NSForegroundColorAttributeName] = [[mapcell color] highlightWithLevel:0.2];
-					drawSize = [[mapcell symbol] sizeWithAttributes:attributes];
+					attributes[NSForegroundColorAttributeName] = [mapcell.color highlightWithLevel:0.2];
+					drawSize = [mapcell.symbol sizeWithAttributes:attributes];
 					
 					lshadow.shadowOffset = NSMakeSize(0.8, 0.8);
 					lshadow.shadowBlurRadius = 5.5;
@@ -1561,22 +1639,18 @@
 					
 					attributes[NSShadowAttributeName] = lshadow;
 					
-					[[mapcell symbol] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-															  imgSize.height - (drawSize.height * (CGFloat)y))
-							    withAttributes:attributes];
+					[mapcell.symbol drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+															imgSize.height - (drawSize.height * (CGFloat)y))
+								 withAttributes:attributes];
 					
 					[attributes removeAllObjects];
 				}
 				
 				if (mapcell.hasCursor) { // Check cursor postion and drawing.
-					NSShadow* sd = [[NSShadow alloc] init];
 					NSSize cursOrigin = posCursor.size;
 					cusx = x;
 					cusy = y;
 					[NSGraphicsContext saveGraphicsState];
-					sd.shadowOffset = NSMakeSize(2, -2);
-					sd.shadowBlurRadius = 3 ;
-					sd.shadowColor = [NSColor blackColor];
 					[sd set];
 					posCursor.size = drawSize;
 					[posCursor drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
@@ -1586,11 +1660,35 @@
 								  fraction:1.0];
 					posCursor.size = cursOrigin;
 					[NSGraphicsContext restoreGraphicsState];
-					
 				}
 				
+				NSRect petRect = NSMakeRect(drawSize.width * (CGFloat)x,
+											imgSize.height - (drawSize.height * (CGFloat)y),
+											drawSize.width,
+											drawSize.height);
+				
+				[NSGraphicsContext saveGraphicsState];
+				[sd set];
+				
+				if (iflags.wc_hilite_pet && mapcell.pet) { //draw pet icon
+					[_petIcon drawInRect:petRect
+								fromRect:NSZeroRect
+							   operation:NSCompositeSourceOver
+								fraction:1.0];
+				}
+				
+				if (iflags.hilite_pile && mapcell.pile) { //draw pile icon
+					[_stackIcon drawInRect:petRect
+								  fromRect:NSZeroRect
+								 operation:NSCompositeSourceOver
+								  fraction:1.0];
+				}
+				
+				[NSGraphicsContext restoreGraphicsState];
 			} // end for y
 		} // end for x
+
+		drawSize = NSMakeSize((TILED_LEVELMAP) ? TILE_SIZE_X : NH3DMAPFONTSIZE, (TILED_LEVELMAP) ? TILE_SIZE_Y : NH3DMAPFONTSIZE);
 		
 		// draw direction symbol
 		[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
@@ -1605,8 +1703,9 @@
 		_mapLview.image = mapImage;
 		
 		// Scroll to Cursor Postion (shift 7 tiles added to Right)
-		[_mapLview scrollPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
-										   imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)))];
+		NSPoint newpt = NSMakePoint(drawSize.width * (CGFloat)(cusx - 7),
+									imgSize.height - (drawSize.height * (CGFloat)(cusy + 7)));
+		[_mapLview scrollPoint:newpt];
 	}
 	
 	// Sheet is Up.
@@ -1627,41 +1726,11 @@
 
 - (IBAction)zoomLevelMap:(id)sender
 {
-	NSImage *newImg;
-	NSSize	mapSize = mapImage.size;
-	NSSize	newSize = _mapLview.image.size;
-	
-	if (newSize.height > mapSize.height * 1.5) {
-		newSize.height = mapSize.height * 1.5;
-		newSize.width = mapSize.width * 1.5;
-	} else if (newSize.height < mapSize.height * 0.5) {
-		newSize.height = mapSize.height * 0.5;
-		newSize.width = mapSize.width * 0.5;
-	}
-		
 	if ([sender tag]) {
-		// zoom in
-		newSize = NSMakeSize(newSize.width * 0.75, newSize.height * 0.75);
+		[_mapLview.enclosingScrollView animator].magnification *= 0.75;
 	} else {
-		// zoom out
-		newSize = NSMakeSize(newSize.width * 1.25, newSize.height * 1.25);
+		[_mapLview.enclosingScrollView animator].magnification *= 1.25;
 	}
-	
-	newImg = [[NSImage alloc] initWithSize:newSize];
-	NSGraphicsContext* gc = [NSGraphicsContext currentContext];
-	gc.imageInterpolation = NSImageInterpolationHigh;
-	
-	[newImg lockFocus];
-	[mapImage drawInRect:NSMakeRect(0, 0, newSize.width, newSize.height)
-				 fromRect:NSZeroRect
-				operation:NSCompositeSourceOver
-				 fraction:1.0];
-	[newImg unlockFocus];
-	
-	_mapLview.frame = NSMakeRect(0.0, 0.0, newSize.width, newSize.height);
-	_mapLview.image = newImg;
-	
-	[_mapLview setNeedsDisplay];
 }
 
 @end

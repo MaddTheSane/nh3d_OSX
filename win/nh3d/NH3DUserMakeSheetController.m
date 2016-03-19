@@ -30,7 +30,7 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	[self.window setStyleMask:NSBorderlessWindowMask];
+	self.window.styleMask = NSBorderlessWindowMask;
 	self.window.backgroundColor = [NSColor clearColor];
 	self.window.opaque = NO;
 }
@@ -59,7 +59,7 @@
 
 	switch (tag) {
 		case 0:
-			[_userStatus setPlayerRace:@"Human"];
+			_userStatus.playerRace = @"Human";
 			[self setDone_race:YES];
 			[self setEn_archeologist:YES];
 			[self setEn_barbarian:YES];
@@ -77,7 +77,7 @@
 			break;
 			
 		case 1:
-			[_userStatus setPlayerRace:@"Elf"];
+			_userStatus.playerRace = @"Elf";
 			[self setDone_race:YES];
 			[self setEn_archeologist:NO];
 			[self setEn_barbarian:NO];
@@ -95,7 +95,7 @@
 			break;
 			
 		case 2:
-			[_userStatus setPlayerRace:@"Dwarf"];
+			_userStatus.playerRace = @"Dwarf";
 			[self setDone_race:YES];
 			[self setEn_archeologist:YES];
 			[self setEn_barbarian:NO];
@@ -113,7 +113,7 @@
 			break;
 			
 		case 3:
-			[_userStatus setPlayerRace:@"Gnome"];
+			_userStatus.playerRace = @"Gnome";
 			[self setDone_race:YES];
 			[self setEn_archeologist:YES];
 			[self setEn_barbarian:NO];
@@ -131,7 +131,7 @@
 			break;
 			
 		case 4:
-			[_userStatus setPlayerRace:@"Orc"];
+			_userStatus.playerRace = @"Orc";
 			[self setDone_race:YES];
 			[self setEn_archeologist:NO];
 			[self setEn_barbarian:YES];
@@ -188,83 +188,83 @@
 	
 	switch (tag) {
 		case 0 :
-			[_userStatus setPlayerRole:@"Archeologist"];
+			_userStatus.playerRole = @"Archeologist";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 1 :
-			[_userStatus setPlayerRole:@"Barbarian"];
+			_userStatus.playerRole = @"Barbarian";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 2 :
-			[_userStatus setPlayerRole:cavemanName];
+			_userStatus.playerRole = cavemanName;
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 3 :
-			[_userStatus setPlayerRole:@"Healer"];
+			_userStatus.playerRole = @"Healer";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 4 :
-			[_userStatus setPlayerRole:@"Knight"];
+			_userStatus.playerRole = @"Knight";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 5 :
-			[_userStatus setPlayerRole:@"Monk"];
+			_userStatus.playerRole = @"Monk";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 6 :
-			[_userStatus setPlayerRole:priestName];
+			_userStatus.playerRole = priestName;
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 7 :
-			[_userStatus setPlayerRole:@"Rogue"];
+			_userStatus.playerRole = @"Rogue";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 8 :
-			[_userStatus setPlayerRole:@"Ranger"];
+			_userStatus.playerRole = @"Ranger";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 9 :
-			[_userStatus setPlayerRole:@"Samurai"];
+			_userStatus.playerRole = @"Samurai";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 10 :
-			[_userStatus setPlayerRole:@"Tourist"];
+			_userStatus.playerRole = @"Tourist";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 11 :
-			[_userStatus setPlayerRole:@"Valkyrie"];
+			_userStatus.playerRole = @"Valkyrie";
 			[chooseGender selectCellWithTag:1];
 			[self setPriestName:@"Priestess"];
 			[self setCavemanName:@"Cavewoman"];
-			[_userStatus setPlayerGender:@"Female"];
+			_userStatus.playerGender = @"Female";
 			[self setDone_role:YES];
 			[self setEn_male:NO];
 			[self setEn_female:YES];
 			break;
 		case 12 :
-			[_userStatus setPlayerRole:@"Wizard"];
+			_userStatus.playerRole = @"Wizard";
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
@@ -378,11 +378,11 @@
 	if (!tag) {
 		[self setPriestName:@"Priest"];
 		[self setCavemanName:@"Caveman"];
-		[_userStatus setPlayerGender:@"Male"];
+		_userStatus.playerGender = @"Male";
 	} else {
 		[self setPriestName:@"Priestess"];
 		[self setCavemanName:@"Cavewoman"];
-		[_userStatus setPlayerGender:@"Female"];
+		_userStatus.playerGender = @"Female";
 	}
 	
 	if (role == 2 || role == 6) {
@@ -494,19 +494,19 @@
 	
 	switch (align) {
 		case 0:
-			[_userStatus setPlayerAlign:@"Lowful"];
+			_userStatus.playerAlign = @"Lowful";
 			[_userStatus setLowfulIcon:YES];
 			[_userStatus setNewtralIcon:NO];
 			[_userStatus setChaosIcon:NO];
 			break;
 		case 1:
-			[_userStatus setPlayerAlign:@"Newtral"];
+			_userStatus.playerAlign = @"Newtral";
 			[_userStatus setLowfulIcon:NO];
 			[_userStatus setNewtralIcon:YES];
 			[_userStatus setChaosIcon:NO];
 			break;
 		case 2:
-			[_userStatus setPlayerAlign:@"Chaotic"];
+			_userStatus.playerAlign = @"Chaotic";
 			[_userStatus setLowfulIcon:NO];
 			[_userStatus setNewtralIcon:NO];
 			[_userStatus setChaosIcon:YES];

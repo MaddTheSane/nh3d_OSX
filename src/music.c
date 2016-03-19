@@ -28,29 +28,29 @@
 
 #include "hack.h"
 
-STATIC_DCL void FDECL(awaken_monsters, (int));
-STATIC_DCL void FDECL(put_monsters_to_sleep, (int));
-STATIC_DCL void FDECL(charm_snakes, (int));
-STATIC_DCL void FDECL(calm_nymphs, (int));
-STATIC_DCL void FDECL(charm_monsters, (int));
-STATIC_DCL void FDECL(do_earthquake, (int));
-STATIC_DCL int FDECL(do_improvisation, (struct obj *));
+STATIC_DCL void awaken_monsters(int);
+STATIC_DCL void put_monsters_to_sleep(int);
+STATIC_DCL void charm_snakes(int);
+STATIC_DCL void calm_nymphs(int);
+STATIC_DCL void charm_monsters(int);
+STATIC_DCL void do_earthquake(int);
+STATIC_DCL int do_improvisation(struct obj *);
 
 #ifdef UNIX386MUSIC
-STATIC_DCL int NDECL(atconsole);
-STATIC_DCL void FDECL(speaker, (struct obj *, char *));
+STATIC_DCL int atconsole(void);
+STATIC_DCL void speaker(struct obj *, char *);
 #endif
 #ifdef VPIX_MUSIC
 extern int sco_flag_console; /* will need changing if not _M_UNIX */
-STATIC_DCL void NDECL(playinit);
-STATIC_DCL void FDECL(playstring, (char *, size_t));
-STATIC_DCL void FDECL(speaker, (struct obj *, char *));
+STATIC_DCL void playinit(void);
+STATIC_DCL void playstring(char *, size_t);
+STATIC_DCL void speaker(struct obj *, char *);
 #endif
 #ifdef PCMUSIC
-void FDECL(pc_speaker, (struct obj *, char *));
+void pc_speaker(struct obj *, char *);
 #endif
 #ifdef AMIGA
-void FDECL(amii_speaker, (struct obj *, char *, int));
+void amii_speaker(struct obj *, char *, int);
 #endif
 
 /*
@@ -58,8 +58,7 @@ void FDECL(amii_speaker, (struct obj *, char *, int));
  */
 
 STATIC_OVL void
-awaken_monsters(distance)
-int distance;
+awaken_monsters(int distance)
 {
     register struct monst *mtmp;
     register int distm;
@@ -87,8 +86,7 @@ int distance;
  */
 
 STATIC_OVL void
-put_monsters_to_sleep(distance)
-int distance;
+put_monsters_to_sleep(int distance)
 {
     register struct monst *mtmp;
 
@@ -108,8 +106,7 @@ int distance;
  */
 
 STATIC_OVL void
-charm_snakes(distance)
-int distance;
+charm_snakes(int distance)
 {
     register struct monst *mtmp;
     int could_see_mon, was_peaceful;
@@ -143,8 +140,7 @@ int distance;
  */
 
 STATIC_OVL void
-calm_nymphs(distance)
-int distance;
+calm_nymphs(int distance)
 {
     register struct monst *mtmp;
 
@@ -167,8 +163,7 @@ int distance;
 
 /* Awake soldiers anywhere the level (and any nearby monster). */
 void
-awaken_soldiers(bugler)
-struct monst *bugler; /* monster that played instrument */
+awaken_soldiers(struct monst *bugler) /* monster that played instrument */
 {
     register struct monst *mtmp;
     int distance, distm;
@@ -209,8 +204,7 @@ struct monst *bugler; /* monster that played instrument */
  * If swallowed, range is reduced to 0.
  */
 STATIC_OVL void
-charm_monsters(distance)
-int distance;
+charm_monsters(int distance)
 {
     struct monst *mtmp, *mtmp2;
 
@@ -235,8 +229,7 @@ int distance;
  * That is:  create random chasms (pits).
  */
 STATIC_OVL void
-do_earthquake(force)
-int force;
+do_earthquake(int force)
 {
     register int x, y;
     struct monst *mtmp;
@@ -447,8 +440,7 @@ generic_lvl_desc()
  * The player is trying to extract something from his/her instrument.
  */
 STATIC_OVL int
-do_improvisation(instr)
-struct obj *instr;
+do_improvisation(struct obj *instr)
 {
     int damage, do_spec = !Confusion;
 #if defined(MAC) || defined(AMIGA) || defined(VPIX_MUSIC) || defined(PCMUSIC)
@@ -580,8 +572,7 @@ struct obj *instr;
  * So you want music...
  */
 int
-do_play_instrument(instr)
-struct obj *instr;
+do_play_instrument(struct obj *instr)
 {
     char buf[BUFSZ], c = 'y';
     char *s;
@@ -764,9 +755,7 @@ atconsole()
 }
 
 STATIC_OVL void
-speaker(instr, buf)
-struct obj *instr;
-char *buf;
+speaker(struct obj *instr, char *buf)
 {
     /*
      * For this to work, you need to have installed the PD speaker-control
@@ -817,8 +806,7 @@ char *buf;
 
 /* emit tone of frequency hz for given number of ticks */
 STATIC_OVL void
-tone(hz, ticks)
-unsigned int hz, ticks;
+tone(unsigned int hz, unsigned int ticks)
 {
     ioctl(0, KDMKTONE, hz | ((ticks * 10) << 16));
 #ifdef DEBUG
@@ -829,8 +817,7 @@ unsigned int hz, ticks;
 
 /* rest for given number of ticks */
 STATIC_OVL void
-rest(ticks)
-int ticks;
+rest(int ticks)
 {
     nap(ticks * 10);
 #ifdef DEBUG
@@ -841,9 +828,7 @@ int ticks;
 #include "interp.c" /* from snd86unx.shr */
 
 STATIC_OVL void
-speaker(instr, buf)
-struct obj *instr;
-char *buf;
+speaker(struct obj *instr, char *buf)
 {
     /* emit a prefix to modify instrumental `timbre' */
     playinit();
@@ -869,9 +854,7 @@ char *buf;
 }
 
 #ifdef VPIX_DEBUG
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
     if (argc == 2) {
         playinit();

@@ -495,49 +495,49 @@ static short n_menu_mapped = 0;
 
 static boolean initial, from_file;
 
-STATIC_DCL void FDECL(nmcpy, (char *, const char *, int));
-STATIC_DCL void FDECL(escapes, (const char *, char *));
-STATIC_DCL void FDECL(rejectoption, (const char *));
-STATIC_DCL void FDECL(badoption, (const char *));
-STATIC_DCL char *FDECL(string_for_opt, (char *, BOOLEAN_P));
-STATIC_DCL char *FDECL(string_for_env_opt, (const char *, char *, BOOLEAN_P));
-STATIC_DCL void FDECL(bad_negation, (const char *, BOOLEAN_P));
-STATIC_DCL int FDECL(change_inv_order, (char *));
-STATIC_DCL void FDECL(warning_opts, (char *, const char *));
-STATIC_DCL int FDECL(feature_alert_opts, (char *, const char *));
-STATIC_DCL boolean FDECL(duplicate_opt_detection, (const char *, int));
-STATIC_DCL void FDECL(complain_about_duplicate, (const char *, int));
+STATIC_DCL void nmcpy(char *, const char *, int);
+STATIC_DCL void escapes(const char *, char *);
+STATIC_DCL void rejectoption(const char *);
+STATIC_DCL void badoption(const char *);
+STATIC_DCL char *string_for_opt(char *, boolean);
+STATIC_DCL char *string_for_env_opt(const char *, char *, boolean);
+STATIC_DCL void bad_negation(const char *, boolean);
+STATIC_DCL int change_inv_order(char *);
+STATIC_DCL void warning_opts(char *, const char *);
+STATIC_DCL int feature_alert_opts(char *, const char *);
+STATIC_DCL boolean duplicate_opt_detection(const char *, int);
+STATIC_DCL void complain_about_duplicate(const char *, int);
 
-STATIC_DCL const char *FDECL(attr2attrname, (int));
-STATIC_DCL int NDECL(query_color);
-STATIC_DCL int FDECL(query_attr, (const char *));
-STATIC_DCL const char * FDECL(msgtype2name, (int));
-STATIC_DCL int NDECL(query_msgtype);
-STATIC_DCL boolean FDECL(msgtype_add, (int, char *));
-STATIC_DCL void FDECL(free_one_msgtype, (int));
-STATIC_DCL int NDECL(msgtype_count);
-STATIC_DCL boolean FDECL(add_menu_coloring_parsed, (char *, int, int));
-STATIC_DCL void FDECL(free_one_menu_coloring, (int));
-STATIC_DCL int NDECL(count_menucolors);
+STATIC_DCL const char *attr2attrname(int);
+STATIC_DCL int query_color(void);
+STATIC_DCL int query_attr(const char *);
+STATIC_DCL const char *msgtype2name(int);
+STATIC_DCL int query_msgtype(void);
+STATIC_DCL boolean msgtype_add(int, char *);
+STATIC_DCL void free_one_msgtype(int);
+STATIC_DCL int msgtype_count(void);
+STATIC_DCL boolean add_menu_coloring_parsed(char *, int, int);
+STATIC_DCL void free_one_menu_coloring(int);
+STATIC_DCL int count_menucolors(void);
 
-STATIC_DCL void FDECL(oc_to_str, (char *, char *));
-STATIC_DCL void FDECL(doset_add_menu, (winid, const char *, int));
-STATIC_DCL void FDECL(opts_add_others, (winid, const char *, int,
-                                        char *, int));
-STATIC_DCL int FDECL(handle_add_list_remove, (const char *, int));
-STATIC_DCL boolean FDECL(special_handling, (const char *,
-                                            BOOLEAN_P, BOOLEAN_P));
-STATIC_DCL const char *FDECL(get_compopt_value, (const char *, char *));
-STATIC_DCL void FDECL(remove_autopickup_exception,
-                      (struct autopickup_exception *));
-STATIC_DCL int FDECL(count_ape_maps, (int *, int *));
+STATIC_DCL void oc_to_str(char *, char *);
+STATIC_DCL void doset_add_menu(winid, const char *, int);
+STATIC_DCL void opts_add_others(winid, const char *, int,
+                                        char *, int);
+STATIC_DCL int handle_add_list_remove(const char *, int);
+STATIC_DCL boolean special_handling(const char *,
+                                            boolean, boolean);
+STATIC_DCL const char *get_compopt_value(const char *, char *);
+STATIC_DCL void remove_autopickup_exception
+                      (struct autopickup_exception *);
+STATIC_DCL int count_ape_maps(int *, int *);
 
-STATIC_DCL boolean FDECL(is_wc_option, (const char *));
-STATIC_DCL boolean FDECL(wc_supported, (const char *));
-STATIC_DCL boolean FDECL(is_wc2_option, (const char *));
-STATIC_DCL boolean FDECL(wc2_supported, (const char *));
-STATIC_DCL void FDECL(wc_set_font_name, (int, char *));
-STATIC_DCL int FDECL(wc_set_window_colors, (char *));
+STATIC_DCL boolean is_wc_option(const char *);
+STATIC_DCL boolean wc_supported(const char *);
+STATIC_DCL boolean is_wc2_option(const char *);
+STATIC_DCL boolean wc2_supported(const char *);
+STATIC_DCL void wc_set_font_name(int, char *);
+STATIC_DCL int wc_set_window_colors(char *);
 
 void
 reglyph_darkroom()
@@ -572,10 +572,7 @@ reglyph_darkroom()
    substring of a particular option name; option string might have
    a colon or equals sign and arbitrary value appended to it */
 boolean
-match_optname(user_string, opt_name, min_length, val_allowed)
-const char *user_string, *opt_name;
-int min_length;
-boolean val_allowed;
+match_optname(const char *user_string, const char *opt_name, int min_length, boolean val_allowed)
 {
     int len = (int) strlen(user_string);
 
@@ -603,8 +600,7 @@ boolean val_allowed;
  * bounds-check itself.
  */
 char *
-nh_getenv(ev)
-const char *ev;
+nh_getenv(const char *ev)
 {
     char *getev = getenv(ev);
 
@@ -803,10 +799,7 @@ initoptions_finish()
 }
 
 STATIC_OVL void
-nmcpy(dest, src, maxlen)
-char *dest;
-const char *src;
-int maxlen;
+nmcpy(char *dest, const char *src, int maxlen)
 {
     int count;
 
@@ -835,9 +828,7 @@ int maxlen;
  * or 'O', plus stop if the non-digit is end-of-string.
  */
 STATIC_OVL void
-escapes(cp, tp)
-const char *cp;
-char *tp;
+escapes(const char *cp, char *tp)
 {
     static NEARDATA const char oct[] = "01234567", dec[] = "0123456789",
                                hex[] = "00112233445566778899aAbBcCdDeEfF";
@@ -908,8 +899,7 @@ char *tp;
 }
 
 STATIC_OVL void
-rejectoption(optname)
-const char *optname;
+rejectoption(const char *optname)
 {
 #ifdef MICRO
     pline("\"%s\" settable only from %s.", optname, lastconfigfile);
@@ -920,8 +910,7 @@ const char *optname;
 }
 
 STATIC_OVL void
-badoption(opts)
-const char *opts;
+badoption(const char *opts)
 {
     if (!initial) {
         if (!strncmp(opts, "h", 1) || !strncmp(opts, "?", 1))
@@ -955,9 +944,7 @@ const char *opts;
 }
 
 STATIC_OVL char *
-string_for_opt(opts, val_optional)
-char *opts;
-boolean val_optional;
+string_for_opt(char *opts, boolean val_optional)
 {
     char *colon, *equals;
 
@@ -975,10 +962,7 @@ boolean val_optional;
 }
 
 STATIC_OVL char *
-string_for_env_opt(optname, opts, val_optional)
-const char *optname;
-char *opts;
-boolean val_optional;
+string_for_env_opt(const char *optname, char *opts, boolean val_optional)
 {
     if (!initial) {
         rejectoption(optname);
@@ -988,9 +972,7 @@ boolean val_optional;
 }
 
 STATIC_OVL void
-bad_negation(optname, with_parameter)
-const char *optname;
-boolean with_parameter;
+bad_negation(const char *optname, boolean with_parameter)
 {
     pline_The("%s option may not %sbe negated.", optname,
               with_parameter ? "both have a value and " : "");
@@ -1006,8 +988,7 @@ boolean with_parameter;
  * the string.
  */
 STATIC_OVL int
-change_inv_order(op)
-char *op;
+change_inv_order(char *op)
 {
     int oc_sym, num;
     char *sp, buf[BUFSZ];
@@ -1039,9 +1020,7 @@ char *op;
 }
 
 STATIC_OVL void
-warning_opts(opts, optype)
-register char *opts;
-const char *optype;
+warning_opts(register char *opts, const char *optype)
 {
     uchar translate[WARNCOUNT];
     int length, i;
@@ -1060,8 +1039,7 @@ const char *optype;
 }
 
 void
-assign_warnings(graph_chars)
-register uchar *graph_chars;
+assign_warnings(register uchar *graph_chars)
 {
     int i;
 
@@ -1071,9 +1049,7 @@ register uchar *graph_chars;
 }
 
 STATIC_OVL int
-feature_alert_opts(op, optn)
-char *op;
-const char *optn;
+feature_alert_opts(char *op, const char *optn)
 {
     char buf[BUFSZ];
     boolean rejectver = FALSE;
@@ -1107,8 +1083,7 @@ const char *optn;
 }
 
 void
-set_duplicate_opt_detection(on_or_off)
-int on_or_off;
+set_duplicate_opt_detection(int on_or_off)
 {
     int k, *optptr;
 
@@ -1139,9 +1114,8 @@ int on_or_off;
 }
 
 STATIC_OVL boolean
-duplicate_opt_detection(opts, iscompound)
-const char *opts;
-int iscompound; /* 0 == boolean option, 1 == compound */
+duplicate_opt_detection(const char *opts,
+                        int iscompound) /* 0 == boolean option, 1 == compound */
 {
     int i, *optptr;
 
@@ -1173,9 +1147,8 @@ int iscompound; /* 0 == boolean option, 1 == compound */
 }
 
 STATIC_OVL void
-complain_about_duplicate(opts, iscompound)
-const char *opts;
-int iscompound; /* 0 == boolean option, 1 == compound */
+complain_about_duplicate(const char *opts,
+                         int iscompound) /* 0 == boolean option, 1 == compound */
 {
 #ifdef MAC
     /* the Mac has trouble dealing with the output of messages while
@@ -1273,8 +1246,7 @@ static const struct {
 };
 
 const char *
-clr2colorname(clr)
-int clr;
+clr2colorname(int clr)
 {
     int i;
 
@@ -1285,8 +1257,7 @@ int clr;
 }
 
 int
-match_str2clr(str)
-char *str;
+match_str2clr(char *str)
 {
     int i, c = NO_COLOR;
 
@@ -1305,8 +1276,7 @@ char *str;
 }
 
 STATIC_OVL const char *
-attr2attrname(attr)
-int attr;
+attr2attrname(int attr)
 {
     int i;
 
@@ -1346,8 +1316,7 @@ query_color()
 }
 
 STATIC_OVL int
-query_attr(prompt)
-const char *prompt;
+query_attr(const char *prompt)
 {
     winid tmpwin;
     anything any;
@@ -1387,8 +1356,7 @@ static const struct {
 };
 
 STATIC_OVL const char *
-msgtype2name(typ)
-int typ;
+msgtype2name(int typ)
 {
     int i;
 
@@ -1427,9 +1395,7 @@ query_msgtype()
 }
 
 STATIC_OVL boolean
-msgtype_add(typ, pattern)
-int typ;
-char *pattern;
+msgtype_add(int typ, char *pattern)
 {
     struct plinemsg_type *tmp
               = (struct plinemsg_type *) alloc(sizeof (struct plinemsg_type));
@@ -1471,8 +1437,7 @@ msgtype_free()
 }
 
 STATIC_OVL void
-free_one_msgtype(idx)
-int idx; /* 0 .. */
+free_one_msgtype(int idx) /* 0 .. */
 {
     struct plinemsg_type *tmp = plinemsg_types;
     struct plinemsg_type *prev = NULL;
@@ -1497,9 +1462,8 @@ int idx; /* 0 .. */
 }
 
 int
-msgtype_type(msg, norepeat)
-const char *msg;
-boolean norepeat; /* called from Norep(via pline) */
+msgtype_type(const char *msg,
+             boolean norepeat) /* called from Norep(via pline) */
 {
     struct plinemsg_type *tmp = plinemsg_types;
 
@@ -1516,9 +1480,7 @@ boolean norepeat; /* called from Norep(via pline) */
 /* negate one or more types of messages so that their type handling will
    be disabled or re-enabled; MSGTYPE_NORMAL (value 0) is not affected */
 void
-hide_unhide_msgtypes(hide, hide_mask)
-boolean hide;
-int hide_mask;
+hide_unhide_msgtypes(boolean hide, int hide_mask)
 {
     struct plinemsg_type *tmp;
     int mt;
@@ -1547,8 +1509,7 @@ msgtype_count()
 }
 
 boolean
-msgtype_parse_add(str)
-char *str;
+msgtype_parse_add(char *str)
 {
     char pattern[256];
     char msgtype[11];
@@ -1569,9 +1530,7 @@ char *str;
 }
 
 boolean
-add_menu_coloring_parsed(str, c, a)
-char *str;
-int c, a;
+add_menu_coloring_parsed(char *str, int c, int a)
 {
     static const char re_error[] = "Menucolor regex error";
     struct menucoloring *tmp;
@@ -1601,8 +1560,7 @@ int c, a;
 
 /* parse '"regex_string"=color&attr' and add it to menucoloring */
 boolean
-add_menu_coloring(str)
-char *str;
+add_menu_coloring(char *str)
 {
     int i, c = NO_COLOR, a = ATR_NONE;
     char *tmps, *cs, *amp;
@@ -1651,9 +1609,7 @@ char *str;
 }
 
 boolean
-get_menu_coloring(str, color, attr)
-char *str;
-int *color, *attr;
+get_menu_coloring(char *str, int *color, int *attr)
 {
     struct menucoloring *tmpmc;
 
@@ -1683,8 +1639,7 @@ free_menu_coloring()
 }
 
 STATIC_OVL void
-free_one_menu_coloring(idx)
-int idx; /* 0 .. */
+free_one_menu_coloring(int idx) /* 0 .. */
 {
     struct menucoloring *tmp = menu_colorings;
     struct menucoloring *prev = NULL;
@@ -1722,9 +1677,7 @@ count_menucolors()
 }
 
 void
-parseoptions(opts, tinitial, tfrom_file)
-register char *opts;
-boolean tinitial, tfrom_file;
+parseoptions(register char *opts, boolean tinitial, boolean tfrom_file)
 {
     register char *op;
     unsigned num;
@@ -3496,8 +3449,7 @@ static NEARDATA const char *sortltype[] = { "none", "loot", "full" };
  * symbols.
  */
 STATIC_OVL void
-oc_to_str(src, dest)
-char *src, *dest;
+oc_to_str(char *src, char *dest)
 {
     int i;
 
@@ -3515,8 +3467,7 @@ char *src, *dest;
  * maps valid C strings.
  */
 void
-add_menu_cmd_alias(from_ch, to_ch)
-char from_ch, to_ch;
+add_menu_cmd_alias(char from_ch, char to_ch)
 {
     if (n_menu_mapped >= MAX_MENU_MAPPED_CMDS) {
         pline("out of menu map space.");
@@ -3534,8 +3485,7 @@ char from_ch, to_ch;
  * doesn't match anything, just return the original.
  */
 char
-map_menu_cmd(ch)
-char ch;
+map_menu_cmd(char ch)
 {
     char *found = index(mapped_menu_cmds, ch);
     if (found) {
@@ -3557,11 +3507,10 @@ static char n_currently_set[] = "(%d currently set)";
 
 /* doset('O' command) menu entries for compound options */
 STATIC_OVL void
-doset_add_menu(win, option, indexoffset)
-winid win;          /* window to add to */
-const char *option; /* option name */
-int indexoffset;    /* value to add to index in compopt[], or zero
-                       if option cannot be changed */
+doset_add_menu(winid win,           /* window to add to */
+               const char *option,  /* option name */
+               int indexoffset)     /* value to add to index in compopt[], or zero
+                                     if option cannot be changed */
 {
     const char *value = "unknown"; /* current value */
     char buf[BUFSZ], buf2[BUFSZ];
@@ -3862,9 +3811,7 @@ doset() /* changing options via menu by Per Liboriussen */
 }
 
 STATIC_OVL int
-handle_add_list_remove(optname, numtotal)
-const char *optname;
-int numtotal;
+handle_add_list_remove(const char *optname, int numtotal)
 {
     winid tmpwin;
     anything any;
@@ -3918,9 +3865,7 @@ struct symsetentry *symset_list = 0; /* files.c will populate this with
                                               list of available sets */
 
 STATIC_OVL boolean
-special_handling(optname, setinitial, setfromfile)
-const char *optname;
-boolean setinitial, setfromfile;
+special_handling(const char *optname, boolean setinitial, boolean setfromfile)
 {
     winid tmpwin;
     anything any;
@@ -4647,9 +4592,7 @@ boolean setinitial, setfromfile;
 /* This is ugly. We have all the option names in the compopt[] array,
    but we need to look at each option individually to get the value. */
 STATIC_OVL const char *
-get_compopt_value(optname, buf)
-const char *optname;
-char *buf;
+get_compopt_value(const char *optname, char *buf)
 {
     char ocl[MAXOCLASSES + 1];
     static const char none[] = "(none)", randomrole[] = "random",
@@ -5022,8 +4965,7 @@ dotogglepickup()
 }
 
 int
-add_autopickup_exception(mapping)
-const char *mapping;
+add_autopickup_exception(const char *mapping)
 {
     struct autopickup_exception *ape, **apehead;
     char text[256], *text2;
@@ -5062,8 +5004,7 @@ const char *mapping;
 }
 
 STATIC_OVL void
-remove_autopickup_exception(whichape)
-struct autopickup_exception *whichape;
+remove_autopickup_exception(struct autopickup_exception *whichape)
 {
     struct autopickup_exception *ape, *prev = 0;
     int chain = whichape->grab ? AP_GRAB : AP_LEAVE;
@@ -5088,8 +5029,7 @@ struct autopickup_exception *whichape;
 }
 
 STATIC_OVL int
-count_ape_maps(leave, grab)
-int *leave, *grab;
+count_ape_maps(int *leave, int *grab)
 {
     struct autopickup_exception *ape;
     int pass, totalapes, numapes[2] = { 0, 0 };
@@ -5127,9 +5067,7 @@ free_autopickup_exceptions()
 
 /* bundle some common usage into one easy-to-use routine */
 int
-load_symset(s, which_set)
-const char *s;
-int which_set;
+load_symset(const char *s, int which_set)
 {
     clear_symsetentry(which_set, TRUE);
 
@@ -5159,8 +5097,7 @@ free_symsets()
 
 /* Parse the value of a SYMBOLS line from a config file */
 boolean
-parsesymbols(opts)
-register char *opts;
+parsesymbols(register char *opts)
 {
     int val;
     char *op, *symname, *strval;
@@ -5196,8 +5133,7 @@ register char *opts;
 }
 
 struct symparse *
-match_sym(buf)
-char *buf;
+match_sym(char *buf)
 {
     size_t len = strlen(buf);
     const char *p = index(buf, ':'), *q = index(buf, '=');
@@ -5221,8 +5157,7 @@ char *buf;
 }
 
 int
-sym_val(strval)
-char *strval;
+sym_val(char *strval)
 {
     char buf[QBUFSZ];
     buf[0] = '\0';
@@ -5300,9 +5235,7 @@ option_help()
  * line if not. End with next_opt("").
  */
 void
-next_opt(datawin, str)
-winid datawin;
-const char *str;
+next_opt(winid datawin, const char *str)
 {
     static char *buf = 0;
     int i;
@@ -5341,9 +5274,7 @@ const char *str;
  * adding a new entry--for user specified fruits only.
  */
 int
-fruitadd(str, replace_fruit)
-char *str;
-struct fruit *replace_fruit;
+fruitadd(char *str, struct fruit *replace_fruit)
 {
     register int i;
     register struct fruit *f;
@@ -5474,12 +5405,7 @@ nonew:
  * Returns number selected.
  */
 int
-choose_classes_menu(prompt, category, way, class_list, class_select)
-const char *prompt;
-int category;
-boolean way;
-char *class_list;
-char *class_select;
+choose_classes_menu(const char *prompt, int category, boolean way, char *class_list, char *class_select)
 {
     menu_item *pick_list = (menu_item *) 0;
     winid win;
@@ -5603,9 +5529,7 @@ struct wc_Opt wc2_options[] = { { "fullscreen", WC2_FULLSCREEN },
  * with the appropriate second argument.
  */
 void
-set_option_mod_status(optnam, status)
-const char *optnam;
-int status;
+set_option_mod_status(const char *optnam, int status)
 {
     int k;
 
@@ -5637,9 +5561,7 @@ int status;
  * SET_IN_GAME);
  */
 void
-set_wc_option_mod_status(optmask, status)
-unsigned long optmask;
-int status;
+set_wc_option_mod_status(unsigned long optmask, int status)
 {
     int k = 0;
 
@@ -5657,8 +5579,7 @@ int status;
 }
 
 STATIC_OVL boolean
-is_wc_option(optnam)
-const char *optnam;
+is_wc_option(const char *optnam)
 {
     int k = 0;
 
@@ -5671,8 +5592,7 @@ const char *optnam;
 }
 
 STATIC_OVL boolean
-wc_supported(optnam)
-const char *optnam;
+wc_supported(const char *optnam)
 {
     int k = 0;
 
@@ -5697,9 +5617,7 @@ const char *optnam;
  */
 
 void
-set_wc2_option_mod_status(optmask, status)
-unsigned long optmask;
-int status;
+set_wc2_option_mod_status(unsigned long optmask, int status)
 {
     int k = 0;
 
@@ -5717,8 +5635,7 @@ int status;
 }
 
 STATIC_OVL boolean
-is_wc2_option(optnam)
-const char *optnam;
+is_wc2_option(const char *optnam)
 {
     int k = 0;
 
@@ -5731,8 +5648,7 @@ const char *optnam;
 }
 
 STATIC_OVL boolean
-wc2_supported(optnam)
-const char *optnam;
+wc2_supported(const char *optnam)
 {
     int k = 0;
 
@@ -5746,9 +5662,7 @@ const char *optnam;
 }
 
 STATIC_OVL void
-wc_set_font_name(opttype, fontname)
-int opttype;
-char *fontname;
+wc_set_font_name(int opttype, char *fontname)
 {
     char **fn = (char **) 0;
 
@@ -5782,8 +5696,7 @@ char *fontname;
 }
 
 STATIC_OVL int
-wc_set_window_colors(op)
-char *op;
+wc_set_window_colors(char *op)
 {
     /* syntax:
      *  menu white/black message green/yellow status white/blue text

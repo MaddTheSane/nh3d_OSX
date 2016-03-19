@@ -6,9 +6,12 @@
 //  Copyright 2005 Haruumi Yoshino. All rights reserved.
 //
 
+#include "C99Bool.h"
 #include <math.h>
 #include <tgmath.h>
 #import "NH3DModelObject.h"
+#include <OpenGL/gl.h>
+#import "NetHack3D-Swift.h"
 
 
 static GLfloat colors[16][3] = {
@@ -31,13 +34,12 @@ static GLfloat colors[16][3] = {
 };
 
 static const NH3DMaterial defaultMat = {
-		{ 0.5, 0.5, 0.5, 1.0 },
-		{ 1.0 , 1.0 , 1.0 , 1.0 },
-		{ 0.0 , 0.0 , 0.0 , 1.0},
-		{ 0.1 , 0.1 , 0.1 , 1.0 },
+		{0.5, 0.5, 0.5, 1.0},
+		{1.0, 1.0, 1.0, 1.0},
+		{0.0, 0.0, 0.0, 1.0},
+		{0.1, 0.1, 0.1, 1.0},
 		1.0 
 };
-
 
 @implementation NH3DModelObject
 @synthesize currentMaterial;
@@ -54,13 +56,19 @@ static const NH3DMaterial defaultMat = {
 @synthesize modelPivot;
 @synthesize hasChildren = hasChildObject;
 @synthesize particleLife;
-@synthesize particleSlowdown;
+@synthesize particleSlowdown = slowdown;
 @synthesize particleGravity;
 @synthesize particleSize;
+@synthesize modelName;
+@synthesize modelType;
+@synthesize verts;
+@synthesize norms;
+@synthesize faces;
+@synthesize texcoords;
 
-- (NSInteger)numberOfChildObjects
+- (NSInteger)countOfChildObjects
 {
-	return [childObjects count];
+	return childObjects.count;
 }
 
 + (instancetype)modelNamed:(NSString*)name textureNamed:(NSString*)texName
@@ -71,7 +79,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	return modObj;
 }
-
 
 - (NSInteger)numberOfTextures
 {
@@ -130,20 +137,18 @@ static const NH3DMaterial defaultMat = {
 	NSCharacterSet *chSet;
 	NSURL *sourceURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"obj"];
 	if (!sourceURL) {
-		if ([name isAbsolutePath]) {
+		if (name.absolutePath) {
 			sourceURL = [NSURL fileURLWithPath:name];
-			name = [[name lastPathComponent] stringByDeletingPathExtension];
+			name = name.lastPathComponent.stringByDeletingPathExtension;
 		} else {
 			return NO;
 		}
 	}
 	
-	NSString *mtlName;
-	
 	NSString *sourceObj = [[NSString alloc] initWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
-	NSString *destText;
 	NSScanner *scanner;
-	
+	NSString *destText;
+
 	if (sourceObj == nil) {
 		NSLog(@"file %@.obj was not found.", name);
 		return NO;
@@ -153,44 +158,49 @@ static const NH3DMaterial defaultMat = {
 	
 	chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	scanner = [[NSScanner alloc] initWithString:sourceObj];
+	verts = malloc(sizeof(NH3DVertexType));
+	norms = malloc(sizeof(NH3DVertexType));
+	faces = malloc(sizeof(NH3DFaceType));
+	texcoords = malloc(sizeof(NH3DMapCoordType));
 	
-	while(![scanner isAtEnd] && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
+	while(!scanner.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
 		@autoreleasepool {
 			[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 			
 			if ([destText isEqualToString:@"v"]) {
+				verts = realloc(verts, (verts_qty + 1) * sizeof(NH3DVertexType));
 				// scan vertexes
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				verts[verts_qty].x = [destText floatValue];
+				verts[verts_qty].x = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				verts[verts_qty].y = [destText floatValue];
+				verts[verts_qty].y = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				verts[verts_qty].z = [destText floatValue];
+				verts[verts_qty].z = destText.floatValue;
 				
 				verts_qty++;
-				
 			} else if ([destText isEqualToString:@"vn"]) {
+				norms = realloc(norms, (normal_qty + 1) * sizeof(NH3DVertexType));
 				// scan normals
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				norms[normal_qty].x = [destText floatValue];
+				norms[normal_qty].x = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				norms[normal_qty].y = [destText floatValue];
+				norms[normal_qty].y = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				norms[normal_qty].z = [destText floatValue];
+				norms[normal_qty].z = destText.floatValue;
 				
 				normal_qty++;
-				
 			} else if ([destText isEqualToString:@"vt"]) {
+				texcoords = realloc(texcoords, (texcords_qty + 1) * sizeof(NH3DMapCoordType));
 				// scan texture coords
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				texcoords[texcords_qty].s = [destText floatValue];
+				texcoords[texcords_qty].s = destText.floatValue;
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
-				texcoords[texcords_qty].t = [destText floatValue];
+				texcoords[texcords_qty].t = destText.floatValue;
 				//NSLog(@"vt %d:%f,%f",texcords_qty,texcoords[texcords_qty].s,texcoords[texcords_qty].t);
 				
 				texcords_qty++;
-				
 			} else if ([destText isEqualToString:@"f"]) {
+				faces = realloc(faces, (face_qty + 1) * sizeof(NH3DFaceType));
 				// scan faces
 				// a format of 'f' section its vertex reference number,
 				// optionally include the texture vertex and vertex normal reference numbers.
@@ -199,30 +209,54 @@ static const NH3DMaterial defaultMat = {
 				
 				//NSRange aRange = [destText rangeOfString:@"/"];
 				//if ( aRange.length != 0) {
+				// The bases are 1-based. Remove 1 to prevent off-by-one failures.
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
-				faces[face_qty].a = [[faceArray_A objectAtIndex:0] intValue];
-				texReference[face_qty].a = [[faceArray_A objectAtIndex:1] intValue];
-				normReference[face_qty].a = [[faceArray_A objectAtIndex:2] intValue];
+				faces[face_qty].a = [faceArray_A[0] intValue] - 1;
+				texReference[face_qty].a = [faceArray_A[1] intValue] - 1;
+				normReference[face_qty].a = [faceArray_A[2] intValue] - 1;
 				//}
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_B = [destText componentsSeparatedByString:@"/"];
-				faces[face_qty].b = [[faceArray_B objectAtIndex:0] intValue];
-				texReference[face_qty].b = [[faceArray_B objectAtIndex:1] intValue];
-				normReference[face_qty].b = [[faceArray_B objectAtIndex:2] intValue];
+				faces[face_qty].b = [faceArray_B[0] intValue] - 1;
+				texReference[face_qty].b = [faceArray_B[1] intValue] - 1;
+				normReference[face_qty].b = [faceArray_B[2] intValue] - 1;
 				
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_C = [destText componentsSeparatedByString:@"/"];
-				faces[face_qty].c = [[faceArray_C objectAtIndex:0] intValue];
-				texReference[face_qty].c = [[faceArray_C objectAtIndex:1] intValue];
-				normReference[face_qty].c = [[faceArray_C objectAtIndex:2] intValue];
+				faces[face_qty].c = [faceArray_C[0] intValue] - 1;
+				texReference[face_qty].c = [faceArray_C[1] intValue] - 1;
+				normReference[face_qty].c = [faceArray_C[2] intValue] - 1;
 				
 				face_qty++;
 			} else if ([destText isEqualToString:@"mtllib"]) {
+				//TODO: scan material?
+				NSString *mtlName;
 				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&mtlName];
+				sourceURL = [[NSBundle mainBundle] URLForResource:mtlName withExtension:nil];
+				if (!sourceURL) {
+					if (mtlName.absolutePath) {
+						sourceURL = [NSURL fileURLWithPath:mtlName];
+					} else {
+						continue;
+					}
+				}
+				NSString *sourceMtl = [NSString stringWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
+				NSScanner *mtlScan = [NSScanner scannerWithString:sourceMtl];
+				while(!mtlScan.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
+					@autoreleasepool {
+						[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+						if ([[destText substringToIndex:1] isEqualToString:@"#"]) {
+							[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:nil];
+						}
+					}
+				}
 			} else if ([[destText substringToIndex:1] isEqualToString:@"#"]) {
 				//comment line. skip
 				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:nil];
+			} else if ([destText isEqualToString:@"o"]) {
+				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&destText];
+				modelName = [destText copy];
 			} // end if ([destText ...
 		}
 	} // end while(![scanner isAtEnd])
@@ -240,6 +274,7 @@ static const NH3DMaterial defaultMat = {
 	unsigned short l_Face_Flag = 0;
 	unsigned int l_ChunkLength = 0;
 	
+	/// location is used for current location, length is the total size of the data file.
 	NSRange fileRange = NSMakeRange(0, 0);
 	
 	// Open 3DS file and Create NSData object
@@ -256,7 +291,7 @@ static const NH3DMaterial defaultMat = {
 		file_3ds = [[NSDataAsset alloc] initWithName:name].data;
 	}
 	
-	char	mName[21];
+	char mName[21];
 	
 	if (file_3ds == nil)
 		return NO;
@@ -280,14 +315,14 @@ static const NH3DMaterial defaultMat = {
 		//NSLog(@"Read start %d/%d",fileRange.location,fileRange.length);
 		
 		[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-		fileRange.location = fileRange.location + sizeof(unsigned short);
+		fileRange.location += sizeof(unsigned short);
 		
 		l_ChunkIdent = NSSwapLittleShortToHost(shortBuffer);
 		
 		//NSLog(@"ChunkID: %x",l_ChunkIdent);
 		
 		[file_3ds getBytes:&longBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned int))];
-		fileRange.location = fileRange.location + sizeof(unsigned int);
+		fileRange.location += sizeof(unsigned int);
 		
 		l_ChunkLength = NSSwapLittleIntToHost(longBuffer);
 		
@@ -301,10 +336,10 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			case 0x4000:	// MODELBLOCK ..read model name
-				i=0;
+				i = 0;
 				do {
-					[file_3ds getBytes:&l_Name range:NSMakeRange(fileRange.location,1)];
-					fileRange.location = fileRange.location + 1;
+					[file_3ds getBytes:&l_Name range:NSMakeRange(fileRange.location, 1)];
+					fileRange.location++;
 					mName[i]=l_Name;
 					i++;
 				} while (l_Name != '\0' && i<20);
@@ -316,14 +351,14 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			case 0x4110:	// read VERTICES
-				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-				fileRange.location = fileRange.location + sizeof(unsigned short);
+				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location, sizeof(unsigned short))];
+				fileRange.location += sizeof(unsigned short);
 				
 				verts_qty =  NSSwapLittleShortToHost(l_Counts);
 				
 				if (verts_qty > MAX_VERTICES) {
 					verts_qty = MAX_VERTICES;
-					NSLog(@"Model %@|%@ reache to MaxVertices. it does not complete.",modelCode,modelName);
+					NSLog(@"Model %@|%@ reached MaxVertices. It does not complete.", modelCode, modelName);
 				}
 				
 				normal_qty = verts_qty;
@@ -336,7 +371,7 @@ static const NH3DMaterial defaultMat = {
 					
 					for (i = 0; i < verts_qty; i++) {
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-						fileRange.location = fileRange.location + sizeof(float);
+						fileRange.location += sizeof(float);
 						
 						verts[i].x = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
@@ -344,34 +379,34 @@ static const NH3DMaterial defaultMat = {
 						
 						
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-						fileRange.location = fileRange.location + sizeof(float);
+						fileRange.location += sizeof(float);
 						
 						verts[i].y = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
 						//NSLog(@"%d Vertices y: %f",i,verts[i].y);
 						
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-						fileRange.location = fileRange.location + sizeof(float);
+						fileRange.location += sizeof(float);
 						
 						verts[i].z = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
 						//NSLog(@"%d Vertices list z: %f",i,verts[i].z);
 					}
 				} else {
-					NSLog(@"Model %@|%@ does not have effective data. check modelformat or data.",modelCode,modelName);
+					NSLog(@"Model %@|%@ does not have effective data. Check model format or data.", modelCode, modelName);
 					return NO;
 				}
 				break;
 				
 			case 0x4120:	// FACES DESCRIPTION ....read face infomation
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-				fileRange.location = fileRange.location + sizeof(unsigned short);
+				fileRange.location += sizeof(unsigned short);
 				
 				face_qty = NSSwapLittleShortToHost(l_Counts);
 				
 				if (face_qty > MAX_POLYGONS) {
 					face_qty = MAX_POLYGONS;
-					NSLog(@"Model %@|%@ reache to MaxPolygons. it does not complete.",modelCode,modelName);
+					NSLog(@"Model %@|%@ reached MaxPolygons. It does not complete.", modelCode, modelName);
 				}
 				
 				if (face_qty) {
@@ -381,28 +416,28 @@ static const NH3DMaterial defaultMat = {
 					
 					for (i = 0; i < face_qty; i++) {
 						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-						fileRange.location = fileRange.location + sizeof(unsigned short);
+						fileRange.location += sizeof(unsigned short);
 						
 						faces[i].a = NSSwapLittleShortToHost(shortBuffer);
 						
 						//NSLog(@"%d Polygon point a: %d",i,faces[i].a);
 						
 						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-						fileRange.location = fileRange.location + sizeof(unsigned short);
+						fileRange.location += sizeof(unsigned short);
 						
 						faces[i].b = NSSwapLittleShortToHost(shortBuffer);
 						
 						//NSLog(@"%d Polygon point b: %d",i,faces[i].b);
 						
 						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-						fileRange.location = fileRange.location + sizeof(unsigned short);
+						fileRange.location += sizeof(unsigned short);
 						
 						faces[i].c = NSSwapLittleShortToHost(shortBuffer);
 						
 						//NSLog(@"%d Polygon point c: %d",i,faces[i].c);
 						
 						[file_3ds getBytes:&l_Face_Flag range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-						fileRange.location = fileRange.location + sizeof(unsigned short);
+						fileRange.location += sizeof(unsigned short);
 						
 						l_Face_Flag = NSSwapLittleShortToHost(l_Face_Flag);
 						
@@ -415,32 +450,31 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			case 0x4140:	// MAPPING COORDINATES LIST ...read texture uv infomation
-				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
-				fileRange.location = fileRange.location + sizeof(unsigned short);
+				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location, sizeof(unsigned short))];
+				fileRange.location += sizeof(unsigned short);
 				
 				texcords_qty = NSSwapLittleShortToHost(l_Counts);
 				
 				if (texcords_qty > MAX_POLYGONS) {
 					texcords_qty = MAX_POLYGONS;
-					NSLog(@"Model %@|%@ TextureCoods reache to MaxPolygons. it does not complete.",modelCode,modelName);
+					NSLog(@"Model %@|%@ TextureCoods reached MaxPolygons. It does not complete.", modelCode, modelName);
 				}
 				
 				if (texcords_qty) {
-					texcoords = malloc( texcords_qty * sizeof(NH3DMapCoordType) );
+					texcoords = malloc(texcords_qty * sizeof(NH3DMapCoordType));
 					
 					//NSLog(@"Number of TexCoords %d",texcords_qty);
 					
 					for (i = 0; i < texcords_qty; i++) {
-						
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-						fileRange.location = fileRange.location + sizeof(float);
+						fileRange.location += sizeof(float);
 						
 						texcoords[i].s = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
 						//NSLog(@"%d Mapping list u: %f",i,texcoords[i].s);
 						
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
-						fileRange.location = fileRange.location + sizeof(float);
+						fileRange.location += sizeof(float);
 						
 						texcoords[i].t = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
@@ -450,7 +484,7 @@ static const NH3DMaterial defaultMat = {
 				break;
 				
 			default: // skip other chunk
-				fileRange.location = fileRange.location + l_ChunkLength-6;
+				fileRange.location += l_ChunkLength-6;
 				//NSLog(@"Read done ... %d/%d",fileRange.location,fileRange.length);
 				break;
 		}
@@ -458,97 +492,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	
 	return YES;
-}
-
-- (float)vectorLength:(NH3DVertexType *)p_vector
-{
-	return sqrtf(p_vector->x*p_vector->x + p_vector->y*p_vector->y + p_vector->z*p_vector->z);
-}
-
-- (void)vectorNormalize:(NH3DVertexType *)p_vector
-{
-	float l_length;
-	
-	l_length = [self vectorLength:p_vector];
-	if (l_length==0)
-		l_length=1;
-	p_vector->x /= l_length;
-	p_vector->y /= l_length;
-	p_vector->z /= l_length;
-}
-
-- (void)createVectorWithStart:(NH3DVertexType *)p_start endingAt:(NH3DVertexType *)p_end outVector:(NH3DVertexType *)p_vector
-{
-    p_vector->x = p_end->x - p_start->x;
-    p_vector->y = p_end->y - p_start->y;
-    p_vector->z = p_end->z - p_start->z;
-	[self vectorNormalize:p_vector];
-}
-
-- (float)vectScalarProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2
-{
-    return (p_vector1->x*p_vector2->x + p_vector1->y*p_vector2->y + p_vector1->z*p_vector2->z);
-}
-
-- (void)vectDotProduct:(NH3DVertexType *)p_vector1 second:(NH3DVertexType *)p_vector2 normal:(NH3DVertexType *)p_normal
-{
-    p_normal->x=(p_vector1->y * p_vector2->z) - (p_vector1->z * p_vector2->y);
-    p_normal->y=(p_vector1->z * p_vector2->x) - (p_vector1->x * p_vector2->z);
-    p_normal->z=(p_vector1->x * p_vector2->y) - (p_vector1->y * p_vector2->x);
-}
-
-- (void)calculateNormals
-{
-	int i;
-	NH3DVertexType l_vect1,l_vect2,l_vect3,l_vect_b1,l_vect_b2,l_normal;
-	int l_Connect[verts_qty];
-	
-	for (i = 0; i< verts_qty; i++) {
-		norms[i].x = 0.0;
-		norms[i].y = 0.0;
-		norms[i].z = 0.0;
-		l_Connect[i]=0;
-	}
-	
-	for (i = 0; i < face_qty; i++) {
-        l_vect1.x = verts[faces[i].a].x;
-        l_vect1.y = verts[faces[i].a].y;
-        l_vect1.z = verts[faces[i].a].z;
-        l_vect2.x = verts[faces[i].b].x;
-        l_vect2.y = verts[faces[i].b].y;
-        l_vect2.z = verts[faces[i].b].z;
-        l_vect3.x = verts[faces[i].c].x;
-        l_vect3.y = verts[faces[i].c].y;
-        l_vect3.z = verts[faces[i].c].z;
-		
-        // Polygon normal calculation
-		[self createVectorWithStart:&l_vect1 endingAt:&l_vect2 outVector:&l_vect_b1];
-        [self createVectorWithStart:&l_vect1 endingAt:&l_vect3 outVector:&l_vect_b2];
-        [self vectDotProduct:&l_vect_b1 second:&l_vect_b2 normal:&l_normal];
-        [self vectorNormalize:&l_normal];
-		
-		l_Connect[faces[i].a] += 1;
-		l_Connect[faces[i].b] += 1;
-		l_Connect[faces[i].c] += 1;
-		
-		norms[faces[i].a].x += l_normal.x;
-		norms[faces[i].a].y += l_normal.y;
-		norms[faces[i].a].z += l_normal.z;
-		norms[faces[i].b].x += l_normal.x;
-		norms[faces[i].b].y += l_normal.y;
-		norms[faces[i].b].z += l_normal.z;
-		norms[faces[i].c].x += l_normal.x;
-		norms[faces[i].c].y += l_normal.y;
-		norms[faces[i].c].z += l_normal.z;
-	}	
-	
-    for (i = 0; i < verts_qty; i++) {
-		if (l_Connect[i] > 0) {
-			norms[i].x /= l_Connect[i];
-			norms[i].y /= l_Connect[i];
-			norms[i].z /= l_Connect[i];
-		}
-	}
 }
 
 
@@ -661,15 +604,16 @@ static const NH3DMaterial defaultMat = {
 	return self;
 }
 
-- (id) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag
+- (instancetype) initWithOBJFile:(NSString *)name withTexture:(BOOL)flag
 {
 	return [self initWithOBJFile:name textureNamed:flag ? name : nil];
 }
 
-- (id) initWithOBJFile:(NSString *)name textureNamed:(NSString *)texName
+- (instancetype) initWithOBJFile:(NSString *)name textureNamed:(NSString *)texName
 {
 	self = [super init];
 	if (self != nil) {
+		modelCode = [name copy];
 #if 0
 		NH3DMaterial defaultMat = {{ 0.5, 0.5, 0.5, 1.0 },
 			{ 1.0 , 1.0 , 1.0 , 1.0 },
@@ -772,8 +716,6 @@ static const NH3DMaterial defaultMat = {
 
 //--------------------------------------------
 
-@synthesize modelName;
-
 - (int)verts_qty
 {
 	return verts_qty;
@@ -794,21 +736,6 @@ static const NH3DMaterial defaultMat = {
 	return texcords_qty;
 }
 
-- (NH3DVertexType *)verts
-{
-	return verts;
-}
-
-- (NH3DVertexType *)norms
-{
-	return norms;
-}
-
-- (NH3DFaceType *)faces
-{
-	return faces;
-}
-
 - (NH3DFaceType *)texReference
 {
 	return texReference;
@@ -818,11 +745,6 @@ static const NH3DMaterial defaultMat = {
 - (NH3DFaceType *)normReference
 {
 	return normReference;
-}
-
-- (NH3DMapCoordType *)texcoords
-{
-	return texcoords;
 }
 
 - (GLuint)texture
@@ -845,7 +767,7 @@ static const NH3DMaterial defaultMat = {
 		++numberOfTextures;
 		return YES;
 	} else {
-		NSLog(@"Model %@: Can't add new Texture %@. Limit of textures reached.", modelCode, textureName);
+		NSLog(@"Model %@: Can't add new texture %@. Limit of textures reached.", modelCode, textureName);
 		return NO;
 	}
 }
@@ -971,7 +893,7 @@ static const NH3DMaterial defaultMat = {
 	return childObjects[index];
 }
 
-- (NH3DModelObject *)childObjectAtLast
+- (NH3DModelObject *)lastChildObject
 {
 	return childObjects.lastObject;
 }
@@ -1023,7 +945,7 @@ static const NH3DMaterial defaultMat = {
 - (void)drawSelf
 {
 	int i;
-	float px , py, pz;
+	GLfloat px, py, pz;
 	
 	if (active) {
 		GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
@@ -1114,7 +1036,7 @@ static const NH3DMaterial defaultMat = {
 			case NH3DModelTypeTexturedObject:
 				glActiveTexture(GL_TEXTURE0);
 				glEnable(GL_TEXTURE_2D);
-				glBindTexture(GL_TEXTURE_2D, textures[texture]);
+				glBindTexture(GL_TEXTURE_2D, [self texture]);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				
 				glBegin(GL_TRIANGLES);
@@ -1155,8 +1077,8 @@ static const NH3DMaterial defaultMat = {
 							   verts[faces[i].c].z + modelShift.z);
 					//--------------------------------------------------------------------------------------------- 3rd vertex is over
 					//--------------------------------------------------------------------------------------------- draw is over
-					
 				}
+				
 				glEnd();
 				break;
 				
@@ -1165,7 +1087,7 @@ static const NH3DMaterial defaultMat = {
 				glDisable(GL_TEXTURE_2D);
 				
 				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA ,GL_ONE);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 				
 				for (i = 0; i < MAX_PARTICLES; i++) {
 					GLfloat colorArray[4] = {particles[i].r, particles[i].g, particles[i].b, particles[i].life};
@@ -1220,7 +1142,7 @@ static const NH3DMaterial defaultMat = {
 								glEnd();
 								break;
 								
-							case NH3DParticleTypeAura :
+							case NH3DParticleTypeAura:
 								glLineWidth(((random() % 200)*0.01) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);

@@ -238,7 +238,8 @@ WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 #
 WINNH3DSSRC = ../win/nh3d/GLHelpers.swift ../win/nh3d/SwiftNetHack\ bridge.swift \
 	../win/nh3d/MapModel.swift ../win/nh3d/NH3DOpenGLViewSwift.swift \
-	../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift 
+	../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift \
+	../win/nh3d/NH3DModelObject+Swift.swift
 WINNH3DSRC =  \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
 	../win/nh3d/NH3DModelObject.m \
@@ -248,7 +249,7 @@ WINNH3DSRC =  \
 	$(WINNH3DSSRC)
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DSOBJ = GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.o \
-	NH3DPreferenceController.o NH3DMessaging.o
+	NH3DPreferenceController.o NH3DMessaging.o NH3DModelObject+Swift.o
 WINNH3DOBJ = NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DModelObject.o NH3DPanel.o \
 	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
@@ -351,7 +352,7 @@ WINLIB = $(WINNH3DLIB)
 # If ZLIB_COMP is defined in config.h this is necessary to link with zlib.
 # LIBS = -lz
 #
-LIBS =
+LIBS = -lz
 
 # make NetHack
 #JP by issei(96/5/27)
@@ -629,6 +630,10 @@ depend: ../sys/unix/depend.awk \
 	- diff Makefile.bak Makefile
 	@rm -f Makefile.bak
 
+SWIFTFLAGS = -module-name $(GAME) -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk $(shell xcrun --show-sdk-path -sdk macosx)
+
+SWIFTC = swiftc -frontend
+
 # DO NOT DELETE THIS LINE OR CHANGE ANYTHING BEYOND IT
 
 # config.h timestamp
@@ -691,7 +696,7 @@ nh3dunix.o: ../sys/Cocoa_GNUStep/nh3dunix.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../sys/Cocoa_GNUStep/nh3dunix.m
 winnh3d.o: ../win/nh3d/winnh3d.m $(HACK_H) NetHack3D-Swift.h
 	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/winnh3d.m
-NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m $(HACK_H) NetHack3D-Swift.h
+NH3DMapItem.o: ../win/nh3d/NH3DMapItem.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DMapItem.m
 NH3DMapModel.o: ../win/nh3d/NH3DMapModel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMapModel.m
@@ -701,7 +706,7 @@ NH3DMenuItem.o: ../win/nh3d/NH3DMenuItem.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuItem.m
 NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
-NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m $(HACK_H)
+NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m $(HACK_H) NetHack3D-Swift.h
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObjects.m
 NH3DPanel.o: ../win/nh3d/NH3DPanel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
@@ -714,8 +719,6 @@ NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m $(HACK_
 
 NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserStatusModel.m
-
-SWIFTFLAGS = -module-name $(GAME) -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk $(shell xcrun --show-sdk-path -sdk macosx)
 
 NetHack3D-Swift.h: NetHack3D.swiftmodule
 	swiftc -frontend -c -parse-as-library -color-diagnostics $(SWIFTFLAGS) \
@@ -749,6 +752,12 @@ NH3DMessaging.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/NH3DMessaging.swift \
 	$(filter-out ../win/nh3d/NH3DMessaging.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
 	-emit-module -emit-module-path NH3DMessaging-partial.swiftmodule -o NH3DMessaging.o
+NH3DModelObject+Swift.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
+	swiftc -frontend -c -color-diagnostics -primary-file \
+	../win/nh3d/NH3DModelObject+Swift.swift \
+	$(filter-out ../win/nh3d/NH3DModelObject+Swift.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
+	-emit-module -emit-module-path NH3DModelObject+Swift-partial.swiftmodule \
+	-o NH3DModelObject+Swift.o
 
 
 bemain.o: ../sys/be/bemain.c $(HACK_H) ../include/dlb.h
@@ -859,8 +868,8 @@ xshmmap.o: ../win/gtk/xshmmap.c ../include/hack.h ../include/winGTK.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
 xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
 	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
-NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObject.m
+NH3DModelObject.o: ../win/nh3d/NH3DModelObject.m NetHack3D-Swift.h
+	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DModelObject.m
 Cocoa-compat.o: ../win/nh3d/compat/Cocoa-compat.m
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/compat/Cocoa-compat.m
 qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \

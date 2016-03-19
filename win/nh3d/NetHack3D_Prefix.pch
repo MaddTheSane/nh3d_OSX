@@ -2,9 +2,19 @@
 // Prefix header for all source files of the 'NetHack3D' target in the 'NetHack3D' project
 //
 
+#include "C99Bool.h"
 #include <math.h>
 #include <tgmath.h>
+#include <errno.h>
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <stdio.h>
+#include <signal.h>
+#include <pwd.h>
+#include <sys/time.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
 #include <TargetConditionals.h>
 
 #ifdef __OBJC__

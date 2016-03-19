@@ -77,12 +77,6 @@
 /* Class = "NSBox"; title = "Box"; ObjectID = "390"; */
 "390.title" = "Box";
 
-/* Class = "NSButtonCell"; ibShadowedToolTip = "再行動"; ObjectID = "417"; */
-"417.ibShadowedToolTip" = "再行動";
-
-/* Class = "NSButtonCell"; title = "a"; ObjectID = "417"; */
-"417.title" = "a";
-
 /* Class = "NSButton"; ibShadowedToolTip = "Rest"; ObjectID = "452"; */
 "452.ibShadowedToolTip" = "Rest";
 
@@ -251,8 +245,8 @@
 /* Class = "NSImageView"; ibShadowedToolTip = "Stunned"; ObjectID = "5017"; */
 "5017.ibShadowedToolTip" = "Stunned";
 
-/* Class = "NSImageView"; ibShadowedToolTip = "Hallucinating"; ObjectID = "5018"; */
-"5018.ibShadowedToolTip" = "Hallucinating";
+/* Class = "NSImageView"; ibShadowedToolTip = "Encumbrance"; ObjectID = "5018"; */
+"5018.ibShadowedToolTip" = "Encumbrance";
 
 /* Class = "NSMenuItem"; title = "バージョン"; ObjectID = "5027"; */
 "5027.title" = "バージョン";
@@ -508,48 +502,6 @@
 
 /* Class = "NSMenu"; title = "ヘルプ"; ObjectID = "5934"; */
 "5934.title" = "ヘルプ";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "射撃"; ObjectID = "5957"; */
-"5957.ibShadowedToolTip" = "射撃";
-
-/* Class = "NSButtonCell"; title = "f"; ObjectID = "5957"; */
-"5957.title" = "f";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "キック"; ObjectID = "5960"; */
-"5960.ibShadowedToolTip" = "キック";
-
-/* Class = "NSButtonCell"; title = "k"; ObjectID = "5960"; */
-"5960.title" = "k";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "呪文を唱える"; ObjectID = "5961"; */
-"5961.ibShadowedToolTip" = "呪文を唱える";
-
-/* Class = "NSButtonCell"; title = "Z"; ObjectID = "5961"; */
-"5961.title" = "Z";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "投げる"; ObjectID = "5962"; */
-"5962.ibShadowedToolTip" = "投げる";
-
-/* Class = "NSButtonCell"; title = "t"; ObjectID = "5962"; */
-"5962.title" = "t";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "ドアを開く"; ObjectID = "5963"; */
-"5963.ibShadowedToolTip" = "ドアを開く";
-
-/* Class = "NSButtonCell"; title = "o"; ObjectID = "5963"; */
-"5963.title" = "o";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "探す"; ObjectID = "5974"; */
-"5974.ibShadowedToolTip" = "探す";
-
-/* Class = "NSButtonCell"; title = "s"; ObjectID = "5974"; */
-"5974.title" = "s";
-
-/* Class = "NSButtonCell"; ibShadowedToolTip = "拾う"; ObjectID = "5975"; */
-"5975.ibShadowedToolTip" = "拾う";
-
-/* Class = "NSButtonCell"; title = ","; ObjectID = "5975"; */
-"5975.title" = ",";
 
 /* Class = "NSMenuItem"; title = "バージョン..."; ObjectID = "6006"; */
 "6006.title" = "バージョン...";
@@ -1190,8 +1142,8 @@
 /* Class = "NSTextFieldCell"; title = "Traditonal Mode"; ObjectID = "6932"; */
 "6932.title" = "Traditonal Mode";
 
-/* Class = "NSButtonCell"; title = "Okay"; ObjectID = "6943"; */
-"6943.title" = "Okay";
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "6943"; */
+"6943.title" = "OK";
 
 /* Class = "NSButtonCell"; title = "キャンセル"; ObjectID = "6944"; */
 "6944.title" = "キャンセル";
@@ -1210,9 +1162,6 @@
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "6952"; */
 "6952.title" = "OK";
-
-/* Class = "NSSearchFieldCell"; title = "Small System Font Text"; ObjectID = "6953"; */
-"6953.title" = "Small System Font Text";
 
 /* Class = "NSButtonCell"; title = "キャンセル"; ObjectID = "6954"; */
 "6954.title" = "キャンセル";
@@ -1283,20 +1232,107 @@
 /* Class = "NSButtonCell"; title = "6"; ObjectID = "6983"; */
 "6983.title" = "6";
 
-/* Class = "NSButtonCell"; title = "9"; ObjectID = "6984"; */
-"6984.title" = "9";
-
-/* Class = "NSButtonCell"; title = "7"; ObjectID = "6985"; */
-"6985.title" = "7";
-
 /* Class = "NSButtonCell"; title = "5"; ObjectID = "6988"; */
 "6988.title" = "5";
 
-/* Class = "NSButtonCell"; title = "o"; ObjectID = "6989"; */
-"6989.title" = "o";
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Body armor slot"; ObjectID = "0G0-hH-8Ck"; */
+"0G0-hH-8Ck.ibShadowedIsNilPlaceholder" = "Body armor slot";
 
-/* Class = "NSButtonCell"; title = "A"; ObjectID = "6990"; */
-"6990.title" = "A";
+/* Class = "NSButtonCell"; title = "t"; ObjectID = "2vX-8R-dH4"; */
+"2vX-8R-dH4.title" = "t";
 
-/* Class = "NSMenuItem"; title = "Map…"; ObjectID = "ske-b7-lNY"; */
-"ske-b7-lNY.title" = "Map…";
+/* Class = "NSButtonCell"; title = "Z"; ObjectID = "6nm-el-2DC"; */
+"6nm-el-2DC.title" = "Z";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Pick Up"; ObjectID = "84z-Fq-US6"; */
+"84z-Fq-US6.ibShadowedToolTip" = "Pick Up";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Left ring slot"; ObjectID = "8U4-Uc-vdF"; */
+"8U4-Uc-vdF.ibShadowedIsNilPlaceholder" = "Left ring slot";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Search"; ObjectID = "9Sm-65-g4R"; */
+"9Sm-65-g4R.ibShadowedToolTip" = "探す";
+
+/* Class = "NSButtonCell"; title = "a"; ObjectID = "AXU-wL-KKa"; */
+"AXU-wL-KKa.title" = "a";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "Azr-fb-WJi"; */
+"Azr-fb-WJi.ibShadowedIsNilPlaceholder" = "Gloves slot";
+
+/* Class = "NSButtonCell"; title = "f"; ObjectID = "Cap-43-Uu2"; */
+"Cap-43-Uu2.title" = "f";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Amulet slot"; ObjectID = "Caw-w7-sGP"; */
+"Caw-w7-sGP.ibShadowedIsNilPlaceholder" = "Amulet slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "DCX-Co-TEa"; */
+"DCX-Co-TEa.ibShadowedIsNilPlaceholder" = "Gloves slot";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Throw"; ObjectID = "DKt-pB-xVh"; */
+"DKt-pB-xVh.ibShadowedToolTip" = "投げる";
+
+/* Class = "NSButtonCell"; title = "k"; ObjectID = "G6z-2d-BO3"; */
+"G6z-2d-BO3.title" = "k";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Cloak slot"; ObjectID = "LjC-a9-yh9"; */
+"LjC-a9-yh9.ibShadowedIsNilPlaceholder" = "Cloak slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "blindfold slot"; ObjectID = "MrB-Yl-ORA"; */
+"MrB-Yl-ORA.ibShadowedIsNilPlaceholder" = "Blindfold slot";
+
+/* Class = "NSButtonCell"; title = "k"; ObjectID = "MrC-BN-3Jd"; */
+"MrC-BN-3Jd.title" = "k";
+
+/* Class = "NSButtonCell"; title = "s"; ObjectID = "PVC-Wr-dLk"; */
+"PVC-Wr-dLk.title" = "s";
+
+/* Class = "NSButton"; ibShadowedToolTip = "射撃"; ObjectID = "R1X-KA-2BD"; */
+"R1X-KA-2BD.ibShadowedToolTip" = "射撃";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Use Magic"; ObjectID = "S5s-Xf-pjS"; */
+"S5s-Xf-pjS.ibShadowedToolTip" = "Use Magic";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Weapon slot"; ObjectID = "Wmh-CX-7kn"; */
+"Wmh-CX-7kn.ibShadowedIsNilPlaceholder" = "Weapon slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Right ring slot"; ObjectID = "XFs-bG-BgX"; */
+"XFs-bG-BgX.ibShadowedIsNilPlaceholder" = "Right ring slot";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Again"; ObjectID = "XGZ-lm-wXf"; */
+"XGZ-lm-wXf.ibShadowedToolTip" = "再行動";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Open"; ObjectID = "Xgt-Jt-ORS"; */
+"Xgt-Jt-ORS.ibShadowedToolTip" = "ドアを開く";
+
+/* Class = "NSButton"; ibShadowedToolTip = "キック"; ObjectID = "YSQ-yz-IJi"; */
+"YSQ-yz-IJi.ibShadowedToolTip" = "キック";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Hallucinating"; ObjectID = "eUY-GY-Zq8"; */
+"eUY-GY-Zq8.ibShadowedToolTip" = "Hallucinating";
+
+/* Class = "NSButtonCell"; title = "o"; ObjectID = "oNa-iN-bfd"; */
+"oNa-iN-bfd.title" = "o";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shoes slot"; ObjectID = "oUZ-5r-TMc"; */
+"oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "Shoes slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Secondary weapon slot"; ObjectID = "oc1-F0-Bt9"; */
+"oc1-F0-Bt9.ibShadowedIsNilPlaceholder" = "Secondary weapon slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shield slot"; ObjectID = "paO-SC-cTf"; */
+"paO-SC-cTf.ibShadowedIsNilPlaceholder" = "Shield slot";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Helmet slot"; ObjectID = "qqU-Tg-6UE"; */
+"qqU-Tg-6UE.ibShadowedIsNilPlaceholder" = "Helmet slot";
+
+/* Class = "NSMenuItem"; title = "Dungeon Overview"; ObjectID = "sbe-4J-BhS"; */
+"sbe-4J-BhS.title" = "Dungeon Overview";
+
+/* Class = "NSMenuItem"; title = "Level Map…"; ObjectID = "ske-b7-lNY"; */
+"ske-b7-lNY.title" = "Level Map…";
+
+/* Class = "NSButtonCell"; title = ","; ObjectID = "tiT-la-Gr7"; */
+"tiT-la-Gr7.title" = ",";
+
+/* Class = "NSButton"; ibShadowedToolTip = "キック"; ObjectID = "w1P-Hp-jlj"; */
+"w1P-Hp-jlj.ibShadowedToolTip" = "キック";

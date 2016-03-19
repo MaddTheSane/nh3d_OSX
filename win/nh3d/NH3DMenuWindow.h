@@ -15,7 +15,6 @@
 #import "NH3DUserDefaultsExtern.h"
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
-	
 	IBOutlet NSPanel *_menuPanel;
 	IBOutlet NSTableView *_menuTableWindow;
 	IBOutlet NSTextField *_menuPanelStrings;
@@ -31,7 +30,7 @@
 	IBOutlet NSTextView *_ripTextwindow;
 	
 @private
-	NSMutableArray *nh3dMenu;
+	NSMutableArray<NH3DMenuItem*> *nh3dMenu;
 	NSMutableDictionary *darkShadowStrAttributes;
 	NSMutableDictionary *lightShadowStrAttributes;
 	NSShadow *darkShadow;
@@ -53,6 +52,7 @@
 @property (readonly) NSInteger selectedRow;
 
 @property BOOL doneRip;
+@property (readonly) BOOL multipleSelection;
 
 @property (readonly, strong) NSMutableArray *nh3dMenu;
 
@@ -62,14 +62,6 @@
 
 - (void)createMenuWindow:(int)wid;
 - (void)clearMenuWindow;
-
-
-/*
-- (void)tableView:(NSTableView *)tableView
-   setObjectValue:(id)object 
-   forTableColumn:(NSTableColumn *)tableColumn 
-			  row:(int)rowIndex;
-*/
 
 
 - (void)updateMenuWindow;

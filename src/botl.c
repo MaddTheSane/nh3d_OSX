@@ -11,12 +11,12 @@ const char *const enc_stat[] = { "",         "Burdened",  "Stressed",
                                  "Strained", "Overtaxed", "Overloaded" };
 
 STATIC_OVL NEARDATA int mrank_sz = 0; /* loaded by max_rank_sz (from u_init) */
-STATIC_DCL const char *NDECL(rank);
+STATIC_DCL const char *rank(void);
 
 #ifndef STATUS_VIA_WINDOWPORT
 
-STATIC_DCL void NDECL(bot1);
-STATIC_DCL void NDECL(bot2);
+STATIC_DCL void bot1(void);
+STATIC_DCL void bot2(void);
 
 STATIC_OVL void
 bot1()
@@ -224,8 +224,7 @@ bot()
 
 /* convert experience level (1..30) to rank index (0..8) */
 int
-xlev_to_rank(xlev)
-int xlev;
+xlev_to_rank(int xlev)
 {
     return (xlev <= 2) ? 0 : (xlev <= 30) ? ((xlev + 2) / 4) : 8;
 }
@@ -233,18 +232,14 @@ int xlev;
 #if 0 /* not currently needed */
 /* convert rank index (0..8) to experience level (1..30) */
 int
-rank_to_xlev(rank)
-int rank;
+rank_to_xlev(int rank)
 {
     return (rank <= 0) ? 1 : (rank <= 8) ? ((rank * 4) - 2) : 30;
 }
 #endif
 
 const char *
-rank_of(lev, monnum, female)
-int lev;
-short monnum;
-boolean female;
+rank_of(int lev, short monnum, boolean female)
 {
     register const struct Role *role;
     register int i;
@@ -279,9 +274,7 @@ rank()
 }
 
 int
-title_to_mon(str, rank_indx, title_length)
-const char *str;
-int *rank_indx, *title_length;
+title_to_mon(const char *str, int *rank_indx, int *title_length)
 {
     register int i, j;
 
@@ -345,8 +338,7 @@ botl_score()
 
 /* provide the name of the current level for display by various ports */
 int
-describe_level(buf)
-char *buf;
+describe_level(char *buf)
 {
     int ret = 1;
 
@@ -380,15 +372,15 @@ struct istat_s {
 };
 
 
-STATIC_DCL void NDECL(init_blstats);
-STATIC_DCL char *FDECL(anything_to_s, (char *, anything *, int));
-STATIC_OVL int FDECL(percentage, (struct istat_s *, struct istat_s *));
-STATIC_OVL int FDECL(compare_blstats, (struct istat_s *, struct istat_s *));
+STATIC_DCL void init_blstats(void);
+STATIC_DCL char *anything_to_s(char *, anything *, int);
+STATIC_OVL int percentage(struct istat_s *, struct istat_s *);
+STATIC_OVL int compare_blstats(struct istat_s *, struct istat_s *);
 #ifdef STATUS_HILITES
-STATIC_DCL void FDECL(s_to_anything, (anything *, char *, int));
-STATIC_DCL boolean FDECL(assign_hilite, (char *, char *, char *, char *,
-                                         BOOLEAN_P));
-STATIC_DCL const char *FDECL(clridx_to_s, (char *, int));
+STATIC_DCL void s_to_anything(anything *, char *, int);
+STATIC_DCL boolean assign_hilite(char *, char *, char *, char *,
+                                         boolean);
+STATIC_DCL const char *clridx_to_s(char *, int);
 #endif
 
 /* If entries are added to this, botl.h will require updating too */
@@ -660,9 +652,9 @@ bot()
 }
 
 void
-status_initialize(reassessment)
-boolean
-    reassessment; /* TRUE = just reassess fields w/o other initialization*/
+status_initialize(boolean
+                  reassessment)
+ /* TRUE = just reassess fields w/o other initialization*/
 {
     int i;
     const char *fieldfmt = (const char *) 0;
@@ -851,10 +843,7 @@ init_blstats()
 }
 
 STATIC_OVL char *
-anything_to_s(buf, a, anytype)
-char *buf;
-anything *a;
-int anytype;
+anything_to_s(char *buf, anything *a, int anytype)
 {
     if (!buf)
         return (char *) 0;
@@ -899,10 +888,7 @@ int anytype;
 #ifdef STATUS_HILITES
 
 STATIC_OVL void
-s_to_anything(a, buf, anytype)
-anything *a;
-char *buf;
-int anytype;
+s_to_anything(anything *a, char *buf, int anytype)
 {
     if (!buf || !a)
         return;
@@ -949,8 +935,7 @@ int anytype;
 #endif
 
 STATIC_OVL int
-compare_blstats(bl1, bl2)
-struct istat_s *bl1, *bl2;
+compare_blstats(struct istat_s *bl1, struct istat_s *bl2)
 {
     int anytype, result = 0;
 
@@ -1028,8 +1013,7 @@ struct istat_s *bl1, *bl2;
 }
 
 STATIC_OVL int
-percentage(bl, maxbl)
-struct istat_s *bl, *maxbl;
+percentage(struct istat_s *bl, struct istat_s *maxbl)
 {
     int result = 0;
     int anytype;
@@ -1127,9 +1111,7 @@ struct hilite_s status_hilites[MAXBLSTATS];
  * strings, then calls assign_hilite() to make the adjustments.
  */
 boolean
-set_status_hilites(op, from_configfile)
-char *op;
-boolean from_configfile;
+set_status_hilites(char *op, boolean from_configfile)
 {
     char hsbuf[4][QBUFSZ];
     boolean rslt, badopt = FALSE;
@@ -1174,8 +1156,7 @@ boolean from_configfile;
 }
 
 void
-clear_status_hilites(from_configfile)
-boolean from_configfile;
+clear_status_hilites(boolean from_configfile)
 {
     int i;
     anything it;
@@ -1191,9 +1172,7 @@ boolean from_configfile;
 }
 
 STATIC_OVL boolean
-assign_hilite(sa, sb, sc, sd, from_configfile)
-char *sa, *sb, *sc, *sd;
-boolean from_configfile;
+assign_hilite(char *sa, char *sb, char *sc, char *sd, boolean from_configfile)
 {
     char *tmp, *how;
     int i = -1, dt = -1, idx = -1;
@@ -1320,8 +1299,7 @@ boolean from_configfile;
 }
 
 void
-status_notify_windowport(all)
-boolean all;
+status_notify_windowport(boolean all)
 {
     int idx;
     anything it;
@@ -1348,9 +1326,7 @@ boolean all;
  * in the config file.
  */
 char *
-get_status_hilites(buf, bufsiz)
-char *buf;
-int bufsiz;
+get_status_hilites(char *buf, int bufsiz)
 {
     int i, j, k, coloridx;
     const char *text = (char *) 0;
@@ -1436,9 +1412,7 @@ int bufsiz;
 }
 
 STATIC_OVL const char *
-clridx_to_s(buf, idx)
-char *buf;
-int idx;
+clridx_to_s(char *buf, int idx)
 {
     static const char *a[] = { "bold", "inverse", "normal" };
     char* p = 0;

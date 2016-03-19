@@ -18,36 +18,34 @@
 #if !defined(_BULL_SOURCE) && !defined(__sgi) && !defined(_M_UNIX)
 #if !defined(SUNOS4) && !(defined(ULTRIX) && defined(__GNUC__))
 #if defined(POSIX_TYPES) || defined(SVR4) || defined(HPUX)
-extern struct passwd *FDECL(getpwuid, (uid_t));
+extern struct passwd *getpwuid(uid_t);
 #else
-extern struct passwd *FDECL(getpwuid, (int));
+extern struct passwd *getpwuid(int);
 #endif
 #endif
 #endif
-extern struct passwd *FDECL(getpwnam, (const char *));
+extern struct passwd *getpwnam(const char *);
 #ifdef CHDIR
-static void FDECL(chdirx, (const char *, BOOLEAN_P));
+static void chdirx(const char *, boolean);
 #endif /* CHDIR */
-static boolean NDECL(whoami);
-static void FDECL(process_options, (int, char **));
+static boolean whoami(void);
+static void process_options(int, char **);
 
 #ifdef _M_UNIX
-extern void NDECL(check_sco_console);
-extern void NDECL(init_sco_cons);
+extern void check_sco_console(void);
+extern void init_sco_cons(void);
 #endif
 #ifdef __linux__
-extern void NDECL(check_linux_console);
-extern void NDECL(init_linux_cons);
+extern void check_linux_console(void);
+extern void init_linux_cons(void);
 #endif
 
-static void NDECL(wd_message);
+static void wd_message(void);
 static boolean wiz_error_flag = FALSE;
-static struct passwd *NDECL(get_unix_pw);
+static struct passwd *get_unix_pw(void);
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
     register int fd;
 #ifdef CHDIR
@@ -323,9 +321,7 @@ attempt_restore:
 }
 
 static void
-process_options(argc, argv)
-int argc;
-char *argv[];
+process_options(int argc, char *argv[])
 {
     int i, l;
 
@@ -437,9 +433,7 @@ char *argv[];
 
 #ifdef CHDIR
 static void
-chdirx(dir, wr)
-const char *dir;
-boolean wr;
+chdirx(const char *dir, boolean wr)
 {
     if (dir /* User specified directory? */
 #ifdef HACKDIR
@@ -527,8 +521,7 @@ whoami()
 }
 
 void
-sethanguphandler(handler)
-void FDECL((*handler), (int));
+sethanguphandler(void (*handler)(int))
 {
 #ifdef SA_RESTART
     /* don't want reads to restart.  If SA_RESTART is defined, we know
@@ -599,8 +592,7 @@ wd_message()
  * be room for the /
  */
 void
-append_slash(name)
-char *name;
+append_slash(char *name)
 {
     char *ptr;
 
@@ -615,8 +607,7 @@ char *name;
 }
 
 boolean
-check_user_string(optstr)
-char *optstr;
+check_user_string(char *optstr)
 {
     struct passwd *pw = get_unix_pw();
     int pwlen;

@@ -9,19 +9,19 @@
 
 #include "hack.h"
 
-const char *FDECL(tilename, (int, int));
-void NDECL(init_tilemap);
-void FDECL(process_substitutions, (FILE *));
-boolean FDECL(acceptable_tilename, (int, const char *, const char *));
+const char *tilename(int, int);
+void init_tilemap(void);
+void process_substitutions(FILE *);
+boolean acceptable_tilename(int, const char *, const char *);
 
 #if defined(MICRO) || defined(WIN32)
 #undef exit
 #if !defined(MSDOS) && !defined(WIN32)
-extern void FDECL(exit, (int));
+extern void exit(int);
 #endif
 #endif
 
-#if defined(WIN32)
+#if defined(WIN32) || defined(NH3D_GRAPHICS)
 #define STATUES_LOOK_LIKE_MONSTERS
 #endif
 
@@ -99,8 +99,7 @@ struct substitute {
  * entry is the position of the tile within the monsters/objects/other set
  */
 const char *
-tilename(set, entry)
-int set, entry;
+tilename(int set, int entry)
 {
     int i, j, condnum, tilenum;
     static char buf[BUFSZ];
@@ -400,8 +399,7 @@ const char *epilog[] = { "}" };
 
 /* write out the substitutions in an easily-used form. */
 void
-process_substitutions(ofp)
-FILE *ofp;
+process_substitutions(FILE *ofp)
 {
     int i, j, k, span, start;
 
@@ -464,8 +462,11 @@ FILE *ofp;
         fprintf(ofp, "%s\n", epilog[i]);
     }
 
-    fprintf(ofp, "\nint total_tiles_used = %d;\n", start);
     lastothtile = start - 1;
+#ifdef STATUES_LOOK_LIKE_MONSTERS
+    start = laststatuetile + 1;
+#endif
+	fprintf(ofp, "\nint total_tiles_used = %d;\n", start);
 }
 
 int
@@ -500,6 +501,9 @@ main()
     fprintf(ofp, "\n#define MAXMONTILE %d\n", lastmontile);
     fprintf(ofp, "#define MAXOBJTILE %d\n", lastobjtile);
     fprintf(ofp, "#define MAXOTHTILE %d\n", lastothtile);
+#ifdef STATUES_LOOK_LIKE_MONSTERS
+    fprintf(ofp, "#define MAXSTATUETILE %d\n", laststatuetile);
+#endif
 
     fprintf(ofp, "\n/*tile.c*/\n");
 

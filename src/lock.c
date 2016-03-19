@@ -4,8 +4,8 @@
 
 #include "hack.h"
 
-STATIC_PTR int NDECL(picklock);
-STATIC_PTR int NDECL(forcelock);
+STATIC_PTR int picklock(void);
+STATIC_PTR int forcelock(void);
 
 /* at most one of `door' and `box' should be non-null at any given time */
 STATIC_VAR NEARDATA struct xlock_s {
@@ -15,13 +15,12 @@ STATIC_VAR NEARDATA struct xlock_s {
         chance, usedtime;
 } xlock;
 
-STATIC_DCL const char *NDECL(lock_action);
-STATIC_DCL boolean FDECL(obstructed, (int, int, BOOLEAN_P));
-STATIC_DCL void FDECL(chest_shatter_msg, (struct obj *));
+STATIC_DCL const char *lock_action(void);
+STATIC_DCL boolean obstructed(int, int, boolean);
+STATIC_DCL void chest_shatter_msg(struct obj *);
 
 boolean
-picking_lock(x, y)
-int *x, *y;
+picking_lock(int *x, int *y)
 {
     if (occupation == picklock) {
         *x = u.ux + u.dx;
@@ -34,8 +33,7 @@ int *x, *y;
 }
 
 boolean
-picking_at(x, y)
-int x, y;
+picking_at(int x, int y)
 {
     return (boolean) (occupation == picklock && xlock.door == &levl[x][y]);
 }
@@ -128,9 +126,7 @@ picklock(VOID_ARGS)
 }
 
 void
-breakchestlock(box, destroyit)
-struct obj *box;
-boolean destroyit;
+breakchestlock(struct obj *box, boolean destroyit)
 {
     if (!destroyit) { /* bill for the box but not for its contents */
         struct obj *hide_contents = box->cobj;
@@ -238,8 +234,7 @@ reset_pick()
 
 /* player is applying a key, lock pick, or credit card */
 int
-pick_lock(pick)
-struct obj *pick;
+pick_lock(struct obj *pick)
 {
     int picktyp, c, ch;
     coord cc;
@@ -534,8 +529,7 @@ doforce()
 }
 
 boolean
-stumble_on_door_mimic(x, y)
-int x, y;
+stumble_on_door_mimic(int x, int y)
 {
     struct monst *mtmp;
 
@@ -556,8 +550,7 @@ doopen()
 
 /* try to open a door in direction u.dx/u.dy */
 int
-doopen_indir(x, y)
-int x, y;
+doopen_indir(int x, int y)
 {
     coord cc;
     register struct rm *door;
@@ -661,9 +654,7 @@ int x, y;
 }
 
 STATIC_OVL boolean
-obstructed(x, y, quietly)
-register int x, y;
-boolean quietly;
+obstructed(register int x, register int y, boolean quietly)
 {
     register struct monst *mtmp = m_at(x, y);
 
@@ -794,8 +785,8 @@ doclose()
 /* box obj was hit with spell or wand effect otmp;
    returns true if something happened */
 boolean
-boxlock(obj, otmp)
-struct obj *obj, *otmp; /* obj *is* a box */
+boxlock(struct obj *obj,    /* obj *is* a box */
+        struct obj *otmp)
 {
     boolean res = 0;
 
@@ -840,9 +831,7 @@ struct obj *obj, *otmp; /* obj *is* a box */
 /* Door/secret door was hit with spell or wand effect otmp;
    returns true if something happened */
 boolean
-doorlock(otmp, x, y)
-struct obj *otmp;
-int x, y;
+doorlock(struct obj *otmp, int x, int y)
 {
     register struct rm *door = &levl[x][y];
     boolean res = TRUE;
@@ -993,8 +982,7 @@ int x, y;
 }
 
 STATIC_OVL void
-chest_shatter_msg(otmp)
-struct obj *otmp;
+chest_shatter_msg(struct obj *otmp)
 {
     const char *disposition;
     const char *thing;

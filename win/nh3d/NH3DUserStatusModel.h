@@ -24,7 +24,6 @@
 	NSMutableParagraphStyle  *style;
 	
 	NSMutableDictionary *playerParams;
-
 	
 	NSString *playerName;
 	NSString *playerClass;
@@ -52,8 +51,7 @@
 	int playerPow;
 	int playerAc;
 	int playerLv;
-
-
+	
 	NSImage *playerArmour;
 	NSImage *playerCloak;
 	NSImage *playerHelmet;
@@ -67,14 +65,14 @@
 	NSImage *playerAmulet;
 	NSImage *playerBlindFold;
 	
-	
-	BOOL stHunger;
+	char stHunger;
 	BOOL stConfuse;
 	BOOL stSick;
 	BOOL stIll;
 	BOOL stBlind;
 	BOOL stStun;
 	BOOL stHallu;
+	char stLoad;
 	
 	BOOL strUpdate;
 	BOOL dexUpdate;
@@ -92,7 +90,7 @@
 	BOOL chaosIcon;
 	
 	BOOL firstTime;
-		
+	
 //	NSLock *lock;
 }
 
@@ -108,12 +106,12 @@
 - (void)setPlayerName:(NSString *)aString;
 - (NSAttributedString *)playerClass;
 - (void)setPlayerClass:(NSString *)aString;
-@property (copy) NSString *playerRace;
-@property (copy) NSString *playerRole;
-@property (copy) NSString *playerAlign;
-@property (copy) NSString *playerGender;
+@property (nonatomic, copy) NSString *playerRace;
+@property (nonatomic, copy) NSString *playerRole;
+@property (nonatomic, copy) NSString *playerAlign;
+@property (nonatomic, copy) NSString *playerGender;
 
-@property (copy) NSString *playerStatusLine;
+@property (nonatomic, copy) NSString *playerStatusLine;
 
 
 - (NSString *)playerStr;
@@ -188,6 +186,7 @@
 - (NSImage *)stBlind;
 - (NSImage *)stStun;
 - (NSImage *)stHallu;
+- (NSImage *)stLoad;
 
 
 - (void)setPlayerStr:(int)aValue;
@@ -212,13 +211,14 @@
 - (void)setNewtralIcon:(BOOL)enable;
 - (void)setChaosIcon:(BOOL)enable;
 
-- (void)setStHunger:(BOOL)aBool;
+- (void)setStHunger:(char)curVal;
 - (void)setStConfuse:(BOOL)aBool;
 - (void)setStSick:(BOOL)aBool;
 - (void)setStIll:(BOOL)aBool;
 - (void)setStBlind:(BOOL)aBool;
 - (void)setStStun:(BOOL)aBool;
 - (void)setStHallu:(BOOL)aBool;
+- (void)setStLoad:(char)curVal;
 - (void)checkStDrawer;
 
 //- (void)createPlayer;
@@ -228,8 +228,17 @@
 //- (IBAction)checkRole:(id)sender;
 //- (IBAction)checkGender:(id)sender;
 
-
-
-
+@property (copy) NSString *playerArmorString;
+@property (copy) NSString *playerCloakString;
+@property (copy) NSString *playerHelmetString;
+@property (copy) NSString *playerShieldString;
+@property (copy) NSString *playerGlovesString;
+@property (copy) NSString *playerShoesString;
+@property (copy) NSString *playerRingLString;
+@property (copy) NSString *playerRingRString;
+@property (copy) NSString *playerWeaponString;
+@property (copy) NSString *playerSubWeaponString;
+@property (copy) NSString *playerAmuletString;
+@property (copy) NSString *playerBlindFoldString;
 
 @end

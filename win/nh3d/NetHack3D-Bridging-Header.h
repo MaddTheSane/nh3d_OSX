@@ -2,6 +2,7 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
+#include "C99Bool.h"
 #import "NH3Dcommon.h"
 
 #import "NH3DUserDefaultsExtern.h"
@@ -15,14 +16,17 @@ static inline BOOL Swift_Invis() {
 	return !!Invis;
 }
 
+/// Returns \c true if player is stealthy.
 static inline BOOL Swift_Stealth() {
 	return !!Stealth;
 }
 
+/// Returns \c true if player is blind.
 static inline BOOL Swift_Blind() {
 	return !!Blind;
 }
 
+/// Returns \c true if player is underwater.
 static inline BOOL Swift_Underwater() {
 	return !!Underwater;
 }
@@ -31,6 +35,7 @@ static inline BOOL Swift_Teleportation() {
 	return !!Teleportation;
 }
 
+/// Returns \c true if player has teleportation control
 static inline BOOL Swift_Teleport_control() {
 	return !!Teleport_control;
 }
@@ -55,13 +60,14 @@ static inline BOOL Swift_Amphibious() {
 	return !!Amphibious;
 }
 
+/// Returns \c true if player has infravision.
 static inline BOOL Swift_Infravision() {
 	return !!Infravision;
 }
 
 static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
 {
-	return levl[x][y];
+	return level.locations[x][y];
 }
 
 static inline BOOL Swift_IsSoft(schar type) {
@@ -75,7 +81,7 @@ static inline BOOL Swift_IsRoom(schar type) {
 /* from tile.c */
 extern int total_tiles_used;
 
-static inline short glyphToTile(size_t i)
+static inline short glyphToTile(long i)
 {
 	extern short glyph2tile[];
 	return glyph2tile[i];

@@ -37,10 +37,10 @@ unsigned long sys$assign(), sys$dassgn(), sys$qiow();
 unsigned long smg$create_virtual_keyboard(), smg$delete_virtual_keyboard(),
     smg$read_keystroke(), smg$cancel_input();
 #else
-static short FDECL(parse_function_key, (int));
+static short parse_function_key(int);
 #endif
-static void NDECL(setctty);
-static void NDECL(resettty);
+static void setctty(void);
+static void resettty(void);
 
 #define vms_ok(sts) ((sts) &1)
 #define META(c) ((c) | 0x80) /* 8th bit */
@@ -103,7 +103,7 @@ static unsigned long tt_char_restore = 0, tt_char_active = 0,
 static unsigned long ctrl_mask = 0;
 
 #ifdef DEBUG
-extern int NDECL(nh_vms_getchar);
+extern int nh_vms_getchar(void);
 
 /* rename the real vms_getchar and interpose this one in front of it */
 int
@@ -280,8 +280,7 @@ static const char *arrow_or_PF = "ABCDPQRS", /* suffix char */
 /* Ultimate return value is (index into smg_keypad_codes[] + 256). */
 
 static short
-parse_function_key(c)
-register int c;
+parse_function_key(register int c)
 {
     struct _rd_iosb iosb;
     unsigned long sts;
@@ -444,8 +443,7 @@ gettty()
 
 /* reset terminal to original state */
 void
-settty(s)
-const char *s;
+settty(const char *s)
 {
     if (!bombing)
         end_screen();
@@ -473,8 +471,7 @@ const char *s;
 
 /* same as settty, with no clearing of the screen */
 void
-shuttty(s)
-const char *s;
+shuttty(const char *s)
 {
     bombing = TRUE;
     settty(s);
@@ -523,8 +520,8 @@ introff()
 
 #ifdef TIMED_DELAY
 
-extern unsigned long FDECL(lib$emul, (const long *, const long *,
-                                      const long *, long *));
+extern unsigned long lib$emul(const long *, const long *,
+                              const long *, long *);
 extern unsigned long sys$schdwk(), sys$hiber();
 
 #define VMS_UNITS_PER_SECOND 10000000L /* hundreds of nanoseconds, 1e-7 */
@@ -534,8 +531,7 @@ static const long mseconds_to_delta = VMS_UNITS_PER_SECOND / 1000L * -1L;
 /* sleep for specified number of milliseconds (note: the timer used
    generally only has 10-millisecond resolution at the hardware level...) */
 void
-msleep(mseconds)
-unsigned mseconds; /* milliseconds */
+msleep(unsigned mseconds) /* milliseconds */
 {
     long pid = 0L, zero = 0L, msec, qtime[2];
 
@@ -553,20 +549,19 @@ unsigned mseconds; /* milliseconds */
 
 /* fatal error */
 /*VARARGS1*/
-void error
-VA_DECL(const char *, s)
+void error(const char *s, ...)
 {
-    VA_START(s);
-    VA_INIT(s, const char *);
+    va_list the_args;
+    va_start(the_args, s);
 
     if (settty_needed)
         settty((char *) 0);
-    Vprintf(s, VA_ARGS);
+    Vprintf(s, the_args);
     (void) putchar('\n');
     VA_END();
 #ifndef SAVE_ON_FATAL_ERROR
     /* prevent vmsmain's exit handler byebye() from calling hangup() */
-    sethanguphandler((void FDECL((*), (int) )) SIG_DFL);
+    sethanguphandler((void ((*)(int) )) SIG_DFL);
 #endif
     exit(EXIT_FAILURE);
 }

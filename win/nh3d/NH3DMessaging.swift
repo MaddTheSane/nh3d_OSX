@@ -9,59 +9,37 @@
 import Cocoa
 import AVFoundation
 
-private let DIALOG_OK		= 128
-private let DIALOG_CANCEL	= 129
+let DIALOG_OK		= 128
+let DIALOG_CANCEL	= 129
 
-private func loadSoundConfig() throws -> (sounds: [NH3DMessaging.SoundMesg], effects: [NH3DMessaging.Effect]) {
-	let bundleURL = NSBundle.mainBundle().bundleURL
-	guard let soundConfURL = bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent("soundconfig.txt", isDirectory: false) else {
-		throw NSError(domain: "notneeded", code: 0, userInfo: nil)
-	}
-	
-	let configFile = try String(contentsOfURL: soundConfURL, encoding: NSUTF8StringEncoding)
-	
-	let chSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-	let scanner = NSScanner(string: configFile)
-	var sounds1 = Array<NH3DMessaging.SoundMesg>()
-	var effects1 = Array<NH3DMessaging.Effect>()
-	
-	autoreleasepool() {
-		var destText: NSString?
-		while !scanner.atEnd {
-			scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-			
-			if destText == "SOUND=MESG" {
-				let soundMessage: String
-				let soundName: String
-				let volume: Float
+class NH3DMessaging: NSObject {
+	private final class ScreenEffect {
+		private var regex: COpaquePointer
+		let effect: Int32
+		/// The regex string used to match against.<br>
+		/// Useful for debugging
+		let str: String
+		
+		init?(message text: String, effect: Int32) {
+			regex = regex_init()
+			str = text
+			self.effect = effect
+			guard regex_compile(text, regex) else {
+				raw_print(regex_error_desc(regex))
 				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				soundMessage = (destText ?? "") as String
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				soundName = (destText ?? "") as String
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				volume = Float((destText ?? "100") as String) ?? 100
-				
-				sounds1.append(NH3DMessaging.SoundMesg(message: soundMessage, name: soundName, volume: volume))
-			} else if destText == "EFFECT=MESG" {
-				let soundMessage: String
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				soundMessage = (destText ?? "") as String
-				
-				scanner.scanUpToCharactersFromSet(chSet, intoString: &destText)
-				let effectType = Int32((destText ?? "1") as String) ?? 1
-				
-				effects1.append(NH3DMessaging.Effect(message: soundMessage, type: effectType))
+				return nil
 			}
+		}
+		
+		deinit {
+			regex_free(regex)
+		}
+		
+		func matches(str: String) -> Bool {
+			return regex_match(str, regex)
 		}
 	}
 	
-	return (sounds1, effects1)
-}
-
-class NH3DMessaging: NSObject {
 	var messageWindow: NSTextView! {
 		return messageScrollView.contentView.documentView as? NSTextView
 	}
@@ -82,7 +60,7 @@ class NH3DMessaging: NSObject {
 	@IBOutlet weak var inputTextField: NSTextField!
 	@IBOutlet weak var questionTextField: NSTextField!
 	
-	private var audioPlayer: AVAudioPlayer?
+	private var audioDict = [String: AVAudioPlayer]()
 	
 	private var msgArray = [Int]()
 	
@@ -107,23 +85,9 @@ class NH3DMessaging: NSObject {
 	private var style = NSMutableParagraphStyle()
 	
 	private var ripFlag = false
-	private let userSound: Bool
-	
 	var lastAttackDirection: Int32 = 0
 	
-	private var soundArray = [SoundMesg]()
-	private var effectArray = [Effect]()
-	
-	private struct SoundMesg {
-		var message: String
-		var name: String
-		var volume: Float
-	}
-	
-	private struct Effect {
-		var message: String
-		var type: Int32
-	}
+	private var effectArray = [ScreenEffect]()
 	
 	func prepareAttributes() {
 		style = NSMutableParagraphStyle()
@@ -134,28 +98,20 @@ class NH3DMessaging: NSObject {
 		
 		//Text attributes in View or backgrounded text field.
 		
-		darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DMSGFONT,
-			size:NH3DMSGFONTSIZE)
+		darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
 		darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
 		darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 		darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 		
 		//Text attributes on Panel or Window.
 		
-		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT,
-			size: NH3DWINDOWFONTSIZE)
+		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
 		lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
 		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
 		lightShadowStrAttributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 	}
 
 	override init() {
-		do {
-			(soundArray, effectArray) = try loadSoundConfig()
-			userSound = true
-		} catch _ {
-			userSound = false
-		}
 		super.init()
 		msgArray.reserveCapacity(Int(iflags.msg_history))
 	}
@@ -167,6 +123,48 @@ class NH3DMessaging: NSObject {
 		messageScrollView.drawsBackground = false
 	}
 
+	func addEffectMessage(newMsg: String, effectType: Int32) -> Bool {
+		guard effectType != 1 || effectType != 2 else {
+			return false
+		}
+		guard let newObj = ScreenEffect(message: newMsg, effect: effectType) else {
+			return false
+		}
+		effectArray.append(newObj)
+		return true
+	}
+
+	@objc(playSoundAtURL:volume:) func playSound(URL URL: NSURL, volume: Float) -> Bool {
+		guard !SOUND_MUTE else {
+			return false
+		}
+		
+		func playAud(playSound: AVAudioPlayer) {
+			if playSound.playing {
+				return
+				//playSound.pause()
+				//playSound.currentTime = 0
+			}
+			playSound.volume = volume * 0.01
+			playSound.play()
+		}
+		
+		if let playSound1 = audioDict[URL.path!] {
+			playAud(playSound1)
+			return true
+		}
+		guard URL.checkResourceIsReachableAndReturnError(nil) else {
+			return false
+		}
+		
+		guard let playSound = try? AVAudioPlayer(contentsOfURL: URL) else {
+			return false
+		}
+		audioDict[URL.path!] = playSound
+		playAud(playSound)
+		return true
+	}
+	
 	@objc(putMainMessage:text:) func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>) {
 		prepareAttributes()
 		style.alignment = .Left
@@ -180,30 +178,10 @@ class NH3DMessaging: NSObject {
 			return
 		}
 		
-		if userSound && !SOUND_MUTE {
-			let bundleURL = NSBundle.mainBundle().bundleURL
-			
-			for soundEntry in soundArray {
-				if (textStr as NSString).isLike(soundEntry.message) {
-					guard let soundURL = bundleURL.URLByDeletingLastPathComponent?.URLByAppendingPathComponent("nh3dSounds").URLByAppendingPathComponent(soundEntry.name) else {
-						continue
-					}
-					guard soundURL.checkResourceIsReachableAndReturnError(nil) else {
-						break
-					}
-					guard let playSound = try? AVAudioPlayer(contentsOfURL: soundURL) else {
-						break
-					}
-					playSound.volume = soundEntry.volume * 0.01
-					playSound.play()
-					audioPlayer = playSound
-					break
-				}
-			}
-			
+		if !SOUND_MUTE {
 			for msgEffect in effectArray {
-				if (textStr as NSString).isLike(msgEffect.message) {
-					switch msgEffect.type {
+				if msgEffect.matches(textStr) {
+					switch msgEffect.effect {
 					case 1: // hit enemy attack to player
 						glView.isShocked = true
 						
@@ -225,12 +203,12 @@ class NH3DMessaging: NSObject {
 			darkShadowStrAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
 			
 		case ATR_BOLD:
-			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name:NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
-
+			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
+			
 		case ATR_BLINK, ATR_INVERSE:
 			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlTextColor()
 			darkShadowStrAttributes[NSBackgroundColorAttributeName] = NSColor.alternateSelectedControlColor()
-
+			
 		default:
 			break
 		}
@@ -240,22 +218,20 @@ class NH3DMessaging: NSObject {
 		if msgArray.count < Int(iflags.msg_history) {
 			msgArray.append(putString.length)
 		} else {
-			messageWindow.textStorage?.deleteCharactersInRange(NSRange(location: 0, length: msgArray.removeFirst()))
+			let txtRange = NSRange(location: 0, length: msgArray.removeFirst())
+			messageWindow.textStorage?.deleteCharactersInRange(txtRange)
 			msgArray.append(putString.length)
 		}
 		
-		messageWindow.textStorage?.addAttribute(NSForegroundColorAttributeName,
-			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
-			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
-		
 		messageWindow.textStorage?.appendAttributedString(putString)
 		messageWindow.scrollToEndOfDocument(self)
-			//scrollRangeToVisible(NSRange(location: messageWindow.textStorage!.length, length: 0))
 	}
-
+	
+	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
 	func clearMainMessage() {
-		msgArray.removeAll()
-		messageWindow.string = ""
+		messageWindow.textStorage!.addAttribute(NSForegroundColorAttributeName,
+			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
+			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
 
 	func showInputPanel(messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
@@ -263,10 +239,10 @@ class NH3DMessaging: NSObject {
 			return -1
 		}
 		var result = 0;
-
+		
 		prepareAttributes()
 		style.alignment = .Center
-
+		
 		let putString = NSAttributedString(string: questionStr,
 			attributes: lightShadowStrAttributes)
 		
@@ -327,7 +303,7 @@ class NH3DMessaging: NSObject {
 	}
 	
 	func showOutRip(ripString: UnsafePointer<CChar>) {
-		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died. Nothing eventful happened, though"
+		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died.\n\nNothing eventful happened, though."
 		showOutRip(conv)
 	}
 	
@@ -347,7 +323,7 @@ class NH3DMessaging: NSObject {
 		ripPanel.orderFront(self)
 		// window fade out/in
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
-			ctx.duration = 1.1
+			ctx.duration = 0.6
 			self.window.animator().alphaValue = 0
 			self.ripPanel.animator().alphaValue = 1
 			}, completionHandler: {
@@ -368,12 +344,9 @@ class NH3DMessaging: NSObject {
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		
 		rawPrintWindow.textStorage?.appendAttributedString(putStr)
-		#if DEBUG
-			NSLog("%@", rawText);
-		#endif
 	}
 	
-	func showLogPanel() -> Bool {
+	func showLogPanel() -> NSApplicationTerminateReply {
 		var ripOrMainWindow: NSWindow
 		
 		rawPrintPanel.alphaValue = 0
@@ -388,14 +361,16 @@ class NH3DMessaging: NSObject {
 		}
 		
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
-			ctx.duration = 1.1
+			ctx.duration = 0.55
 			ripOrMainWindow.animator().alphaValue = 0
 			self.rawPrintPanel.animator().alphaValue = 1
 			}, completionHandler: {
 				NSApp.runModalForWindow(self.rawPrintPanel)
 				self.rawPrintPanel.orderOut(self)
+				clearlocks()
+				NSApp.replyToApplicationShouldTerminate(true)
 		})
 		
-		return true
+		return .TerminateLater
 	}
 }

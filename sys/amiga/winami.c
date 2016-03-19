@@ -10,7 +10,7 @@
 
 #ifdef AMIGA_INTUITION
 
-static int FDECL(put_ext_cmd, (char *, int, struct amii_WinDesc *, int));
+static int put_ext_cmd(char *, int, struct amii_WinDesc *, int);
 
 struct amii_DisplayDesc *amiIDisplay; /* the Amiga Intuition descriptor */
 struct Rectangle lastinvent, lastmsg;
@@ -589,8 +589,7 @@ amii_player_selection()
 #include "NH:sys/amiga/randwin.c"
 
 void
-RandomWindow( name )
-    char *name;
+RandomWindow( char *name )
 {
     struct MsgPort *tport;
     struct timerequest *trq;
@@ -935,9 +934,7 @@ amii_get_ext_cmd(void)
 #endif
     }
 
-    static int put_ext_cmd(obufp, colx, cw, bottom) char * obufp;
-    int colx, bottom;
-    struct amii_WinDesc *cw;
+    static int put_ext_cmd(char * obufp, int colx, struct amii_WinDesc *cw, int bottom)
     {
         struct Window *w = cw->win;
         char *t;
@@ -982,8 +979,7 @@ amii_get_ext_cmd(void)
 
     /* Ask a question and get a response */
 
-    char amii_yn_function(query, resp, def) const char * query, *resp;
-    char def;
+    char amii_yn_function(const char *query, const char *resp, char def)
     /*
      *   Generic yes/no function. 'def' is the default (returned by space or
      *   return; 'esc' returns 'q', or 'n', or the default, depending on
@@ -1127,8 +1123,7 @@ amii_get_ext_cmd(void)
         return q;
     }
 
-    void amii_display_file(fn, complain) const char * fn;
-    boolean complain;
+    void amii_display_file(const char * fn, boolean complain)
     {
         register struct amii_WinDesc *cw;
         register int win;
@@ -1183,7 +1178,7 @@ amii_get_ext_cmd(void)
      * are rendered in the up position by default.
      */
 
-    void SetBorder(gd) register struct Gadget * gd;
+    void SetBorder(register struct Gadget * gd)
     {
         register struct Border *bp;
         register short *sp;

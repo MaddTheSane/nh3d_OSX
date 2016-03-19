@@ -33,17 +33,17 @@ extern int total_tiles_used;
 		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:imageName]];
 		}
-		NSData  *tiffData;
+		NSData *tiffData;
 		
-		if ( tileSource == nil ) {
+		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:imageName];
-			if ( tileSource == nil ) {
+			if (tileSource == nil) {
 				NSAlert *alert = [[NSAlert alloc] init];
 				alert.messageText = @"Tile Load Error";
 				alert.informativeText = [[NSString alloc] initWithFormat:@"Can't find tile file: %@!", imageName];
 				alert.alertStyle = NSCriticalAlertStyle;
 				[alert runModal];
-				NSLog(@"Can't find Tilefile: %@!!",imageName);
+				NSLog(@"Can't find tile file: %@!!", imageName);
 				return nil; 
 			}
 		}
@@ -58,7 +58,7 @@ extern int total_tiles_used;
 			alert.informativeText = [[NSString alloc] initWithFormat:@"\"%@\" Does not support this tile pattern.", imageName];
 			[alert runModal];
 			
-			NSLog(@"%@: Does not support this TILE Pattern.", imageName);
+			NSLog(@"%@ does not support this tile pattern.", imageName);
 			return nil;
 		} else {
 			tileSize_X = bitMap.pixelsWide / TILES_PER_LINE;
@@ -76,7 +76,7 @@ extern int total_tiles_used;
 	if (tileImg) {
 		return tileImg;
 	}
-	tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X,tileSize_Y)];
+	tileImg = [[NSImage alloc] initWithSize:NSMakeSize(tileSize_X, tileSize_Y)];
 #if GET_RAW_PIXELS
 	NSUInteger p[10];
 	NSBitmapImageRep *bmpRep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
@@ -97,12 +97,12 @@ extern int total_tiles_used;
 	int t_x,t_y;
 	
 	if (tile >= total_tiles_used || tile < 0) {
-		NSLog(@"ERROR:Asked for a TILE %d outside the allowed range.",tile);
+		NSLog(@"ERROR: Asked for a tile %d outside the allowed range.", tile);
 		return nil;
 	}
 	
-	t_x = ( tile % TILES_PER_LINE ) * tileSize_X;
-	t_y = ( tile / TILES_PER_LINE ) * tileSize_Y;
+	t_x = (tile % TILES_PER_LINE) * tileSize_X;
+	t_y = (tile / TILES_PER_LINE) * tileSize_Y;
 
 #if GET_RAW_PIXELS
 	for (x = 0; x <= tileSize_X; x++) {

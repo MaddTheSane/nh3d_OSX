@@ -28,11 +28,11 @@
 #endif
 
 #if defined(MICRO) || defined(WIN32) || defined(OS2)
-void FDECL(nethack_exit, (int));
+void nethack_exit(int);
 #else
 #define nethack_exit exit
 #endif
-STATIC_DCL void NDECL(msexit);
+STATIC_DCL void msexit(void);
 
 #ifdef MOVERLAY
 extern void __far __cdecl _movepause(void);
@@ -44,9 +44,9 @@ extern unsigned short __far __cdecl _movefpaused;
 #endif                       /* MOVERLAY */
 
 #ifdef MFLOPPY
-STATIC_DCL boolean NDECL(record_exists);
+STATIC_DCL boolean record_exists(void);
 #ifndef TOS
-STATIC_DCL boolean NDECL(comspec_exists);
+STATIC_DCL boolean comspec_exists(void);
 #endif
 #endif
 
@@ -139,8 +139,7 @@ dosh()
 #ifdef MFLOPPY
 
 void
-eraseall(path, files)
-const char *path, *files;
+eraseall(const char *path, const char *files)
 {
     char buf[PATHLEN];
     char *foundfile;
@@ -159,8 +158,7 @@ const char *path, *files;
  * Rewritten for version 3.3 to be faster
  */
 void
-copybones(mode)
-int mode;
+copybones(int mode)
 {
     char from[PATHLEN], to[PATHLEN], last[13];
     char *frompath, *topath;
@@ -271,8 +269,7 @@ playwoRAMdisk()
 }
 
 int
-saveDiskPrompt(start)
-int start;
+saveDiskPrompt(int start)
 {
     char buf[BUFSIZ], *bp;
     char qbuf[QBUFSZ];
@@ -375,8 +372,7 @@ gameDiskPrompt()
  * be room for the \
  */
 void
-append_slash(name)
-char *name;
+append_slash(char *name)
 {
     char *ptr;
 
@@ -396,8 +392,7 @@ int redirect_stdout;
 #endif
 
 void
-getreturn(str)
-const char *str;
+getreturn(const char *str)
 {
 #ifdef WIN32
     if (!getreturn_enabled)
@@ -414,18 +409,17 @@ const char *str;
 }
 
 #ifndef WIN32
-void msmsg
-VA_DECL(const char *, fmt)
+void msmsg(const char *fmt, ...)
 {
-    VA_START(fmt);
-    VA_INIT(fmt, const char *);
+    va_list the_args;
+    va_start(the_args, fmt);
 #if defined(MSDOS) && defined(NO_TERMS)
     if (iflags.grmode)
         gr_finish();
 #endif
-    Vprintf(fmt, VA_ARGS);
+    Vprintf(fmt, the_args);
     flushout();
-    VA_END();
+    va_end(the_args);
     return;
 }
 #endif
@@ -444,8 +438,7 @@ VA_DECL(const char *, fmt)
 #endif
 
 FILE *
-fopenp(name, mode)
-const char *name, *mode;
+fopenp(const char *name, const char *mode)
 {
     char buf[BUFSIZ], *bp, *pp, lastch = 0;
     FILE *fp;
@@ -493,8 +486,7 @@ const char *name, *mode;
 
 #if defined(MICRO) || defined(WIN32) || defined(OS2)
 void
-nethack_exit(code)
-int code;
+nethack_exit(int code)
 {
     msexit();
     exit(code);

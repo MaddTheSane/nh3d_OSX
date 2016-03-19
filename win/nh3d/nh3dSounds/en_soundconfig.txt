@@ -1,6 +1,6 @@
-#SOUND=MESG<TABorSPACE>Messerage（*is WildCard）<TABorSPACE>SoundfileName<TABorSPACE>Volume
-SOUND=MESG *feel*weak*now．				shock.wav	100
-SOUND=MESG *feel*weak．					shock.wav	100
+#SOUND=MESG<TABorSPACE>Message(* is WildCard)<TABorSPACE>SoundfileName<TABorSPACE>Volume
+SOUND=MESG *feel*weak*now.				shock.wav	100
+SOUND=MESG *feel*weak.					shock.wav	100
 SOUND=MESG *are*beginning*to*feel*weak.		shock.wav	100
 SOUND=MESG *needs*food,*badly!				shock.wav	100
 SOUND=MESG *bear*trap*!				beartrap.wav	100
@@ -62,7 +62,7 @@ SOUND=MESG *the*rumble*of*distant*thunder...*							se-010.mp3	60
 SOUND=MESG *water*							waterdrop1.wav 30
 SOUND=MESG *was*booby-trapped!*	landmine.wav 100
 SOUND=MESG *explosion*in*the*distance!*				landmine.wav	50
-SOUND=MESG *triggers*land mine!		landmine.wav	100
+SOUND=MESG *triggers*land*mine!		landmine.wav	100
 SOUND=MESG *explosion*							landmine.wav	100
 SOUND=MESG *bubbling*			cm-32.mp3	60
 SOUND=MESG Welcome*to*experience*level*				jingle2.wav	100
@@ -87,10 +87,10 @@ SOUND=MESG	*are*splashed*by*acid!*			damage.wav		40
 SOUND=MESG	*hits!			damage.wav		40
 SOUND=MESG	*hit*by*magic*missiles*			damage.wav		40
 SOUND=MESG	*You*hits!			damage.wav		40
+SOUND=MESG	*find*a*hidden*			tada.wav		100
 
 
-
-#Effect Messarge Section
+#Effect Message Section
 #Type1 = Camera Vibration
 #Type2 = Splash(Only in three front directions)
 
@@ -111,6 +111,3 @@ EFFECT=MESG	*tentacles*suck*you!		1
 EFFECT=MESG	*are*splashed*by*acid!*		1
 EFFECT=MESG	*hits!*		1
 EFFECT=MESG	*hit*by*magic*missiles*		1
-
-
-

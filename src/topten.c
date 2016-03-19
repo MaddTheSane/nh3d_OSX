@@ -56,38 +56,34 @@ struct toptenentry {
    room for separating space or trailing newline plus string terminator */
 #define SCANBUFSZ (4 * (ROLESZ + 1) + (NAMSZ + 1) + (DTHSZ + 1) + 1)
 
-STATIC_DCL void FDECL(topten_print, (const char *));
-STATIC_DCL void FDECL(topten_print_bold, (const char *));
-STATIC_DCL xchar FDECL(observable_depth, (d_level *));
-STATIC_DCL void NDECL(outheader);
-STATIC_DCL void FDECL(outentry, (int, struct toptenentry *, BOOLEAN_P));
-STATIC_DCL void FDECL(discardexcess, (FILE *));
-STATIC_DCL void FDECL(readentry, (FILE *, struct toptenentry *));
-STATIC_DCL void FDECL(writeentry, (FILE *, struct toptenentry *));
+STATIC_DCL void topten_print(const char *);
+STATIC_DCL void topten_print_bold(const char *);
+STATIC_DCL xchar observable_depth(d_level *);
+STATIC_DCL void outheader(void);
+STATIC_DCL void outentry(int, struct toptenentry *, xchar);
+STATIC_DCL void discardexcess(FILE *);
+STATIC_DCL void readentry(FILE *, struct toptenentry *);
+STATIC_DCL void writeentry(FILE *, struct toptenentry *);
 #ifdef XLOGFILE
-STATIC_DCL void FDECL(writexlentry, (FILE *, struct toptenentry *, int));
-STATIC_DCL long NDECL(encodexlogflags);
-STATIC_DCL long NDECL(encodeconduct);
-STATIC_DCL long NDECL(encodeachieve);
+STATIC_DCL void writexlentry(FILE *, struct toptenentry *, int);
+STATIC_DCL long encodexlogflags(void);
+STATIC_DCL long encodeconduct(void);
+STATIC_DCL long encodeachieve(void);
 #endif
-STATIC_DCL void FDECL(free_ttlist, (struct toptenentry *));
-STATIC_DCL int FDECL(classmon, (char *, BOOLEAN_P));
-STATIC_DCL int FDECL(score_wanted, (BOOLEAN_P, int, struct toptenentry *, int,
-                                    const char **, int));
+STATIC_DCL void free_ttlist(struct toptenentry *);
+STATIC_DCL int classmon(char *, boolean);
+STATIC_DCL int score_wanted(boolean, int, struct toptenentry *, int,
+                                    const char **, int);
 #ifdef NO_SCAN_BRACK
-STATIC_DCL void FDECL(nsb_mung_line, (char *));
-STATIC_DCL void FDECL(nsb_unmung_line, (char *));
+STATIC_DCL void nsb_mung_line(char *);
+STATIC_DCL void nsb_unmung_line(char *);
 #endif
 
 static winid toptenwin = WIN_ERR;
 
 /* "killed by",&c ["an"] 'killer.name' */
 void
-formatkiller(buf, siz, how, incl_helpless)
-char *buf;
-unsigned siz;
-int how;
-boolean incl_helpless;
+formatkiller(char *buf, unsigned siz, int how, boolean incl_helpless)
 {
     static NEARDATA const char *const killed_by_prefix[] = {
         /* DIED, CHOKING, POISONING, STARVING, */
@@ -153,8 +149,7 @@ boolean incl_helpless;
 }
 
 STATIC_OVL void
-topten_print(x)
-const char *x;
+topten_print(const char *x)
 {
     if (toptenwin == WIN_ERR)
         raw_print(x);
@@ -163,8 +158,7 @@ const char *x;
 }
 
 STATIC_OVL void
-topten_print_bold(x)
-const char *x;
+topten_print_bold(const char *x)
 {
     if (toptenwin == WIN_ERR)
         raw_print_bold(x);
@@ -173,8 +167,7 @@ const char *x;
 }
 
 STATIC_OVL xchar
-observable_depth(lev)
-d_level *lev;
+observable_depth(d_level *lev)
 {
 #if 0
     /* if we ever randomize the order of the elemental planes, we
@@ -199,8 +192,7 @@ d_level *lev;
 
 /* throw away characters until current record has been entirely consumed */
 STATIC_OVL void
-discardexcess(rfile)
-FILE *rfile;
+discardexcess(FILE *rfile)
 {
     int c;
 
@@ -210,9 +202,7 @@ FILE *rfile;
 }
 
 STATIC_OVL void
-readentry(rfile, tt)
-FILE *rfile;
-struct toptenentry *tt;
+readentry(FILE *rfile, struct toptenentry *tt)
 {
     char inbuf[SCANBUFSZ], s1[SCANBUFSZ], s2[SCANBUFSZ], s3[SCANBUFSZ],
         s4[SCANBUFSZ], s5[SCANBUFSZ], s6[SCANBUFSZ];
@@ -293,9 +283,7 @@ struct toptenentry *tt;
 }
 
 STATIC_OVL void
-writeentry(rfile, tt)
-FILE *rfile;
-struct toptenentry *tt;
+writeentry(FILE *rfile, struct toptenentry *tt)
 {
     static const char fmt32[] = "%c%c ";        /* role,gender */
     static const char fmt33[] = "%s %s %s %s "; /* role,race,gndr,algn */
@@ -332,10 +320,7 @@ struct toptenentry *tt;
 
 /* as tab is never used in eg. plname or death, no need to mangle those. */
 STATIC_OVL void
-writexlentry(rfile, tt, how)
-FILE *rfile;
-struct toptenentry *tt;
-int how;
+writexlentry(FILE *rfile, struct toptenentry *tt, int how)
 {
 #define Fprintf (void) fprintf
 #define XLOG_SEP '\t' /* xlogfile field separator. */
@@ -463,8 +448,7 @@ encodeachieve()
 #endif /* XLOGFILE */
 
 STATIC_OVL void
-free_ttlist(tt)
-struct toptenentry *tt;
+free_ttlist(struct toptenentry *tt)
 {
     struct toptenentry *ttnext;
 
@@ -477,9 +461,7 @@ struct toptenentry *tt;
 }
 
 void
-topten(how, when)
-int how;
-time_t when;
+topten(int how, time_t when)
 {
     int uid = getuid();
     int rank, rank0 = -1, rank1 = 0;
@@ -790,10 +772,7 @@ outheader()
 
 /* so>0: standout line; so=0: ordinary line */
 STATIC_OVL void
-outentry(rank, t1, so)
-struct toptenentry *t1;
-int rank;
-boolean so;
+outentry(int rank, struct toptenentry *t1, xchar so)
 {
     boolean second_line = TRUE;
     char linebuf[BUFSZ];
@@ -953,13 +932,7 @@ boolean so;
 }
 
 STATIC_OVL int
-score_wanted(current_ver, rank, t1, playerct, players, uid)
-boolean current_ver;
-int rank;
-struct toptenentry *t1;
-int playerct;
-const char **players;
-int uid;
+score_wanted(boolean current_ver, int rank, struct toptenentry *t1, int playerct, const char **players, int uid)
 {
     int i;
 
@@ -997,9 +970,7 @@ int uid;
  * and argv[1] starting with "-s".
  */
 void
-prscore(argc, argv)
-int argc;
-char **argv;
+prscore(int argc, char **argv)
 {
     const char **players;
     int playerct, rank;
@@ -1145,9 +1116,7 @@ char **argv;
 }
 
 STATIC_OVL int
-classmon(plch, fem)
-char *plch;
-boolean fem;
+classmon(char *plch, boolean fem)
 {
     int i;
 
@@ -1214,8 +1183,7 @@ pickentry:
  * to an object (for statues or morgue corpses).
  */
 struct obj *
-tt_oname(otmp)
-struct obj *otmp;
+tt_oname(struct obj *otmp)
 {
     struct toptenentry *tt;
     if (!otmp)
@@ -1237,16 +1205,14 @@ struct obj *otmp;
 /* follows deals with that; I admit it's ugly. (KL) */
 /* Now generally available (KL) */
 STATIC_OVL void
-nsb_mung_line(p)
-char *p;
+nsb_mung_line(char *p)
 {
     while ((p = index(p, ' ')) != 0)
         *p = '|';
 }
 
 STATIC_OVL void
-nsb_unmung_line(p)
-char *p;
+nsb_unmung_line(char *p)
 {
     while ((p = index(p, '|')) != 0)
         *p = ' ';

@@ -5,16 +5,16 @@
 #include "hack.h"
 #include "lev.h" /* save & restore info */
 
-STATIC_DCL void FDECL(setgemprobs, (d_level *));
-STATIC_DCL void FDECL(shuffle, (int, int, BOOLEAN_P));
-STATIC_DCL void NDECL(shuffle_all);
-STATIC_DCL boolean FDECL(interesting_to_discover, (int));
-STATIC_DCL char *FDECL(oclass_to_name, (CHAR_P, char *));
+STATIC_DCL void setgemprobs(d_level *);
+STATIC_DCL void shuffle(int, int, boolean);
+STATIC_DCL void shuffle_all(void);
+STATIC_DCL boolean interesting_to_discover(int);
+STATIC_DCL char *oclass_to_name(char, char *);
 
 static NEARDATA short disco[NUM_OBJECTS] = DUMMY;
 
 #ifdef USE_TILES
-STATIC_DCL void NDECL(shuffle_tiles);
+STATIC_DCL void shuffle_tiles(void);
 extern short glyph2tile[]; /* from tile.c */
 
 /* Shuffle tile assignments to match descriptions, so a red potion isn't
@@ -41,8 +41,7 @@ shuffle_tiles()
 #endif /* USE_TILES */
 
 STATIC_OVL void
-setgemprobs(dlev)
-d_level *dlev;
+setgemprobs(d_level *dlev)
 {
     int j, first, lev;
 
@@ -68,9 +67,7 @@ d_level *dlev;
 
 /* shuffle descriptions on objects o_low to o_high */
 STATIC_OVL void
-shuffle(o_low, o_high, domaterial)
-int o_low, o_high;
-boolean domaterial;
+shuffle(int o_low, int o_high, boolean domaterial)
 {
     int i, j, num_to_shuffle;
     short sw;
@@ -183,9 +180,8 @@ init_objects()
 
 /* retrieve the range of objects that otyp shares descriptions with */
 void
-obj_shuffle_range(otyp, lo_p, hi_p)
-int otyp;         /* input: representative item */
-int *lo_p, *hi_p; /* output: range that item belongs among */
+obj_shuffle_range(int otyp,             /* input: representative item */
+                  int *lo_p, int *hi_p) /* output: range that item belongs among */
 {
     int i, ocls = objects[otyp].oc_class;
 
@@ -287,8 +283,7 @@ oinit()
 }
 
 void
-savenames(fd, mode)
-int fd, mode;
+savenames(int fd, int mode)
 {
     register int i;
     unsigned int len;
@@ -317,8 +312,7 @@ int fd, mode;
 }
 
 void
-restnames(fd)
-register int fd;
+restnames(register int fd)
 {
     register int i;
     unsigned int len;
@@ -338,10 +332,7 @@ register int fd;
 }
 
 void
-discover_object(oindx, mark_as_known, credit_hero)
-register int oindx;
-boolean mark_as_known;
-boolean credit_hero;
+discover_object(register int oindx, boolean mark_as_known, boolean credit_hero)
 {
     if (!objects[oindx].oc_name_known) {
         register int dindx, acls = objects[oindx].oc_class;
@@ -367,8 +358,7 @@ boolean credit_hero;
 
 /* if a class name has been cleared, we may need to purge it from disco[] */
 void
-undiscover_object(oindx)
-register int oindx;
+undiscover_object(register int oindx)
 {
     if (!objects[oindx].oc_name_known) {
         register int dindx, acls = objects[oindx].oc_class;
@@ -393,8 +383,7 @@ register int oindx;
 }
 
 STATIC_OVL boolean
-interesting_to_discover(i)
-register int i;
+interesting_to_discover(register int i)
 {
     /* Pre-discovered objects are now printed with a '*' */
     return (boolean) (objects[i].oc_uname != (char *) 0
@@ -469,9 +458,7 @@ dodiscovered() /* free after Robert Viduya */
 
 /* lower case let_to_name() output, which differs from def_oc_syms[].name */
 STATIC_OVL char *
-oclass_to_name(oclass, buf)
-char oclass;
-char *buf;
+oclass_to_name(char oclass, char *buf)
 {
     char *s;
 

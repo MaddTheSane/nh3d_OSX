@@ -13,7 +13,7 @@
 #include "wintty.h"
 #include "pcvideo.h"
 
-boolean FDECL(pckeys, (unsigned char, unsigned char));
+boolean pckeys(unsigned char, unsigned char);
 
 extern struct WinDesc *wins[MAXWIN]; /* from wintty.c */
 extern boolean inmap;                /* from video.c */
@@ -28,9 +28,7 @@ extern boolean inmap;                /* from video.c */
  *
  */
 boolean
-pckeys(scancode, shift)
-unsigned char scancode;
-unsigned char shift;
+pckeys(unsigned char scancode, unsigned char shift)
 {
     boolean opening_dialog;
 

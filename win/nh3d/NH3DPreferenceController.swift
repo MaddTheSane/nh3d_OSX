@@ -78,19 +78,19 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		
 		switch (fontButtonTag) {
 		case 1:
-			key = NH3DMsgFontKey;
+			key = NH3DMsgFontKey
 			
 		case 2:
-			key = NH3DWindowFontKey;
+			key = NH3DWindowFontKey
 			
 		case 3:
-			key = NH3DMapFontKey;
+			key = NH3DMapFontKey
 			
 		case 4:
-			key = NH3DBoldFontKey;
+			key = NH3DBoldFontKey
 			
 		case 5:
-			key = NH3DInventryFontKey;
+			key = NH3DInventryFontKey
 			
 		default:
 			return
@@ -149,9 +149,10 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		openPanel.allowsMultipleSelection = false
 		openPanel.allowedFileTypes = NSImage.imageTypes()
 		//openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
-		let result = openPanel.runModal()
-		if result == NSFileHandlingPanelOKButton {
-			NSUserDefaults.standardUserDefaults().setObject(openPanel.URL?.path, forKey: NH3DTileNameKey)
+		openPanel.beginSheetModalForWindow(window!) { (result) -> Void in
+			if result == NSFileHandlingPanelOKButton {
+				NSUserDefaults.standardUserDefaults().setObject(openPanel.URL?.path, forKey: NH3DTileNameKey)
+			}
 		}
 	}
 

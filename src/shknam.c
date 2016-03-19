@@ -6,13 +6,13 @@
 
 #include "hack.h"
 
-STATIC_DCL boolean FDECL(veggy_item, (struct obj * obj, int));
-STATIC_DCL int NDECL(shkveg);
-STATIC_DCL void FDECL(mkveggy_at, (int, int));
-STATIC_DCL void FDECL(mkshobj_at, (const struct shclass *, int, int,
-                                   BOOLEAN_P));
-STATIC_DCL void FDECL(nameshk, (struct monst *, const char *const *));
-STATIC_DCL int FDECL(shkinit, (const struct shclass *, struct mkroom *));
+STATIC_DCL boolean veggy_item(struct obj * obj, int);
+STATIC_DCL int shkveg(void);
+STATIC_DCL void mkveggy_at(int, int);
+STATIC_DCL void mkshobj_at(const struct shclass *, int, int,
+                                   boolean);
+STATIC_DCL void nameshk(struct monst *, const char *const *);
+STATIC_DCL int shkinit(const struct shclass *, struct mkroom *);
 
 #define VEGETARIAN_CLASS (MAXOCLASSES + 1)
 
@@ -142,6 +142,9 @@ static const char *const shktools[] = {
 #endif
 #ifdef VMS
     "Lez-tneg", "Ytnu-haled",
+#endif
+#ifdef NH3D_GRAPHICS
+    "=Haruumi Yoshino", "+Madd the Sane", "Betts",
 #endif
     0
 };
@@ -368,9 +371,7 @@ init_shop_selection()
 /* decide whether an object or object type is considered vegetarian;
    for types, items which might go either way are assumed to be veggy */
 STATIC_OVL boolean
-veggy_item(obj, otyp)
-struct obj *obj;
-int otyp; /* used iff obj is null */
+veggy_item(struct obj *obj, int otyp) /* used iff obj is null */
 {
     int corpsenm;
     char oclass;
@@ -434,8 +435,7 @@ shkveg()
 
 /* make a random item for health food store */
 STATIC_OVL void
-mkveggy_at(sx, sy)
-int sx, sy;
+mkveggy_at(int sx, int sy)
 {
     struct obj *obj = mksobj_at(shkveg(), sx, sy, TRUE, TRUE);
 
@@ -446,10 +446,7 @@ int sx, sy;
 
 /* make an object of the appropriate type for a shop square */
 STATIC_OVL void
-mkshobj_at(shp, sx, sy, mkspecl)
-const struct shclass *shp;
-int sx, sy;
-boolean mkspecl;
+mkshobj_at(const struct shclass *shp, int sx, int sy, boolean mkspecl)
 {
     struct monst *mtmp;
     struct permonst *ptr;
@@ -486,9 +483,7 @@ boolean mkspecl;
 
 /* extract a shopkeeper name for the given shop type */
 STATIC_OVL void
-nameshk(shk, nlp)
-struct monst *shk;
-const char *const *nlp;
+nameshk(struct monst *shk, const char *const *nlp)
 {
     int i, trycnt, names_avail;
     const char *shname = 0;
@@ -560,8 +555,7 @@ const char *const *nlp;
 }
 
 void
-neweshk(mtmp)
-struct monst *mtmp;
+neweshk(struct monst *mtmp)
 {
     if (!mtmp->mextra)
         mtmp->mextra = newmextra();
@@ -572,8 +566,7 @@ struct monst *mtmp;
 }
 
 void
-free_eshk(mtmp)
-struct monst *mtmp;
+free_eshk(struct monst *mtmp)
 {
     if (mtmp->mextra && ESHK(mtmp)) {
         free((genericptr_t) ESHK(mtmp));
@@ -584,9 +577,7 @@ struct monst *mtmp;
 
 /* create a new shopkeeper in the given room */
 STATIC_OVL int
-shkinit(shp, sroom)
-const struct shclass *shp;
-struct mkroom *sroom;
+shkinit(const struct shclass *shp, struct mkroom *sroom)
 {
     register int sh, sx, sy;
     struct monst *shk;
@@ -678,9 +669,7 @@ struct mkroom *sroom;
 
 /* stock a newly-created room with objects */
 void
-stock_room(shp_indx, sroom)
-int shp_indx;
-register struct mkroom *sroom;
+stock_room(int shp_indx, register struct mkroom *sroom)
 {
     /*
      * Someday soon we'll dispatch on the shdist field of shclass to do
@@ -777,9 +766,7 @@ register struct mkroom *sroom;
 
 /* does shkp's shop stock this item type? */
 boolean
-saleable(shkp, obj)
-struct monst *shkp;
-struct obj *obj;
+saleable(struct monst *shkp, struct obj *obj)
 {
     int i, shp_indx = ESHK(shkp)->shoptype - SHOPBASE;
     const struct shclass *shp = &shtypes[shp_indx];
@@ -802,8 +789,7 @@ struct obj *obj;
 
 /* positive value: class; negative value: specific object type */
 int
-get_shop_item(type)
-int type;
+get_shop_item(int type)
 {
     const struct shclass *shp = shtypes + type;
     register int i, j;
@@ -817,8 +803,7 @@ int type;
 
 /* version of shkname() for beginning of sentence */
 char *
-Shknam(mtmp)
-struct monst *mtmp;
+Shknam(struct monst *mtmp)
 {
     char *nam = shkname(mtmp);
 
@@ -831,8 +816,7 @@ struct monst *mtmp;
    will yield some other shopkeeper's name (not necessarily one residing
    in the current game's dungeon, or who keeps same type of shop) */
 char *
-shkname(mtmp)
-struct monst *mtmp;
+shkname(struct monst *mtmp)
 {
     char *nam;
     unsigned save_isshk = mtmp->isshk;
@@ -876,8 +860,7 @@ struct monst *mtmp;
 }
 
 boolean
-shkname_is_pname(mtmp)
-struct monst *mtmp;
+shkname_is_pname(struct monst *mtmp)
 {
     const char *shknm = ESHK(mtmp)->shknam;
 
@@ -885,9 +868,7 @@ struct monst *mtmp;
 }
 
 boolean
-is_izchak(shkp, override_hallucination)
-struct monst *shkp;
-boolean override_hallucination;
+is_izchak(struct monst *shkp, boolean override_hallucination)
 {
     const char *shknm;
 

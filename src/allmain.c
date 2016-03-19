@@ -11,12 +11,11 @@
 #endif
 
 #ifdef POSITIONBAR
-STATIC_DCL void NDECL(do_positionbar);
+STATIC_DCL void do_positionbar(void);
 #endif
 
 void
-moveloop(resuming)
-boolean resuming;
+moveloop(boolean resuming)
 {
 #if defined(MICRO) || defined(WIN32)
     char ch;
@@ -601,9 +600,9 @@ newgame()
 }
 
 /* show "welcome [back] to nethack" message at program startup */
+/* false => restoring an old game */
 void
-welcome(new_game)
-boolean new_game; /* false => restoring an old game */
+welcome(boolean new_game)
 {
     char buf[BUFSZ];
     boolean currentgend = Upolyd ? u.mfemale : flags.female;

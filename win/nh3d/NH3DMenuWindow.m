@@ -20,10 +20,15 @@
 @synthesize selectedRow;
 @synthesize nh3dMenu;
 
+- (BOOL)multipleSelection
+{
+	return pickType == PICK_ANY;
+}
+
 - (instancetype)init
 {
 	if (self = [super init]) {
-		nh3dMenu = nil;
+		nh3dMenu = [[NSMutableArray alloc] init];
 		isMenu = NO;
 		doneRip = NO;
 		
@@ -43,29 +48,26 @@
 		lightShadow.shadowBlurRadius = 1.8;
 		
 		pickType = 0;
-		
 	}
 	return self;
 }
 
-
 - (void)awakeFromNib {
-			
+	[super awakeFromNib];
 	_textPanel.backgroundColor = [NSColor clearColor];
-    [_textPanel setOpaque:NO];
+	_textPanel.opaque = NO;
 	_menuPanel.backgroundColor = [NSColor clearColor];
-    [_menuPanel setOpaque:NO];
-	[_textWindow setDrawsBackground:NO];
-	_menuTableWindow.backgroundColor = [NSColor colorWithPatternImage:[NSImage imageNamed:@"ScrollParchmentBack"]];
-	//[_menuTableWindow setBackgroundColor:[NSColor clearColor]];
-	[_textScrollView setDrawsBackground:NO];
-	[_menuScrollview setDrawsBackground:NO];
+	_menuPanel.opaque = NO;
+	_textWindow.drawsBackground = NO;
+	_menuTableWindow.backgroundColor = [NSColor clearColor];
+	_textScrollView.drawsBackground = NO;
+	_menuScrollview.drawsBackground = NO;
 	
 	//[_textWindow setAutoresizingMask:NSViewWidthSizable];
 	//[_menuTableWindow setAutoresizingMask:NSViewWidthSizable];
 	
 	// set DubleClicked action
-	_menuTableWindow.target = self ;
+	_menuTableWindow.target = self;
 	_menuTableWindow.doubleAction = @selector(closeModalDialog:);
 	
 	// set DataCell
@@ -75,11 +77,11 @@
 	cell.bezelStyle = NSRecessedBezelStyle;
 	cell.buttonType = NSMomentaryLightButton;
 	cell.bordered = YES;
-	cell.gradientType = NSGradientNone ;
-	cell.highlightsBy = NSNoCellMask ;
+	cell.gradientType = NSGradientNone;
+	cell.highlightsBy = NSNoCellMask;
 	cell.wraps = YES;
-	cell.lineBreakMode = NSLineBreakByCharWrapping ;
-	cell.controlView = _menuTableWindow ;
+	cell.lineBreakMode = NSLineBreakByCharWrapping;
+	cell.controlView = _menuTableWindow;
 	
 	tableColumn.dataCell = cell;
 }
@@ -123,7 +125,7 @@
 	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:[contents stringByAppendingString:@"\n"] attributes:darkShadowStrAttributes];
 
 	[textOrRip.textStorage appendAttributedString:attrStr];
-	//[ textOrRip sizeToFit ];
+	//[textOrRip sizeToFit];
 }
 
 - (void)clearTextMessage
@@ -144,11 +146,11 @@
 		[_window endSheet:attached];
 		[attached orderOut:nil];
 	}
-	//[ [_window attachedSheet] orderOut:nil ];
+	//[[_window attachedSheet] orderOut:nil];
 	//[NSApp stopModalWithCode:-100];
 	
 	//Does not work!
-	//[ self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView ];
+	//[self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView];
 	
 	frameRect = [_textPanel frameRectForContentRect:((NSView*)_textPanel.contentView).frame];
 	[_textPanel setFrame:frameRect display:NO];
@@ -158,7 +160,7 @@
 	}
 	
 	[_window beginSheet:_textPanel completionHandler:^(NSModalResponse res){
-		
+		[_textPanel orderOut:self];
 	}];
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
@@ -170,13 +172,8 @@
 
 - (void)createMenuWindow:(int)wid
 {
-	if (nh3dMenu != nil) {
-		[nh3dMenu removeAllObjects];
-		[self updateMenuWindow];
-	} else {
-		nh3dMenu = [[NSMutableArray alloc] init];
-		[self updateMenuWindow];
-	}
+	[nh3dMenu removeAllObjects];
+	[self updateMenuWindow];
 }
 
 - (void)clearMenuWindow
@@ -216,7 +213,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		
 		[cell setImagePosition:NSImageLeft];
 		//[ cell setImage:[aMenuItem glyph] ];
-		((NSCell*)cell).image = [aMenuItem smallGlyph];
+		((NSCell*)cell).image = aMenuItem.smallGlyph;
 		
 		if (!aMenuItem.selectable) {
 			[cell setBordered:NO];
@@ -230,7 +227,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 		}
 	}
 	
-	if (aMenuItem.preSelected) {
+	if (aMenuItem.preselected) {
 		[tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:YES];
 		[aMenuItem setPreselect:MENU_UNSELECTED];
 	}
@@ -292,18 +289,20 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	frameRect = [_menuPanel frameRectForContentRect:((NSView*)_menuPanel.contentView).frame];
 	[_menuPanel setFrame:frameRect display:YES];
 	
+	[_menuTableWindow scrollToBeginningOfDocument:nil];
 	[_window.attachedSheet orderOut:nil];
 	[_window beginSheet:_menuPanel completionHandler:^(NSModalResponse returnCode) {
-		
+		[_menuPanel orderOut:self];
 	}];
 }
 
 - (int)selectMenu:(winid)wid how:(int)how selected:(menu_item **)selected
 {
-	int i,ret = 0;
+	int i, ret = 0;
 	NH3DMenuItem *aMenuItem;
 	menu_item *mi;
 	
+	[self willChangeValueForKey:@"multipleSelection"];
 	switch (how) {
 		case PICK_ONE:
 			[_menuTableWindow setAllowsMultipleSelection:NO];
@@ -316,9 +315,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			break;
 			
 		case PICK_NONE:
+			[_menuTableWindow setAllowsMultipleSelection:NO];
 			pickType = PICK_NONE;
 			break;
 	}
+	[self didChangeValueForKey:@"multipleSelection"];
 	
 	@autoreleasepool {
 		ret = [NSApp runModalForWindow: _menuPanel];
@@ -326,20 +327,20 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     // Dialog is up here.
 	
 	[NSApp stopSpeaking:self];
-	_menuPanelStrings.stringValue = @"" ;
-	_menuPanelStringsShadow.stringValue = @"" ;
+	_menuPanelStrings.stringValue = @"";
+	_menuPanelStringsShadow.stringValue = @"";
 
 	*selected = (menu_item *)0;
 	
-	if ( how != PICK_NONE && ret == DIALOG_OK ) {
+	if (how != PICK_NONE && ret == DIALOG_OK) {
 		ret = _menuTableWindow.numberOfSelectedRows;
 	} else {
 		ret = -1;
 	}
 	
 	if (ret > 0) {
-		*selected = mi = ( menu_item * )alloc(ret * sizeof(menu_item));
-		for (i=0; i < nh3dMenu.count ; i++) {
+		*selected = mi = (menu_item *)alloc(ret * sizeof(menu_item));
+		for (i = 0; i < nh3dMenu.count; i++) {
 			aMenuItem = nh3dMenu[i];
 			if ([_menuTableWindow isRowSelected:i]) {
 				mi->item = [aMenuItem identifier];
@@ -360,13 +361,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (IBAction)closeModalDialog:(id)sender
 {
 	if ([sender tag]) {
-		[[sender window] orderOut:self];
+		//[[sender window] orderOut:self];
 		[NSApp stopModalWithCode:DIALOG_CANCEL];
-		[_window endSheet: [sender window]];
+		[_window endSheet: [sender window] returnCode:DIALOG_CANCEL];
 	} else { 
-		[[sender window] close];
+		//[[sender window] close];
 		[NSApp stopModalWithCode:DIALOG_OK];
-		[_window endSheet: [sender window]];
+		[_window endSheet: [sender window] returnCode:DIALOG_OK];
 	}
 }
 
@@ -383,39 +384,37 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	windowRect.size.height = (([scrollView.documentView rowHeight] + 4.0) * [scrollView.documentView numberOfRows]) + contentHeightMargin;
 	
 	windowRect.size.height = (windowRect.size.height > windowMaxSize.height) ? windowMaxSize.height-16.0 : windowRect.size.height;
-
-	//set width 
-/* for Ascii only Strings	
-	contentSize = [[[[scrollView documentView] tableColumnWithIdentifier:@"name"] dataCell] cellSize];
-*/
-//	for 2byte letter Strings (e,g,Japanese)any size method of Cocoa, does not acquire size of a 2byte letter well for some reason. Why?
+	
+	//set width
+	/* for Ascii only Strings
+	 contentSize = [[[[scrollView documentView] tableColumnWithIdentifier:@"name"] dataCell] cellSize];
+	 */
+	//	for 2byte letter Strings (e,g,Japanese)any size method of Cocoa, does not acquire size of a 2byte letter well for some reason. Why?
 	//contentSize = NSMakeSize( 0,0 );
-	for (NSInteger i = 0; i < nh3dMenu.count; i++) {
-		NH3DMenuItem *aMenuItem = nh3dMenu[i];
-		unsigned len = [aMenuItem name].length ;
+	for (NH3DMenuItem *aMenuItem in nh3dMenu) {
+		NSUInteger len = [aMenuItem name].length;
 		strSize.width = len * (NH3DINVFONTSIZE + 4.0);
 		//strSize = [[nh3dMenu objectAtIndex:i] stringSize];  // fmm...  does not acquire size of a 2byte letter well, too.
 		if (strSize.width > contentSize.width) {
 			contentSize.width = strSize.width;
 		}
 	}
-
+	
 	if (contentSize.width > 640.0) {
 		windowRect.size.width = 640.0;
-	 
 	} else if (contentSize.width + contentWidthMargin < windowMinSize.width) {
-			windowRect.size.width = windowMinSize.width;
+		windowRect.size.width = windowMinSize.width;
 	} else {
 		windowRect.size.width = contentSize.width + contentWidthMargin;
 	}
 	
-	//set frame 
+	//set frame
 	[window setFrame:windowRect display:NO];
 }
 
 - (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
 {
-	NSRect windowRect = window.frame;
+	NSRect windowRect;
 	NSSize windowMaxSize = window.maxSize;
 	NSSize windowMinSize = window.minSize;
 	
@@ -424,12 +423,12 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	
 	//set height
 	while (scrollView.verticalScroller.usableParts != NSNoScrollerParts) {
-		windowRect = window.frame ;
+		windowRect = window.frame;
 		if (windowRect.size.height < windowMaxSize.height) {
-			 windowRect.size.height = windowRect.size.height+32.0;
+			windowRect.size.height = windowRect.size.height + 32.0;
 			[window setFrame:windowRect display:NO];
 		} else {
-			windowRect.size.height = windowMaxSize.height-16;
+			windowRect.size.height = windowMaxSize.height - 16;
 			[window setFrame:windowRect display:NO];
 			break;
 		}

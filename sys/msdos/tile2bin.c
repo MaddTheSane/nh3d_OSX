@@ -38,7 +38,7 @@
 extern unsigned _stklen = STKSIZ;
 #endif
 
-extern char *FDECL(tilename, (int, int));
+extern char *tilename(int, int);
 
 #ifdef PLANAR_FILE
 char masktable[8] = { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
@@ -60,9 +60,9 @@ int num_colors;
 pixel pixels[TILE_Y][TILE_X];
 struct tibhdr_struct tibheader;
 
-static void FDECL(write_tibtile, (int));
-static void FDECL(write_tibheader, (FILE *, struct tibhdr_struct *));
-static void FDECL(build_tibtile, (pixel(*) [TILE_X]));
+static void write_tibtile(int);
+static void write_tibheader(FILE *, struct tibhdr_struct *);
+static void build_tibtile(pixel(*) [TILE_X]);
 
 #ifndef OVERVIEW_FILE
 char *tilefiles[] = { "../win/share/monsters.txt", "../win/share/objects.txt",
@@ -77,9 +77,7 @@ int filenum;
 int paletteflag;
 
 int
-main(argc, argv)
-int argc;
-char *argv[];
+main(int argc, char *argv[])
 {
     int i;
     struct tm *newtime;
@@ -196,9 +194,7 @@ char *argv[];
 }
 
 static void
-write_tibheader(fileptr, tibhdr)
-FILE *fileptr;
-struct tibhdr_struct *tibhdr;
+write_tibheader(FILE *fileptr, struct tibhdr_struct *tibhdr)
 {
     if (fseek(fileptr, 0L, SEEK_SET)) {
         Fprintf(stderr, "Error writing header to tile file\n");
@@ -207,8 +203,7 @@ struct tibhdr_struct *tibhdr;
 }
 
 static void
-build_tibtile(pixels)
-pixel (*pixels)[TILE_X];
+build_tibtile(pixel (*pixels)[TILE_X])
 {
     int i, j, k, co_off;
     unsigned char co_mask, tmp;
@@ -263,8 +258,7 @@ pixel (*pixels)[TILE_X];
 }
 
 static void
-write_tibtile(recnum)
-int recnum;
+write_tibtile(int recnum)
 {
     long fpos;
 

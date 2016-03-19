@@ -13,7 +13,7 @@ import Foundation
 
 let GLYPH_PET_OFF: Int32 =		(NUMMONS	+ GLYPH_MON_OFF)
 let GLYPH_INVIS_OFF: Int32 =	(NUMMONS	+ GLYPH_PET_OFF)
-let GLYPH_DETECT_OFF: Int32 =	(1		+ GLYPH_INVIS_OFF)
+let GLYPH_DETECT_OFF: Int32 =	(1			+ GLYPH_INVIS_OFF)
 let GLYPH_BODY_OFF: Int32 =		(NUMMONS	+ GLYPH_DETECT_OFF)
 let GLYPH_RIDDEN_OFF: Int32 =	(NUMMONS	+ GLYPH_BODY_OFF)
 let GLYPH_OBJ_OFF: Int32 =		(NUMMONS	+ GLYPH_RIDDEN_OFF)
@@ -172,19 +172,19 @@ func IS_DOOR(typ: schar) -> Bool {
 }
 
 func Is_rogue_level(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_rogue_level) != 0
+	return on_level(x, &dungeon_topology.d_rogue_level)
 }
 
 func Is_knox(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_knox_level) != 0
+	return on_level(x, &dungeon_topology.d_knox_level)
 }
 
 func Is_sanctum(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_sanctum_level) != 0
+	return on_level(x, &dungeon_topology.d_sanctum_level)
 }
 
 func Is_stronghold(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_stronghold_level) != 0
+	return on_level(x, &dungeon_topology.d_stronghold_level)
 }
 
 func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
@@ -192,21 +192,27 @@ func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
 }
 
 func Is_earthlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_earth_level) != 0
+	return on_level(x, &dungeon_topology.d_earth_level)
 }
 
 func Is_waterlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_water_level) != 0
+	return on_level(x, &dungeon_topology.d_water_level)
 }
 
 func Is_firelevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_fire_level) != 0
+	return on_level(x, &dungeon_topology.d_fire_level)
 }
 
 func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_air_level) != 0
+	return on_level(x, &dungeon_topology.d_air_level)
 }
 
+/// returns `true` if the passed in level is on the astral plain
 func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_astral_level) != 0
+	return on_level(x, &dungeon_topology.d_astral_level) 
+}
+
+/// Print to the console.
+func raw_print(str: UnsafePointer<CChar>) {
+	windowprocs.win_raw_print(str)
 }
