@@ -13,6 +13,8 @@
 #import "winnh3d.h"
 #import "NetHack3D-Swift.h"
 
+#define SMALL_MAP_BORDER 3
+
 //for key codes
 #include <Carbon/Carbon.h>
 
@@ -68,7 +70,7 @@ extern BOOL CocoaPortIsReady;
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
 	if (self = [super initWithFrame:frameRect]) {
-		self.bgColor = [NSColor colorWithCalibratedWhite:0.15 alpha:1.0];
+		bgColor = [NSColor colorWithCalibratedWhite:0.15 alpha:1.0];
 			
 		isReady = NO;
 		enemyCatch = 0;
@@ -174,6 +176,9 @@ extern BOOL CocoaPortIsReady;
 
 - (void)drawRect:(NSRect)rect
 {
+	NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
+	NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
+	[bPath addClip];
 	NSRect bounds = self.bounds;
 	
 	[mapBase drawInRect:bounds
@@ -215,7 +220,7 @@ extern BOOL CocoaPortIsReady;
 	return YES;
 }
 
- - (void)resetCursorRects
+- (void)resetCursorRects
 {
 	NSRect rect = self.bounds;
 	NSCursor* cursor = [[NSCursor alloc] initWithImage:[NSImage imageNamed:@"nh3dCursor"]
@@ -548,6 +553,11 @@ extern BOOL CocoaPortIsReady;
 		
 		//Draw view
 		if ([self lockFocusIfCanDraw]) {
+			if (!TRADITIONAL_MAP) {
+			NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
+			NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
+			[bPath addClip];
+			}
 			if (needClear) {
 				NSEraseRect(bounds);
 				[mapBase drawInRect:bounds
@@ -606,7 +616,7 @@ extern BOOL CocoaPortIsReady;
 	if (TRADITIONAL_MAP)
 		return;
 	
-	NSRect bounds = self.bounds ;
+	NSRect bounds = self.bounds;
 	NSShadow *lshadow = [[NSShadow alloc] init];
 	NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
 	
@@ -616,7 +626,10 @@ extern BOOL CocoaPortIsReady;
 	attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
 	
 	//Draw view
-	[self lockFocusIfCanDraw];
+	if ([self lockFocusIfCanDraw]) {
+		NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
+		NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
+		[bPath addClip];
 	
 	if (needClear) {
 		NSEraseRect(bounds);
@@ -627,16 +640,15 @@ extern BOOL CocoaPortIsReady;
 		needClear = NO;
 	}
 				
-	for (int x = 0; x < MAPVIEWSIZE_COLUMN - 1; x++) {
+	for (int x = 0; x < MAPVIEWSIZE_COLUMN - 1; x++) @autoreleasepool {
 		for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
-			@autoreleasepool {
 			//setColor and shadow for special-flag
 				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
 				
 				if (mapItemValue[x][y].special > 0) {
 					lshadow.shadowColor = mapItemValue[x][y].color;
 				} else {
-					lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0] ;
+					lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
 				}
 				attributes[NSShadowAttributeName] = lshadow;
 				
@@ -655,13 +667,13 @@ extern BOOL CocoaPortIsReady;
 					viewCursX = x;
 					viewCursY = MAPVIEWSIZE_ROW-y-1;
 				}
-			}
 		} // end for y
 	} // end for x
 	
 	//[ self drawMask ];
 	
 	[self unlockFocus];
+	}
 }
 
 - (void)setCursorOpacity:(CGFloat)opaq
@@ -682,6 +694,9 @@ extern BOOL CocoaPortIsReady;
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 		
 	if ([self lockFocusIfCanDraw]) {
+		NSRect inset = NSInsetRect(NSMakeRect(0, 0, self.bounds.size.width, self.bounds.size.height), SMALL_MAP_BORDER, SMALL_MAP_BORDER);
+		NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect: inset xRadius: 48 yRadius: 48];
+		[bPath addClip];
 		if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
 			[mapRestrictedBezel drawAtPoint:NSZeroPoint
 								   fromRect:NSZeroRect

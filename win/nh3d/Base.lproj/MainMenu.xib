@@ -56,7 +56,7 @@
                             </binding>
                         </connections>
                     </imageView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="5648" customClass="NH3DMapView">
+                    <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="5648" customClass="NH3DMapView">
                         <rect key="frame" x="4" y="366" width="176" height="176"/>
                         <connections>
                             <outlet property="_bindController" destination="5089" id="5849"/>
@@ -88,7 +88,7 @@
                             <outlet property="zapSpellButton" destination="S5s-Xf-pjS" id="Olj-Gg-8dR"/>
                         </connections>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="6193" customClass="NH3DOpenGLView" customModule="NetHack3D" customModuleProvider="target">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="6193" userLabel="OpenGL Map View" customClass="NH3DOpenGLView" customModule="NetHack3D" customModuleProvider="target">
                         <rect key="frame" x="183" y="222" width="440" height="320"/>
                         <connections>
                             <outlet property="mapModel" destination="5173" id="cHD-BG-nRG"/>
@@ -816,7 +816,7 @@
                             <binding destination="4761" name="value" keyPath="selection.chaosIcon" id="4998"/>
                         </connections>
                     </imageView>
-                    <box title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4994">
+                    <box title="Movement" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4994">
                         <rect key="frame" x="639" y="34" width="140" height="142"/>
                         <view key="contentView" id="xxO-LO-yVl">
                             <rect key="frame" x="2" y="2" width="136" height="138"/>
@@ -3444,7 +3444,7 @@ DQ
             </connections>
         </customObject>
         <window title="NetHack3D" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="NH3DLogwinPos" animationBehavior="default" id="5650" userLabel="LogPanel" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
+            <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="75" y="360" width="635" height="381"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
