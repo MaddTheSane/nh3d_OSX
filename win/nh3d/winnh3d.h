@@ -36,11 +36,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef struct nh3d_nhwindow_data {
-	__unsafe_unretained id	win;
-	int						type;
-} NH3DWinData;
-
 extern struct window_procs nh3d_procs;
 
 // binding NetHack C codes to NH3DObjects.
@@ -69,7 +64,7 @@ void nh3d_mark_synch();
 void nh3d_wait_synch();
 void nh3d_cliparound(int x, int y);
 void nh3d_cliparound_window(winid wid, int x, int y);
-void nh3d_print_glyph(winid wid,xchar x,xchar y,int glyph, int under);
+void nh3d_print_glyph(winid wid, xchar x, xchar y, int glyph, int under);
 void nh3d_raw_print(const char *__null_unspecified str);
 void nh3d_raw_print_bold(const char *__null_unspecified str);
 int nh3d_nhgetch();

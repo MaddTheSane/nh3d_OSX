@@ -416,6 +416,8 @@
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */ = {isa = PBXBuildFile; fileRef = 2BACF9EF090258000095C8A4 /* recover */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		55BCFCE41C9F54A00076210F /* NH3DBindController+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCFCE31C9F54A00076210F /* NH3DBindController+Swift.swift */; };
+		55BCFCE61C9F57B70076210F /* MenuWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55BCFCE51C9F57B70076210F /* MenuWindow.xib */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
@@ -1371,6 +1373,8 @@
 		55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NH3DModelObject+Swift.swift"; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
+		55BCFCE31C9F54A00076210F /* NH3DBindController+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NH3DBindController+Swift.swift"; sourceTree = "<group>"; };
+		55BCFCE51C9F57B70076210F /* MenuWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuWindow.xib; path = Resources/MenuWindow.xib; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
 		55C1693B1C3520F300C1365E /* NH3DMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DMessaging.swift; sourceTree = "<group>"; };
@@ -1467,6 +1471,7 @@
 				2B6474FD096D5DDB005A4652 /* NH3Dcommon.h */,
 				2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */,
 				2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */,
+				55BCFCE31C9F54A00076210F /* NH3DBindController+Swift.swift */,
 				2B6311CB08B7A27A00162523 /* winnh3d.h */,
 				2B6311CC08B7A27A00162523 /* winnh3d.m */,
 				55C1693B1C3520F300C1365E /* NH3DMessaging.swift */,
@@ -1563,6 +1568,7 @@
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
+				55BCFCE51C9F57B70076210F /* MenuWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2848,6 +2854,7 @@
 				2B5CC040088EB5A600940C58 /* Cav-goal.lev in Resources */,
 				2B5CC041088EB5A600940C58 /* Cav-loca.lev in Resources */,
 				2B5CC042088EB5A600940C58 /* Cav-strt.lev in Resources */,
+				55BCFCE61C9F57B70076210F /* MenuWindow.xib in Resources */,
 				2B5CC044088EB5A600940C58 /* cmdhelp in Resources */,
 				2B5CC045088EB5A600940C58 /* data in Resources */,
 				2B5CC046088EB5A600940C58 /* data.base in Resources */,
@@ -3362,6 +3369,7 @@
 				2B5CC151088EB7DF00940C58 /* attrib.c in Sources */,
 				2B5CC152088EB7DF00940C58 /* ball.c in Sources */,
 				2B5CC153088EB7DF00940C58 /* bones.c in Sources */,
+				55BCFCE41C9F54A00076210F /* NH3DBindController+Swift.swift in Sources */,
 				2B5CC154088EB7DF00940C58 /* botl.c in Sources */,
 				2B5CC155088EB7DF00940C58 /* cmd.c in Sources */,
 				2B5CC156088EB7DF00940C58 /* dbridge.c in Sources */,

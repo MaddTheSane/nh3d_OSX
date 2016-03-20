@@ -25,16 +25,11 @@
 #ifdef CHDIR
 static void chdirx(const char *, boolean);
 #endif /* CHDIR */
-static boolean whoami(void);
 static void process_options(int, char **);
-
 
 #ifdef WIZARD
 static boolean wiz_error_flag = FALSE;
 #endif
-
-
-NH3DWinData nh3d_windowlist[10];
 
 extern int NXArgc;
 extern char **NXArgv;
