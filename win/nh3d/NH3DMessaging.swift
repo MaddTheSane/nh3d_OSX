@@ -14,14 +14,13 @@ let DIALOG_CANCEL	= 129
 
 class NH3DMessaging: NSObject {
 	private final class ScreenEffect {
-		private var regex: COpaquePointer
+		private var regex = regex_init()
 		let effect: Int32
 		/// The regex string used to match against.<br>
 		/// Useful for debugging
 		let str: String
 		
 		init?(message text: String, effect: Int32) {
-			regex = regex_init()
 			str = text
 			self.effect = effect
 			guard regex_compile(text, regex) else {
