@@ -71,7 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 	//NSPoint cursPos;
 	
 	NSImage *posCursor;
-	NSImage *mapBezel;
 	NSImage *mapBase;
 	NSImage *mapRestrictedBezel;
 	

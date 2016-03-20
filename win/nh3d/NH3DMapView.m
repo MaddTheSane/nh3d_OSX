@@ -37,7 +37,6 @@
 extern BOOL CocoaPortIsReady;
 
 @interface NH3DMapView ()
-@property (strong) NSImage *mapBezel;
 @property (strong) NSImage *mapBase;
 @property (strong) NSImage *trMapImage;
 @property (strong) NSImage *posCursor;
@@ -52,7 +51,6 @@ extern BOOL CocoaPortIsReady;
 
 @implementation NH3DMapView
 @synthesize posCursor;
-@synthesize mapBezel;
 @synthesize mapBase;
 @synthesize trMapImage;
 @synthesize mapRestrictedBezel;
@@ -86,7 +84,7 @@ extern BOOL CocoaPortIsReady;
 
 		cursOpacity = 1.0;
 		keyBuffer = '0';
-		extendKey = -1 ;
+		extendKey = -1;
 		modKeyFlag = MODKEY_NONE;
 		//cursPos = NSZeroPoint;
 		plDepth = 0;
@@ -97,11 +95,9 @@ extern BOOL CocoaPortIsReady;
 		
 		if (TRADITIONAL_MAP) {
 			self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0);
-			self.mapBezel = nil;
 			self.mapBase = [NSImage imageNamed:@"trBase"];
 			self.trMapImage = nil;
 		} else {
-			self.mapBezel = [NSImage imageNamed:@"asciiMapMask"];
 			self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 			self.trMapImage = nil;
 		}
@@ -136,7 +132,6 @@ extern BOOL CocoaPortIsReady;
 		
 		self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0) ;
 		
-		self.mapBezel = nil;
 		self.mapBase = [NSImage imageNamed:@"trBase"];
 		
 		[self makeTraditionalMap];
@@ -156,7 +151,6 @@ extern BOOL CocoaPortIsReady;
 		
 		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);
 		
-		self.mapBezel = [NSImage imageNamed:@"asciiMapMask"];
 		self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 		
 		self.trMapImage = nil;
@@ -693,11 +687,6 @@ extern BOOL CocoaPortIsReady;
 								   fromRect:NSZeroRect
 								  operation:NSCompositeSourceOver
 								   fraction:1.0];
-		} else {
-			[mapBezel drawInRect:self.bounds
-						fromRect:NSZeroRect
-					   operation:NSCompositeSourceOver
-						fraction:1.0];
 		}
 		
 		if (!TRADITIONAL_MAP) {
