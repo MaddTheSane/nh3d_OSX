@@ -623,19 +623,19 @@ extern BOOL CocoaPortIsReady;
 	//Draw view
 	if ([self lockFocusIfCanDraw]) {
 		[self clipSmallMap];
-	
-	if (needClear) {
-		NSEraseRect(bounds);
-		[mapBase drawInRect:bounds
-				   fromRect:NSZeroRect
-				  operation:NSCompositeSourceOver
-				   fraction:1.0];
-		needClear = NO;
-	}
-				
-	for (int x = 0; x < MAPVIEWSIZE_COLUMN - 1; x++) @autoreleasepool {
-		for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
-			//setColor and shadow for special-flag
+		
+		if (needClear) {
+			NSEraseRect(bounds);
+			[mapBase drawInRect:bounds
+					   fromRect:NSZeroRect
+					  operation:NSCompositeSourceOver
+					   fraction:1.0];
+			needClear = NO;
+		}
+		
+		for (int x = 0; x < MAPVIEWSIZE_COLUMN - 1; x++) @autoreleasepool {
+			for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
+				//setColor and shadow for special-flag
 				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
 				
 				if (mapItemValue[x][y].special > 0) {
@@ -649,7 +649,7 @@ extern BOOL CocoaPortIsReady;
 				[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																	  (NSMaxY(bounds)-((y+1)*16.0)),
 																	  16.0,16.0)
-												   options:NSStringDrawingUsesDeviceMetrics
+												options:NSStringDrawingUsesDeviceMetrics
 												attributes:attributes];
 				
 				if (mapItemValue[x][y].hasCursor) {
@@ -660,12 +660,12 @@ extern BOOL CocoaPortIsReady;
 					viewCursX = x;
 					viewCursY = MAPVIEWSIZE_ROW-y-1;
 				}
-		} // end for y
-	} // end for x
-	
-	//[ self drawMask ];
-	
-	[self unlockFocus];
+			} // end for y
+		} // end for x
+		
+		//[ self drawMask ];
+		
+		[self unlockFocus];
 	}
 }
 
