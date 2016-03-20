@@ -1657,6 +1657,10 @@ extern BOOL CocoaPortIsReady;
 					[NSGraphicsContext restoreGraphicsState];
 				}
 				
+				if (!(iflags.wc_hilite_pet && mapcell.pet) && !(iflags.hilite_pile && mapcell.pile)) {
+					continue;
+				}
+				
 				NSRect petRect = NSMakeRect(drawSize.width * (CGFloat)x,
 											imgSize.height - (drawSize.height * (CGFloat)y),
 											drawSize.width,
@@ -1738,7 +1742,7 @@ extern BOOL CocoaPortIsReady;
 	inset.size = self.bounds.size;
 	inset = NSInsetRect(inset, SMALL_MAP_BORDER, SMALL_MAP_BORDER);
 	NSBezierPath *bPath = [NSBezierPath bezierPathWithRoundedRect:inset xRadius: 48 yRadius: 48];
-	[bPath addClip];
+	[bPath setClip];
 }
 
 @end

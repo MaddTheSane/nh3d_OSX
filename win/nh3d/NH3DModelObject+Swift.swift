@@ -59,11 +59,9 @@ extension NH3DVertexType : Equatable {
 		
 		l_length = self.vectorLength
 		if l_length == 0 {
-			l_length=1
+			l_length = 1
 		}
-		self.x /= l_length
-		self.y /= l_length
-		self.z /= l_length
+		self /= l_length
 	}
 	
 	var normalize: NH3DVertexType {
@@ -72,7 +70,7 @@ extension NH3DVertexType : Equatable {
 		return ourself
 	}
 	
-	var vectScalar: Float {
+	var vectorScalar: Float {
 		return (self.x*self.x + self.y*self.y + self.z*self.z)
 	}
 	

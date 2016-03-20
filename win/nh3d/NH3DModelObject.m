@@ -710,8 +710,6 @@ static const NH3DMaterial defaultMat = {
 	free(faces);
 	free(texcoords);
 	free(particles);
-	
-	[childObjects removeAllObjects];
 }
 
 //--------------------------------------------
