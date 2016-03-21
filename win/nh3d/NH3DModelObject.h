@@ -9,6 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include <OpenGL/gltypes.h>
+#include <simd/simd.h>
 #import "NH3Dcommon.h"
 
 #import "NH3DUserDefaultsExtern.h"
@@ -16,11 +17,6 @@
 #undef index
 
 NS_ASSUME_NONNULL_BEGIN
-
-//TODO: migrate to vector_float3
-typedef struct nh3d_point3 {
-	float x, y, z;
-} NH3DVertexType;
 
 typedef struct nh3d_face3 {
     unsigned short  a,b,c;
@@ -86,8 +82,8 @@ typedef struct {
 	NH3DFaceType		texReference[MAX_POLYGONS];	/* OBJ face optional texture reference */
 	NH3DFaceType		normReference[MAX_POLYGONS];/* OBJ face optional normal reference */
 	
-	NH3DVertexType		*verts;		/* vertex points */
-	NH3DVertexType		*norms;		/* normals */
+	vector_float3		*verts;		/* vertex points */
+	vector_float3		*norms;		/* normals */
 	NH3DFaceType		*faces;		/* faces */
 	NH3DMapCoordType	*texcoords;	/* TextureCoords */
 	
@@ -100,7 +96,7 @@ typedef struct {
 	
 	NH3DParticle		*particles;			/* particle Array */
 	NH3DParticleType	particleType;
-	NH3DVertexType		particleGravity;
+	vector_float3		particleGravity;
 	int					particleColor;
 	float				particleLife;
 	float				particleSize;
@@ -151,9 +147,9 @@ typedef struct {
 @property (readonly) int texcords_qty;
 
 /*! vertex points */
-@property (readonly) NH3DVertexType *verts NS_RETURNS_INNER_POINTER;
+@property (readonly) vector_float3 *verts NS_RETURNS_INNER_POINTER;
 /*! normals */
-@property (readonly) NH3DVertexType *norms NS_RETURNS_INNER_POINTER;
+@property (readonly) vector_float3 *norms NS_RETURNS_INNER_POINTER;
 
 /*! faces */
 @property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER;
@@ -176,7 +172,7 @@ typedef struct {
 
 - (void)animate;
 
-@property (nonatomic) NH3DVertexType particleGravity;
+@property (nonatomic) vector_float3 particleGravity;
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
@@ -194,16 +190,16 @@ typedef struct {
 - (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
-@property (readwrite) NH3DVertexType modelShift;
+@property (readwrite) vector_float3 modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
 
-@property (readwrite) NH3DVertexType modelScale;
+@property (readwrite) vector_float3 modelScale;
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz;
 
-@property (readwrite) NH3DVertexType modelRotate;
+@property (readwrite) vector_float3 modelRotate;
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz;
 
-@property (readwrite) NH3DVertexType modelPivot;
+@property (readwrite) vector_float3 modelPivot;
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz;
 
 @property NH3DMaterial currentMaterial;

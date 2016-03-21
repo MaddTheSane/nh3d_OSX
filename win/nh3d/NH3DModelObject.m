@@ -158,8 +158,8 @@ static const NH3DMaterial defaultMat = {
 	
 	chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	scanner = [[NSScanner alloc] initWithString:sourceObj];
-	verts = malloc(sizeof(NH3DVertexType));
-	norms = malloc(sizeof(NH3DVertexType));
+	verts = malloc(sizeof(vector_float3));
+	norms = malloc(sizeof(vector_float3));
 	faces = malloc(sizeof(NH3DFaceType));
 	texcoords = malloc(sizeof(NH3DMapCoordType));
 	
@@ -168,7 +168,7 @@ static const NH3DMaterial defaultMat = {
 			[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 			
 			if ([destText isEqualToString:@"v"]) {
-				verts = realloc(verts, (verts_qty + 1) * sizeof(NH3DVertexType));
+				verts = realloc(verts, (verts_qty + 1) * sizeof(vector_float3));
 				// scan vertexes
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				verts[verts_qty].x = destText.floatValue;
@@ -179,7 +179,7 @@ static const NH3DMaterial defaultMat = {
 				
 				verts_qty++;
 			} else if ([destText isEqualToString:@"vn"]) {
-				norms = realloc(norms, (normal_qty + 1) * sizeof(NH3DVertexType));
+				norms = realloc(norms, (normal_qty + 1) * sizeof(vector_float3));
 				// scan normals
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				norms[normal_qty].x = destText.floatValue;
@@ -364,8 +364,8 @@ static const NH3DMaterial defaultMat = {
 				normal_qty = verts_qty;
 				
 				if (verts_qty) {
-					verts = malloc( verts_qty * sizeof(NH3DVertexType) );
-					norms = malloc( normal_qty * sizeof(NH3DVertexType) );
+					verts = malloc( verts_qty * sizeof(vector_float3) );
+					norms = malloc( normal_qty * sizeof(vector_float3) );
 					
 					//NSLog(@"Number of vertices: %d",verts_qty);
 					
@@ -775,7 +775,7 @@ static const NH3DMaterial defaultMat = {
 	animationValue += animationRate;
 }
 
-- (void)setParticleGravity:(NH3DVertexType)aParticleGravity
+- (void)setParticleGravity:(vector_float3)aParticleGravity
 {
 	[self setParticleGravityX:aParticleGravity.x Y:aParticleGravity.y Z:aParticleGravity.z];
 }
@@ -852,7 +852,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = sx;
 	toSet.y = sy;
 	toSet.z = sz;
@@ -861,7 +861,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = scx;
 	toSet.y = scy;
 	toSet.z = scz;
@@ -870,7 +870,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = rx;
 	toSet.y = ry;
 	toSet.z = rz;
@@ -879,7 +879,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = px;
 	toSet.y = py;
 	toSet.z = pz;

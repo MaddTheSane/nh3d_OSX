@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import simd
 
 //TODO: migrate to vector data types.
 //This can help make the math somewhat cleaner.
@@ -14,7 +15,7 @@ extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
 		
-		let zeroVert = NH3DVertexType(x: 0, y: 0, z: 0)
+		let zeroVert = vector_float3(x: 0, y: 0, z: 0)
 		
 		for i in 0..<Int(verts_qty) {
 			norms[i] = zeroVert
@@ -29,8 +30,8 @@ extension NH3DModelObject {
 			let l_vect3 = verts[Int(face.c)]
 			
 			// Polygon normal calculation
-			let l_vect_b1 = NH3DVertexType(start: l_vect1, endingAt: l_vect2)
-			let l_vect_b2 = NH3DVertexType(start: l_vect1, endingAt: l_vect3)
+			let l_vect_b1 = vector_float3(start: l_vect1, endingAt: l_vect2)
+			let l_vect_b2 = vector_float3(start: l_vect1, endingAt: l_vect3)
 			let l_normal = dotProduct(l_vect_b1, l_vect_b2).normalize
 			
 			l_Connect[Int(face.a)] += 1
@@ -45,13 +46,13 @@ extension NH3DModelObject {
 		for (i, connect) in l_Connect.enumerate() {
 			if connect > 0 {
 				let connFloat = Float(connect)
-				norms[i] /= connFloat
+				norms[i] /= float3(connFloat)
 			}
 		}
 	}
 }
 
-extension NH3DVertexType : Equatable {
+extension vector_float3 : Equatable {
 	var vectorLength: Float {
 		return sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
 	}
@@ -63,10 +64,10 @@ extension NH3DVertexType : Equatable {
 		if l_length == 0 {
 			l_length = 1
 		}
-		self /= l_length
+		self /= float3(l_length)
 	}
 	
-	var normalize: NH3DVertexType {
+	var normalize: vector_float3 {
 		var ourself = self
 		ourself.normalizeInPlace()
 		return ourself
@@ -76,36 +77,14 @@ extension NH3DVertexType : Equatable {
 		return (self.x*self.x + self.y*self.y + self.z*self.z)
 	}
 	
-	init(start p_start: NH3DVertexType, endingAt p_end : NH3DVertexType) {
-		x = p_end.x - p_start.x
-		y = p_end.y - p_start.y
-		z = p_end.z - p_start.z
+	init(start p_start: vector_float3, endingAt p_end : vector_float3) {
+		self.init(x: p_end.x - p_start.x, y: p_end.y - p_start.y, z: p_end.z - p_start.z)
 		normalizeInPlace()
 	}
 }
 
-func +(lhs: NH3DVertexType, rhs: NH3DVertexType) -> NH3DVertexType {
-	var toRet = NH3DVertexType()
-	toRet.x = lhs.x + rhs.x
-	toRet.y = lhs.y + rhs.y
-	toRet.z = lhs.z + rhs.z
-	return toRet
-}
-
-func +=(inout lhs: NH3DVertexType, rhs: NH3DVertexType) {
-	lhs.x += rhs.x
-	lhs.y += rhs.y
-	lhs.z += rhs.z
-}
-
-func /=(inout lhs: NH3DVertexType, rhs: Float) {
-	lhs.x /= rhs
-	lhs.y /= rhs
-	lhs.z /= rhs
-}
-
-private func dotProduct(p_vector1: NH3DVertexType, _ p_vector2: NH3DVertexType) -> NH3DVertexType {
-	let p_normal = NH3DVertexType(x: (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y),
+private func dotProduct(p_vector1: vector_float3, _ p_vector2: vector_float3) -> vector_float3 {
+	let p_normal = vector_float3(x: (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y),
 		y: (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z),
 		z: (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x))
 
@@ -134,7 +113,7 @@ public func ==(lhs: NH3DMapCoordType, rhs: NH3DMapCoordType) -> Bool {
 	return true
 }
 
-public func ==(lhs: nh3d_point3, rhs: nh3d_point3) -> Bool {
+public func ==(lhs: vector_float3, rhs: vector_float3) -> Bool {
 	if lhs.x != rhs.x {
 		return false
 	} else if lhs.y != rhs.y {
