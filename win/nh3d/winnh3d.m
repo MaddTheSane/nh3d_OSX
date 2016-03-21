@@ -998,10 +998,7 @@ void nh3d_number_pad(int num)
 
 void nh3d_delay_output()
 {
-	@autoreleasepool {
-		[_NH3DMapModel updateAllMaps];
-		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
-	}
+	usleep(48000);
 }
 
 void nh3d_start_screen()
