@@ -393,6 +393,9 @@
 		2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
+		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5553AA2E1C73B79400A903B5 /* pillar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 5553AA2D1C73B79400A903B5 /* pillar.3ds */; };
@@ -1338,6 +1341,12 @@
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
+		550B14BA1CA06CD500945F09 /* HearseFileRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HearseFileRegistry.h; sourceTree = "<group>"; };
+		550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HearseFileRegistry.m; sourceTree = "<group>"; };
+		550B14BC1CA06CD500945F09 /* Hearse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hearse.h; sourceTree = "<group>"; };
+		550B14BD1CA06CD500945F09 /* Hearse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hearse.m; sourceTree = "<group>"; };
+		550B14BE1CA06CD500945F09 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
+		550B14BF1CA06CD500945F09 /* FileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLogger.m; sourceTree = "<group>"; };
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1460,6 +1469,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				550B14B91CA06CAC00945F09 /* Hearse */,
 				551659B51C77CBDB00013270 /* C99Bool.h */,
 				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
 				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
@@ -2625,6 +2635,19 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		550B14B91CA06CAC00945F09 /* Hearse */ = {
+			isa = PBXGroup;
+			children = (
+				550B14BA1CA06CD500945F09 /* HearseFileRegistry.h */,
+				550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */,
+				550B14BC1CA06CD500945F09 /* Hearse.h */,
+				550B14BD1CA06CD500945F09 /* Hearse.m */,
+				550B14BE1CA06CD500945F09 /* FileLogger.h */,
+				550B14BF1CA06CD500945F09 /* FileLogger.m */,
+			);
+			path = Hearse;
+			sourceTree = "<group>";
+		};
 		552BE4791C3B2D4300F7D1C9 /* hints */ = {
 			isa = PBXGroup;
 			children = (
@@ -3404,11 +3427,13 @@
 				2B5CC179088EB7DF00940C58 /* mhitu.c in Sources */,
 				2B5CC17A088EB7DF00940C58 /* minion.c in Sources */,
 				2B5CC17B088EB7DF00940C58 /* mklev.c in Sources */,
+				550B14C11CA06CD500945F09 /* Hearse.m in Sources */,
 				2B5CC17C088EB7DF00940C58 /* mkmap.c in Sources */,
 				2B5CC17D088EB7DF00940C58 /* mkmaze.c in Sources */,
 				2B5CC17E088EB7DF00940C58 /* mkobj.c in Sources */,
 				2B5CC17F088EB7DF00940C58 /* mkroom.c in Sources */,
 				55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */,
+				550B14C21CA06CD500945F09 /* FileLogger.m in Sources */,
 				2B5CC180088EB7DF00940C58 /* mon.c in Sources */,
 				2B5CC181088EB7DF00940C58 /* mondata.c in Sources */,
 				2B5CC182088EB7DF00940C58 /* monmove.c in Sources */,
@@ -3443,6 +3468,7 @@
 				2B5CC1A1088EB7DF00940C58 /* save.c in Sources */,
 				2B5CC1A2088EB7DF00940C58 /* shk.c in Sources */,
 				2B5CC1A3088EB7DF00940C58 /* shknam.c in Sources */,
+				550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */,
 				2B5CC1A4088EB7DF00940C58 /* sit.c in Sources */,
 				2B5CC1A5088EB7DF00940C58 /* sounds.c in Sources */,
 				2B5CC1A6088EB7DF00940C58 /* sp_lev.c in Sources */,
