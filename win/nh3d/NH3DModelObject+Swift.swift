@@ -30,7 +30,7 @@ extension NH3DModelObject {
 			// Polygon normal calculation
 			let l_vect_b1 = vector_float3(start: l_vect1, endingAt: l_vect2)
 			let l_vect_b2 = vector_float3(start: l_vect1, endingAt: l_vect3)
-			let l_normal = dotProduct(l_vect_b1, l_vect_b2).normalize
+			let l_normal = normalize(dotProduct(l_vect_b1, l_vect_b2))
 			
 			l_Connect[Int(face.a)] += 1
 			l_Connect[Int(face.b)] += 1
@@ -50,26 +50,10 @@ extension NH3DModelObject {
 	}
 }
 
-extension vector_float3 : Equatable {
-	mutating func normalizeInPlace() {
-		var l_length: Float
-		
-		l_length = length(self)
-		if l_length == 0 {
-			l_length = 1
-		}
-		self /= float3(l_length)
-	}
-	
-	var normalize: vector_float3 {
-		var ourself = self
-		ourself.normalizeInPlace()
-		return ourself
-	}
-	
+extension float3 : Equatable {
 	init(start p_start: vector_float3, endingAt p_end : vector_float3) {
-		self = p_end - p_start
-		normalizeInPlace()
+		let pre = p_end - p_start
+		self = normalize(pre)
 	}
 }
 
