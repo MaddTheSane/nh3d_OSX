@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class FileLogger;
 
-@interface Hearse : NSObject <UIAlertViewDelegate> {
+@interface Hearse : NSObject {
 	
 	NSString *username;
 	NSString *email;

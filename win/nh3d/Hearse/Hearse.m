@@ -31,14 +31,13 @@
 #include "patchlevel.h"
 
 #import "Hearse.h"
-//#import "NSString+Regexp.h"
 #import "HearseFileRegistry.h"
 #import "FileLogger.h"
 
 static Hearse *instance = nil;
 
-static NSString *const clientId = @"iNetHack Hearse";
-static NSString *const clientVersion = @"iNetHack Hearse 1.3";
+static NSString *const clientId = @"NetHack3D (Mac) Hearse";
+static NSString *const clientVersion = @"NetHack3D (Mac) Hearse 1.3";
 
 static NSString *const hearseHost = @"hearse.krollmark.com";
 static NSString *const hearseBaseUrl = @"http://hearse.krollmark.com/bones.dll?act=";
@@ -146,11 +145,15 @@ static NSString *const hearseCommandDownload = @"download";
 		username = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseUsername] copy];
 		email = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseEmail] copy];
 		hearseId = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseId] copy];
-		clientVersionCrc = [[Hearse md5HexForString:clientVersion] copy];
-		netHackVersion = [[NSString stringWithFormat:@"%d,%d,%d,%d",
-						  VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL, EDITLEVEL] copy];
-		netHackVersionCrc = [[Hearse md5HexForString:netHackVersion] copy];
+		clientVersionCrc = [Hearse md5HexForString:clientVersion];
+		netHackVersion = [NSString stringWithFormat:@"%d,%d,%d,%d",
+						  VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL, EDITLEVEL];
+		netHackVersionCrc = [Hearse md5HexForString:netHackVersion];
+#if NH3DDEBUG
+		deleteUploadedBones = NO;
+#else
 		deleteUploadedBones = YES;
+#endif
 #if __LP64__
         hearseInternalVersion = [@"55" copy]; // iNethack2: the id for iNethack2 64-bit mode.
 #else
@@ -158,8 +161,10 @@ static NSString *const hearseCommandDownload = @"download";
 #endif
        
 		optimumNumberOfBonesDownloads = 2; // always want to download 2 bones
-		
-		logger = [[FileLogger alloc] initWithFile:@"hearse.log" maxSize:cHearseLogSize];
+		NSURL *aURL = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
+		aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
+
+		logger = [[FileLogger alloc] initWithFile:[[aURL path] stringByAppendingPathComponent:@"hearse.log"] maxSize:cHearseLogSize];
 	}
 	return self;
 }
@@ -306,15 +311,18 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (void) uploadBones {
-	// never ever upload bones from the simulator!
 	NSFileManager *filemanager = [NSFileManager defaultManager];
+	NSURL *aURL = [filemanager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
+	aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
+	NSString *aPath = [aURL path];
 
-    NSArray *filelist = [filemanager contentsOfDirectoryAtPath:@"." error:nil];
+    NSArray<NSString*> *filelist = [filemanager contentsOfDirectoryAtPath:aPath error:nil];
 
 	for (NSString *filename in filelist) {
+		NSString *fileLocation = [aPath stringByAppendingPathComponent:filename];
 		if ([filename hasPrefix:@"bon"] && [self isValidBonesFileName:filename]) {
-			if (![[HearseFileRegistry instance] haveDownloadedFile:filename]) {
-				[self uploadBonesFile:filename];
+			if (![[HearseFileRegistry instance] haveDownloadedFile:fileLocation]) {
+				[self uploadBonesFile:fileLocation];
 			}
 		}
 	}

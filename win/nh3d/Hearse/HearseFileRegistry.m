@@ -33,14 +33,11 @@ static HearseFileRegistry *instance;
 
 + (void)load {
 	@autoreleasepool {
-		NSDictionary *registry = [NSDictionary dictionaryWithObjectsAndKeys:
-								  [NSDictionary dictionary], hearseFileRegistryKeyUploads,
-								  [NSDictionary dictionary], hearseFileRegistryKeyDownloads,
-								  nil];
-		NSDictionary *d = [NSDictionary dictionaryWithObjectsAndKeys:
-						   registry, hearseFileRegistryKey,
-						   nil];
-		[[NSUserDefaults standardUserDefaults] registerDefaults:d];
+		NSDictionary *registry = @{
+								   hearseFileRegistryKeyUploads: [NSDictionary dictionary],
+								   hearseFileRegistryKeyDownloads: [NSDictionary dictionary],
+								  };
+		[[NSUserDefaults standardUserDefaults] registerDefaults:@{hearseFileRegistryKey: registry}];
 	}
 }
 
@@ -48,7 +45,7 @@ static HearseFileRegistry *instance;
 	if (!instance) {
 		instance = [[HearseFileRegistry alloc] init]; //Returns with +1 already
 	} else {
-		[instance release];
+		[instance retain];
 	}
 }
 
@@ -68,9 +65,8 @@ static HearseFileRegistry *instance;
 - (id) init {
 	if (self = [super init]) {
 		NSDictionary *registry = [[NSUserDefaults standardUserDefaults] objectForKey:hearseFileRegistryKey];
-		uploads = [[NSMutableDictionary alloc] initWithDictionary:[registry objectForKey:hearseFileRegistryKeyUploads]];
-		downloads = [[NSMutableDictionary alloc] initWithDictionary:
-					 [registry objectForKey:hearseFileRegistryKeyDownloads]];
+		uploads = [[registry objectForKey:hearseFileRegistryKeyUploads] mutableCopy];
+		downloads = [[registry objectForKey:hearseFileRegistryKeyDownloads] mutableCopy];
 	}
 	[Hearse dumpDictionary:downloads];
 	instance = self;
@@ -78,10 +74,10 @@ static HearseFileRegistry *instance;
 }
 
 - (void) synchronize {
-	NSDictionary *registry = [NSDictionary dictionaryWithObjectsAndKeys:
-							  uploads, hearseFileRegistryKeyUploads,
-							  downloads, hearseFileRegistryKeyDownloads,
-							  nil];
+	NSDictionary *registry = @{
+							   hearseFileRegistryKeyUploads: uploads,
+							   hearseFileRegistryKeyDownloads: downloads,
+							  };
 	[[NSUserDefaults standardUserDefaults] setObject:registry forKey:hearseFileRegistryKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -104,10 +100,8 @@ static HearseFileRegistry *instance;
 }
 		
 - (void) clear {
-	[uploads release];
-	[downloads release];
-	uploads = [[NSMutableDictionary alloc] init];
-	downloads = [[NSMutableDictionary alloc] init];
+	[uploads removeAllObjects];
+	[downloads removeAllObjects];
 	[self synchronize];
 }
 

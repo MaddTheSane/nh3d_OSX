@@ -1398,11 +1398,11 @@
 		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DPreferenceController.swift; sourceTree = "<group>"; };
 		55FEB81A1C373C33008B3A8C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		55FEB8201C373C9C008B3A8C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NetHack3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHack3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1563,10 +1563,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */,
+				2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */,
 				2B26129509233E7800CA7A64 /* models */,
 				2B6F3EDE091AF3E500367391 /* Sound */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,
-				2B578FFD08AB66570080498F /* Resources */,
 				2B3539190915A2F4002CC8AD /* MainMenu.xib */,
 				2BE3649D095D20F500D34027 /* Usermakesheet.xib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
@@ -1574,7 +1575,7 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -1635,7 +1636,8 @@
 				2B2612D709233E7900CA7A64 /* vwall.3ds */,
 				2B3D4EA109526CF8006921EA /* wizardset.3ds */,
 			);
-			path = models;
+			name = models;
+			path = ../models;
 			sourceTree = "<group>";
 		};
 		2B31DB7508CD73C5008CCAAC /* win */ = {
@@ -2144,15 +2146,6 @@
 			path = winnt;
 			sourceTree = "<group>";
 		};
-		2B578FFD08AB66570080498F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */,
-				2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		2B5CBF73088EB5A500940C58 /* dat */ = {
 			isa = PBXGroup;
 			children = (
@@ -2567,7 +2560,8 @@
 				2B0964CE091D465D004965B2 /* waterDrop4.wav */,
 				2B0964E0091D4A98004965B2 /* waterDrop5.wav */,
 			);
-			path = Sound;
+			name = Sound;
+			path = ../Sound;
 			sourceTree = "<group>";
 		};
 		2BA0209208EF3D68004057D1 /* Cocoa_GNUStep */ = {
@@ -3575,6 +3569,7 @@
 				55459F8A1B5DFD690098F5BC /* ja */,
 			);
 			name = Credits.rtf;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2B3539190915A2F4002CC8AD /* MainMenu.xib */ = {
@@ -3585,6 +3580,7 @@
 				55C183461C39E43900602251 /* ja */,
 			);
 			name = MainMenu.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2B8AE3600960779400B6998D /* PreferencePanel.xib */ = {
@@ -3595,6 +3591,7 @@
 				55C183481C39E46A00602251 /* ja */,
 			);
 			name = PreferencePanel.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2BE3649D095D20F500D34027 /* Usermakesheet.xib */ = {
@@ -3605,6 +3602,7 @@
 				55C183471C39E44D00602251 /* ja */,
 			);
 			name = Usermakesheet.xib;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */ = {
@@ -3623,6 +3621,7 @@
 				55AB04E11B5D88ED0039953F /* ja */,
 			);
 			name = Localizable.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -3653,6 +3652,7 @@
 					"$(inherited)",
 					NOTTYGRAPHICS,
 					"HACKDIR=\\\"Resources\\\"",
+					NH3DDEBUG,
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -3702,6 +3702,7 @@
 					"$(inherited)",
 					NOTTYGRAPHICS,
 					"HACKDIR=\\\"Resources\\\"",
+					NH3DDEBUG,
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;

@@ -48,7 +48,7 @@
 		unsigned long size = [info fileSize];
 		if (size >= maxSize) {
 			int halfSize = maxSize / 2;
-			NSData *src = [[NSData alloc] initWithContentsOfMappedFile:filename];
+			NSData *src = [[NSData alloc] initWithContentsOfFile:filename options:NSDataReadingMappedIfSafe error:NULL];
 			NSData *sub = [src subdataWithRange:NSMakeRange(size - halfSize, halfSize)];
 			const char *bytes = [sub bytes];
 			const char *pBytes = bytes;

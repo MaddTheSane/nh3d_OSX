@@ -174,4 +174,9 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	@IBAction func applyTileSettings(sender: AnyObject?) {
 		bindController?.setTile()
 	}
+	
+	@IBAction func restartHearse(sender: AnyObject?) {
+		Hearse.stop()
+		Hearse.start()
+	}
 }

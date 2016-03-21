@@ -11,6 +11,7 @@
 #import "NH3DMapView.h"
 #import "NetHack3D-Swift.h"
 #import "NetHack3D-Bridging-Header.h"
+#import "Hearse.h"
 
 #include <sys/stat.h>
 #include <signal.h>
@@ -1256,6 +1257,10 @@ wd_message()
 						  NHUseNumPad: @NO,
 						  NHMaxMessages: @30,
 						  NH3DUseRetinaOpenGL: @YES,
+						  
+						  //Hearse
+						  kKeyHearse: @NO,
+						  
 						  };
 		
 		[[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
@@ -1601,6 +1606,10 @@ static char ynPreReady(const char *str)
 	[_mapModel updateAllMaps];
 	/* first-time inventory */
 	[_NH3DUserStatusModel updatePlayerInventory];
+	
+#if !defined(HEARSE_DISABLE)
+	[Hearse start];
+#endif
 	
 	moveloop(isResuming);
 }

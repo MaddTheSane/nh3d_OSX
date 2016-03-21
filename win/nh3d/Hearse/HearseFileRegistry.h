@@ -25,10 +25,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HearseFileRegistry : NSObject {
-	
 	NSMutableDictionary *uploads;
 	NSMutableDictionary *downloads;
-
 }
 
 + (nullable HearseFileRegistry *) instance;

@@ -27,11 +27,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FileLogger : NSObject {
-	
 	NSString *filename;
 	int maxSize;
 	FILE *fd;
-
 }
 
 + (int) openTmpFile;

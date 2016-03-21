@@ -12,6 +12,8 @@
 #import "winnh3d.h"
 #include "extern.h"
 
+#import "Hearse.h"
+
 static inline BOOL Swift_Invis() {
 	return !!Invis;
 }
