@@ -9,8 +9,6 @@
 import Foundation
 import simd
 
-//TODO: migrate to vector data types.
-//This can help make the math somewhat cleaner.
 extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
@@ -53,14 +51,10 @@ extension NH3DModelObject {
 }
 
 extension vector_float3 : Equatable {
-	var vectorLength: Float {
-		return sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
-	}
-	
 	mutating func normalizeInPlace() {
 		var l_length: Float
 		
-		l_length = self.vectorLength
+		l_length = length(self)
 		if l_length == 0 {
 			l_length = 1
 		}
@@ -73,20 +67,17 @@ extension vector_float3 : Equatable {
 		return ourself
 	}
 	
-	var vectorScalar: Float {
-		return (self.x*self.x + self.y*self.y + self.z*self.z)
-	}
-	
 	init(start p_start: vector_float3, endingAt p_end : vector_float3) {
-		self.init(x: p_end.x - p_start.x, y: p_end.y - p_start.y, z: p_end.z - p_start.z)
+		self = p_end - p_start
 		normalizeInPlace()
 	}
 }
 
 private func dotProduct(p_vector1: vector_float3, _ p_vector2: vector_float3) -> vector_float3 {
-	let p_normal = vector_float3(x: (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y),
-		y: (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z),
-		z: (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x))
+	let x = (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y)
+	let y = (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z)
+	let z = (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x)
+	let p_normal = vector_float3(x: x, y: y, z: z)
 
 	return p_normal
 }

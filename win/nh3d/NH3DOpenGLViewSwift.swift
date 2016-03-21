@@ -14,6 +14,12 @@ import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 
 
+private struct NH3DVertexType {
+	var x: GLfloat
+	var y: GLfloat
+	var z: GLfloat
+}
+
 private let TEX_SIZE = 128
 
 private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
@@ -51,11 +57,11 @@ private let vsyncNoWait: GLint = 0
 // MARK: floor model
 ////////////////////////////////
 
-private var FloorVerts: [vector_float3] = [
-	vector_float3(x: -2.0, y: 0.0, z: -2.0),
-	vector_float3(x: -2.0, y: 0.0, z: 2.0),
-	vector_float3(x: 2.0, y: 0.0, z: -2.0),
-	vector_float3(x: 2.0, y: 0.0, z: 2.0)
+private var FloorVerts: [NH3DVertexType] = [
+	NH3DVertexType(x: -2.0, y: 0.0, z: -2.0),
+	NH3DVertexType(x: -2.0, y: 0.0, z: 2.0),
+	NH3DVertexType(x: 2.0, y: 0.0, z: -2.0),
+	NH3DVertexType(x: 2.0, y: 0.0, z: 2.0)
 ]
 
 private var FloorTexVerts:[NH3DMapCoordType] = [
@@ -65,22 +71,22 @@ private var FloorTexVerts:[NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 1.0, t: 1.0)
 ]
 
-private var FloorVertNorms: [vector_float3] = [
-	vector_float3(x: -0.25, y: 0.50, z: 0.25),
-	vector_float3(x: -0.25, y: 0.50, z: 0.25),
-	vector_float3(x: 0.25, y: 0.50, z: -0.25),
-	vector_float3(x: 0.25, y: 0.50, z: -0.25)
+private var FloorVertNorms: [NH3DVertexType] = [
+	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
+	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
+	NH3DVertexType(x: 0.25, y: 0.50, z: -0.25),
+	NH3DVertexType(x: 0.25, y: 0.50, z: -0.25)
 ]
 
 //////////////////////////////
 // MARK: ceiling model
 //////////////////////////////
 
-private var CeilingVerts: [vector_float3] = [
-	vector_float3(x: 2.0, y: 6.0, z: -2.0),
-	vector_float3(x: 2.0, y: 6.0, z: 2.0),
-	vector_float3(x: -2.0, y: 6.0, z: -2.0),
-	vector_float3(x: -2.0, y: 6.0, z: 2.0)
+private var CeilingVerts: [NH3DVertexType] = [
+	NH3DVertexType(x: 2.0, y: 6.0, z: -2.0),
+	NH3DVertexType(x: 2.0, y: 6.0, z: 2.0),
+	NH3DVertexType(x: -2.0, y: 6.0, z: -2.0),
+	NH3DVertexType(x: -2.0, y: 6.0, z: 2.0)
 ]
 
 private var CeilingTexVerts: [NH3DMapCoordType] = [
@@ -91,11 +97,11 @@ private var CeilingTexVerts: [NH3DMapCoordType] = [
 ]
 
 
-private var CeilingVertNorms: [vector_float3] = [
-	vector_float3(x: 0.0, y: -1.0, z: 0.0),
-	vector_float3(x: 0.0, y: -1.0, z: 0.0),
-	vector_float3(x: 0.0, y: -1.0, z: 0.0),
-	vector_float3(x: 0.0, y: -1.0, z: 0.0)
+private var CeilingVertNorms: [NH3DVertexType] = [
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
+	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0)
 ]
 
 ////////////////////////////////
@@ -103,11 +109,11 @@ private var CeilingVertNorms: [vector_float3] = [
 ////////////////////////////////
 
 
-private var defaultVerts: [vector_float3] = [
-	vector_float3(x: -1.5, y: 0.5, z: 0),
-	vector_float3(x:  1.5, y: 0.5, z: 0),
-	vector_float3(x: -1.5, y: 3.5, z: 0),
-	vector_float3(x:  1.5, y: 3.5, z: 0)
+private var defaultVerts: [NH3DVertexType] = [
+	NH3DVertexType(x: -1.5, y: 0.5, z: 0),
+	NH3DVertexType(x:  1.5, y: 0.5, z: 0),
+	NH3DVertexType(x: -1.5, y: 3.5, z: 0),
+	NH3DVertexType(x:  1.5, y: 3.5, z: 0)
 ]
 
 private var defaultTexVerts: [NH3DMapCoordType] = [
@@ -117,20 +123,20 @@ private var defaultTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 1.0,t: 0.0)
 ]
 
-private var defaultNorms: [vector_float3] = [
-	vector_float3(x: 0.5, y: 0.0, z: 0.5),
-	vector_float3(x: 0.5, y: 0.0, z: 0.5)
+private var defaultNorms: [NH3DVertexType] = [
+	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5),
+	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5)
 ]
 
 ////////////////////////////////
 // MARK: null object
 ////////////////////////////////
 
-private var nullObjectVerts: [vector_float3] = [
-	vector_float3(x: 2, y: 0, z: -2), vector_float3(x: -2, y: 0, z: -2), vector_float3(x: 2,  y: 6, z: -2 ), vector_float3(x: -2, y: 6, z: -2), // rear
-	vector_float3(x: 2, y: 0, z: 2 ), vector_float3(  x: 2, y: 0, z: -2 ), vector_float3(  x: 2,  y: 6,  z: 2 ), vector_float3(  x: 2,  y: 6, z: -2 ), // right
-	vector_float3( x: -2, y: 0,  z: 2 ), vector_float3(  x: 2, y: 0,  z: 2 ), vector_float3( x: -2,  y: 6,  z: 2 ), vector_float3(  x: 2,  y: 6,  z: 2 ), // front
-	vector_float3( x: -2, y: 0, z: -2 ), vector_float3( x: -2, y: 0,  z: 2 ), vector_float3( x: -2,  y: 6, z: -2 ), vector_float3( x: -2,  y: 6,  z: 2 )  // left
+private var nullObjectVerts: [NH3DVertexType] = [
+	NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: 2,  y: 6, z: -2 ), NH3DVertexType(x: -2, y: 6, z: -2), // rear
+	NH3DVertexType(x: 2, y: 0, z: 2 ), NH3DVertexType(  x: 2, y: 0, z: -2 ), NH3DVertexType(  x: 2,  y: 6,  z: 2 ), NH3DVertexType(  x: 2,  y: 6, z: -2 ), // right
+	NH3DVertexType( x: -2, y: 0,  z: 2 ), NH3DVertexType(  x: 2, y: 0,  z: 2 ), NH3DVertexType( x: -2,  y: 6,  z: 2 ), NH3DVertexType(  x: 2,  y: 6,  z: 2 ), // front
+	NH3DVertexType( x: -2, y: 0, z: -2 ), NH3DVertexType( x: -2, y: 0,  z: 2 ), NH3DVertexType( x: -2,  y: 6, z: -2 ), NH3DVertexType( x: -2,  y: 6,  z: 2 )  // left
 ]
 
 private var nullObjectTexVerts: [NH3DMapCoordType] = [
@@ -140,11 +146,11 @@ private var nullObjectTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 )
 ]
 
-private var nullObjectNorms: [vector_float3] = [
-	vector_float3(x: 0.20,  y: 0.50, z: -0.30), vector_float3(x: 0.20, y: 0.50, z: -0.30),
-	vector_float3(x: -0.30,  y: -0.50, z: 0.20), vector_float3(x: -0.30, y: -0.50, z: 0.20),
-	vector_float3(x: 0.20,  y: 0.50, z: 0.30), vector_float3(x: 0.20, y: 0.50, z: 0.30),
-	vector_float3(x: 0.30,  y: -0.50, z: -0.20), vector_float3(x: 0.30, y: -0.50, z: -0.20)
+private var nullObjectNorms: [NH3DVertexType] = [
+	NH3DVertexType(x: 0.20,  y: 0.50, z: -0.30), NH3DVertexType(x: 0.20, y: 0.50, z: -0.30),
+	NH3DVertexType(x: -0.30,  y: -0.50, z: 0.20), NH3DVertexType(x: -0.30, y: -0.50, z: 0.20),
+	NH3DVertexType(x: 0.20,  y: 0.50, z: 0.30), NH3DVertexType(x: 0.20, y: 0.50, z: 0.30),
+	NH3DVertexType(x: 0.30,  y: -0.50, z: -0.20), NH3DVertexType(x: 0.30, y: -0.50, z: -0.20)
 ]
 
 
