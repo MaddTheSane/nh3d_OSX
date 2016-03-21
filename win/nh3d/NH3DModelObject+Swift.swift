@@ -8,6 +8,8 @@
 
 import Foundation
 
+//TODO: migrate to vector data types.
+//This can help make the math somewhat cleaner.
 extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)

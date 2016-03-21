@@ -17,23 +17,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//TODO: migrate to vector_float3
 typedef struct nh3d_point3 {
 	float x, y, z;
 } NH3DVertexType;
-
 
 typedef struct nh3d_face3 {
     unsigned short  a,b,c;
 } NH3DFaceType;
 
-
 typedef struct {
     float s,t;
 } NH3DMapCoordType;
 
-
+//TODO: migrate to vector_float4?
 typedef float NH3DMaterialType[4];
-
 
 typedef struct {
 	NH3DMaterialType	ambient;
@@ -42,7 +40,6 @@ typedef struct {
 	NH3DMaterialType	emission;
 	float				shininess;
 } NH3DMaterial;
-
 
 typedef struct {
 	BOOL active;
