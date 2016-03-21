@@ -3702,7 +3702,6 @@
 					"$(inherited)",
 					NOTTYGRAPHICS,
 					"HACKDIR=\\\"Resources\\\"",
-					NH3DDEBUG,
 				);
 				GCC_REUSE_STRINGS = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;

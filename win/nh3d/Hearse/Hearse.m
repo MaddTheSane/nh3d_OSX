@@ -27,6 +27,7 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
+#include <zlib.h>
 
 #include "patchlevel.h"
 
@@ -70,6 +71,22 @@ static NSString *const hearseCommandDownload = @"download";
 
 #pragma mark md5 handling
 
++ (nullable NSData*)dataFromGzippedFile:(NSString*)filename {
+	NSMutableData *toRet = [[NSMutableData alloc] init];
+	gzFile fh = gzopen([filename fileSystemRepresentation], "r");
+	if (!fh) {
+		return nil;
+	}
+	const int bufferSize = 1024;
+	char buffer[bufferSize];
+	ssize_t bytesRead;
+	while ((bytesRead = gzread(fh, buffer, bufferSize))) {
+		[toRet appendBytes:buffer length:bytesRead];
+	}
+	gzclose(fh);
+	return toRet;
+}
+
 + (NSString *) md5HexForString:(NSString *)s {
 	unsigned char digest[CC_MD5_DIGEST_LENGTH];
 	const char *data = [s cStringUsingEncoding:NSASCIIStringEncoding];
@@ -80,6 +97,26 @@ static NSString *const hearseCommandDownload = @"download";
 + (NSString *) md5HexForFile:(NSString *)filename {
 	CC_MD5_CTX context;
 	CC_MD5_Init(&context);
+	if ([[filename pathExtension] isEqualToString:@"gz"]) {
+		gzFile fh = gzopen([filename fileSystemRepresentation], "r");
+		if (!fh) {
+			return nil;
+		}
+		const int bufferSize = 1024;
+		char buffer[bufferSize];
+		ssize_t bytesRead;
+		while ((bytesRead = gzread(fh, buffer, bufferSize))) {
+			CC_MD5_Update(&context, buffer, (unsigned int) bytesRead);
+		}
+		gzclose(fh);
+		unsigned char digest[CC_MD5_DIGEST_LENGTH];
+		CC_MD5_Final(digest, &context);
+		if (bytesRead == -1) {
+			return nil;
+		} else {
+			return [self md5HexForDigest:digest];
+		}
+	}
 	int fh = open([filename fileSystemRepresentation], O_RDONLY);
 	if (fh != -1) {
 		const int bufferSize = 1024;
@@ -154,11 +191,7 @@ static NSString *const hearseCommandDownload = @"download";
 #else
 		deleteUploadedBones = YES;
 #endif
-#if __LP64__
-        hearseInternalVersion = [@"55" copy]; // iNethack2: the id for iNethack2 64-bit mode.
-#else
-        hearseInternalVersion = [@"45" copy]; // will be changed in uploadBonesFile:
-#endif
+        hearseInternalVersion = [@"59" copy]; // iNethack2: the id for NetHack3D.
        
 		optimumNumberOfBonesDownloads = 2; // always want to download 2 bones
 		NSURL *aURL = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
@@ -336,7 +369,12 @@ static NSString *const hearseCommandDownload = @"download";
 	if (!self.haveUploadedBones) {
 		[req addValue:@"Y" forHTTPHeaderField:@"X_WANTSINFO"];
 	}
-	NSData *data = [NSData dataWithContentsOfFile:file];
+	NSData *data;
+	if ([[file pathExtension] isEqualToString:@"gz"]) {
+		data = [Hearse dataFromGzippedFile:file];
+	} else {
+		data = [NSData dataWithContentsOfFile:file];
+	}
 	[req setHTTPBody:data];
 	[req addValue:[Hearse md5HexForData:data] forHTTPHeaderField:@"X_BONESCRC"];
 	NSHTTPURLResponse *response = [self httpPostRequestWithoutData:req];
@@ -438,13 +476,17 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (NSArray *) existingBonesFiles {
-	NSMutableArray *bones = [NSMutableArray array];
+	NSMutableArray *bones = [[NSMutableArray alloc] init];
 	NSFileManager *filemanager = [NSFileManager defaultManager];
     NSArray *filelist= [filemanager contentsOfDirectoryAtPath:@"." error:nil];
     
 	for (NSString *filename in filelist) {
 		if ([filename hasPrefix:@"bon"]) {
-			[bones addObject:filename];
+			if ([[filename pathExtension] isEqualToString:@"gz"]) {
+				[bones addObject:[filename stringByDeletingPathExtension]];
+			} else {
+				[bones addObject:filename];
+			}
 		}
 	}
 	return bones;
