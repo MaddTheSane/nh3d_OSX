@@ -361,10 +361,14 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (void) uploadBonesFile:(NSString *)file {
+	NSString *fileName = [file lastPathComponent];
+	if ([[fileName pathExtension] isEqualToString:@"gz"]) {
+		fileName = [fileName stringByDeletingPathExtension];
+	}
 	NSMutableURLRequest *req = [self requestForCommand:hearseCommandUpload];
 	[req addValue:netHackVersionCrc forHTTPHeaderField:@"X_VERSIONCRC"];
 	[req addValue:hearseId forHTTPHeaderField:@"X_USERTOKEN"];
-	[req addValue:[file lastPathComponent] forHTTPHeaderField:@"X_FILENAME"];
+	[req addValue:fileName forHTTPHeaderField:@"X_FILENAME"];
 	if (!self.haveUploadedBones) {
 		[req addValue:@"Y" forHTTPHeaderField:@"X_WANTSINFO"];
 	}
