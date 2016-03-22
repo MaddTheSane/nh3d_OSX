@@ -1252,7 +1252,7 @@ extern BOOL CocoaPortIsReady;
 				} else {
 					switch (event.type) {
 						case NSKeyDown:
-							if (strlen(event.charactersIgnoringModifiers.UTF8String) < 1) {
+							if (strlen(event.charactersIgnoringModifiers.UTF8String) < 2) {
 								strcpy(ch, event.charactersIgnoringModifiers.UTF8String);
 							}
 							

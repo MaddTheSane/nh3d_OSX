@@ -13,7 +13,7 @@ extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
 		
-		let zeroVert = vector_float3(x: 0, y: 0, z: 0)
+		let zeroVert = float3(x: 0, y: 0, z: 0)
 		
 		for i in 0..<Int(verts_qty) {
 			norms[i] = zeroVert
@@ -28,8 +28,8 @@ extension NH3DModelObject {
 			let l_vect3 = verts[Int(face.c)]
 			
 			// Polygon normal calculation
-			let l_vect_b1 = vector_float3(start: l_vect1, endingAt: l_vect2)
-			let l_vect_b2 = vector_float3(start: l_vect1, endingAt: l_vect3)
+			let l_vect_b1 = float3(start: l_vect1, endingAt: l_vect2)
+			let l_vect_b2 = float3(start: l_vect1, endingAt: l_vect3)
 			let l_normal = normalize(dotProduct(l_vect_b1, l_vect_b2))
 			
 			l_Connect[Int(face.a)] += 1
@@ -51,17 +51,17 @@ extension NH3DModelObject {
 }
 
 extension float3 : Equatable {
-	init(start p_start: vector_float3, endingAt p_end : vector_float3) {
+	init(start p_start: float3, endingAt p_end : float3) {
 		let pre = p_end - p_start
 		self = normalize(pre)
 	}
 }
 
-private func dotProduct(p_vector1: vector_float3, _ p_vector2: vector_float3) -> vector_float3 {
+private func dotProduct(p_vector1: float3, _ p_vector2: float3) -> float3 {
 	let x = (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y)
 	let y = (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z)
 	let z = (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x)
-	let p_normal = vector_float3(x: x, y: y, z: z)
+	let p_normal = float3(x: x, y: y, z: z)
 
 	return p_normal
 }
@@ -88,7 +88,7 @@ public func ==(lhs: NH3DMapCoordType, rhs: NH3DMapCoordType) -> Bool {
 	return true
 }
 
-public func ==(lhs: vector_float3, rhs: vector_float3) -> Bool {
+public func ==(lhs: float3, rhs: float3) -> Bool {
 	if lhs.x != rhs.x {
 		return false
 	} else if lhs.y != rhs.y {
@@ -108,24 +108,6 @@ public func ==(lhs: nh3d_face3, rhs: nh3d_face3) -> Bool {
 		return false
 	}
 	return true
-}
-
-private func ==(lhs: NH3DMaterialType, rhs: NH3DMaterialType) -> Bool {
-	if lhs.0 != rhs.0 {
-		return false
-	} else if lhs.1 != rhs.1 {
-		return false
-	} else if lhs.2 != rhs.2 {
-		return false
-	} else if lhs.3 != rhs.3 {
-		return false
-	}
-	
-	return true
-}
-
-private func !=(lhs: NH3DMaterialType, rhs: NH3DMaterialType) -> Bool {
-	return !(lhs == rhs)
 }
 
 public func ==(lhs: NH3DMaterial, rhs: NH3DMaterial) -> Bool {

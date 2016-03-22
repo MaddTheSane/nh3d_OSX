@@ -493,7 +493,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	} else if (uarmh) {
 		[self setPlayerBlindFold:0];
 		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.
-		self.playerBlindFoldString = self.playerHelmetString;
+		self.playerBlindFoldString = _playerHelmetString;
 	} else {
 		[self setPlayerBlindFold:0];
 		self.playerBlindFoldString = nil;

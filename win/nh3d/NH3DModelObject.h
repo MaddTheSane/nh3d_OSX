@@ -18,6 +18,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef struct nh3d_point3 {
+	float x, y, z;
+} NH3DVertexType;
+
 typedef struct nh3d_face3 {
     unsigned short  a,b,c;
 } NH3DFaceType;
@@ -26,7 +30,6 @@ typedef struct {
     float s,t;
 } NH3DMapCoordType;
 
-//TODO: migrate to vector_float4?
 typedef float NH3DMaterialType[4];
 
 typedef struct {
@@ -128,8 +131,8 @@ typedef struct {
 - (nullable instancetype) initWithOBJFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER;
 
 
-- (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag;
-- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER; // This is designated initializer.
+- (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_SWIFT_NAME(init(with3DSFile:withTexture:));
+- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER NS_SWIFT_NAME(init(with3DSFile:textureNamed:)); // This is designated initializer.
 
 + (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName;
 

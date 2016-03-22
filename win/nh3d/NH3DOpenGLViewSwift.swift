@@ -14,12 +14,6 @@ import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 
 
-private struct NH3DVertexType {
-	var x: GLfloat
-	var y: GLfloat
-	var z: GLfloat
-}
-
 private let TEX_SIZE = 128
 
 private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
@@ -691,7 +685,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if modelName == "emitter" {
 			return NH3DModelObject()
 		} else {
-			return NH3DModelObject(modelName, withTexture: flag)
+			return NH3DModelObject(with3DSFile: modelName, withTexture: flag)
 		}
 	}
 	
@@ -1054,14 +1048,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 				
 			case PL_DIRECTION_RIGHT:
 				for z in 0..<NH3DGL_MAPVIEWSIZE_ROW {
-					for x in (MAP_MARGIN-drawMargin..<NH3DGL_MAPVIEWSIZE_COLUMN).reverse() {
+					for x in ((MAP_MARGIN-drawMargin)..<NH3DGL_MAPVIEWSIZE_COLUMN).reverse() {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
 			case PL_DIRECTION_BACK:
 				for x in 0..<NH3DGL_MAPVIEWSIZE_COLUMN {
-					for z in (MAP_MARGIN-drawMargin..<NH3DGL_MAPVIEWSIZE_ROW).reverse() {
+					for z in ((MAP_MARGIN-drawMargin)..<NH3DGL_MAPVIEWSIZE_ROW).reverse() {
 						drawGLView(x: x, z: z)
 					}
 				}
@@ -1435,7 +1429,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		setCamera(x: Float(x) * NH3DGL_TILE_SIZE, y: 1.8, z: Float(z) * NH3DGL_TILE_SIZE)
 	}
 	
-	/// Sets the camera's head, pitch amount, and rolling amount, in degrees.
+	/// Sets the camera's head, pitch, and roll, in degrees.
 	@objc(setCameraHead:pitching:rolling:) func setCamera(head head1: Float, pitching pitch: Float, rolling roll: Float) {
 		var head = head1
 		viewLock.lock()
@@ -1737,7 +1731,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		//  -------------------------- Map Symbols Section. -------------------------- //
 		
-		model = NH3DModelObject("vwall", textureNamed: "wall_start")
+		model = NH3DModelObject(with3DSFile: "vwall", textureNamed: "wall_start")
 		model?.addTexture("wall_mines")
 		model?.addTexture("wall_hell")
 		model?.addTexture("wall_knox")
@@ -1759,7 +1753,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		modelDictionary[S_vwall + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject("hwall", textureNamed: "wall_start")
+		model = NH3DModelObject(with3DSFile: "hwall", textureNamed: "wall_start")
 		model?.addTexture("wall_mines")
 		model?.addTexture("wall_hell")
 		model?.addTexture("wall_knox")
@@ -1782,7 +1776,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		modelDictionary[S_hwall + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject("corner", withTexture: true)
+		model = NH3DModelObject(with3DSFile: "corner", withTexture: true)
 		model?.addTexture("corner_mines")
 		model?.addTexture("corner_hell")
 		model?.addTexture("corner_knox")
@@ -1798,16 +1792,16 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[S_tlwall + GLYPH_CMAP_OFF] = model
 		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject("vopendoor", textureNamed: "door")
+		model = NH3DModelObject(with3DSFile: "vopendoor", textureNamed: "door")
 		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject("hopendoor", textureNamed: "door")
+		model = NH3DModelObject(with3DSFile: "hopendoor", textureNamed: "door")
 		modelDictionary[S_hodoor + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject("vdoor", textureNamed: "door")
+		model = NH3DModelObject(with3DSFile: "vdoor", textureNamed: "door")
 		modelDictionary[S_vcdoor + GLYPH_CMAP_OFF] = model
 		
-		model = NH3DModelObject("hdoor", textureNamed: "door")
+		model = NH3DModelObject(with3DSFile: "hdoor", textureNamed: "door")
 		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model
 	}
 	
@@ -2103,7 +2097,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+GLYPH_PET_OFF {
-			ret = NH3DModelObject("lowerH", withTexture: false)
+			ret = NH3DModelObject(with3DSFile:"lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: 0.2, atZ: -0.21)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2159,13 +2153,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK")
 			
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF:
-			ret = NH3DModelObject("lowerK", withTexture: false)
+			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: 0.1, atZ: -0.25)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF:
-			ret = NH3DModelObject("lowerK", withTexture: false)
+			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: -0.01, atZ: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2179,7 +2173,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// leprechaun
 	//private func loadModelFunc_leprechaun(glyph: Int32) -> NH3DModelObject? {
-	//	return NH3DModelObject("lowerL", withTexture: false)
+	//	return NH3DModelObject(with3DSFile: "lowerL", withTexture: false)
 	//}
 	
 	// mimics
@@ -2209,7 +2203,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + GLYPH_PET_OFF {
-			ret = NH3DModelObject("lowerO", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "lowerO", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.15, atZ: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2422,14 +2416,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF,
 		PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
-			ret = NH3DModelObject("upperG", withTexture: false)
+			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY:-0.01, atZ:-0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF,
 		PM_GNOME_KING + GLYPH_PET_OFF:
-			ret = NH3DModelObject("upperG", withTexture: false)
+			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.05, atZ: -0.25)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2515,7 +2509,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				without: PM_OGRE_KING)
 			
 		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + GLYPH_PET_OFF:
-			ret = NH3DModelObject("upperO", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 0.15, atZ: -0.18)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2539,7 +2533,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Quantum mechanics
 	//private final func loadModelFunc_QuantumMechanics(glyph: Int32) -> NH3DModelObject? {
-	//	return NH3DModelObject("upperQ", withTexture: false)
+	//	return NH3DModelObject(with3DSFile: "upperQ", withTexture: false)
 	//}
 	
 	/// Rust monster or disenchanter
@@ -2595,7 +2589,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, offset: offset, modelName: "upperV")
 			
 		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF:
-			ret =  NH3DModelObject("upperV", withTexture: false)
+			ret =  NH3DModelObject(with3DSFile: "upperV", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: 0.15, atZ: -0.18)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2662,20 +2656,20 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		switch glyph {
 		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + GLYPH_PET_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: -0.18, atZ: 0)
 			ret?.lastChildObject?.setModelRotateX(0, rotateY: 11.7, rotateZ: 0)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + GLYPH_PET_OFF:
-			ret = NH3DModelObject("atmark", withTexture:false)
+			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("nurse", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0, atY: -0.28, atZ: 1)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture:false)
+			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2686,7 +2680,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture:false)
+			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY:-0.28, atZ:-0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2761,7 +2755,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		if glyph == PM_JUIBLEX + GLYPH_MON_OFF || glyph == PM_JUIBLEX + GLYPH_PET_OFF {
-			ret = NH3DModelObject("ampersand", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2850,7 +2844,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private final func loadModelFunc_Adventures(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		if glyph == PM_WIZARD + GLYPH_MON_OFF {
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
 		} else {
@@ -2865,7 +2859,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		switch glyph {
 		case PM_KING_ARTHUR + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.18, atZ: 0.0)
 			ret?.lastChildObject?.setModelRotateX(0.0, rotateY: 11.7, rotateZ: 0.0)
@@ -2880,7 +2874,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
 			ret?.addChildObject("emitter", type: .Emitter)
@@ -2893,7 +2887,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF:
-			ret = NH3DModelObject("ampersand", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2904,7 +2898,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_THOTH_AMON + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2915,7 +2909,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF:
-			ret = NH3DModelObject("upperD", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2926,7 +2920,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_CYCLOPS + GLYPH_MON_OFF:
-			ret = NH3DModelObject("upperH", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2937,7 +2931,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_IXOTH + GLYPH_MON_OFF:
-			ret = NH3DModelObject("upperD", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2948,7 +2942,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_MASTER_KAEN + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2959,7 +2953,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_NALZOK + GLYPH_MON_OFF:
-			ret = NH3DModelObject("ampersand", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2970,7 +2964,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_SCORPIUS + GLYPH_MON_OFF:
-			ret = NH3DModelObject("lowerS", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "lowerS", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2981,7 +2975,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF, PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
@@ -2992,7 +2986,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_LORD_SURTUR + GLYPH_MON_OFF:
-			ret = NH3DModelObject("upperH", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.18, atZ: 0.0)
 			ret?.lastChildObject?.setModelRotateX(0.0, rotateY: 11.7, rotateZ: 0.0)
@@ -3007,7 +3001,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case PM_DARK_ONE + GLYPH_MON_OFF:
-			ret = NH3DModelObject("atmark", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(0.0, atY: -0.28, atZ: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -3065,36 +3059,36 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		switch glyph {
 		case S_bars + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("ironbar", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "ironbar", withTexture: true)
 			
 		case S_tree + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("tree", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "tree", withTexture: true)
 			ret?.setModelScaleX(2.5, scaleY: 1.7, scaleZ: 2.5)
 			
 		case S_upstair + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("upStair", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "upStair", withTexture: true)
 			
 		case S_dnstair + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("downStair", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "downStair", withTexture: true)
 			
 		case S_upladder + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("upladder", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "upladder", withTexture: true)
 			
 		case S_dnladder + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("downladder", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "downladder", withTexture: true)
 			
 		case S_altar + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("altar", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "altar", withTexture: true)
 			
 		case S_grave + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("grave", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "grave", withTexture: true)
 			ret?.setModelScaleX(0.6, scaleY:0.6, scaleZ:0.6)
 			
 		case S_throne + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("opulent_throne", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "opulent_throne", withTexture: true)
 			
 		case S_sink + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("sink", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "sink", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 1.277, atZ: -0.812)
 			ret?.lastChildObject?.particleType = .Points
@@ -3111,7 +3105,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case S_fountain + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("fountain", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(-0.34, atY:2.68, atZ:0.65)
 			ret?.lastChildObject?.setParticleGravityX(0, y: 0.1, z: 0.08)
@@ -3143,21 +3137,21 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case S_vodbridge + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("bridgeUP", textureNamed: "bridge")
+			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
 			ret?.setModelRotateX(0, rotateY: -90, rotateZ: 0)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			
 		case S_hodbridge + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("bridge", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(4.0, atY:0.0, atZ:0.0)
 			
 		case S_vcdbridge + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("bridgeUP", textureNamed: "bridge")
+			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			
 		case S_hcdbridge + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("bridge", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
 			ret?.setModelRotateX(0, rotateY: -90, rotateZ: 0)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			ret?.lastChildObject?.setPivotX(4.0, atY:0.0, atZ:0.0)
@@ -3175,21 +3169,21 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		switch glyph {
 		case S_arrow_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("arrowtrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "arrowtrap", withTexture: true)
 			
 		case S_dart_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("dartTrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "dartTrap", withTexture: true)
 			
 		case S_falling_rock_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("rockfalltrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "rockfalltrap", withTexture: true)
 			
 			//case S_squeaky_board + GLYPH_CMAP_OFF :
 		case S_land_mine + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("landmine", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "landmine", withTexture: true)
 			
 			//case S_rolling_boulder_trap + GLYPH_CMAP_OFF :
 		case S_sleeping_gas_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("gastrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 0.5, atZ:0.0)
 			ret?.lastChildObject?.particleType = .Both
@@ -3201,7 +3195,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 5.0
 			
 		case S_rust_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("gastrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
 			ret?.lastChildObject?.particleType = .Both
@@ -3213,7 +3207,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleSize = 5.0
 			
 		case S_fire_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("gastrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
 			ret?.lastChildObject?.particleType = .Both
@@ -3225,22 +3219,22 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.5
 			
 		case S_bear_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("beartrap", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "beartrap", withTexture: true)
 			
 		case S_pit + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("pit", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
 		case S_spiked_pit + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("spikepit", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "spikepit", withTexture: true)
 			
 		case S_hole + GLYPH_CMAP_OFF :
-			ret = NH3DModelObject("pit", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
 		case S_trap_door + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("pit", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
 		case S_teleportation_trap + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("teleporter", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
 			ret?.lastChildObject?.setModelScaleX(0.55, scaleY: 0.8, scaleZ: 0.55)
@@ -3262,7 +3256,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.25
 			
 		case S_level_teleporter + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("levelteleporter", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(-0.38, atY: 3.82, atZ: 0.75917)
 			ret?.lastChildObject?.setModelScaleX(0.55, scaleY:0.8, scaleZ:0.55)
@@ -3284,7 +3278,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.25
 			
 		case S_magic_portal + GLYPH_CMAP_OFF:
-			ret = NH3DModelObject("magicportal", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "magicportal", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setModelScaleX(0.8, scaleY:0.7, scaleZ:0.8)
 			ret?.lastChildObject?.particleType = .Aura
@@ -3334,7 +3328,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case S_vibrating_square + GLYPH_CMAP_OFF:
 			//TODO: implement proper vibrating square model
-			ret = NH3DModelObject("pit", withTexture: true)
+			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.setPivotX(0.0, atY: 0.5, atZ: 0.0)
 			ret?.lastChildObject?.particleType = .Both
@@ -4523,7 +4517,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// leprechaun
 		loadModelBlocks[Int(PM_LEPRECHAUN+GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("lowerL", withTexture: false)
+			return NH3DModelObject(with3DSFile: "lowerL", withTexture: false)
 		}
 		
 		// mimics
@@ -4605,7 +4599,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// zruty
 		loadModelBlocks[Int(PM_ZRUTY+GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("lowerZ", withTexture: false)
+			return NH3DModelObject(with3DSFile: "lowerZ", withTexture: false)
 		}
 		
 		// Angels
@@ -4666,7 +4660,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// Jabberwock
 		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("upperJ", withTexture: false)
+			return NH3DModelObject(with3DSFile: "upperJ", withTexture: false)
 		}
 		
 		// Kops
@@ -4714,7 +4708,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// Quantum mechanics
 		loadModelBlocks[Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("upperQ", withTexture: false)
+			return NH3DModelObject(with3DSFile: "upperQ", withTexture: false)
 		}
 		
 		// Rust monster or disenchanter
@@ -4738,7 +4732,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// Umber hulk
 		loadModelBlocks[Int(PM_UMBER_HULK + GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("upperU", withTexture:false)
+			return NH3DModelObject(with3DSFile:"upperU", withTexture:false)
 		}
 		
 		// Vampires
@@ -4753,7 +4747,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// Xorn
 		loadModelBlocks[Int(PM_XORN + GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("upperX", withTexture:false)
+			return NH3DModelObject(with3DSFile:"upperX", withTexture:false)
 		}
 		
 		// Yeti and other large beasts
@@ -4823,7 +4817,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// wormtail
 		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { _ in
-			return NH3DModelObject("wormtail", withTexture: false)
+			return NH3DModelObject(with3DSFile: "wormtail", withTexture: false)
 		}
 		
 		// Adventures
@@ -4849,7 +4843,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		//  ------------------------------  Boulder ---------------------------------- //
 		loadModelBlocks[Int(BOULDER + GLYPH_OBJ_OFF)] = { _ in
-			return NH3DModelObject("boulder", withTexture: true)
+			return NH3DModelObject(with3DSFile: "boulder", withTexture: true)
 		}
 		// --------------------------  Trap Symbol Section --------------------------- //
 		
