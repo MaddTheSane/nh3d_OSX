@@ -70,12 +70,22 @@ extension NH3DMaterial: Equatable {
 	
 }
 
-extension nh3d_face3: Equatable {
-	
+extension nh3d_face3: Equatable, CustomStringConvertible {
+	public var description: String {
+		return "a: \(a), b: \(b), c: \(c)"
+	}
 }
 
-extension NH3DMapCoordType: Equatable {
-	
+extension NH3DMapCoordType: Equatable, CustomStringConvertible {
+	public var description: String {
+		return "s: \(s), t: \(t)"
+	}
+}
+
+extension NH3DVertexType: Equatable, CustomStringConvertible {
+	public var description: String {
+		return "x: \(x), y: \(y), z: \(z)"
+	}
 }
 
 public func ==(lhs: NH3DMapCoordType, rhs: NH3DMapCoordType) -> Bool {
@@ -99,6 +109,17 @@ public func ==(lhs: float3, rhs: float3) -> Bool {
 	return true
 }
 
+public func ==(lhs: NH3DVertexType, rhs: NH3DVertexType) -> Bool {
+	if lhs.x != rhs.x {
+		return false
+	} else if lhs.y != rhs.y {
+		return false
+	} else if lhs.z != lhs.z {
+		return false
+	}
+	return true
+}
+
 public func ==(lhs: nh3d_face3, rhs: nh3d_face3) -> Bool {
 	if lhs.a != rhs.a {
 		return false
@@ -112,8 +133,6 @@ public func ==(lhs: nh3d_face3, rhs: nh3d_face3) -> Bool {
 
 public func ==(lhs: NH3DMaterial, rhs: NH3DMaterial) -> Bool {
 	if lhs.ambient != rhs.ambient {
-		return false
-	} else if lhs.ambient != rhs.ambient {
 		return false
 	} else if lhs.diffuse != rhs.diffuse {
 		return false
