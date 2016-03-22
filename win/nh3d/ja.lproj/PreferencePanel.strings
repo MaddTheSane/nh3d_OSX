@@ -1,4 +1,7 @@
 
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "5"; */
+"5.title" = "Preferences";
+
 /* Class = "NSTabViewItem"; label = "ビュー設定"; ObjectID = "8"; */
 "8.label" = "ビュー設定";
 
@@ -96,10 +99,10 @@
 "282.title" = "タイルグラフィックを使用";
 
 /* Class = "NSTextFieldCell"; title = "8\n"; ObjectID = "285"; */
-"285.title" = "8\n";
+"285.title" = "8";
 
 /* Class = "NSTextFieldCell"; title = "128\n\n"; ObjectID = "286"; */
-"286.title" = "128\n\n";
+"286.title" = "128";
 
 /* Class = "NSTextFieldCell"; title = "幅"; ObjectID = "287"; */
 "287.title" = "幅";
@@ -143,11 +146,41 @@
 /* Class = "NSButtonCell"; title = "Use Retina OpenGL"; ObjectID = "CtN-9v-cCC"; */
 "CtN-9v-cCC.title" = "Use Retina OpenGL";
 
+/* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "G0B-3B-VGs"; */
+"G0B-3B-VGs.title" = "User Name:";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
+"JJV-y1-IiC.ibShadowedIsNilPlaceholder" = "example@me.com";
+
+/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
+"JJV-y1-IiC.ibShadowedNotApplicablePlaceholder" = "example@me.com";
+
 /* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
 "LN5-mm-Rkn.title" = "Maximum messages:";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "NZh-H0-Htk"; */
+"NZh-H0-Htk.title" = "Box";
 
 /* Class = "NSTabViewItem"; label = "Gameplay"; ObjectID = "UNO-Cf-L9F"; */
 "UNO-Cf-L9F.label" = "Gameplay";
 
+/* Class = "NSTextFieldCell"; title = "E-mail:"; ObjectID = "Wjd-UH-del"; */
+"Wjd-UH-del.title" = "E-mail:";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
+"gsj-HG-CLm.ibShadowedIsNilPlaceholder" = "None";
+
+/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
+"gsj-HG-CLm.ibShadowedNotApplicablePlaceholder" = "None";
+
 /* Class = "NSButtonCell"; title = "Use NumPad for movement"; ObjectID = "hKa-Vf-sUd"; */
 "hKa-Vf-sUd.title" = "Use NumPad for movement";
+
+/* Class = "NSButtonCell"; title = "Restart Hearse"; ObjectID = "q2G-nl-skg"; */
+"q2G-nl-skg.title" = "Restart Hearse";
+
+/* Class = "NSTabViewItem"; label = "Hearse"; ObjectID = "qRh-wy-Aoe"; */
+"qRh-wy-Aoe.label" = "Hearse";
+
+/* Class = "NSButtonCell"; title = "Enable Hearse"; ObjectID = "vgV-I3-LD1"; */
+"vgV-I3-LD1.title" = "Enable Hearse";
