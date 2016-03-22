@@ -167,13 +167,11 @@ NH3DINC=-I../win/nh3d -I$(GNUSTEPDIR)/Headers
 
 # For MacOSX (Cocoa 10.4)
 MACOSXDIR = /System/Library
-# OSXARCH = -arch ppc
 OSXARCH = -arch x86_64
-#OSXVECTOR = -faltivec -mtune=G5 -ftree-vectorize
 OSXVECTOR = -msse3 -ftree-vectorize
 SWIFTFLAGS = $(CFLAGS) -I../include
 CFLAGS += $(OSXARCH) $(OSXVECTOR) -I../include -Os
-OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -mdynamic-no-pic -Wreturn-type -Wunused-variable -fmessage-length=0 -fobjc-arc
+OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -mdynamic-no-pic -Wreturn-type -Wunused-variable -fmessage-length=0 -I../win/nh3d/Hearse -fobjc-arc
 
 # NH3DINC=-I../win/nh3d -I$(MACOSXDIR)/Frameworks -I/usr/include
 
@@ -314,8 +312,9 @@ WINGNOMELIB = -lgnomeui -lgnome -lart_lgpl -lgtk -lgdk -lpopt
 WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -lncurses -framework AVFoundation \
 -framework AppKit -framework OpenGL -framework Cocoa $(OSXARCH) \
 -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/ \
+-rpath @executable_path/../Frameworks -framework SystemConfiguration \
 -rpath /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/ \
--rpath @executable_path/../Frameworks
+
 #
 # libraries for Gem port
 WINGEMLIB = -le_gem -lgem
@@ -631,7 +630,9 @@ depend: ../sys/unix/depend.awk \
 	- diff Makefile.bak Makefile
 	@rm -f Makefile.bak
 
-SWIFTFLAGS = -module-name $(GAME) -import-objc-header ../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk $(shell xcrun --show-sdk-path -sdk macosx)
+SWIFTFLAGS = -module-name $(GAME) -import-objc-header \
+../win/nh3d/NetHack3D-Bridging-Header.h -I../include -sdk $(shell xcrun --show-sdk-path -sdk macosx) \
+-I../win/nh3d/Hearse
 
 SWIFTC = swiftc -frontend
 

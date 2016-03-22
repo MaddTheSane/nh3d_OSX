@@ -22,6 +22,7 @@
 
 #import <CommonCrypto/CommonDigest.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <AppKit/NSAlert.h>
 
 #include <fcntl.h>
 #include <sys/types.h>

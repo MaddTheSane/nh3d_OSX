@@ -20,10 +20,11 @@
 //  You should have received a copy of the GNU General Public License
 //  along with iNetHack.  If not, see <http://www.gnu.org/licenses/>.
 
+#include "C99Bool.h"
 #include <fcntl.h>
 
 #import "FileLogger.h"
-#include "extern.h"
+#include "hack.h"
 #include "winprocs.h"
 
 @implementation FileLogger
