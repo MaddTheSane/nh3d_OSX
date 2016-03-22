@@ -1252,7 +1252,9 @@ extern BOOL CocoaPortIsReady;
 				} else {
 					switch (event.type) {
 						case NSKeyDown:
-							strcpy(ch, event.charactersIgnoringModifiers.UTF8String);
+							if (strlen(event.charactersIgnoringModifiers.UTF8String) < 1) {
+								strcpy(ch, event.charactersIgnoringModifiers.UTF8String);
+							}
 							
 							keyBuffer = 0;
 							modKeyFlag = MODKEY_NONE;
