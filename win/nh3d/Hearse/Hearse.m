@@ -97,13 +97,13 @@ static NSString *const hearseCommandDownload = @"download";
 + (NSString *) md5HexForFile:(NSString *)filename {
 	CC_MD5_CTX context;
 	CC_MD5_Init(&context);
+	const int bufferSize = 1024;
+	char buffer[bufferSize];
 	if ([[filename pathExtension] isEqualToString:@"gz"]) {
 		gzFile fh = gzopen([filename fileSystemRepresentation], "r");
 		if (!fh) {
 			return nil;
 		}
-		const int bufferSize = 1024;
-		char buffer[bufferSize];
 		ssize_t bytesRead;
 		while ((bytesRead = gzread(fh, buffer, bufferSize))) {
 			CC_MD5_Update(&context, buffer, (unsigned int) bytesRead);
@@ -119,8 +119,6 @@ static NSString *const hearseCommandDownload = @"download";
 	}
 	int fh = open([filename fileSystemRepresentation], O_RDONLY);
 	if (fh != -1) {
-		const int bufferSize = 1024;
-		char buffer[bufferSize];
 		ssize_t bytesRead;
 		while ((bytesRead = read(fh, buffer, bufferSize))) {
 			CC_MD5_Update(&context, buffer, (unsigned int) bytesRead);
@@ -151,7 +149,7 @@ static NSString *const hearseCommandDownload = @"download";
 		sprintf(pMd5, "%02x", digest[i]);
 		pMd5 += 2;
 	}
-	return [NSString stringWithCString:md5 encoding:NSASCIIStringEncoding];
+	return @(md5);
 }
 
 #pragma mark other static helpers
@@ -476,9 +474,9 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (NSArray *) existingBonesFiles {
-	NSMutableArray *bones = [[NSMutableArray alloc] init];
+	NSMutableArray<NSString*> *bones = [[NSMutableArray alloc] init];
 	NSFileManager *filemanager = [NSFileManager defaultManager];
-    NSArray *filelist= [filemanager contentsOfDirectoryAtPath:@"." error:nil];
+    NSArray<NSString*> *filelist= [filemanager contentsOfDirectoryAtPath:@"." error:nil];
     
 	for (NSString *filename in filelist) {
 		if ([filename hasPrefix:@"bon"]) {
@@ -519,7 +517,8 @@ static NSString *const hearseCommandDownload = @"download";
 
 - (void) logMessage:(NSString *)message {
 	if (message) {
-		NSLog(@"%@", message);
+		// The raw_print in logger prints to the console.
+		//NSLog(@"%@", message);
 		[logger logString:message];
 	}
 }

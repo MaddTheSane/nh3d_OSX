@@ -90,6 +90,9 @@ static HearseFileRegistry *instance;
 
 - (BOOL) haveDownloadedFile:(NSString *)filename {
 	NSString *file = [filename lastPathComponent];
+	if ([[filename pathExtension] isEqualToString:@"gz"]) {
+		file = [file stringByDeletingPathExtension];
+	}
 	NSString *md5 = [downloads objectForKey:file];
 	if (md5) {
 		NSString *actualMd5 = [Hearse md5HexForFile:filename];

@@ -23,6 +23,8 @@
 #include <fcntl.h>
 
 #import "FileLogger.h"
+#include "extern.h"
+#include "winprocs.h"
 
 @implementation FileLogger
 
@@ -93,6 +95,7 @@
 	msg[size-2] = '\n';
 	msg[size-1] = 0;
 	fputs(msg, fd);
+	raw_print(msg);
 }
 
 - (void) flush {
