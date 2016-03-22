@@ -99,7 +99,7 @@ typedef struct {
 	
 	NH3DParticle		*particles;			/* particle Array */
 	NH3DParticleType	particleType;
-	vector_float3		particleGravity;
+	NH3DVertexType		particleGravity;
 	int					particleColor;
 	float				particleLife;
 	float				particleSize;
@@ -175,7 +175,7 @@ typedef struct {
 
 - (void)animate;
 
-@property (nonatomic) vector_float3 particleGravity;
+@property (nonatomic) NH3DVertexType particleGravity;
 - (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
@@ -193,16 +193,16 @@ typedef struct {
 - (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
-@property (readwrite) vector_float3 modelShift;
+@property (readwrite) NH3DVertexType modelShift;
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
 
-@property (readwrite) vector_float3 modelScale;
+@property (readwrite) NH3DVertexType modelScale;
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz;
 
-@property (readwrite) vector_float3 modelRotate;
+@property (readwrite) NH3DVertexType modelRotate;
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz;
 
-@property (readwrite) vector_float3 modelPivot;
+@property (readwrite) NH3DVertexType modelPivot;
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz;
 
 @property NH3DMaterial currentMaterial;

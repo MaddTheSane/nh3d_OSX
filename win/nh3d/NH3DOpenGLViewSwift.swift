@@ -1212,7 +1212,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glDisable(GLenum(GL_CULL_FACE))
 					//angle = 5.0;
 					f = 0
-					while f >= 0.02 {
+					while f < 0.02 {
 						angle *= -1.0
 						glTranslatef(0.0, 0.0, f)
 						glRotatef(angle, 0, 1.0, 0)
@@ -1766,13 +1766,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.lastChildObject?.lastChildObject?.setPivotX(0.593, atY:1.261, atZ:0)
 				model?.lastChildObject?.lastChildObject?.particleType = .Both
 				model?.lastChildObject?.lastChildObject?.particleColor = CLR_ORANGE
-				model?.lastChildObject?.lastChildObject?.particleGravity = vector_float3(x: 0.0, y: 2.0, z: 0)
+				model?.lastChildObject?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
 				model?.lastChildObject?.lastChildObject?.setParticleSpeedX(0.0, y: 0.1)
 				model?.lastChildObject?.lastChildObject?.particleSlowdown = 6.0
 				model?.lastChildObject?.lastChildObject?.particleLife = 0.30
 				model?.lastChildObject?.lastChildObject?.particleSize = 10.0
 			}
-			model?.lastChildObject?.modelRotate = vector_float3(x: 0.0, y: -90.0, z: 0.0)
+			model?.lastChildObject?.modelRotate = NH3DVertexType(x: 0.0, y: -90.0, z: 0.0)
 		}
 		modelDictionary[S_hwall + GLYPH_CMAP_OFF] = model
 		
@@ -2782,8 +2782,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 				ret.lastChildObject?.particleLife = 0.24
 				ret.lastChildObject?.particleSize = 8.0
 				ret.addChildObject("kingset", type: .TexturedObject)
-				ret.lastChildObject?.modelPivot = vector_float3(x: 0, y: 0.52, z: 0)
-				ret.lastChildObject?.modelRotate = vector_float3(x: 0, y: 0.7, z: 0)
+				ret.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: 0.52, z: 0)
+				ret.lastChildObject?.modelRotate = NH3DVertexType(x: 0, y: 0.7, z: 0)
 				ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			}
 		}
@@ -4088,7 +4088,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.useEnvironment = true
 			ret.animationRate = ((Float(random() % 5) * 0.1) + 0.5) / 2
 			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
-			ret.modelShift = vector_float3(x: 0, y: 0, z: 0)
+			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
 			ret.setPivotX(0.0, atY: 0.0, atZ: 0.0)
 			ret.addChildObject(loadDat.modelName, type: .Object)
 			ret.lastChildObject?.setTexture(Int32(cellingTex))
@@ -4096,8 +4096,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			ret.lastChildObject?.animationRate = (Float(random() % 5) * 0.1) + 0.5
 			ret.lastChildObject?.setPivotX(0.0, atY: 0.3, atZ: 0.0)
-			ret.lastChildObject?.modelShift = vector_float3(x: 0, y: 1.5, z: 0)
-			ret.lastChildObject?.modelScale = vector_float3(x: 0.75, y: 0.75, z: 0.75)
+			ret.lastChildObject?.modelShift = NH3DVertexType(x: 0, y: 1.5, z: 0)
+			ret.lastChildObject?.modelScale = NH3DVertexType(x: 0.75, y: 0.75, z: 0.75)
 		}
 		return ret
 	}

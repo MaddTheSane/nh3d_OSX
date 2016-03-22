@@ -775,7 +775,7 @@ static const NH3DMaterial defaultMat = {
 	animationValue += animationRate;
 }
 
-- (void)setParticleGravity:(vector_float3)aParticleGravity
+- (void)setParticleGravity:(NH3DVertexType)aParticleGravity
 {
 	[self setParticleGravityX:aParticleGravity.x Y:aParticleGravity.y Z:aParticleGravity.z];
 }
@@ -852,7 +852,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz
 {
-	vector_float3 toSet;
+	NH3DVertexType toSet;
 	toSet.x = sx;
 	toSet.y = sy;
 	toSet.z = sz;
@@ -861,7 +861,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz
 {
-	vector_float3 toSet;
+	NH3DVertexType toSet;
 	toSet.x = scx;
 	toSet.y = scy;
 	toSet.z = scz;
@@ -870,7 +870,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz
 {
-	vector_float3 toSet;
+	NH3DVertexType toSet;
 	toSet.x = rx;
 	toSet.y = ry;
 	toSet.z = rz;
@@ -879,7 +879,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setPivotX:(float)px atY:(float)py atZ:(float)pz
 {
-	vector_float3 toSet;
+	NH3DVertexType toSet;
 	toSet.x = px;
 	toSet.y = py;
 	toSet.z = pz;
