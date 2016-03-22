@@ -9,7 +9,8 @@
 import Foundation
 import OpenGL.GL
 
-func glMaterialfv(face: GLenum, _ pname: GLenum, var _ params: (GLfloat, GLfloat, GLfloat, GLfloat)) {
+func glMaterialfv(face: GLenum, _ pname: GLenum, _ params1: (GLfloat, GLfloat, GLfloat, GLfloat)) {
+	var params = params1
 	let passedArr = withUnsafePointer(&params) { (aParam) -> UnsafePointer<GLfloat> in
 		return UnsafePointer<GLfloat>(aParam)
 	}

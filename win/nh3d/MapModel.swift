@@ -116,7 +116,7 @@ class MapModel: NSObject {
 	
 	final func startIndicator() {
 		indicatorIsActive = true;
-		indicatorTimer = NSTimer.scheduledTimerWithTimeInterval(1.0 / 20, target: self, selector: "updateEnemyIndicator:", userInfo: nil, repeats: true)
+		indicatorTimer = NSTimer.scheduledTimerWithTimeInterval(1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
 		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSEventTrackingRunLoopMode)
 	}
 	
