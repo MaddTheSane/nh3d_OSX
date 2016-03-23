@@ -389,7 +389,6 @@
 		2BCAABD80913A7B100AF1C59 /* tiletext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBE08CD73C5008CCAAC /* tiletext.c */; };
 		2BD3BC880943D24500F782A6 /* beartrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3BC860943D24500F782A6 /* beartrap.3ds */; };
 		2BE3649F095D20F500D34027 /* Usermakesheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3649D095D20F500D34027 /* Usermakesheet.xib */; };
-		2BE376360A22E29D00B3CDF4 /* icon_O.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3761C0A22E29D00B3CDF4 /* icon_O.tiff */; };
 		2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
@@ -3048,7 +3047,6 @@
 				2B9A4740096DD7530074B10D /* bridge_opt.3ds in Resources */,
 				2B5181E40973EBD600C91C6E /* downladder.3ds in Resources */,
 				2B5181E60973EBD600C91C6E /* upladder.3ds in Resources */,
-				2BE376360A22E29D00B3CDF4 /* icon_O.tiff in Resources */,
 				2B89F12A0A22FE3F00387832 /* oracles in Resources */,
 				2B89F12B0A22FE3F00387832 /* rumors in Resources */,
 			);
