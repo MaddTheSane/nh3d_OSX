@@ -93,7 +93,7 @@
 "280.title" = "フレームレートを制限する";
 
 /* Class = "NSButtonCell"; title = "Use tiled graphics for Alt. Objects"; ObjectID = "281"; */
-"281.title" = "Use tiled graphics for Alt. Objects";
+"281.title" = "代替オブジェクトのタイル張りのグラフィックを使用してください"; //Fuzzy
 
 /* Class = "NSButtonCell"; title = "タイルグラフィックを使用"; ObjectID = "282"; */
 "282.title" = "タイルグラフィックを使用";
@@ -144,7 +144,7 @@
 "301.title" = "Field:";
 
 /* Class = "NSButtonCell"; title = "Use Retina OpenGL"; ObjectID = "CtN-9v-cCC"; */
-"CtN-9v-cCC.title" = "Use Retina OpenGL";
+"CtN-9v-cCC.title" = "網膜OpenGLを使用します"; //fuzzy
 
 /* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "G0B-3B-VGs"; */
 "G0B-3B-VGs.title" = "User Name:";
@@ -177,10 +177,10 @@
 "hKa-Vf-sUd.title" = "Use NumPad for movement";
 
 /* Class = "NSButtonCell"; title = "Restart Hearse"; ObjectID = "q2G-nl-skg"; */
-"q2G-nl-skg.title" = "Restart Hearse";
+"q2G-nl-skg.title" = "霊柩車を再起動します"; //Fuzzy translation
 
 /* Class = "NSTabViewItem"; label = "Hearse"; ObjectID = "qRh-wy-Aoe"; */
-"qRh-wy-Aoe.label" = "Hearse";
+"qRh-wy-Aoe.label" = "霊柩車";
 
 /* Class = "NSButtonCell"; title = "Enable Hearse"; ObjectID = "vgV-I3-LD1"; */
-"vgV-I3-LD1.title" = "Enable Hearse";
+"vgV-I3-LD1.title" = "霊柩車を有効にします"; //Fuzzy translation

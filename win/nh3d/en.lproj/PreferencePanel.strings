@@ -9,7 +9,7 @@
 "10.label" = "Font Settings";
 
 /* Class = "NSButtonCell"; title = "Use sight restriction on 2D map"; ObjectID = "17"; */
-"17.title" = "Use sight restriction on 2D map";
+"17.title" = "Use sight restriction on minimap";
 
 /* Class = "NSButtonCell"; title = "Use tiled graphics on level map"; ObjectID = "18"; */
 "18.title" = "Use tiled graphics on level map";

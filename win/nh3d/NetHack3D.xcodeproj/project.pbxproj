@@ -396,6 +396,7 @@
 		550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
+		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5553AA2E1C73B79400A903B5 /* pillar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 5553AA2D1C73B79400A903B5 /* pillar.3ds */; };
@@ -424,7 +425,6 @@
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
 		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
 		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
-		55F416631CA2505E00AE8943 /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F416621CA2505E00AE8943 /* FirstLaunch.xib */; };
 		55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
@@ -1353,6 +1353,9 @@
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
+		5535626F1CA336D90015E8BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FirstLaunch.xib; sourceTree = "<group>"; };
+		553562721CA336E30015E8BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
+		553562741CA336ED0015E8BA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
 		55388FDA1C8340C2002D3B99 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
@@ -1398,7 +1401,6 @@
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
 		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
 		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
-		55F416621CA2505E00AE8943 /* FirstLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstLaunch.xib; sourceTree = "<group>"; };
 		55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DFirstLaunchController.swift; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1576,7 +1578,7 @@
 				2B3539190915A2F4002CC8AD /* MainMenu.xib */,
 				2BE3649D095D20F500D34027 /* Usermakesheet.xib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
-				55F416621CA2505E00AE8943 /* FirstLaunch.xib */,
+				553562701CA336D90015E8BA /* FirstLaunch.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
@@ -3017,7 +3019,7 @@
 				2B123B5F09319B6B00E894EE /* bridgeUP.3ds in Resources */,
 				2B123B6109319B6B00E894EE /* dartTrap.3ds in Resources */,
 				2B123B6309319B6B00E894EE /* gastrap.3ds in Resources */,
-				55F416631CA2505E00AE8943 /* FirstLaunch.xib in Resources */,
+				5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */,
 				2B123B6509319B6B00E894EE /* landmine.3ds in Resources */,
 				2B123B6709319B6B00E894EE /* pit.3ds in Resources */,
 				2B123B6909319B6B00E894EE /* rockfalltrap.3ds in Resources */,
@@ -3612,6 +3614,16 @@
 			);
 			name = Usermakesheet.xib;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		553562701CA336D90015E8BA /* FirstLaunch.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5535626F1CA336D90015E8BA /* Base */,
+				553562721CA336E30015E8BA /* en */,
+				553562741CA336ED0015E8BA /* ja */,
+			);
+			name = FirstLaunch.xib;
 			sourceTree = "<group>";
 		};
 		554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */ = {

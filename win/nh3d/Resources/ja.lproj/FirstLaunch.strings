@@ -1,0 +1,54 @@
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "0Lj-4T-Pgp"; */
+"0Lj-4T-Pgp.ibShadowedIsNilPlaceholder" = "example@me.com";
+
+/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "example@me.com"; ObjectID = "0Lj-4T-Pgp"; */
+"0Lj-4T-Pgp.ibShadowedNotApplicablePlaceholder" = "example@me.com";
+
+/* Class = "NSButtonCell"; title = "Continue"; ObjectID = "9Xq-0t-O5F"; */
+"9Xq-0t-O5F.title" = "続行"; //fuzzy
+
+/* Class = "NSButtonCell"; title = "Use Tiled Graphics"; ObjectID = "CNZ-VB-JSc"; */
+"CNZ-VB-JSc.title" = "タイルグラフィックを使用";
+
+/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "YourNameHere"; ObjectID = "E7q-KR-P2o"; */
+"E7q-KR-P2o.ibShadowedIsNilPlaceholder" = "YourNameHere";
+
+/* Class = "NSTextFieldCell"; title = "As this is the first time you have run NetHack3D, there are a few settings that you might want to personalize:"; ObjectID = "Fa7-Fj-ahd"; */
+"Fa7-Fj-ahd.title" = "これはあなたがNetHack3Dを実行するのは初めてであるように、あなたがカスタマイズすることができますいくつかの設定があります"; //fuzzy
+
+/* Class = "NSWindow"; title = "<<DO NOT LOCALIZE>>"; ObjectID = "QvC-M9-y7g"; */
+"QvC-M9-y7g.title" = "<<DO NOT LOCALIZE>>";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "WNy-c1-gNX"; */
+"WNy-c1-gNX.title" = "Box";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Hearse allows people to share bones files."; ObjectID = "hE3-fo-nta"; */
+"hE3-fo-nta.ibShadowedToolTip" = "霊柩車骨ファイルを共有することができます。"; //fuzzy
+
+/* Class = "NSBox"; title = "Map View"; ObjectID = "hvt-zq-LJl"; */
+"hvt-zq-LJl.title" = "Map View";
+
+/* Class = "NSTextFieldCell"; title = "E-mail:"; ObjectID = "iXX-Q3-Lnd"; */
+"iXX-Q3-Lnd.title" = "E-mail:";
+
+/* Class = "NSButtonCell"; title = "Use sight restriction on minimap"; ObjectID = "jRx-1h-7HO"; */
+"jRx-1h-7HO.title" = "2Dマップを視界制限する";
+
+/* Class = "NSButtonCell"; title = "Use tiled graphics on level map"; ObjectID = "mEm-c3-7Xw"; */
+"mEm-c3-7Xw.title" = "全体マップでタイルを使う";
+
+/* Class = "NSButtonCell"; title = "Enable Hearse"; ObjectID = "oAX-Rl-O45"; */
+"oAX-Rl-O45.title" = "霊柩車を有効にします"; //Fuzzy translation
+
+/* Class = "NSButtonCell"; title = "Traditional NetHack Mode"; ObjectID = "ogG-Qr-Lst"; */
+"ogG-Qr-Lst.title" = "トラディショナルNetHack モードにする";
+
+/* Class = "NSButtonCell"; title = "Use Retina Resolution"; ObjectID = "psZ-eD-YV1"; */
+"psZ-eD-YV1.title" = "網膜OpenGLを使用します"; //fuzzy
+
+/* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "qJn-DT-QBX"; */
+"qJn-DT-QBX.title" = "User Name:";
+
+/* Class = "NSButtonCell"; title = "Use tiled graphics for Alt. Objects"; ObjectID = "wPJ-rG-rgN"; */
+"wPJ-rG-rgN.title" = "代替オブジェクトのタイル張りのグラフィックを使用してください"; //Fuzzy
