@@ -102,6 +102,9 @@ NSString *const NH3DSoundMuteKey = @"SoundMute";
 NSString *const NHUseNumPad = @"Use Num Pad";
 NSString *const NHMaxMessages = @"Max messages";
 
+NSString *const NH3DIsFirstLaunch = @"IsFirstLaunch";
+
+
 static void
 process_options(int argc, char *argv[])
 {
@@ -1257,6 +1260,8 @@ wd_message()
 						  NHUseNumPad: @NO,
 						  NHMaxMessages: @30,
 						  NH3DUseRetinaOpenGL: @YES,
+						  
+						  NH3DIsFirstLaunch: @YES,
 						  
 						  //Hearse
 						  kKeyHearse: @NO,

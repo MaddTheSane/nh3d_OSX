@@ -424,6 +424,8 @@
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
 		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
 		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
+		55F416631CA2505E00AE8943 /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55F416621CA2505E00AE8943 /* FirstLaunch.xib */; };
+		55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
@@ -1396,6 +1398,8 @@
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
 		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
 		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
+		55F416621CA2505E00AE8943 /* FirstLaunch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstLaunch.xib; sourceTree = "<group>"; };
+		55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DFirstLaunchController.swift; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
@@ -1495,6 +1499,7 @@
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
 				55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */,
+				55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */,
 				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
 				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
@@ -1571,6 +1576,7 @@
 				2B3539190915A2F4002CC8AD /* MainMenu.xib */,
 				2BE3649D095D20F500D34027 /* Usermakesheet.xib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
+				55F416621CA2505E00AE8943 /* FirstLaunch.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
@@ -2786,6 +2792,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = NH3D;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
@@ -3010,6 +3017,7 @@
 				2B123B5F09319B6B00E894EE /* bridgeUP.3ds in Resources */,
 				2B123B6109319B6B00E894EE /* dartTrap.3ds in Resources */,
 				2B123B6309319B6B00E894EE /* gastrap.3ds in Resources */,
+				55F416631CA2505E00AE8943 /* FirstLaunch.xib in Resources */,
 				2B123B6509319B6B00E894EE /* landmine.3ds in Resources */,
 				2B123B6709319B6B00E894EE /* pit.3ds in Resources */,
 				2B123B6909319B6B00E894EE /* rockfalltrap.3ds in Resources */,
@@ -3385,6 +3393,7 @@
 				2B5CC157088EB7DF00940C58 /* decl.c in Sources */,
 				2B5CC158088EB7DF00940C58 /* detect.c in Sources */,
 				2B5CC159088EB7DF00940C58 /* dig.c in Sources */,
+				55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */,
 				2B5CC15A088EB7DF00940C58 /* display.c in Sources */,
 				2B5CC15B088EB7DF00940C58 /* dlb.c in Sources */,
 				2B5CC15C088EB7DF00940C58 /* do.c in Sources */,

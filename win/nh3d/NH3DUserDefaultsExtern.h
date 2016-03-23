@@ -77,6 +77,9 @@ extern NSString *const NH3DTileSizeHeightKey;
 extern NSString *const NH3DTilesPerLineKey;
 extern NSString *const NH3DNumberOfTilesRowKey;
 
+extern NSString *const NH3DIsFirstLaunch;
+
+
 #define TILE_FILE_NAME			[[NSUserDefaults standardUserDefaults] stringForKey:NH3DTileNameKey]
 #define TILE_SIZE_X				[[NSUserDefaults standardUserDefaults] integerForKey:NH3DTileSizeWidthKey]
 #define TILE_SIZE_Y				[[NSUserDefaults standardUserDefaults] integerForKey:NH3DTileSizeHeightKey]
