@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -20,7 +20,7 @@
         <window title="NetHack3D" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="NetHack3Dpos" animationBehavior="default" id="21" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="196" y="123" width="800" height="580"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="800" height="580"/>
             <value key="maxSize" type="size" width="800" height="580"/>
             <view key="contentView" id="2">
@@ -47,7 +47,7 @@
                     </textField>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6822">
                         <rect key="frame" x="26" y="404" width="128" height="128"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="nh3d" id="6931"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="6931"/>
                         <connections>
                             <binding destination="6780" name="hidden" keyPath="values.UseTraditionalMap" id="6828">
                                 <dictionary key="options">
@@ -2967,7 +2967,7 @@
             <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="253" y="631" width="365" height="118"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="5308">
                 <rect key="frame" x="0.0" y="0.0" width="365" height="118"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -3037,9 +3037,9 @@ DQ
         </window>
         <window title="Bye…" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="NH3DRipwinPos" animationBehavior="default" id="5320" userLabel="OutRip" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
-            <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="247" y="328" width="400" height="365"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <windowPositionMask key="initialPositionMask" topStrut="YES"/>
+            <rect key="contentRect" x="247" y="319" width="400" height="365"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="5321">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="365"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -3129,16 +3129,13 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="291" y="283" width="571" height="335"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="5367">
                 <rect key="frame" x="0.0" y="0.0" width="571" height="335"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="5761">
+                    <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="5761">
                         <rect key="frame" x="0.0" y="2" width="577" height="381"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="381" id="KoB-t7-oy4"/>
-                        </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="bottom" imageScaling="axesIndependently" image="ScrollPaper" id="6951"/>
                     </imageView>
                     <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5370">
@@ -3220,6 +3217,7 @@ DQ
                     <constraint firstItem="5761" firstAttribute="top" secondItem="5367" secondAttribute="top" constant="-48" id="4nV-gE-1bq"/>
                     <constraint firstAttribute="bottom" secondItem="5371" secondAttribute="bottom" constant="20" symbolic="YES" id="EOO-Wo-TGS"/>
                     <constraint firstAttribute="trailing" secondItem="5761" secondAttribute="trailing" constant="-6" id="GHp-Jg-tue"/>
+                    <constraint firstAttribute="bottom" secondItem="5761" secondAttribute="bottom" constant="2" id="RkC-sA-9FB"/>
                     <constraint firstItem="5371" firstAttribute="top" secondItem="5378" secondAttribute="bottom" constant="6" id="YCI-lp-Pi5"/>
                     <constraint firstItem="5378" firstAttribute="trailing" secondItem="5370" secondAttribute="trailing" id="bjO-E0-ica"/>
                     <constraint firstItem="5370" firstAttribute="firstBaseline" secondItem="5429" secondAttribute="firstBaseline" id="khX-xc-mQz"/>
@@ -3240,14 +3238,14 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="230" y="191" width="487" height="492"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="282" height="100"/>
             <value key="maxSize" type="size" width="600" height="675"/>
             <view key="contentView" id="5497">
                 <rect key="frame" x="0.0" y="0.0" width="487" height="492"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="5762">
+                    <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="5762">
                         <rect key="frame" x="0.0" y="0.0" width="487" height="518"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="top" imageScaling="axesIndependently" image="ScrollPaper" id="6959"/>
                     </imageView>
@@ -3447,7 +3445,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="75" y="360" width="635" height="381"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="5651">
                 <rect key="frame" x="0.0" y="0.0" width="635" height="381"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -3500,8 +3498,8 @@ DQ
                     <constraint firstItem="5654" firstAttribute="top" secondItem="5652" secondAttribute="bottom" constant="5" id="6aT-7l-4Vy"/>
                     <constraint firstAttribute="bottom" secondItem="5654" secondAttribute="bottom" constant="6" id="6tM-oD-2VX"/>
                     <constraint firstItem="5652" firstAttribute="top" secondItem="5651" secondAttribute="top" id="Dx7-Sz-e5T"/>
+                    <constraint firstAttribute="trailing" secondItem="5652" secondAttribute="trailing" id="KO3-JT-hwO"/>
                     <constraint firstItem="5652" firstAttribute="leading" secondItem="5651" secondAttribute="leading" id="SgQ-Gh-cLz"/>
-                    <constraint firstItem="5652" firstAttribute="centerX" secondItem="5651" secondAttribute="centerX" id="Uz7-el-9PW"/>
                     <constraint firstAttribute="trailing" secondItem="5654" secondAttribute="trailing" constant="20" symbolic="YES" id="gPF-AH-ZBL"/>
                 </constraints>
             </view>
@@ -3975,14 +3973,14 @@ DQ
         <window title="map" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6441" userLabel="mapPanel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="249" y="117" width="739" height="521"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="739" height="521"/>
             <value key="maxSize" type="size" width="739" height="522"/>
             <view key="contentView" id="6442">
                 <rect key="frame" x="0.0" y="0.0" width="739" height="521"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6446">
+                    <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="6446">
                         <rect key="frame" x="0.0" y="0.0" width="739" height="545"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="600" id="6pI-vu-DZI"/>
@@ -4584,7 +4582,7 @@ DQ
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" frameAutosaveName="NH3DStartwinPos" animationBehavior="default" id="6764" userLabel="StartWindow">
             <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="214" y="651" width="360" height="240"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="6765">
                 <rect key="frame" x="0.0" y="0.0" width="360" height="240"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -4595,7 +4593,7 @@ DQ
                             <constraint firstAttribute="width" constant="128" id="VX0-rq-cKX"/>
                             <constraint firstAttribute="height" constant="128" id="rkV-Bd-t5M"/>
                         </constraints>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="nh3d" id="6967"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="6967"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6769">
                         <rect key="frame" x="0.0" y="85" width="180" height="24"/>
@@ -4690,6 +4688,7 @@ DQ
         <image name="Ill0" width="65" height="65"/>
         <image name="Load0" width="40" height="40"/>
         <image name="Lowful0" width="48" height="48"/>
+        <image name="NSApplicationIcon" width="128" height="128"/>
         <image name="Newtral0" width="48" height="48"/>
         <image name="ScrollPaper" width="487" height="518"/>
         <image name="ScrollParchment" width="451" height="131"/>
@@ -4701,7 +4700,6 @@ DQ
         <image name="ZoomOutTemplate" width="20" height="20"/>
         <image name="base48" width="48" height="48"/>
         <image name="human" width="147" height="198"/>
-        <image name="nh3d" width="128" height="128"/>
         <image name="rip" width="400" height="200"/>
     </resources>
 </document>
