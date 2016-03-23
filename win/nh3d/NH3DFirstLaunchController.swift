@@ -28,7 +28,7 @@ class NH3DFirstLaunchController: NSWindowController {
 			
 			bindController.launchWindow?.beginSheet(controller.window!, completionHandler: { (response) in
 				NSApp.stopModal()
-				defaults.setBool(true, forKey: NH3DIsFirstLaunch)
+				defaults.setBool(false, forKey: NH3DIsFirstLaunch)
 				controller.window?.orderOut(nil)
 			})
 			NSApp.runModalForWindow(controller.window!)

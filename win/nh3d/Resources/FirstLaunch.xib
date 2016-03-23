@@ -14,28 +14,28 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="&lt;&lt;DO NOT LOCALIZE&gt;&gt;" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="346" height="431"/>
+            <rect key="contentRect" x="196" y="240" width="380" height="431"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="346" height="431"/>
+                <rect key="frame" x="0.0" y="0.0" width="380" height="431"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-8u-NY0">
-                        <rect key="frame" x="0.0" y="0.0" width="346" height="456"/>
+                        <rect key="frame" x="0.0" y="0.0" width="380" height="456"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="ScrollPaper" id="Ryb-q1-0qm"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Eeb-Jq-qg4">
-                        <rect key="frame" x="44" y="360" width="257" height="51"/>
+                        <rect key="frame" x="47" y="360" width="285" height="51"/>
                         <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="As this is the first time you have run NetHack3D, there are a few settings that you might want to personalize:" id="Fa7-Fj-ahd">
                             <font key="font" size="13" name="Copperplate"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="hE3-fo-nta">
+                    <button toolTip="Hearse allows people to share bones files." translatesAutoresizingMaskIntoConstraints="NO" id="hE3-fo-nta">
                         <rect key="frame" x="43" y="337" width="98" height="18"/>
                         <buttonCell key="cell" type="check" title="Enable Hearse" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oAX-Rl-O45">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -46,13 +46,13 @@
                         </connections>
                     </button>
                     <box title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-c1-gNX">
-                        <rect key="frame" x="39" y="241" width="268" height="96"/>
+                        <rect key="frame" x="39" y="241" width="302" height="96"/>
                         <view key="contentView" id="jwa-5v-P5T">
-                            <rect key="frame" x="1" y="1" width="266" height="94"/>
+                            <rect key="frame" x="1" y="1" width="300" height="94"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n5K-rR-Zjt">
-                                    <rect key="frame" x="100" y="20" width="146" height="22"/>
+                                    <rect key="frame" x="100" y="20" width="180" height="22"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="RVP-lu-ulO">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -84,9 +84,9 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aPu-cx-8Ht">
-                                    <rect key="frame" x="100" y="52" width="146" height="22"/>
+                                    <rect key="frame" x="100" y="52" width="180" height="22"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="146" id="zJn-ak-p1o"/>
+                                        <constraint firstAttribute="width" constant="180" id="zJn-ak-p1o"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Uri-HE-jOV">
                                         <font key="font" metaFont="system"/>
@@ -137,17 +137,17 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Map View" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="hvt-zq-LJl">
-                        <rect key="frame" x="39" y="57" width="268" height="180"/>
+                        <rect key="frame" x="39" y="57" width="302" height="180"/>
                         <view key="contentView" id="2VV-Zx-2Mb">
-                            <rect key="frame" x="1" y="1" width="266" height="164"/>
+                            <rect key="frame" x="1" y="1" width="300" height="164"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N5Q-9N-N1t">
-                                    <rect key="frame" x="20" y="20" width="226" height="124"/>
+                                    <rect key="frame" x="20" y="20" width="260" height="124"/>
                                     <subviews>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="nc8-1s-P2i">
-                                            <rect key="frame" x="-2" y="108" width="214" height="18"/>
-                                            <buttonCell key="cell" type="check" title="Use sight restriction on 2D map" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jRx-1h-7HO">
+                                            <rect key="frame" x="-2" y="108" width="218" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Use sight restriction on minimap" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jRx-1h-7HO">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -173,16 +173,34 @@
                                             </buttonCell>
                                             <connections>
                                                 <binding destination="IDI-nx-W6u" name="value" keyPath="values.OpenGLViewUseTile" id="Jo7-wv-xCo"/>
+                                                <binding destination="IDI-nx-W6u" name="enabled" keyPath="values.UseTraditionalMap" id="bsP-2A-Gpp">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="1"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="1"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="1"/>
+                                                        <integer key="NSNullPlaceholder" value="1"/>
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </button>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="nAf-JN-9C1">
-                                            <rect key="frame" x="-2" y="42" width="88" height="18"/>
-                                            <buttonCell key="cell" type="check" title="Use Retina" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="psZ-eD-YV1">
+                                            <rect key="frame" x="-2" y="42" width="155" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Use Retina Resolution" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="psZ-eD-YV1">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
                                                 <binding destination="IDI-nx-W6u" name="value" keyPath="values.Use Retina" id="hYF-kP-8jM"/>
+                                                <binding destination="IDI-nx-W6u" name="enabled" keyPath="values.UseTraditionalMap" id="S7o-kH-eYC">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="1"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="1"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="1"/>
+                                                        <integer key="NSNullPlaceholder" value="1"/>
+                                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </button>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="sPH-bU-QVQ">
@@ -203,6 +221,14 @@
                                             </buttonCell>
                                             <connections>
                                                 <binding destination="IDI-nx-W6u" name="value" keyPath="values.TraditionalMapMode" id="r6Z-uM-MZI"/>
+                                                <binding destination="IDI-nx-W6u" name="enabled" keyPath="values.UseTraditionalMap" id="wzz-ef-bFf">
+                                                    <dictionary key="options">
+                                                        <integer key="NSMultipleValuesPlaceholder" value="1"/>
+                                                        <integer key="NSNoSelectionPlaceholder" value="1"/>
+                                                        <integer key="NSNotApplicablePlaceholder" value="1"/>
+                                                        <integer key="NSNullPlaceholder" value="1"/>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -235,7 +261,7 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D60-mF-Hj3">
-                        <rect key="frame" x="215" y="13" width="95" height="32"/>
+                        <rect key="frame" x="249" y="13" width="95" height="32"/>
                         <buttonCell key="cell" type="push" title="Continue" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Xq-0t-O5F">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>

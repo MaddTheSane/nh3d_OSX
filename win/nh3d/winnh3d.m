@@ -1305,6 +1305,7 @@ wd_message()
 		_NH3DKeyBuffer = _asciiMapView;
 		_NH3DOpenGLView = _glMapView;
 		_NH3DTileCache = _tileCache;
+		[NH3DFirstLaunchController runFirstTimeWindow];
 	}
 }
 
