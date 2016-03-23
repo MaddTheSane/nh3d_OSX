@@ -393,6 +393,7 @@
 		2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
+		5509DDD41CA3175300FE7C8A /* MSZLinkedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5509DDD31CA3175300FE7C8A /* MSZLinkedView.swift */; };
 		550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
@@ -1343,6 +1344,7 @@
 		2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DPanel.h; sourceTree = "<group>"; };
 		2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DPanel.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetHack3D_Prefix.pch; sourceTree = "<group>"; };
+		5509DDD31CA3175300FE7C8A /* MSZLinkedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSZLinkedView.swift; sourceTree = "<group>"; };
 		550B14BA1CA06CD500945F09 /* HearseFileRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HearseFileRegistry.h; sourceTree = "<group>"; };
 		550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HearseFileRegistry.m; sourceTree = "<group>"; };
 		550B14BC1CA06CD500945F09 /* Hearse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hearse.h; sourceTree = "<group>"; };
@@ -1499,7 +1501,7 @@
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
 				55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */,
-				55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */,
+				5509DDD21CA3172D00FE7C8A /* Setup Assistant */,
 				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
 				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
@@ -2635,6 +2637,15 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		5509DDD21CA3172D00FE7C8A /* Setup Assistant */ = {
+			isa = PBXGroup;
+			children = (
+				55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */,
+				5509DDD31CA3175300FE7C8A /* MSZLinkedView.swift */,
+			);
+			name = "Setup Assistant";
+			sourceTree = "<group>";
+		};
 		550B14B91CA06CAC00945F09 /* Hearse */ = {
 			isa = PBXGroup;
 			children = (
@@ -3501,6 +3512,7 @@
 				2B5CC1BD088EB7DF00940C58 /* worn.c in Sources */,
 				2B5CC1BE088EB7DF00940C58 /* write.c in Sources */,
 				2B5CC1BF088EB7DF00940C58 /* zap.c in Sources */,
+				5509DDD41CA3175300FE7C8A /* MSZLinkedView.swift in Sources */,
 				2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */,
 				2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */,
 				2B598AD608E5B523005ECDC5 /* NH3DMenuWindow.m in Sources */,

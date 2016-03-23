@@ -7,13 +7,32 @@
 //
 
 import Cocoa
+import QuartzCore.CAAnimation
 
 class NH3DFirstLaunchController: NSWindowController {
-
+	private var transition: CATransition?
+	@IBOutlet weak var currentView: MSZLinkedView? {
+		willSet(newView) {
+			guard let currentView = currentView else {
+				return
+			}
+			contentView?.animator().replaceSubview(currentView, with: newView!)
+		}
+	}
+	@IBOutlet weak var contentView: NSView!
+	
     override func windowDidLoad() {
         super.windowDidLoad()
-    
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+		
+		contentView.wantsLayer = true
+		//contentView.addSubview(currentView!)
+		contentView.replaceSubview(currentView!, with: currentView!.nextView!)
+
+		transition = CATransition()
+		transition!.type = kCATransitionPush
+		transition!.subtype = kCATransitionFromLeft
+		
+		contentView.animations = ["subviews": transition!]
     }
 
 	class func runFirstTimeWindow() {
@@ -30,6 +49,7 @@ class NH3DFirstLaunchController: NSWindowController {
 				NSApp.stopModal()
 				defaults.setBool(true, forKey: NH3DIsFirstLaunch)
 				controller.window?.orderOut(nil)
+				bindController.setTile()
 			})
 			NSApp.runModalForWindow(controller.window!)
 		}
@@ -39,5 +59,45 @@ class NH3DFirstLaunchController: NSWindowController {
 		let bindController = NSApp.delegate as! NH3DBindController
 		
 		bindController.launchWindow?.endSheet(window!)
+	}
+	
+	@IBAction func nextView(sender: AnyObject) {
+		guard let nextViewa = currentView?.nextView else {
+			return
+		}
+		transition!.subtype = kCATransitionFromRight
+		currentView = nextViewa
+	}
+	
+	@IBAction func previousView(sender: AnyObject) {
+		guard let prevView = currentView?.previousView else {
+			return
+		}
+		transition!.subtype = kCATransitionFromLeft
+		currentView = prevView
+	}
+	
+	@IBAction func chooseTileFile(sender: AnyObject?) {
+		let openPanel = NSOpenPanel()
+		
+		openPanel.canChooseDirectories = false
+		openPanel.allowsMultipleSelection = false
+		openPanel.allowedFileTypes = NSImage.imageTypes()
+		//openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
+		openPanel.beginSheetModalForWindow(window!) { (result) -> Void in
+			if result == NSFileHandlingPanelOKButton {
+				NSUserDefaults.standardUserDefaults().setObject(openPanel.URL?.path, forKey: NH3DTileNameKey)
+			}
+		}
+	}
+	
+	@IBAction func resetTileSettings(sender: AnyObject?) {
+		let defaults = NSUserDefaults.standardUserDefaults()
+		
+		defaults.removeObjectForKey(NH3DTileNameKey)
+		defaults.removeObjectForKey(NH3DTileSizeWidthKey)
+		defaults.removeObjectForKey(NH3DTileSizeHeightKey)
+		defaults.removeObjectForKey(NH3DTilesPerLineKey)
+		defaults.removeObjectForKey(NH3DNumberOfTilesRowKey)
 	}
 }
