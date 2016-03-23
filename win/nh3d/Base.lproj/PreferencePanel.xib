@@ -157,7 +157,7 @@
                                                         </cells>
                                                     </matrix>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="262">
-                                                        <rect key="frame" x="10" y="102" width="237" height="18"/>
+                                                        <rect key="frame" x="10" y="102" width="210" height="18"/>
                                                         <buttonCell key="cell" type="check" title="Use tiled graphics for Alt. Objects" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="281">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>
@@ -171,7 +171,7 @@
                                                     <constraint firstItem="30" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="6" id="4IV-8W-NTk"/>
                                                     <constraint firstItem="262" firstAttribute="leading" secondItem="xcE-A4-VyZ" secondAttribute="leading" constant="13" id="6OQ-6e-3Vh"/>
                                                     <constraint firstItem="22" firstAttribute="top" secondItem="262" secondAttribute="bottom" constant="8" symbolic="YES" id="EWK-8S-7tu"/>
-                                                    <constraint firstAttribute="trailing" secondItem="262" secondAttribute="trailing" constant="-7" id="Nj6-S9-rBm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="262" secondAttribute="trailing" constant="20" symbolic="YES" id="Nj6-S9-rBm"/>
                                                     <constraint firstAttribute="bottom" secondItem="30" secondAttribute="bottom" constant="11" id="TPf-8u-UX7"/>
                                                     <constraint firstItem="30" firstAttribute="leading" secondItem="xcE-A4-VyZ" secondAttribute="leading" constant="12" id="hCe-en-NdZ"/>
                                                     <constraint firstItem="262" firstAttribute="top" secondItem="xcE-A4-VyZ" secondAttribute="top" constant="11" id="vIF-HN-qOz"/>
@@ -513,10 +513,8 @@
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="15" id="niR-GE-RKD"/>
                                                                                 </constraints>
-                                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="285">
+                                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="8" id="285">
                                                                                     <font key="font" metaFont="miniSystem"/>
-                                                                                    <string key="title">8
-</string>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
@@ -529,11 +527,8 @@
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="18" id="dhl-Zw-agZ"/>
                                                                                 </constraints>
-                                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="286">
+                                                                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="128" id="286">
                                                                                     <font key="font" metaFont="miniSystem"/>
-                                                                                    <string key="title">128
-
-</string>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                 </textFieldCell>
