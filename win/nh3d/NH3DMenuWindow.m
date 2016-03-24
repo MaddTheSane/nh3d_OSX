@@ -377,13 +377,13 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	NSRect windowRect = window.frame;
 	NSSize windowMaxSize = window.maxSize;
 	NSSize windowMinSize = window.minSize;
-	const CGFloat contentWidthMargin = 44.0;
-	const CGFloat contentHeightMargin = 99.0;
+	static const CGFloat contentWidthMargin = 44.0;
+	static const CGFloat contentHeightMargin = 120.0;
 	
 	//set height
 	windowRect.size.height = (([scrollView.documentView rowHeight] + 4.0) * [scrollView.documentView numberOfRows]) + contentHeightMargin;
 	
-	windowRect.size.height = (windowRect.size.height > windowMaxSize.height) ? windowMaxSize.height-16.0 : windowRect.size.height;
+	windowRect.size.height = MIN(windowRect.size.height, windowMaxSize.height - 16);
 	
 	//set width
 	/* for Ascii only Strings
