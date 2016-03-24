@@ -1024,7 +1024,7 @@ static const NH3DMaterial defaultMat = {
 	GLfloat px, py, pz;
 	
 	if (active) {
-		GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
+		static const GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
 		
 		if (!isChild) {
 			glPushMatrix();

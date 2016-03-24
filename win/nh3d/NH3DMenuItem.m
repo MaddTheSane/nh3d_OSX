@@ -130,7 +130,8 @@ extern NH3DTileCache *_NH3DTileCache;
 		lightShadow.shadowOffset = NSMakeSize(0,0);
 		lightShadow.shadowBlurRadius = 3.6;
 
-		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE - 2.0];
+		strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT
+															 size:NH3DINVFONTSIZE - 2.0];
 		strAttributes[NSShadowAttributeName] = lightShadow;
 		strAttributes[NSForegroundColorAttributeName] = [NSColor blueColor];
 		
@@ -141,7 +142,8 @@ extern NH3DTileCache *_NH3DTileCache;
 				strAttributes[NSUnderlineStyleAttributeName] = @1;
 				break;
 			case ATR_BOLD:
-				strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT size: NH3DBOLDFONTSIZE - 2.0];
+				strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT
+																	 size:NH3DBOLDFONTSIZE - 2.0];
 				break;
 			case ATR_BLINK:
 			case ATR_INVERSE:
