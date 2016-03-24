@@ -365,7 +365,8 @@ static const NH3DMaterial defaultMat = {
 	//NSLog(@"Model %@ loading...",name);
 	
 	if (!file_3ds && [NSDataAsset class]) {
-		file_3ds = [[NSDataAsset alloc] initWithName:name].data;
+		NSString *locName = [NSString stringWithFormat:@"Models/%@", name];
+		file_3ds = [[NSDataAsset alloc] initWithName:locName].data;
 	}
 	
 	char mName[21];
