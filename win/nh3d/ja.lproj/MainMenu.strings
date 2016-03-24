@@ -1236,7 +1236,7 @@
 "6988.title" = "5";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Body armor slot"; ObjectID = "0G0-hH-8Ck"; */
-"0G0-hH-8Ck.ibShadowedIsNilPlaceholder" = "Body armor slot";
+"0G0-hH-8Ck.ibShadowedIsNilPlaceholder" = "よろい";
 
 /* Class = "NSButtonCell"; title = "t"; ObjectID = "2vX-8R-dH4"; */
 "2vX-8R-dH4.title" = "t";
@@ -1245,10 +1245,10 @@
 "6nm-el-2DC.title" = "Z";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Pick Up"; ObjectID = "84z-Fq-US6"; */
-"84z-Fq-US6.ibShadowedToolTip" = "Pick Up";
+"84z-Fq-US6.ibShadowedToolTip" = "拾う";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Left ring slot"; ObjectID = "8U4-Uc-vdF"; */
-"8U4-Uc-vdF.ibShadowedIsNilPlaceholder" = "Left ring slot";
+"8U4-Uc-vdF.ibShadowedIsNilPlaceholder" = "指輪（右手）";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Search"; ObjectID = "9Sm-65-g4R"; */
 "9Sm-65-g4R.ibShadowedToolTip" = "探す";
@@ -1257,16 +1257,16 @@
 "AXU-wL-KKa.title" = "a";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "Azr-fb-WJi"; */
-"Azr-fb-WJi.ibShadowedIsNilPlaceholder" = "Gloves slot";
+"Azr-fb-WJi.ibShadowedIsNilPlaceholder" = "グローブ";
 
 /* Class = "NSButtonCell"; title = "f"; ObjectID = "Cap-43-Uu2"; */
 "Cap-43-Uu2.title" = "f";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Amulet slot"; ObjectID = "Caw-w7-sGP"; */
-"Caw-w7-sGP.ibShadowedIsNilPlaceholder" = "Amulet slot";
+"Caw-w7-sGP.ibShadowedIsNilPlaceholder" = "首飾り";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "DCX-Co-TEa"; */
-"DCX-Co-TEa.ibShadowedIsNilPlaceholder" = "Gloves slot";
+"DCX-Co-TEa.ibShadowedIsNilPlaceholder" = "グローブ";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Throw"; ObjectID = "DKt-pB-xVh"; */
 "DKt-pB-xVh.ibShadowedToolTip" = "投げる";
@@ -1275,7 +1275,7 @@
 "G6z-2d-BO3.title" = "k";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Cloak slot"; ObjectID = "LjC-a9-yh9"; */
-"LjC-a9-yh9.ibShadowedIsNilPlaceholder" = "Cloak slot";
+"LjC-a9-yh9.ibShadowedIsNilPlaceholder" = "クローク類";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "blindfold slot"; ObjectID = "MrB-Yl-ORA"; */
 "MrB-Yl-ORA.ibShadowedIsNilPlaceholder" = "Blindfold slot";
@@ -1290,13 +1290,13 @@
 "R1X-KA-2BD.ibShadowedToolTip" = "射撃";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Use Magic"; ObjectID = "S5s-Xf-pjS"; */
-"S5s-Xf-pjS.ibShadowedToolTip" = "Use Magic";
+"S5s-Xf-pjS.ibShadowedToolTip" = "呪文を唱える";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Weapon slot"; ObjectID = "Wmh-CX-7kn"; */
-"Wmh-CX-7kn.ibShadowedIsNilPlaceholder" = "Weapon slot";
+"Wmh-CX-7kn.ibShadowedIsNilPlaceholder" = "武器";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Right ring slot"; ObjectID = "XFs-bG-BgX"; */
-"XFs-bG-BgX.ibShadowedIsNilPlaceholder" = "Right ring slot";
+"XFs-bG-BgX.ibShadowedIsNilPlaceholder" = "指輪（左手）";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Again"; ObjectID = "XGZ-lm-wXf"; */
 "XGZ-lm-wXf.ibShadowedToolTip" = "再行動";
@@ -1314,16 +1314,16 @@
 "oNa-iN-bfd.title" = "o";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shoes slot"; ObjectID = "oUZ-5r-TMc"; */
-"oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "Shoes slot";
+"oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "靴";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Secondary weapon slot"; ObjectID = "oc1-F0-Bt9"; */
-"oc1-F0-Bt9.ibShadowedIsNilPlaceholder" = "Secondary weapon slot";
+"oc1-F0-Bt9.ibShadowedIsNilPlaceholder" = "予備の武器";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shield slot"; ObjectID = "paO-SC-cTf"; */
-"paO-SC-cTf.ibShadowedIsNilPlaceholder" = "Shield slot";
+"paO-SC-cTf.ibShadowedIsNilPlaceholder" = "よろい";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Helmet slot"; ObjectID = "qqU-Tg-6UE"; */
-"qqU-Tg-6UE.ibShadowedIsNilPlaceholder" = "Helmet slot";
+"qqU-Tg-6UE.ibShadowedIsNilPlaceholder" = "かぶと";
 
 /* Class = "NSMenuItem"; title = "Dungeon Overview"; ObjectID = "sbe-4J-BhS"; */
 "sbe-4J-BhS.title" = "Dungeon Overview";

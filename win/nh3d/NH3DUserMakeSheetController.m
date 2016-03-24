@@ -18,7 +18,7 @@
 @synthesize playerName;
 
 - (instancetype) init {
-	self = [super initWithWindowNibName:@"Usermakesheet"];
+	self = [super initWithWindowNibName:@"UserMakeSheet"];
 	if (self != nil) {
 		
 		[self setPriestName:@"Priest"];

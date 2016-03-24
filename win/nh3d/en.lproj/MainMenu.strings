@@ -717,7 +717,7 @@
 "6347.ibShadowedToolTip" = "Armour";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Shoes"; ObjectID = "6348"; */
-"6348.ibShadowedToolTip" = "Shoes";
+"6348.ibShadowedToolTip" = "Footwear";
 
 /* Class = "NSImageCell"; ibShadowedToolTip = "Ring (Right)"; ObjectID = "6349"; */
 "6349.ibShadowedToolTip" = "Ring (Right)";
@@ -1311,7 +1311,7 @@
 "oNa-iN-bfd.title" = "o";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shoes slot"; ObjectID = "oUZ-5r-TMc"; */
-"oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "Shoes slot";
+"oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "Footwear slot";
 
 /* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Secondary weapon slot"; ObjectID = "oc1-F0-Bt9"; */
 "oc1-F0-Bt9.ibShadowedIsNilPlaceholder" = "Secondary weapon slot";

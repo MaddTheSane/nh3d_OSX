@@ -388,7 +388,7 @@
 		2BCAABD70913A7B100AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD80913A7B100AF1C59 /* tiletext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBE08CD73C5008CCAAC /* tiletext.c */; };
 		2BD3BC880943D24500F782A6 /* beartrap.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3BC860943D24500F782A6 /* beartrap.3ds */; };
-		2BE3649F095D20F500D34027 /* Usermakesheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3649D095D20F500D34027 /* Usermakesheet.xib */; };
+		2BE3649F095D20F500D34027 /* UserMakeSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3649D095D20F500D34027 /* UserMakeSheet.xib */; };
 		2BE4C32B093CB52D00ACEEEE /* ironbar.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C327093CB52D00ACEEEE /* ironbar.3ds */; };
 		2BE4C32D093CB52D00ACEEEE /* tree.3ds in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4C329093CB52D00ACEEEE /* tree.3ds */; };
 		2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */; };
@@ -1388,13 +1388,13 @@
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
 		55C1693B1C3520F300C1365E /* NH3DMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DMessaging.swift; sourceTree = "<group>"; };
 		55C183311C39C4A200602251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		55C183321C39C4A200602251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Usermakesheet.xib; sourceTree = "<group>"; };
+		55C183321C39C4A200602251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UserMakeSheet.xib; sourceTree = "<group>"; };
 		55C183331C39C4A200602251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencePanel.xib; sourceTree = "<group>"; };
 		55C183361C39C4C300602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		55C183391C39C4D600602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Usermakesheet.strings; sourceTree = "<group>"; };
+		55C183391C39C4D600602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UserMakeSheet.strings; sourceTree = "<group>"; };
 		55C1833B1C39C4DC00602251 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
 		55C183461C39E43900602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		55C183471C39E44D00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Usermakesheet.strings; sourceTree = "<group>"; };
+		55C183471C39E44D00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/UserMakeSheet.strings; sourceTree = "<group>"; };
 		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
 		55CD9CEF1C45A439007F36B2 /* cppregex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cppregex.cpp; sourceTree = "<group>"; };
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
@@ -1575,7 +1575,7 @@
 				2B6F3EDE091AF3E500367391 /* Sound */,
 				2B29B1DC08E0EDFD00951AF7 /* Credits.rtf */,
 				2B3539190915A2F4002CC8AD /* MainMenu.xib */,
-				2BE3649D095D20F500D34027 /* Usermakesheet.xib */,
+				2BE3649D095D20F500D34027 /* UserMakeSheet.xib */,
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
 				553562701CA336D90015E8BA /* FirstLaunch.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
@@ -3041,7 +3041,7 @@
 				5560A2B91C3481CC00BF77F7 /* epitaph in Resources */,
 				5560A2AC1C34818300BF77F7 /* bigrm-7.lev in Resources */,
 				5560A2AE1C34818300BF77F7 /* bigrm-9.lev in Resources */,
-				2BE3649F095D20F500D34027 /* Usermakesheet.xib in Resources */,
+				2BE3649F095D20F500D34027 /* UserMakeSheet.xib in Resources */,
 				2B8AE3610960779400B6998D /* PreferencePanel.xib in Resources */,
 				5560A2AD1C34818300BF77F7 /* bigrm-8.lev in Resources */,
 				2B9A4740096DD7530074B10D /* bridge_opt.3ds in Resources */,
@@ -3603,14 +3603,14 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		2BE3649D095D20F500D34027 /* Usermakesheet.xib */ = {
+		2BE3649D095D20F500D34027 /* UserMakeSheet.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				55C183321C39C4A200602251 /* Base */,
 				55C183391C39C4D600602251 /* en */,
 				55C183471C39E44D00602251 /* ja */,
 			);
-			name = Usermakesheet.xib;
+			name = UserMakeSheet.xib;
 			path = ..;
 			sourceTree = "<group>";
 		};
