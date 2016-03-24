@@ -243,11 +243,88 @@ static const NH3DMaterial defaultMat = {
 				}
 				NSString *sourceMtl = [NSString stringWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
 				NSScanner *mtlScan = [NSScanner scannerWithString:sourceMtl];
+				BOOL mtlDefined = NO;
 				while(!mtlScan.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
 					@autoreleasepool {
 						[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
 						if ([[destText substringToIndex:1] isEqualToString:@"#"]) {
+							// Skip past comments
 							[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:nil];
+						} else if([destText isEqualToString:@"Ns"]) {
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.shininess = [destText floatValue];
+						} else if([destText isEqualToString:@"newmtl"]) {
+							if (mtlDefined) {
+								break;
+							}
+							[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:nil]; // TODO: use this, but how?
+							mtlDefined = YES;
+						} else if([destText isEqualToString:@"Ka"]) {
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							// Unsupported formats
+							if ([destText isEqualToString:@"spectral"] || [destText isEqualToString:@"xyz"]) {
+								NSString *format = destText;
+								[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&destText];
+								NSLog(@"Unsupported ambient reflectivity (Ka) type %@ with parameters %@", format, destText);
+								continue;
+							}
+							currentMaterial.ambient[0] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.ambient[1] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.ambient[2] = [destText floatValue];
+							currentMaterial.ambient[3] = 1;
+						} else if([destText isEqualToString:@"Kd"]) {
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							// Unsupported formats
+							if ([destText isEqualToString:@"spectral"] || [destText isEqualToString:@"xyz"]) {
+								NSString *format = destText;
+								[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&destText];
+								NSLog(@"Unsupported diffuse reflectivity (Kd) type %@ with parameters %@", format, destText);
+								continue;
+							}
+							currentMaterial.diffuse[0] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.diffuse[1] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.diffuse[2] = [destText floatValue];
+							currentMaterial.diffuse[3] = 1;
+						} else if([destText isEqualToString:@"Ks"]) {
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							// Unsupported formats
+							if ([destText isEqualToString:@"spectral"] || [destText isEqualToString:@"xyz"]) {
+								NSString *format = destText;
+								[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&destText];
+								NSLog(@"Unsupported specular reflectivity (Ks) type %@ with parameters %@", format, destText);
+								continue;
+							}
+							currentMaterial.specular[0] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.specular[1] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.specular[2] = [destText floatValue];
+							currentMaterial.specular[3] = 1;
+						} else if([destText isEqualToString:@"Ke"]) {
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							// Unsupported formats
+							if ([destText isEqualToString:@"spectral"] || [destText isEqualToString:@"xyz"]) {
+								NSString *format = destText;
+								[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&destText];
+								NSLog(@"Unsupported specular emissions (Ke) type %@ with parameters %@", format, destText);
+								continue;
+							}
+							currentMaterial.emission[0] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.emission[1] = [destText floatValue];
+							[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+							currentMaterial.emission[2] = [destText floatValue];
+							currentMaterial.emission[3] = 1;
+						//} else if([destText isEqualToString:@"d"]) {
+						//	[mtlScan scanUpToCharactersFromSet:chSet intoString:&destText];
+						} else {
+							NSString *str1 = destText;
+							[mtlScan scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&destText];
+							NSLog(@"Unsupported .mtl option: %@ with parameters %@", str1, destText);
 						}
 					}
 				}

@@ -28,8 +28,8 @@ extension NH3DModelObject {
 			let l_vect3 = verts[Int(face.c)]
 			
 			// Polygon normal calculation
-			let l_vect_b1 = float3(start: l_vect1, endingAt: l_vect2)
-			let l_vect_b2 = float3(start: l_vect1, endingAt: l_vect3)
+			let l_vect_b1 = float3(start: l_vect1, end: l_vect2)
+			let l_vect_b2 = float3(start: l_vect1, end: l_vect3)
 			let l_normal = normalize(dotProduct(l_vect_b1, l_vect_b2))
 			
 			l_Connect[Int(face.a)] += 1
@@ -50,8 +50,8 @@ extension NH3DModelObject {
 	}
 }
 
-extension float3 : Equatable {
-	init(start p_start: float3, endingAt p_end : float3) {
+extension float3: Equatable {
+	init(start p_start: float3, end p_end : float3) {
 		let pre = p_end - p_start
 		self = normalize(pre)
 	}

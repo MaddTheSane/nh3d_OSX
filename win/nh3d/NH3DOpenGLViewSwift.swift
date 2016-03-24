@@ -127,24 +127,24 @@ private var defaultNorms: [NH3DVertexType] = [
 ////////////////////////////////
 
 private var nullObjectVerts: [NH3DVertexType] = [
-	NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: 2,  y: 6, z: -2 ), NH3DVertexType(x: -2, y: 6, z: -2), // rear
-	NH3DVertexType(x: 2, y: 0, z: 2 ), NH3DVertexType(  x: 2, y: 0, z: -2 ), NH3DVertexType(  x: 2,  y: 6,  z: 2 ), NH3DVertexType(  x: 2,  y: 6, z: -2 ), // right
-	NH3DVertexType( x: -2, y: 0,  z: 2 ), NH3DVertexType(  x: 2, y: 0,  z: 2 ), NH3DVertexType( x: -2,  y: 6,  z: 2 ), NH3DVertexType(  x: 2,  y: 6,  z: 2 ), // front
-	NH3DVertexType( x: -2, y: 0, z: -2 ), NH3DVertexType( x: -2, y: 0,  z: 2 ), NH3DVertexType( x: -2,  y: 6, z: -2 ), NH3DVertexType( x: -2,  y: 6,  z: 2 )  // left
+	NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: 2, y: 6, z: -2), NH3DVertexType(x: -2, y: 6, z: -2), // rear
+	NH3DVertexType(x: 2, y: 0, z: 2), NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: 2, y: 6, z: 2), NH3DVertexType(x: 2, y: 6, z: -2), // right
+	NH3DVertexType(x: -2, y: 0, z: 2), NH3DVertexType(x: 2, y: 0, z: 2), NH3DVertexType(x: -2, y: 6, z: 2), NH3DVertexType(x: 2, y: 6, z: 2), // front
+	NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: 2), NH3DVertexType(x: -2, y: 6, z: -2), NH3DVertexType(x: -2, y: 6, z: 2)  // left
 ]
 
 private var nullObjectTexVerts: [NH3DMapCoordType] = [
-	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 ),
-	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 ),
-	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 ),
-	NH3DMapCoordType(s: 0.0, t: 0.0 ), NH3DMapCoordType( s: 1.0, t: 0.0 ), NH3DMapCoordType( s: 0.0, t: 1.0 ), NH3DMapCoordType( s: 1.0, t: 1.0 )
+	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
+	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
+	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
+	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0)
 ]
 
 private var nullObjectNorms: [NH3DVertexType] = [
-	NH3DVertexType(x: 0.20,  y: 0.50, z: -0.30), NH3DVertexType(x: 0.20, y: 0.50, z: -0.30),
-	NH3DVertexType(x: -0.30,  y: -0.50, z: 0.20), NH3DVertexType(x: -0.30, y: -0.50, z: 0.20),
-	NH3DVertexType(x: 0.20,  y: 0.50, z: 0.30), NH3DVertexType(x: 0.20, y: 0.50, z: 0.30),
-	NH3DVertexType(x: 0.30,  y: -0.50, z: -0.20), NH3DVertexType(x: 0.30, y: -0.50, z: -0.20)
+	NH3DVertexType(x: 0.20, y: 0.50, z: -0.30), NH3DVertexType(x: 0.20, y: 0.50, z: -0.30),
+	NH3DVertexType(x: -0.30, y: -0.50, z: 0.20), NH3DVertexType(x: -0.30, y: -0.50, z: 0.20),
+	NH3DVertexType(x: 0.20, y: 0.50, z: 0.30), NH3DVertexType(x: 0.20, y: 0.50, z: 0.30),
+	NH3DVertexType(x: 0.30, y: -0.50, z: -0.20), NH3DVertexType(x: 0.30, y: -0.50, z: -0.20)
 ]
 
 
@@ -158,10 +158,10 @@ private var nh3dMaterialArray: [NH3DMaterial] = [
 		emission: (0.1, 0.1, 0.1, 1.0),						//  emission
 		shininess: 0.01),									//	shininess
 	// Red
-	NH3DMaterial(ambient: ( 0.1745 , 0.01175 , 0.01175 , 1.0 ),
-		diffuse: (0.81424, 0.04136 , 0.04136 , 1.0 ),
-		specular: (0.427811 , 0.126959 , 0.126959 , 1.0),
-		emission: (0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.1745, 0.01175, 0.01175, 1.0),
+		diffuse: (0.81424, 0.04136 , 0.04136 , 1.0),
+		specular: (0.427811, 0.126959, 0.126959, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// Green
 	NH3DMaterial(ambient: (0.0215, 0.1745, 0.0215, 1.0),
@@ -170,70 +170,70 @@ private var nh3dMaterialArray: [NH3DMaterial] = [
 		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// Brown
-	NH3DMaterial(ambient: ( 0.19125 , 0.0735 , 0.0225 , 1.0 ),
-		diffuse: ( 0.8038 , 0.37048 , 0.0828 , 1.0 ),
-		specular: ( 0.25677 , 0.137622 , 0.086014 , 1.0 ),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.19125, 0.0735, 0.0225, 1.0),
+		diffuse: (0.8038 , 0.37048, 0.0828, 1.0),
+		specular: (0.25677, 0.137622, 0.086014, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// Blue
-	NH3DMaterial(ambient: ( 0.0215 , 0.0215 , 0.1745 , 1.0 ),
-		diffuse: ( 0.08568 , 0.08568 , 0.81424 , 1.0 ),
-		specular: ( 0.133 , 0.133 , 0.427811 , 1.0 ),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.0215, 0.0215, 0.1745, 1.0),
+		diffuse: (0.08568, 0.08568, 0.81424, 1.0),
+		specular: (0.133, 0.133, 0.427811, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// Magenta
-	NH3DMaterial(ambient: ( 0.1745 , 0.0215 , 0.1745 , 1.0 ),
-		diffuse: ( 0.81424 , 0.07568 , 0.81424 , 1.0 ),
-		specular: ( 0.127811 , 0.133 , 0.427811 , 1.0 ),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.1745, 0.0215, 0.1745, 1.0),
+		diffuse: (0.81424, 0.07568, 0.81424, 1.0),
+		specular: (0.127811, 0.133, 0.427811, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0 ),
 		shininess: 0.01),
 	// Cyan
-	NH3DMaterial(ambient: ( 0.0215 , 0.1745 , 0.1745 , 1.0 ),
-		diffuse: ( 0.08568 , 0.81424 , 0.81424 , 1.0 ),
-		specular: ( 0.133 , 0.427811 , 0.427811 , 1.0 ),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.0215, 0.1745, 0.1745, 1.0),
+		diffuse: (0.08568, 0.81424, 0.81424, 1.0),
+		specular: (0.133, 0.427811, 0.427811, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// Gray
-	NH3DMaterial(ambient: ( 0.25, 0.25, 0.25, 1.0 ),
-		diffuse: ( 0.6 , 0.6 , 0.6 , 1.0 ),
-		specular: ( 0.474597 , 0.474597 , 0.474597 , 1.0),
-		emission: ( 0.1 , 0.1 , 0.1 , 1.0 ),
+	NH3DMaterial(ambient: (0.25, 0.25, 0.25, 1.0),
+		diffuse: (0.6, 0.6, 0.6, 1.0),
+		specular: (0.474597, 0.474597, 0.474597, 1.0),
+		emission: (0.1, 0.1, 0.1, 1.0),
 		shininess: 0.01),
 	// No Color
-	NH3DMaterial(ambient: ( 0.5, 0.5, 0.5, 1.0 ),
-		diffuse: ( 0.5 , 0.5 , 0.5 , 1.0 ),
-		specular: ( 0.5 , 0.5 , 1.5 , 1.0),
-		emission: ( 1.0 , 1.0 , 1.0 , 1.0 ),
+	NH3DMaterial(ambient: (0.5, 0.5, 0.5, 1.0),
+		diffuse: (0.5, 0.5, 0.5, 1.0),
+		specular: (0.5, 0.5, 1.5, 1.0),
+		emission: (1.0, 1.0, 1.0, 1.0),
 		shininess: 1.0),
 	// Orange
-	NH3DMaterial(ambient: ( 0.1745 , 0.05175 , 0.00175 , 1.0 ),
-		diffuse: ( 0.91424, 0.41136 , 0.00136 , 1.0 ),
-		specular: ( 0.527811 , 0.284959 , 0.026959 , 1.0),
-		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
+	NH3DMaterial(ambient: (0.1745, 0.05175, 0.00175, 1.0),
+		diffuse: (0.91424, 0.41136, 0.00136, 1.0),
+		specular: (0.527811, 0.284959, 0.026959, 1.0),
+		emission: (0.3, 0.3, 0.3, 1.0),
 		shininess: 0.1),
 	// Bright Green
-	NH3DMaterial(ambient: ( 0.0615 , 0.1745 , 0.0615 , 1.0 ),
-		diffuse: ( 0.17568 , 0.95424 , 0.17568 , 1.0 ),
-		specular: ( 0.133 , 0.527811 , 0.133 , 1.0 ),
-		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
+	NH3DMaterial(ambient: (0.0615, 0.1745, 0.0615, 1.0),
+		diffuse: (0.17568, 0.95424, 0.17568, 1.0),
+		specular: (0.133, 0.527811, 0.133, 1.0),
+		emission: (0.3, 0.3, 0.3, 1.0),
 		shininess: 0.1),
 	// Yellow
-	NH3DMaterial(ambient: ( 0.1745 , 0.1745 , 0.00175 , 1.0 ),
-		diffuse: ( 0.91424, 0.91424 , 0.00136 , 1.0 ),
-		specular: ( 0.327811 , 0.327811 , 0.026959 , 1.0),
-		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
+	NH3DMaterial(ambient: (0.1745, 0.1745, 0.00175, 1.0),
+		diffuse: (0.91424, 0.91424, 0.00136, 1.0),
+		specular: (0.327811, 0.327811, 0.026959, 1.0),
+		emission: (0.3, 0.3, 0.3, 1.0),
 		shininess: 0.1),
 	// Bright Blue
-	NH3DMaterial(ambient: ( 0.0715 , 0.0715 , 0.1745 , 1.0 ),
-		diffuse: ( 0.17568 , 0.27568 , 0.91424 , 1.0 ),
-		specular: ( 0.133 , 0.133 , 0.527811 , 1.0 ),
-		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
+	NH3DMaterial(ambient: (0.0715, 0.0715, 0.1745, 1.0),
+		diffuse: (0.17568, 0.27568, 0.91424, 1.0),
+		specular: (0.133, 0.133, 0.527811, 1.0),
+		emission: (0.3, 0.3, 0.3, 1.0),
 		shininess: 0.1),
 	// Bright Magenta
-	NH3DMaterial(	ambient: ( 0.3745 , 0.1215 , 0.3745 , 1.0 ),
-		diffuse: ( 0.91424 , 0.27568 , 0.91424 , 1.0 ),
-		specular: ( 0.427811 , 0.133 , 0.427811 , 1.0 ),
-		emission: ( 0.3 , 0.3 , 0.3 , 1.0 ),
+	NH3DMaterial(ambient: (0.3745, 0.1215, 0.3745, 1.0),
+		diffuse: (0.91424, 0.27568, 0.91424, 1.0),
+		specular: (0.427811, 0.133, 0.427811, 1.0),
+		emission: (0.3, 0.3, 0.3, 1.0),
 		shininess: 0.1),
 	// Bright Cyan
 	NH3DMaterial(ambient: (0.0215, 0.2745, 0.2745, 1.0),
