@@ -425,7 +425,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	while (scrollView.verticalScroller.usableParts != NSNoScrollerParts) {
 		windowRect = window.frame;
 		if (windowRect.size.height < windowMaxSize.height) {
-			windowRect.size.height = windowRect.size.height + 32.0;
+			windowRect.size.height += 32.0;
 			[window setFrame:windowRect display:NO];
 		} else {
 			windowRect.size.height = windowMaxSize.height - 16;

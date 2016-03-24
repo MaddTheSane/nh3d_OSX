@@ -1090,7 +1090,7 @@ typedef struct audio_mapping_rec {
 
 static audio_mapping *soundmap = 0;
 
-char *sounddir = ".";
+char sounddir[BUFSZ] = ".";
 
 /* adds a sound file mapping, returns 0 on failure, 1 on success */
 boolean

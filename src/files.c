@@ -171,7 +171,7 @@ static int lockptr;
 #endif
 
 #ifdef USER_SOUNDS
-extern char *sounddir;
+extern char sounddir[];
 #endif
 
 extern int n_dgns; /* from dungeon.c */
@@ -2479,7 +2479,7 @@ parse_config_line(FILE *fp, char *origbuf, int src)
 #endif /*AMIGA*/
 #ifdef USER_SOUNDS
     } else if (match_varname(buf, "SOUNDDIR", 8)) {
-        sounddir = dupstr(bufp);
+        (void)strncpy(sounddir, bufp, BUFSZ);
     } else if (match_varname(buf, "SOUND", 5)) {
         add_sound_mapping(bufp);
 #endif

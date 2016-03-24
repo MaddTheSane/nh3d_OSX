@@ -39,7 +39,6 @@ NH3DWinData nh3d_windowlist[10];
 
 extern int NXArgc;
 extern char **NXArgv;
-extern char *sounddir;
 
 //bind NetHack C routines to NH3DObjects.
 //set object's instance pointer to work.
@@ -1571,7 +1570,7 @@ static char ynPreReady(const char *str)
 		}
 #endif
 		
-		pline([NSLocalizedString(@"Restoring save file...", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
+		pline("%s", [NSLocalizedString(@"Restoring save file...", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
 		
 		mark_synch();	/* flush output */
 		if (!dorecover(fd))
