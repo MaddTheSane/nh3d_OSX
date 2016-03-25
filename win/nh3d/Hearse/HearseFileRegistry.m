@@ -82,6 +82,15 @@ static HearseFileRegistry *instance;
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void) registerUploadedFile:(NSString *)filename withMD5:(NSString *)md5 {
+	NSString *file = [filename lastPathComponent];
+	if ([[filename pathExtension] isEqualToString:@"gz"]) {
+		file = [file stringByDeletingPathExtension];
+	}
+	uploads[file] = md5;
+	[self synchronize];
+}
+
 - (void) registerDownloadedFile:(NSString *)filename withMd5:(NSString *)md5 {
 	NSString *file = [filename lastPathComponent];
 	[downloads setObject:md5 forKey:file];

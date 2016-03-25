@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) synchronize;
 - (void) registerDownloadedFile:(NSString *)filename withMd5:(NSString *)md5;
+- (void) registerUploadedFile:(NSString *)filename withMD5:(NSString *)md5;
 - (BOOL) haveDownloadedFile:(NSString *)filename;
 - (void) clear;
 

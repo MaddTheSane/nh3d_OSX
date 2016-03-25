@@ -427,7 +427,7 @@ extern BOOL CocoaPortIsReady;
 				case PL_DIRECTION_BACK:
 					for (x = centerX + MAP_MARGIN; x > centerX-1-MAP_MARGIN; x--) {
 						for (y = centerY + MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
-							[lock lock ];
+							[lock lock];
 							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 							mapItemValue[localx][localy] = mapItem;
 							[lock unlock];
@@ -442,13 +442,13 @@ extern BOOL CocoaPortIsReady;
 					break;
 					
 				case PL_DIRECTION_LEFT:
-					for ( x = centerX-MAP_MARGIN ; x < centerX+1+MAP_MARGIN ; x++) {
-						for ( y = centerY+MAP_MARGIN ; y > centerY-1-MAP_MARGIN ; y--) {
-							[ lock lock ];
+					for (x = centerX-MAP_MARGIN; x < centerX+1+MAP_MARGIN; x++) {
+						for (y = centerY+MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
+							[lock lock];
 							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 							mapItemValue[localy][localx] = mapItem;
-							[ lock unlock ];
-							[ self drawAsciiItemAtX:localy atY:localx ];
+							[lock unlock];
+							[self drawAsciiItemAtX:localy atY:localx];
 							localy++;
 						}
 						localx++;

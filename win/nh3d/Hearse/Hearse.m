@@ -379,7 +379,8 @@ static NSString *const hearseCommandDownload = @"download";
 		data = [NSData dataWithContentsOfFile:file];
 	}
 	[req setHTTPBody:data];
-	[req addValue:[Hearse md5HexForData:data] forHTTPHeaderField:@"X_BONESCRC"];
+	NSString *md5Data = [Hearse md5HexForData:data];
+	[req addValue:md5Data forHTTPHeaderField:@"X_BONESCRC"];
 	NSHTTPURLResponse *response = [self httpPostRequestWithoutData:req];
 	if (response) {
 		NSString *hearseMessageOfTheDay = [self getHeader:@"X_MOTD" fromResponse:response];
@@ -399,6 +400,7 @@ static NSString *const hearseCommandDownload = @"download";
 		}
 		numberOfUploadedBones++;
 		[self logFormat:@"uploaded file %@", file];
+		[[HearseFileRegistry instance] registerUploadedFile:file withMD5:md5Data];
 	}
 }
 
