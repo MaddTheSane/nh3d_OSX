@@ -29,12 +29,11 @@ extern int total_tiles_used;
 {
 	if (self = [super init]) {
 		tileDictCache = [[NSMutableDictionary alloc] initWithCapacity:TILES_PER_LINE * NUMBER_OF_TILES_ROW / 4];
+		NSData *tiffData;
 		NSImage	*tileSource = [NSImage imageNamed:imageName];
 		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:imageName]];
 		}
-		NSData *tiffData;
-		
 		if (tileSource == nil) {
 			tileSource = [[NSImage alloc] initWithContentsOfFile:imageName];
 			if (tileSource == nil) {
