@@ -551,7 +551,7 @@ toofar:
         case 0: /* no movement, but it can still attack you */
         case 3: /* absolutely no movement */
             /* vault guard might have vanished */
-            if (mtmp->isgd && (mtmp->mhp < 1 || !mtmp->mx == 0))
+            if (mtmp->isgd && (mtmp->mhp < 1 || mtmp->mx == 0))
                 return 1; /* behave as if it died */
             /* During hallucination, monster appearance should
              * still change - even if it doesn't move.
