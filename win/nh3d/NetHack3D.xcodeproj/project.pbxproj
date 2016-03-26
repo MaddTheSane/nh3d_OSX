@@ -348,7 +348,6 @@
 		2BACFA44090265E10095C8A4 /* panic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E60891ADF000D38098 /* panic.c */; };
 		2BACFA45090265FA0095C8A4 /* alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0DB088EB7DF00940C58 /* alloc.c */; };
 		2BACFA630902661E0095C8A4 /* recover.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E80891ADF000D38098 /* recover.c */; };
-		2BCAAB520912FC5000AF1C59 /* NH3DTileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */; };
 		2BCAABCC0913A71200AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD70913A7B100AF1C59 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBD08CD73C5008CCAAC /* tilemap.c */; };
 		2BCAABD80913A7B100AF1C59 /* tiletext.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B31DBBE08CD73C5008CCAAC /* tiletext.c */; };
@@ -357,6 +356,7 @@
 		550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
+		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
@@ -1234,8 +1234,6 @@
 		2BACF9BC090255260095C8A4 /* lev_comp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lev_comp; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BACF9C90902555E0095C8A4 /* dgn_comp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dgn_comp; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BACF9EF090258000095C8A4 /* recover */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = recover; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DTileCache.h; sourceTree = "<group>"; };
-		2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DTileCache.m; sourceTree = "<group>"; };
 		2BCAABC00913A70000AF1C59 /* tilemap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tilemap; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCAABD50913A7A500AF1C59 /* tiletext */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = tiletext; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BCB3EA30A291D82009C988D /* Makefile.dat */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Makefile.dat; sourceTree = "<group>"; };
@@ -1272,6 +1270,7 @@
 		550B14BE1CA06CD500945F09 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		550B14BF1CA06CD500945F09 /* FileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLogger.m; sourceTree = "<group>"; };
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
+		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
@@ -1397,40 +1396,38 @@
 			isa = PBXGroup;
 			children = (
 				550B14B91CA06CAC00945F09 /* Hearse */,
+				55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */,
 				551659B51C77CBDB00013270 /* C99Bool.h */,
-				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
-				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
 				2B6474FE096D5DF0005A4652 /* Cocoa-compat.h */,
-				2B6474FD096D5DDB005A4652 /* NH3Dcommon.h */,
-				2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */,
-				2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */,
-				2B6311CB08B7A27A00162523 /* winnh3d.h */,
-				2B6311CC08B7A27A00162523 /* winnh3d.m */,
-				55C1693B1C3520F300C1365E /* NH3DMessaging.swift */,
+				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
+				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
 				55BF8B331B76AECB0031A45A /* MapModel.swift */,
-				2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */,
-				2B598AD508E5B523005ECDC5 /* NH3DMenuWindow.m */,
-				2B041A8608E605B2007F87AB /* NH3DMenuItem.h */,
-				2B041A8708E605B2007F87AB /* NH3DMenuItem.m */,
-				2B9ED5D408F51D15004AD560 /* NH3DMapView.h */,
-				2B9ED5D508F51D15004AD560 /* NH3DMapView.m */,
+				2B6474FD096D5DDB005A4652 /* NH3Dcommon.h */,
+				55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */,
 				2B9ED5E008F53947004AD560 /* NH3DMapItem.h */,
 				2B9ED5E108F53947004AD560 /* NH3DMapItem.m */,
-				2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */,
-				2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */,
-				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
+				2B9ED5D408F51D15004AD560 /* NH3DMapView.h */,
+				2B9ED5D508F51D15004AD560 /* NH3DMapView.m */,
+				2B041A8608E605B2007F87AB /* NH3DMenuItem.h */,
+				2B041A8708E605B2007F87AB /* NH3DMenuItem.m */,
+				2B598AD408E5B523005ECDC5 /* NH3DMenuWindow.h */,
+				2B598AD508E5B523005ECDC5 /* NH3DMenuWindow.m */,
+				55C1693B1C3520F300C1365E /* NH3DMessaging.swift */,
 				2B60A6AC0907B9D50055BEC1 /* NH3DModelObject.h */,
 				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
 				55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */,
-				55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */,
-				2BCAAB500912FC5000AF1C59 /* NH3DTileCache.h */,
-				2BCAAB510912FC5000AF1C59 /* NH3DTileCache.m */,
+				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
+				2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */,
+				2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */,
+				55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */,
 				2BE3632D095BB4B600D34027 /* NH3DUserDefaultsExtern.h */,
 				2B5458D9095D23F3007A1049 /* NH3DUserMakeSheetController.h */,
 				2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */,
-				55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */,
+				2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */,
+				2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */,
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
-				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
+				2B6311CB08B7A27A00162523 /* winnh3d.h */,
+				2B6311CC08B7A27A00162523 /* winnh3d.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2543,6 +2540,7 @@
 		5560A2A51C347F8C00BF77F7 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -3270,6 +3268,7 @@
 				2B5CC175088EB7DF00940C58 /* makemon.c in Sources */,
 				2B5CC176088EB7DF00940C58 /* mapglyph.c in Sources */,
 				2B5CC177088EB7DF00940C58 /* mcastu.c in Sources */,
+				55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */,
 				2B5CC178088EB7DF00940C58 /* mhitm.c in Sources */,
 				2B5CC179088EB7DF00940C58 /* mhitu.c in Sources */,
 				2B5CC17A088EB7DF00940C58 /* minion.c in Sources */,
@@ -3355,7 +3354,6 @@
 				2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */,
 				5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */,
 				2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */,
-				2BCAAB520912FC5000AF1C59 /* NH3DTileCache.m in Sources */,
 				2B2E1EDF0919086F008805B3 /* NH3DModelObject.m in Sources */,
 				2B5458DB095D23F3007A1049 /* NH3DUserMakeSheetController.m in Sources */,
 				2BA7A40609774D3100122932 /* nh3dmain.m in Sources */,

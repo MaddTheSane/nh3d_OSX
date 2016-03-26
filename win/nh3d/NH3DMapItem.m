@@ -7,11 +7,8 @@
 //
 
 #import "NH3DMapItem.h"
-#import "NH3DTileCache.h"
 #import <QuartzCore/QuartzCore.h>
-
-/*from winnh3d.m*/
-extern NH3DTileCache *_NH3DTileCache;
+#import "NetHack3D-Swift.h"
 
 @implementation NH3DMapItem {
 	NSRecursiveLock *lock;
@@ -353,7 +350,7 @@ extern NH3DTileCache *_NH3DTileCache;
 - (NSImage *)foregroundTile
 {
 	if (glyph != S_stone + GLYPH_CMAP_OFF)
-		return [_NH3DTileCache tileImageFromGlyph:glyph];
+		return [[TileSet instance] tileImageFromGlyph:glyph];
 	else 
 		return nil;
 }
@@ -361,7 +358,7 @@ extern NH3DTileCache *_NH3DTileCache;
 - (NSImage *)backgroundTile
 {
 	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
-		return [_NH3DTileCache tileImageFromGlyph:bgGlyph];
+		return [[TileSet instance] tileImageFromGlyph:bgGlyph];
 	else
 		return nil;
 }

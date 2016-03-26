@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 
-#import "NH3DTileCache.h"
 #import "NH3DUserDefaultsExtern.h"
 
 NS_ASSUME_NONNULL_BEGIN

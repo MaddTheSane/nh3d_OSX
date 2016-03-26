@@ -31,7 +31,6 @@
 
 #import "NH3DUserStatusModel.h"
 #import "NH3DMenuWindow.h"
-#import "NH3DTileCache.h"
 #import "NH3DUserMakeSheetController.h"
 
 NS_ASSUME_NONNULL_BEGIN

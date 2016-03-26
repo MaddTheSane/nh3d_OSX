@@ -11,8 +11,6 @@
 #import "NH3Dcommon.h"
 #import "NH3DUserDefaultsExtern.h"
 
-#import "NH3DTileCache.h"
-
 @interface NH3DUserStatusModel : NSObject {
 	//IBOutlet NSTextField *inputName;
 	IBOutlet NSDrawer *stDrawer;

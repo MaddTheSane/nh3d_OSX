@@ -83,7 +83,7 @@ static inline BOOL Swift_IsRoom(schar type) {
 /* from tile.c */
 extern int total_tiles_used;
 
-static inline short glyphToTile(long i)
+static inline short glyphToTile(int i)
 {
 	extern short glyph2tile[];
 	return glyph2tile[i];

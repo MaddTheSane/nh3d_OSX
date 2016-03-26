@@ -50,8 +50,6 @@ static __strong NH3DMenuWindow *_NH3DMenuWindow;
 static __strong NH3DMapView *_NH3DKeyBuffer;
 static __strong NH3DOpenGLView *_NH3DOpenGLView;
 
-__strong NH3DTileCache *_NH3DTileCache;
-
 static void wd_message(void);
 
 // set Localized String's Text encoding(used only for hard corded strings in 'C' source files)
@@ -1210,7 +1208,7 @@ wd_message()
 
 @implementation NH3DBindController {
 	NH3DPreferenceController *_prefPanel;
-	NH3DTileCache			*_tileCache;
+	TileSet			*_tileCache;
 }
 
 // for UserDefaults
@@ -1294,7 +1292,7 @@ wd_message()
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {	
 	@autoreleasepool {
-		_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
+		[TileSet setInstance:[[TileSet alloc] initWithName:TILE_FILE_NAME]];
 		
 		_NH3DBindController = self;
 		_NH3DUserStatusModel = _userStatus;
@@ -1303,7 +1301,6 @@ wd_message()
 		_NH3DMenuWindow = _menuWindow;
 		_NH3DKeyBuffer = _asciiMapView;
 		_NH3DOpenGLView = _glMapView;
-		_NH3DTileCache = _tileCache;
 		[NH3DFirstLaunchController runFirstTimeWindow];
 	}
 }
@@ -1355,8 +1352,7 @@ wd_message()
 
 - (void)setTile
 {
-	_tileCache = [[NH3DTileCache alloc] initWithNamed:TILE_FILE_NAME];
-	_NH3DTileCache = _tileCache;
+	[TileSet setInstance:[[TileSet alloc] initWithName:TILE_FILE_NAME]];
 	
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey];

@@ -7,8 +7,7 @@
 //
 
 #import "NH3DMenuItem.h"
-
-extern NH3DTileCache *_NH3DTileCache;
+#import "NetHack3D-Swift.h"
 
 @implementation NH3DMenuItem
 @synthesize stringSize;
@@ -165,7 +164,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (glyph == NO_GLYPH) {
 		return nil;
 	} else {
-		return [_NH3DTileCache tileImageFromGlyph:glyph];
+		return [[TileSet instance] tileImageFromGlyph:glyph];
 	}
 }
 
@@ -173,10 +172,10 @@ extern NH3DTileCache *_NH3DTileCache;
 {
 	if (glyph == NO_GLYPH) {
 		return nil;
-	} else if (_NH3DTileCache.tileSize_X == 16 && _NH3DTileCache.tileSize_Y == 16) {
-		return [_NH3DTileCache tileImageFromGlyph:glyph];
+	} else if ([TileSet instance].tileSize.width == 16 && [TileSet instance].tileSize.height == 16) {
+		return [[TileSet instance] tileImageFromGlyph:glyph];
 	} else {
-		NSImage *smallTile = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		NSImage *smallTile = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 		smallTile.size = NSMakeSize(16.0, 16.0);
 		
 		return smallTile;

@@ -9,15 +9,13 @@
 
 
 #import "NH3DUserStatusModel.h"
+#import "NetHack3D-Swift.h"
 
 extern const char *enc_stat[]; /* from botl.c */
 extern const char *hu_stat[]; /* from eat.c */
 
 #define DIALOG_OK		 128
 #define DIALOG_CANCEL	 129
-
-//from nh3d_win.m
-extern NH3DTileCache *_NH3DTileCache;
 
 
 @implementation NH3DUserStatusModel
@@ -228,7 +226,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerArmour = nil;
 	} else {
-		playerArmour = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerArmour = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -242,7 +240,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerCloak = nil;
 	} else {
-		playerCloak = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerCloak = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -256,7 +254,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerHelmet = nil;
 	} else {
-		playerHelmet = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerHelmet = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -270,7 +268,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerShield = nil;
 	} else {
-		playerShield = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerShield = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -284,7 +282,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerGloves = nil;
 	} else {
-		playerGloves = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerGloves = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -298,7 +296,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerShoes = nil;
 	} else {
-		playerShoes = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerShoes = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -312,7 +310,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerRingL = nil;
 	} else {
-		playerRingL = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerRingL = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -326,7 +324,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerRingR = nil;		
 	} else {
-		playerRingR = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerRingR = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -340,7 +338,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerWeapon = nil;
 	} else {		
-		playerWeapon = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerWeapon = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -354,7 +352,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerSubWeapon = nil;
 	} else {
-		playerSubWeapon = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerSubWeapon = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -368,7 +366,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerAmulet = nil;
 	} else {
-		playerAmulet = [[ _NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerAmulet = [[ [TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 
@@ -382,7 +380,7 @@ extern NH3DTileCache *_NH3DTileCache;
 	if (!glyph) {
 		playerBlindFold = nil;
 	} else {
-		playerBlindFold = [[_NH3DTileCache tileImageFromGlyph:glyph] copy];
+		playerBlindFold = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
 	}
 }
 

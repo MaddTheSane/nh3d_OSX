@@ -8,6 +8,38 @@
 
 import Cocoa
 
+/// Scans the file name to identify the width and height.
+/// - returns: `nil` if the tile size could not be identified
+func sizeFromFileName(fileName: String) -> (width: Int32, height: Int32)? {
+	// FIXME: this is ugly!  Transition to Regex/NSScanner.
+	var width: Int32 = 0
+	var height: Int32 = 0
+	
+	let unsfePtr1 = withUnsafeMutablePointer(&width) {
+		return $0
+	}
+	let unsfePtr2 = withUnsafeMutablePointer(&height) {
+		return $0
+	}
+	
+	var valist = getVaList([unsfePtr1, unsfePtr2])
+	
+	// First, try finding both width and height
+	if vsscanf(fileName, "%*[^0-9]%dx%d.%*s", valist) == 2 {
+		return (width, height)
+	}
+	
+	// Regenerate the VaList
+	valist = getVaList([unsfePtr1])
+	// Next, try for a square size
+	if vsscanf(fileName, "%*[^0-9]%d.%*s", valist) == 1 {
+		return (width, width)
+	}
+	
+	// We didn't get either
+	return nil
+}
+
 /// Returns the amount of tiles per row and column.
 ///
 /// Needed because NH3D uses a different way of handling tiles:
@@ -15,38 +47,6 @@ import Cocoa
 /// specify the width and height of one tile.<br>
 /// This assumes that there are no extra pixels, such as signatures.
 func tilesInfoFromFileAtLocation(fileName: String) -> (width: Int, height: Int)? {
-	/// Scans the file name to identify the width and height.
-	/// - returns: `nil` if the tile size could not be identified
-	func sizeFromFileName(fileName: String) -> (width: Int32, height: Int32)? {
-		// FIXME: this is ugly!  Transition to Regex/NSScanner.
-		var width: Int32 = 0
-		var height: Int32 = 0
-		
-		let unsfePtr1 = withUnsafeMutablePointer(&width) {
-			return $0
-		}
-		let unsfePtr2 = withUnsafeMutablePointer(&height) {
-			return $0
-		}
-		
-		var valist = getVaList([unsfePtr1, unsfePtr2])
-		
-		// First, try finding both width and height
-		if vsscanf(fileName, "%*[^0-9]%dx%d.%*s", valist) == 2 {
-			return (width, height)
-		}
-		
-		// Regenerate the VaList
-		valist = getVaList([unsfePtr1])
-		// Next, try for a square size
-		if vsscanf(fileName, "%*[^0-9]%d.%*s", valist) == 1 {
-			return (width, width)
-		}
-		
-		// We didn't get either
-		return nil
-	}
-	
 	guard let fileDimensions = sizeFromFileName((fileName as NSString).lastPathComponent) else {
 		return nil
 	}
