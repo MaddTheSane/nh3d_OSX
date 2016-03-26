@@ -46,13 +46,14 @@ final class TileSet: NSObject {
 	}
 	
 	convenience init?(name named: String) {
+		let defaults = NSUserDefaults.standardUserDefaults()
 		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return
 		}
 		
-		let size = NSSize(width: img.size.width / CGFloat(TILES_PER_LINE),
-		                  height: img.size.height / CGFloat(NUMBER_OF_TILES_ROW))
+		let size = NSSize(width: CGFloat(defaults.doubleForKey(NH3DTileSizeWidthKey)),
+		                  height: CGFloat(defaults.doubleForKey(NH3DTileSizeHeightKey)))
 		self.init(image: img, tileSize: size)
 	}
 	

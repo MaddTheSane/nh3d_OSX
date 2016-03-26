@@ -46,7 +46,7 @@ func sizeFromFileName(fileName: String) -> (width: Int32, height: Int32)? {
 /// NH3D wants the number of rows and columns; other front-ends
 /// specify the width and height of one tile.<br>
 /// This assumes that there are no extra pixels, such as signatures.
-func tilesInfoFromFileAtLocation(fileName: String) -> (width: Int, height: Int)? {
+func tilesInfoFromFileAtLocation(fileName: String) -> (tileSize: NSSize, rows: Int, columns: Int)? {
 	guard let fileDimensions = sizeFromFileName((fileName as NSString).lastPathComponent) else {
 		return nil
 	}
@@ -61,37 +61,31 @@ func tilesInfoFromFileAtLocation(fileName: String) -> (width: Int, height: Int)?
 		// We didn't get the image :(
 		return nil
 	}
-	let imgDimensions: (Int32, Int32)
-	// On bitmap formats, get the actual pixel size.
-	// This makes, for example, the Absurd tile sets load
+	let imgDimensions: NSSize
 	if let firstRep = image1.representations.first as? NSBitmapImageRep {
-		imgDimensions = (Int32(firstRep.pixelsWide), Int32(firstRep.pixelsHigh))
+		imgDimensions = NSSize(width: firstRep.pixelsWide, height: firstRep.pixelsHigh)
 	} else {
-		imgDimensions = (Int32(image1.size.width), Int32(image1.size.height))
+		imgDimensions = image1.size
 	}
-	
 	// divide the numbers, getting the remainder remainder
-	let divWidth: (divided: Int32, remainder: Int32) = {
-		let width1 = fileDimensions.width
-		let width2 = imgDimensions.0
-		
-		return (width2 / width1, width2 % width1)
-	}()
-	let divHeight: (divided: Int32, remainder: Int32) = {
-		let height1 = fileDimensions.height
-		let height2 = imgDimensions.1
-		
-		return (height2 / height1, height2 % height1)
-	}()
+	let divWidth = imgDimensions.width / CGFloat(fileDimensions.width)
+	let divHeight = imgDimensions.height / CGFloat(fileDimensions.height)
 	
-	// If there's any remainder, it means the passed-in string size
+	// If there's any decimal points, it means the passed-in string size
 	// doesn't match
-	if divHeight.remainder != 0 || divWidth.remainder != 0 {
+	if round(divHeight) != divHeight || round(divWidth) != divWidth {
 		// We failed
 		return nil
 	}
 	
-	return (Int(divWidth.divided), Int(divHeight.divided))
+	let actualSize: NSSize = {
+		var imgSize = image1.size
+		imgSize.width /= divWidth
+		imgSize.height /= divHeight
+		return imgSize
+	}()
+	
+	return (actualSize,Int(divWidth), Int(divHeight))
 }
 
 class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
@@ -240,8 +234,10 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 				let filePath = openPanel.URL!.path!
 				let defaults = NSUserDefaults.standardUserDefaults()
 				if let tileSize = tilesInfoFromFileAtLocation(filePath) {
-					defaults.setInteger(tileSize.width, forKey: NH3DTilesPerLineKey)
-					defaults.setInteger(tileSize.height, forKey: NH3DNumberOfTilesRowKey)
+					defaults.setInteger(tileSize.rows, forKey: NH3DTilesPerLineKey)
+					defaults.setInteger(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
+					defaults.setDouble(Double(tileSize.tileSize.width), forKey: NH3DTileSizeWidthKey)
+					defaults.setDouble(Double(tileSize.tileSize.height), forKey: NH3DTileSizeHeightKey)
 				}
 				
 				defaults.setObject(filePath, forKey: NH3DTileNameKey)
