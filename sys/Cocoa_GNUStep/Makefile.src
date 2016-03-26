@@ -237,11 +237,11 @@ WINGNOMEOBJ = gnaskstr.o gnbind.o gnglyph.o gnmain.o gnmap.o gnmenu.o \
 WINNH3DSSRC = ../win/nh3d/GLHelpers.swift ../win/nh3d/SwiftNetHack\ bridge.swift \
 	../win/nh3d/MapModel.swift ../win/nh3d/NH3DOpenGLViewSwift.swift \
 	../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift \
-	../win/nh3d/NH3DModelObject+Swift.swift ../win/nh3d/NH3DFirstLaunchController.swift
+	../win/nh3d/NH3DModelObject+Swift.swift ../win/nh3d/NH3DFirstLaunchController.swift \
+	../win/nh3d/TileSet.swift
 WINNH3DSRC =  \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
-	../win/nh3d/NH3DModelObject.m \
-	../win/nh3d/NH3DPanel.m ../win/nh3d/NH3DTileCache.m \
+	../win/nh3d/NH3DModelObject.m ../win/nh3d/NH3DPanel.m \
 	../win/nh3d/NH3DUserMakeSheetController.m ../win/nh3d/NH3DUserStatusModel.m \
 	../win/nh3d/winnh3d.m ../win/nh3d/Hearse/Hearse.m ../win/nh3d/Hearse/FileLogger.m \
 	../win/nh3d/Hearse/HearseFileRegistry.m \
@@ -249,11 +249,11 @@ WINNH3DSRC =  \
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DSOBJ = GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.o \
 	NH3DPreferenceController.o NH3DMessaging.o NH3DModelObject+Swift.o \
-	NH3DFirstLaunchController.o
+	NH3DFirstLaunchController.o TileSet.o
 WINNH3DOBJ = NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DModelObject.o NH3DPanel.o \
-	NH3DTileCache.o NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
-	$(WINNH3DSOBJ) NH3DMapItem.o Hearse.o FileLogger.o HearseFileRegistry.o 
+	NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
+	$(WINNH3DSOBJ) NH3DMapItem.o Hearse.o FileLogger.o HearseFileRegistry.o
 #	NH3DSwiftCode.o
 #	Cocoa-compat.o
 #
@@ -706,19 +706,17 @@ NH3DMapModel.o: ../win/nh3d/NH3DMapModel.m $(HACK_H)
 NH3DMapView.o: ../win/nh3d/NH3DMapView.m $(HACK_H) NetHack3D-Swift.h
 	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DMapView.m
 NH3DMenuItem.o: ../win/nh3d/NH3DMenuItem.m $(HACK_H)
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuItem.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DMenuItem.m
 NH3DMenuWindow.o: ../win/nh3d/NH3DMenuWindow.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DMenuWindow.m
 NH3DModelObjects.o: ../win/nh3d/NH3DModelObjects.m $(HACK_H) NetHack3D-Swift.h
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DModelObjects.m
 NH3DPanel.o: ../win/nh3d/NH3DPanel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DPanel.m
-NH3DTileCache.o: ../win/nh3d/NH3DTileCache.m $(HACK_H)
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DTileCache.m
 NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserMakeSheetController.m
 NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m $(HACK_H)
-	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserStatusModel.m
+	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DUserStatusModel.m
 
 HearseFileRegistry.o: ../win/nh3d/Hearse/HearseFileRegistry.m $(CONFIG_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -fno-objc-arc -c ../win/nh3d/Hearse/HearseFileRegistry.m
@@ -735,6 +733,10 @@ NetHack3D.swiftmodule: $(WINNH3DSOBJ)
 	swiftc -frontend -c -color-diagnostics -emit-module $(SWIFTFLAGS) -emit-module-path \
 	NetHack3D.swiftmodule $(subst .o,-partial.swiftmodule,$(WINNH3DSOBJ)) -parse-as-library
 
+TileSet.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
+	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/TileSet.swift \
+	$(filter-out ../win/nh3d/TileSet.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
+	-emit-module -emit-module-path TileSet-partial.swiftmodule -o TileSet.o
 GLHelpers.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
 	swiftc -frontend -c -color-diagnostics -primary-file ../win/nh3d/GLHelpers.swift \
 	$(filter-out ../win/nh3d/GLHelpers.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
