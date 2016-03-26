@@ -6,6 +6,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
+#include "C99Bool.h"
 #import "NH3DMapItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NetHack3D-Swift.h"

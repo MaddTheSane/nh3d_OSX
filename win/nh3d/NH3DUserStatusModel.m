@@ -7,7 +7,7 @@
 //  Copyright 2005 Haruumi Yoshino.
 //
 
-
+#include "C99Bool.h"
 #import "NH3DUserStatusModel.h"
 #import "NetHack3D-Swift.h"
 
