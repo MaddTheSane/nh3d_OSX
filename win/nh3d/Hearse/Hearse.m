@@ -78,7 +78,7 @@ static NSString *const hearseCommandDownload = @"download";
 	if (!fh) {
 		return nil;
 	}
-	const int bufferSize = 1024;
+	static const size_t bufferSize = 1024;
 	char buffer[bufferSize];
 	ssize_t bytesRead;
 	while ((bytesRead = gzread(fh, buffer, bufferSize))) {
@@ -98,7 +98,7 @@ static NSString *const hearseCommandDownload = @"download";
 + (NSString *) md5HexForFile:(NSString *)filename {
 	CC_MD5_CTX context;
 	CC_MD5_Init(&context);
-	const int bufferSize = 1024;
+	static const size_t bufferSize = 1024;
 	char buffer[bufferSize];
 	if ([[filename pathExtension] isEqualToString:@"gz"]) {
 		gzFile fh = gzopen([filename fileSystemRepresentation], "r");
@@ -353,7 +353,7 @@ static NSString *const hearseCommandDownload = @"download";
 	for (NSString *filename in filelist) {
 		NSString *fileLocation = [aPath stringByAppendingPathComponent:filename];
 		if ([filename hasPrefix:@"bon"] && [self isValidBonesFileName:filename]) {
-			if (![[HearseFileRegistry instance] haveDownloadedFile:fileLocation]) {
+			if (!([[HearseFileRegistry instance] haveDownloadedFile:fileLocation] || [[HearseFileRegistry instance] hasUploadedFile:fileLocation])) {
 				[self uploadBonesFile:fileLocation];
 			}
 		}

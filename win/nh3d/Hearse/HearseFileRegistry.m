@@ -110,7 +110,21 @@ static HearseFileRegistry *instance;
 		return NO;
 	}
 }
-		
+
+- (BOOL) hasUploadedFile:(NSString *)filename {
+	NSString *file = [filename lastPathComponent];
+	if ([[filename pathExtension] isEqualToString:@"gz"]) {
+		file = [file stringByDeletingPathExtension];
+	}
+	NSString *md5 = [uploads objectForKey:file];
+	if (md5) {
+		NSString *actualMd5 = [Hearse md5HexForFile:filename];
+		return [md5 isEqual:actualMd5];
+	} else {
+		return NO;
+	}
+}
+
 - (void) clear {
 	[uploads removeAllObjects];
 	[downloads removeAllObjects];
