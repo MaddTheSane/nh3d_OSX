@@ -1763,7 +1763,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			model?.lastChildObject?.setPivotX(-0.005, atY: 2.834, atZ: 0.483)
 			model?.lastChildObject?.addChildObject("emitter", type: .Emitter)
 			do {
-				model?.lastChildObject?.lastChildObject?.setPivotX(0.593, atY:1.261, atZ:0)
+				model?.lastChildObject?.lastChildObject?.setPivotX(0.593, atY:1.261, atZ: 0)
 				model?.lastChildObject?.lastChildObject?.particleType = .Both
 				model?.lastChildObject?.lastChildObject?.particleColor = CLR_ORANGE
 				model?.lastChildObject?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)

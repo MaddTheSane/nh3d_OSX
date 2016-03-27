@@ -13,14 +13,10 @@ extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
 		
-		let zeroVert = float3(x: 0, y: 0, z: 0)
-		
-		for i in 0..<Int(verts_qty) {
-			norms[i] = zeroVert
-		}
+		memset(norms, 0, Int(verts_qty) * sizeof(float3))
 		
 		//faces
-		let theFaces = UnsafeMutableBufferPointer(start: faces, count: Int(face_qty))
+		let theFaces = UnsafeBufferPointer(start: faces, count: Int(face_qty))
 		
 		for face in theFaces {
 			let l_vect1 = verts[Int(face.a)]

@@ -43,8 +43,8 @@
 	BOOL doneRip;
 	int pickType;
 }
-@property (weak) IBOutlet NSWindow *window;
 
+@property (weak) IBOutlet NSWindow *window;
 
 @property BOOL isMenu;
 
@@ -83,6 +83,5 @@
 - (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView;
 
 - (void)keyDown:(NSEvent*)event;
-
 
 @end
