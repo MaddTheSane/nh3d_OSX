@@ -104,6 +104,10 @@ static const NH3DMaterial defaultMat = {
 	
 	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
 	
+	if (!imgrep) {
+		return tex_id;
+	}
+	
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	
 	glGenTextures(1, &tex_id);
@@ -572,12 +576,9 @@ static const NH3DMaterial defaultMat = {
 	return YES;
 }
 
-
-
 //--------------------------------------------
 // initializers
 //--------------------------------------------
-
 - (BOOL)queryExtensionSupported:(char*)szTargetExtension
 {
 	const unsigned char *pszExtensions = NULL;
