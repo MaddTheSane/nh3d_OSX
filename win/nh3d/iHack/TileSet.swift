@@ -29,6 +29,7 @@ final class TileSet: NSObject {
 	let tileSize: NSSize
 	private let rows: Int
 	private let columns: Int
+	private var cache = [Int16: NSImage]()
 
 	init(image img: NSImage, tileSize ts: NSSize) {
 		let rect = NSRect(origin: .zero, size: img.size)
@@ -49,7 +50,7 @@ final class TileSet: NSObject {
 		return sourceRectForTile(tile)
 	}
 	
-	private func sourceRectForTile(tile: Int32) -> NSRect {
+	private func sourceRectForTile(tile: Int16) -> NSRect {
 		let row = rows - 1 - Int(tile)/columns;
 		let col = Int(tile) % columns;
 
@@ -72,15 +73,22 @@ final class TileSet: NSObject {
 		return size
 	}
 	
-	func imageForGlyph(glyph: Int32, enabled: Bool = true) -> NSImage {
+	func imageForGlyph(glyph: Int32) -> NSImage {
+		let tile = glyphToTile(glyph)
+		// check for cached image
+		if let tileImg = cache[tile] {
+			return tileImg
+		}
 		// get image
 		let srcRect = sourceRectForGlyph(glyph)
 		let size = imageSize
 		let newImage = NSImage(size: size)
 		let dstRect = NSRect(origin: .zero, size: size)
 		newImage.lockFocus()
-		image.drawInRect(dstRect, fromRect: srcRect, operation: .CompositeCopy, fraction: enabled ? 1.0 : 0.5)
+		image.drawInRect(dstRect, fromRect: srcRect, operation: .CompositeCopy, fraction: 1)
 		newImage.unlockFocus()
+		// store image in cache
+		cache[tile] = newImage
 		return newImage
 	}
 }

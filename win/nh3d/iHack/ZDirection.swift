@@ -62,7 +62,8 @@ private func normalize(inout v: CGPoint) {
 	v.y /= l
 }
 
-func directionFromEuclideanPointDelta(var delta: CGPoint) -> EuclideanDirection {
+func directionFromEuclideanPoint(delta delta1: CGPoint) -> EuclideanDirection {
+	var delta = delta1
 	normalize(&delta)
 	for i in 0 ..< EuclideanDirection.Max.rawValue {
 		let dotP = dotProduct(delta, s_directionVectors[i])
@@ -76,6 +77,6 @@ func directionFromEuclideanPointDelta(var delta: CGPoint) -> EuclideanDirection 
 
 final class ZDirection: NSObject {
 	class func directionFromEuclideanPointDelta(delta: CGPoint) -> EuclideanDirection {
-		return directionFromEuclideanPointDelta(delta)
+		return directionFromEuclideanPoint(delta: delta)
 	}
 }

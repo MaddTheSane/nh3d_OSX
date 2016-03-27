@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Action.h"
-#import "wincocoa.h"
+//#import "wincocoa.h"
 
 #ifndef M
 # ifndef NHSTDC

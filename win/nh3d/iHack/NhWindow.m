@@ -27,7 +27,7 @@
 #import "NSString+Z.h"
 #import "NhMapWindow.h"
 #import "NhStatusWindow.h"
-#import "MainWindowController.h"
+//#import "MainWindowController.h"
 
 
 static NhWindow *s_messageWindow = nil;
@@ -192,7 +192,7 @@ static NhWindow *s_mapWindow = nil;
 
 		NSDictionary * dict = nil;
 
-		switch ( attr ) {
+		switch (attr) {
 			case ATR_NONE:
 				{
 					BOOL highlight = [self stringReferencesHero:s];
@@ -200,9 +200,9 @@ static NhWindow *s_mapWindow = nil;
 						dict = @{NSForegroundColorAttributeName: [NSColor blueColor]};
 					}
 					BOOL isVoiced = [self stringIsVoiced:s];
-					if ( isVoiced ) {
-						MainWindowController * main = [MainWindowController instance];
-						[main speakString:s];
+					if (isVoiced) {
+						//MainWindowController * main = [MainWindowController instance];
+						//[main speakString:s];
 					}
 				}
 				break;

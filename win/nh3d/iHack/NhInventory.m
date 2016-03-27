@@ -75,9 +75,9 @@
 	
 	// Hands / Gold
 	NSArray *specialObjects = nil;
-	if (u.ugold) {
+	if (u.umoney0) {
 		specialObjects = @[[NhObject objectWithTitle:@"Gold" inventoryLetter:'$' group_accel:0],
-						  [NhObject objectWithTitle:@"Hands" inventoryLetter:'-' group_accel:0]];
+						   [NhObject objectWithTitle:@"Hands" inventoryLetter:'-' group_accel:0]];
 	} else {
 		specialObjects = @[[NhObject objectWithTitle:@"Hands" inventoryLetter:'-' group_accel:0]];
 	}

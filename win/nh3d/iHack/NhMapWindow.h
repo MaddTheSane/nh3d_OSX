@@ -33,14 +33,14 @@
 @interface NhMapWindow : NhWindow {
 	int *glyphs;
 
-	XCHAR_P cursorX;
-	XCHAR_P cursorY;
+	xchar cursorX;
+	xchar cursorY;
 }
 
 - (nonnull instancetype) initWithType:(int)t NS_DESIGNATED_INITIALIZER;
-- (void) printGlyph:(int)glyph atX:(XCHAR_P)x y:(XCHAR_P)y;
-- (int) glyphAtX:(XCHAR_P)x y:(XCHAR_P)y;
-- (void)setCursX:(XCHAR_P)x y:(XCHAR_P)y;
-- (void)getCursX:(XCHAR_P * __nullable)px y:(XCHAR_P * __nullable)py;
+- (void) printGlyph:(int)glyph atX:(xchar)x y:(xchar)y;
+- (int) glyphAtX:(xchar)x y:(xchar)y;
+- (void)setCursX:(xchar)x y:(xchar)y;
+- (void)getCursX:(xchar * __nullable)px y:(xchar * __nullable)py;
 		
 @end

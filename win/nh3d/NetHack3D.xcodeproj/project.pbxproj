@@ -356,7 +356,26 @@
 		550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
-		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
+		550F394C1CA8538400CC1A4E /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F392B1CA8538400CC1A4E /* Action.m */; };
+		550F394D1CA8538400CC1A4E /* NhCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F392E1CA8538400CC1A4E /* NhCommand.m */; };
+		550F394E1CA8538400CC1A4E /* NhEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F392F1CA8538400CC1A4E /* NhEvent.swift */; };
+		550F394F1CA8538400CC1A4E /* NhEventQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39311CA8538400CC1A4E /* NhEventQueue.m */; };
+		550F39501CA8538400CC1A4E /* NhInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39331CA8538400CC1A4E /* NhInventory.m */; };
+		550F39511CA8538400CC1A4E /* NhItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39351CA8538400CC1A4E /* NhItem.m */; };
+		550F39521CA8538400CC1A4E /* NhItemGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39371CA8538400CC1A4E /* NhItemGroup.m */; };
+		550F39531CA8538400CC1A4E /* NhMapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39391CA8538400CC1A4E /* NhMapWindow.m */; };
+		550F39541CA8538400CC1A4E /* NhMenuWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F393B1CA8538400CC1A4E /* NhMenuWindow.m */; };
+		550F39551CA8538400CC1A4E /* NhObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F393D1CA8538400CC1A4E /* NhObject.m */; };
+		550F39561CA8538400CC1A4E /* NhStatusWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F393F1CA8538400CC1A4E /* NhStatusWindow.m */; };
+		550F39571CA8538400CC1A4E /* NhTextInputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F39401CA8538400CC1A4E /* NhTextInputEvent.swift */; };
+		550F39581CA8538400CC1A4E /* NhWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39421CA8538400CC1A4E /* NhWindow.m */; };
+		550F39591CA8538400CC1A4E /* NhYnQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F39431CA8538400CC1A4E /* NhYnQuestion.swift */; };
+		550F395A1CA8538400CC1A4E /* NSIndexPath+Z.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39451CA8538400CC1A4E /* NSIndexPath+Z.m */; };
+		550F395B1CA8538400CC1A4E /* NSString+NetHack.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39471CA8538400CC1A4E /* NSString+NetHack.m */; };
+		550F395C1CA8538400CC1A4E /* NSString+Z.m in Sources */ = {isa = PBXBuildFile; fileRef = 550F39491CA8538400CC1A4E /* NSString+Z.m */; };
+		550F395D1CA8538400CC1A4E /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F394A1CA8538400CC1A4E /* TileSet.swift */; };
+		550F395E1CA8538400CC1A4E /* ZDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F394B1CA8538400CC1A4E /* ZDirection.swift */; };
+		55285EAD1CA70BBD00FAFDB1 /* TileSet+NH3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet+NH3D.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
@@ -1269,8 +1288,42 @@
 		550B14BD1CA06CD500945F09 /* Hearse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hearse.m; sourceTree = "<group>"; };
 		550B14BE1CA06CD500945F09 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		550B14BF1CA06CD500945F09 /* FileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLogger.m; sourceTree = "<group>"; };
+		550F392A1CA8538400CC1A4E /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		550F392B1CA8538400CC1A4E /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
+		550F392C1CA8538400CC1A4E /* ARCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCBridge.h; sourceTree = "<group>"; };
+		550F392D1CA8538400CC1A4E /* NhCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhCommand.h; sourceTree = "<group>"; };
+		550F392E1CA8538400CC1A4E /* NhCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhCommand.m; sourceTree = "<group>"; };
+		550F392F1CA8538400CC1A4E /* NhEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NhEvent.swift; sourceTree = "<group>"; };
+		550F39301CA8538400CC1A4E /* NhEventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhEventQueue.h; sourceTree = "<group>"; };
+		550F39311CA8538400CC1A4E /* NhEventQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhEventQueue.m; sourceTree = "<group>"; };
+		550F39321CA8538400CC1A4E /* NhInventory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhInventory.h; sourceTree = "<group>"; };
+		550F39331CA8538400CC1A4E /* NhInventory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhInventory.m; sourceTree = "<group>"; };
+		550F39341CA8538400CC1A4E /* NhItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhItem.h; sourceTree = "<group>"; };
+		550F39351CA8538400CC1A4E /* NhItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhItem.m; sourceTree = "<group>"; };
+		550F39361CA8538400CC1A4E /* NhItemGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhItemGroup.h; sourceTree = "<group>"; };
+		550F39371CA8538400CC1A4E /* NhItemGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhItemGroup.m; sourceTree = "<group>"; };
+		550F39381CA8538400CC1A4E /* NhMapWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhMapWindow.h; sourceTree = "<group>"; };
+		550F39391CA8538400CC1A4E /* NhMapWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhMapWindow.m; sourceTree = "<group>"; };
+		550F393A1CA8538400CC1A4E /* NhMenuWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhMenuWindow.h; sourceTree = "<group>"; };
+		550F393B1CA8538400CC1A4E /* NhMenuWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhMenuWindow.m; sourceTree = "<group>"; };
+		550F393C1CA8538400CC1A4E /* NhObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhObject.h; sourceTree = "<group>"; };
+		550F393D1CA8538400CC1A4E /* NhObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhObject.m; sourceTree = "<group>"; };
+		550F393E1CA8538400CC1A4E /* NhStatusWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhStatusWindow.h; sourceTree = "<group>"; };
+		550F393F1CA8538400CC1A4E /* NhStatusWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhStatusWindow.m; sourceTree = "<group>"; };
+		550F39401CA8538400CC1A4E /* NhTextInputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NhTextInputEvent.swift; sourceTree = "<group>"; };
+		550F39411CA8538400CC1A4E /* NhWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NhWindow.h; sourceTree = "<group>"; };
+		550F39421CA8538400CC1A4E /* NhWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NhWindow.m; sourceTree = "<group>"; };
+		550F39431CA8538400CC1A4E /* NhYnQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NhYnQuestion.swift; sourceTree = "<group>"; };
+		550F39441CA8538400CC1A4E /* NSIndexPath+Z.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+Z.h"; sourceTree = "<group>"; };
+		550F39451CA8538400CC1A4E /* NSIndexPath+Z.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+Z.m"; sourceTree = "<group>"; };
+		550F39461CA8538400CC1A4E /* NSString+NetHack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NetHack.h"; sourceTree = "<group>"; };
+		550F39471CA8538400CC1A4E /* NSString+NetHack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NetHack.m"; sourceTree = "<group>"; };
+		550F39481CA8538400CC1A4E /* NSString+Z.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Z.h"; sourceTree = "<group>"; };
+		550F39491CA8538400CC1A4E /* NSString+Z.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Z.m"; sourceTree = "<group>"; };
+		550F394A1CA8538400CC1A4E /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
+		550F394B1CA8538400CC1A4E /* ZDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDirection.swift; sourceTree = "<group>"; };
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
-		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
+		55285EAC1CA70BBD00FAFDB1 /* TileSet+NH3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileSet+NH3D.swift"; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
@@ -1396,7 +1449,8 @@
 			isa = PBXGroup;
 			children = (
 				550B14B91CA06CAC00945F09 /* Hearse */,
-				55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */,
+				550F39291CA8538400CC1A4E /* iHack */,
+				55285EAC1CA70BBD00FAFDB1 /* TileSet+NH3D.swift */,
 				551659B51C77CBDB00013270 /* C99Bool.h */,
 				2B6474FE096D5DF0005A4652 /* Cocoa-compat.h */,
 				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
@@ -2529,6 +2583,47 @@
 			path = Hearse;
 			sourceTree = "<group>";
 		};
+		550F39291CA8538400CC1A4E /* iHack */ = {
+			isa = PBXGroup;
+			children = (
+				550F392A1CA8538400CC1A4E /* Action.h */,
+				550F392B1CA8538400CC1A4E /* Action.m */,
+				550F392C1CA8538400CC1A4E /* ARCBridge.h */,
+				550F392D1CA8538400CC1A4E /* NhCommand.h */,
+				550F392E1CA8538400CC1A4E /* NhCommand.m */,
+				550F392F1CA8538400CC1A4E /* NhEvent.swift */,
+				550F39301CA8538400CC1A4E /* NhEventQueue.h */,
+				550F39311CA8538400CC1A4E /* NhEventQueue.m */,
+				550F39321CA8538400CC1A4E /* NhInventory.h */,
+				550F39331CA8538400CC1A4E /* NhInventory.m */,
+				550F39341CA8538400CC1A4E /* NhItem.h */,
+				550F39351CA8538400CC1A4E /* NhItem.m */,
+				550F39361CA8538400CC1A4E /* NhItemGroup.h */,
+				550F39371CA8538400CC1A4E /* NhItemGroup.m */,
+				550F39381CA8538400CC1A4E /* NhMapWindow.h */,
+				550F39391CA8538400CC1A4E /* NhMapWindow.m */,
+				550F393A1CA8538400CC1A4E /* NhMenuWindow.h */,
+				550F393B1CA8538400CC1A4E /* NhMenuWindow.m */,
+				550F393C1CA8538400CC1A4E /* NhObject.h */,
+				550F393D1CA8538400CC1A4E /* NhObject.m */,
+				550F393E1CA8538400CC1A4E /* NhStatusWindow.h */,
+				550F393F1CA8538400CC1A4E /* NhStatusWindow.m */,
+				550F39401CA8538400CC1A4E /* NhTextInputEvent.swift */,
+				550F39411CA8538400CC1A4E /* NhWindow.h */,
+				550F39421CA8538400CC1A4E /* NhWindow.m */,
+				550F39431CA8538400CC1A4E /* NhYnQuestion.swift */,
+				550F39441CA8538400CC1A4E /* NSIndexPath+Z.h */,
+				550F39451CA8538400CC1A4E /* NSIndexPath+Z.m */,
+				550F39461CA8538400CC1A4E /* NSString+NetHack.h */,
+				550F39471CA8538400CC1A4E /* NSString+NetHack.m */,
+				550F39481CA8538400CC1A4E /* NSString+Z.h */,
+				550F39491CA8538400CC1A4E /* NSString+Z.m */,
+				550F394A1CA8538400CC1A4E /* TileSet.swift */,
+				550F394B1CA8538400CC1A4E /* ZDirection.swift */,
+			);
+			path = iHack;
+			sourceTree = "<group>";
+		};
 		552BE4791C3B2D4300F7D1C9 /* hints */ = {
 			isa = PBXGroup;
 			children = (
@@ -3228,6 +3323,7 @@
 				2B5CC150088EB7DF00940C58 /* artifact.c in Sources */,
 				2B5CC151088EB7DF00940C58 /* attrib.c in Sources */,
 				2B5CC152088EB7DF00940C58 /* ball.c in Sources */,
+				550F39591CA8538400CC1A4E /* NhYnQuestion.swift in Sources */,
 				2B5CC153088EB7DF00940C58 /* bones.c in Sources */,
 				2B5CC154088EB7DF00940C58 /* botl.c in Sources */,
 				2B5CC155088EB7DF00940C58 /* cmd.c in Sources */,
@@ -3238,6 +3334,7 @@
 				55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */,
 				2B5CC15A088EB7DF00940C58 /* display.c in Sources */,
 				2B5CC15B088EB7DF00940C58 /* dlb.c in Sources */,
+				550F394D1CA8538400CC1A4E /* NhCommand.m in Sources */,
 				2B5CC15C088EB7DF00940C58 /* do.c in Sources */,
 				55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */,
 				2B5CC15D088EB7DF00940C58 /* do_name.c in Sources */,
@@ -3268,14 +3365,17 @@
 				2B5CC175088EB7DF00940C58 /* makemon.c in Sources */,
 				2B5CC176088EB7DF00940C58 /* mapglyph.c in Sources */,
 				2B5CC177088EB7DF00940C58 /* mcastu.c in Sources */,
-				55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */,
+				55285EAD1CA70BBD00FAFDB1 /* TileSet+NH3D.swift in Sources */,
 				2B5CC178088EB7DF00940C58 /* mhitm.c in Sources */,
 				2B5CC179088EB7DF00940C58 /* mhitu.c in Sources */,
 				2B5CC17A088EB7DF00940C58 /* minion.c in Sources */,
 				2B5CC17B088EB7DF00940C58 /* mklev.c in Sources */,
+				550F39541CA8538400CC1A4E /* NhMenuWindow.m in Sources */,
+				550F395B1CA8538400CC1A4E /* NSString+NetHack.m in Sources */,
 				550B14C11CA06CD500945F09 /* Hearse.m in Sources */,
 				2B5CC17C088EB7DF00940C58 /* mkmap.c in Sources */,
 				2B5CC17D088EB7DF00940C58 /* mkmaze.c in Sources */,
+				550F395C1CA8538400CC1A4E /* NSString+Z.m in Sources */,
 				2B5CC17E088EB7DF00940C58 /* mkobj.c in Sources */,
 				2B5CC17F088EB7DF00940C58 /* mkroom.c in Sources */,
 				55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */,
@@ -3285,8 +3385,10 @@
 				2B5CC182088EB7DF00940C58 /* monmove.c in Sources */,
 				2B5CC183088EB7DF00940C58 /* monst.c in Sources */,
 				2B5CC184088EB7DF00940C58 /* monstr.c in Sources */,
+				550F394C1CA8538400CC1A4E /* Action.m in Sources */,
 				2B5CC185088EB7DF00940C58 /* mplayer.c in Sources */,
 				2B5CC186088EB7DF00940C58 /* mthrowu.c in Sources */,
+				550F39531CA8538400CC1A4E /* NhMapWindow.m in Sources */,
 				2B5CC187088EB7DF00940C58 /* muse.c in Sources */,
 				2B5CC188088EB7DF00940C58 /* music.c in Sources */,
 				2B5CC189088EB7DF00940C58 /* o_init.c in Sources */,
@@ -3295,6 +3397,7 @@
 				2B5CC18C088EB7DF00940C58 /* options.c in Sources */,
 				2B5CC18D088EB7DF00940C58 /* pager.c in Sources */,
 				2B5CC18E088EB7DF00940C58 /* pickup.c in Sources */,
+				550F39561CA8538400CC1A4E /* NhStatusWindow.m in Sources */,
 				2B5CC18F088EB7DF00940C58 /* pline.c in Sources */,
 				55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */,
 				2B5CC190088EB7DF00940C58 /* polyself.c in Sources */,
@@ -3309,7 +3412,9 @@
 				2B5CC19C088EB7DF00940C58 /* restore.c in Sources */,
 				2B5CC19D088EB7DF00940C58 /* rip.c in Sources */,
 				2B5CC19E088EB7DF00940C58 /* rnd.c in Sources */,
+				550F395A1CA8538400CC1A4E /* NSIndexPath+Z.m in Sources */,
 				2B5CC19F088EB7DF00940C58 /* role.c in Sources */,
+				550F39521CA8538400CC1A4E /* NhItemGroup.m in Sources */,
 				2B5CC1A0088EB7DF00940C58 /* rumors.c in Sources */,
 				2B5CC1A1088EB7DF00940C58 /* save.c in Sources */,
 				2B5CC1A2088EB7DF00940C58 /* shk.c in Sources */,
@@ -3320,6 +3425,7 @@
 				2B5CC1A6088EB7DF00940C58 /* sp_lev.c in Sources */,
 				2B5CC1A7088EB7DF00940C58 /* spell.c in Sources */,
 				2B5CC1A8088EB7DF00940C58 /* steal.c in Sources */,
+				550F394E1CA8538400CC1A4E /* NhEvent.swift in Sources */,
 				2B5CC1A9088EB7DF00940C58 /* steed.c in Sources */,
 				2B5CC1AB088EB7DF00940C58 /* teleport.c in Sources */,
 				2B5CC1AC088EB7DF00940C58 /* tile.c in Sources */,
@@ -3336,28 +3442,36 @@
 				2B5CC1B6088EB7DF00940C58 /* vision.c in Sources */,
 				2B5CC1B7088EB7DF00940C58 /* weapon.c in Sources */,
 				5560A29A1C347D5B00BF77F7 /* sys.c in Sources */,
+				550F394F1CA8538400CC1A4E /* NhEventQueue.m in Sources */,
 				2B5CC1B8088EB7DF00940C58 /* were.c in Sources */,
 				2B5CC1B9088EB7DF00940C58 /* wield.c in Sources */,
 				2B5CC1BA088EB7DF00940C58 /* windows.c in Sources */,
+				550F39511CA8538400CC1A4E /* NhItem.m in Sources */,
 				2B5CC1BB088EB7DF00940C58 /* wizard.c in Sources */,
 				2B5CC1BC088EB7DF00940C58 /* worm.c in Sources */,
 				2B5CC1BD088EB7DF00940C58 /* worn.c in Sources */,
 				2B5CC1BE088EB7DF00940C58 /* write.c in Sources */,
 				2B5CC1BF088EB7DF00940C58 /* zap.c in Sources */,
+				550F39551CA8538400CC1A4E /* NhObject.m in Sources */,
 				2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */,
 				2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */,
+				550F395E1CA8538400CC1A4E /* ZDirection.swift in Sources */,
 				2B598AD608E5B523005ECDC5 /* NH3DMenuWindow.m in Sources */,
+				550F395D1CA8538400CC1A4E /* TileSet.swift in Sources */,
 				2B041A8808E605B2007F87AB /* NH3DMenuItem.m in Sources */,
 				2B5469C108EF2EF5008AA81F /* unixtty.c in Sources */,
 				2B5469C308EF2F40008AA81F /* ioctl.c in Sources */,
 				2B9ED5D608F51D15004AD560 /* NH3DMapView.m in Sources */,
 				2B9ED5E208F53947004AD560 /* NH3DMapItem.m in Sources */,
+				550F39501CA8538400CC1A4E /* NhInventory.m in Sources */,
+				550F39581CA8538400CC1A4E /* NhWindow.m in Sources */,
 				5560A2BB1C348C4900BF77F7 /* posixregex.c in Sources */,
 				2BFFE4B708FDF33B00A57B66 /* NH3DPanel.m in Sources */,
 				2B2E1EDF0919086F008805B3 /* NH3DModelObject.m in Sources */,
 				2B5458DB095D23F3007A1049 /* NH3DUserMakeSheetController.m in Sources */,
 				2BA7A40609774D3100122932 /* nh3dmain.m in Sources */,
 				2B5E5194097D4E94002F1588 /* nh3dres.m in Sources */,
+				550F39571CA8538400CC1A4E /* NhTextInputEvent.swift in Sources */,
 				2B5E5195097D4E94002F1588 /* nh3dunix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

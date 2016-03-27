@@ -24,8 +24,8 @@
 
 #import "NhEventQueue.h"
 #import "NhCommand.h"
-#import "NetHackCocoaAppDelegate.h"
-#import "NetHackCocoa-Swift.h"
+//#import "NetHackCocoaAppDelegate.h"
+#import "NetHack3D-Swift.h"
 
 #import "ARCBridge.h"
 
@@ -76,7 +76,7 @@ static NhEventQueue *s_eventQueue;
 }
 
 - (NhEvent *) nextEvent {
-	
+	/*
 	NetHackCocoaAppDelegate * appDelegate = [NSApplication sharedApplication].delegate;
 	[appDelegate unlockNethackCore];
 	
@@ -91,10 +91,12 @@ static NhEventQueue *s_eventQueue;
 	[appDelegate lockNethackCore];
 	
 	return AUTORELEASEOBJ(e);
+	 */
+	return nil;
 }
 
 - (void)waitForNextEvent {
-	
+	/*
 	NetHackCocoaAppDelegate * appDelegate = [NSApplication sharedApplication].delegate;
 	[appDelegate unlockNethackCore];
 	
@@ -105,6 +107,7 @@ static NhEventQueue *s_eventQueue;
 	[condition unlock];
 	
 	[appDelegate lockNethackCore];
+	 */
 }
 
 - (void) addCommand:(NhCommand *)cmd {
