@@ -14,6 +14,9 @@
 
 #import "Hearse.h"
 
+// iHack
+#import "NhWindow.h"
+
 static inline BOOL Swift_Invis() {
 	return !!Invis;
 }

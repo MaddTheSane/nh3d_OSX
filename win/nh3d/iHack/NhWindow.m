@@ -188,15 +188,14 @@ static NhWindow *s_mapWindow = nil;
 	
 //	s = [NSString stringWithFormat:@"%d: %@",moves,s];
 	
-	if ( [self useAttributedStrings] ) {
-
+	if ([self useAttributedStrings]) {
 		NSDictionary * dict = nil;
 
 		switch (attr) {
 			case ATR_NONE:
 				{
 					BOOL highlight = [self stringReferencesHero:s];
-					if ( highlight ) {
+					if (highlight) {
 						dict = @{NSForegroundColorAttributeName: [NSColor blueColor]};
 					}
 					BOOL isVoiced = [self stringIsVoiced:s];
