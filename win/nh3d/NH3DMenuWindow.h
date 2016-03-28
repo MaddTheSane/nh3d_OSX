@@ -54,7 +54,7 @@
 @property BOOL doneRip;
 @property (readonly) BOOL multipleSelection;
 
-@property (readonly, strong) NSMutableArray *nh3dMenu;
+@property (readonly, strong) NSMutableArray<NH3DMenuItem*> *nh3dMenu;
 
 - (void)putTextMessage:(NSString *)contents;
 - (void)clearTextMessage;

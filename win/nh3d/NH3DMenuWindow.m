@@ -160,14 +160,13 @@
 	}
 	
 	[_window beginSheet:_textPanel completionHandler:^(NSModalResponse res){
-		[_textPanel orderOut:self];
+		//[_textPanel orderOut:self];
 	}];
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
 	
-	_textWindow.string = @"";
-	
 	[_textWindow stopSpeaking:self];
+	_textWindow.string = @"";
 }
 
 - (void)createMenuWindow:(int)wid
@@ -205,7 +204,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			  row:(NSInteger)row
 {
 	NH3DMenuItem *aMenuItem = nh3dMenu[row];
-	NSString *identifier = tableColumn.identifier ;
+	NSString *identifier = tableColumn.identifier;
 		
 	if ([identifier isEqualToString:@"name"]) {
 
@@ -292,7 +291,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	[_menuTableWindow scrollToBeginningOfDocument:nil];
 	[_window.attachedSheet orderOut:nil];
 	[_window beginSheet:_menuPanel completionHandler:^(NSModalResponse returnCode) {
-		[_menuPanel orderOut:self];
+		//[_menuPanel orderOut:self];
 	}];
 }
 
@@ -360,15 +359,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (IBAction)closeModalDialog:(id)sender
 {
+	id sendWind = [sender window];
 	if ([sender tag]) {
-		//[[sender window] orderOut:self];
+		[_window endSheet: sendWind];
 		[NSApp stopModalWithCode:DIALOG_CANCEL];
-		[_window endSheet: [sender window] returnCode:DIALOG_CANCEL];
-	} else { 
-		//[[sender window] close];
+	} else {
+		[_window endSheet: sendWind];
 		[NSApp stopModalWithCode:DIALOG_OK];
-		[_window endSheet: [sender window] returnCode:DIALOG_OK];
 	}
+	for (id oth in _window.sheets) {
+		NSLog(@"extra sheet %@!", oth);
+	}
+	[sendWind orderOut:self];
 }
 
 - (void)fitMenuWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
@@ -442,14 +444,14 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if ((key == NSEnterCharacter || key == NSCarriageReturnCharacter)
 		&& (pickType == PICK_NONE || _menuTableWindow.numberOfSelectedRows)) {
 		[_menuPanel  orderOut:self];
-		[NSApp endSheet: _menuPanel];
+		[_window endSheet:_menuPanel];
 		[NSApp stopModalWithCode:DIALOG_OK];
 		return;
 	}
 	
 	if (event.keyCode == kVK_Escape) {
 		[_menuPanel close];
-		[NSApp endSheet: _menuPanel];
+		[_window endSheet:_menuPanel];
 		[NSApp stopModalWithCode:DIALOG_CANCEL];
 		return;
 	}
@@ -460,7 +462,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 			
 			if (pickType == PICK_ONE) {
 				[_menuPanel close];
-				[NSApp endSheet: _menuPanel];
+				[_window endSheet:_menuPanel];
 				[NSApp stopModalWithCode:DIALOG_OK];
 				return;
 			} else {
