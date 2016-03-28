@@ -1769,6 +1769,11 @@ static char ynPreReady(const char *str)
 	}];
 }
 
+- (IBAction)openNethackrc:(id)sender
+{
+	
+}
+
 @end
 
 FILE *cocoa_dlb_fopen(const char *filename, const char *mode)

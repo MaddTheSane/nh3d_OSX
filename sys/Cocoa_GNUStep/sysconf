@@ -89,4 +89,8 @@ PANICTRACE_LIBC=2
 # environment or via ~/.nethackrc run-time configuration file.
 #OPTIONS=!autopickup,fruit:tomato,symset:DECgraphics
 
+OPTIONS=hilite_pet
+OPTIONS=hilite_pile
+OPTIONS=runmode:walk
+
 #eof

@@ -130,6 +130,8 @@ void nh3d_set_savefile_name();
 - (IBAction)showPreferencePanel:(null_unspecified id)sender;
 - (void)endPreferencePanel;
 
+- (IBAction)openNethackrc:(id)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END

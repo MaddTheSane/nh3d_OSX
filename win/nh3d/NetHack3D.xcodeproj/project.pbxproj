@@ -356,6 +356,7 @@
 		550B14C01CA06CD500945F09 /* HearseFileRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BB1CA06CD500945F09 /* HearseFileRegistry.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
+		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
@@ -1269,6 +1270,7 @@
 		550B14BD1CA06CD500945F09 /* Hearse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hearse.m; sourceTree = "<group>"; };
 		550B14BE1CA06CD500945F09 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		550B14BF1CA06CD500945F09 /* FileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLogger.m; sourceTree = "<group>"; };
+		5514EA7F1CA9EE5E00FC2566 /* nethackrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethackrc; sourceTree = "<group>"; };
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
 		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
@@ -1499,6 +1501,7 @@
 				553562701CA336D90015E8BA /* FirstLaunch.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				5514EA7F1CA9EE5E00FC2566 /* nethackrc */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
 			);
 			path = Resources;
@@ -2818,6 +2821,7 @@
 				2B5CC09E088EB5A600940C58 /* Ran-loca.lev in Resources */,
 				2B5CC09F088EB5A600940C58 /* Ran-strt.lev in Resources */,
 				554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */,
+				5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */,
 				2B5CC0A2088EB5A600940C58 /* Rog-fila.lev in Resources */,
 				2B5CC0A3088EB5A600940C58 /* Rog-filb.lev in Resources */,
 				2B5CC0A4088EB5A600940C58 /* Rog-goal.lev in Resources */,
