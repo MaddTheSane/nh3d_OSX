@@ -762,7 +762,7 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 		char yn;
 		char buf[BUFSZ];
 		int result;
-		BOOL ynfunc;
+		BOOL ynfunc = NO;
 		
 		void (^addButtonToAlert)(NSAlert* alert, char choice) = ^(NSAlert* alert, char choice)
 		{
@@ -923,12 +923,10 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			yn = 'y';
 		} else if (result == NSAlertSecondButtonReturn && ynfunc) {
 			yn = 'n';
-		} else if (result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
-			yn = 'q';
-		} else if (result == NSAlertThirdButtonReturn + 1 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
-			yn = 'a';
 		} else if (result == NSAlertThirdButtonReturn && ynfunc) {
-			yn = 'n';
+			yn = 'q';
+		} else if (result == NSAlertThirdButtonReturn + 1 && ynfunc) {
+			yn = 'a';
 		} else {
 			yn = result;
 		}
@@ -1208,7 +1206,6 @@ wd_message()
 
 @implementation NH3DBindController {
 	NH3DPreferenceController *_prefPanel;
-	TileSet			*_tileCache;
 }
 
 // for UserDefaults
