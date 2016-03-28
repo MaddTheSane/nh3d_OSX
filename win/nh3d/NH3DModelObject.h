@@ -19,7 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef struct nh3d_point3 {
-	float x, y, z;
+	GLfloat x, y, z;
 } NH3DVertexType;
 
 typedef struct nh3d_face3 {
@@ -27,10 +27,10 @@ typedef struct nh3d_face3 {
 } NH3DFaceType;
 
 typedef struct {
-    float s,t;
+    GLfloat s,t;
 } NH3DMapCoordType;
 
-typedef float NH3DMaterialType[4];
+typedef GLfloat NH3DMaterialType[4];
 
 typedef struct {
 	NH3DMaterialType	ambient;
@@ -43,33 +43,33 @@ typedef struct {
 typedef struct {
 	BOOL active;
 	/*! model life */
-	float life;
+	GLfloat life;
 	/*! Fade speed */
-	float fade;
+	GLfloat fade;
 	/*! Red value */
-	float r;
+	GLfloat r;
 	/*! Green value */
-	float g;
+	GLfloat g;
 	/*! Blue value */
-	float b;
+	GLfloat b;
 	/*! X position */
-	float x;
+	GLfloat x;
 	/*! Y position */
-	float y;
+	GLfloat y;
 	/*! Z position */
-	float z;
+	GLfloat z;
 	/*! X direction */
-	float xi;
+	GLfloat xi;
 	/*! Y direction */
-	float yi;
+	GLfloat yi;
 	/*! Z direction */
-	float zi;
+	GLfloat zi;
 	/*! X gravity */
-	float xg;
+	GLfloat xg;
 	/*! Y gravity */
-	float yg;
+	GLfloat yg;
 	/*! Z gravity */
-	float zg;
+	GLfloat zg;
 } NH3DParticle;
 
 
@@ -101,12 +101,12 @@ typedef struct {
 	NH3DParticleType	particleType;
 	NH3DVertexType		particleGravity;
 	int					particleColor;
-	float				particleLife;
-	float				particleSize;
+	GLfloat				particleLife;
+	GLfloat				particleSize;
 	
 	BOOL				animate;
-	float				animationValue;
-	float				animationRate;
+	GLfloat				animationValue;
+	GLfloat				animationRate;
 	
 	BOOL				hasChildObject;
 	BOOL				isChild;
@@ -114,9 +114,9 @@ typedef struct {
 	
 	NH3DModelType		modelType;
 	
-	float				slowdown; 
-	float				xspeed;
-	float				yspeed;
+	GLfloat				slowdown;
+	GLfloat				xspeed;
+	GLfloat				yspeed;
 }
 
 /// init for particle emitter
@@ -176,13 +176,13 @@ typedef struct {
 - (void)animate;
 
 @property (nonatomic) NH3DVertexType particleGravity;
-- (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity;
+- (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:));
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
-- (void)setParticleSpeedX:(float)x Y:(float)y;
-@property (nonatomic) float particleSlowdown;
-@property (nonatomic) float particleLife;
-@property (nonatomic) float particleSize;
+- (void)setParticleSpeedX:(GLfloat)x Y:(GLfloat)y NS_SWIFT_NAME(setParticleSpeed(x:y:));
+@property (nonatomic) GLfloat particleSlowdown;
+@property (nonatomic) GLfloat particleLife;
+@property (nonatomic) GLfloat particleSize;
 
 @property (readonly) BOOL hasChildren;
 @property (readonly) NSInteger countOfChildObjects;
@@ -194,16 +194,16 @@ typedef struct {
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
 @property (readwrite) NH3DVertexType modelShift;
-- (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz;
+- (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz NS_SWIFT_NAME(setModelShift(x:y:z:));
 
 @property (readwrite) NH3DVertexType modelScale;
-- (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz;
+- (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz NS_SWIFT_NAME(setModelScale(x:y:z:));
 
 @property (readwrite) NH3DVertexType modelRotate;
-- (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz;
+- (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz NS_SWIFT_NAME(setModelRotate(x:y:z:));
 
 @property (readwrite) NH3DVertexType modelPivot;
-- (void)setPivotX:(float)px atY:(float)py atZ:(float)pz;
+- (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz NS_SWIFT_NAME(setPivot(x:y:z:));
 
 @property NH3DMaterial currentMaterial;
 

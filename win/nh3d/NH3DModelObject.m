@@ -446,8 +446,8 @@ static const NH3DMaterial defaultMat = {
 				normal_qty = verts_qty;
 				
 				if (verts_qty) {
-					verts = malloc( verts_qty * sizeof(vector_float3) );
-					norms = malloc( normal_qty * sizeof(vector_float3) );
+					verts = malloc(verts_qty * sizeof(vector_float3));
+					norms = malloc(normal_qty * sizeof(vector_float3));
 					
 					//NSLog(@"Number of vertices: %d",verts_qty);
 					
@@ -458,7 +458,6 @@ static const NH3DMaterial defaultMat = {
 						verts[i].x = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
 						//NSLog(@"%d Vertices x: %f",i,verts[i].x);
-						
 						
 						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
 						fileRange.location += sizeof(float);
@@ -693,13 +692,6 @@ static const NH3DMaterial defaultMat = {
 	self = [super init];
 	if (self != nil) {
 		modelCode = [name copy];
-#if 0
-		NH3DMaterial defaultMat = {{ 0.5, 0.5, 0.5, 1.0 },
-			{ 1.0 , 1.0 , 1.0 , 1.0 },
-			{ 0.0 , 0.0 , 0.0 , 1.0},
-			{ 0.1 , 0.1 , 0.1 , 1.0 },
-			1.0 };
-#endif
 
 		int i;
 		[self initParams];
@@ -859,7 +851,7 @@ static const NH3DMaterial defaultMat = {
 	[self setParticleGravityX:aParticleGravity.x Y:aParticleGravity.y Z:aParticleGravity.z];
 }
 
-- (void)setParticleGravityX:(float)x_gravity Y:(float)y_gravity Z:(float)z_gravity
+- (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
@@ -899,7 +891,7 @@ static const NH3DMaterial defaultMat = {
 	particleColor = col;
 }
 
-- (void)setParticleSpeedX:(float)x Y:(float)y
+- (void)setParticleSpeedX:(GLfloat)x Y:(GLfloat)y
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
@@ -908,28 +900,28 @@ static const NH3DMaterial defaultMat = {
 	yspeed = y;
 }
 
-- (void)setParticleSlowdown:(float)value
+- (void)setParticleSlowdown:(GLfloat)value
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
 	slowdown = value;
 }
 
-- (void)setParticleLife:(float)value
+- (void)setParticleLife:(GLfloat)value
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
 	particleLife = value;
 }
 
-- (void)setParticleSize:(float)value
+- (void)setParticleSize:(GLfloat)value
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
 	particleSize = value;
 }
 
-- (void)setModelShiftX:(float)sx shiftY:(float)sy shiftZ:(float)sz
+- (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz
 {
 	NH3DVertexType toSet;
 	toSet.x = sx;
@@ -938,7 +930,7 @@ static const NH3DMaterial defaultMat = {
 	self.modelShift = toSet;
 }
 
-- (void)setModelScaleX:(float)scx scaleY:(float)scy scaleZ:(float)scz
+- (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz
 {
 	NH3DVertexType toSet;
 	toSet.x = scx;
@@ -947,7 +939,7 @@ static const NH3DMaterial defaultMat = {
 	self.modelScale = toSet;
 }
 
-- (void)setModelRotateX:(float)rx rotateY:(float)ry rotateZ:(float)rz
+- (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz
 {
 	NH3DVertexType toSet;
 	toSet.x = rx;
@@ -956,7 +948,7 @@ static const NH3DMaterial defaultMat = {
 	self.modelRotate = toSet;
 }
 
-- (void)setPivotX:(float)px atY:(float)py atZ:(float)pz
+- (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz
 {
 	NH3DVertexType toSet;
 	toSet.x = px;
