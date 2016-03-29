@@ -60,6 +60,7 @@
 "Remove old save?" = "Remove old save?";
 "Old Save File" = "Old Save File";
 "Do you want to keep the save file?" = "Do you want to keep the save file?";
+"Unable to create a new .nethackrc file" = "Unable to create a new ‘.nethackrc’ file";
 
 /* From mainRun and startNetHack3D: */
 "Restoring save file..." = "Restoring save file...";

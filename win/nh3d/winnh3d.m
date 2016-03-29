@@ -100,7 +100,7 @@ NSString *const NHUseNumPad = @"Use Num Pad";
 NSString *const NHMaxMessages = @"Max messages";
 
 NSString *const NH3DIsFirstLaunch = @"IsFirstLaunch";
-
+NSString *const NH3DNHRCEditApp = @"NHEditApp";
 
 static void
 process_options(int argc, char *argv[])
@@ -1256,6 +1256,7 @@ wd_message()
 						  NH3DUseRetinaOpenGL: @YES,
 						  
 						  NH3DIsFirstLaunch: @YES,
+						  NH3DNHRCEditApp: @"TextWrangler",
 						  
 						  //Hearse
 						  kKeyHearse: @NO,
@@ -1771,7 +1772,24 @@ static char ynPreReady(const char *str)
 
 - (IBAction)openNethackrc:(id)sender
 {
+	NSError *err;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *nhrc = [NSHomeDirectory() stringByAppendingPathComponent:@".nethackrc"];
 	
+	if (![fm fileExistsAtPath:nhrc]) {
+		NSString *from = [[NSBundle mainBundle] pathForResource:@"nethackrc" ofType:nil];
+		if (![fm copyItemAtPath:from toPath:nhrc error:&err]) {
+			NSAlert *alert = [NSAlert alertWithError:err];
+			alert.messageText = NSLocalizedString(@"Unable to create a new .nethackrc file", @"Unable to create a new .nethackrc file");
+			[alert runModal];
+			return;
+		}
+	}
+	NSString *appName = [[NSUserDefaults standardUserDefaults] stringForKey:NH3DNHRCEditApp];
+	if (!appName || ![[NSWorkspace sharedWorkspace]
+					  openFile:nhrc withApplication:appName andDeactivate:YES]) {
+		[[NSWorkspace sharedWorkspace] openFile:nhrc withApplication:@"TextEdit" andDeactivate:YES];
+	}
 }
 
 @end
