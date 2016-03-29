@@ -2153,6 +2153,12 @@
                                     <action selector="otherMenuActions:" target="5648" id="5850"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Edit .nethackrc…" id="Xtc-cY-Us6">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openNethackrc:" target="5089" id="Xoj-Vt-ZJS"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Preferences…" keyEquivalent="," id="6799">
                                 <connections>
                                     <action selector="showPreferencePanel:" target="5089" id="6800"/>
