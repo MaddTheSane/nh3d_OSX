@@ -1,3 +1,6 @@
+# This is a simple .nethackrc for NetHack3D.
+# Modify for your own personal use.
+
 #Effect Message Section
 #Type1 = Camera Shake
 #Type2 = Splash(Only in three front directions)

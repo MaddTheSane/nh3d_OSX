@@ -95,13 +95,14 @@ SOUND=MESG	".*find a hidden.*"			"tada.wav"			100
 #Type2 = Splash(Only in three front directions)
 
 EFFECT=MESG	"You get zapped.*"	2
-EFFECT=MESG	"You hit.*"			2
-EFFECT=MESG	"You kick.*"		2
-EFFECT=MESG	"You bite.*"		2
-EFFECT=MESG	"You sting.*"		2
-EFFECT=MESG	"You butt.*"		2
-EFFECT=MESG	"You touch.*"		2
-EFFECT=MESG	"You suck.*"		2
+EFFECT=MESG	"You hit .*[\.!]"	2
+EFFECT=MESG	"You kick .*\[\.!]"	2
+EFFECT=MESG	"You bite .*\[\.!]"	2
+EFFECT=MESG	"You sting .*[\.!]"	2
+EFFECT=MESG	"You butt .*[\.!]"	2
+EFFECT=MESG	"You touch .*[\.!]"	2
+EFFECT=MESG	"You suck .*[\.!]"	2
+
 EFFECT=MESG	".*bites!"					1
 EFFECT=MESG	".*stings!"					1
 EFFECT=MESG	".*butts!"					1
