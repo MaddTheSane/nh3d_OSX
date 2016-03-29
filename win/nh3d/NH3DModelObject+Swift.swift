@@ -66,21 +66,33 @@ extension NH3DMaterial: Equatable {
 	
 }
 
-extension nh3d_face3: Equatable, CustomStringConvertible {
+extension nh3d_face3: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
 	public var description: String {
 		return "a: \(a), b: \(b), c: \(c)"
 	}
-}
-
-extension NH3DMapCoordType: Equatable, CustomStringConvertible {
-	public var description: String {
-		return "s: \(s), t: \(t)"
+	
+	public var debugDescription: String {
+		return "Face a: \(a), b: \(b), c: \(c)"
 	}
 }
 
-extension NH3DVertexType: Equatable, CustomStringConvertible {
+extension NH3DMapCoordType: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+	public var description: String {
+		return "s: \(s), t: \(t)"
+	}
+	
+	public var debugDescription: String {
+		return "Coord s: \(s), t: \(t)"
+	}
+}
+
+extension NH3DVertexType: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
 	public var description: String {
 		return "x: \(x), y: \(y), z: \(z)"
+	}
+	
+	public var debugDescription: String {
+		return "Vertex x: \(x), y: \(y), z: \(z)"
 	}
 }
 

@@ -213,7 +213,7 @@ static const NH3DMaterial defaultMat = {
 				
 				//NSRange aRange = [destText rangeOfString:@"/"];
 				//if ( aRange.length != 0) {
-				// The bases are 1-based. Remove 1 to prevent off-by-one failures.
+				// The bases start at 1. Remove 1 to prevent off-by-one failures.
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
 				faces[face_qty].a = [faceArray_A[0] intValue] - 1;
@@ -234,7 +234,6 @@ static const NH3DMaterial defaultMat = {
 				
 				face_qty++;
 			} else if ([destText isEqualToString:@"mtllib"]) {
-				//TODO: scan material?
 				NSString *mtlName;
 				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&mtlName];
 				sourceURL = [[NSBundle mainBundle] URLForResource:mtlName withExtension:nil];
@@ -242,10 +241,16 @@ static const NH3DMaterial defaultMat = {
 					if (mtlName.absolutePath) {
 						sourceURL = [NSURL fileURLWithPath:mtlName];
 					} else {
+						NSLog(@"Unable to locate mtl file");
 						continue;
 					}
 				}
-				NSString *sourceMtl = [NSString stringWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
+				NSError *err;
+				NSString *sourceMtl = [NSString stringWithContentsOfURL:sourceURL usedEncoding:NULL error:&err];
+				if (!sourceMtl) {
+					NSLog(@"Unable to open mtl file: %@", err);
+					continue;
+				}
 				NSScanner *mtlScan = [NSScanner scannerWithString:sourceMtl];
 				BOOL mtlDefined = NO;
 				while(!mtlScan.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {

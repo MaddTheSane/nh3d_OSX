@@ -23,24 +23,24 @@ typedef struct nh3d_point3 {
 } NH3DVertexType;
 
 typedef struct nh3d_face3 {
-    unsigned short  a,b,c;
+    unsigned short  a, b, c;
 } NH3DFaceType;
 
-typedef struct {
-    GLfloat s,t;
+typedef struct nh3d_coord2 {
+    GLfloat s, t;
 } NH3DMapCoordType;
 
 typedef GLfloat NH3DMaterialType[4];
 
-typedef struct {
+typedef struct NH3DMaterial {
 	NH3DMaterialType	ambient;
 	NH3DMaterialType	diffuse;
 	NH3DMaterialType	specular;
 	NH3DMaterialType	emission;
-	float				shininess;
+	GLfloat				shininess;
 } NH3DMaterial;
 
-typedef struct {
+typedef struct NH3DParticle {
 	BOOL active;
 	/*! model life */
 	GLfloat life;
@@ -71,7 +71,6 @@ typedef struct {
 	/*! Z gravity */
 	GLfloat zg;
 } NH3DParticle;
-
 
 @interface NH3DModelObject : NSObject <NSFastEnumeration> {
 @private
@@ -170,8 +169,8 @@ typedef struct {
 @property BOOL useEnvironment;
 
 @property (getter=isAnimated) BOOL animated;
-@property float animationValue;
-@property float animationRate;
+@property GLfloat animationValue;
+@property GLfloat animationRate;
 
 - (void)animate;
 
