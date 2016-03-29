@@ -461,7 +461,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// init Effect models
 		_enemyPosition = 0
-		effectArray.reserveCapacity(12)
+		effectArray.reserveCapacity(NH3D_MAX_EFFECTS)
 		
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
@@ -1177,7 +1177,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
 					
 					if defaultTex[Int(glyph)] == 0 {
-						if (NH3DGL_USETILE) {
+						if NH3DGL_USETILE {
 							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.tile!, color: nil)
 						} else {
 							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.symbol, color: mapItem.color)

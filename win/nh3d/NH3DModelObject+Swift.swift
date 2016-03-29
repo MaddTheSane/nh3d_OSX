@@ -17,11 +17,13 @@ extension NH3DModelObject {
 		
 		//faces
 		let theFaces = UnsafeBufferPointer(start: faces, count: Int(face_qty))
-		
+		let theVerts = UnsafeBufferPointer(start: verts, count: Int(verts_qty))
+		let theNorms = UnsafeMutableBufferPointer(start: norms, count: Int(normal_qty))
+
 		for face in theFaces {
-			let l_vect1 = verts[Int(face.a)]
-			let l_vect2 = verts[Int(face.b)]
-			let l_vect3 = verts[Int(face.c)]
+			let l_vect1 = theVerts[Int(face.a)]
+			let l_vect2 = theVerts[Int(face.b)]
+			let l_vect3 = theVerts[Int(face.c)]
 			
 			// Polygon normal calculation
 			let l_vect_b1 = float3(start: l_vect1, end: l_vect2)
@@ -32,15 +34,15 @@ extension NH3DModelObject {
 			l_Connect[Int(face.b)] += 1
 			l_Connect[Int(face.c)] += 1
 			
-			norms[Int(face.a)] += l_normal
-			norms[Int(face.b)] += l_normal
-			norms[Int(face.c)] += l_normal
+			theNorms[Int(face.a)] += l_normal
+			theNorms[Int(face.b)] += l_normal
+			theNorms[Int(face.c)] += l_normal
 		}
 		
 		for (i, connect) in l_Connect.enumerate() {
 			if connect > 0 {
 				let connFloat = Float(connect)
-				norms[i] /= float3(connFloat)
+				theNorms[i] /= float3(connFloat)
 			}
 		}
 	}
