@@ -65,10 +65,10 @@ static HearseFileRegistry *instance;
 - (id) init {
 	if (self = [super init]) {
 		NSDictionary *registry = [[NSUserDefaults standardUserDefaults] objectForKey:hearseFileRegistryKey];
-		uploads = [[registry objectForKey:hearseFileRegistryKeyUploads] mutableCopy];
-		downloads = [[registry objectForKey:hearseFileRegistryKeyDownloads] mutableCopy];
+		uploads = [[registry objectForKey:hearseFileRegistryKeyUploads] mutableCopy] ?: [NSMutableDictionary new];
+		downloads = [[registry objectForKey:hearseFileRegistryKeyDownloads] mutableCopy] ?: [NSMutableDictionary new];
+		[Hearse dumpDictionary:downloads];
 	}
-	[Hearse dumpDictionary:downloads];
 	instance = self;
 	return self;
 }

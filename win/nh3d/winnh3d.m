@@ -100,7 +100,7 @@ NSString *const NHUseNumPad = @"Use Num Pad";
 NSString *const NHMaxMessages = @"Max messages";
 
 NSString *const NH3DIsFirstLaunch = @"IsFirstLaunch";
-
+NSString *const NH3DNHRCEditApp = @"NHEditApp";
 
 static void
 process_options(int argc, char *argv[])
@@ -762,7 +762,7 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 		char yn;
 		char buf[BUFSZ];
 		int result;
-		BOOL ynfunc;
+		BOOL ynfunc = NO;
 		
 		void (^addButtonToAlert)(NSAlert* alert, char choice) = ^(NSAlert* alert, char choice)
 		{
@@ -923,12 +923,10 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			yn = 'y';
 		} else if (result == NSAlertSecondButtonReturn && ynfunc) {
 			yn = 'n';
-		} else if (result == NSAlertThirdButtonReturn && (strcmp(choices, ynqchars) == 0 || strcmp(choices, ynaqchars) == 0)  && ynfunc) {
-			yn = 'q';
-		} else if (result == NSAlertThirdButtonReturn + 1 && strcmp(choices, ynaqchars) == 0 && ynfunc) {
-			yn = 'a';
 		} else if (result == NSAlertThirdButtonReturn && ynfunc) {
-			yn = 'n';
+			yn = 'q';
+		} else if (result == NSAlertThirdButtonReturn + 1 && ynfunc) {
+			yn = 'a';
 		} else {
 			yn = result;
 		}
@@ -1208,7 +1206,6 @@ wd_message()
 
 @implementation NH3DBindController {
 	NH3DPreferenceController *_prefPanel;
-	TileSet			*_tileCache;
 }
 
 // for UserDefaults
@@ -1259,6 +1256,7 @@ wd_message()
 						  NH3DUseRetinaOpenGL: @YES,
 						  
 						  NH3DIsFirstLaunch: @YES,
+						  NH3DNHRCEditApp: @"TextWrangler",
 						  
 						  //Hearse
 						  kKeyHearse: @NO,
@@ -1770,6 +1768,28 @@ static char ynPreReady(const char *str)
 		/* I could only get this to play nicely when told to perform as a selector*/
 		[self performSelector:@selector(mainRun) withObject:nil afterDelay:0.01];
 	}];
+}
+
+- (IBAction)openNethackrc:(id)sender
+{
+	NSError *err;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *nhrc = [NSHomeDirectory() stringByAppendingPathComponent:@".nethackrc"];
+	
+	if (![fm fileExistsAtPath:nhrc]) {
+		NSString *from = [[NSBundle mainBundle] pathForResource:@"nethackrc" ofType:nil];
+		if (![fm copyItemAtPath:from toPath:nhrc error:&err]) {
+			NSAlert *alert = [NSAlert alertWithError:err];
+			alert.messageText = NSLocalizedString(@"Unable to create a new .nethackrc file", @"Unable to create a new .nethackrc file");
+			[alert runModal];
+			return;
+		}
+	}
+	NSString *appName = [[NSUserDefaults standardUserDefaults] stringForKey:NH3DNHRCEditApp];
+	if (!appName || ![[NSWorkspace sharedWorkspace]
+					  openFile:nhrc withApplication:appName andDeactivate:YES]) {
+		[[NSWorkspace sharedWorkspace] openFile:nhrc withApplication:@"TextEdit" andDeactivate:YES];
+	}
 }
 
 @end

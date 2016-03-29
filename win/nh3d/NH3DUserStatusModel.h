@@ -21,8 +21,6 @@
 	NSShadow *shadow;
 	NSMutableParagraphStyle  *style;
 	
-	NSMutableDictionary *playerParams;
-	
 	NSString *playerName;
 	NSString *playerClass;
 	NSString *playerRace;
