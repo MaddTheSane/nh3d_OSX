@@ -617,7 +617,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func drawGLView(x x: Int32, z: Int32) {
+	private func drawGLView(x x: Int32, z: Int32) {
 		guard let mapItem = mapItemValue[Int(x)][Int(z)] else {
 			return
 		}
@@ -630,7 +630,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func loadImageToTexture(named filename: String) -> GLuint {
+	private func loadImageToTexture(named filename: String) -> GLuint {
 		guard let sourcefile = NSImage(named: filename) else {
 			return 0
 		}
@@ -1458,10 +1458,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Sets the camera's x-y-z position.
 	@objc(setCameraAtX:atY:atZ:) func setCamera(x x: Float, y: Float, z: Float) {
+		struct CameraHelp {
+			static let footstep = NSSound(named: "footStep")!
+		}
 		viewLock.lock()
 		do {
 			nowUpdating = true
-			let footstep = NSSound(named: "footStep")!
 			
 			drawMargin = 1
 			
@@ -1474,11 +1476,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraY = cameraY
 				lastCameraZ = cameraZ
 				isReady = true
-			} else if footstep.playing && ((!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ)) && !SOUND_MUTE {
-				footstep.stop()
-				footstep.play()
+			} else if CameraHelp.footstep.playing && ((!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ)) && !SOUND_MUTE {
+				CameraHelp.footstep.stop()
+				CameraHelp.footstep.play()
 			} else if (!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ) && !SOUND_MUTE {
-				footstep.play()
+				CameraHelp.footstep.play()
 			}
 			
 			nowUpdating = false
@@ -2729,7 +2731,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if glyph > GLYPH_PET_OFF {
 			offset = GLYPH_PET_OFF
 		} else {
-			offset = GLYPH_INVIS_OFF
+			offset = GLYPH_MON_OFF
 		}
 		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: offset, modelName: "invisible")
 	}
@@ -4489,12 +4491,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// imp and minor demons
-		loadModelBlocks[Int(PM_MANES+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_HOMUNCULUS+GLYPH_MON_OFF)] =	loadModelFunc_imp
-		loadModelBlocks[Int(PM_IMP+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_LEMURE+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_QUASIT+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_TENGU+GLYPH_MON_OFF)] =		loadModelFunc_imp
+		for i in Int(PM_MANES+GLYPH_MON_OFF)...Int(PM_TENGU+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_imp
+		}
 		
 		// jellys
 		loadModelBlocks[Int(PM_BLUE_JELLY+GLYPH_MON_OFF)] =		loadModelFunc_jellys
@@ -4671,19 +4670,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_DISENCHANTER + GLYPH_MON_OFF)] = loadModelFunc_Rustmonster
 		
 		// Snakes
-		loadModelBlocks[Int(PM_GARTER_SNAKE + GLYPH_MON_OFF)] =		loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_SNAKE + GLYPH_MON_OFF)] =			loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_WATER_MOCCASIN + GLYPH_MON_OFF)] =	loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_PIT_VIPER + GLYPH_MON_OFF)] =		loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_PYTHON + GLYPH_MON_OFF)] =			loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_COBRA + GLYPH_MON_OFF)] =			loadModelFunc_Snakes
+		for i in Int(PM_GARTER_SNAKE + GLYPH_MON_OFF)...Int(PM_COBRA + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Snakes
+		}
 		
 		// Trolls
-		loadModelBlocks[Int(PM_TROLL + GLYPH_MON_OFF)] =		loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_ICE_TROLL + GLYPH_MON_OFF)] =	loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_ROCK_TROLL + GLYPH_MON_OFF)] =	loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_WATER_TROLL + GLYPH_MON_OFF)] =	loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_OLOG_HAI + GLYPH_MON_OFF)] =		loadModelFunc_Trolls
+		for i in Int(PM_TROLL + GLYPH_MON_OFF)...Int(PM_OLOG_HAI + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Trolls
+		}
 		
 		// Umber hulk
 		loadModelBlocks[Int(PM_UMBER_HULK + GLYPH_MON_OFF)] = { _ in
@@ -4706,14 +4700,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Yeti and other large beasts
-		loadModelBlocks[Int(PM_MONKEY + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_APE + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_OWLBEAR + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_YETI + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_CARNIVOROUS_APE + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
+		for i in Int(PM_MONKEY + GLYPH_MON_OFF)...Int(PM_SASQUATCH + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Yeti
+		}
 		
-		// Zombie
+		// Zombies
 		for i in Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)...Int(PM_SKELETON + GLYPH_MON_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Zombie
 		}
@@ -4729,8 +4720,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Ghosts
-		loadModelBlocks[Int(PM_GHOST + GLYPH_INVIS_OFF)] = loadModelFunc_Ghosts
-		loadModelBlocks[Int(PM_SHADE + GLYPH_INVIS_OFF)] = loadModelFunc_Ghosts
+		loadModelBlocks[Int(PM_GHOST + GLYPH_MON_OFF)] = loadModelFunc_Ghosts
+		loadModelBlocks[Int(PM_SHADE + GLYPH_MON_OFF)] = loadModelFunc_Ghosts
 		
 		// Major Demons
 		for i in Int(PM_WATER_DEMON+GLYPH_MON_OFF)...Int(PM_BALROG+GLYPH_MON_OFF) {

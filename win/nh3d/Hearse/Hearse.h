@@ -86,14 +86,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *) getHeader:(NSString *)header fromResponse:(NSHTTPURLResponse *)response;
 
 - (nullable NSString *) extractHearseErrorMessageFromResponse:(NSHTTPURLResponse *)response data:(NSData *)data;
-- (NSString *) buildUserInfoCrc;
+@property (readonly, copy) NSString *buildUserInfoCrc;
 - (void) createNewUser;
 - (BOOL) isValidBonesFileName:(NSString *)bonesFileName;
 - (void) uploadBones;
 - (void) uploadBonesFile:(NSString *)file;
 - (void) downloadBones;
 - (NSString *) downloadSingleBonesFileWithForce:(BOOL)force wasForced:(BOOL *)pForcedDownload;
-- (NSArray *) existingBonesFiles;
+@property (readonly, copy) NSArray<NSString*> *existingBonesFiles;
 - (void) alertUserWithError:(NSError *)error;
 - (void) logHearseMessage:(NSString *)message;
 - (void) logMessage:(NSString *)message;

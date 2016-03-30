@@ -333,15 +333,11 @@
 		bgtile = self.backgroundTile;
 	}
 	if (bgtile != nil) {
-		NSImage *img = [[NSImage alloc] initWithSize:tmpTile.size];
-		[img lockFocus];
-		CIContext *ciCtx = [CIContext contextWithCGContext:[NSGraphicsContext currentContext].CGContext options:nil];
-		CIImage *tmpFG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[tmpTile representations] firstObject]];
-		CIImage *tmpBG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[bgtile representations] firstObject]];
-		[ciCtx drawImage:tmpBG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
-		[ciCtx drawImage:tmpFG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
-		[img unlockFocus];
-		tmpTile = img;
+		NSImage *tmpFG = tmpTile;
+		tmpTile = [bgtile copy];
+		[tmpTile lockFocus];
+		[tmpFG drawInRect:NSMakeRect(0, 0, tmpTile.size.width, tmpTile.size.height)];
+		[tmpTile unlockFocus];
 	}
 	
 	tile = tmpTile;

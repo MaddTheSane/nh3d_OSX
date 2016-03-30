@@ -74,7 +74,7 @@ static NSString *const hearseCommandDownload = @"download";
 
 + (nullable NSData*)dataFromGzippedFile:(NSString*)filename {
 	NSMutableData *toRet = [[NSMutableData alloc] init];
-	gzFile fh = gzopen([filename fileSystemRepresentation], "r");
+	gzFile fh = gzopen(filename.fileSystemRepresentation, "r");
 	if (!fh) {
 		return nil;
 	}
@@ -100,8 +100,8 @@ static NSString *const hearseCommandDownload = @"download";
 	CC_MD5_Init(&context);
 	static const size_t bufferSize = 1024;
 	char buffer[bufferSize];
-	if ([[filename pathExtension] isEqualToString:@"gz"]) {
-		gzFile fh = gzopen([filename fileSystemRepresentation], "r");
+	if ([filename.pathExtension isEqualToString:@"gz"]) {
+		gzFile fh = gzopen(filename.fileSystemRepresentation, "r");
 		if (!fh) {
 			return nil;
 		}
@@ -118,7 +118,7 @@ static NSString *const hearseCommandDownload = @"download";
 			return [self md5HexForDigest:digest];
 		}
 	}
-	int fh = open([filename fileSystemRepresentation], O_RDONLY);
+	int fh = open(filename.fileSystemRepresentation, O_RDONLY);
 	if (fh != -1) {
 		ssize_t bytesRead;
 		while ((bytesRead = read(fh, buffer, bufferSize))) {
@@ -139,7 +139,7 @@ static NSString *const hearseCommandDownload = @"download";
 
 + (NSString *) md5HexForData:(NSData *)data {
 	unsigned char digest[CC_MD5_DIGEST_LENGTH];
-	CC_MD5([data bytes], (unsigned int) data.length, digest);
+	CC_MD5(data.bytes, (unsigned int) data.length, digest);
 	return [self md5HexForDigest:digest];
 }
 
@@ -157,14 +157,14 @@ static NSString *const hearseCommandDownload = @"download";
 
 + (void) dumpDictionary:(NSDictionary *)dictionary {
 	for (NSString *key in [dictionary keyEnumerator]) {
-		NSLog(@"%@ -> %@", key, [dictionary objectForKey:key]);
+		NSLog(@"%@ -> %@", key, dictionary[key]);
 	}
 }
 
 + (void) dumpResponse:(NSHTTPURLResponse *)response {
-	NSDictionary *headers = [response allHeaderFields];
+	NSDictionary *headers = response.allHeaderFields;
 	for (NSString *key in [headers keyEnumerator]) {
-		NSLog(@"%@ -> %@", key, [headers objectForKey:key]);
+		NSLog(@"%@ -> %@", key, headers[key]);
 	}
 }
 
@@ -175,7 +175,7 @@ static NSString *const hearseCommandDownload = @"download";
 
 #pragma mark constructors, main loop
 
-- (id) init {
+- (instancetype) init {
 	if (self = [super init]) {
 		[HearseFileRegistry retainInstance];
 		username = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseUsername] copy];
@@ -196,13 +196,13 @@ static NSString *const hearseCommandDownload = @"download";
 		NSURL *aURL = [[NSFileManager defaultManager] URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
 		aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
 
-		logger = [[FileLogger alloc] initWithFile:[[aURL path] stringByAppendingPathComponent:@"hearse.log"] maxSize:cHearseLogSize];
+		logger = [[FileLogger alloc] initWithFile:[aURL.path stringByAppendingPathComponent:@"hearse.log"] maxSize:cHearseLogSize];
 	}
 	return self;
 }
 
 - (BOOL) isHearseReachable {
-	SCNetworkReachabilityRef reachabilityRef = SCNetworkReachabilityCreateWithName(NULL, [hearseHost UTF8String]);
+	SCNetworkReachabilityRef reachabilityRef = SCNetworkReachabilityCreateWithName(NULL, hearseHost.UTF8String);
 	if (reachabilityRef != NULL) {
 		SCNetworkReachabilityFlags flags;
 		Boolean valid = SCNetworkReachabilityGetFlags(reachabilityRef, &flags);
@@ -222,7 +222,7 @@ static NSString *const hearseCommandDownload = @"download";
 
 - (void) mainHearseLoop:(id)arg {
 	@autoreleasepool {
-		if ([self isHearseReachable]) {
+		if (self.hearseReachable) {
 			if (!hearseId || hearseId.length == 0) {
 				if (email && email.length > 0) {
 					[self createNewUser];
@@ -261,7 +261,7 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (NSHTTPURLResponse *) httpPostRequestWithoutData:(NSMutableURLRequest *)req {
-	[req setHTTPMethod: @"POST"];
+	req.HTTPMethod = @"POST";
 	return [self httpGetRequestWithoutData:req];
 }
 
@@ -274,18 +274,18 @@ static NSString *const hearseCommandDownload = @"download";
 	}
 	if (!received) {
 		[self logMessage:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
-									[error localizedDescription],
-									[[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]]];
+									error.localizedDescription,
+									error.userInfo[NSURLErrorFailingURLStringErrorKey]]];
 		return nil;
 	}
 	return (NSHTTPURLResponse *) response;
 }
 
 - (NSString *) getHeader:(NSString *)header fromResponse:(NSHTTPURLResponse *)response {
-	NSDictionary *headers = [response allHeaderFields];
+	NSDictionary *headers = response.allHeaderFields;
 	for (NSString *key in [headers keyEnumerator]) {
 		if ([key caseInsensitiveCompare:header] == NSOrderedSame) {
-			return [headers objectForKey:key];
+			return headers[key];
 		}
 	}
 	return nil;
@@ -346,7 +346,7 @@ static NSString *const hearseCommandDownload = @"download";
 	NSFileManager *filemanager = [NSFileManager defaultManager];
 	NSURL *aURL = [filemanager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
 	aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
-	NSString *aPath = [aURL path];
+	NSString *aPath = aURL.path;
 
     NSArray<NSString*> *filelist = [filemanager contentsOfDirectoryAtPath:aPath error:nil];
 
@@ -361,9 +361,9 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (void) uploadBonesFile:(NSString *)file {
-	NSString *fileName = [file lastPathComponent];
-	if ([[fileName pathExtension] isEqualToString:@"gz"]) {
-		fileName = [fileName stringByDeletingPathExtension];
+	NSString *fileName = file.lastPathComponent;
+	if ([fileName.pathExtension isEqualToString:@"gz"]) {
+		fileName = fileName.stringByDeletingPathExtension;
 	}
 	NSMutableURLRequest *req = [self requestForCommand:hearseCommandUpload];
 	[req addValue:netHackVersionCrc forHTTPHeaderField:@"X_VERSIONCRC"];
@@ -373,12 +373,12 @@ static NSString *const hearseCommandDownload = @"download";
 		[req addValue:@"Y" forHTTPHeaderField:@"X_WANTSINFO"];
 	}
 	NSData *data;
-	if ([[file pathExtension] isEqualToString:@"gz"]) {
+	if ([file.pathExtension isEqualToString:@"gz"]) {
 		data = [Hearse dataFromGzippedFile:file];
 	} else {
 		data = [NSData dataWithContentsOfFile:file];
 	}
-	[req setHTTPBody:data];
+	req.HTTPBody = data;
 	NSString *md5Data = [Hearse md5HexForData:data];
 	[req addValue:md5Data forHTTPHeaderField:@"X_BONESCRC"];
 	NSHTTPURLResponse *response = [self httpPostRequestWithoutData:req];
@@ -487,8 +487,8 @@ static NSString *const hearseCommandDownload = @"download";
     
 	for (NSString *filename in filelist) {
 		if ([filename hasPrefix:@"bon"]) {
-			if ([[filename pathExtension] isEqualToString:@"gz"]) {
-				[bones addObject:[filename stringByDeletingPathExtension]];
+			if ([filename.pathExtension isEqualToString:@"gz"]) {
+				[bones addObject:filename.stringByDeletingPathExtension];
 			} else {
 				[bones addObject:filename];
 			}

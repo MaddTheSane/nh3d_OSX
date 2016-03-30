@@ -32,7 +32,7 @@
 + (int) openTmpFile {
 	NSString *template = [NSTemporaryDirectory() stringByAppendingPathComponent:@"log.tmp.XXXX"];
 	char str[PATH_MAX];
-	strlcpy(str, [template fileSystemRepresentation], PATH_MAX);
+	strlcpy(str, template.fileSystemRepresentation, PATH_MAX);
 	return mkstemp(str);
 }
 
@@ -40,7 +40,7 @@
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *template = [NSTemporaryDirectory() stringByAppendingPathComponent:@"log.tmp.XXXX"];
 	char str[PATH_MAX];
-	strlcpy(str, [template fileSystemRepresentation], PATH_MAX);
+	strlcpy(str, template.fileSystemRepresentation, PATH_MAX);
 	char *pStr = mktemp(str);
 	return [fm stringWithFileSystemRepresentation:pStr length:strlen(pStr)];
 }
@@ -48,12 +48,12 @@
 - (void) resize {
 	NSDictionary *info = [[NSFileManager defaultManager] attributesOfItemAtPath:filename error:NULL];
 	if (info) {
-		unsigned long size = [info fileSize];
+		unsigned long long size = [info fileSize];
 		if (size >= maxSize) {
 			int halfSize = maxSize / 2;
 			NSData *src = [[NSData alloc] initWithContentsOfFile:filename options:NSDataReadingMappedIfSafe error:NULL];
 			NSData *sub = [src subdataWithRange:NSMakeRange(size - halfSize, halfSize)];
-			const char *bytes = [sub bytes];
+			const char *bytes = sub.bytes;
 			const char *pBytes = bytes;
 			int offset = 0;
 			while (*pBytes++ != '\n' && offset < halfSize) {
@@ -67,12 +67,17 @@
 	}
 }
 
+- (instancetype)init
+{
+	return self = [self initWithFile:[[self class] tmpFileName]];
+}
+
 - (instancetype) initWithFile:(NSString *)path maxSize:(int)ms {
 	if (self = [super init]) {
 		filename = [path copy];
 		maxSize = ms;
 		[self resize];
-		fd = fopen([filename fileSystemRepresentation], "a");
+		fd = fopen(filename.fileSystemRepresentation, "a");
 	}
 	return self;
 }
@@ -84,7 +89,7 @@
 - (void) logString:(NSString *)message {
 	extern const NSStringEncoding NH3DTEXTENCODING;
 	NSDate *date = [[NSDate alloc] init];
-	NSString *ts = [date description];
+	NSString *ts = date.description;
 	size_t size = [ts lengthOfBytesUsingEncoding:NSASCIIStringEncoding] + 2;
 	char dateBuffer[size];
 	[ts getCString:dateBuffer maxLength:size encoding:NSASCIIStringEncoding];

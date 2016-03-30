@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (int) openTmpFile;
 + (NSString *) tmpFileName;
 
-- (instancetype) initWithFile:(NSString *)path maxSize:(int)ms;
+- (instancetype) initWithFile:(NSString *)path maxSize:(int)ms NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithFile:(NSString *)path;
 - (void) logString:(NSString *)message;
 - (void) flush;

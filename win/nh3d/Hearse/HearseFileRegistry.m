@@ -34,8 +34,8 @@ static HearseFileRegistry *instance;
 + (void)load {
 	@autoreleasepool {
 		NSDictionary *registry = @{
-								   hearseFileRegistryKeyUploads: [NSDictionary dictionary],
-								   hearseFileRegistryKeyDownloads: [NSDictionary dictionary],
+								   hearseFileRegistryKeyUploads: @{},
+								   hearseFileRegistryKeyDownloads: @{},
 								  };
 		[[NSUserDefaults standardUserDefaults] registerDefaults:@{hearseFileRegistryKey: registry}];
 	}
@@ -62,11 +62,11 @@ static HearseFileRegistry *instance;
 	return instance;
 }
 
-- (id) init {
+- (instancetype) init {
 	if (self = [super init]) {
 		NSDictionary *registry = [[NSUserDefaults standardUserDefaults] objectForKey:hearseFileRegistryKey];
-		uploads = [[registry objectForKey:hearseFileRegistryKeyUploads] mutableCopy] ?: [NSMutableDictionary new];
-		downloads = [[registry objectForKey:hearseFileRegistryKeyDownloads] mutableCopy] ?: [NSMutableDictionary new];
+		uploads = [registry[hearseFileRegistryKeyUploads] mutableCopy] ?: [NSMutableDictionary new];
+		downloads = [registry[hearseFileRegistryKeyDownloads] mutableCopy] ?: [NSMutableDictionary new];
 		[Hearse dumpDictionary:downloads];
 	}
 	instance = self;
@@ -83,26 +83,26 @@ static HearseFileRegistry *instance;
 }
 
 - (void) registerUploadedFile:(NSString *)filename withMD5:(NSString *)md5 {
-	NSString *file = [filename lastPathComponent];
-	if ([[filename pathExtension] isEqualToString:@"gz"]) {
-		file = [file stringByDeletingPathExtension];
+	NSString *file = filename.lastPathComponent;
+	if ([filename.pathExtension isEqualToString:@"gz"]) {
+		file = file.stringByDeletingPathExtension;
 	}
 	uploads[file] = md5;
 	[self synchronize];
 }
 
 - (void) registerDownloadedFile:(NSString *)filename withMd5:(NSString *)md5 {
-	NSString *file = [filename lastPathComponent];
-	[downloads setObject:md5 forKey:file];
+	NSString *file = filename.lastPathComponent;
+	downloads[file] = md5;
 	[self synchronize];
 }
 
 - (BOOL) haveDownloadedFile:(NSString *)filename {
-	NSString *file = [filename lastPathComponent];
-	if ([[filename pathExtension] isEqualToString:@"gz"]) {
-		file = [file stringByDeletingPathExtension];
+	NSString *file = filename.lastPathComponent;
+	if ([filename.pathExtension isEqualToString:@"gz"]) {
+		file = file.stringByDeletingPathExtension;
 	}
-	NSString *md5 = [downloads objectForKey:file];
+	NSString *md5 = downloads[file];
 	if (md5) {
 		NSString *actualMd5 = [Hearse md5HexForFile:filename];
 		return [md5 isEqual:actualMd5];
@@ -112,11 +112,11 @@ static HearseFileRegistry *instance;
 }
 
 - (BOOL) hasUploadedFile:(NSString *)filename {
-	NSString *file = [filename lastPathComponent];
-	if ([[filename pathExtension] isEqualToString:@"gz"]) {
-		file = [file stringByDeletingPathExtension];
+	NSString *file = filename.lastPathComponent;
+	if ([filename.pathExtension isEqualToString:@"gz"]) {
+		file = file.stringByDeletingPathExtension;
 	}
-	NSString *md5 = [uploads objectForKey:file];
+	NSString *md5 = uploads[file];
 	if (md5) {
 		NSString *actualMd5 = [Hearse md5HexForFile:filename];
 		return [md5 isEqual:actualMd5];
