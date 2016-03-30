@@ -50,6 +50,7 @@ static inline BOOL Swift_Flying() {
 	return !!Flying;
 }
 
+/// Returns \c true if player is levitating
 static inline BOOL Swift_Levitation() {
 	return !!Levitation;
 }
@@ -83,6 +84,7 @@ static inline BOOL Swift_IsRoom(schar type) {
 /* from tile.c */
 extern int total_tiles_used;
 
+/// Transforms the specified glyph into a tile
 static inline short glyphToTile(int i)
 {
 	extern short glyph2tile[];

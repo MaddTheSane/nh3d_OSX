@@ -347,7 +347,7 @@
 - (NSImage *)foregroundTile
 {
 	if (glyph != S_stone + GLYPH_CMAP_OFF)
-		return [[TileSet instance] tileImageFromGlyph:glyph];
+		return [[TileSet instance] imageForGlyph:glyph];
 	else 
 		return nil;
 }
@@ -355,7 +355,7 @@
 - (NSImage *)backgroundTile
 {
 	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
-		return [[TileSet instance] tileImageFromGlyph:bgGlyph];
+		return [[TileSet instance] imageForGlyph:bgGlyph];
 	else
 		return nil;
 }
