@@ -1596,8 +1596,6 @@ static char ynPreReady(const char *str)
 		isResuming = false;
 	}
 	
-	[_userStatus updatePlayer];
-	
 	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
@@ -1605,6 +1603,7 @@ static char ynPreReady(const char *str)
 	[_mapModel updateAllMaps];
 	/* first-time inventory */
 	[_NH3DUserStatusModel updatePlayerInventory];
+	[_userStatus updatePlayer];
 	
 #if !defined(HEARSE_DISABLE)
 	[Hearse start];

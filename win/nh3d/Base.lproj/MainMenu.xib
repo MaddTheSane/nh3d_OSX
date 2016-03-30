@@ -2131,7 +2131,7 @@
             <connections>
                 <outlet property="delegate" destination="5089" id="5211"/>
             </connections>
-            <point key="canvasLocation" x="332" y="714"/>
+            <point key="canvasLocation" x="280" y="992"/>
         </window>
         <menu title="Nethack3d" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
@@ -2821,7 +2821,7 @@
                 <outlet property="parentWindow" destination="21" id="5002"/>
             </connections>
         </drawer>
-        <customView wantsLayer="YES" id="5000" userLabel="StatusView">
+        <customView id="5000" userLabel="StatusView">
             <rect key="frame" x="0.0" y="0.0" width="526" height="67"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -2933,6 +2933,7 @@
                 <constraint firstAttribute="bottom" secondItem="Jt1-iU-EBU" secondAttribute="bottom" id="lQM-Nu-dn0"/>
                 <constraint firstItem="Jt1-iU-EBU" firstAttribute="leading" secondItem="5000" secondAttribute="leading" constant="8" id="wCE-Zy-UmQ"/>
             </constraints>
+            <point key="canvasLocation" x="238" y="644.5"/>
         </customView>
         <customObject id="5089" userLabel="NH3DBindController" customClass="NH3DBindController">
             <connections>
@@ -3019,6 +3020,9 @@ DQ
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" tag="-1" inset="2" id="6944">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                         </buttonCell>
                         <connections>
                             <action selector="closeInputPanel:" target="5161" id="5364"/>
