@@ -10,6 +10,7 @@ import Foundation
 import simd
 
 extension NH3DModelObject {
+	/// Calculate the normals of the 3D model.
 	func calculateNormals() {
 		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
 		

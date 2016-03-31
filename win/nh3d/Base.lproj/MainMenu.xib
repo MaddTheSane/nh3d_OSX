@@ -3180,19 +3180,19 @@ DQ
                         </connections>
                     </button>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5378">
-                        <rect key="frame" x="44" y="47" width="600" height="238"/>
+                        <rect key="frame" x="44" y="47" width="587" height="238"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="n3r-1g-Qlx">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="238"/>
+                            <rect key="frame" x="0.0" y="0.0" width="587" height="238"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
-                                    <rect key="frame" x="0.0" y="12" width="600" height="238"/>
+                                    <rect key="frame" x="0.0" y="12" width="587" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.96078432000000002" green="0.89019607999999995" blue="0.73725492000000004" alpha="1" colorSpace="deviceRGB"/>
-                                    <size key="minSize" width="600" height="238"/>
+                                    <size key="minSize" width="587" height="238"/>
                                     <size key="maxSize" width="600" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="600" height="238"/>
+                                    <size key="minSize" width="587" height="238"/>
                                     <size key="maxSize" width="600" height="10000000"/>
                                 </textView>
                             </subviews>
@@ -3208,10 +3208,7 @@ DQ
                         </scroller>
                     </scrollView>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5429">
-                        <rect key="frame" x="42" y="291" width="80" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="76" id="AzC-6p-DuP"/>
-                        </constraints>
+                        <rect key="frame" x="42" y="291" width="62" height="24"/>
                         <buttonCell key="cell" type="bevel" title="Speak" bezelStyle="regularSquare" alignment="center" borderStyle="border" inset="2" id="6950">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Copperplate"/>
@@ -3230,11 +3227,11 @@ DQ
                     <constraint firstAttribute="trailing" secondItem="5761" secondAttribute="trailing" constant="-6" id="GHp-Jg-tue"/>
                     <constraint firstAttribute="bottom" secondItem="5761" secondAttribute="bottom" constant="2" id="RkC-sA-9FB"/>
                     <constraint firstItem="5371" firstAttribute="top" secondItem="5378" secondAttribute="bottom" constant="6" id="YCI-lp-Pi5"/>
-                    <constraint firstItem="5378" firstAttribute="trailing" secondItem="5370" secondAttribute="trailing" id="bjO-E0-ica"/>
+                    <constraint firstItem="5371" firstAttribute="trailing" secondItem="5370" secondAttribute="trailing" id="d07-bT-MOI"/>
                     <constraint firstItem="5370" firstAttribute="firstBaseline" secondItem="5429" secondAttribute="firstBaseline" id="khX-xc-mQz"/>
                     <constraint firstItem="5370" firstAttribute="baseline" secondItem="5429" secondAttribute="firstBaseline" id="ld8-4n-KTJ"/>
-                    <constraint firstItem="5378" firstAttribute="trailing" secondItem="5371" secondAttribute="trailing" id="oUX-OR-5SU"/>
                     <constraint firstItem="5378" firstAttribute="top" secondItem="5370" secondAttribute="bottom" constant="8" symbolic="YES" id="rjw-K9-xeN"/>
+                    <constraint firstAttribute="trailing" secondItem="5378" secondAttribute="trailing" constant="44" id="sME-w2-Ccz"/>
                     <constraint firstItem="5429" firstAttribute="leading" secondItem="5367" secondAttribute="leading" constant="44" id="v85-NY-BPl"/>
                     <constraint firstItem="5370" firstAttribute="top" secondItem="5367" secondAttribute="top" constant="20" symbolic="YES" id="wXB-I1-5hm"/>
                     <constraint firstItem="5429" firstAttribute="leading" secondItem="5378" secondAttribute="leading" id="ytZ-rb-4nP"/>
@@ -3261,13 +3258,13 @@ DQ
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="top" imageScaling="axesIndependently" image="ScrollPaper" id="6959"/>
                     </imageView>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5498">
-                        <rect key="frame" x="51" y="61" width="394" height="370"/>
+                        <rect key="frame" x="48" y="61" width="397" height="370"/>
                         <clipView key="contentView" id="QxK-KS-b2V">
-                            <rect key="frame" x="0.0" y="0.0" width="394" height="370"/>
+                            <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
-                                    <rect key="frame" x="0.0" y="0.0" width="394" height="22"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3284,7 +3281,7 @@ DQ
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </tableColumn>
-                                        <tableColumn identifier="name" editable="NO" width="352" minWidth="4" maxWidth="800" id="5574">
+                                        <tableColumn identifier="name" editable="NO" width="355" minWidth="4" maxWidth="800" id="5574">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" baseWritingDirection="leftToRight" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -3352,7 +3349,7 @@ DQ
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5579">
-                        <rect key="frame" x="179" y="440" width="139" height="14"/>
+                        <rect key="frame" x="177" y="440" width="139" height="14"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Small System Font Text" id="6955">
                             <font key="font" metaFont="smallSystemBold"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3394,7 +3391,7 @@ DQ
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5589">
-                        <rect key="frame" x="178" y="439" width="139" height="14"/>
+                        <rect key="frame" x="176" y="439" width="139" height="14"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Small System Font Text" id="6956">
                             <font key="font" metaFont="smallSystemBold"/>
                             <color key="textColor" red="0.098039216999999998" green="0.098039216999999998" blue="0.098039216999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -3403,7 +3400,7 @@ DQ
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5498" firstAttribute="leading" secondItem="5497" secondAttribute="leading" constant="51" id="15Z-Dm-Q82"/>
+                    <constraint firstItem="5498" firstAttribute="leading" secondItem="5497" secondAttribute="leading" constant="48" id="15Z-Dm-Q82"/>
                     <constraint firstAttribute="trailing" secondItem="5762" secondAttribute="trailing" id="1ea-z5-f7H"/>
                     <constraint firstItem="5562" firstAttribute="baseline" secondItem="5503" secondAttribute="baseline" id="45z-4c-kP3"/>
                     <constraint firstAttribute="trailing" secondItem="5498" secondAttribute="trailing" constant="42" id="9Gz-L4-RM6"/>

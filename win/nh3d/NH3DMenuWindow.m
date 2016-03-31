@@ -12,6 +12,10 @@
 #define DIALOG_OK		 128
 #define DIALOG_CANCEL	 129
 
+@interface NH3DMenuWindow ()
+- (void)fitTextWindowSizeToContents;
+@end
+
 @implementation NH3DMenuWindow
 @synthesize isMenu;
 @synthesize isExtendMenu;
@@ -149,8 +153,7 @@
 	//[[_window attachedSheet] orderOut:nil];
 	//[NSApp stopModalWithCode:-100];
 	
-	//Does not work!
-	//[self fitTextWindowSizeToContents:_textPanel scrollView:_textScrollView];
+	[self fitTextWindowSizeToContents];
 	
 	frameRect = [_textPanel frameRectForContentRect:((NSView*)_textPanel.contentView).frame];
 	[_textPanel setFrame:frameRect display:NO];
@@ -160,13 +163,11 @@
 	}
 	
 	[_window beginSheet:_textPanel completionHandler:^(NSModalResponse res){
-		//[_textPanel orderOut:self];
+		[_textWindow stopSpeaking:self];
+		_textWindow.string = @"";
 	}];
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.
-	
-	[_textWindow stopSpeaking:self];
-	_textWindow.string = @"";
 }
 
 - (void)createMenuWindow:(int)wid
@@ -414,27 +415,23 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	[window setFrame:windowRect display:NO];
 }
 
-- (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView
+- (void)fitTextWindowSizeToContents
 {
-	NSRect windowRect;
-	NSSize windowMaxSize = window.maxSize;
-	NSSize windowMinSize = window.minSize;
-	
-	//reset size
-	[window setFrame:NSMakeRect(0, 0, windowMinSize.width, windowMinSize.height) display:YES];
-	
-	//set height
-	while (scrollView.verticalScroller.usableParts != NSNoScrollerParts) {
-		windowRect = window.frame;
-		if (windowRect.size.height < windowMaxSize.height) {
-			windowRect.size.height += 32.0;
-			[window setFrame:windowRect display:NO];
-		} else {
-			windowRect.size.height = windowMaxSize.height - 16;
-			[window setFrame:windowRect display:NO];
-			break;
-		}
-	}
+	static const CGFloat contentWidthMargin = 100;
+	static const CGFloat contentHeightMargin = 120.0;
+	NSScreen *scr = _window.screen;
+	NSRect rect = scr.visibleFrame;
+	CGFloat height = NSHeight(rect);
+	CGFloat width = NSWidth(rect);
+	width -= contentWidthMargin;
+	height -= contentHeightMargin;
+	NSRect boundRect = [_textWindow.textStorage boundingRectWithSize:NSMakeSize(width, height)
+															 options:NSStringDrawingUsesLineFragmentOrigin
+															 context:nil];
+	boundRect = NSIntegralRect(boundRect);
+	height = MIN(height, NSHeight(boundRect));
+	//[_textScrollView setFrameSize:NSMakeSize(NSWidth(boundRect), height)];
+	[_textPanel setFrame:NSMakeRect(0, 0, NSWidth(boundRect) + contentWidthMargin, height + contentHeightMargin) display:NO];
 }
 
 - (void)keyDown:(NSEvent*)event
