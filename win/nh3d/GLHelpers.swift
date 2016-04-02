@@ -9,6 +9,8 @@
 import Foundation
 import OpenGL.GL
 
+/// Helper function that takes `NH3DMaterialType` and converts it
+/// to something usable by for `glMaterialfv`.
 func glMaterialfv(face: GLenum, _ pname: GLenum, _ params1: NH3DMaterialType) {
 	var params = params1
 	let passedArr = withUnsafePointer(&params) { (aParam) -> UnsafePointer<GLfloat> in
