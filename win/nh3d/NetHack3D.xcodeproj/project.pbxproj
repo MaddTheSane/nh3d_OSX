@@ -333,9 +333,7 @@
 		2BACF9E60902568F0095C8A4 /* makedefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E40891ADF000D38098 /* makedefs.c */; };
 		2BACFA02090259400095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
 		2BACFA03090259490095C8A4 /* monst.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC110088EB7DF00940C58 /* monst.c */; };
-		2BACFA1B090263BB0095C8A4 /* lev_yacc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E20891ADF000D38098 /* lev_yacc.c */; };
 		2BACFA1C090263BE0095C8A4 /* lev_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E10891ADF000D38098 /* lev_main.c */; };
-		2BACFA1D090263C10095C8A4 /* lev_lex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E00891ADF000D38098 /* lev_lex.c */; };
 		2BACFA3B090265240095C8A4 /* alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0DB088EB7DF00940C58 /* alloc.c */; };
 		2BACFA3C0902653E0095C8A4 /* decl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0E4088EB7DF00940C58 /* decl.c */; };
 		2BACFA3D090265480095C8A4 /* drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0F0088EB7DF00940C58 /* drawing.c */; };
@@ -343,8 +341,6 @@
 		2BACFA3F090265710095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
 		2BACFA40090265910095C8A4 /* panic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E60891ADF000D38098 /* panic.c */; };
 		2BACFA41090265C70095C8A4 /* dgn_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DA0891ADF000D38098 /* dgn_main.c */; };
-		2BACFA42090265C90095C8A4 /* dgn_lex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D90891ADF000D38098 /* dgn_lex.c */; };
-		2BACFA43090265CD0095C8A4 /* dgn_yacc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DB0891ADF000D38098 /* dgn_yacc.c */; };
 		2BACFA44090265E10095C8A4 /* panic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E60891ADF000D38098 /* panic.c */; };
 		2BACFA45090265FA0095C8A4 /* alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0DB088EB7DF00940C58 /* alloc.c */; };
 		2BACFA630902661E0095C8A4 /* recover.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E80891ADF000D38098 /* recover.c */; };
@@ -386,6 +382,10 @@
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
 		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
 		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
+		55E4AF9C1CB06433003D92B9 /* lev_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DE0891ADF000D38098 /* lev_comp.l */; };
+		55E4AF9D1CB06433003D92B9 /* lev_comp.y in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DF0891ADF000D38098 /* lev_comp.y */; };
+		55E4AF9E1CB06455003D92B9 /* dgn_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D70891ADF000D38098 /* dgn_comp.l */; };
+		55E4AF9F1CB06455003D92B9 /* dgn_comp.y in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D80891ADF000D38098 /* dgn_comp.y */; };
 		55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
@@ -2500,17 +2500,9 @@
 		2BEB62D50891ADF000D38098 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				2BEB62D70891ADF000D38098 /* dgn_comp.l */,
-				2BEB62D80891ADF000D38098 /* dgn_comp.y */,
-				2BEB62D90891ADF000D38098 /* dgn_lex.c */,
-				2BEB62DA0891ADF000D38098 /* dgn_main.c */,
-				2BEB62DB0891ADF000D38098 /* dgn_yacc.c */,
+				55E4AFA01CB065B8003D92B9 /* dgn_comp */,
 				2BEB62DC0891ADF000D38098 /* dlb_main.c */,
-				2BEB62DE0891ADF000D38098 /* lev_comp.l */,
-				2BEB62DF0891ADF000D38098 /* lev_comp.y */,
-				2BEB62E00891ADF000D38098 /* lev_lex.c */,
-				2BEB62E10891ADF000D38098 /* lev_main.c */,
-				2BEB62E20891ADF000D38098 /* lev_yacc.c */,
+				55E4AFA11CB065E4003D92B9 /* lev_comp */,
 				2BEB62E40891ADF000D38098 /* makedefs.c */,
 				2BEB62E50891ADF000D38098 /* Makefile */,
 				2BEB62E60891ADF000D38098 /* panic.c */,
@@ -2547,6 +2539,30 @@
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		55E4AFA01CB065B8003D92B9 /* dgn_comp */ = {
+			isa = PBXGroup;
+			children = (
+				2BEB62D70891ADF000D38098 /* dgn_comp.l */,
+				2BEB62D80891ADF000D38098 /* dgn_comp.y */,
+				2BEB62D90891ADF000D38098 /* dgn_lex.c */,
+				2BEB62DB0891ADF000D38098 /* dgn_yacc.c */,
+				2BEB62DA0891ADF000D38098 /* dgn_main.c */,
+			);
+			name = dgn_comp;
+			sourceTree = "<group>";
+		};
+		55E4AFA11CB065E4003D92B9 /* lev_comp */ = {
+			isa = PBXGroup;
+			children = (
+				2BEB62DE0891ADF000D38098 /* lev_comp.l */,
+				2BEB62DF0891ADF000D38098 /* lev_comp.y */,
+				2BEB62E00891ADF000D38098 /* lev_lex.c */,
+				2BEB62E20891ADF000D38098 /* lev_yacc.c */,
+				2BEB62E10891ADF000D38098 /* lev_main.c */,
+			);
+			name = lev_comp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3173,11 +3189,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BACFA1B090263BB0095C8A4 /* lev_yacc.c in Sources */,
+				55E4AF9D1CB06433003D92B9 /* lev_comp.y in Sources */,
 				2BACFA1C090263BE0095C8A4 /* lev_main.c in Sources */,
-				2BACFA1D090263C10095C8A4 /* lev_lex.c in Sources */,
 				2BACFA3B090265240095C8A4 /* alloc.c in Sources */,
 				2BACFA3C0902653E0095C8A4 /* decl.c in Sources */,
+				55E4AF9C1CB06433003D92B9 /* lev_comp.l in Sources */,
 				2BACFA3D090265480095C8A4 /* drawing.c in Sources */,
 				2BACFA3E0902656D0095C8A4 /* monst.c in Sources */,
 				2BACFA3F090265710095C8A4 /* objects.c in Sources */,
@@ -3190,8 +3206,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BACFA41090265C70095C8A4 /* dgn_main.c in Sources */,
-				2BACFA42090265C90095C8A4 /* dgn_lex.c in Sources */,
-				2BACFA43090265CD0095C8A4 /* dgn_yacc.c in Sources */,
+				55E4AF9F1CB06455003D92B9 /* dgn_comp.y in Sources */,
+				55E4AF9E1CB06455003D92B9 /* dgn_comp.l in Sources */,
 				2BACFA44090265E10095C8A4 /* panic.c in Sources */,
 				2BACFA45090265FA0095C8A4 /* alloc.c in Sources */,
 			);
