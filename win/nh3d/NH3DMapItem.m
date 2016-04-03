@@ -296,6 +296,7 @@
 	[lock lock];
 	symbol = chr;
 	[self checkDrawingType];
+	tile = nil;
 	[lock unlock];
 }
 
@@ -328,7 +329,7 @@
 		return nil;
 	}
 	
-	NSImage *bgtile;
+	NSImage *bgtile = nil;
 	if (glyph != bgGlyph) {
 		bgtile = self.backgroundTile;
 	}
