@@ -1304,7 +1304,17 @@ static const NH3DMaterial defaultMat = {
 			}
 		}
 	}
-}	
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"Model '%@' (%@), vertices %i, model type %i, children: %@", modelName, modelCode, verts_qty, modelType, hasChildObject ? @([self countOfChildObjects]) : @"NO"];
+}
+
+- (NSString *)debugDescription
+{
+	return [NSString stringWithFormat:@"Model '%@' (%@), vertices %i, model type %i, children: {\n%@\n}", modelName, modelCode, verts_qty, modelType, childObjects];
+}
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
 {
