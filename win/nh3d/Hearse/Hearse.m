@@ -483,7 +483,9 @@ static NSString *const hearseCommandDownload = @"download";
 - (NSArray *) existingBonesFiles {
 	NSMutableArray<NSString*> *bones = [[NSMutableArray alloc] init];
 	NSFileManager *filemanager = [NSFileManager defaultManager];
-    NSArray<NSString*> *filelist= [filemanager contentsOfDirectoryAtPath:@"." error:nil];
+	NSURL *aURL = [filemanager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:NULL];
+	aURL = [aURL URLByAppendingPathComponent:@"NetHack3D" isDirectory:YES];
+    NSArray<NSString*> *filelist= [filemanager contentsOfDirectoryAtPath:[aURL path] error:nil];
     
 	for (NSString *filename in filelist) {
 		if ([filename hasPrefix:@"bon"]) {
