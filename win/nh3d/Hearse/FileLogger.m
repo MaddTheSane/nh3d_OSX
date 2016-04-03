@@ -102,7 +102,11 @@
 	msg[size-2] = '\n';
 	msg[size-1] = 0;
 	fputs(msg, fd);
-	raw_print([message cStringUsingEncoding:NH3DTEXTENCODING]);
+	if (!raw_print) {
+		NSLog(@"%@", message);
+	} else {
+		raw_print([message cStringUsingEncoding:NH3DTEXTENCODING]);
+	}
 }
 
 - (void) flush {
