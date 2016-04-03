@@ -5,6 +5,8 @@
 #include "hack.h"
 #include "func_tab.h"
 
+/* Needed because number keys may be based on the direction of the camera. */
+STATIC_VAR boolean NH3DEnterNumber = false;
 #ifdef ALTMETA
 STATIC_VAR boolean alt_esc = FALSE;
 #endif
@@ -3400,6 +3402,10 @@ rhack(register char *cmd)
     context.move = FALSE;
     multi = 0;
     return;
+#if 0
+        //Needed to make indenting happy under Xcode
+    }
+#endif
 }
 
 /* convert an x,y pair into a direction code */
@@ -3780,7 +3786,8 @@ parse()
 #ifdef ALTMETA
     alt_esc = iflags.altmeta; /* readchar() hack */
 #endif
-    if (!Cmd.num_pad || (foo = readchar()) == 'n')
+    if (!Cmd.num_pad || (foo = readchar()) == 'n') {
+        NH3DEnterNumber = true;
         for (;;) {
             foo = readchar();
             if (foo >= '0' && foo <= '9') {
@@ -3799,6 +3806,8 @@ parse()
             } else
                 break; /* not a digit */
         }
+        NH3DEnterNumber = false;
+    }
 #ifdef ALTMETA
     alt_esc = FALSE; /* readchar() reset */
 #endif
@@ -4104,6 +4113,11 @@ dosuspend_core()
 #endif
         Norep("Suspend command not available.");
     return 0;
+}
+
+boolean is_entering_number(void)
+{
+    return NH3DEnterNumber;
 }
 
 /*cmd.c*/
