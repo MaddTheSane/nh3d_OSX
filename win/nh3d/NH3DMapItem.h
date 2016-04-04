@@ -18,18 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 							color:(int)col
 							 posX:(int)x
 							 posY:(int)y
-						  special:(int)sp DEPRECATED_ATTRIBUTE;
-
-
-/// This is the designated initializer.
-- (instancetype)initWithParameter:(char)ch
-							glyph:(int)glf
-							color:(int)col
-							 posX:(int)x
-							 posY:(int)y
 						  special:(int)sp
 						  bgGlyph:(int)bg NS_DESIGNATED_INITIALIZER;
-
 
 @property (readonly, copy) NSString *symbol;
 @property (readonly) int glyph;

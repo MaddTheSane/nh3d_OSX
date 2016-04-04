@@ -118,6 +118,8 @@ typedef struct NH3DParticle {
 	GLfloat				yspeed;
 }
 
+@property (readonly) NH3DModelType modelType;
+
 /// init for particle emitter
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
@@ -129,9 +131,8 @@ typedef struct NH3DParticle {
 
 - (nullable instancetype) initWithOBJFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER;
 
-
 - (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_SWIFT_NAME(init(with3DSFile:withTexture:));
-- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER NS_SWIFT_NAME(init(with3DSFile:textureNamed:)); // This is designated initializer.
+- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER NS_SWIFT_NAME(init(with3DSFile:textureNamed:)); // This is a designated initializer.
 
 + (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName;
 
@@ -172,8 +173,6 @@ typedef struct NH3DParticle {
 @property GLfloat animationValue;
 @property GLfloat animationRate;
 
-- (void)animate;
-
 @property (nonatomic) NH3DVertexType particleGravity;
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:));
 @property (nonatomic) NH3DParticleType particleType;
@@ -208,7 +207,7 @@ typedef struct NH3DParticle {
 
 - (void)drawSelf;
 
-@property (readonly) NH3DModelType modelType;
+- (void)animate;
 
 @end
 

@@ -16,6 +16,7 @@
 @synthesize selectable;
 @synthesize selected;
 @synthesize attribute;
+@synthesize identifier;
 
 //Override NSObject designated initializer. this does not work!! don't use this.
 - (instancetype)init
@@ -183,11 +184,6 @@
 	}
 }
 
-- (anything)identifier
-{
-	return identifier;
-}
-
 - (BOOL)isPreselected
 {
 	if (preselect == MENU_SELECTED) {
@@ -203,10 +199,10 @@
 									encoding:NH3DTEXTENCODING];
 }
 
-- (void)setIdentifier:(const ANY_P *)identifierValue
+- (void)setIdentifier:(anything)identifierValue
 {
-	identifier = *identifierValue;
-	if (identifierValue->a_void == 0) {
+	identifier = identifierValue;
+	if (identifierValue.a_void == 0) {
 		self.selectable = NO;
 	} else {
 		self.selectable = YES;

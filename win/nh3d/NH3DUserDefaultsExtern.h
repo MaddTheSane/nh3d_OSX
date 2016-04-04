@@ -128,7 +128,7 @@ static inline BOOL NH3DGL_USETILE_func()
 #define ENEMY_IS_FRONT	2
 #define ENEMY_IS_RIGHT	3
 
-#define WAIT_NONE		0
+#define WAIT_NONE		0.0
 #define WAIT_FAST		60.0
 #define WAIT_NORMAL		45.0
 #define WAIT_SLOW		30.0

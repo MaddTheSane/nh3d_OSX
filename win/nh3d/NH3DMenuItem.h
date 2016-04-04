@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSImage *)glyph;
 @property (readonly, copy, nullable) NSImage *smallGlyph;
 @property int attribute;
-- (anything)identifier;
+@property (nonatomic) anything identifier;
 @property (readwrite, getter=isSelectable) BOOL selectable;
 @property (readonly, getter=isPreselected) BOOL preselected;
 @property (readwrite, getter=isSelected) BOOL selected;
@@ -55,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)setName:(const char*)nameStr;
-- (void)setIdentifier:(const ANY_P *)identifierValue;
 - (void)setAccelerator:(char)acceleratorValue;
 - (void)setGroup_accel:(char)group_accelValue;
 - (void)setGlyph:(int)glyphValue;
