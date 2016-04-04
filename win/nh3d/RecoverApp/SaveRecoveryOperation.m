@@ -6,6 +6,7 @@
 //  Copyright © 2015 Dirk Zimmermann. All rights reserved.
 //
 
+#include "C99Bool.h"
 #import "SaveRecoveryOperation.h"
 
 /*

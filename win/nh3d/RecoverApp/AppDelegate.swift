@@ -126,7 +126,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	func showErrorList() {
-		
+		NSApp.terminate(nil)
 	}
 	
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
@@ -152,4 +152,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		return true
 	}
 }
-
