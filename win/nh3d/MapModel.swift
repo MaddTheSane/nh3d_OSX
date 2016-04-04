@@ -97,12 +97,15 @@ class MapModel: NSObject {
 	}
 
 	private func prepareAttributes() {
+		shadow = NSShadow()
 		shadow.shadowColor = NSColor(calibratedWhite: 0, alpha: 0.7)
 		shadow.shadowOffset = NSMakeSize(2, -2)
 		shadow.shadowBlurRadius = 1.0
 		
+		style = NSMutableParagraphStyle()
 		style.alignment = .Center
 		
+		strAttributes = [:]
 		strAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
 		strAttributes[NSShadowAttributeName] = shadow;
 		strAttributes[NSParagraphStyleAttributeName] = style;
