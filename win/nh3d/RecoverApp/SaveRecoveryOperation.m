@@ -53,7 +53,7 @@ static BOOL copy_bytes(int ifd, int ofd);
 
 @implementation SaveRecoveryOperation
 {
-	char *savename;
+	char savename[SAVESIZE];
 	char *lock;
 	NSURL *baseURL;
 }
@@ -101,7 +101,6 @@ static BOOL copy_bytes(int ifd, int ofd);
 	if (self = [super init]) {
 		baseURL = saveURL;
 		lock = malloc(PATH_MAX);
-		savename = malloc(SAVESIZE);
 		
 		if ([self respondsToSelector:@selector(setName:)]) {
 			self.name = saveURL.lastPathComponent;
@@ -114,16 +113,16 @@ static BOOL copy_bytes(int ifd, int ofd);
 {
 	if (lock)
 		free(lock);
-	if (savename)
-		free(savename);
 }
 
 - (void)main
 {
 	int gfd, lfd, sfd;
-	int lev, savelev, hpid;
+	int lev, savelev, hpid, pltmpsiz;
 	xchar levc;
 	struct version_info version_data;
+	struct savefile_info sfi;
+	char plbuf[PL_NSIZ];
 	const char *basename = [baseURL fileSystemRepresentation];
 	NSString *errStr;
 	
@@ -158,9 +157,13 @@ static BOOL copy_bytes(int ifd, int ofd);
 		return;
 	}
 	if ((read(gfd, (genericptr_t) savename, sizeof savename)
-		 != sizeof savename) ||
-		(read(gfd, (genericptr_t) &version_data, sizeof version_data)
-		 != sizeof version_data)) {
+		 != sizeof savename)
+		|| (read(gfd, (genericptr_t) &version_data, sizeof version_data)
+			!= sizeof version_data)
+		|| (read(gfd, (genericptr_t) &sfi, sizeof sfi) != sizeof sfi)
+		|| (read(gfd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
+			!= sizeof pltmpsiz) || (pltmpsiz > PL_NSIZ)
+		|| (read(gfd, (genericptr_t) &plbuf, pltmpsiz) != pltmpsiz)) {
 			errStr = [[NSString alloc] initWithFormat:@"Error reading %s -- can't recover.", lock];
 			Close(gfd);
 			_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorReading userInfo:@{NSLocalizedDescriptionKey: errStr}];
@@ -169,6 +172,8 @@ static BOOL copy_bytes(int ifd, int ofd);
 	
 	/* save file should contain:
 	 *	version info
+	 *	savefile info
+	 *	player name
 	 *	current level (including pets)
 	 *	(non-level-based) game state
 	 *	other levels
@@ -193,6 +198,31 @@ static BOOL copy_bytes(int ifd, int ofd);
 	if (write(sfd, (genericptr_t) &version_data, sizeof version_data)
 		!= sizeof version_data) {
 		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed.", savename];
+		Close(gfd);
+		Close(sfd);
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		return;
+	}
+	
+	if (write(sfd, (genericptr_t) &sfi, sizeof sfi) != sizeof sfi) {
+		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed (savefile_info).", savename];
+		Close(gfd);
+		Close(sfd);
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		return;
+	}
+	
+	if (write(sfd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
+		!= sizeof pltmpsiz) {
+		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed (player name size).", savename];
+		Close(gfd);
+		Close(sfd);
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		return;
+	}
+	
+	if (write(sfd, (genericptr_t) &plbuf, pltmpsiz) != pltmpsiz) {
+		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed (player name).", savename];
 		Close(gfd);
 		Close(sfd);
 		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
@@ -252,7 +282,7 @@ static BOOL copy_bytes(int ifd, int ofd);
 {
 	char *tf;
 	
-	tf = rindex(lock, '.');
+	tf = strrchr(lock, '.');
 	if (!tf)
 		tf = lock + strlen(lock);
 	(void) sprintf(tf, ".%d", lev);
@@ -269,8 +299,12 @@ static BOOL copy_bytes(int ifd, int ofd);
 
 - (int)createSaveFile
 {
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *saveNameNSStr = [fm stringWithFileSystemRepresentation:savename length:strlen(savename)];
 	int fd;
-	fd = creat(savename, FCMASK);
+	NSURL *saveURL = [baseURL URLByDeletingLastPathComponent];
+	saveURL = [saveURL URLByAppendingPathComponent:saveNameNSStr];
+	fd = creat([saveURL fileSystemRepresentation], FCMASK);
 	return fd;
 }
 

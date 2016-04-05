@@ -1834,3 +1834,32 @@ boolean add_effect_mapping(const char *mesgTxt)
 		return false;
 	}
 }
+
+void app_recover(const char* path)
+{
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	NSURL *url = [[NSBundle mainBundle] URLForResource:@"Recover" withExtension:@"app"];
+	if (url == nil) {
+		unlock_file(HLOCK);
+		(void)unlink(lock);
+		error("Couldn't find recovery app.");
+		return;
+	}
+	
+	NSString *filePath = [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)] stringByStandardizingPath];
+	@autoreleasepool {
+		NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+		filePath = [fileURL path];
+	}
+	
+	NSError *error = nil;
+	NSArray *arguments = @[filePath];
+	NSRunningApplication *recoverApp = [workspace launchApplicationAtURL:url options:0 configuration:[NSDictionary dictionaryWithObject:arguments forKey:NSWorkspaceLaunchConfigurationArguments] error:&error];
+	if (!recoverApp) {
+		[[NSAlert alertWithError:error] runModal];
+		return;
+	}
+	
+	exit(EXIT_SUCCESS);
+}
+

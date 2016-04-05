@@ -85,6 +85,8 @@ void nh3d_end_screen();
 void nh3d_outrip(winid wid, int how, time_t when);
 //int nh3d_kbhit();
 
+extern void app_recover(const char* path);
+
 @class NH3DMessaging;
 @class NH3DOpenGLView;
 

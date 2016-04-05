@@ -28,6 +28,10 @@
 #include <sys/fcntl.h>
 #endif
 
+#ifdef NH3D_GRAPHICS
+#import "winnh3d.h"
+#endif
+
 #ifdef _M_UNIX
 extern void NDECL(sco_mapon);
 extern void NDECL(sco_mapoff);
@@ -169,7 +173,20 @@ getlock()
 			goto gotlock;
 		(void) close(fd);
 		
-		if(iflags.window_inited) {
+		{
+			NSAlert *recoverAlert = [[NSAlert alloc] init];
+			recoverAlert.alertStyle = NSWarningAlertStyle;
+			recoverAlert.messageText = NSLocalizedString(@"Recover?", @"");
+			recoverAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Attempt recovery?\n\nThis will launch a recovery app.", @"");
+			[recoverAlert addButtonWithTitle:NSLocalizedString(@"Yes", @"Yes")];
+			[recoverAlert addButtonWithTitle:NSLocalizedString(@"No", @"No")];
+			
+			if ([recoverAlert runModal] == NSAlertFirstButtonReturn) {
+				app_recover(lock);
+			}
+		}
+		
+		if (iflags.window_inited) {
 			NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
 			eraseSaveAlert.messageText = NSLocalizedString(@"Remove old save?", @"");
 			eraseSaveAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Destroy old game?", @"");
@@ -195,17 +212,17 @@ getlock()
 			(void) fflush(stdout);
 			while (getchar() != '\n') ; /* eat rest of line and newline */
 		}
-		if(c == 'y' || c == 'Y')
-			if(eraseoldlocks())
+		if(c == 'y' || c == 'Y') {
+			if(eraseoldlocks()) {
 				goto gotlock;
-			else {
+			} else {
 				unlock_file(HLOCK);
 				error("Couldn't destroy old game.");
 			}
-			else {
-				unlock_file(HLOCK);
-				error("%s", "");
-			}
+		} else {
+			unlock_file(HLOCK);
+			error("%s", "");
+		}
 	}
 	
 gotlock:

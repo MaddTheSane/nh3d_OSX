@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					
 					if self.failedNums != 0 {
 						alert.alertStyle = .WarningAlertStyle
-						alert.messageText = "Recovery unsuccessful"
+						alert.messageText = "Recovery unsuccessful!"
 						alert.informativeText = "\(self.failedNums) file\(self.failedNums > 1 ? "s were" : " was") not successfully recovered."
 						alert.addButtonWithTitle("Quit")
 						alert.addButtonWithTitle("Show Errors")
@@ -93,7 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 						let workspace = NSWorkspace.sharedWorkspace()
 						let parentBundleURL: NSURL = {
 							let selfBundleURL = NSBundle.mainBundle().bundleURL
-							return selfBundleURL.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!
+							return selfBundleURL.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!
 						}()
 
 						switch response {
