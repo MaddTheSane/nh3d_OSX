@@ -101,8 +101,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 							do {
 								try workspace.launchApplicationAtURL(parentBundleURL, options: .Default, configuration: [:])
 								NSApp.terminate(nil)
-							} catch _ {
+							} catch let error as NSError {
 								NSBeep()
+								NSAlert(error: error).runModal()
 								exit(EXIT_FAILURE)
 							}
 							
