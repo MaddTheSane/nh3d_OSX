@@ -18,3 +18,11 @@ func glMaterialfv(face: GLenum, _ pname: GLenum, _ params1: NH3DMaterialType) {
 	}
 	glMaterialfv(face, pname, passedArr)
 }
+
+func glMaterial(material: NH3DMaterial) {
+	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), material.ambient)
+	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), material.diffuse)
+	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), material.specular)
+	glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), material.shininess)
+	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), material.emission)
+}

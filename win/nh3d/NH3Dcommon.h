@@ -10,7 +10,5 @@
 # include <GL/glu.h>
 #else
 # import <Cocoa/Cocoa.h>
-# include <OpenGL/gl.h>
-# include <OpenGL/glext.h>
-# include <OpenGL/glu.h>
+# include <OpenGL/gltypes.h>
 #endif

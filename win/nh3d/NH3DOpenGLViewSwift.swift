@@ -715,11 +715,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glBindTexture(GLenum(GL_TEXTURE_2D), tex)
 		glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 		
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
-		glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
+		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
 		
 		glNormalPointer(GLenum(GL_FLOAT), 0, nullObjectNorms)
 		glTexCoordPointer(2, GLenum(GL_FLOAT), 0, nullObjectTexVerts)
@@ -746,11 +742,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
 		
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
-		glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
+		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
 		
 		// Draw floor
 		drawFloorArray[Int(flag)]()
@@ -1191,13 +1183,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 					
 					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
 					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
-					
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
-					glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
-					
+				
+				glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
+				
 					glAlphaFunc(GLenum(GL_GREATER), 0.5)
 					
 					glEnableClientState(GLenum(GL_VERTEX_ARRAY))
