@@ -1159,62 +1159,60 @@ final class NH3DOpenGLView: NSOpenGLView {
 			if (model == nil
 			 && !(glyph >= S_stone+GLYPH_CMAP_OFF
 				&& glyph <= S_water+GLYPH_CMAP_OFF)) { // Draw alternate object.
-					var f: Float = 0
-					var angle: Float = 5.0
-					
-					glPushMatrix()
-					defer {
-						glPopMatrix()
+				var f: Float = 0
+				var angle: Float = 5.0
+				
+				glPushMatrix()
+				defer {
+					glPopMatrix()
+				}
+				glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
+				
+				if defaultTex[Int(glyph)] == 0 {
+					if NH3DGL_USETILE {
+						defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.tile!, color: nil)
+					} else {
+						defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.symbol, color: mapItem.color)
 					}
-					glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
-					
-					if defaultTex[Int(glyph)] == 0 {
-						if NH3DGL_USETILE {
-							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.tile!, color: nil)
-						} else {
-							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.symbol, color: mapItem.color)
-						}
-					}
-					glActiveTexture(GLenum(GL_TEXTURE0))
-					glEnable(GLenum(GL_TEXTURE_2D))
-					
-					glEnable(GLenum(GL_ALPHA_TEST))
-					glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-					
-					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
-					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
+				}
+				glActiveTexture(GLenum(GL_TEXTURE0))
+				glEnable(GLenum(GL_TEXTURE_2D))
+				
+				glEnable(GLenum(GL_ALPHA_TEST))
+				glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
+				
+				glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
+				glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 				
 				glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
 				
-					glAlphaFunc(GLenum(GL_GREATER), 0.5)
-					
-					glEnableClientState(GLenum(GL_VERTEX_ARRAY))
-					glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-					glEnableClientState(GLenum(GL_NORMAL_ARRAY))
-					
-					glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
-					glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
-					glVertexPointer(3, GLenum(GL_FLOAT), 0, defaultVerts)
-					
-					
-					glDisable(GLenum(GL_CULL_FACE))
-					//angle = 5.0;
-					f = 0
-					while f < 0.02 {
-						angle *= -1.0
-						glTranslatef(0.0, 0.0, f)
-						glRotatef(angle, 0, 1.0, 0)
-						glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
-						f += 0.002
-					}
-					glEnable(GLenum(GL_CULL_FACE))
-					
-					glDisableClientState(GLenum(GL_NORMAL_ARRAY))
-					glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-					glDisableClientState(GLenum(GL_VERTEX_ARRAY))
-					
-					glDisable(GLenum(GL_ALPHA_TEST))
-					glDisable(GLenum(GL_TEXTURE_2D))
+				glAlphaFunc(GLenum(GL_GREATER), 0.5)
+				
+				glEnableClientState(GLenum(GL_VERTEX_ARRAY))
+				glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+				glEnableClientState(GLenum(GL_NORMAL_ARRAY))
+				
+				glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
+				glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
+				glVertexPointer(3, GLenum(GL_FLOAT), 0, defaultVerts)
+				
+				
+				glDisable(GLenum(GL_CULL_FACE))
+				//angle = 5.0;
+				for f in Float(0).stride(to: 0.02, by: 0.002) {
+					angle *= -1.0
+					glTranslatef(0.0, 0.0, f)
+					glRotatef(angle, 0, 1.0, 0)
+					glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+				}
+				glEnable(GLenum(GL_CULL_FACE))
+				
+				glDisableClientState(GLenum(GL_NORMAL_ARRAY))
+				glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+				glDisableClientState(GLenum(GL_VERTEX_ARRAY))
+				
+				glDisable(GLenum(GL_ALPHA_TEST))
+				glDisable(GLenum(GL_TEXTURE_2D))
 			} else { // Draw model
 				guard let model = model else {
 					return
