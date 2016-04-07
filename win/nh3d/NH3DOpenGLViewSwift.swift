@@ -14,7 +14,7 @@ import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 
 
-private let TEX_SIZE = 128
+private let TEX_SIZE = 256
 
 private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
 private func blankFloorMethod() {}
@@ -1638,7 +1638,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		img.backgroundColor = NSColor.clearColor()
 		
 		if !NH3DGL_USETILE {
-			guard let symbol = symbol as? String else {
+			guard let symbol = symbol as? NSString else {
 				assert(false)
 				return 0
 			}
@@ -1650,12 +1650,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			attributes[NSForegroundColorAttributeName] = color
 			attributes[NSBackgroundColorAttributeName] = NSColor.clearColor()
 			
-			symbolSize = (symbol as NSString).sizeWithAttributes(attributes)
+			symbolSize = symbol.sizeWithAttributes(attributes)
 			
 			// Draw texture
 			img.lockFocus()
 			
-			(symbol as NSString).drawAtPoint(NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
+			symbol.drawAtPoint(NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
 			
 			img.unlockFocus()
 		} else {
@@ -1670,7 +1670,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			symbol.drawInRect(NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
 				fromRect: NSRect(origin: .zero, size: symbolSize),
 				operation: .CompositeSourceOver,
-				fraction:1.0)
+				fraction: 1.0)
 			img.unlockFocus()
 		}
 		
