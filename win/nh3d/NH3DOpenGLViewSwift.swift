@@ -16,10 +16,15 @@ import GLKit.GLKMathUtils
 
 private let TEX_SIZE = 256
 
-private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
-private func blankFloorMethod() {}
+private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {
+	// do nothing
+}
+private func blankFloorMethod() {
+	// do nothing
+}
 private typealias LoadModelBlock = (glyph: Int32) -> NH3DModelObject?
 private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
+	// do nothing
 	return nil
 }
 
@@ -51,21 +56,21 @@ private let vsyncNoWait: GLint = 0
 // MARK: floor model
 ////////////////////////////////
 
-private var FloorVerts: [NH3DVertexType] = [
+private let FloorVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: -2.0, y: 0.0, z: -2.0),
 	NH3DVertexType(x: -2.0, y: 0.0, z: 2.0),
 	NH3DVertexType(x: 2.0, y: 0.0, z: -2.0),
 	NH3DVertexType(x: 2.0, y: 0.0, z: 2.0)
 ]
 
-private var FloorTexVerts:[NH3DMapCoordType] = [
+private let FloorTexVerts:[NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0,t: 0.0),
 	NH3DMapCoordType(s: 1.0,t: 0.0),
 	NH3DMapCoordType(s: 0.0,t: 1.0),
 	NH3DMapCoordType(s: 1.0, t: 1.0)
 ]
 
-private var FloorVertNorms: [NH3DVertexType] = [
+private let FloorVertNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
 	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
 	NH3DVertexType(x: 0.25, y: 0.50, z: -0.25),
@@ -76,14 +81,14 @@ private var FloorVertNorms: [NH3DVertexType] = [
 // MARK: ceiling model
 //////////////////////////////
 
-private var CeilingVerts: [NH3DVertexType] = [
+private let CeilingVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: 2.0, y: 6.0, z: -2.0),
 	NH3DVertexType(x: 2.0, y: 6.0, z: 2.0),
 	NH3DVertexType(x: -2.0, y: 6.0, z: -2.0),
 	NH3DVertexType(x: -2.0, y: 6.0, z: 2.0)
 ]
 
-private var CeilingTexVerts: [NH3DMapCoordType] = [
+private let CeilingTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 1.0),
 	NH3DMapCoordType(s: 1.0, t: 0.0),
@@ -91,7 +96,7 @@ private var CeilingTexVerts: [NH3DMapCoordType] = [
 ]
 
 
-private var CeilingVertNorms: [NH3DVertexType] = [
+private let CeilingVertNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
 	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
 	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
@@ -103,21 +108,21 @@ private var CeilingVertNorms: [NH3DVertexType] = [
 ////////////////////////////////
 
 
-private var defaultVerts: [NH3DVertexType] = [
+private let defaultVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: -1.5, y: 0.5, z: 0),
 	NH3DVertexType(x:  1.5, y: 0.5, z: 0),
 	NH3DVertexType(x: -1.5, y: 3.5, z: 0),
 	NH3DVertexType(x:  1.5, y: 3.5, z: 0)
 ]
 
-private var defaultTexVerts: [NH3DMapCoordType] = [
+private let defaultTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0,t: 1.0),
 	NH3DMapCoordType(s: 1.0,t: 1.0),
 	NH3DMapCoordType(s: 0.0,t: 0.0),
 	NH3DMapCoordType(s: 1.0,t: 0.0)
 ]
 
-private var defaultNorms: [NH3DVertexType] = [
+private let defaultNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5),
 	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5)
 ]
@@ -126,21 +131,21 @@ private var defaultNorms: [NH3DVertexType] = [
 // MARK: null object
 ////////////////////////////////
 
-private var nullObjectVerts: [NH3DVertexType] = [
+private let nullObjectVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: 2, y: 6, z: -2), NH3DVertexType(x: -2, y: 6, z: -2), // rear
 	NH3DVertexType(x: 2, y: 0, z: 2), NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: 2, y: 6, z: 2), NH3DVertexType(x: 2, y: 6, z: -2), // right
 	NH3DVertexType(x: -2, y: 0, z: 2), NH3DVertexType(x: 2, y: 0, z: 2), NH3DVertexType(x: -2, y: 6, z: 2), NH3DVertexType(x: 2, y: 6, z: 2), // front
 	NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: 2), NH3DVertexType(x: -2, y: 6, z: -2), NH3DVertexType(x: -2, y: 6, z: 2)  // left
 ]
 
-private var nullObjectTexVerts: [NH3DMapCoordType] = [
+private let nullObjectTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0)
 ]
 
-private var nullObjectNorms: [NH3DVertexType] = [
+private let nullObjectNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.20, y: 0.50, z: -0.30), NH3DVertexType(x: 0.20, y: 0.50, z: -0.30),
 	NH3DVertexType(x: -0.30, y: -0.50, z: 0.20), NH3DVertexType(x: -0.30, y: -0.50, z: 0.20),
 	NH3DVertexType(x: 0.20, y: 0.50, z: 0.30), NH3DVertexType(x: 0.20, y: 0.50, z: 0.30),
@@ -150,7 +155,7 @@ private var nullObjectNorms: [NH3DVertexType] = [
 
 // MARK: Material
 
-private var nh3dMaterialArray: [NH3DMaterial] = [
+private let nh3dMaterialArray: [NH3DMaterial] = [
 	// Black
 	NH3DMaterial(ambient: (0.05, 0.05, 0.05, 1.0),			//	ambient color
 		diffuse: (0.1, 0.1, 0.1, 1.0),						//	diffuse color
