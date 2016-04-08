@@ -448,7 +448,7 @@ init_linux_cons()
 }
 #endif /* __linux__ */
 
-#ifndef __begui__ /* the Be GUI will define its own error proc */
+#if !(defined(__begui__) || defined(NH3D_GRAPHICS)) /* the Be GUI will define its own error proc */
 /* fatal error */
 /*VARARGS1*/
 void error(const char *s, ...)

@@ -1256,7 +1256,6 @@ wd_message()
 						  NH3DUseRetinaOpenGL: @YES,
 						  
 						  NH3DIsFirstLaunch: @YES,
-						  NH3DNHRCEditApp: @"TextWrangler",
 						  
 						  //Hearse
 						  kKeyHearse: @NO,
@@ -1846,15 +1845,16 @@ void app_recover(const char* path)
 		return;
 	}
 	
-	NSString *filePath = [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)] stringByStandardizingPath];
+	NSString *filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
 	@autoreleasepool {
+		//this little dance is to make sure we have an absolute path.
 		NSURL *fileURL = [NSURL fileURLWithPath:filePath];
 		filePath = [fileURL path];
 	}
 	
 	NSError *error = nil;
 	NSArray *arguments = @[filePath];
-	NSRunningApplication *recoverApp = [workspace launchApplicationAtURL:url options:0 configuration:[NSDictionary dictionaryWithObject:arguments forKey:NSWorkspaceLaunchConfigurationArguments] error:&error];
+	NSRunningApplication *recoverApp = [workspace launchApplicationAtURL:url options:NSWorkspaceLaunchWithoutAddingToRecents configuration:@{NSWorkspaceLaunchConfigurationArguments: arguments} error:&error];
 	if (!recoverApp) {
 		[[NSAlert alertWithError:error] runModal];
 		return;
@@ -1863,3 +1863,21 @@ void app_recover(const char* path)
 	exit(EXIT_SUCCESS);
 }
 
+#if defined(NH3D_GRAPHICS)
+#define Vprintf (void) vprintf
+void error(const char *s, ...)
+{
+	va_list the_args;
+	va_start(the_args, s);
+	NSString *nss = [[NSString alloc] initWithFormat:@(s) arguments:the_args];
+	Vprintf(s, the_args);
+	va_end(the_args);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"NetHack Error!";
+	alert.informativeText = [nss stringByAppendingString:@"\n\nNetHack will now crash."];
+	alert.alertStyle = NSCriticalAlertStyle;
+	[alert runModal];
+	
+	exit(EXIT_FAILURE);
+}
+#endif
