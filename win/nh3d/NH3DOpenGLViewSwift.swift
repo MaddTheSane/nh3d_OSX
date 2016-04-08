@@ -1324,6 +1324,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[(S_vwall + GLYPH_CMAP_OFF)]?.setTexture(texID)
 		modelDictionary[(S_hwall + GLYPH_CMAP_OFF)]?.setTexture(texID)
 		modelDictionary[(S_tlcorn + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_vodoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_hodoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_vcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_hcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
 	}
 	
 	@objc(setCenterAtX:z:depth:) func setCenterAt(x x: Int32, z: Int32, depth: Int32) {
@@ -1786,15 +1790,31 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "vopendoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "hopendoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_hodoor + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "vdoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_vcdoor + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "hdoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model
 	}
 	
