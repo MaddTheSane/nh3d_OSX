@@ -4199,6 +4199,7 @@
 				5539E6211CB2F03F00ED6EF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		557CE1C21C8E1EE100B43765 /* Build configuration list for PBXAggregateTarget "src" */ = {
 			isa = XCConfigurationList;

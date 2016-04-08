@@ -2075,7 +2075,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, offset: offset, modelName: "lowerF")
 	}
 	
-	/// gremlins and gagoyles class
+	/// gremlins and gargoyles class
 	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2143,15 +2143,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 				offset = GLYPH_MON_OFF
 			}
 
-			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK")
+			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK", without: PM_KOBOLD_LORD, PM_KOBOLD_SHAMAN)
 			
-		case PM_KOBOLD_LORD+GLYPH_MON_OFF:
+		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivot(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF:
+		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivot(x: 0, y: -0.01, z: -0.15)
@@ -2334,7 +2334,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, offset: offset, modelName: "upperA")
 	}
 	
-	/// Bats
+	/// Bats and birds
 	private final func loadModelFunc_Bats(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -4750,6 +4750,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// Unique person
 		for i in Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)...Int(PM_APPRENTICE+GLYPH_MON_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Uniqueperson
+		}
+		
+		// Invisible
+		loadModelBlocks[Int(GLYPH_INVISIBLE)] = { _ in
+			return NH3DModelObject(with3DSFile: "invisible", withTexture: false)
 		}
 		
 		// -------------------------- Map Symbol Section ----------------------------- //
