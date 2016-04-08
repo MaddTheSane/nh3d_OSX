@@ -29,7 +29,7 @@ extension NH3DModelObject {
 			// Polygon normal calculation
 			let l_vect_b1 = float3(start: l_vect1, end: l_vect2)
 			let l_vect_b2 = float3(start: l_vect1, end: l_vect3)
-			let l_normal = normalize(dotProduct(l_vect_b1, l_vect_b2))
+			let l_normal = normalize(cross(l_vect_b1, l_vect_b2))
 			
 			l_Connect[Int(face.a)] += 1
 			l_Connect[Int(face.b)] += 1
@@ -54,15 +54,6 @@ extension float3: Equatable {
 		let pre = p_end - p_start
 		self = normalize(pre)
 	}
-}
-
-private func dotProduct(p_vector1: float3, _ p_vector2: float3) -> float3 {
-	let x = (p_vector1.y * p_vector2.z) - (p_vector1.z * p_vector2.y)
-	let y = (p_vector1.z * p_vector2.x) - (p_vector1.x * p_vector2.z)
-	let z = (p_vector1.x * p_vector2.y) - (p_vector1.y * p_vector2.x)
-	let p_normal = float3(x: x, y: y, z: z)
-
-	return p_normal
 }
 
 extension NH3DMaterial: Equatable {
