@@ -4460,11 +4460,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// eye or sphere class
-		loadModelBlocks[Int(PM_GAS_SPORE+GLYPH_MON_OFF)] =			loadModelFunc_sphere
-		loadModelBlocks[Int(PM_FLOATING_EYE+GLYPH_MON_OFF)] =		loadModelFunc_sphere
-		loadModelBlocks[Int(PM_FREEZING_SPHERE+GLYPH_MON_OFF)] =	loadModelFunc_sphere
-		loadModelBlocks[Int(PM_FLAMING_SPHERE+GLYPH_MON_OFF)] =		loadModelFunc_sphere
-		loadModelBlocks[Int(PM_SHOCKING_SPHERE+GLYPH_MON_OFF)] =	loadModelFunc_sphere
+		for i in Int(PM_GAS_SPORE+GLYPH_MON_OFF)...Int(PM_SHOCKING_SPHERE+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_sphere
+		}
 		
 		// cat or feline class
 		for i in Int(PM_KITTEN+GLYPH_MON_OFF)...Int(PM_TIGER+GLYPH_MON_OFF) {
@@ -4730,22 +4728,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] =		loadModelFunc_Riders
 		
 		// sea monsters
-		loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] =	loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_PIRANHA + GLYPH_MON_OFF)] =		loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_SHARK + GLYPH_MON_OFF)] =		loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_GIANT_EEL + GLYPH_MON_OFF)] =	loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_ELECTRIC_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_KRAKEN + GLYPH_MON_OFF)] =		loadModelFunc_seamonsters
+		for i in Int(PM_JELLYFISH+GLYPH_MON_OFF)...Int(PM_KRAKEN+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_seamonsters
+		}
 		
 		// lizards
-		loadModelBlocks[Int(PM_NEWT + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_GECKO + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_IGUANA + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_BABY_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_LIZARD + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_CHAMELEON + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_SALAMANDER + GLYPH_MON_OFF)] = loadModelFunc_lizards
+		for i in Int(PM_NEWT+GLYPH_MON_OFF)...Int(PM_SALAMANDER+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_lizards
+		}
 		
 		// wormtail
 		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { _ in

@@ -19,10 +19,14 @@ func glMaterialfv(face: GLenum, _ pname: GLenum, _ params1: NH3DMaterialType) {
 	glMaterialfv(face, pname, passedArr)
 }
 
-func glMaterial(material: NH3DMaterial) {
-	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), material.ambient)
-	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), material.diffuse)
-	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), material.specular)
-	glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), material.shininess)
-	glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), material.emission)
+/// Helper function that puts the data from an `NH3DMaterial` object
+/// into the OpenGL stacks via `glMaterialfv`.
+///
+/// - parameter face: The face to apply the material to. Default is `GL_FRONT`
+func glMaterial(face face: GLenum = GLenum(GL_FRONT), _ material: NH3DMaterial) {
+	glMaterialfv(face, GLenum(GL_AMBIENT), material.ambient)
+	glMaterialfv(face, GLenum(GL_DIFFUSE), material.diffuse)
+	glMaterialfv(face, GLenum(GL_SPECULAR), material.specular)
+	glMaterialf(face, GLenum(GL_SHININESS), material.shininess)
+	glMaterialfv(face, GLenum(GL_EMISSION), material.emission)
 }
