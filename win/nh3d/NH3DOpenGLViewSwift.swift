@@ -4863,12 +4863,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
 		
 		// pets
-		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)..<Int(PM_APPRENTICE + GLYPH_PET_OFF) {
+		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)...Int(PM_APPRENTICE + GLYPH_PET_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Pets
 		}
 		
 		// statues
-		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)..<Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
+		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)...Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Statues
 		}
 		
