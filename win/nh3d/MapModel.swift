@@ -20,13 +20,13 @@ class MapModel: NSObject {
 				
 				switch (playerDirection - newValue) {
 				case -3, 1:
-					glMapView.setCamera(head: glMapView.cameraHead + 90, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead + 90, pitch: 0, roll: 0)
 					
 				case  2, -2:
-					glMapView.setCamera(head: glMapView.cameraHead - 180, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead - 180, pitch: 0, roll: 0)
 					
 				case  3, -1:
-					glMapView.setCamera(head: glMapView.cameraHead - 90, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead - 90, pitch: 0, roll: 0)
 					
 				default:
 					break

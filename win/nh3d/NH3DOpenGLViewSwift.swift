@@ -1425,7 +1425,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	/// Sets the camera's head, pitch, and roll, in degrees.
-	@objc(setCameraHead:pitching:rolling:) func setCamera(head head1: Float, pitching pitch: Float, rolling roll: Float) {
+	@objc(setCameraHead:pitching:rolling:) func setCamera(head head1: Float, pitch: Float, roll: Float) {
 		var head = head1
 		viewLock.lock()
 		do {
