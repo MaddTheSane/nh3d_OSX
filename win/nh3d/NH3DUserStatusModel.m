@@ -917,7 +917,9 @@ extern const char *hu_stat[]; /* from eat.c */
 {
 	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
 		if (stDrawer.state == NSDrawerClosedState || stDrawer.state == NSDrawerClosingState) {
-			[[NSSound soundNamed:@"Purr"] play];
+			if (!SOUND_MUTE) {
+				[[NSSound soundNamed:@"Purr"] play];
+			}
 			[stDrawer open];
 		}
 	} else if (stDrawer.state == NSDrawerOpenState || stDrawer.state == NSDrawerOpeningState) {

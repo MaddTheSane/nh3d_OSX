@@ -30,9 +30,9 @@
 
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	self.window.styleMask = NSBorderlessWindowMask;
-	self.window.backgroundColor = [NSColor clearColor];
-	self.window.opaque = NO;
+	//self.window.styleMask = NSBorderlessWindowMask;
+	//self.window.backgroundColor = [NSColor clearColor];
+	//self.window.opaque = NO;
 }
 
 - (void)setPriestName:(NSString *)aString {

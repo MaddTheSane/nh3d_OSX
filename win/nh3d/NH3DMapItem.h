@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, getter=isDetected) BOOL detected;
 
-/// Returns \c YES if the tile has a pet from the player.
+/// Returns \c YES if the tile has a player's pet.
 @property (readonly, getter=isPet) BOOL pet;
 
 @property (readonly) BOOL wasRidden;

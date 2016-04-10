@@ -120,7 +120,7 @@ class MapModel: NSObject {
 	final func startIndicator() {
 		indicatorIsActive = true;
 		indicatorTimer = NSTimer.scheduledTimerWithTimeInterval(1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
-		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSEventTrackingRunLoopMode)
+		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSDefaultRunLoopMode)
 	}
 	
 	@objc private func updateEnemyIndicator(timer: NSTimer) {
@@ -132,7 +132,7 @@ class MapModel: NSObject {
 		}
 		enemyIndicator.intValue = value
 		
-		if (value >= 60 && !alert.playing) {
+		if (value >= 60 && !alert.playing && !SOUND_MUTE) {
 			alert.play()
 		}
 	}
