@@ -165,12 +165,12 @@ class MapModel: NSObject {
 				mapArray[Int(x2)][Int(y2)].player = true
 				
 				//set player pos for asciiview, openGLView
-				asciiMapView.setCenterAtX(x2, y: y2, depth: Int32(depth(&u.uz)))
+				asciiMapView.setCenter(x: x2, y: y2, depth: Int32(depth(&u.uz)))
 				glMapView.setCenterAt(x: x2, z: y2, depth: Int32(depth(&u.uz)))
 			}
 			
 			if TRADITIONAL_MAP {
-				asciiMapView.drawTraditionalMapAtX(x2, atY: y2)
+				asciiMapView.drawTraditionalMapAt(x: x2, y: y2)
 			}
 		}
 	}
@@ -186,7 +186,7 @@ class MapModel: NSObject {
 			cursY = y
 			
 			// center the map on the cursor, not the player.
-			asciiMapView.setCenterAtX(x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
+			asciiMapView.setCenter(x: x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 
 			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].hasCursor = true
 			asciiMapView.needClear = true

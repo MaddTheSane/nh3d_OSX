@@ -101,15 +101,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSButton *pickUpButton;
 
 
-- (void)setCenterAtX:(int)x y:(int)y depth:(int)depth;
+- (void)setCenterAtX:(int)x y:(int)y depth:(int)depth NS_SWIFT_NAME(setCenter(x:y:depth:));
 @property BOOL isReady;
 
 @property BOOL needClear;
 
 - (void)makeTraditionalMap;
-- (void)drawTraditionalMapAtX:(int)x atY:(int)y;
+- (void)drawTraditionalMapAtX:(int)x atY:(int)y  NS_SWIFT_NAME(drawTraditionalMapAt(x:y:));
 - (void)updateMap;
-- (void)drawAsciiItemAtX:(int)x atY:(int)y;
+- (void)drawAsciiItemAtX:(int)x atY:(int)y NS_SWIFT_NAME(drawAsciiItemAt(x:y:));
 - (void)reloadMap;
 - (void)enemyCheck;
 

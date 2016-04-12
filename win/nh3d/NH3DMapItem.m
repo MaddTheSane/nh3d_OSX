@@ -261,7 +261,7 @@
 			aColor = [[NSColor greenColor] highlightWithLevel:0.5];
 			break;
 		case 11:
-			aColor = [ NSColor yellowColor ];
+			aColor = [NSColor yellowColor];
 			break;
 		case 12:
 			aColor = [[NSColor blueColor] highlightWithLevel:0.5];
