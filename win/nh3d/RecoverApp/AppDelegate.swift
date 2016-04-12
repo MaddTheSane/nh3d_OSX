@@ -176,7 +176,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 			return errorOrder[row].lastPathComponent
 			
 		case recoverErrorKey:
-			return recoveryErrors[errorOrder[row]]?.description
+			return recoveryErrors[errorOrder[row]]?.localizedDescription
 			
 		default:
 			return nil

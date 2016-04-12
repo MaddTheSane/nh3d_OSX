@@ -49,7 +49,7 @@ extension NH3DModelObject {
 	}
 }
 
-extension float3: Equatable {
+extension float3 {
 	private init(start p_start: float3, end p_end : float3) {
 		let pre = p_end - p_start
 		self = normalize(pre)
@@ -97,17 +97,6 @@ public func ==(lhs: NH3DMapCoordType, rhs: NH3DMapCoordType) -> Bool {
 		return false
 	}
 	
-	return true
-}
-
-public func ==(lhs: float3, rhs: float3) -> Bool {
-	if lhs.x != rhs.x {
-		return false
-	} else if lhs.y != rhs.y {
-		return false
-	} else if lhs.z != lhs.z {
-		return false
-	}
 	return true
 }
 

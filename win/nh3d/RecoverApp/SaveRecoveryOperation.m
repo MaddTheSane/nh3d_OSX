@@ -53,8 +53,9 @@ static BOOL copy_bytes(int ifd, int ofd);
 
 @implementation SaveRecoveryOperation
 {
+@private
 	char savename[SAVESIZE];
-	char *lock;
+	char lock[PATH_MAX];
 	NSURL *baseURL;
 }
 
@@ -67,14 +68,14 @@ static BOOL copy_bytes(int ifd, int ofd);
 				
 				if ([userInfoKey isEqualToString:NSLocalizedFailureReasonErrorKey]) {
 					if (err.code == NHRecoveryErrorHostBundleNotFound) {
-						return @"The recovery app wasn't in Cocoa NetHack's resource directory.";
+						return @"The recovery app wasn't in NetHack's resource directory.";
 					}
 				}
 				
 				if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
 					switch (err.code) {
 						case NHRecoveryErrorHostBundleNotFound:
-							return @"The NetHack Cocoa application could not be found";
+							return @"The parent NetHack application could not be found";
 							break;
 							
 						case NHRecoveryErrorFileCopy:
@@ -100,19 +101,12 @@ static BOOL copy_bytes(int ifd, int ofd);
 {
 	if (self = [super init]) {
 		baseURL = saveURL;
-		lock = malloc(PATH_MAX);
 		
 		if ([self respondsToSelector:@selector(setName:)]) {
 			self.name = saveURL.lastPathComponent;
 		}
 	}
 	return self;
-}
-
-- (void)dealloc
-{
-	if (lock)
-		free(lock);
 }
 
 - (void)main
