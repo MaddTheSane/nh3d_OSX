@@ -428,7 +428,8 @@ static NSString *const hearseCommandDownload = @"download";
 				numberOfDownloadedBones++;
 			}
 		}
-		[self logHearseMessage:message];
+		if (message)
+			[self logHearseMessage:message];
 	}
 }
 
