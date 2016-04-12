@@ -18,8 +18,14 @@ extension NHRecoveryErrors: ErrorType {
 	}
 }
 
+/// NSTableViewDataSource url table column key
+private let locURLKey = "NHRecoverURL"
+
+/// NSTableViewDataSource error table column key
+private let recoverErrorKey = "NHRecoverError"
+
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var progress: NSProgressIndicator!
 	private var failedNums = 0
@@ -27,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	dynamic private(set) var countNums = 0
 	
 	private var recoveryErrors = [NSURL: NSError]()
+	private var errorOrder = [NSURL]()
 	
 	private var errorToReport: NHRecoveryErrors?
 	private let opQueue: NSOperationQueue = {
@@ -127,6 +134,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 
 	func showErrorList() {
+		errorOrder = Array(recoveryErrors.keys)
 		NSApp.terminate(nil)
 	}
 	
@@ -151,5 +159,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		let fileURL = NSURL(fileURLWithPath: filename)
 		addURL(fileURL)
 		return true
+	}
+	
+	// MARK: - NSTableViewDataSource
+	
+	func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+		return recoveryErrors.count
+	}
+	
+	func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+		guard let columnID = tableColumn?.identifier else {
+			return nil
+		}
+		switch columnID {
+		case locURLKey:
+			return errorOrder[row].lastPathComponent
+			
+		case recoverErrorKey:
+			return recoveryErrors[errorOrder[row]]?.description
+			
+		default:
+			return nil
+		}
 	}
 }
