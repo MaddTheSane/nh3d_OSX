@@ -14,6 +14,8 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Recover" customModuleProvider="target">
             <connections>
+                <outlet property="errorPanel" destination="SLQ-eg-qe9" id="gX2-Mk-RPg"/>
+                <outlet property="errorTable" destination="gpY-4b-49k" id="A7E-T1-WrF"/>
                 <outlet property="progress" destination="VEU-q0-I6I" id="Thy-yU-ONp"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>

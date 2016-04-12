@@ -28,6 +28,9 @@ private let recoverErrorKey = "NHRecoverError"
 class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var progress: NSProgressIndicator!
+	@IBOutlet weak var errorPanel: NSWindow!
+	@IBOutlet weak var errorTable: NSTableView!
+	
 	private var failedNums = 0
 	private var succeededNums = 0
 	dynamic private(set) var countNums = 0
@@ -134,7 +137,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 	}
 
 	func showErrorList() {
+		//Created to make sure we have data in constant order.
 		errorOrder = Array(recoveryErrors.keys)
+		errorTable.reloadData()
 		NSApp.terminate(nil)
 	}
 	
