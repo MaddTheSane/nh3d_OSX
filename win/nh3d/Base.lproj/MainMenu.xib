@@ -2945,8 +2945,8 @@
                 <outlet property="_messenger" destination="5161" id="5258"/>
                 <outlet property="_stDrawer" destination="4999" id="5755"/>
                 <outlet property="_userStatus" destination="4755" id="5257"/>
-                <outlet property="_window" destination="21" id="5091"/>
                 <outlet property="launchWindow" destination="6764" id="24y-2l-20j"/>
+                <outlet property="mainWindow" destination="21" id="5091"/>
             </connections>
         </customObject>
         <customObject id="5161" userLabel="NH3DMessenger" customClass="NH3DMessaging" customModule="NetHack3D" customModuleProvider="target">

@@ -1207,6 +1207,7 @@ wd_message()
 @implementation NH3DBindController {
 	NH3DPreferenceController *_prefPanel;
 }
+@synthesize mainWindow = _window;
 
 // for UserDefaults
 // set user defaults
@@ -1373,11 +1374,6 @@ wd_message()
 	}
 		
 	[userMakeSheet startSheet:_userStatus];
-}
-
-- (NSWindow*)mainWindow
-{
-	return _window;
 }
 
 - (void)didPresentError:(NSError *)error

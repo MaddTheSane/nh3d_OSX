@@ -96,8 +96,6 @@ void nethack3d_exit(int status);
 void nh3d_set_savefile_name();
 #endif
 @interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
-
-	IBOutlet NSWindow *_window;
 	IBOutlet NSMenu  *_mainMenu;
 	IBOutlet NH3DUserStatusModel *_userStatus;
 	IBOutlet NH3DMessaging *_messenger;
@@ -108,16 +106,11 @@ void nh3d_set_savefile_name();
 	IBOutlet NSDrawer *_stDrawer;
 }
 
-// App delegates
-//
-- (BOOL)windowShouldClose:(null_unspecified id)sender;
-//- (void)windowWillBeginSheet:(NSNotification *)notification;
-
 - (void)setTile;
 
 //- (void)showSheet:(id)aSheet modalWindow:(id)aWindow;
 - (void)showUserMakeSheet;
-@property (readonly, strong) NSWindow *mainWindow;
+@property (weak) IBOutlet NSWindow *mainWindow;
 @property (weak) IBOutlet NSWindow *launchWindow;
 
 - (void)didPresentError:(NSError *)error;
