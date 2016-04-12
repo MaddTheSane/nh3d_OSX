@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include <OpenGL/gltypes.h>
-#include <simd/simd.h>
+#include <simd/vector_types.h>
 #import "NH3Dcommon.h"
 
 #import "NH3DUserDefaultsExtern.h"

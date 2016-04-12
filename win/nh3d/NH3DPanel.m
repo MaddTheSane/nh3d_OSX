@@ -12,7 +12,12 @@
 							styleMask:aStyle | NSBorderlessWindowMask
 							//styleMask:aStyle
 							  backing:bufferingType
-								defer:flag ];
+								defer:flag];
+	
+	if (self) {
+		self.opaque = NO;
+		self.backgroundColor = [NSColor clearColor];
+	}
 	
 	return self;
 }

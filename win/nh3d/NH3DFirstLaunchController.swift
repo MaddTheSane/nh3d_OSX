@@ -21,7 +21,7 @@ class NH3DFirstLaunchController: NSWindowController {
 		
 		// If we have a Hearse Token, it means that the user already knows about Hearse.
 		// So don't show the first time launch window
-		if defaults.objectForKey(kKeyHearseId) == nil {
+		if defaults.objectForKey(kKeyHearseId) != nil {
 			defaults.setBool(false, forKey: NH3DIsFirstLaunch)
 		}
 		
