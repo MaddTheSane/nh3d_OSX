@@ -12,6 +12,9 @@
 #import "NetHack3D-Swift.h"
 #import "NetHack3D-Bridging-Header.h"
 #import "Hearse.h"
+#import "NhItem.h"
+#import "NhItemGroup.h"
+#import "NhEventQueue.h"
 
 #include <sys/stat.h>
 #include <signal.h>
@@ -34,8 +37,6 @@ static void process_options(int, char **);
 static boolean wiz_error_flag = FALSE;
 #endif
 
-
-NH3DWinData nh3d_windowlist[10];
 
 extern int NXArgc;
 extern char **NXArgv;
@@ -101,6 +102,11 @@ NSString *const NHMaxMessages = @"Max messages";
 
 NSString *const NH3DIsFirstLaunch = @"IsFirstLaunch";
 NSString *const NH3DNHRCEditApp = @"NHEditApp";
+
+@interface NH3DBindController ()
+- (void)displayWindow:(NhWindow*)win;
+- (void)showMenuWindow:(NhMenuWindow*)win;
+@end
 
 static void
 process_options(int argc, char *argv[])
@@ -415,135 +421,70 @@ NHW_TEXT    5
 winid nh3d_create_nhwindow(int type)
 {
 	@autoreleasepool {
-		int i;
-
-		for (i = 1; i < 10; i++) {
-			if (nh3d_windowlist[i].win == nil) {
-				break;
-			}
-		}
-		if (i > 10) {
-			NSLog(@"ERROR: No windows available...\n");
-		}
-		nh3d_create_nhwindow_by_id(type, i);
-		
-		return i;
-	}
-}
-
-void nh3d_create_nhwindow_by_id(int type, winid i)
-{
-	@autoreleasepool {
+		NhWindow *w;
+		winid newID = 0;
 		switch (type) {
 			case NHW_MAP:
-				nh3d_windowlist[i].win = _NH3DMapModel;
-				nh3d_windowlist[i].type = NHW_MAP;
+				w =  [NhWindow mapWindow];
+				[NH3DBindController setWindow:w forID:type];
+				newID = type;
 				break;
-
-			case NHW_MESSAGE:
-				nh3d_windowlist[i].win = _NH3DMessenger;
-				nh3d_windowlist[i].type = NHW_MESSAGE;
-				break; 
-
 			case NHW_STATUS:
-				nh3d_windowlist[i].win = _NH3DUserStatusModel;
-				nh3d_windowlist[i].type = NHW_STATUS;
+				w = [NhWindow statusWindow];
+				[NH3DBindController setWindow:w forID:type];
+				newID = type;
 				break;
-
+			case NHW_MESSAGE:
+				w = [NhWindow messageWindow];
+				[NH3DBindController setWindow:w forID:type];
+				newID = type;
+				break;
 			case NHW_MENU:
-				nh3d_windowlist[i].win = _NH3DMenuWindow;
-				nh3d_windowlist[i].type = NHW_MENU;
+				w = [[NhMenuWindow alloc] initWithType:NHW_MENU];
+				newID = [NH3DBindController addWindow:w];
 				break;
-
 			case NHW_TEXT:
-				nh3d_windowlist[i].win = _NH3DMenuWindow;
-				nh3d_windowlist[i].type = NHW_TEXT;
+				w = [[NhWindow alloc] initWithType:NHW_TEXT];
+				newID = [NH3DBindController addWindow:w];
 				break;
+			default:
+				assert(NO);
 		}
+		//NSLog(@"create_nhwindow(%x) %p", type, w);
+		return newID;
 	}
 }
 
 void nh3d_clear_nhwindow(winid wid)
 {
 	@autoreleasepool {
-		switch (nh3d_windowlist[wid].type) {
-			case NHW_MAP:
-				[_NH3DMapModel clearMapModel];
-				break;
-				
-			case NHW_MESSAGE:
-				[_NH3DMessenger clearMainMessage];
-				break;
-				
-			case NHW_STATUS:
-				break;
-				
-			case NHW_MENU:
-				if (_NH3DMenuWindow.isMenu) {
-					[_NH3DMenuWindow clearMenuWindow];
-				} else {
-					[_NH3DMenuWindow clearTextMessage];
-				}
-				break;
-				
-			case NHW_TEXT:
-				[_NH3DMenuWindow clearTextMessage];
-				break;
-		}
+		[[NH3DBindController windowForWindowID: wid] clear];
 	}
 }
 
 void nh3d_display_nhwindow(winid wid, boolean block)
 {
 	@autoreleasepool {
-		switch (nh3d_windowlist[wid].type) {
-			case NHW_MENU:
-				if (_NH3DMenuWindow.isMenu) {
-					[_NH3DMenuWindow showMenuPanel:""];
-				} else {
-					[_NH3DMenuWindow showTextPanel];
-				}
-				break;
-				
-			case NHW_TEXT:
-				[_NH3DMenuWindow showTextPanel];
-				break;
-		}
+		NhWindow *w = [NH3DBindController windowForWindowID: wid];
+		//NSLog(@"display_nhwindow %x, %i, %i", wid, [WinCocoa windowForWindowID: wid].type, block);
+		w.blocking = block;
+		[_NH3DBindController displayWindow:w];
 	}
 }
 
 void nh3d_destroy_nhwindow(winid wid)
 {
 	@autoreleasepool {
-		switch (nh3d_windowlist[wid].type) {
-			case NHW_MAP:
-			case NHW_MESSAGE:
-			case NHW_STATUS:
-				/* No thanks */
-				return;
-				break;
-				
-			case NHW_MENU:
-				[_NH3DMenuWindow clearMenuWindow];
-				[_NH3DMenuWindow setIsMenu:NO];
-				[_NH3DMenuWindow clearTextMessage];
-		
-				nh3d_windowlist[wid].win = nil;
-				nh3d_windowlist[wid].type = 0;
-				break;
-
-			case NHW_TEXT:
-				[_NH3DMenuWindow clearTextMessage];
-				nh3d_windowlist[wid].win = nil;
-				nh3d_windowlist[wid].type = 0;
-				break;
+		NhWindow *w = [NH3DBindController windowForWindowID: wid];
+		if (w != [NhWindow messageWindow] && w != [NhWindow statusWindow] && w != [NhWindow mapWindow]) {
+			[NH3DBindController removeWindowWithID: wid];
 		}
 	}
 }
 
 void nh3d_curs(winid wid, int x, int y)
 {
-	if (wid != -1 && nh3d_windowlist[wid].type == NHW_MAP && nh3d_windowlist[wid].win != nil) {
+	if (wid == WIN_MAP) {
 		@autoreleasepool {
 			/* this function Implementation being completed only to type NHW_MAP   */
 			[_NH3DMapModel setPosCursorAtX:x atY:y];
@@ -555,39 +496,18 @@ void nh3d_curs(winid wid, int x, int y)
 void nh3d_putstr(winid wid, int attr, const char *text)
 {
 	@autoreleasepool {
-		switch (nh3d_windowlist[wid].type) {
-			case NHW_MESSAGE:
-				play_sound_for_message(text);
-				[_NH3DMessenger putMainMessage:attr text:text];
-				break;
-				
-			case NHW_TEXT:
-				[_NH3DMenuWindow putTextMessage:
-						[NSString stringWithCString:text
-											encoding:NH3DTEXTENCODING]];
-				break;
-				
-			case NHW_MENU:
-				if (!_NH3DMenuWindow.isMenu) {
-					[_NH3DMenuWindow putTextMessage:
-					 [NSString stringWithCString:text
-										encoding:NH3DTEXTENCODING]];
-				}
-				break;
-				
-			case NHW_MAP:
-				/* NO PUT MESSAGE FOR MAP */
-				break;
-				
-			case NHW_STATUS:
-				_NH3DUserStatusModel.playerStatusLine = [NSString stringWithCString:text encoding:NH3DTEXTENCODING];
-				break;
-				
-			default:
-				NSLog(@"ERROR Window type does not exist. win id is %d, type is %d, message: %@",
-					  wid, nh3d_windowlist[wid].type, [NSString stringWithCString:text encoding:
-													   NH3DTEXTENCODING]);
-				break;
+		//NSLog(@"putstr %x %s", wid, text);
+		if (wid == WIN_ERR || !wid) {
+			wid = NHW_MESSAGE;
+		}
+		// normal output to a window
+		if (![NH3DBindController windowForWindowID:wid]) {
+			NSLog(@"%s", text);
+		}
+		[[NH3DBindController windowForWindowID: wid] print:text attr:attr];
+		if (wid == WIN_MESSAGE) {
+			play_sound_for_message(text);
+			[_NH3DMessenger putMainMessage:attr text:text];
 		}
 	}
 }
@@ -629,10 +549,8 @@ void nh3d_display_file(const char *filename, boolean must_exist)
 void nh3d_start_menu(winid wid)
 {
 	@autoreleasepool {
-		if (nh3d_windowlist[wid].win != nil && nh3d_windowlist[wid].type == NHW_MENU) {
-			[nh3d_windowlist[wid].win createMenuWindow:wid];
-			[nh3d_windowlist[wid].win setIsMenu:YES];
-		}
+		//NSLog(@"start_menu %x", wid);
+		[(NhMenuWindow *)[NH3DBindController windowForWindowID: wid] startMenu];
 	}
 }
 
@@ -642,8 +560,16 @@ void nh3d_add_menu(winid wid, int glyph, const ANY_P *identifier,
 		const char *str, boolean presel)
 {
 	@autoreleasepool {
-		if (nh3d_windowlist[wid].win != nil && nh3d_windowlist[wid].type == NHW_MENU) {
-			[nh3d_windowlist[wid].win addMenuItem:wid glyph:glyph identifier:identifier accelerator:accelerator groupAccel:group_accel attr:attr str:str presel:presel];
+		//NSLog(@"add_menu %x %s", wid, str);
+		NhMenuWindow *w = (NhMenuWindow *) [NH3DBindController windowForWindowID: wid];
+		NSString *title = [NSString stringWithFormat:@"%s", str];
+		if (identifier->a_void) {
+			NhItem *i = [[NhItem alloc] initWithTitle:title
+										   identifier:*identifier accelerator:accelerator group_accel:group_accel glyph:glyph selected:presel];
+			[w.currentItemGroup addItem:i];
+		} else {
+			NhItemGroup *g = [[NhItemGroup alloc] initWithTitle:title];
+			[w addItemGroup:g];
 		}
 	}
 }
@@ -651,26 +577,43 @@ void nh3d_add_menu(winid wid, int glyph, const ANY_P *identifier,
 void nh3d_end_menu(winid wid, const char *prompt)
 {
 	@autoreleasepool {
-		if (nh3d_windowlist[wid].win != nil && nh3d_windowlist[wid].type == NHW_MENU) {
-			[nh3d_windowlist[wid].win updateMenuWindow];
-			[nh3d_windowlist[wid].win showMenuPanel:prompt];
+		//NSLog(@"end_menu %x, %s", wid, prompt);
+		if (prompt) {
+			((NhMenuWindow *) [NH3DBindController windowForWindowID: wid]).prompt = [NSString stringWithFormat:@"%s", prompt];
+			//cocoa_putstr(WIN_MESSAGE, 0, prompt);
+		} else {
+			((NhMenuWindow *) [NH3DBindController windowForWindowID: wid]).prompt = nil;
 		}
 	}
 }
 
 int nh3d_select_menu(winid wid, int how, menu_item **selected)
 {
-	int ret = -1;
 	@autoreleasepool {
-		if (nh3d_windowlist[wid].win != nil && nh3d_windowlist[wid].type == NHW_MENU) {
-			if (_NH3DMenuWindow.isMenu) {
-				ret = [nh3d_windowlist[wid].win selectMenu:wid how:how selected:selected];
-				[nh3d_windowlist[wid].win setIsMenu:NO];
-				
+		//NSLog(@"select_menu %x", wid);
+		NhMenuWindow *w = (NhMenuWindow *) [NH3DBindController windowForWindowID: wid];
+		w.how = how;
+		*selected = NULL;
+		[_NH3DBindController showMenuWindow:w];
+		
+		if ( how != PICK_NONE ) {
+			NhEvent *e = [[NhEventQueue instance] nextEvent];
+			if (e.key > 0) {
+				menu_item *pMenu = *selected = calloc(sizeof(menu_item), w.selected.count);
+				for (NhItem *item in w.selected) {
+					pMenu->count = item.amount;
+					pMenu->item = item.identifier;
+					pMenu++;
+				}
+				return (int)w.selected.count;
+			} else {
+				// cancelled
+				return -1;
 			}
+		} else {
+			return 0;
 		}
 	}
-	return ret;
 }
 
 void nh3d_update_inventory()
@@ -703,7 +646,7 @@ void nh3d_cliparound_window(winid wid, int x, int y)
 void nh3d_print_glyph(winid wid, xchar x, xchar y, int glyph, int under)
 {
 	@autoreleasepool {
-		switch (nh3d_windowlist[wid].type) {
+		switch (wid) {
 			case NHW_MAP:
 				[_NH3DMapModel setMapModelGlyph:glyph xPos:x yPos:y bgGlyph:under];
 				break;
@@ -1783,6 +1726,27 @@ static char ynPreReady(const char *str)
 					  openFile:nhrc withApplication:appName andDeactivate:YES]) {
 		[[NSWorkspace sharedWorkspace] openFile:nhrc withApplication:@"TextEdit" andDeactivate:YES];
 	}
+}
+
+- (void)displayWindow:(NhWindow *)w
+{
+	if (w == [NhWindow messageWindow]) {
+		//[self refreshMessages];
+	} else if (w.type == NHW_MAP) {
+		[_mapModel reloadAllMaps];
+	} else if ( w.type == NHW_STATUS ) {
+		_NH3DUserStatusModel.playerStatusLine = w.text;
+	} else {
+		NSString * text = w.text;
+		if (text.length) {
+			[_NH3DMessenger putMainMessage:0 text:[text UTF8String]];
+		}
+	}
+}
+
+- (void)showMenuWindow:(NhMenuWindow *)win
+{
+	[NH3DMenuWindowController menuWindowWithMenu:win];
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "NH3DMapView.h"
 #import "NH3DModelObject.h"
 #import "winnh3d.h"
+#import "NhMenuWindow.h"
 #include "extern.h"
 
 #import "Hearse.h"
