@@ -372,6 +372,7 @@
 		550F395D1CA8538400CC1A4E /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F394A1CA8538400CC1A4E /* TileSet.swift */; };
 		550F395E1CA8538400CC1A4E /* ZDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550F394B1CA8538400CC1A4E /* ZDirection.swift */; };
 		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
+		5526A5C11CBEC85A00EE304A /* winnh3d-Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5526A5C01CBEC85A00EE304A /* winnh3d-Swift.swift */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet+NH3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet+NH3D.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
@@ -1316,6 +1317,7 @@
 		550F394B1CA8538400CC1A4E /* ZDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDirection.swift; sourceTree = "<group>"; };
 		5514EA7F1CA9EE5E00FC2566 /* nethackrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethackrc; sourceTree = "<group>"; };
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
+		5526A5C01CBEC85A00EE304A /* winnh3d-Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "winnh3d-Swift.swift"; sourceTree = "<group>"; };
 		55285EAC1CA70BBD00FAFDB1 /* TileSet+NH3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TileSet+NH3D.swift"; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1489,6 +1491,7 @@
 				2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */,
 				2B20F3640890346C0009D9E3 /* NH3DUserStatusModel.m */,
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
+				5526A5C01CBEC85A00EE304A /* winnh3d-Swift.swift */,
 				2B6311CB08B7A27A00162523 /* winnh3d.h */,
 				2B6311CC08B7A27A00162523 /* winnh3d.m */,
 			);
@@ -3535,6 +3538,7 @@
 				2B5CC1BE088EB7DF00940C58 /* write.c in Sources */,
 				2B5CC1BF088EB7DF00940C58 /* zap.c in Sources */,
 				550F39551CA8538400CC1A4E /* NhObject.m in Sources */,
+				5526A5C11CBEC85A00EE304A /* winnh3d-Swift.swift in Sources */,
 				2B20F3660890346C0009D9E3 /* NH3DUserStatusModel.m in Sources */,
 				2B6311CD08B7A27A00162523 /* winnh3d.m in Sources */,
 				550F395E1CA8538400CC1A4E /* ZDirection.swift in Sources */,
