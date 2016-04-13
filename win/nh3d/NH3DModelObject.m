@@ -65,10 +65,16 @@ static const NH3DMaterial defaultMat = {
 @synthesize norms;
 @synthesize faces;
 @synthesize texcoords;
+@synthesize numberOfTextures;
 
 - (NSInteger)countOfChildObjects
 {
 	return childObjects.count;
+}
+
++ (instancetype)modelNamed:(NSString*)name withTexture:(BOOL)flag
+{
+	return [self modelNamed:name textureNamed:flag ? name : nil];
 }
 
 + (instancetype)modelNamed:(NSString*)name textureNamed:(NSString*)texName
@@ -78,11 +84,6 @@ static const NH3DMaterial defaultMat = {
 		modObj = [[NH3DModelObject alloc] initWithOBJFile:name textureNamed:texName];
 	}
 	return modObj;
-}
-
-- (NSInteger)numberOfTextures
-{
-	return numberOfTextures;
 }
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
@@ -213,7 +214,7 @@ static const NH3DMaterial defaultMat = {
 				
 				//NSRange aRange = [destText rangeOfString:@"/"];
 				//if ( aRange.length != 0) {
-				// The bases are 1-based. Remove 1 to prevent off-by-one failures.
+				// The bases start at 1. Remove 1 to prevent off-by-one failures.
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				NSArray *faceArray_A = [destText componentsSeparatedByString:@"/"];
 				faces[face_qty].a = [faceArray_A[0] intValue] - 1;
@@ -234,7 +235,6 @@ static const NH3DMaterial defaultMat = {
 				
 				face_qty++;
 			} else if ([destText isEqualToString:@"mtllib"]) {
-				//TODO: scan material?
 				NSString *mtlName;
 				[scanner scanUpToCharactersFromSet:[NSCharacterSet newlineCharacterSet] intoString:&mtlName];
 				sourceURL = [[NSBundle mainBundle] URLForResource:mtlName withExtension:nil];
@@ -242,10 +242,16 @@ static const NH3DMaterial defaultMat = {
 					if (mtlName.absolutePath) {
 						sourceURL = [NSURL fileURLWithPath:mtlName];
 					} else {
+						NSLog(@"Unable to locate mtl file");
 						continue;
 					}
 				}
-				NSString *sourceMtl = [NSString stringWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
+				NSError *err;
+				NSString *sourceMtl = [NSString stringWithContentsOfURL:sourceURL usedEncoding:NULL error:&err];
+				if (!sourceMtl) {
+					NSLog(@"Unable to open mtl file: %@", err);
+					continue;
+				}
 				NSScanner *mtlScan = [NSScanner scannerWithString:sourceMtl];
 				BOOL mtlDefined = NO;
 				while(!mtlScan.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
@@ -368,7 +374,7 @@ static const NH3DMaterial defaultMat = {
 	}
 	//NSLog(@"Model %@ loading...",name);
 	
-	if (!file_3ds && [NSDataAsset class]) {
+	if (!file_3ds) {
 		NSString *locName = [NSString stringWithFormat:@"Models/%@", name];
 		file_3ds = [[NSDataAsset alloc] initWithName:locName].data;
 	}
@@ -547,14 +553,14 @@ static const NH3DMaterial defaultMat = {
 					//NSLog(@"Number of TexCoords %d",texcords_qty);
 					
 					for (i = 0; i < texcords_qty; i++) {
-						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
+						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location, sizeof(float))];
 						fileRange.location += sizeof(float);
 						
 						texcoords[i].s = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
 						
 						//NSLog(@"%d Mapping list u: %f",i,texcoords[i].s);
 						
-						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location , sizeof(float))];
+						[file_3ds getBytes:&floatBuffer range:NSMakeRange(fileRange.location, sizeof(float))];
 						fileRange.location += sizeof(float);
 						
 						texcoords[i].t = NSSwapLittleFloatToHost(NSConvertHostFloatToSwapped(floatBuffer));
@@ -810,7 +816,6 @@ static const NH3DMaterial defaultMat = {
 	return texReference;
 }
 
-
 - (NH3DFaceType *)normReference
 {
 	return normReference;
@@ -836,7 +841,7 @@ static const NH3DMaterial defaultMat = {
 		++numberOfTextures;
 		return YES;
 	} else {
-		NSLog(@"Model %@: Can't add new texture %@. Limit of textures reached.", modelCode, textureName);
+		NSLog(@"Model %@: Can't add new texture \"%@\": Limit of textures reached.", modelCode, textureName);
 		return NO;
 	}
 }
@@ -1292,14 +1297,24 @@ static const NH3DMaterial defaultMat = {
 			glPopMatrix();
 		}
 		
-		// Draw ChildObject
+		// Draw children
 		if (hasChildObject) {
 			for (NH3DModelObject *childObject in childObjects) {
 				[childObject drawSelf];
 			}
 		}
 	}
-}	
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"Model \"%@\" (\"%@\"), vertices %i, model type %i, children: %@", modelName, modelCode, verts_qty, modelType, hasChildObject ? @([self countOfChildObjects]) : @"NO"];
+}
+
+- (NSString *)debugDescription
+{
+	return [NSString stringWithFormat:@"Model \"%@\" (File name \"%@\"), vertices %i, model type %i, children: {\n%@\n}", modelName, modelCode, verts_qty, modelType, childObjects];
+}
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
 {

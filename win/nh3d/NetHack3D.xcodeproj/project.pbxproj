@@ -333,9 +333,7 @@
 		2BACF9E60902568F0095C8A4 /* makedefs.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E40891ADF000D38098 /* makedefs.c */; };
 		2BACFA02090259400095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
 		2BACFA03090259490095C8A4 /* monst.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC110088EB7DF00940C58 /* monst.c */; };
-		2BACFA1B090263BB0095C8A4 /* lev_yacc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E20891ADF000D38098 /* lev_yacc.c */; };
 		2BACFA1C090263BE0095C8A4 /* lev_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E10891ADF000D38098 /* lev_main.c */; };
-		2BACFA1D090263C10095C8A4 /* lev_lex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E00891ADF000D38098 /* lev_lex.c */; };
 		2BACFA3B090265240095C8A4 /* alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0DB088EB7DF00940C58 /* alloc.c */; };
 		2BACFA3C0902653E0095C8A4 /* decl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0E4088EB7DF00940C58 /* decl.c */; };
 		2BACFA3D090265480095C8A4 /* drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0F0088EB7DF00940C58 /* drawing.c */; };
@@ -343,8 +341,6 @@
 		2BACFA3F090265710095C8A4 /* objects.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC117088EB7DF00940C58 /* objects.c */; };
 		2BACFA40090265910095C8A4 /* panic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E60891ADF000D38098 /* panic.c */; };
 		2BACFA41090265C70095C8A4 /* dgn_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DA0891ADF000D38098 /* dgn_main.c */; };
-		2BACFA42090265C90095C8A4 /* dgn_lex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D90891ADF000D38098 /* dgn_lex.c */; };
-		2BACFA43090265CD0095C8A4 /* dgn_yacc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DB0891ADF000D38098 /* dgn_yacc.c */; };
 		2BACFA44090265E10095C8A4 /* panic.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E60891ADF000D38098 /* panic.c */; };
 		2BACFA45090265FA0095C8A4 /* alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 2B5CC0DB088EB7DF00940C58 /* alloc.c */; };
 		2BACFA630902661E0095C8A4 /* recover.c in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62E80891ADF000D38098 /* recover.c */; };
@@ -379,6 +375,11 @@
 		55285EAD1CA70BBD00FAFDB1 /* TileSet+NH3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet+NH3D.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
+		5539E6191CB2F03F00ED6EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5539E6181CB2F03F00ED6EF3 /* AppDelegate.swift */; };
+		5539E61B1CB2F03F00ED6EF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5539E61A1CB2F03F00ED6EF3 /* Assets.xcassets */; };
+		5539E61E1CB2F03F00ED6EF3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5539E61C1CB2F03F00ED6EF3 /* MainMenu.xib */; };
+		5539E6261CB2F09A00ED6EF3 /* SaveRecoveryOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5539E6251CB2F09A00ED6EF3 /* SaveRecoveryOperation.m */; };
+		5539E62B1CB32ADD00ED6EF3 /* Recover.app in Resources */ = {isa = PBXBuildFile; fileRef = 5539E6161CB2F03F00ED6EF3 /* Recover.app */; };
 		554F7EC51C332FF700212F9F /* readme_NetHack3D.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */; };
 		5560A29A1C347D5B00BF77F7 /* sys.c in Sources */ = {isa = PBXBuildFile; fileRef = 5560A2991C347D5B00BF77F7 /* sys.c */; };
 		5560A2A21C347F0700BF77F7 /* symbols in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2A01C347F0700BF77F7 /* symbols */; };
@@ -399,12 +400,16 @@
 		55A571031C8D61A000FE4A3B /* NH3DModelObject+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
-		55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */ = {isa = PBXBuildFile; fileRef = 2BACF9EF090258000095C8A4 /* recover */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
+		55C4A5481CBCA333003A29B0 /* boomerang.png in Resources */ = {isa = PBXBuildFile; fileRef = 55C4A5471CBCA333003A29B0 /* boomerang.png */; };
 		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
 		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
+		55E4AF9C1CB06433003D92B9 /* lev_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DE0891ADF000D38098 /* lev_comp.l */; };
+		55E4AF9D1CB06433003D92B9 /* lev_comp.y in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DF0891ADF000D38098 /* lev_comp.y */; };
+		55E4AF9E1CB06455003D92B9 /* dgn_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D70891ADF000D38098 /* dgn_comp.l */; };
+		55E4AF9F1CB06455003D92B9 /* dgn_comp.y in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D80891ADF000D38098 /* dgn_comp.y */; };
 		55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */; };
 		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
@@ -413,6 +418,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5539E6271CB32A8600ED6EF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5539E6151CB2F03F00ED6EF3;
+			remoteInfo = RecoverApp;
+		};
 		557CE1C51C8E1EF500B43765 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -455,13 +467,6 @@
 			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
 			remoteInfo = headers;
 		};
-		55BCFCAB1C9C87410076210F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2BACF9EE090258000095C8A4;
-			remoteInfo = recover;
-		};
 		55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -477,20 +482,6 @@
 			remoteInfo = makefiles;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		55BCFCA91C9C87110076210F /* Copy Addl. Executables */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				55BCFCAA1C9C87370076210F /* recover in Copy Addl. Executables */,
-			);
-			name = "Copy Addl. Executables";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -1333,6 +1324,14 @@
 		553562721CA336E30015E8BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
 		553562741CA336ED0015E8BA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
 		55388FDA1C8340C2002D3B99 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		5539E6161CB2F03F00ED6EF3 /* Recover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recover.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5539E6181CB2F03F00ED6EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5539E61A1CB2F03F00ED6EF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5539E61D1CB2F03F00ED6EF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		5539E61F1CB2F03F00ED6EF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5539E6231CB2F09A00ED6EF3 /* Recover-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Recover-Bridging-Header.h"; sourceTree = "<group>"; };
+		5539E6241CB2F09A00ED6EF3 /* SaveRecoveryOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveRecoveryOperation.h; sourceTree = "<group>"; };
+		5539E6251CB2F09A00ED6EF3 /* SaveRecoveryOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveRecoveryOperation.m; sourceTree = "<group>"; };
 		55459F8A1B5DFD690098F5BC /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
 		554F7EC61C332FF700212F9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
 		554F7EC81C332FF900212F9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/readme_NetHack3D.rtf; sourceTree = "<group>"; };
@@ -1372,6 +1371,7 @@
 		55C183461C39E43900602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		55C183471C39E44D00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/UserMakeSheet.strings; sourceTree = "<group>"; };
 		55C183481C39E46A00602251 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/PreferencePanel.strings; sourceTree = "<group>"; };
+		55C4A5471CBCA333003A29B0 /* boomerang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = boomerang.png; sourceTree = "<group>"; };
 		55CD9CEF1C45A439007F36B2 /* cppregex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cppregex.cpp; sourceTree = "<group>"; };
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
 		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
@@ -1424,6 +1424,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2BCAABD30913A7A500AF1C59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5539E6131CB2F03F00ED6EF3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1509,6 +1516,7 @@
 				2BCAABC00913A70000AF1C59 /* tilemap */,
 				8D1107320486CEB800E47090 /* NetHack3D.app */,
 				2BCAABD50913A7A500AF1C59 /* tiletext */,
+				5539E6161CB2F03F00ED6EF3 /* Recover.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1520,6 +1528,7 @@
 				5560A2A51C347F8C00BF77F7 /* Other Sources */,
 				29B97315FDCFA39411CA2CEA /* NetHack */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				5539E6171CB2F03F00ED6EF3 /* RecoverApp */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -1577,11 +1586,11 @@
 		2B26129509233E7800CA7A64 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				55C4A5471CBCA333003A29B0 /* boomerang.png */,
 				55D555351C96019E001B0ECB /* boomerang.mtl */,
 				55D555361C96019E001B0ECB /* boomerang.obj */,
 			);
-			name = models;
-			path = ../models;
+			path = models;
 			sourceTree = "<group>";
 		};
 		2B31DB7508CD73C5008CCAAC /* win */ = {
@@ -2504,8 +2513,7 @@
 				2B0964CE091D465D004965B2 /* waterDrop4.wav */,
 				2B0964E0091D4A98004965B2 /* waterDrop5.wav */,
 			);
-			name = Sound;
-			path = ../Sound;
+			path = Sound;
 			sourceTree = "<group>";
 		};
 		2BA0209208EF3D68004057D1 /* Cocoa_GNUStep */ = {
@@ -2554,17 +2562,9 @@
 		2BEB62D50891ADF000D38098 /* util */ = {
 			isa = PBXGroup;
 			children = (
-				2BEB62D70891ADF000D38098 /* dgn_comp.l */,
-				2BEB62D80891ADF000D38098 /* dgn_comp.y */,
-				2BEB62D90891ADF000D38098 /* dgn_lex.c */,
-				2BEB62DA0891ADF000D38098 /* dgn_main.c */,
-				2BEB62DB0891ADF000D38098 /* dgn_yacc.c */,
+				55E4AFA01CB065B8003D92B9 /* dgn_comp */,
 				2BEB62DC0891ADF000D38098 /* dlb_main.c */,
-				2BEB62DE0891ADF000D38098 /* lev_comp.l */,
-				2BEB62DF0891ADF000D38098 /* lev_comp.y */,
-				2BEB62E00891ADF000D38098 /* lev_lex.c */,
-				2BEB62E10891ADF000D38098 /* lev_main.c */,
-				2BEB62E20891ADF000D38098 /* lev_yacc.c */,
+				55E4AFA11CB065E4003D92B9 /* lev_comp */,
 				2BEB62E40891ADF000D38098 /* makedefs.c */,
 				2BEB62E50891ADF000D38098 /* Makefile */,
 				2BEB62E60891ADF000D38098 /* panic.c */,
@@ -2635,6 +2635,20 @@
 			path = hints;
 			sourceTree = "<group>";
 		};
+		5539E6171CB2F03F00ED6EF3 /* RecoverApp */ = {
+			isa = PBXGroup;
+			children = (
+				5539E6231CB2F09A00ED6EF3 /* Recover-Bridging-Header.h */,
+				5539E6241CB2F09A00ED6EF3 /* SaveRecoveryOperation.h */,
+				5539E6251CB2F09A00ED6EF3 /* SaveRecoveryOperation.m */,
+				5539E6181CB2F03F00ED6EF3 /* AppDelegate.swift */,
+				5539E61A1CB2F03F00ED6EF3 /* Assets.xcassets */,
+				5539E61C1CB2F03F00ED6EF3 /* MainMenu.xib */,
+				5539E61F1CB2F03F00ED6EF3 /* Info.plist */,
+			);
+			path = RecoverApp;
+			sourceTree = "<group>";
+		};
 		5560A2A51C347F8C00BF77F7 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2642,6 +2656,30 @@
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		55E4AFA01CB065B8003D92B9 /* dgn_comp */ = {
+			isa = PBXGroup;
+			children = (
+				2BEB62D70891ADF000D38098 /* dgn_comp.l */,
+				2BEB62D80891ADF000D38098 /* dgn_comp.y */,
+				2BEB62D90891ADF000D38098 /* dgn_lex.c */,
+				2BEB62DB0891ADF000D38098 /* dgn_yacc.c */,
+				2BEB62DA0891ADF000D38098 /* dgn_main.c */,
+			);
+			name = dgn_comp;
+			sourceTree = "<group>";
+		};
+		55E4AFA11CB065E4003D92B9 /* lev_comp */ = {
+			isa = PBXGroup;
+			children = (
+				2BEB62DE0891ADF000D38098 /* lev_comp.l */,
+				2BEB62DF0891ADF000D38098 /* lev_comp.y */,
+				2BEB62E00891ADF000D38098 /* lev_lex.c */,
+				2BEB62E20891ADF000D38098 /* lev_yacc.c */,
+				2BEB62E10891ADF000D38098 /* lev_main.c */,
+			);
+			name = lev_comp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2744,6 +2782,23 @@
 			productReference = 2BCAABD50913A7A500AF1C59 /* tiletext */;
 			productType = "com.apple.product-type.tool";
 		};
+		5539E6151CB2F03F00ED6EF3 /* RecoverApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5539E6221CB2F03F00ED6EF3 /* Build configuration list for PBXNativeTarget "RecoverApp" */;
+			buildPhases = (
+				5539E6121CB2F03F00ED6EF3 /* Sources */,
+				5539E6131CB2F03F00ED6EF3 /* Frameworks */,
+				5539E6141CB2F03F00ED6EF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RecoverApp;
+			productName = RecoverApp;
+			productReference = 5539E6161CB2F03F00ED6EF3 /* Recover.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D1107260486CEB800E47090 /* NetHack3D */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B14B3280890124A0051A4A9 /* Build configuration list for PBXNativeTarget "NetHack3D" */;
@@ -2751,12 +2806,11 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				55BCFCA91C9C87110076210F /* Copy Addl. Executables */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				55BCFCAC1C9C87410076210F /* PBXTargetDependency */,
+				5539E6281CB32A8600ED6EF3 /* PBXTargetDependency */,
 				557CE1C91C8E207900B43765 /* PBXTargetDependency */,
 				557CE1CB1C8E207900B43765 /* PBXTargetDependency */,
 			);
@@ -2773,10 +2827,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = NH3D;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
 				TargetAttributes = {
+					5539E6151CB2F03F00ED6EF3 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					557CE1C11C8E1EE100B43765 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -2815,15 +2872,26 @@
 				557CE1CC1C8E242500B43765 /* util */,
 				55D0E4871C8E18EA0074B7C4 /* dat */,
 				557CE1C11C8E1EE100B43765 /* src */,
+				5539E6151CB2F03F00ED6EF3 /* RecoverApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5539E6141CB2F03F00ED6EF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5539E61B1CB2F03F00ED6EF3 /* Assets.xcassets in Resources */,
+				5539E61E1CB2F03F00ED6EF3 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5539E62B1CB32ADD00ED6EF3 /* Recover.app in Resources */,
 				5560A2B21C3481AB00BF77F7 /* medusa-3.lev in Resources */,
 				2B5CC026088EB5A600940C58 /* air.lev in Resources */,
 				2B5CC027088EB5A600940C58 /* Arc-fila.lev in Resources */,
@@ -2873,6 +2941,7 @@
 				2B5CC068088EB5A600940C58 /* juiblex.lev in Resources */,
 				2B5CC06A088EB5A600940C58 /* Kni-fila.lev in Resources */,
 				2B5CC06B088EB5A600940C58 /* Kni-filb.lev in Resources */,
+				55C4A5481CBCA333003A29B0 /* boomerang.png in Resources */,
 				2B5CC06C088EB5A600940C58 /* Kni-goal.lev in Resources */,
 				2B5CC06D088EB5A600940C58 /* Kni-loca.lev in Resources */,
 				2B5CC06E088EB5A600940C58 /* Kni-strt.lev in Resources */,
@@ -3268,11 +3337,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BACFA1B090263BB0095C8A4 /* lev_yacc.c in Sources */,
+				55E4AF9D1CB06433003D92B9 /* lev_comp.y in Sources */,
 				2BACFA1C090263BE0095C8A4 /* lev_main.c in Sources */,
-				2BACFA1D090263C10095C8A4 /* lev_lex.c in Sources */,
 				2BACFA3B090265240095C8A4 /* alloc.c in Sources */,
 				2BACFA3C0902653E0095C8A4 /* decl.c in Sources */,
+				55E4AF9C1CB06433003D92B9 /* lev_comp.l in Sources */,
 				2BACFA3D090265480095C8A4 /* drawing.c in Sources */,
 				2BACFA3E0902656D0095C8A4 /* monst.c in Sources */,
 				2BACFA3F090265710095C8A4 /* objects.c in Sources */,
@@ -3285,8 +3354,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BACFA41090265C70095C8A4 /* dgn_main.c in Sources */,
-				2BACFA42090265C90095C8A4 /* dgn_lex.c in Sources */,
-				2BACFA43090265CD0095C8A4 /* dgn_yacc.c in Sources */,
+				55E4AF9F1CB06455003D92B9 /* dgn_comp.y in Sources */,
+				55E4AF9E1CB06455003D92B9 /* dgn_comp.l in Sources */,
 				2BACFA44090265E10095C8A4 /* panic.c in Sources */,
 				2BACFA45090265FA0095C8A4 /* alloc.c in Sources */,
 			);
@@ -3314,6 +3383,15 @@
 			files = (
 				2BCAABD70913A7B100AF1C59 /* tilemap.c in Sources */,
 				2BCAABD80913A7B100AF1C59 /* tiletext.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5539E6121CB2F03F00ED6EF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5539E6191CB2F03F00ED6EF3 /* AppDelegate.swift in Sources */,
+				5539E6261CB2F09A00ED6EF3 /* SaveRecoveryOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3483,6 +3561,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5539E6281CB32A8600ED6EF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5539E6151CB2F03F00ED6EF3 /* RecoverApp */;
+			targetProxy = 5539E6271CB32A8600ED6EF3 /* PBXContainerItemProxy */;
+		};
 		557CE1C61C8E1EF500B43765 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55D0E48C1C8E190B0074B7C4 /* makefiles */;
@@ -3512,11 +3595,6 @@
 			isa = PBXTargetDependency;
 			target = 557CE1CC1C8E242500B43765 /* util */;
 			targetProxy = 557CE1D51C8E256600B43765 /* PBXContainerItemProxy */;
-		};
-		55BCFCAC1C9C87410076210F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2BACF9EE090258000095C8A4 /* recover */;
-			targetProxy = 55BCFCAB1C9C87410076210F /* PBXContainerItemProxy */;
 		};
 		55BCFCAE1C9C87780076210F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3584,6 +3662,14 @@
 			name = FirstLaunch.xib;
 			sourceTree = "<group>";
 		};
+		5539E61C1CB2F03F00ED6EF3 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5539E61D1CB2F03F00ED6EF3 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		554F7EC71C332FF700212F9F /* readme_NetHack3D.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3618,8 +3704,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3641,7 +3725,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
@@ -3667,8 +3750,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_CPP_EXCEPTIONS = YES;
-				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3688,7 +3769,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PROFILING_CODE = NO;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
@@ -3705,6 +3785,10 @@
 		2B14B32D0890124A0051A4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -3712,6 +3796,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3738,12 +3823,17 @@
 		2B14B32E0890124A0051A4A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_CW_ASM_SYNTAX = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_PASCAL_STRINGS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = NOMAIL;
@@ -4007,6 +4097,73 @@
 			};
 			name = Release;
 		};
+		5539E6201CB2F03F00ED6EF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = RecoverApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Recover;
+				PRODUCT_NAME = Recover;
+				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5539E6211CB2F03F00ED6EF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				INFOPLIST_FILE = RecoverApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Recover;
+				PRODUCT_NAME = Recover;
+				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
+			};
+			name = Release;
+		};
 		557CE1C31C8E1EE100B43765 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4134,6 +4291,15 @@
 			buildConfigurations = (
 				2BCAABDA0913A7B700AF1C59 /* Debug */,
 				2BCAABDB0913A7B700AF1C59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5539E6221CB2F03F00ED6EF3 /* Build configuration list for PBXNativeTarget "RecoverApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5539E6201CB2F03F00ED6EF3 /* Debug */,
+				5539E6211CB2F03F00ED6EF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

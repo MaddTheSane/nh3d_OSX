@@ -80,7 +80,6 @@
 - (IBAction)closeModalDialog:(id)sender;
 
 - (void)fitMenuWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView;
-- (void)fitTextWindowSizeToContents:(NSWindow*)window scrollView:(NSScrollView *)scrollView;
 
 - (void)keyDown:(NSEvent*)event;
 

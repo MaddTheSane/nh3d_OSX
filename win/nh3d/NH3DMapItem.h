@@ -18,18 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 							color:(int)col
 							 posX:(int)x
 							 posY:(int)y
-						  special:(int)sp DEPRECATED_ATTRIBUTE;
-
-
-/// This is the designated initializer.
-- (instancetype)initWithParameter:(char)ch
-							glyph:(int)glf
-							color:(int)col
-							 posX:(int)x
-							 posY:(int)y
 						  special:(int)sp
 						  bgGlyph:(int)bg NS_DESIGNATED_INITIALIZER;
-
 
 @property (readonly, copy) NSString *symbol;
 @property (readonly) int glyph;
@@ -63,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, getter=isDetected) BOOL detected;
 
-/// Returns \c YES if the tile has a pet from the player.
+/// Returns \c YES if the tile has a player's pet.
 @property (readonly, getter=isPet) BOOL pet;
 
 @property (readonly) BOOL wasRidden;

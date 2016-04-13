@@ -86,7 +86,7 @@ var NH3DINVFONTSIZE: CGFloat {
 }
 
 var TRADITIONAL_MAP: Bool {
-	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseTraditionalMapKey)
+	return TRADITIONAL_MAP_func()
 }
 
 var TRADITIONAL_MAP_TILE: Bool {
@@ -122,7 +122,7 @@ var OPENGLVIEW_NUMBER_OF_THREADS: Int {
 }
 
 var NH3DGL_USETILE: Bool {
-	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DGLTileKey)
+	return NH3DGL_USETILE_func()
 }
 
 var SOUND_MUTE: Bool {

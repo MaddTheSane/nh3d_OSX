@@ -365,21 +365,21 @@ do_makedefs(char *options)
 
 static char namebuf[1000];
 static char *
-name_file(char *template, char *tag)
+name_file(const char *template, const char *tag)
 {
     Sprintf(namebuf, template, tag);
     return namebuf;
 }
 
 static void
-delete_file(char *template, char *tag)
+delete_file(const char *template, const char *tag)
 {
     char *name = name_file(template, tag);
     Unlink(name);
 }
 
 static FILE *
-getfp(char *template, char *tag, char *mode)
+getfp(const char *template, const char *tag, const char *mode)
 {
     char *name = name_file(template, tag);
     FILE *rv = fopen(name, mode);
@@ -655,7 +655,7 @@ grep_check_id(char *id)
 }
 
 static void
-grep_show_wstack(char *tag)
+grep_show_wstack(const char *tag)
 {
     int x;
 

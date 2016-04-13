@@ -9,7 +9,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include <OpenGL/gltypes.h>
-#include <simd/simd.h>
+#include <simd/vector_types.h>
 #import "NH3Dcommon.h"
 
 #import "NH3DUserDefaultsExtern.h"
@@ -23,24 +23,24 @@ typedef struct nh3d_point3 {
 } NH3DVertexType;
 
 typedef struct nh3d_face3 {
-    unsigned short  a,b,c;
+    unsigned short  a, b, c;
 } NH3DFaceType;
 
-typedef struct {
-    GLfloat s,t;
+typedef struct nh3d_coord2 {
+    GLfloat s, t;
 } NH3DMapCoordType;
 
 typedef GLfloat NH3DMaterialType[4];
 
-typedef struct {
+typedef struct NH3DMaterial {
 	NH3DMaterialType	ambient;
 	NH3DMaterialType	diffuse;
 	NH3DMaterialType	specular;
 	NH3DMaterialType	emission;
-	float				shininess;
+	GLfloat				shininess;
 } NH3DMaterial;
 
-typedef struct {
+typedef struct NH3DParticle {
 	BOOL active;
 	/*! model life */
 	GLfloat life;
@@ -72,7 +72,6 @@ typedef struct {
 	GLfloat zg;
 } NH3DParticle;
 
-
 @interface NH3DModelObject : NSObject <NSFastEnumeration> {
 @private
 	BOOL				active;
@@ -94,7 +93,7 @@ typedef struct {
 	
 	int					texture;
 	GLuint				textures[MAX_TEXTURES];
-	int					numberOfTextures;
+	NSInteger			numberOfTextures;
 	BOOL				useEnvironment;
 	
 	NH3DParticle		*particles;			/* particle Array */
@@ -119,6 +118,8 @@ typedef struct {
 	GLfloat				yspeed;
 }
 
+@property (readonly) NH3DModelType modelType;
+
 /// init for particle emitter
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
@@ -130,9 +131,10 @@ typedef struct {
 
 - (nullable instancetype) initWithOBJFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER;
 
-
 - (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_SWIFT_NAME(init(with3DSFile:withTexture:));
-- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER NS_SWIFT_NAME(init(with3DSFile:textureNamed:)); // This is designated initializer.
+- (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER NS_SWIFT_NAME(init(with3DSFile:textureNamed:)); // This is a designated initializer.
+
++ (nullable instancetype)modelNamed:(NSString*)name withTexture:(BOOL)flag;
 
 + (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName;
 
@@ -170,10 +172,8 @@ typedef struct {
 @property BOOL useEnvironment;
 
 @property (getter=isAnimated) BOOL animated;
-@property float animationValue;
-@property float animationRate;
-
-- (void)animate;
+@property GLfloat animationValue;
+@property GLfloat animationRate;
 
 @property (nonatomic) NH3DVertexType particleGravity;
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:));
@@ -209,7 +209,7 @@ typedef struct {
 
 - (void)drawSelf;
 
-@property (readonly) NH3DModelType modelType;
+- (void)animate;
 
 @end
 

@@ -261,7 +261,7 @@
 			aColor = [[NSColor greenColor] highlightWithLevel:0.5];
 			break;
 		case 11:
-			aColor = [ NSColor yellowColor ];
+			aColor = [NSColor yellowColor];
 			break;
 		case 12:
 			aColor = [[NSColor blueColor] highlightWithLevel:0.5];
@@ -296,6 +296,7 @@
 	[lock lock];
 	symbol = chr;
 	[self checkDrawingType];
+	tile = nil;
 	[lock unlock];
 }
 
@@ -328,20 +329,16 @@
 		return nil;
 	}
 	
-	NSImage *bgtile;
+	NSImage *bgtile = nil;
 	if (glyph != bgGlyph) {
 		bgtile = self.backgroundTile;
 	}
 	if (bgtile != nil) {
-		NSImage *img = [[NSImage alloc] initWithSize:tmpTile.size];
-		[img lockFocus];
-		CIContext *ciCtx = [CIContext contextWithCGContext:[NSGraphicsContext currentContext].CGContext options:nil];
-		CIImage *tmpFG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[tmpTile representations] firstObject]];
-		CIImage *tmpBG = [[CIImage alloc] initWithBitmapImageRep:(NSBitmapImageRep*)[[bgtile representations] firstObject]];
-		[ciCtx drawImage:tmpBG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
-		[ciCtx drawImage:tmpFG inRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height) fromRect:NSMakeRect(0, 0, bgtile.size.width, bgtile.size.height)];
-		[img unlockFocus];
-		tmpTile = img;
+		NSImage *tmpFG = tmpTile;
+		tmpTile = [bgtile copy];
+		[tmpTile lockFocus];
+		[tmpFG drawInRect:NSMakeRect(0, 0, tmpTile.size.width, tmpTile.size.height)];
+		[tmpTile unlockFocus];
 	}
 	
 	tile = tmpTile;
@@ -351,7 +348,7 @@
 - (NSImage *)foregroundTile
 {
 	if (glyph != S_stone + GLYPH_CMAP_OFF)
-		return [[TileSet instance] tileImageFromGlyph:glyph];
+		return [[TileSet instance] imageForGlyph:glyph];
 	else 
 		return nil;
 }
@@ -359,7 +356,7 @@
 - (NSImage *)backgroundTile
 {
 	if ((bgGlyph != (S_stone + GLYPH_CMAP_OFF)) && bgGlyph != NO_GLYPH)
-		return [[TileSet instance] tileImageFromGlyph:bgGlyph];
+		return [[TileSet instance] imageForGlyph:bgGlyph];
 	else
 		return nil;
 }

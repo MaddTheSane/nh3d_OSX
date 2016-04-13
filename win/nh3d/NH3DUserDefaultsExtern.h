@@ -66,7 +66,11 @@ extern NSString *const NH3DSoundMuteKey;
 extern NSString *NH3DUseTraditionalMapKey;
 extern NSString *NH3DTraditionalMapModeKey;
 
-#define TRADITIONAL_MAP			[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey]
+static inline BOOL TRADITIONAL_MAP_func() {
+	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey];
+}
+
+#define TRADITIONAL_MAP			TRADITIONAL_MAP_func()
 #define TRADITIONAL_MAP_TILE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey]
 
 // Tile settings
@@ -110,16 +114,21 @@ extern NSString *NH3DGLTileKey;
 #define NH3DGL_TILE_SIZE			4.00f
 #define NH3DGL_MAPVIEWSIZE_COLUMN	11
 #define NH3DGL_MAPVIEWSIZE_ROW		11
-#define NH3D_MAX_EFFECTS			12
+#define NH3D_MAX_EFFECTS			12l
 
-#define NH3DGL_USETILE			[[NSUserDefaults standardUserDefaults] boolForKey:NH3DGLTileKey]
+static inline BOOL NH3DGL_USETILE_func()
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DGLTileKey];
+}
+
+#define NH3DGL_USETILE NH3DGL_USETILE_func()
 
 #define ENEMY_IS_NONE	0
 #define ENEMY_IS_LEFT	1
 #define ENEMY_IS_FRONT	2
 #define ENEMY_IS_RIGHT	3
 
-#define WAIT_NONE		0
+#define WAIT_NONE		0.0
 #define WAIT_FAST		60.0
 #define WAIT_NORMAL		45.0
 #define WAIT_SLOW		30.0

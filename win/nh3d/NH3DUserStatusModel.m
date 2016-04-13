@@ -917,7 +917,9 @@ extern const char *hu_stat[]; /* from eat.c */
 {
 	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
 		if (stDrawer.state == NSDrawerClosedState || stDrawer.state == NSDrawerClosingState) {
-			[[NSSound soundNamed:@"Purr"] play];
+			if (!SOUND_MUTE) {
+				[[NSSound soundNamed:@"Purr"] play];
+			}
 			[stDrawer open];
 		}
 	} else if (stDrawer.state == NSDrawerOpenState || stDrawer.state == NSDrawerOpeningState) {
@@ -1038,7 +1040,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	[self checkStDrawer];
 	if (stDrawer.state != NSDrawerClosedState) {
 		[stDrawer.contentView setNeedsDisplay:YES];
-		//[self performSelector:@selector(pokeDrawer) withObject:nil afterDelay:0.01];
+		[self performSelector:@selector(pokeDrawer) withObject:nil afterDelay:0.5];
 	}
 }
 

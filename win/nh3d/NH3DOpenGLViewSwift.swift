@@ -14,12 +14,17 @@ import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 
 
-private let TEX_SIZE = 128
+private let TEX_SIZE = 256
 
-private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {}
-private func blankFloorMethod() {}
+private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {
+	// do nothing
+}
+private func blankFloorMethod() {
+	// do nothing
+}
 private typealias LoadModelBlock = (glyph: Int32) -> NH3DModelObject?
 private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
+	// do nothing
 	return nil
 }
 
@@ -51,21 +56,21 @@ private let vsyncNoWait: GLint = 0
 // MARK: floor model
 ////////////////////////////////
 
-private var FloorVerts: [NH3DVertexType] = [
+private let FloorVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: -2.0, y: 0.0, z: -2.0),
 	NH3DVertexType(x: -2.0, y: 0.0, z: 2.0),
 	NH3DVertexType(x: 2.0, y: 0.0, z: -2.0),
 	NH3DVertexType(x: 2.0, y: 0.0, z: 2.0)
 ]
 
-private var FloorTexVerts:[NH3DMapCoordType] = [
+private let FloorTexVerts:[NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0,t: 0.0),
 	NH3DMapCoordType(s: 1.0,t: 0.0),
 	NH3DMapCoordType(s: 0.0,t: 1.0),
 	NH3DMapCoordType(s: 1.0, t: 1.0)
 ]
 
-private var FloorVertNorms: [NH3DVertexType] = [
+private let FloorVertNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
 	NH3DVertexType(x: -0.25, y: 0.50, z: 0.25),
 	NH3DVertexType(x: 0.25, y: 0.50, z: -0.25),
@@ -76,14 +81,14 @@ private var FloorVertNorms: [NH3DVertexType] = [
 // MARK: ceiling model
 //////////////////////////////
 
-private var CeilingVerts: [NH3DVertexType] = [
+private let CeilingVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: 2.0, y: 6.0, z: -2.0),
 	NH3DVertexType(x: 2.0, y: 6.0, z: 2.0),
 	NH3DVertexType(x: -2.0, y: 6.0, z: -2.0),
 	NH3DVertexType(x: -2.0, y: 6.0, z: 2.0)
 ]
 
-private var CeilingTexVerts: [NH3DMapCoordType] = [
+private let CeilingTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 1.0),
 	NH3DMapCoordType(s: 1.0, t: 0.0),
@@ -91,7 +96,7 @@ private var CeilingTexVerts: [NH3DMapCoordType] = [
 ]
 
 
-private var CeilingVertNorms: [NH3DVertexType] = [
+private let CeilingVertNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
 	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
 	NH3DVertexType(x: 0.0, y: -1.0, z: 0.0),
@@ -103,21 +108,21 @@ private var CeilingVertNorms: [NH3DVertexType] = [
 ////////////////////////////////
 
 
-private var defaultVerts: [NH3DVertexType] = [
+private let defaultVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: -1.5, y: 0.5, z: 0),
 	NH3DVertexType(x:  1.5, y: 0.5, z: 0),
 	NH3DVertexType(x: -1.5, y: 3.5, z: 0),
 	NH3DVertexType(x:  1.5, y: 3.5, z: 0)
 ]
 
-private var defaultTexVerts: [NH3DMapCoordType] = [
+private let defaultTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0,t: 1.0),
 	NH3DMapCoordType(s: 1.0,t: 1.0),
 	NH3DMapCoordType(s: 0.0,t: 0.0),
 	NH3DMapCoordType(s: 1.0,t: 0.0)
 ]
 
-private var defaultNorms: [NH3DVertexType] = [
+private let defaultNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5),
 	NH3DVertexType(x: 0.5, y: 0.0, z: 0.5)
 ]
@@ -126,21 +131,21 @@ private var defaultNorms: [NH3DVertexType] = [
 // MARK: null object
 ////////////////////////////////
 
-private var nullObjectVerts: [NH3DVertexType] = [
+private let nullObjectVerts: [NH3DVertexType] = [
 	NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: 2, y: 6, z: -2), NH3DVertexType(x: -2, y: 6, z: -2), // rear
 	NH3DVertexType(x: 2, y: 0, z: 2), NH3DVertexType(x: 2, y: 0, z: -2), NH3DVertexType(x: 2, y: 6, z: 2), NH3DVertexType(x: 2, y: 6, z: -2), // right
 	NH3DVertexType(x: -2, y: 0, z: 2), NH3DVertexType(x: 2, y: 0, z: 2), NH3DVertexType(x: -2, y: 6, z: 2), NH3DVertexType(x: 2, y: 6, z: 2), // front
 	NH3DVertexType(x: -2, y: 0, z: -2), NH3DVertexType(x: -2, y: 0, z: 2), NH3DVertexType(x: -2, y: 6, z: -2), NH3DVertexType(x: -2, y: 6, z: 2)  // left
 ]
 
-private var nullObjectTexVerts: [NH3DMapCoordType] = [
+private let nullObjectTexVerts: [NH3DMapCoordType] = [
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0),
 	NH3DMapCoordType(s: 0.0, t: 0.0), NH3DMapCoordType(s: 1.0, t: 0.0), NH3DMapCoordType(s: 0.0, t: 1.0), NH3DMapCoordType(s: 1.0, t: 1.0)
 ]
 
-private var nullObjectNorms: [NH3DVertexType] = [
+private let nullObjectNorms: [NH3DVertexType] = [
 	NH3DVertexType(x: 0.20, y: 0.50, z: -0.30), NH3DVertexType(x: 0.20, y: 0.50, z: -0.30),
 	NH3DVertexType(x: -0.30, y: -0.50, z: 0.20), NH3DVertexType(x: -0.30, y: -0.50, z: 0.20),
 	NH3DVertexType(x: 0.20, y: 0.50, z: 0.30), NH3DVertexType(x: 0.20, y: 0.50, z: 0.30),
@@ -150,7 +155,7 @@ private var nullObjectNorms: [NH3DVertexType] = [
 
 // MARK: Material
 
-private var nh3dMaterialArray: [NH3DMaterial] = [
+private let nh3dMaterialArray: [NH3DMaterial] = [
 	// Black
 	NH3DMaterial(ambient: (0.05, 0.05, 0.05, 1.0),			//	ambient color
 		diffuse: (0.1, 0.1, 0.1, 1.0),						//	diffuse color
@@ -461,7 +466,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		// init Effect models
 		_enemyPosition = 0
-		effectArray.reserveCapacity(12)
+		effectArray.reserveCapacity(NH3D_MAX_EFFECTS)
 		
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
@@ -617,7 +622,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func drawGLView(x x: Int32, z: Int32) {
+	private func drawGLView(x x: Int32, z: Int32) {
 		guard let mapItem = mapItemValue[Int(x)][Int(z)] else {
 			return
 		}
@@ -630,7 +635,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 	}
 	
-	func loadImageToTexture(named filename: String) -> GLuint {
+	private func loadImageToTexture(named filename: String) -> GLuint {
 		guard let sourcefile = NSImage(named: filename) else {
 			return 0
 		}
@@ -715,11 +720,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glBindTexture(GLenum(GL_TEXTURE_2D), tex)
 		glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 		
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
-		glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
+		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
 		
 		glNormalPointer(GLenum(GL_FLOAT), 0, nullObjectNorms)
 		glTexCoordPointer(2, GLenum(GL_FLOAT), 0, nullObjectTexVerts)
@@ -746,11 +747,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
 		
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
-		glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
-		glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
+		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
 		
 		// Draw floor
 		drawFloorArray[Int(flag)]()
@@ -1167,66 +1164,60 @@ final class NH3DOpenGLView: NSOpenGLView {
 			if (model == nil
 			 && !(glyph >= S_stone+GLYPH_CMAP_OFF
 				&& glyph <= S_water+GLYPH_CMAP_OFF)) { // Draw alternate object.
-					var f: Float = 0
-					var angle: Float = 5.0
-					
-					glPushMatrix()
-					defer {
-						glPopMatrix()
+				var f: Float = 0
+				var angle: Float = 5.0
+				
+				glPushMatrix()
+				defer {
+					glPopMatrix()
+				}
+				glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
+				
+				if defaultTex[Int(glyph)] == 0 {
+					if NH3DGL_USETILE {
+						defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.tile!, color: nil)
+					} else {
+						defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.symbol, color: mapItem.color)
 					}
-					glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
-					
-					if defaultTex[Int(glyph)] == 0 {
-						if (NH3DGL_USETILE) {
-							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.tile!, color: nil)
-						} else {
-							defaultTex[Int(glyph)] = createTextureFromSymbol(mapItem.symbol, color: mapItem.color)
-						}
-					}
-					glActiveTexture(GLenum(GL_TEXTURE0))
-					glEnable(GLenum(GL_TEXTURE_2D))
-					
-					glEnable(GLenum(GL_ALPHA_TEST))
-					glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-					
-					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
-					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
-					
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_AMBIENT), nh3dMaterialArray[Int(NO_COLOR)].ambient)
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_DIFFUSE), nh3dMaterialArray[Int(NO_COLOR)].diffuse)
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_SPECULAR), nh3dMaterialArray[Int(NO_COLOR)].specular)
-					glMaterialf(GLenum(GL_FRONT), GLenum(GL_SHININESS), nh3dMaterialArray[Int(NO_COLOR)].shininess)
-					glMaterialfv(GLenum(GL_FRONT), GLenum(GL_EMISSION), nh3dMaterialArray[Int(NO_COLOR)].emission)
-					
-					glAlphaFunc(GLenum(GL_GREATER), 0.5)
-					
-					glEnableClientState(GLenum(GL_VERTEX_ARRAY))
-					glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-					glEnableClientState(GLenum(GL_NORMAL_ARRAY))
-					
-					glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
-					glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
-					glVertexPointer(3, GLenum(GL_FLOAT), 0, defaultVerts)
-					
-					
-					glDisable(GLenum(GL_CULL_FACE))
-					//angle = 5.0;
-					f = 0
-					while f < 0.02 {
-						angle *= -1.0
-						glTranslatef(0.0, 0.0, f)
-						glRotatef(angle, 0, 1.0, 0)
-						glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
-						f += 0.002
-					}
-					glEnable(GLenum(GL_CULL_FACE))
-					
-					glDisableClientState(GLenum(GL_NORMAL_ARRAY))
-					glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-					glDisableClientState(GLenum(GL_VERTEX_ARRAY))
-					
-					glDisable(GLenum(GL_ALPHA_TEST))
-					glDisable(GLenum(GL_TEXTURE_2D))
+				}
+				glActiveTexture(GLenum(GL_TEXTURE0))
+				glEnable(GLenum(GL_TEXTURE_2D))
+				
+				glEnable(GLenum(GL_ALPHA_TEST))
+				glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
+				
+				glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
+				glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
+				
+				glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
+				
+				glAlphaFunc(GLenum(GL_GREATER), 0.5)
+				
+				glEnableClientState(GLenum(GL_VERTEX_ARRAY))
+				glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+				glEnableClientState(GLenum(GL_NORMAL_ARRAY))
+				
+				glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
+				glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
+				glVertexPointer(3, GLenum(GL_FLOAT), 0, defaultVerts)
+				
+				
+				glDisable(GLenum(GL_CULL_FACE))
+				//angle = 5.0;
+				for f in Float(0).stride(to: 0.02, by: 0.002) {
+					angle *= -1.0
+					glTranslatef(0.0, 0.0, f)
+					glRotatef(angle, 0, 1.0, 0)
+					glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+				}
+				glEnable(GLenum(GL_CULL_FACE))
+				
+				glDisableClientState(GLenum(GL_NORMAL_ARRAY))
+				glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+				glDisableClientState(GLenum(GL_VERTEX_ARRAY))
+				
+				glDisable(GLenum(GL_ALPHA_TEST))
+				glDisable(GLenum(GL_TEXTURE_2D))
 			} else { // Draw model
 				guard let model = model else {
 					return
@@ -1333,6 +1324,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[(S_vwall + GLYPH_CMAP_OFF)]?.setTexture(texID)
 		modelDictionary[(S_hwall + GLYPH_CMAP_OFF)]?.setTexture(texID)
 		modelDictionary[(S_tlcorn + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_vodoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_hodoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_vcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_hcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
 	}
 	
 	@objc(setCenterAtX:z:depth:) func setCenterAt(x x: Int32, z: Int32, depth: Int32) {
@@ -1430,7 +1425,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	/// Sets the camera's head, pitch, and roll, in degrees.
-	@objc(setCameraHead:pitching:rolling:) func setCamera(head head1: Float, pitching pitch: Float, rolling roll: Float) {
+	@objc(setCameraHead:pitching:rolling:) func setCamera(head head1: Float, pitch: Float, roll: Float) {
 		var head = head1
 		viewLock.lock()
 		do {
@@ -1458,10 +1453,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	/// Sets the camera's x-y-z position.
 	@objc(setCameraAtX:atY:atZ:) func setCamera(x x: Float, y: Float, z: Float) {
+		struct CameraHelp {
+			static let footstep = NSSound(named: "footStep")!
+		}
 		viewLock.lock()
 		do {
 			nowUpdating = true
-			let footstep = NSSound(named: "footStep")!
 			
 			drawMargin = 1
 			
@@ -1474,11 +1471,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraY = cameraY
 				lastCameraZ = cameraZ
 				isReady = true
-			} else if footstep.playing && ((!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ)) && !SOUND_MUTE {
-				footstep.stop()
-				footstep.play()
+			} else if CameraHelp.footstep.playing && ((!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ)) && !SOUND_MUTE {
+				CameraHelp.footstep.stop()
+				CameraHelp.footstep.play()
 			} else if (!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ) && !SOUND_MUTE {
-				footstep.play()
+				CameraHelp.footstep.play()
 			}
 			
 			nowUpdating = false
@@ -1650,7 +1647,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		img.backgroundColor = NSColor.clearColor()
 		
 		if !NH3DGL_USETILE {
-			guard let symbol = symbol as? String else {
+			guard let symbol = symbol as? NSString else {
 				assert(false)
 				return 0
 			}
@@ -1662,12 +1659,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			attributes[NSForegroundColorAttributeName] = color
 			attributes[NSBackgroundColorAttributeName] = NSColor.clearColor()
 			
-			symbolSize = (symbol as NSString).sizeWithAttributes(attributes)
+			symbolSize = symbol.sizeWithAttributes(attributes)
 			
 			// Draw texture
 			img.lockFocus()
 			
-			(symbol as NSString).drawAtPoint(NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
+			symbol.drawAtPoint(NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
 			
 			img.unlockFocus()
 		} else {
@@ -1682,7 +1679,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			symbol.drawInRect(NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
 				fromRect: NSRect(origin: .zero, size: symbolSize),
 				operation: .CompositeSourceOver,
-				fraction:1.0)
+				fraction: 1.0)
 			img.unlockFocus()
 		}
 		
@@ -1793,15 +1790,31 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "vopendoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "hopendoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_hodoor + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "vdoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_vcdoor + GLYPH_CMAP_OFF] = model
 		
 		model = NH3DModelObject(with3DSFile: "hdoor", textureNamed: "door")
+		model?.addTexture("door_mines")
+		model?.addTexture("door_hell")
+		model?.addTexture("door_knox")
+		model?.addTexture("door_rouge")
 		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model
 	}
 	
@@ -2082,7 +2095,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, offset: offset, modelName: "lowerF")
 	}
 	
-	/// gremlins and gagoyles class
+	/// gremlins and gargoyles class
 	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2150,15 +2163,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 				offset = GLYPH_MON_OFF
 			}
 
-			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK")
+			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK", without: PM_KOBOLD_LORD, PM_KOBOLD_SHAMAN)
 			
-		case PM_KOBOLD_LORD+GLYPH_MON_OFF:
+		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivot(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF:
+		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
 			ret?.lastChildObject?.setPivot(x: 0, y: -0.01, z: -0.15)
@@ -2341,7 +2354,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, offset: offset, modelName: "upperA")
 	}
 	
-	/// Bats
+	/// Bats and birds
 	private final func loadModelFunc_Bats(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2729,7 +2742,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if glyph > GLYPH_PET_OFF {
 			offset = GLYPH_PET_OFF
 		} else {
-			offset = GLYPH_INVIS_OFF
+			offset = GLYPH_MON_OFF
 		}
 		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: offset, modelName: "invisible")
 	}
@@ -4467,11 +4480,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// eye or sphere class
-		loadModelBlocks[Int(PM_GAS_SPORE+GLYPH_MON_OFF)] =			loadModelFunc_sphere
-		loadModelBlocks[Int(PM_FLOATING_EYE+GLYPH_MON_OFF)] =		loadModelFunc_sphere
-		loadModelBlocks[Int(PM_FREEZING_SPHERE+GLYPH_MON_OFF)] =	loadModelFunc_sphere
-		loadModelBlocks[Int(PM_FLAMING_SPHERE+GLYPH_MON_OFF)] =		loadModelFunc_sphere
-		loadModelBlocks[Int(PM_SHOCKING_SPHERE+GLYPH_MON_OFF)] =	loadModelFunc_sphere
+		for i in Int(PM_GAS_SPORE+GLYPH_MON_OFF)...Int(PM_SHOCKING_SPHERE+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_sphere
+		}
 		
 		// cat or feline class
 		for i in Int(PM_KITTEN+GLYPH_MON_OFF)...Int(PM_TIGER+GLYPH_MON_OFF) {
@@ -4489,12 +4500,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// imp and minor demons
-		loadModelBlocks[Int(PM_MANES+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_HOMUNCULUS+GLYPH_MON_OFF)] =	loadModelFunc_imp
-		loadModelBlocks[Int(PM_IMP+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_LEMURE+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_QUASIT+GLYPH_MON_OFF)] =		loadModelFunc_imp
-		loadModelBlocks[Int(PM_TENGU+GLYPH_MON_OFF)] =		loadModelFunc_imp
+		for i in Int(PM_MANES+GLYPH_MON_OFF)...Int(PM_TENGU+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_imp
+		}
 		
 		// jellys
 		loadModelBlocks[Int(PM_BLUE_JELLY+GLYPH_MON_OFF)] =		loadModelFunc_jellys
@@ -4671,19 +4679,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_DISENCHANTER + GLYPH_MON_OFF)] = loadModelFunc_Rustmonster
 		
 		// Snakes
-		loadModelBlocks[Int(PM_GARTER_SNAKE + GLYPH_MON_OFF)] =		loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_SNAKE + GLYPH_MON_OFF)] =			loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_WATER_MOCCASIN + GLYPH_MON_OFF)] =	loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_PIT_VIPER + GLYPH_MON_OFF)] =		loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_PYTHON + GLYPH_MON_OFF)] =			loadModelFunc_Snakes
-		loadModelBlocks[Int(PM_COBRA + GLYPH_MON_OFF)] =			loadModelFunc_Snakes
+		for i in Int(PM_GARTER_SNAKE + GLYPH_MON_OFF)...Int(PM_COBRA + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Snakes
+		}
 		
 		// Trolls
-		loadModelBlocks[Int(PM_TROLL + GLYPH_MON_OFF)] =		loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_ICE_TROLL + GLYPH_MON_OFF)] =	loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_ROCK_TROLL + GLYPH_MON_OFF)] =	loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_WATER_TROLL + GLYPH_MON_OFF)] =	loadModelFunc_Trolls
-		loadModelBlocks[Int(PM_OLOG_HAI + GLYPH_MON_OFF)] =		loadModelFunc_Trolls
+		for i in Int(PM_TROLL + GLYPH_MON_OFF)...Int(PM_OLOG_HAI + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Trolls
+		}
 		
 		// Umber hulk
 		loadModelBlocks[Int(PM_UMBER_HULK + GLYPH_MON_OFF)] = { _ in
@@ -4706,14 +4709,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Yeti and other large beasts
-		loadModelBlocks[Int(PM_MONKEY + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_APE + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_OWLBEAR + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_YETI + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_CARNIVOROUS_APE + GLYPH_MON_OFF)] =	loadModelFunc_Yeti
-		loadModelBlocks[Int(PM_SASQUATCH + GLYPH_MON_OFF)] =		loadModelFunc_Yeti
+		for i in Int(PM_MONKEY + GLYPH_MON_OFF)...Int(PM_SASQUATCH + GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_Yeti
+		}
 		
-		// Zombie
+		// Zombies
 		for i in Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)...Int(PM_SKELETON + GLYPH_MON_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Zombie
 		}
@@ -4729,8 +4729,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		// Ghosts
-		loadModelBlocks[Int(PM_GHOST + GLYPH_INVIS_OFF)] = loadModelFunc_Ghosts
-		loadModelBlocks[Int(PM_SHADE + GLYPH_INVIS_OFF)] = loadModelFunc_Ghosts
+		loadModelBlocks[Int(PM_GHOST + GLYPH_MON_OFF)] = loadModelFunc_Ghosts
+		loadModelBlocks[Int(PM_SHADE + GLYPH_MON_OFF)] = loadModelFunc_Ghosts
 		
 		// Major Demons
 		for i in Int(PM_WATER_DEMON+GLYPH_MON_OFF)...Int(PM_BALROG+GLYPH_MON_OFF) {
@@ -4748,22 +4748,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] =		loadModelFunc_Riders
 		
 		// sea monsters
-		loadModelBlocks[Int(PM_JELLYFISH + GLYPH_MON_OFF)] =	loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_PIRANHA + GLYPH_MON_OFF)] =		loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_SHARK + GLYPH_MON_OFF)] =		loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_GIANT_EEL + GLYPH_MON_OFF)] =	loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_ELECTRIC_EEL + GLYPH_MON_OFF)] = loadModelFunc_seamonsters
-		loadModelBlocks[Int(PM_KRAKEN + GLYPH_MON_OFF)] =		loadModelFunc_seamonsters
+		for i in Int(PM_JELLYFISH+GLYPH_MON_OFF)...Int(PM_KRAKEN+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_seamonsters
+		}
 		
 		// lizards
-		loadModelBlocks[Int(PM_NEWT + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_GECKO + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_IGUANA + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_BABY_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_LIZARD + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_CHAMELEON + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_CROCODILE + GLYPH_MON_OFF)] = loadModelFunc_lizards
-		loadModelBlocks[Int(PM_SALAMANDER + GLYPH_MON_OFF)] = loadModelFunc_lizards
+		for i in Int(PM_NEWT+GLYPH_MON_OFF)...Int(PM_SALAMANDER+GLYPH_MON_OFF) {
+			loadModelBlocks[i] = loadModelFunc_lizards
+		}
 		
 		// wormtail
 		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { _ in
@@ -4778,6 +4770,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// Unique person
 		for i in Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)...Int(PM_APPRENTICE+GLYPH_MON_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Uniqueperson
+		}
+		
+		// Invisible
+		loadModelBlocks[Int(GLYPH_INVISIBLE)] = { _ in
+			return NH3DModelObject(with3DSFile: "invisible", withTexture: false)
 		}
 		
 		// -------------------------- Map Symbol Section ----------------------------- //
@@ -4891,12 +4888,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
 		
 		// pets
-		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)..<Int(PM_APPRENTICE + GLYPH_PET_OFF) {
+		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)...Int(PM_APPRENTICE + GLYPH_PET_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Pets
 		}
 		
 		// statues
-		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)..<Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
+		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)...Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
 			loadModelBlocks[i] = loadModelFunc_Statues
 		}
 		

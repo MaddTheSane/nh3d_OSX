@@ -20,13 +20,13 @@ class MapModel: NSObject {
 				
 				switch (playerDirection - newValue) {
 				case -3, 1:
-					glMapView.setCamera(head: glMapView.cameraHead + 90, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead + 90, pitch: 0, roll: 0)
 					
 				case  2, -2:
-					glMapView.setCamera(head: glMapView.cameraHead - 180, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead - 180, pitch: 0, roll: 0)
 					
 				case  3, -1:
-					glMapView.setCamera(head: glMapView.cameraHead - 90, pitching: 0, rolling: 0)
+					glMapView.setCamera(head: glMapView.cameraHead - 90, pitch: 0, roll: 0)
 					
 				default:
 					break
@@ -97,12 +97,15 @@ class MapModel: NSObject {
 	}
 
 	private func prepareAttributes() {
+		shadow = NSShadow()
 		shadow.shadowColor = NSColor(calibratedWhite: 0, alpha: 0.7)
 		shadow.shadowOffset = NSMakeSize(2, -2)
 		shadow.shadowBlurRadius = 1.0
 		
+		style = NSMutableParagraphStyle()
 		style.alignment = .Center
 		
+		strAttributes = [:]
 		strAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
 		strAttributes[NSShadowAttributeName] = shadow;
 		strAttributes[NSParagraphStyleAttributeName] = style;
@@ -117,7 +120,7 @@ class MapModel: NSObject {
 	final func startIndicator() {
 		indicatorIsActive = true;
 		indicatorTimer = NSTimer.scheduledTimerWithTimeInterval(1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
-		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSEventTrackingRunLoopMode)
+		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSDefaultRunLoopMode)
 	}
 	
 	@objc private func updateEnemyIndicator(timer: NSTimer) {
@@ -129,7 +132,7 @@ class MapModel: NSObject {
 		}
 		enemyIndicator.intValue = value
 		
-		if (value >= 60 && !alert.playing) {
+		if (value >= 60 && !alert.playing && !SOUND_MUTE) {
 			alert.play()
 		}
 	}
@@ -142,7 +145,7 @@ class MapModel: NSObject {
 		if mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].glyph == glf && mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].bgGlyph == bgGlyph {
 			return
 		} else if x+MAP_MARGIN > MAPSIZE_COLUMN || y+MAP_MARGIN > MAPSIZE_ROW {
-			Swift_Panic("Illegal map size!!")
+			Swift_Panic("Illegal map size!")
 		} else {
 			// map glyph to character and color
 
@@ -162,12 +165,12 @@ class MapModel: NSObject {
 				mapArray[Int(x2)][Int(y2)].player = true
 				
 				//set player pos for asciiview, openGLView
-				asciiMapView.setCenterAtX(x2, y: y2, depth: Int32(depth(&u.uz)))
+				asciiMapView.setCenter(x: x2, y: y2, depth: Int32(depth(&u.uz)))
 				glMapView.setCenterAt(x: x2, z: y2, depth: Int32(depth(&u.uz)))
 			}
 			
 			if TRADITIONAL_MAP {
-				asciiMapView.drawTraditionalMapAtX(x2, atY: y2)
+				asciiMapView.drawTraditionalMapAt(x: x2, y: y2)
 			}
 		}
 	}
@@ -183,7 +186,7 @@ class MapModel: NSObject {
 			cursY = y
 			
 			// center the map on the cursor, not the player.
-			asciiMapView.setCenterAtX(x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
+			asciiMapView.setCenter(x: x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 
 			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].hasCursor = true
 			asciiMapView.needClear = true

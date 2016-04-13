@@ -639,7 +639,6 @@ extern BOOL CocoaPortIsReady;
 				}
 				attributes[NSShadowAttributeName] = lshadow;
 				
-				
 				[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 																	  (NSMaxY(bounds)-((y+1)*16.0)),
 																	  16.0,16.0)
@@ -656,8 +655,6 @@ extern BOOL CocoaPortIsReady;
 				}
 			} // end for y
 		} // end for x
-		
-		//[ self drawMask ];
 		
 		[self unlockFocus];
 	}
@@ -788,6 +785,9 @@ extern BOOL CocoaPortIsReady;
 	int lkey = 0;
 	
 	if ([sender tag] < 50) {
+		if (iflags.num_pad && is_entering_number()) {
+			lkey = (int)[sender tag] + '0';
+		} else
 		switch (_mapModel.playerDirection) {
 			case PL_DIRECTION_FORWARD:
 				switch ([sender tag]) {
@@ -1348,8 +1348,14 @@ extern BOOL CocoaPortIsReady;
 											self.keyBuffer = (int)ch[0];
 											break;
 										}
-										//fall-though
+										[_num5 performClick:self];
+										break;
+										
 									case '.':
+										if (iflags.num_pad && is_entering_number()) {
+											self.keyBuffer = (int)ch[0];
+											break;
+										}
 										[_num5 performClick:self];
 										break;
 										

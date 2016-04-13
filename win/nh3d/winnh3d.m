@@ -1207,6 +1207,7 @@ wd_message()
 @implementation NH3DBindController {
 	NH3DPreferenceController *_prefPanel;
 }
+@synthesize mainWindow = _window;
 
 // for UserDefaults
 // set user defaults
@@ -1256,7 +1257,6 @@ wd_message()
 						  NH3DUseRetinaOpenGL: @YES,
 						  
 						  NH3DIsFirstLaunch: @YES,
-						  NH3DNHRCEditApp: @"TextWrangler",
 						  
 						  //Hearse
 						  kKeyHearse: @NO,
@@ -1374,11 +1374,6 @@ wd_message()
 	}
 		
 	[userMakeSheet startSheet:_userStatus];
-}
-
-- (NSWindow*)mainWindow
-{
-	return _window;
 }
 
 - (void)didPresentError:(NSError *)error
@@ -1596,8 +1591,6 @@ static char ynPreReady(const char *str)
 		isResuming = false;
 	}
 	
-	[_userStatus updatePlayer];
-	
 	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
@@ -1605,6 +1598,7 @@ static char ynPreReady(const char *str)
 	[_mapModel updateAllMaps];
 	/* first-time inventory */
 	[_NH3DUserStatusModel updatePlayerInventory];
+	[_userStatus updatePlayer];
 	
 #if !defined(HEARSE_DISABLE)
 	[Hearse start];
@@ -1762,7 +1756,6 @@ static char ynPreReady(const char *str)
 	
 	// window fade in
 	[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-		context.duration = 0.57;
 		_window.animator.alphaValue = 1;
 	} completionHandler:^{
 		/* I could only get this to play nicely when told to perform as a selector*/
@@ -1835,3 +1828,51 @@ boolean add_effect_mapping(const char *mesgTxt)
 		return false;
 	}
 }
+
+void app_recover(const char* path)
+{
+	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	NSURL *url = [[NSBundle mainBundle] URLForResource:@"Recover" withExtension:@"app"];
+	if (url == nil) {
+		unlock_file(HLOCK);
+		(void)unlink(lock);
+		error("Couldn't find recovery app.");
+		return;
+	}
+	
+	NSString *filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	@autoreleasepool {
+		//this little dance is to make sure we have an absolute path.
+		NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+		filePath = [fileURL path];
+	}
+	
+	NSError *error = nil;
+	NSArray *arguments = @[filePath];
+	NSRunningApplication *recoverApp = [workspace launchApplicationAtURL:url options:NSWorkspaceLaunchWithoutAddingToRecents configuration:@{NSWorkspaceLaunchConfigurationArguments: arguments} error:&error];
+	if (!recoverApp) {
+		[[NSAlert alertWithError:error] runModal];
+		return;
+	}
+	
+	exit(EXIT_SUCCESS);
+}
+
+#if defined(NH3D_GRAPHICS)
+#define Vprintf (void) vprintf
+void error(const char *s, ...)
+{
+	va_list the_args;
+	va_start(the_args, s);
+	NSString *nss = [[NSString alloc] initWithFormat:@(s) arguments:the_args];
+	Vprintf(s, the_args);
+	va_end(the_args);
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = @"NetHack Error!";
+	alert.informativeText = [nss stringByAppendingString:@"\n\nNetHack will now crash."];
+	alert.alertStyle = NSCriticalAlertStyle;
+	[alert runModal];
+	
+	exit(EXIT_FAILURE);
+}
+#endif

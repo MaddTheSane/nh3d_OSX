@@ -153,30 +153,38 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		guard let sender = sender else {
 			return
 		}
+		let defaults = NSUserDefaults.standardUserDefaults()
 		let key: String
+		let sizeKey: String
 		fontButtonTag = sender.selectedCell()?.tag ?? 0
 		
 		switch (fontButtonTag) {
 		case 1:
 			key = NH3DMsgFontKey
+			sizeKey = NH3DMsgFontSizeKey
 			
 		case 2:
 			key = NH3DWindowFontKey
+			sizeKey = NH3DWindowFontSizeKey
 			
 		case 3:
 			key = NH3DMapFontKey
+			sizeKey = NH3DMapFontSizeKey
 			
 		case 4:
 			key = NH3DBoldFontKey
+			sizeKey = NH3DBoldFontSizeKey
 			
 		case 5:
 			key = NH3DInventryFontKey
+			sizeKey = NH3DInventryFontSizeKey
 			
 		default:
 			return
 		}
 		
-		guard let familyName = NSUserDefaults.standardUserDefaults().stringForKey(key), selFont = NSFont(name: familyName, size: NSFont.systemFontSize()) else {
+		guard let familyName = defaults.stringForKey(key),
+			selFont = NSFont(name: familyName, size: CGFloat(defaults.floatForKey(sizeKey))) else {
 			return
 		}
 		
@@ -265,7 +273,9 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	}
 	
 	@IBAction func restartHearse(sender: AnyObject?) {
+		#if !HEARSE_DISABLE
 		Hearse.stop()
 		Hearse.start()
+		#endif
 	}
 }
