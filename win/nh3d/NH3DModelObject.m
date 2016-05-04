@@ -151,7 +151,6 @@ static const NH3DMaterial defaultMat = {
 	}
 	
 	NSString *sourceObj = [[NSString alloc] initWithContentsOfURL:sourceURL usedEncoding:NULL error:NULL];
-	NSScanner *scanner;
 	NSString *destText;
 
 	if (sourceObj == nil) {
@@ -162,18 +161,46 @@ static const NH3DMaterial defaultMat = {
 	}
 	
 	chSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	scanner = [[NSScanner alloc] initWithString:sourceObj];
-	verts = malloc(sizeof(vector_float3));
-	norms = malloc(sizeof(vector_float3));
-	faces = malloc(sizeof(NH3DFaceType));
-	texcoords = malloc(sizeof(NH3DMapCoordType));
+	NSArray <NSString*>* lines = [sourceObj componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	// initial count of vert/norms/faces/coords
+	{
+		NSInteger vtxCnt = 0;
+		NSInteger nmlCnt = 0;
+		NSInteger facCnt = 0;
+		NSInteger cooCnt = 0;
+		for (NSString *line in lines) {
+			if ([line hasPrefix:@"#"]) {
+				continue;
+			} else if ([line hasPrefix:@"v "]) {
+				vtxCnt++;
+			} else if ([line hasPrefix:@"vn "]) {
+				nmlCnt++;
+			} else if ([line hasPrefix:@"vt "]) {
+				facCnt++;
+			} else if ([line hasPrefix:@"f "]) {
+				cooCnt++;
+			}
+		}
+		// Basic sanity check:
+		if (vtxCnt == 0 || nmlCnt == 0 || facCnt == 0 || cooCnt == 0) {
+			NSLog(@"Invalid OBJ file? Vertexes: %li, Normals: %li, Faces: %li, Texture Coordinates: %li", (long)vtxCnt, (long)nmlCnt, (long)facCnt, (long)cooCnt);
+			return NO;
+		}
+		verts = calloc(sizeof(vector_float3), vtxCnt);
+		norms = calloc(sizeof(vector_float3), nmlCnt);
+		faces = calloc(sizeof(NH3DFaceType), facCnt);
+		texcoords = calloc(sizeof(NH3DMapCoordType), cooCnt);
+	}
 	
-	while(!scanner.atEnd && (verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
+	for (NSString *line in lines) {
+		if (!(verts_qty < MAX_VERTICES && face_qty < MAX_POLYGONS)) {
+			break;
+		}
 		@autoreleasepool {
+			NSScanner *scanner = [[NSScanner alloc] initWithString:line];
 			[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 			
 			if ([destText isEqualToString:@"v"]) {
-				verts = realloc(verts, (verts_qty + 1) * sizeof(vector_float3));
 				// scan vertexes
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				verts[verts_qty].x = destText.floatValue;
@@ -184,7 +211,6 @@ static const NH3DMaterial defaultMat = {
 				
 				verts_qty++;
 			} else if ([destText isEqualToString:@"vn"]) {
-				norms = realloc(norms, (normal_qty + 1) * sizeof(vector_float3));
 				// scan normals
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				norms[normal_qty].x = destText.floatValue;
@@ -195,7 +221,6 @@ static const NH3DMaterial defaultMat = {
 				
 				normal_qty++;
 			} else if ([destText isEqualToString:@"vt"]) {
-				texcoords = realloc(texcoords, (texcords_qty + 1) * sizeof(NH3DMapCoordType));
 				// scan texture coords
 				[scanner scanUpToCharactersFromSet:chSet intoString:&destText];
 				texcoords[texcords_qty].s = destText.floatValue;
@@ -205,7 +230,6 @@ static const NH3DMaterial defaultMat = {
 				
 				texcords_qty++;
 			} else if ([destText isEqualToString:@"f"]) {
-				faces = realloc(faces, (face_qty + 1) * sizeof(NH3DFaceType));
 				// scan faces
 				// a format of 'f' section its vertex reference number,
 				// optionally include the texture vertex and vertex normal reference numbers.
