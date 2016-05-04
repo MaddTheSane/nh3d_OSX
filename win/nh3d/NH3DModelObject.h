@@ -176,10 +176,12 @@ typedef struct NH3DParticle {
 @property GLfloat animationRate;
 
 @property (nonatomic) NH3DVertexType particleGravity;
-- (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:));
+- (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the particleGravity property");
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
 - (void)setParticleSpeedX:(GLfloat)x Y:(GLfloat)y NS_SWIFT_NAME(setParticleSpeed(x:y:));
+@property (readonly) GLfloat particleSpeedX;
+@property (readonly) GLfloat particleSpeedY;
 @property (nonatomic) GLfloat particleSlowdown;
 @property (nonatomic) GLfloat particleLife;
 @property (nonatomic) GLfloat particleSize;
@@ -194,16 +196,16 @@ typedef struct NH3DParticle {
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
 @property (readwrite) NH3DVertexType modelShift;
-- (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz NS_SWIFT_NAME(setModelShift(x:y:z:));
+- (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz NS_SWIFT_NAME(setModelShift(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelShift property");
 
 @property (readwrite) NH3DVertexType modelScale;
-- (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz NS_SWIFT_NAME(setModelScale(x:y:z:));
+- (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz NS_SWIFT_NAME(setModelScale(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelScale property");
 
 @property (readwrite) NH3DVertexType modelRotate;
-- (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz NS_SWIFT_NAME(setModelRotate(x:y:z:));
+- (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz NS_SWIFT_NAME(setModelRotate(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelRotate property");
 
 @property (readwrite) NH3DVertexType modelPivot;
-- (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz NS_SWIFT_NAME(setPivot(x:y:z:));
+- (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz NS_SWIFT_NAME(setPivot(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelPivot property");
 
 @property NH3DMaterial currentMaterial;
 

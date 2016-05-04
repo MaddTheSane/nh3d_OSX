@@ -877,23 +877,25 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setParticleGravity:(NH3DVertexType)aParticleGravity
 {
-	[self setParticleGravityX:aParticleGravity.x Y:aParticleGravity.y Z:aParticleGravity.z];
-}
-
-- (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity
-{
 	if (modelType != NH3DModelTypeEmitter)
 		return;
 	
-	particleGravity.x = x_gravity;
-	particleGravity.y = y_gravity;
-	particleGravity.z = z_gravity;
+	particleGravity = aParticleGravity;
 	
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		particles[i].xg = particleGravity.x;
 		particles[i].yg = particleGravity.y;
 		particles[i].zg = particleGravity.z;
 	}
+}
+
+- (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity
+{
+	NH3DVertexType toSet;
+	toSet.x = x_gravity;
+	toSet.y = y_gravity;
+	toSet.z = z_gravity;
+	self.particleGravity = toSet;
 }
 
 - (void)setParticleType:(NH3DParticleType)type
@@ -928,6 +930,10 @@ static const NH3DMaterial defaultMat = {
 	xspeed = x;
 	yspeed = y;
 }
+
+@synthesize particleSpeedX = xspeed;
+@synthesize particleSpeedY = yspeed;
+
 
 - (void)setParticleSlowdown:(GLfloat)value
 {

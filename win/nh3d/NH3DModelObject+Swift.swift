@@ -47,6 +47,15 @@ extension NH3DModelObject {
 			}
 		}
 	}
+	
+	var particleSpeed: (x: GLfloat, y: GLfloat) {
+		get {
+			return (particleSpeedX, particleSpeedY)
+		}
+		set(nv) {
+			setParticleSpeed(x: nv.x, y: nv.y)
+		}
+	}
 }
 
 extension float3 {

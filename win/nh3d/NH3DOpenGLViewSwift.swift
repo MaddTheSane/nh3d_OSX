@@ -12,6 +12,7 @@ import OpenGL.GL.Ext
 import OpenGL.GL.GLU
 import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
+import CoreVideo
 
 
 private let TEX_SIZE = 256
@@ -470,80 +471,80 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.setModelShift(x: -1, y: 1.8, z: -1)
-			effect.setParticleGravity(x: 3, y: -0.5, z: 3)
+			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: -1)
+			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.setModelShift(x: 1, y: 1.8, z: -1)
-			effect.setParticleGravity(x: 0, y: -0.5, z: 3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: -1)
+			effect.particleGravity = NH3DVertexType(x: 0, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.setModelShift(x: 1, y: 1.8, z: -1)
-			effect.setParticleGravity(x: -3, y: -0.5, z: 3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: -1)
+			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		
 		//right direction
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.setModelShift(x: 1, y: 1.8, z: -1)
-			effect.setParticleGravity(x: 3, y: -0.5, z: 3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: -1)
+			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.setModelShift(x: 1, y: 1.8, z: 0)
-			effect.setParticleGravity(x: 3, y: -0.5, z: 0)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 0)
+			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: 0)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.setModelShift(x: 1, y: 1.8, z: 1)
-			effect.setParticleGravity(x: 3, y: -0.5, z: -3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		
 		//back direction
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.setModelShift(x: 1, y: 1.8, z: 1)
-			effect.setParticleGravity(x: -3, y: -0.5, z: -3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.setModelShift(x: 1, y: 1.8, z: 1)
-			effect.setParticleGravity(x: -3, y: -0.5, z: -3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.setModelShift(x: 1, y: 1.8, z: 1)
-			effect.setParticleGravity(x: 0, y: -0.5, z: -3)
+			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = NH3DVertexType(x: 0, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		
 		//left direction
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.setModelShift(x: -1, y: 1.8, z: 1)
-			effect.setParticleGravity(x: -3, y: -0.5, z: -3)
+			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: 1)
+			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.setModelShift(x: -1, y: 1.8, z: 0)
-			effect.setParticleGravity(x: -3, y: -0.5, z: 0)
+			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: 0)
+			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: 0)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.setModelShift(x: -1, y: 1.8, z: -1)
-			effect.setParticleGravity(x: -3, y: -0.5, z: 3)
+			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: -1)
+			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		
@@ -572,14 +573,37 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let nCenter = NSNotificationCenter.defaultCenter()
 		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(_:)), name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
-		// TODO: What if moved to other display?
-		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
+		// TODO: What if moved to another display?
+		let displayNum: CGDirectDisplayID
+		if let aNum = self.window?.screen?.deviceDescription["NSScreenNumber"] as? NSNumber {
+			displayNum = aNum.unsignedIntValue
+		} else {
+			displayNum = CGMainDisplayID()
+		}
+		let curCfg = CGDisplayCopyDisplayMode(displayNum)
 		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+		// "Some displays may not use conventional video vertical and horizontal sweep in painting the screen; for these displays, the return value is 0."
+		// Use CVDisplayLinkGetActualOutputVideoRefreshPeriod if we get 0
+		if dRefreshRate == 0 {
+			var link: CVDisplayLinkRef?
+			CVDisplayLinkCreateWithCGDisplay(displayNum, &link)
+
+			if let link = link {
+				let aTime: CVTime = CVDisplayLinkGetNominalOutputVideoRefreshPeriod(link)
+				if aTime.flags & Int32(kCVTimeIsIndefinite) == 0 {
+					dRefreshRate = Double(aTime.timeScale) / Double(aTime.timeValue)
+				}
+				//dRefreshRate = CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
+			} else {
+				//Fall back to 60 if even that didn't work
+				dRefreshRate = 60
+			}
+		}
 		
 		_running = true
 		threadRunning = false
 		
-		// set drawflag for Nh3d Titles
+		// set drawflag for NH3D Title
 		needsDisplay = true
 		
 		// setup defaults
@@ -1138,7 +1162,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_PET_OFF {
 						newModel.animated = true
 						newModel.animationRate = (Float(random() % 5) * 0.1) + 0.5
-						newModel.setPivot(x: 0.0, y: 0.3, z: 0.0)
+						newModel.modelPivot = NH3DVertexType(x: 0.0, y: 0.3, z: 0.0)
 						newModel.useEnvironment = true
 						newModel.setTexture(Int32(envelopTex))
 					}
@@ -1510,7 +1534,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		let localPos = effectArray[enemyPosition - 1].modelShift
 		
-		effectArray[enemyPosition - 1].setPivot(x: cameraX+localPos.x,
+		effectArray[enemyPosition - 1].modelPivot = NH3DVertexType(x: cameraX+localPos.x,
 			y: localPos.y,
 			z: cameraZ + localPos.z)
 		if EffectHelper.effectCount < Int(waitRate) / 2 {
@@ -1735,13 +1759,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("wall_rouge")
 		do {
 			model?.addChildObject("torch", type: .TexturedObject)
-			model?.lastChildObject?.setPivot(x: 0.478, y: 2.834, z: 0.007)
+			model?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.478, y: 2.834, z: 0.007)
 			model?.lastChildObject?.addChildObject("emitter", type: .Emitter)
 			do {
-				model?.lastChildObject?.lastChildObject?.setPivot(x: 0.593, y: 1.261, z: 0)
+				model?.lastChildObject?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
 				model?.lastChildObject?.lastChildObject?.particleType = .Both
 				model?.lastChildObject?.lastChildObject?.particleColor = CLR_ORANGE
-				model?.lastChildObject?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.0, z: 0)
+				model?.lastChildObject?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
 				model?.lastChildObject?.lastChildObject?.setParticleSpeed(x: 0.0, y: 0.1)
 				model?.lastChildObject?.lastChildObject?.particleSlowdown = 6.0
 				model?.lastChildObject?.lastChildObject?.particleLife = 0.30
@@ -1757,10 +1781,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("wall_rouge")
 		do {
 			model?.addChildObject("torch", type: .TexturedObject)
-			model?.lastChildObject?.setPivot(x: -0.005, y: 2.834, z: 0.483)
+			model?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.005, y: 2.834, z: 0.483)
 			model?.lastChildObject?.addChildObject("emitter", type: .Emitter)
 			do {
-				model?.lastChildObject?.lastChildObject?.setPivot(x: 0.593, y: 1.261, z: 0)
+				model?.lastChildObject?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
 				model?.lastChildObject?.lastChildObject?.particleType = .Both
 				model?.lastChildObject?.lastChildObject?.particleColor = CLR_ORANGE
 				model?.lastChildObject?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
@@ -1819,11 +1843,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func setParamsForMagicEffect(magicItem: NH3DModelObject, color: Int32) {
-		magicItem.setPivot(x: 0, y: 1.2, z: 0)
-		magicItem.setModelScale(x: 0.4, y: 1.0, z: 0.4)
+		magicItem.modelPivot = NH3DVertexType(x: 0, y: 1.2, z: 0)
+		magicItem.modelScale = NH3DVertexType(x: 0.4, y: 1.0, z: 0.4)
 		magicItem.particleType = .Aura
 		magicItem.particleColor = color
-		magicItem.setParticleGravity(x: 0, y: 6.5, z: 0)
+		magicItem.particleGravity = NH3DVertexType(x: 0, y: 6.5, z: 0)
 		magicItem.setParticleSpeed(x: 1, y: 1)
 		magicItem.particleSlowdown = 3.8
 		magicItem.particleLife = 0.4
@@ -1833,7 +1857,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private func setParamsForMagicExplosion(magicItem: NH3DModelObject, color: Int32) {
 		magicItem.particleType = .Aura
 		magicItem.particleColor = color
-		magicItem.setParticleGravity(x: 0, y: 15.5, z: 0)
+		magicItem.particleGravity = NH3DVertexType(x: 0, y: 15.5, z: 0)
 		magicItem.setParticleSpeed(x: 1, y: 15)
 		magicItem.particleSlowdown = 8.8
 		magicItem.particleLife = 0.4
@@ -2112,7 +2136,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+GLYPH_PET_OFF {
 			ret = NH3DModelObject(with3DSFile:"lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0, y: 0.2, z: -0.21)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: 0.2, z: -0.21)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
 			let offset: Int32
@@ -2168,13 +2192,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0, y: 0.1, z: -0.25)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0, y: -0.01, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: -0.01, z: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2218,7 +2242,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + GLYPH_PET_OFF {
 			ret = NH3DModelObject(with3DSFile: "lowerO", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.15, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.15, z: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
 			let offset: Int32
@@ -2431,14 +2455,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.01, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.01, z: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF,
 		PM_GNOME_KING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.05, z: -0.25)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.05, z: -0.25)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2524,7 +2548,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 0.15, z: -0.18)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 0.15, z: -0.18)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2604,7 +2628,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF:
 			ret =  NH3DModelObject(with3DSFile: "upperV", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0, y: 0.15, z: -0.18)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: 0.15, z: -0.18)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2671,14 +2695,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0, y: -0.18, z: 0)
-			ret?.lastChildObject?.setModelRotate(x: 0, y: 11.7, z: 0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: -0.18, z: 0)
+			ret?.lastChildObject?.modelRotate = NH3DVertexType(x: 0, y: 11.7, z: 0)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("nurse", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0, y: -0.28, z: 1)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: -0.28, z: 1)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF:
@@ -2686,7 +2710,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: 2.5, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: 2.5, z: 0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1, y: 1)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2695,13 +2719,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.28, z: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.lastChildObject?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.lastChildObject?.setPivot(x: -0.827, y: 1.968, z: 1.793)
+			ret?.lastChildObject?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.827, y: 1.968, z: 1.793)
 			ret?.lastChildObject?.lastChildObject?.particleType = .Both
 			ret?.lastChildObject?.lastChildObject?.particleColor = CLR_BRIGHT_MAGENTA
-			ret?.lastChildObject?.lastChildObject?.setParticleGravity(x: -3.5, y: 1.5, z: 0.8)
+			ret?.lastChildObject?.lastChildObject?.particleGravity = NH3DVertexType(x: -3.5, y: 1.5, z: 0.8)
 			ret?.lastChildObject?.lastChildObject?.setParticleSpeed(x: 1.5, y: 2.00)
 			ret?.lastChildObject?.lastChildObject?.particleSlowdown = 1.8
 			ret?.lastChildObject?.lastChildObject?.particleLife = 0.5
@@ -2709,9 +2733,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
-			ret?.lastChildObject?.setPivot(x: 0.827, y: -1.800, z: -1.793)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.827, y: -1.800, z: -1.793)
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2772,7 +2796,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2789,7 +2813,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				ret.addChildObject("emitter", type: .Emitter)
 				ret.lastChildObject?.particleType = .Aura
 				ret.lastChildObject?.particleColor = CLR_RED
-				ret.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+				ret.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 				ret.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 				ret.lastChildObject?.particleSlowdown = 8.8
 				ret.lastChildObject?.particleLife = 0.24
@@ -2813,7 +2837,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.addChildObject("emitter", type: .Emitter)
 			ret.lastChildObject?.particleType = .Aura
 			ret.lastChildObject?.particleColor = CLR_RED
-			ret.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret.lastChildObject?.particleSlowdown = 8.8
 			ret.lastChildObject?.particleLife = 0.24
@@ -2821,7 +2845,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.addChildObject("emitter", type: .Emitter)
 			ret.lastChildObject?.particleType = .Aura
 			ret.lastChildObject?.particleColor = CLR_BRIGHT_MAGENTA
-			ret.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret.lastChildObject?.particleSlowdown = 8.8
 			ret.lastChildObject?.particleLife = 0.24
@@ -2859,7 +2883,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if glyph == PM_WIZARD + GLYPH_MON_OFF {
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.28, z: -0.15)
 		} else {
 			ret = checkLoadedModels(at: PM_ARCHEOLOGIST, to: PM_VALKYRIE, modelName: "atmark")
 		}
@@ -2874,13 +2898,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_KING_ARTHUR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.18, z: 0.0)
-			ret?.lastChildObject?.setModelRotate(x: 0.0, y: 11.7, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.18, z: 0.0)
+			ret?.lastChildObject?.modelRotate = NH3DVertexType(x: 0.0, y: 11.7, z: 0.0)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2889,11 +2913,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.28, z: -0.15)
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2904,7 +2928,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2915,7 +2939,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2926,7 +2950,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2937,7 +2961,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2948,7 +2972,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2959,7 +2983,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2970,7 +2994,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2981,7 +3005,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -2992,7 +3016,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y:1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -3001,13 +3025,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_LORD_SURTUR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("kingset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.18, z: 0.0)
-			ret?.lastChildObject?.setModelRotate(x: 0.0, y: 11.7, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.18, z: 0.0)
+			ret?.lastChildObject?.modelRotate = NH3DVertexType(x: 0.0, y: 11.7, z: 0.0)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -3016,12 +3040,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case PM_DARK_ONE + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.28, z: -0.15)
 			ret?.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .Emitter)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_RED
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.24
@@ -3046,7 +3070,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					ret.addChildObject("emitter", type: .Emitter)
 					ret.lastChildObject?.particleType = .Aura
 					ret.lastChildObject?.particleColor = CLR_BRIGHT_CYAN
-					ret.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+					ret.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 					ret.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 					ret.lastChildObject?.particleSlowdown = 8.8
 					ret.lastChildObject?.particleLife = 0.24
@@ -3076,7 +3100,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case S_tree + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: true)
-			ret?.setModelScale(x: 2.5, y: 1.7, z: 2.5)
+			ret?.modelScale = NH3DVertexType(x: 2.5, y: 1.7, z: 2.5)
 			
 		case S_upstair + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "upStair", withTexture: true)
@@ -3095,7 +3119,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case S_grave + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "grave", withTexture: true)
-			ret?.setModelScale(x: 0.6, y: 0.6, z: 0.6)
+			ret?.modelScale = NH3DVertexType(x: 0.6, y: 0.6, z: 0.6)
 			
 		case S_throne + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "opulent_throne", withTexture: true)
@@ -3103,25 +3127,25 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case S_sink + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "sink", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 1.277, z: -0.812)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 1.277, z: -0.812)
 			ret?.lastChildObject?.particleType = .Points
 			ret?.lastChildObject?.particleColor = CLR_CYAN
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y:-8.8, z:1.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y:-8.8, z:1.0)
 			ret?.lastChildObject?.particleLife = 0.21
 			ret?.lastChildObject?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: -0.687, z: 0.512)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: -0.687, z: 0.512)
 			ret?.lastChildObject?.particleType = .Points
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y:-5.8, z:1.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y:-5.8, z:1.0)
 			ret?.lastChildObject?.particleLife = 0.3
 			ret?.lastChildObject?.particleSize = 8.0
 			
 		case S_fountain + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: -0.34, y: 2.68, z: 0.65)
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: 0.1, z: 0.08)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.34, y: 2.68, z: 0.65)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: 0.1, z: 0.08)
 			ret?.lastChildObject?.particleType = .Both
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_BLUE
 			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: -130.0)
@@ -3129,9 +3153,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.8
 			ret?.lastChildObject?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.34, y: -1.70, z: -0.65)
-			ret?.lastChildObject?.setModelScale(x: 0.98, y: 0.7, z: 0.98)
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: 0.1, z: 0.00)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.34, y: -1.70, z: -0.65)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.98, y: 0.7, z: 0.98)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: 0.1, z: 0.00)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_BLUE
 			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: -130.0)
@@ -3139,9 +3163,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChildObject?.particleLife = 0.28
 			ret?.lastChildObject?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setModelScale(x: 0.5, y: 0.7, z: 0.5)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 1.35, z: -0.0)
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: 0.4, z: 0.00)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.5, y: 0.7, z: 0.5)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 1.35, z: -0.0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: 0.4, z: 0.00)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_BLUE
 			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: -190.0)
@@ -3151,13 +3175,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case S_vodbridge + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
-			ret?.setModelRotate(x: 0, y: -90, z: 0)
+			ret?.modelRotate = NH3DVertexType(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
 			
 		case S_hodbridge + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 4.0, y: 0.0, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 4.0, y: 0.0, z: 0.0)
 			
 		case S_vcdbridge + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
@@ -3165,9 +3189,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case S_hcdbridge + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
-			ret?.setModelRotate(x: 0, y: -90, z: 0)
+			ret?.modelRotate = NH3DVertexType(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .TexturedObject)
-			ret?.lastChildObject?.setPivot(x: 4.0, y: 0.0, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 4.0, y: 0.0, z: 0.0)
 			
 		default:
 			break
@@ -3198,11 +3222,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case S_sleeping_gas_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChildObject?.particleType = .Both
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: -4.0, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: -4.0, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_MAGENTA
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: 300)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y: 300)
 			ret?.lastChildObject?.particleSlowdown = 5.2
 			ret?.lastChildObject?.particleLife = 0.56
 			ret?.lastChildObject?.particleSize = 5.0
@@ -3210,11 +3234,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case S_rust_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChildObject?.particleType = .Both
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: -4.0, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: -4.0, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_GREEN
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: 300.0)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y: 300.0)
 			ret?.lastChildObject?.particleSlowdown = 5.2
 			ret?.lastChildObject?.particleLife = 0.56
 			ret?.lastChildObject?.particleSize = 5.0
@@ -3222,12 +3246,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case S_fire_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChildObject?.particleType = .Both
 			ret?.lastChildObject?.particleSize = 4.0
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: -1.0, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: -1.0, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_ORANGE
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: 200)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y: 200)
 			ret?.lastChildObject?.particleSlowdown = 2.0
 			ret?.lastChildObject?.particleLife = 0.5
 			
@@ -3249,55 +3273,55 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case S_teleportation_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: -0.38, y: 3.82, z: 0.75917)
-			ret?.lastChildObject?.setModelScale(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.38, y: 3.82, z: 0.75917)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChildObject?.particleType = .Aura
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: -4.8, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: -4.8, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_CYAN
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y:0.1)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y:0.1)
 			ret?.lastChildObject?.particleSlowdown = 1.8
 			ret?.lastChildObject?.particleLife = 0.23
 			ret?.lastChildObject?.isChild = false
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: -0.38, y: 0.42, z: 0.75917)
-			ret?.lastChildObject?.setModelScale(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.38, y: 0.42, z: 0.75917)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChildObject?.particleType = .Aura
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: 4.8, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: 4.8, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_CYAN
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: 0.1)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y: 0.1)
 			ret?.lastChildObject?.particleSlowdown = 1.8
 			ret?.lastChildObject?.particleLife = 0.25
 			
 		case S_level_teleporter + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: -0.38, y: 3.82, z: 0.75917)
-			ret?.lastChildObject?.setModelScale(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.38, y: 3.82, z: 0.75917)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChildObject?.particleType = .Aura
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: -4.8, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: -4.8, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_MAGENTA
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y:0.1)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y:0.1)
 			ret?.lastChildObject?.particleSlowdown = 1.8
 			ret?.lastChildObject?.particleLife = 0.23
 			ret?.lastChildObject?.isChild = false
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: -0.38, y: 0.42, z: 0.75917)
-			ret?.lastChildObject?.setModelScale(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: -0.38, y: 0.42, z: 0.75917)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChildObject?.particleType = .Aura
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: 4.8, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: 4.8, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_MAGENTA
-			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: 0.1)
+			ret?.lastChildObject?.particleSpeed = (x: 0.0, y: 0.1)
 			ret?.lastChildObject?.particleSlowdown = 1.8
 			ret?.lastChildObject?.particleLife = 0.25
 			
 		case S_magic_portal + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject(with3DSFile: "magicportal", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setModelScale(x: 0.8, y: 0.7, z: 0.8)
+			ret?.lastChildObject?.modelScale = NH3DVertexType(x: 0.8, y: 0.7, z: 0.8)
 			ret?.lastChildObject?.particleType = .Aura
 			ret?.lastChildObject?.particleColor = CLR_BRIGHT_BLUE
-			ret?.lastChildObject?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
-			ret?.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.lastChildObject?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChildObject?.particleSlowdown = 8.8
 			ret?.lastChildObject?.particleLife = 0.4
 			ret?.lastChildObject?.particleSize = 2.0
@@ -3308,33 +3332,33 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 		case S_magic_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
-			ret?.setModelScale(x: 0.7, y: 0.4, z: 0.7)
+			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_MAGENTA
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
 		case S_anti_magic_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
-			ret?.setModelScale(x: 0.7, y: 0.4, z: 0.7)
+			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_CYAN
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
 		case S_polymorph_trap + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
-			ret?.setModelScale(x: 0.7, y: 0.4, z: 0.7)
+			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_BROWN
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
@@ -3343,10 +3367,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			//TODO: implement proper vibrating square model
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			ret?.addChildObject("emitter", type: .Emitter)
-			ret?.lastChildObject?.setPivot(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChildObject?.particleType = .Both
 			ret?.lastChildObject?.particleSize = 4.0
-			ret?.lastChildObject?.setParticleGravity(x: 0, y: -1.0, z: 0)
+			ret?.lastChildObject?.particleGravity = NH3DVertexType(x: 0, y: -1.0, z: 0)
 			ret?.lastChildObject?.particleColor = CLR_YELLOW
 			ret?.lastChildObject?.setParticleSpeed(x: 0.0, y: 200)
 			ret?.lastChildObject?.particleSlowdown = 2.0
@@ -3373,7 +3397,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3381,7 +3405,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParamsForMagicEffect(ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3389,7 +3413,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3397,7 +3421,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3418,28 +3442,28 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_ORANGE)
 			}
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParamsForMagicEffect(ret, color: CLR_ORANGE)
 			}
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_ORANGE)
 			}
 			
 		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_ORANGE)
 			}
 			
@@ -3458,7 +3482,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3466,7 +3490,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3474,7 +3498,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3482,7 +3506,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3497,12 +3521,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// type Magic SLEEP
 	private final func loadModelFunc_MagicSLEEP(glyph: Int32) -> NH3DModelObject? {
 		let ret = NH3DModelObject()
-		ret.setPivot(x: 0.0, y: 1.2, z: 0.0)
-		ret.setModelScale(x: 1.0, y: 1.0, z: 1.0)
+		ret.modelPivot = NH3DVertexType(x: 0.0, y: 1.2, z: 0.0)
+		ret.modelScale = NH3DVertexType(x: 1.0, y: 1.0, z: 1.0)
 		ret.particleType = .Aura
 		ret.particleColor = CLR_MAGENTA
 		//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-		ret.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+		ret.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 		ret.setParticleSpeed(x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
@@ -3519,7 +3543,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3527,7 +3551,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParamsForMagicEffect(ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3535,7 +3559,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3543,7 +3567,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3563,7 +3587,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3571,7 +3595,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParamsForMagicEffect(ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3579,7 +3603,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3587,7 +3611,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3595,7 +3619,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		default:
 			break
 		}
-		ret?.setModelScale(x: 0.2, y: 1.0, z: 0.2)
+		ret?.modelScale = NH3DVertexType(x: 0.2, y: 1.0, z: 0.2)
 		
 		return ret
 	}
@@ -3603,12 +3627,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// type Magic POISONGAS
 	private final func loadModelFunc_MagicPOISONGAS(glyph: Int32) -> NH3DModelObject? {
 		let ret = NH3DModelObject()
-		ret.setPivot(x: 0.0, y: 1.2, z: 0.0)
-		ret.setModelScale(x: 1.0, y: 1.0, z: 1.0)
+		ret.modelPivot = NH3DVertexType(x: 0.0, y: 1.2, z: 0.0)
+		ret.modelScale = NH3DVertexType(x: 1.0, y: 1.0, z: 1.0)
 		ret.particleType = .Aura
 		ret.particleColor = CLR_GREEN
 		//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
-		ret.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+		ret.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 		ret.setParticleSpeed(x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
@@ -3625,7 +3649,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3633,7 +3657,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3641,7 +3665,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3649,7 +3673,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.setModelRotate(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
 				setParamsForMagicEffect(ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3668,10 +3692,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			// dig beam
 		case S_digbeam + GLYPH_CMAP_OFF:
 			ret = NH3DModelObject()
-			ret?.setModelScale(x: 0.7, y: 1.0, z: 0.7)
+			ret?.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_BROWN
-			ret?.setParticleGravity(x: 0.0, y:6.5, z:0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y:6.5, z:0.0)
 			ret?.setParticleSpeed(x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3682,7 +3706,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_WHITE
-			ret?.setParticleGravity(x: 0.0, y:6.5, z:0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y:6.5, z:0.0)
 			ret?.setParticleSpeed(x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3725,7 +3749,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_BRIGHT_BLUE
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3735,7 +3759,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_BRIGHT_CYAN
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3745,7 +3769,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_WHITE
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3755,7 +3779,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .Aura
 			ret?.particleColor = CLR_BLUE
-			ret?.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret?.setParticleSpeed(x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -4102,13 +4126,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.animationRate = ((Float(random() % 5) * 0.1) + 0.5) / 2
 			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
 			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
-			ret.setPivot(x: 0.0, y: 0.0, z: 0.0)
+			ret.modelPivot = NH3DVertexType(x: 0.0, y: 0.0, z: 0.0)
 			ret.addChildObject(loadDat.modelName, type: .Object)
 			ret.lastChildObject?.setTexture(Int32(cellingTex))
 			ret.lastChildObject?.useEnvironment = false
 			ret.lastChildObject?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			ret.lastChildObject?.animationRate = (Float(random() % 5) * 0.1) + 0.5
-			ret.lastChildObject?.setPivot(x: 0.0, y: 0.3, z: 0.0)
+			ret.lastChildObject?.modelPivot = NH3DVertexType(x: 0.0, y: 0.3, z: 0.0)
 			ret.lastChildObject?.modelShift = NH3DVertexType(x: 0, y: 1.5, z: 0)
 			ret.lastChildObject?.modelScale = NH3DVertexType(x: 0.75, y: 0.75, z: 0.75)
 		}
@@ -4134,12 +4158,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		model.addChildObject("emitter", type: .Emitter)
-		model.lastChildObject?.setModelScale(x: 2, y: 1, z: 2)
-		model.lastChildObject?.setPivot(x: 0, y: 3, z: 0)
+		model.lastChildObject?.modelScale = NH3DVertexType(x: 2, y: 1, z: 2)
+		model.lastChildObject?.modelPivot = NH3DVertexType(x: 0, y: 3, z: 0)
 		model.lastChildObject?.particleType = .Both
 		model.lastChildObject?.particleColor = CLR_BRIGHT_MAGENTA
 		model.lastChildObject?.currentMaterial = PetHelper.pinkMaterial
-		model.lastChildObject?.setParticleGravity(x: 0.0, y: 2.5, z: 0.0)
+		model.lastChildObject?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
 		model.lastChildObject?.setParticleSpeed(x: 1.0, y: 1.00)
 		model.lastChildObject?.particleSlowdown = 12
 		model.lastChildObject?.particleLife = 1.2
@@ -4852,10 +4876,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// dig beam
 		loadModelBlocks[Int(S_digbeam + GLYPH_CMAP_OFF)] = { _ in
 			let ret = NH3DModelObject()
-			ret.setModelScale(x: 0.7, y: 1.0, z: 0.7)
+			ret.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret.particleType = .Aura
 			ret.particleColor = CLR_BROWN
-			ret.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
+			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret.setParticleSpeed(x: 1.0, y:1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
@@ -4866,10 +4890,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		// camera flash
 		loadModelBlocks[Int(S_flashbeam + GLYPH_CMAP_OFF)] = { _ in
 			let ret = NH3DModelObject()
-			ret.setModelScale(x: 1.4, y: 1.5, z: 1.4)
+			ret.modelScale = NH3DVertexType(x: 1.4, y: 1.5, z: 1.4)
 			ret.particleType = .Aura
 			ret.particleColor = CLR_WHITE
-			ret.setParticleGravity(x: 0.0, y: 6.5, z: 0.0)
+			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret.setParticleSpeed(x: 1.0, y:1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
