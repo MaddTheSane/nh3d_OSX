@@ -70,6 +70,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 		progress.startAnimation(nil)
 	}
 	
+	func launchNetHack() throws {
+		let workspace = NSWorkspace.sharedWorkspace()
+		let parentBundleURL: NSURL = {
+			let selfBundleURL = NSBundle.mainBundle().bundleURL
+			return selfBundleURL.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!
+		}()
+		try workspace.launchApplicationAtURL(parentBundleURL, options: .Default, configuration: [:])
+		NSApp.terminate(nil)
+	}
+	
 	func addURL(url: NSURL) {
 		let saveRecover = SaveRecoveryOperation(saveFileURL: url)
 		
@@ -100,17 +110,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 					}
 					
 					alert.beginSheetModalForWindow(self.window, completionHandler: { (response) -> Void in
-						let workspace = NSWorkspace.sharedWorkspace()
-						let parentBundleURL: NSURL = {
-							let selfBundleURL = NSBundle.mainBundle().bundleURL
-							return selfBundleURL.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!
-						}()
-
 						switch response {
 						case NSAlertFirstButtonReturn:
 							do {
-								try workspace.launchApplicationAtURL(parentBundleURL, options: .Default, configuration: [:])
-								NSApp.terminate(nil)
+								try self.launchNetHack()
 							} catch let error as NSError {
 								NSBeep()
 								NSAlert(error: error).runModal()
@@ -125,6 +128,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 							
 						default:
 							NSBeep()
+							sleep(1)
 							exit(EXIT_FAILURE)
 						}
 					})
@@ -140,7 +144,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 		//Created to make sure we have data in constant order.
 		errorOrder = Array(recoveryErrors.keys)
 		errorTable.reloadData()
-		NSApp.terminate(nil)
+		self.window.beginSheet(errorPanel) { (resp) in
+			if resp == -1 {
+				// Just quit
+				NSApp.terminate(nil)
+			} else if resp == 0 {
+				do {
+					try self.launchNetHack()
+				} catch let error as NSError {
+					NSBeep()
+					NSAlert(error: error).runModal()
+					exit(EXIT_FAILURE)
+				}
+			} else {
+				//Don't quit
+				NSBeep()
+			}
+		}
+	}
+	
+	@IBAction func tableButton(sender: NSButton) {
+		self.window.endSheet(errorPanel, returnCode: sender.tag)
 	}
 	
 	func applicationDidFinishLaunching(aNotification: NSNotification) {

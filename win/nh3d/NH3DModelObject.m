@@ -66,6 +66,8 @@ static const NH3DMaterial defaultMat = {
 @synthesize faces;
 @synthesize texcoords;
 @synthesize numberOfTextures;
+@synthesize particleSpeedX = xspeed;
+@synthesize particleSpeedY = yspeed;
 
 - (NSInteger)countOfChildObjects
 {
@@ -183,7 +185,7 @@ static const NH3DMaterial defaultMat = {
 		}
 		// Basic sanity check:
 		if (vtxCnt == 0 || nmlCnt == 0 || facCnt == 0 || cooCnt == 0) {
-			NSLog(@"Invalid OBJ file? Vertexes: %li, Normals: %li, Faces: %li, Texture Coordinates: %li", (long)vtxCnt, (long)nmlCnt, (long)facCnt, (long)cooCnt);
+			NSLog(@"Invalid OBJ file \"%@\"? Vertexes: %li, Normals: %li, Faces: %li, Texture Coordinates: %li", name, (long)vtxCnt, (long)nmlCnt, (long)facCnt, (long)cooCnt);
 			return NO;
 		}
 		verts = calloc(sizeof(vector_float3), vtxCnt);
@@ -930,10 +932,6 @@ static const NH3DMaterial defaultMat = {
 	xspeed = x;
 	yspeed = y;
 }
-
-@synthesize particleSpeedX = xspeed;
-@synthesize particleSpeedY = yspeed;
-
 
 - (void)setParticleSlowdown:(GLfloat)value
 {
