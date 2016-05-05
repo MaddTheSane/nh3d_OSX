@@ -25,7 +25,7 @@ private let locURLKey = "NHRecoverURL"
 private let recoverErrorKey = "NHRecoverError"
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
+class AppDelegate: NSObject {
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var progress: NSProgressIndicator!
 	@IBOutlet weak var errorPanel: NSWindow!
@@ -166,7 +166,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 	@IBAction func tableButton(sender: NSButton) {
 		self.window.endSheet(errorPanel, returnCode: sender.tag)
 	}
-	
+}
+
+//MARK: - NSApplicationDelegate
+
+extension AppDelegate: NSApplicationDelegate {
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
 		// Insert code here to initialize your application
 		let selfBundleURL = NSBundle.mainBundle().bundleURL
@@ -189,9 +193,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource {
 		addURL(fileURL)
 		return true
 	}
-	
-	// MARK: - NSTableViewDataSource
-	
+}
+
+// MARK: - NSTableViewDataSource
+
+extension AppDelegate: NSTableViewDataSource {
 	func numberOfRowsInTableView(tableView: NSTableView) -> Int {
 		return recoveryErrors.count
 	}
