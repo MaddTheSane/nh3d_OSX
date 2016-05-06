@@ -70,7 +70,7 @@ class AppDelegate: NSObject {
 		progress.startAnimation(nil)
 	}
 	
-	func launchNetHack() throws {
+	private func launchNetHack() throws {
 		let workspace = NSWorkspace.sharedWorkspace()
 		let parentBundleURL: NSURL = {
 			let selfBundleURL = NSBundle.mainBundle().bundleURL

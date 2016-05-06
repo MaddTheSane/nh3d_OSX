@@ -171,43 +171,52 @@ func IS_DOOR(typ: schar) -> Bool {
 	return Int32(typ) == DOOR
 }
 
+/// returns `true` if the passed-in level is the rogue level
 func Is_rogue_level(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_rogue_level)
 }
 
+/// returns `true` if the passed-in level is Fort Knox
 func Is_knox(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_knox_level)
 }
 
+/// returns `true` if the passed-in level is the sanctum level
 func Is_sanctum(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_sanctum_level)
 }
 
+/// returns `true` if the passed-in level is the stronghold level
 func Is_stronghold(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_stronghold_level)
 }
 
+/// returns `true` if the passed-in level is a Sokoban level
 func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return x.memory.dnum == dungeon_topology.d_sokoban_dnum
 }
 
+/// returns `true` if the passed-in level is on the plane of earth
 func Is_earthlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_earth_level)
 }
 
+/// returns `true` if the passed-in level is on the plane of water
 func Is_waterlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_water_level)
 }
 
+/// returns `true` if the passed-in level is on the plane of fire
 func Is_firelevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_fire_level)
 }
 
+/// returns `true` if the passed-in level is on the plane of air
 func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_air_level)
 }
 
-/// returns `true` if the passed in level is on the astral plain
+/// returns `true` if the passed-in level is on the astral plane
 func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_astral_level) 
 }
