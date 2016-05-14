@@ -565,14 +565,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		if NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL) {
-			wantsBestResolutionOpenGLSurface = true
-		}
-		let nCenter = NSNotificationCenter.defaultCenter()
-		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(_:)), name: "NSUserDefaultsDidChangeNotification", object: nil)
-		
+	private func getRefreshRate() -> Double {
 		// TODO: What if moved to another display?
 		let displayNum: CGDirectDisplayID
 		if let aNum = self.window?.screen?.deviceDescription["NSScreenNumber"] as? NSNumber {
@@ -581,24 +574,36 @@ final class NH3DOpenGLView: NSOpenGLView {
 			displayNum = CGMainDisplayID()
 		}
 		let curCfg = CGDisplayCopyDisplayMode(displayNum)
-		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+		var aRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
 		// "Some displays may not use conventional video vertical and horizontal sweep in painting the screen; for these displays, the return value is 0."
 		// Use CVDisplayLinkGetActualOutputVideoRefreshPeriod if we get 0
-		if dRefreshRate == 0 {
+		if aRefreshRate == 0 {
 			var link: CVDisplayLinkRef?
 			CVDisplayLinkCreateWithCGDisplay(displayNum, &link)
-
+			
 			if let link = link {
 				let aTime: CVTime = CVDisplayLinkGetNominalOutputVideoRefreshPeriod(link)
 				if aTime.flags & Int32(kCVTimeIsIndefinite) == 0 {
-					dRefreshRate = Double(aTime.timeScale) / Double(aTime.timeValue)
+					aRefreshRate = Double(aTime.timeScale) / Double(aTime.timeValue)
 				}
 				//dRefreshRate = CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
 			} else {
 				//Fall back to 60 if even that didn't work
-				dRefreshRate = 60
+				aRefreshRate = 60
 			}
 		}
+		return aRefreshRate;
+	}
+	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		if NSUserDefaults.standardUserDefaults().boolForKey(NH3DUseRetinaOpenGL) {
+			wantsBestResolutionOpenGLSurface = true
+		}
+		let nCenter = NSNotificationCenter.defaultCenter()
+		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(_:)), name: "NSUserDefaultsDidChangeNotification", object: nil)
+		
+		dRefreshRate = getRefreshRate()
 		
 		_running = true
 		threadRunning = false
@@ -1119,8 +1124,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	override func reshape() {
 		super.reshape()
 		CGLLockContext(openGLContext!.CGLContextObj)
+		viewLock.lock()
+		nowUpdating = true
 		defer {
 			CGLUnlockContext(openGLContext!.CGLContextObj)
+			viewLock.unlock()
+			nowUpdating = false
 		}
 		// Get the view size in Points
 		let viewRectPoints = bounds
@@ -1899,8 +1908,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		hasWait = OPENGLVIEW_USEWAIT
 		
 		if !hasWait {
-			let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
-			dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+			dRefreshRate = getRefreshRate()
 			waitRate = dRefreshRate
 			oglFrameRateMenu?.itemWithTag(1004)?.state = NSOffState
 			oglFrameRateMenu?.itemWithTag(1005)?.state = NSOffState
@@ -1985,8 +1993,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	@IBAction func changeWaitRate(sender: NSMenuItem) {
-		let curCfg = CGDisplayCopyDisplayMode(CGMainDisplayID())
-		dRefreshRate = CGDisplayModeGetRefreshRate(curCfg)
+		dRefreshRate = getRefreshRate()
 		
 		viewLock.lock()
 		nowUpdating = true
