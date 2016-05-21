@@ -1514,7 +1514,7 @@ static char ynPreReady(const char *str)
 	if (!locknum) {
 		//for OSX (UTF8) File System
 		NSString *lockString;
-		lockString = [NSString stringWithFormat:@"%d%@",(int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
+		lockString = [NSString stringWithFormat:@"%d%@", (int)getuid(), [NSString stringWithCString:plname encoding:NH3DTEXTENCODING]];
 		Strcpy(lock, lockString.fileSystemRepresentation);
 	}
 	getlock();
@@ -1859,14 +1859,14 @@ void app_recover(const char* path)
 }
 
 #if defined(NH3D_GRAPHICS)
-#define Vprintf (void) vprintf
+#define Printf (void) printf
 void error(const char *s, ...)
 {
 	va_list the_args;
 	va_start(the_args, s);
 	NSString *nss = [[NSString alloc] initWithFormat:@(s) arguments:the_args];
-	Vprintf(s, the_args);
 	va_end(the_args);
+	Printf("%s\n", [nss UTF8String]);
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = @"NetHack Error!";
 	alert.informativeText = [nss stringByAppendingString:@"\n\nNetHack will now crash."];
