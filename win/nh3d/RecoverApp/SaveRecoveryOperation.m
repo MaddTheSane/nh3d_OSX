@@ -71,7 +71,7 @@ static BOOL copy_bytes(int ifd, int ofd);
 				if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
 					switch (err.code) {
 						case NHRecoveryErrorHostBundleNotFound:
-							return @"The parent NetHack application could not be found";
+							return @"Parent NetHack application not found";
 							break;
 							
 						case NHRecoveryErrorFileCopy:
@@ -80,6 +80,12 @@ static BOOL copy_bytes(int ifd, int ofd);
 							
 						default:
 							break;
+					}
+				}
+				
+				if ([userInfoKey isEqualToString:NSLocalizedRecoverySuggestionErrorKey]) {
+					if (err.code == NHRecoveryErrorHostBundleNotFound) {
+						return @"Make sure that the Recovery app is in a NetHack application bundle.";
 					}
 				}
 				return nil;

@@ -54,20 +54,16 @@ class AppDelegate: NSObject {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		if let errorToReport = errorToReport {
-			do {
-				throw errorToReport
-			} catch let error as NSError {
-				let anAlert = NSAlert(error: error)
-				
-				anAlert.informativeText += "\n\nRecovery will now close."
-				
-				anAlert.runModal()
-				NSApp.terminate(nil)
-			}
+		let selfBundleURL = NSBundle.mainBundle().bundleURL
+		guard let parentBundleURL = selfBundleURL.URLByDeletingLastPathComponent?.URLByDeletingLastPathComponent,
+			parentBundle = NSBundle(URL: parentBundleURL), parentBundleResources = parentBundle.resourcePath
+			where parentBundle.bundleURL.pathExtension == "app" else {
+				errorToReport = .HostBundleNotFound
+				return
 		}
 		
-		progress.startAnimation(nil)
+		//Change to the NetHack resource directory.
+		NSFileManager.defaultManager().changeCurrentDirectoryPath(parentBundleResources)
 	}
 	
 	private func launchNetHack() throws {
@@ -173,15 +169,25 @@ class AppDelegate: NSObject {
 extension AppDelegate: NSApplicationDelegate {
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
 		// Insert code here to initialize your application
-		let selfBundleURL = NSBundle.mainBundle().bundleURL
-		guard let parentBundleURL = selfBundleURL.URLByDeletingLastPathComponent?.URLByDeletingLastPathComponent,
-			parentBundle = NSBundle(URL: parentBundleURL), parentBundleResources = parentBundle.resourcePath else {
-			errorToReport = .HostBundleNotFound
-			return
+		
+		if let errorToReport = errorToReport {
+			do {
+				throw errorToReport
+			} catch let error as NSError {
+				// force loading of SaveRecoveryOperation class
+				SaveRecoveryOperation.load()
+
+				let anAlert = NSAlert(error: error)
+				anAlert.alertStyle = .CriticalAlertStyle
+				
+				anAlert.informativeText += "\n\nRecovery will now close."
+				
+				anAlert.runModal()
+				NSApp.terminate(nil)
+			}
 		}
 		
-		//Change to the NetHack resource directory.
-		NSFileManager.defaultManager().changeCurrentDirectoryPath(parentBundleResources)
+		progress.startAnimation(nil)
 	}
 
 	func applicationWillTerminate(aNotification: NSNotification) {
