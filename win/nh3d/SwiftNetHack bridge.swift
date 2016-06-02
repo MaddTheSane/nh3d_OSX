@@ -126,7 +126,7 @@ var NH3DGL_USETILE: Bool {
 }
 
 var SOUND_MUTE: Bool {
-	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DSoundMuteKey)
+	return SOUND_MUTE_func()
 }
 
 var HSee_invisible: Int {

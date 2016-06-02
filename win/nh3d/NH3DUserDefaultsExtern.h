@@ -59,7 +59,11 @@ extern NSString *NH3DUseSightRestrictionKey;
 
 // Sound Mute
 extern NSString *const NH3DSoundMuteKey;
-#define SOUND_MUTE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey]
+static inline BOOL SOUND_MUTE_func() {
+	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey];
+}
+
+#define SOUND_MUTE	SOUND_MUTE_func()
 
 // Map Mode
 
