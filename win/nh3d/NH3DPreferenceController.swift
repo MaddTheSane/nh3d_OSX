@@ -10,7 +10,7 @@ import Cocoa
 
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
-func sizeFromFileName(fileName: String) -> (width: Int32, height: Int32)? {
+func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 	// FIXME: this is ugly!  Transition to Regex/NSScanner.
 	var width: Int32 = 0
 	var height: Int32 = 0
@@ -46,8 +46,8 @@ func sizeFromFileName(fileName: String) -> (width: Int32, height: Int32)? {
 /// NH3D wants the number of rows and columns; other front-ends
 /// specify the width and height of one tile.<br>
 /// This assumes that there are no extra pixels, such as signatures.
-func tilesInfoFromFileAtLocation(fileName: String) -> (tileSize: NSSize, rows: Int, columns: Int)? {
-	guard let fileDimensions = sizeFromFileName((fileName as NSString).lastPathComponent) else {
+func tilesInfoFromFile(at fileName: String) -> (tileSize: NSSize, rows: Int, columns: Int)? {
+	guard let fileDimensions = sizeFrom(fileName: (fileName as NSString).lastPathComponent) else {
 		return nil
 	}
 	
@@ -96,24 +96,24 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		self.init(windowNibName: "PreferencePanel")
 	}
 	
-	func windowShouldClose(sender: AnyObject) -> Bool {
+	func windowShouldClose(_ sender: AnyObject) -> Bool {
 		bindController?.endPreferencePanel()
 		
 		return true
 	}
 	
-	func showPreferencePanel(sender: NH3DBindController) {
+	func showPreferencePanel(_ sender: NH3DBindController) {
 		bindController = sender
 		window?.makeKeyAndOrderFront(self)
 	}
 	
-	@IBAction override func changeFont(sender: AnyObject?) {
+	@IBAction override func changeFont(_ sender: AnyObject?) {
 		guard let sender = sender as? NSFontManager else {
 			return
 		}
 		
-		let font = NSFont.systemFontOfSize(NSFont.systemFontSize())
-		let convertedFont = sender.convertFont(font)
+		let font = NSFont.systemFont(ofSize: NSFont.systemFontSize())
+		let convertedFont = sender.convert(font)
 		
 		let key: String
 		let sizeKey: String
@@ -144,16 +144,16 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 			return
 		}
 		
-		let defaults = NSUserDefaults.standardUserDefaults()
-		defaults.setObject(convertedFont.fontName, forKey: key)
-		defaults.setFloat(Float(convertedFont.pointSize), forKey: sizeKey)
+		let defaults = NSUserDefaults.standard()
+		defaults.set(convertedFont.fontName, forKey: key)
+		defaults.set(Float(convertedFont.pointSize), forKey: sizeKey)
 	}
 	
-	@IBAction func showFontPanelAction(sender: NSMatrix?) {
+	@IBAction func showFontPanelAction(_ sender: NSMatrix?) {
 		guard let sender = sender else {
 			return
 		}
-		let defaults = NSUserDefaults.standardUserDefaults()
+		let defaults = NSUserDefaults.standard()
 		let key: String
 		let sizeKey: String
 		fontButtonTag = sender.selectedCell()?.tag ?? 0
@@ -183,96 +183,96 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 			return
 		}
 		
-		guard let familyName = defaults.stringForKey(key),
-			selFont = NSFont(name: familyName, size: CGFloat(defaults.floatForKey(sizeKey))) else {
+		guard let familyName = defaults.string(forKey: key),
+			selFont = NSFont(name: familyName, size: CGFloat(defaults.float(forKey: sizeKey))) else {
 			return
 		}
 		
 		//NSLog(familyName);
 		
 		// Set font font manager
-		let fontMgr = NSFontManager.sharedFontManager()
+		let fontMgr = NSFontManager.shared()
 		fontMgr.setSelectedFont(selFont, isMultiple: false)
 		//fontMgr.delegate = self;
 		
 		// Show font panel
-		let fontPanel = NSFontPanel.sharedFontPanel()
-		if !fontPanel.visible {
+		let fontPanel = NSFontPanel.shared()
+		if !fontPanel.isVisible {
 			fontPanel.orderFront(self)
 		}
 		window?.makeFirstResponder(nil)
 	}
 	
-	@IBAction func resetFontFamily(sender: AnyObject?) {
-		let initialValues = NSUserDefaultsController.sharedUserDefaultsController().initialValues ?? [:]
-		let defaults = NSUserDefaults.standardUserDefaults()
+	@IBAction func resetFontFamily(_ sender: AnyObject?) {
+		let initialValues = NSUserDefaultsController.shared().initialValues ?? [:]
+		let defaults = NSUserDefaults.standard()
 		
-		defaults.setObject(initialValues[NH3DMsgFontKey],
+		defaults.set(initialValues[NH3DMsgFontKey],
 			forKey: NH3DMsgFontKey)
-		defaults.setObject(initialValues[NH3DMapFontKey],
+		defaults.set(initialValues[NH3DMapFontKey],
 			forKey: NH3DMapFontKey)
-		defaults.setObject(initialValues[NH3DBoldFontKey],
+		defaults.set(initialValues[NH3DBoldFontKey],
 			forKey: NH3DBoldFontKey)
-		defaults.setObject(initialValues[NH3DWindowFontKey],
+		defaults.set(initialValues[NH3DWindowFontKey],
 			forKey: NH3DWindowFontKey)
-		defaults.setObject(initialValues[NH3DInventryFontKey],
+		defaults.set(initialValues[NH3DInventryFontKey],
 			forKey: NH3DInventryFontKey)
 		
-		defaults.setObject(initialValues[NH3DMsgFontSizeKey],
+		defaults.set(initialValues[NH3DMsgFontSizeKey],
 			forKey: NH3DMsgFontSizeKey)
-		defaults.setObject(initialValues[NH3DMapFontSizeKey],
+		defaults.set(initialValues[NH3DMapFontSizeKey],
 			forKey: NH3DMapFontSizeKey)
-		defaults.setObject(initialValues[NH3DBoldFontSizeKey],
+		defaults.set(initialValues[NH3DBoldFontSizeKey],
 			forKey: NH3DBoldFontSizeKey)
-		defaults.setObject(initialValues[NH3DWindowFontSizeKey],
+		defaults.set(initialValues[NH3DWindowFontSizeKey],
 			forKey: NH3DWindowFontSizeKey)
-		defaults.setObject(initialValues[NH3DInventryFontSizeKey],
+		defaults.set(initialValues[NH3DInventryFontSizeKey],
 			forKey: NH3DInventryFontSizeKey)
 	}
 
-	@IBAction func chooseTileFile(sender: AnyObject?) {
+	@IBAction func chooseTileFile(_ sender: AnyObject?) {
 		let openPanel = NSOpenPanel()
 		
 		openPanel.canChooseDirectories = false
 		openPanel.allowsMultipleSelection = false
 		openPanel.allowedFileTypes = NSImage.imageTypes()
 		//openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
-		openPanel.beginSheetModalForWindow(window!) { (result) -> Void in
+		openPanel.beginSheetModal(for: window!) { (result) -> Void in
 			if result == NSFileHandlingPanelOKButton {
-				let filePath = openPanel.URL!.path!
-				let defaults = NSUserDefaults.standardUserDefaults()
-				if let tileSize = tilesInfoFromFileAtLocation(filePath) {
-					defaults.setInteger(tileSize.rows, forKey: NH3DTilesPerLineKey)
-					defaults.setInteger(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
-					defaults.setDouble(Double(tileSize.tileSize.width), forKey: NH3DTileSizeWidthKey)
-					defaults.setDouble(Double(tileSize.tileSize.height), forKey: NH3DTileSizeHeightKey)
+				let filePath = openPanel.url!.path!
+				let defaults = NSUserDefaults.standard()
+				if let tileSize = tilesInfoFromFile(at: filePath) {
+					defaults.set(tileSize.rows, forKey: NH3DTilesPerLineKey)
+					defaults.set(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
+					defaults.set(Double(tileSize.tileSize.width), forKey: NH3DTileSizeWidthKey)
+					defaults.set(Double(tileSize.tileSize.height), forKey: NH3DTileSizeHeightKey)
 				}
 				
-				defaults.setObject(filePath, forKey: NH3DTileNameKey)
+				defaults.set(filePath, forKey: NH3DTileNameKey)
 			}
 		}
 	}
 
-	@IBAction func resetTileSettings(sender: AnyObject?) {
-		let defaults = NSUserDefaults.standardUserDefaults()
+	@IBAction func resetTileSettings(_ sender: AnyObject?) {
+		let defaults = NSUserDefaults.standard()
 		
-		defaults.removeObjectForKey(NH3DTileNameKey)
-		defaults.removeObjectForKey(NH3DTileSizeWidthKey)
-		defaults.removeObjectForKey(NH3DTileSizeHeightKey)
-		defaults.removeObjectForKey(NH3DTilesPerLineKey)
-		defaults.removeObjectForKey(NH3DNumberOfTilesRowKey)
+		defaults.removeObject(forKey: NH3DTileNameKey)
+		defaults.removeObject(forKey: NH3DTileSizeWidthKey)
+		defaults.removeObject(forKey: NH3DTileSizeHeightKey)
+		defaults.removeObject(forKey: NH3DTilesPerLineKey)
+		defaults.removeObject(forKey: NH3DNumberOfTilesRowKey)
 	}
 	
-	@IBAction func clearID(sender: AnyObject?) {
-		NSUserDefaults.standardUserDefaults().removeObjectForKey(kKeyHearseId)
+	@IBAction func clearID(_ sender: AnyObject?) {
+		NSUserDefaults.standard().removeObject(forKey: kKeyHearseId)
 		restartHearse(nil)
 	}
 	
-	@IBAction func applyTileSettings(sender: AnyObject?) {
+	@IBAction func applyTileSettings(_ sender: AnyObject?) {
 		bindController?.setTile()
 	}
 	
-	@IBAction func restartHearse(sender: AnyObject?) {
+	@IBAction func restartHearse(_ sender: AnyObject?) {
 		#if !HEARSE_DISABLE
 		Hearse.stop()
 		Hearse.start()

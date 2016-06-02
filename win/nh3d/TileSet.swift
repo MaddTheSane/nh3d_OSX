@@ -35,7 +35,7 @@ final class TileSet: NSObject {
 		let rect = NSRect(origin: .zero, size: img.size)
 		image = NSImage(size: rect.size)
 		image.lockFocus()
-		img.drawInRect(rect, fromRect: rect, operation: .CompositeCopy, fraction: 1.0)
+		img.draw(in: rect, from: rect, operation: .compositeCopy, fraction: 1.0)
 		image.unlockFocus()
 		
 		tileSize = ts
@@ -46,14 +46,14 @@ final class TileSet: NSObject {
 	}
 	
 	convenience init?(name named: String) {
-		let defaults = NSUserDefaults.standardUserDefaults()
+		let defaults = NSUserDefaults.standard()
 		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return
 		}
 		
-		let size = NSSize(width: CGFloat(defaults.doubleForKey(NH3DTileSizeWidthKey)),
-		                  height: CGFloat(defaults.doubleForKey(NH3DTileSizeHeightKey)))
+		let size = NSSize(width: CGFloat(defaults.double(forKey: NH3DTileSizeWidthKey)),
+		                  height: CGFloat(defaults.double(forKey: NH3DTileSizeHeightKey)))
 		self.init(image: img, tileSize: size)
 	}
 	
@@ -64,7 +64,7 @@ final class TileSet: NSObject {
 		}
 		
 		if size == .zero {
-			if let nameSize = sizeFromFileName((loc as NSString).lastPathComponent) {
+			if let nameSize = sizeFrom(fileName: (loc as NSString).lastPathComponent) {
 				size = NSSize(width: Int(nameSize.width), height: Int(nameSize.height))
 			} else {
 				size.width = img.size.width / CGFloat(TILES_PER_LINE)
@@ -75,12 +75,12 @@ final class TileSet: NSObject {
 		self.init(image: img, tileSize: size)
 	}
 	
-	func sourceRectForGlyph(glyph: Int32) -> NSRect {
+	func sourceRect(for glyph: Int32) -> NSRect {
 		let tile = glyphToTile(glyph)
-		return sourceRectForTile(tile)
+		return sourceRect(for: tile)
 	}
 	
-	private func sourceRectForTile(tile: Int16) -> NSRect {
+	private func sourceRect(for tile: Int16) -> NSRect {
 		let row = rows - 1 - Int(tile) / columns;
 		let col = Int(tile) % columns;
 
@@ -103,18 +103,18 @@ final class TileSet: NSObject {
 		return size
 	}
 	
-	func imageForGlyph(glyph: Int32) -> NSImage {
+	@objc(imageForGlyph:) func image(for glyph: Int32) -> NSImage {
 		let tile = glyphToTile(glyph)
 		// Check for cached image:
 		if let img = cache[tile] {
 			return img
 		}
 		// get image
-		let srcRect = sourceRectForGlyph(glyph)
+		let srcRect = sourceRect(for: glyph)
 		let newImage = NSImage(size: tileSize)
 		let dstRect = NSRect(origin: .zero, size: tileSize)
 		newImage.lockFocus()
-		image.drawInRect(dstRect, fromRect: srcRect, operation: .CompositeCopy, fraction: 1)
+		image.draw(in: dstRect, from: srcRect, operation: .compositeCopy, fraction: 1)
 		newImage.unlockFocus()
 		// cache image
 		cache[tile] = newImage
@@ -122,12 +122,12 @@ final class TileSet: NSObject {
 	}
 	
 	//@available(OSX, introduced=10.9, deprecated=10.11, message="Use -imageForGlyph: instead")
-	func tileImageFromGlyph(glyph: Int32) -> NSImage? {
+	func tileImageFromGlyph(_ glyph: Int32) -> NSImage? {
 		let tile = glyphToTile(glyph)
 		if (Int32(tile) >= total_tiles_used || tile < 0) {
 			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.");
 			return nil;
 		}
-		return imageForGlyph(glyph)
+		return image(for: glyph)
 	}
 }

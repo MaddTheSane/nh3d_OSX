@@ -34,7 +34,7 @@ class NH3DMessaging: NSObject {
 			regex_free(regex)
 		}
 		
-		func matches(str: String) -> Bool {
+		func matches(_ str: String) -> Bool {
 			return regex_match(str, regex)
 		}
 	}
@@ -122,7 +122,7 @@ class NH3DMessaging: NSObject {
 		messageScrollView.drawsBackground = false
 	}
 
-	func addEffectMessage(newMsg: String, effectType: Int32) -> Bool {
+	@objc(addEffectMessage:effectType:) func addEffect(message newMsg: String, effectType: Int32) -> Bool {
 		guard effectType != 1 || effectType != 2 else {
 			return false
 		}
@@ -133,13 +133,13 @@ class NH3DMessaging: NSObject {
 		return true
 	}
 
-	@objc(playSoundAtURL:volume:) func playSound(URL URL: NSURL, volume: Float) -> Bool {
+	@objc(playSoundAtURL:volume:) func playSound(URL: NSURL, volume: Float) -> Bool {
 		guard !SOUND_MUTE else {
 			return false
 		}
 		
 		func playAud(playSound: AVAudioPlayer) {
-			if playSound.playing {
+			if playSound.isPlaying {
 				return
 				//playSound.pause()
 				//playSound.currentTime = 0
@@ -149,30 +149,30 @@ class NH3DMessaging: NSObject {
 		}
 		
 		if let playSound1 = audioDict[URL.path!] {
-			playAud(playSound1)
+			playAud(playSound: playSound1)
 			return true
 		}
 		guard URL.checkResourceIsReachableAndReturnError(nil) else {
 			return false
 		}
 		
-		guard let playSound = try? AVAudioPlayer(contentsOfURL: URL) else {
+		guard let playSound = try? AVAudioPlayer(contentsOf: URL) else {
 			return false
 		}
 		audioDict[URL.path!] = playSound
-		playAud(playSound)
+		playAud(playSound: playSound)
 		return true
 	}
 	
-	@objc(putMainMessage:text:) func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>) {
+	@objc(putMainMessage:text:) func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>?) {
 		prepareAttributes()
-		style.alignment = .Left
+		style.alignment = .left
 		
-		if text == nil {
+		guard let text = text else {
 			return
 		}
 		
-		guard let textStr = String(CString: text, encoding: NH3DTEXTENCODING) else {
+		guard let textStr = String(cString: text, encoding: NH3DTEXTENCODING) else {
 			NSBeep()
 			return
 		}
@@ -199,14 +199,14 @@ class NH3DMessaging: NSObject {
 			break;
 			
 		case ATR_ULINE:
-			darkShadowStrAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.StyleSingle.rawValue
+			darkShadowStrAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.styleSingle.rawValue
 			
 		case ATR_BOLD:
 			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
 			
 		case ATR_BLINK, ATR_INVERSE:
-			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlTextColor()
-			darkShadowStrAttributes[NSBackgroundColorAttributeName] = NSColor.alternateSelectedControlColor()
+			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlText()
+			darkShadowStrAttributes[NSBackgroundColorAttributeName] = NSColor.alternateSelectedControl()
 			
 		default:
 			break
@@ -218,11 +218,11 @@ class NH3DMessaging: NSObject {
 			msgArray.append(putString.length)
 		} else {
 			let txtRange = NSRange(location: 0, length: msgArray.removeFirst())
-			messageWindow.textStorage?.deleteCharactersInRange(txtRange)
+			messageWindow.textStorage?.deleteCharacters(in: txtRange)
 			msgArray.append(putString.length)
 		}
 		
-		messageWindow.textStorage?.appendAttributedString(putString)
+		messageWindow.textStorage?.append(putString)
 		messageWindow.scrollToEndOfDocument(self)
 	}
 	
@@ -233,14 +233,14 @@ class NH3DMessaging: NSObject {
 			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
 
-	func showInputPanel(messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
-		guard let questionStr = String(CString: messageStr, encoding: NH3DTEXTENCODING) else {
+	func showInputPanel(_ messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
+		guard let questionStr = String(cString: messageStr, encoding: NH3DTEXTENCODING) else {
 			return -1
 		}
 		var result = 0;
 		
 		prepareAttributes()
-		style.alignment = .Center
+		style.alignment = .center
 		
 		let putString = NSAttributedString(string: questionStr,
 			attributes: lightShadowStrAttributes)
@@ -251,7 +251,7 @@ class NH3DMessaging: NSObject {
 			//do nothing?
 		}
 		
-		result = NSApp.runModalForWindow(inputPanel)
+		result = NSApp.runModal(for: inputPanel)
 		
 		window.endSheet(inputPanel)
 		inputPanel.orderOut(self)
@@ -266,7 +266,7 @@ class NH3DMessaging: NSObject {
 			return -1
 		}
 		
-		if inputTextField.stringValue.lengthOfBytesUsingEncoding(NH3DTEXTENCODING) > Int(BUFSZ) {
+		if inputTextField.stringValue.lengthOfBytes(using: NH3DTEXTENCODING) > Int(BUFSZ) {
 			let alert = NSAlert()
 			alert.messageText = NSLocalizedString("There is too much number of the letters.", comment: "")
 			alert.informativeText = " "
@@ -277,9 +277,9 @@ class NH3DMessaging: NSObject {
 			return -1
 		}
 		
-		guard let inputData = inputTextField.stringValue.dataUsingEncoding(NH3DTEXTENCODING, allowLossyConversion:true),
+		guard let inputData = inputTextField.stringValue.data(using: NH3DTEXTENCODING, allowLossyConversion:true),
 			str = String(data: inputData, encoding: NH3DTEXTENCODING),
-			cStr = str.cStringUsingEncoding(NH3DTEXTENCODING) else {
+			cStr = str.cString(using: NH3DTEXTENCODING) else {
 				questionTextField.stringValue = ""
 				inputTextField.stringValue = ""
 				return -1
@@ -293,24 +293,24 @@ class NH3DMessaging: NSObject {
 		return 0
 	}
 	
-	@IBAction func closeInputPanel(sender: NSButton?) {
+	@IBAction func closeInputPanel(_ sender: NSButton?) {
 		if sender?.tag != 0 {
-			NSApp.stopModalWithCode(DIALOG_CANCEL)
+			NSApp.stopModal(withCode: DIALOG_CANCEL)
 		} else {
-			NSApp.stopModalWithCode(DIALOG_OK)
+			NSApp.stopModal(withCode: DIALOG_OK)
 		}
 	}
 	
-	func showOutRip(ripString: UnsafePointer<CChar>) {
+	func showOutRip(_ ripString: UnsafePointer<CChar>) {
 		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died.\n\nNothing eventful happened, though."
 		showOutRip(conv)
 	}
 	
-	@objc(showOutRipString:) func showOutRip(ripString: String) {
+	@objc(showOutRipString:) func showOutRip(_ ripString: String) {
 		ripFlag = true;
 		
 		prepareAttributes()
-		style.alignment = .Center
+		style.alignment = .center
 		
 		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: "Optima Bold", size: 11)
@@ -330,18 +330,18 @@ class NH3DMessaging: NSObject {
 		)
 	}
 	
-	func putLogMessage(rawText: String, bold: Bool) {
+	@objc(putLogMessage:bold:) func putLog(message rawText: String, bold: Bool) {
 		#if DEBUG
 			NSLog(" %@", rawText)
 		#endif
 		prepareAttributes()
-		style.alignment = .Left
+		style.alignment = .left
 		
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
 		
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		
-		rawPrintWindow.textStorage?.appendAttributedString(putStr)
+		rawPrintWindow.textStorage?.append(putStr)
 	}
 	
 	func showLogPanel() -> NSApplicationTerminateReply {
@@ -353,7 +353,7 @@ class NH3DMessaging: NSObject {
 		
 		if ripFlag {
 			ripOrMainWindow = ripPanel
-			NSApp.runModalForWindow(ripPanel)
+			NSApp.runModal(for: ripPanel)
 		} else {
 			ripOrMainWindow = window
 		}
@@ -362,12 +362,12 @@ class NH3DMessaging: NSObject {
 			ripOrMainWindow.animator().alphaValue = 0
 			self.rawPrintPanel.animator().alphaValue = 1
 			}, completionHandler: {
-				NSApp.runModalForWindow(self.rawPrintPanel)
+				NSApp.runModal(for: self.rawPrintPanel)
 				self.rawPrintPanel.orderOut(self)
 				clearlocks()
-				NSApp.replyToApplicationShouldTerminate(true)
+				NSApp.reply(toApplicationShouldTerminate: true)
 		})
 		
-		return .TerminateLater
+		return .terminateLater
 	}
 }
