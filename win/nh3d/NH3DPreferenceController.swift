@@ -144,7 +144,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 			return
 		}
 		
-		let defaults = NSUserDefaults.standard()
+		let defaults = UserDefaults.standard()
 		defaults.set(convertedFont.fontName, forKey: key)
 		defaults.set(Float(convertedFont.pointSize), forKey: sizeKey)
 	}
@@ -153,7 +153,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		guard let sender = sender else {
 			return
 		}
-		let defaults = NSUserDefaults.standard()
+		let defaults = UserDefaults.standard()
 		let key: String
 		let sizeKey: String
 		fontButtonTag = sender.selectedCell()?.tag ?? 0
@@ -205,7 +205,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	
 	@IBAction func resetFontFamily(_ sender: AnyObject?) {
 		let initialValues = NSUserDefaultsController.shared().initialValues ?? [:]
-		let defaults = NSUserDefaults.standard()
+		let defaults = UserDefaults.standard()
 		
 		defaults.set(initialValues[NH3DMsgFontKey],
 			forKey: NH3DMsgFontKey)
@@ -240,7 +240,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		openPanel.beginSheetModal(for: window!) { (result) -> Void in
 			if result == NSFileHandlingPanelOKButton {
 				let filePath = openPanel.url!.path!
-				let defaults = NSUserDefaults.standard()
+				let defaults = UserDefaults.standard()
 				if let tileSize = tilesInfoFromFile(at: filePath) {
 					defaults.set(tileSize.rows, forKey: NH3DTilesPerLineKey)
 					defaults.set(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
@@ -254,7 +254,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	}
 
 	@IBAction func resetTileSettings(_ sender: AnyObject?) {
-		let defaults = NSUserDefaults.standard()
+		let defaults = UserDefaults.standard()
 		
 		defaults.removeObject(forKey: NH3DTileNameKey)
 		defaults.removeObject(forKey: NH3DTileSizeWidthKey)
@@ -264,7 +264,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	}
 	
 	@IBAction func clearID(_ sender: AnyObject?) {
-		NSUserDefaults.standard().removeObject(forKey: kKeyHearseId)
+		UserDefaults.standard().removeObject(forKey: kKeyHearseId)
 		restartHearse(nil)
 	}
 	

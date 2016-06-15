@@ -49,40 +49,40 @@ let NH3D_EXPLODE_FROSTY: Int32 =		(GLYPH_EXPLODE_OFF + (EXPL_FROSTY * MAXEXPCHAR
 
 //MARK: for font
 var NH3DMSGFONT: String! {
-	return NSUserDefaults.standard().string(forKey: NH3DMsgFontKey)
+	return UserDefaults.standard().string(forKey: NH3DMsgFontKey)
 }
 
 var NH3DWINDOWFONT: String! {
-	return NSUserDefaults.standard().string(forKey: NH3DWindowFontKey)
+	return UserDefaults.standard().string(forKey: NH3DWindowFontKey)
 }
 
 var NH3DMAPFONT: String! {
-	return NSUserDefaults.standard().string(forKey: NH3DMapFontKey)
+	return UserDefaults.standard().string(forKey: NH3DMapFontKey)
 }
 
 var NH3DBOLDFONT: String! {
-	return NSUserDefaults.standard().string(forKey: NH3DBoldFontKey)
+	return UserDefaults.standard().string(forKey: NH3DBoldFontKey)
 }
 
 var NH3DINVFONT: String! {
-	return NSUserDefaults.standard().string(forKey: NH3DInventryFontKey)
+	return UserDefaults.standard().string(forKey: NH3DInventryFontKey)
 }
 
 var NH3DMSGFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standard().float(forKey: NH3DMsgFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DMsgFontSizeKey))
 }
 
 var NH3DWINDOWFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standard().float(forKey: NH3DWindowFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DWindowFontSizeKey))
 }
 var NH3DMAPFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standard().float(forKey: NH3DMapFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DMapFontSizeKey))
 }
 var NH3DBOLDFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standard().float(forKey: NH3DBoldFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DBoldFontSizeKey))
 }
 var NH3DINVFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standard().float(forKey: NH3DInventryFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DInventryFontSizeKey))
 }
 
 var TRADITIONAL_MAP: Bool {
@@ -90,35 +90,35 @@ var TRADITIONAL_MAP: Bool {
 }
 
 var TRADITIONAL_MAP_TILE: Bool {
-	return NSUserDefaults.standard().bool(forKey: NH3DTraditionalMapModeKey)
+	return UserDefaults.standard().bool(forKey: NH3DTraditionalMapModeKey)
 }
 
 var TILE_FILE_NAME: String! {
-	return NSUserDefaults.standard().string(forKey: NH3DTileNameKey)
+	return UserDefaults.standard().string(forKey: NH3DTileNameKey)
 }
 
 var TILES_PER_LINE: Int {
-	return NSUserDefaults.standard().integer(forKey: NH3DTilesPerLineKey)
+	return UserDefaults.standard().integer(forKey: NH3DTilesPerLineKey)
 }
 
 var NUMBER_OF_TILES_ROW: Int {
-	return NSUserDefaults.standard().integer(forKey: NH3DNumberOfTilesRowKey)
+	return UserDefaults.standard().integer(forKey: NH3DNumberOfTilesRowKey)
 }
 
 var OPENGLVIEW_WAITRATE: Double {
-	return NSUserDefaults.standard().double(forKey: NH3DOpenGLWaitRateKey)
+	return UserDefaults.standard().double(forKey: NH3DOpenGLWaitRateKey)
 }
 
 var OPENGLVIEW_WAITSYNC: Bool {
-	return NSUserDefaults.standard().bool(forKey: NH3DOpenGLWaitSyncKey)
+	return UserDefaults.standard().bool(forKey: NH3DOpenGLWaitSyncKey)
 }
 
 var OPENGLVIEW_USEWAIT: Bool {
-	return NSUserDefaults.standard().bool(forKey: NH3DOpenGLUseWaitRateKey)
+	return UserDefaults.standard().bool(forKey: NH3DOpenGLUseWaitRateKey)
 }
 
 var OPENGLVIEW_NUMBER_OF_THREADS: Int {
-	return NSUserDefaults.standard().integer(forKey: NH3DOpenGLNumberOfThreadsKey)
+	return UserDefaults.standard().integer(forKey: NH3DOpenGLNumberOfThreadsKey)
 }
 
 var NH3DGL_USETILE: Bool {

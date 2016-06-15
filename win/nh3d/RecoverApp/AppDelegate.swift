@@ -25,7 +25,7 @@ private let locURLKey = "NHRecoverURL"
 private let recoverErrorKey = "NHRecoverError"
 
 @NSApplicationMain
-class AppDelegate: NSObject {
+class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var progress: NSProgressIndicator!
 	@IBOutlet weak var errorPanel: NSWindow!
@@ -35,12 +35,12 @@ class AppDelegate: NSObject {
 	private var succeededNums = 0
 	dynamic private(set) var countNums = 0
 	
-	private var recoveryErrors = [NSURL: NSError]()
-	private var errorOrder = [NSURL]()
+	private var recoveryErrors = [URL: NSError]()
+	private var errorOrder = [URL]()
 	
 	private var errorToReport: NHRecoveryErrors?
-	private let opQueue: NSOperationQueue = {
-		let aQueue = NSOperationQueue()
+	private let opQueue: OperationQueue = {
+		let aQueue = OperationQueue()
 		
 		aQueue.name = "NetHack Recovery"
 		
@@ -54,38 +54,40 @@ class AppDelegate: NSObject {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		let selfBundleURL = NSBundle.main().bundleURL
-		guard let parentBundleURL = selfBundleURL.deletingLastPathComponent?.deletingLastPathComponent,
-			parentBundle = NSBundle(url: parentBundleURL), parentBundleResources = parentBundle.resourcePath
-			where parentBundle.bundleURL.pathExtension == "app" else {
-				errorToReport = .hostBundleNotFound
-				return
+		let selfBundleURL = Bundle.main().bundleURL
+		do {
+		 let parentBundleURL = try selfBundleURL.deletingLastPathComponent().deletingLastPathComponent()
+			guard let parentBundle = Bundle(url: parentBundleURL), parentBundleResources = parentBundle.resourcePath
+				where parentBundle.bundleURL.pathExtension == "app" else {
+					throw NHRecoveryErrors.hostBundleNotFound
+			}
+			//Change to the NetHack resource directory.
+			FileManager.default().changeCurrentDirectoryPath(parentBundleResources)
+		} catch {
+			errorToReport = .hostBundleNotFound
 		}
-		
-		//Change to the NetHack resource directory.
-		NSFileManager.default().changeCurrentDirectoryPath(parentBundleResources)
 	}
 	
 	private func launchNetHack() throws {
 		let workspace = NSWorkspace.shared()
-		let parentBundleURL: NSURL = {
-			let selfBundleURL = NSBundle.main().bundleURL
-			return selfBundleURL.deletingLastPathComponent!.deletingLastPathComponent!.deletingLastPathComponent!
+		let parentBundleURL: NSURL = try {
+			let selfBundleURL = Bundle.main().bundleURL
+			return try selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		}()
-		try workspace.launchApplication(at: parentBundleURL, options: .default, configuration: [:])
+		try workspace.launchApplication(at: parentBundleURL as URL, options: .default, configuration: [:])
 		NSApp.terminate(nil)
 	}
 	
 	func add(url: NSURL) {
-		let saveRecover = SaveRecoveryOperation(saveFileURL: url)
+		let saveRecover = SaveRecoveryOperation(saveFileURL: url as URL)
 		
 		saveRecover.completionBlock = {
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			DispatchQueue.main.async(execute: { () -> Void in
 				if saveRecover.success {
 					self.succeededNums += 1
 				} else {
 					self.failedNums += 1
-					self.recoveryErrors[url] = saveRecover.error!
+					self.recoveryErrors[url as URL] = saveRecover.error!
 				}
 				if self.countNums == self.succeededNums + self.failedNums {
 					// we're done
@@ -94,13 +96,13 @@ class AppDelegate: NSObject {
 					alert.addButton(withTitle: "Relaunch NetHack")
 					
 					if self.failedNums != 0 {
-						alert.alertStyle = .warningAlertStyle
+						alert.alertStyle = .warning
 						alert.messageText = "Recovery unsuccessful!"
 						alert.informativeText = "\(self.failedNums) file\(self.failedNums > 1 ? "s were" : " was") not successfully recovered."
 						alert.addButton(withTitle: "Quit")
 						alert.addButton(withTitle: "Show Errors")
 					} else {
-						alert.alertStyle = .informationalAlertStyle
+						alert.alertStyle = .informational
 						alert.messageText = "Recovery successful"
 						alert.informativeText = "\(self.succeededNums) file\(self.succeededNums > 1 ? "s were" : " was") successfully recovered."
 					}
@@ -166,8 +168,8 @@ class AppDelegate: NSObject {
 
 //MARK: - NSApplicationDelegate
 
-extension AppDelegate: NSApplicationDelegate {
-	func applicationDidFinishLaunching(_ aNotification: NSNotification) {
+extension AppDelegate {
+	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		// Insert code here to initialize your application
 		
 		if let errorToReport = errorToReport {
@@ -178,7 +180,7 @@ extension AppDelegate: NSApplicationDelegate {
 				SaveRecoveryOperation.load()
 
 				let anAlert = NSAlert(error: error)
-				anAlert.alertStyle = .criticalAlertStyle
+				anAlert.alertStyle = .critical
 				
 				anAlert.informativeText += "\n\nRecovery will now close."
 				
@@ -190,12 +192,12 @@ extension AppDelegate: NSApplicationDelegate {
 		progress.startAnimation(nil)
 	}
 
-	func applicationWillTerminate(_ aNotification: NSNotification) {
+	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
 
 	func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-		let fileURL = NSURL(fileURLWithPath: filename)
+		let fileURL = URL(fileURLWithPath: filename)
 		add(url: fileURL)
 		return true
 	}

@@ -40,7 +40,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	private(set) var dungeonNameString = NSAttributedString()
+	private(set) var dungeonNameString = AttributedString()
 	private var strAttributes = [String: AnyObject]()
 	private var shadow = NSShadow()
 	private var style = NSMutableParagraphStyle()
@@ -63,13 +63,13 @@ class MapModel: NSObject {
 	}
 	private var enemyWarnBaseInternal: Int32 = 0
 	private(set) final var loadingStatus = 0
-	private var indicatorTimer: NSTimer?
+	private var indicatorTimer: Timer?
 	
 	private(set) final var cursX: Int32 = 0
 	private(set) final var cursY: Int32 = 0
 	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_COLUMN)), count: Int(MAPSIZE_COLUMN))
 
-	private var lock = NSRecursiveLock()
+	private var lock = RecursiveLock()
 	
 	override init() {
 		for x in 0 ..< MAPSIZE_COLUMN {
@@ -119,16 +119,16 @@ class MapModel: NSObject {
 	
 	final func startIndicator() {
 		indicatorIsActive = true;
-		indicatorTimer = NSTimer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
-		NSRunLoop.current().add(indicatorTimer!, forMode: NSDefaultRunLoopMode)
+		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
+		RunLoop.current().add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
 	}
 	
-	@objc private func updateEnemyIndicator(timer: NSTimer) {
-		var value = enemyWarnBase + (random() % 3 + 1)
+	@objc private func updateEnemyIndicator(timer: Timer) {
+		var value = enemyWarnBase + Int(arc4random() % 3 + 1)
 		let alert = NSSound(named: "Hero")!
 		
 		if enemyIndicator.intValue == value {
-			value = enemyWarnBase - (random() % 3 + 1)
+			value = enemyWarnBase - Int(arc4random() % 3 + 1)
 		}
 		enemyIndicator.intValue = value
 		
@@ -244,7 +244,7 @@ class MapModel: NSObject {
 	}
 
 	final func setDungeonName(_ str: String) {
-		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
+		dungeonNameString = AttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}
 }

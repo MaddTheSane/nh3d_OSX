@@ -35,7 +35,7 @@ final class TileSet: NSObject {
 		let rect = NSRect(origin: .zero, size: img.size)
 		image = NSImage(size: rect.size)
 		image.lockFocus()
-		img.draw(in: rect, from: rect, operation: .compositeCopy, fraction: 1.0)
+		img.draw(in: rect, from: rect, operation: .copy, fraction: 1.0)
 		image.unlockFocus()
 		
 		tileSize = ts
@@ -46,7 +46,7 @@ final class TileSet: NSObject {
 	}
 	
 	convenience init?(name named: String) {
-		let defaults = NSUserDefaults.standard()
+		let defaults = UserDefaults.standard()
 		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return
@@ -103,7 +103,7 @@ final class TileSet: NSObject {
 		return size
 	}
 	
-	@objc(imageForGlyph:) func image(for glyph: Int32) -> NSImage {
+	@objc(imageForGlyph:) func imageFor(_ glyph: Int32) -> NSImage {
 		let tile = glyphToTile(glyph)
 		// Check for cached image:
 		if let img = cache[tile] {
@@ -114,7 +114,7 @@ final class TileSet: NSObject {
 		let newImage = NSImage(size: tileSize)
 		let dstRect = NSRect(origin: .zero, size: tileSize)
 		newImage.lockFocus()
-		image.draw(in: dstRect, from: srcRect, operation: .compositeCopy, fraction: 1)
+		self.image.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1)
 		newImage.unlockFocus()
 		// cache image
 		cache[tile] = newImage
@@ -128,6 +128,6 @@ final class TileSet: NSObject {
 			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.");
 			return nil;
 		}
-		return image(for: glyph)
+		return imageFor(glyph)
 	}
 }

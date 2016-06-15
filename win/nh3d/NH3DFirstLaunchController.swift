@@ -17,7 +17,7 @@ class NH3DFirstLaunchController: NSWindowController {
     }
 
 	class func runFirstTimeWindow() {
-		let defaults = NSUserDefaults.standard()
+		let defaults = UserDefaults.standard()
 		
 		// If we have a Hearse Token, it means that the user already knows about Hearse.
 		// So don't show the first time launch window

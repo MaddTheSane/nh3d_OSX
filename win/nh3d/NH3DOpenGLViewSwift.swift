@@ -260,7 +260,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(MAX_GLYPH))
 	private var modelDictionary = [Int32: NH3DModelObject]()
-	private let viewLock = NSRecursiveLock()
+	private let viewLock = RecursiveLock()
 	
 	private typealias DrawFloorFunc = () -> ()
 	private var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
@@ -583,7 +583,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			if let link = link {
 				let aTime: CVTime = CVDisplayLinkGetNominalOutputVideoRefreshPeriod(link)
-				if aTime.flags & Int32(kCVTimeIsIndefinite) == 0 {
+				if aTime.flags & CVTimeFlags.isIndefinite.rawValue == 0 {
 					aRefreshRate = Double(aTime.timeScale) / Double(aTime.timeValue)
 				}
 				//dRefreshRate = CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
@@ -597,10 +597,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		if NSUserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) {
+		if UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) {
 			wantsBestResolutionOpenGLSurface = true
 		}
-		let nCenter = NSNotificationCenter.default()
+		let nCenter = NotificationCenter.default()
 		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(notification:)), name: "NSUserDefaultsDidChangeNotification", object: nil)
 		
 		dRefreshRate = getRefreshRate()
@@ -636,7 +636,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			NSColor.clear().set()
 			NSBezierPath.fill(bounds)
 			
-			NSImage(named: "nh3d")?.draw(at: NSPoint(x: 156, y: 88), from: .zero, operation: .compositeSourceOver, fraction: 0.7)
+			NSImage(named: "nh3d")?.draw(at: NSPoint(x: 156, y: 88), from: .zero, operation: .sourceOver, fraction: 0.7)
 			("NetHack3D" as NSString).draw(at: NSPoint(x: 168.0, y: 70.0), withAttributes: attributes)
 			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 14)
 			("by Haruumi Yoshino 2005" as NSString).draw(at: NSPoint(x: 130.0, y: 56.0), withAttributes: attributes)
@@ -995,7 +995,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		threadRunning = true
 		
 		for _ in 0..<OPENGLVIEW_NUMBER_OF_THREADS {
-			NSThread.detachNewThreadSelector(#selector(NH3DOpenGLView.timerFired(sender:)), toTarget: self, with: self)
+			Thread.detachNewThreadSelector(#selector(NH3DOpenGLView.timerFired(sender:)), toTarget: self, with: self)
 		}
 	}
 	
@@ -1011,7 +1011,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		} else {
 			vsType = vsyncNoWait
 		}
-		openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.glcpSwapInterval)
+		openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.swapInterval)
 		
 		viewLock.unlock()
 		
@@ -1024,10 +1024,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			
 			if hasWait {
-				NSThread.sleep(until: NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)))
+				Thread.sleep(until: NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)) as Date)
 			}
 		}
-		NSThread.exit()
+		Thread.exit()
 	}
 	
 	/// Drawing OpenGL function.
@@ -1135,8 +1135,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let viewRectPoints = bounds
 		let viewRectPixels: NSRect
 		
-		if NSUserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) {
-			viewRectPixels = convertRectToBacking(viewRectPoints)
+		if UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) {
+			viewRectPixels = convertToBacking(viewRectPoints)
 		} else {
 			viewRectPixels = viewRectPoints
 		}
@@ -1170,7 +1170,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				if let newModel = loadModelBlocks[Int(glyph)](glyph: glyph) {
 					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_PET_OFF {
 						newModel.isAnimated = true
-						newModel.animationRate = (Float(random() % 5) * 0.1) + 0.5
+						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
 						newModel.modelPivot = NH3DVertexType(x: 0.0, y: 0.3, z: 0.0)
 						newModel.useEnvironment = true
 						newModel.setTexture(Int32(envelopTex))
@@ -1685,14 +1685,14 @@ final class NH3DOpenGLView: NSOpenGLView {
 				return 0
 			}
 			var attributes = [String: AnyObject]()
-			let fontName = NSUserDefaults.standard().string(forKey: NH3DWindowFontKey)!
+			let fontName = UserDefaults.standard().string(forKey: NH3DWindowFontKey)!
 			
 			attributes[NSFontAttributeName] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
 			
 			attributes[NSForegroundColorAttributeName] = color
 			attributes[NSBackgroundColorAttributeName] = NSColor.clear()
 			
-			symbolSize = symbol.size(attributes: attributes)
+			symbolSize = symbol.size(withAttributes: attributes)
 			
 			// Draw texture
 			img.lockFocus()
@@ -1711,7 +1711,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			img.lockFocus()
 			symbol.draw(in: NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
 				from: NSRect(origin: .zero, size: symbolSize),
-				operation: .compositeSourceOver,
+				operation: .sourceOver,
 				fraction: 1.0)
 			img.unlockFocus()
 		}
@@ -1878,8 +1878,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return
 		}
 		
-		if NSUserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
-			wantsBestResolutionOpenGLSurface = NSUserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL)
+		if UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
+			wantsBestResolutionOpenGLSurface = UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL)
 			reshape()
 		}
 		
@@ -1939,7 +1939,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			} else {
 				vsType = vsyncNoWait
 			}
-			openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.glcpSwapInterval)
+			openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.swapInterval)
 		}
 		
 		if useTile != NH3DGL_USETILE {
@@ -1962,7 +1962,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		do {
 			let hi: Int = sender.state
-			NSUserDefaults.standard().set(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
+			UserDefaults.standard().set(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
 			NSUserDefaultsController.shared().values.setValue(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
 		}
 		
@@ -1975,7 +1975,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		} else {
 			vsType = vsyncNoWait
 		}
-		openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.glcpSwapInterval)
+		openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.swapInterval)
 	}
 	
 	@IBAction func useAntiAlias(sender: NSMenuItem) {
@@ -2002,7 +2002,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1003: // no wait
 			waitRate = dRefreshRate
 			sender.state = NSOnState
-			NSUserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
 			NSUserDefaultsController.shared().values.setValue( (false as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
@@ -2013,7 +2013,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1004:
 			waitRate = WAIT_FAST
 			sender.state = NSOnState
-			NSUserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
 			NSUserDefaultsController.shared().values.setValue( (true as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
@@ -2024,7 +2024,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1005:
 			waitRate = WAIT_NORMAL
 			sender.state = NSOnState
-			NSUserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
 			NSUserDefaultsController.shared().values.setValue( (true as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
@@ -2035,7 +2035,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1006:
 			waitRate = WAIT_SLOW
 			sender.state = NSOnState
-			NSUserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
 			NSUserDefaultsController.shared().values.setValue( (true as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
@@ -2053,7 +2053,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		oglParamNowChanging = false
 		viewLock.unlock()
 		
-		NSUserDefaults.standard().set(waitRate, forKey:NH3DOpenGLWaitRateKey)
+		UserDefaults.standard().set(waitRate, forKey:NH3DOpenGLWaitRateKey)
 		NSUserDefaultsController.shared().values.setValue((waitRate as NSNumber),
 			forKey: NH3DOpenGLWaitRateKey)
 	}
@@ -4130,7 +4130,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.setTexture(Int32(cellingTex))
 			ret.isAnimated = true
 			ret.useEnvironment = true
-			ret.animationRate = ((Float(random() % 5) * 0.1) + 0.5) / 2
+			ret.animationRate = ((Float(arc4random() % 5) * 0.1) + 0.5) / 2
 			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
 			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
 			ret.modelPivot = NH3DVertexType(x: 0.0, y: 0.0, z: 0.0)
@@ -4138,7 +4138,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.lastChild?.setTexture(Int32(cellingTex))
 			ret.lastChild?.useEnvironment = false
 			ret.lastChild?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
-			ret.lastChild?.animationRate = (Float(random() % 5) * 0.1) + 0.5
+			ret.lastChild?.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
 			ret.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.3, z: 0.0)
 			ret.lastChild?.modelShift = NH3DVertexType(x: 0, y: 1.5, z: 0)
 			ret.lastChild?.modelScale = NH3DVertexType(x: 0.75, y: 0.75, z: 0.75)

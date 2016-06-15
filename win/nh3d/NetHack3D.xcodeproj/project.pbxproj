@@ -2738,6 +2738,7 @@
 				TargetAttributes = {
 					5539E6151CB2F03F00ED6EF3 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					557CE1C11C8E1EE100B43765 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -2750,6 +2751,9 @@
 					};
 					55D0E48C1C8E190B0074B7C4 = {
 						CreatedOnToolsVersion = 7.2.1;
+					};
+					8D1107260486CEB800E47090 = {
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -3618,6 +3622,7 @@
 				PRODUCT_NAME = NetHack3D;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3663,6 +3668,7 @@
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -4020,6 +4026,7 @@
 				PRODUCT_NAME = Recover;
 				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -4051,6 +4058,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.Recover;
 				PRODUCT_NAME = Recover;
 				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
