@@ -41,7 +41,6 @@ extern void NDECL(linux_mapon);
 extern void NDECL(linux_mapoff);
 #endif
 
-static void wd_message(void);
 static boolean wiz_error_flag = FALSE;
 static struct passwd *get_unix_pw(void);
 

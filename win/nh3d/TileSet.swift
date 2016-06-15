@@ -121,7 +121,7 @@ final class TileSet: NSObject {
 		return newImage
 	}
 	
-	//@available(OSX, introduced=10.9, deprecated=10.11, message="Use -imageForGlyph: instead")
+	@available(*, deprecated, message:"Use -imageForGlyph: instead")
 	func tileImageFromGlyph(_ glyph: Int32) -> NSImage? {
 		let tile = glyphToTile(glyph)
 		if (Int32(tile) >= total_tiles_used || tile < 0) {
