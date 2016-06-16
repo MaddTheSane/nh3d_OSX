@@ -94,7 +94,7 @@ final class TileSet: NSObject {
 		var size = tileSize
 		if size.width > 32.0 || size.height > 32.0 {
 			// since these images are used in menus we want to scale them down
-			var m = size.width > size.height ? size.width : size.height;
+			var m = max(size.width, size.height)
 			m = 32.0 / m;
 			size.width  *= m;
 			size.height *= m;
@@ -122,7 +122,7 @@ final class TileSet: NSObject {
 	}
 	
 	@available(*, deprecated, message:"Use -imageForGlyph: instead")
-	func tileImageFromGlyph(_ glyph: Int32) -> NSImage? {
+	@objc(tileImageFromGlyph:) func tileImageFrom(_ glyph: Int32) -> NSImage? {
 		let tile = glyphToTile(glyph)
 		if (Int32(tile) >= total_tiles_used || tile < 0) {
 			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.");
