@@ -39,5 +39,31 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+				<string>public.3d-content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>3D Studio File</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.autodesk.mac.3ds</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>3ds</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-3ds</string>
+					<string>image/x-3ds</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
