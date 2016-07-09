@@ -60,7 +60,7 @@
 - (void)clearTextMessage;
 - (void)showTextPanel;
 
-- (void)createMenuWindow:(int)wid;
+- (void)createMenuWindow:(winid)wid;
 - (void)clearMenuWindow;
 
 

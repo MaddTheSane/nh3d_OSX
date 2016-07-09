@@ -817,22 +817,22 @@ static const NH3DMaterial defaultMat = {
 
 //--------------------------------------------
 
-- (int)verts_qty
+- (NSInteger)verts_qty
 {
 	return verts_qty;
 }
 
-- (int)face_qty
+- (NSInteger)face_qty
 {
 	return face_qty;
 }
 
-- (int)normal_qty
+- (NSInteger)normal_qty
 {
 	return normal_qty;
 }
 
-- (int)texcords_qty
+- (NSInteger)texcords_qty
 {
 	return texcords_qty;
 }
@@ -1024,7 +1024,7 @@ static const NH3DMaterial defaultMat = {
 			break;
 			
 		default:
-			NSLog(@"NH3DModelObject: Can't add Child object '%@'. There is not an appointed type '%d'.",childName, type);
+			NSLog(@"NH3DModelObject: Can't add Child object '%@'. There is not an appointed type '%ld'.",childName, (long)type);
 			break;
 	}
 	
@@ -1336,12 +1336,12 @@ static const NH3DMaterial defaultMat = {
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"Model \"%@\" (\"%@\"), vertices %i, model type %i, children: %@", modelName, modelCode, verts_qty, modelType, hasChildObject ? @([self countOfChildObjects]) : @"NO"];
+	return [NSString stringWithFormat:@"Model \"%@\" (\"%@\"), vertices %i, model type %li, children: %@", modelName, modelCode, verts_qty, (long)modelType, hasChildObject ? @([self countOfChildObjects]) : @"NO"];
 }
 
 - (NSString *)debugDescription
 {
-	return [NSString stringWithFormat:@"Model \"%@\" (File name \"%@\"), vertices %i, model type %i, children: {\n%@\n}", modelName, modelCode, verts_qty, modelType, childObjects];
+	return [NSString stringWithFormat:@"Model \"%@\" (File name \"%@\"), vertices %i, model type %li, children: {\n%@\n}", modelName, modelCode, verts_qty, (long)modelType, childObjects];
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len

@@ -170,7 +170,7 @@
 	// Dialog is up here.
 }
 
-- (void)createMenuWindow:(int)wid
+- (void)createMenuWindow:(winid)wid
 {
 	[nh3dMenu removeAllObjects];
 	[self updateMenuWindow];

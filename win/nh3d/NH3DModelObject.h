@@ -107,7 +107,6 @@ typedef struct NH3DParticle {
 	GLfloat				animationValue;
 	GLfloat				animationRate;
 	
-	BOOL				hasChildObject;
 	BOOL				isChild;
 	NSMutableArray<NH3DModelObject*>		*childObjects;
 	
@@ -143,13 +142,13 @@ typedef struct NH3DParticle {
 /*! model name from data */
 @property (readonly, copy) NSString *modelName;
 /*! vertex counts */
-@property (readonly) int verts_qty;
+@property (readonly) NSInteger verts_qty;
 /*! faces counts */
-@property (readonly) int face_qty;
+@property (readonly) NSInteger face_qty;
 /*! normal counts */
-@property (readonly) int normal_qty;
+@property (readonly) NSInteger normal_qty;
 /*! texcoords counts */
-@property (readonly) int texcords_qty;
+@property (readonly) NSInteger texcords_qty;
 
 /*! vertex points */
 @property (readonly) vector_float3 *verts NS_RETURNS_INNER_POINTER;

@@ -169,13 +169,13 @@ static inline BOOL NH3DGL_USETILE_func()
 #define MAX_POLYGONS 8000 // Max number of polygons (for each object)
 #define MAX_PARTICLES 150 // Max number of Particle effects
 
-typedef NS_ENUM(int, NH3DModelType) {
+typedef NS_ENUM(NSInteger, NH3DModelType) {
 	NH3DModelTypeObject = 0,
 	NH3DModelTypeTexturedObject = 1,
 	NH3DModelTypeEmitter = 2
 };
 
-typedef NS_ENUM(int, NH3DParticleType) {
+typedef NS_ENUM(NSInteger, NH3DParticleType) {
 	NH3DParticleTypePoints = 0,
 	NH3DParticleTypeLines = 1,
 	NH3DParticleTypeBoth = 2,
