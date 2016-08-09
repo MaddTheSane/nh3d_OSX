@@ -12,14 +12,14 @@ import simd
 extension NH3DModelObject {
 	/// Calculate the normals of the 3D model.
 	func calculateNormals() {
-		var l_Connect = [Int32](count: Int(verts_qty), repeatedValue: 0)
+		var l_Connect = [Int32](count: verts_qty, repeatedValue: 0)
 		
-		memset(norms, 0, Int(normal_qty) * sizeof(float3))
+		memset(norms, 0, normal_qty * sizeof(float3))
 		
 		//faces
-		let theFaces = UnsafeBufferPointer(start: faces, count: Int(face_qty))
-		let theVerts = UnsafeBufferPointer(start: verts, count: Int(verts_qty))
-		let theNorms = UnsafeMutableBufferPointer(start: norms, count: Int(normal_qty))
+		let theFaces = UnsafeBufferPointer(start: faces, count: face_qty)
+		let theVerts = UnsafeBufferPointer(start: verts, count: verts_qty)
+		let theNorms = UnsafeMutableBufferPointer(start: norms, count: normal_qty)
 
 		for face in theFaces {
 			let l_vect1 = theVerts[Int(face.a)]

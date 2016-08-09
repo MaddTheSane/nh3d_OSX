@@ -34,7 +34,7 @@
 	int playerInt;
 	int playerWis;
 	int playerCha;
-	unsigned playerScore;
+	long playerScore;
 	unsigned playerTime;
 	int playerExp;
 	int playerMaxhp;
@@ -117,7 +117,7 @@
 @property (nonatomic) int playerWis;
 @property (nonatomic) int playerCha;
 @property long playerGold;
-@property unsigned int playerScore;
+@property long playerScore;
 @property unsigned int playerTime;
 @property int playerExp;
 
