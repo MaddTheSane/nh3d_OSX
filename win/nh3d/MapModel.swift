@@ -40,7 +40,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	private(set) var dungeonNameString = NSAttributedString()
+	private(set) var dungeonNameString = AttributedString()
 	private var strAttributes = [String: AnyObject]()
 	private var shadow = NSShadow()
 	private var style = NSMutableParagraphStyle()
@@ -63,13 +63,13 @@ class MapModel: NSObject {
 	}
 	private var enemyWarnBaseInternal: Int32 = 0
 	private(set) final var loadingStatus = 0
-	private var indicatorTimer: NSTimer?
+	private var indicatorTimer: Timer?
 	
 	private(set) final var cursX: Int32 = 0
 	private(set) final var cursY: Int32 = 0
-	final var mapArray = [[NH3DMapItem!]](count: Int(MAPSIZE_COLUMN), repeatedValue: [NH3DMapItem!](count: Int(MAPSIZE_ROW), repeatedValue: nil))
+	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_COLUMN)), count: Int(MAPSIZE_COLUMN))
 
-	private var lock = NSRecursiveLock()
+	private var lock = RecursiveLock()
 	
 	override init() {
 		for x in 0 ..< MAPSIZE_COLUMN {
@@ -87,7 +87,7 @@ class MapModel: NSObject {
 		prepareAttributes()
 	}
 	
-	@IBAction func toggleIndicator(sender: AnyObject?) {
+	@IBAction func toggleIndicator(_ sender: AnyObject?) {
 		if indicatorIsActive {
 			stopIndicator()
 			enemyIndicator.integerValue = 0
@@ -103,7 +103,7 @@ class MapModel: NSObject {
 		shadow.shadowBlurRadius = 1.0
 		
 		style = NSMutableParagraphStyle()
-		style.alignment = .Center
+		style.alignment = .center
 		
 		strAttributes = [:]
 		strAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
@@ -119,20 +119,20 @@ class MapModel: NSObject {
 	
 	final func startIndicator() {
 		indicatorIsActive = true;
-		indicatorTimer = NSTimer.scheduledTimerWithTimeInterval(1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
-		NSRunLoop.currentRunLoop().addTimer(indicatorTimer!, forMode: NSDefaultRunLoopMode)
+		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
+		RunLoop.current().add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
 	}
 	
-	@objc private func updateEnemyIndicator(timer: NSTimer) {
-		var value = enemyWarnBase + (random() % 3 + 1)
+	@objc private func updateEnemyIndicator(timer: Timer) {
+		var value = enemyWarnBase + Int(arc4random() % 3 + 1)
 		let alert = NSSound(named: "Hero")!
 		
 		if enemyIndicator.intValue == value {
-			value = enemyWarnBase - (random() % 3 + 1)
+			value = enemyWarnBase - Int(arc4random() % 3 + 1)
 		}
 		enemyIndicator.intValue = value
 		
-		if (value >= 60 && !alert.playing && !SOUND_MUTE) {
+		if (value >= 60 && !alert.isPlaying && !SOUND_MUTE) {
 			alert.play()
 		}
 	}
@@ -162,7 +162,7 @@ class MapModel: NSObject {
 			lock.unlock()
 			
 			if (x2-MAP_MARGIN) == Int32(u.ux) && (y2-MAP_MARGIN) == Int32(u.uy) {
-				mapArray[Int(x2)][Int(y2)].player = true
+				mapArray[Int(x2)][Int(y2)].isPlayer = true
 				
 				//set player pos for asciiview, openGLView
 				asciiMapView.setCenter(x: x2, y: y2, depth: Int32(depth(&u.uz)))
@@ -175,7 +175,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(setPosCursorAtX:atY:) final func setPosCursor(x x: Int32, y: Int32) {
+	@objc(setPosCursorAtX:atY:) final func setPosCursor(x: Int32, y: Int32) {
 		if (cursX == x && cursY == y) {
 			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].hasCursor = true
 			return;
@@ -194,7 +194,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(mapArrayAtX:atY:) final func mapArray(x x: Int32, y: Int32) -> NH3DMapItem? {
+	@objc(mapArrayAtX:atY:) final func mapArray(x: Int32, y: Int32) -> NH3DMapItem? {
 		if (x < MAPSIZE_COLUMN) && (y < MAPSIZE_ROW) && (x >= 0) && (y >= 0) && (mapArray[Int(x)][Int(y)] != nil) {
 			return mapArray[Int(x)][Int(y)]
 		} else {
@@ -203,7 +203,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@IBAction final func turnPlayerRight(sender: AnyObject?) {
+	@IBAction final func turnPlayerRight(_ sender: AnyObject?) {
 		if playerDirection != 3 {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
@@ -213,7 +213,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@IBAction final func turnPlayerLeft(sender: AnyObject?) {
+	@IBAction final func turnPlayerLeft(_ sender: AnyObject?) {
 		if playerDirection != 0 {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
@@ -243,8 +243,8 @@ class MapModel: NSObject {
 		glMapView.updateMap()
 	}
 
-	final func setDungeonName(str: String) {
-		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
+	final func setDungeonName(_ str: String) {
+		dungeonNameString = AttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}
 }

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-extension NHRecoveryErrors: ErrorType {
+extension NHRecoveryErrors: ErrorProtocol {
 	public var _domain: String {
 		return NHRecoveryErrorDomain
 	}
@@ -25,7 +25,7 @@ private let locURLKey = "NHRecoverURL"
 private let recoverErrorKey = "NHRecoverError"
 
 @NSApplicationMain
-class AppDelegate: NSObject {
+class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var window: NSWindow!
 	@IBOutlet weak var progress: NSProgressIndicator!
 	@IBOutlet weak var errorPanel: NSWindow!
@@ -35,17 +35,17 @@ class AppDelegate: NSObject {
 	private var succeededNums = 0
 	dynamic private(set) var countNums = 0
 	
-	private var recoveryErrors = [NSURL: NSError]()
-	private var errorOrder = [NSURL]()
+	private var recoveryErrors = [URL: NSError]()
+	private var errorOrder = [URL]()
 	
 	private var errorToReport: NHRecoveryErrors?
-	private let opQueue: NSOperationQueue = {
-		let aQueue = NSOperationQueue()
+	private let opQueue: OperationQueue = {
+		let aQueue = OperationQueue()
 		
 		aQueue.name = "NetHack Recovery"
 		
 		//if #available(OSX 10.10, *) {
-		    aQueue.qualityOfService = .UserInitiated
+		    aQueue.qualityOfService = .userInitiated
 		//}
 		
 		return aQueue
@@ -54,58 +54,60 @@ class AppDelegate: NSObject {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		let selfBundleURL = NSBundle.mainBundle().bundleURL
-		guard let parentBundleURL = selfBundleURL.URLByDeletingLastPathComponent?.URLByDeletingLastPathComponent,
-			parentBundle = NSBundle(URL: parentBundleURL), parentBundleResources = parentBundle.resourcePath
-			where parentBundle.bundleURL.pathExtension == "app" else {
-				errorToReport = .HostBundleNotFound
-				return
+		let selfBundleURL = Bundle.main().bundleURL
+		do {
+		 let parentBundleURL = try selfBundleURL.deletingLastPathComponent().deletingLastPathComponent()
+			guard let parentBundle = Bundle(url: parentBundleURL), parentBundleResources = parentBundle.resourcePath
+				where parentBundle.bundleURL.pathExtension == "app" else {
+					throw NHRecoveryErrors.hostBundleNotFound
+			}
+			//Change to the NetHack resource directory.
+			FileManager.default().changeCurrentDirectoryPath(parentBundleResources)
+		} catch {
+			errorToReport = .hostBundleNotFound
 		}
-		
-		//Change to the NetHack resource directory.
-		NSFileManager.defaultManager().changeCurrentDirectoryPath(parentBundleResources)
 	}
 	
 	private func launchNetHack() throws {
-		let workspace = NSWorkspace.sharedWorkspace()
-		let parentBundleURL: NSURL = {
-			let selfBundleURL = NSBundle.mainBundle().bundleURL
-			return selfBundleURL.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!
+		let workspace = NSWorkspace.shared()
+		let parentBundleURL: NSURL = try {
+			let selfBundleURL = Bundle.main().bundleURL
+			return try selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		}()
-		try workspace.launchApplicationAtURL(parentBundleURL, options: .Default, configuration: [:])
+		try workspace.launchApplication(at: parentBundleURL as URL, options: .default, configuration: [:])
 		NSApp.terminate(nil)
 	}
 	
-	func addURL(url: NSURL) {
-		let saveRecover = SaveRecoveryOperation(saveFileURL: url)
+	func add(url: NSURL) {
+		let saveRecover = SaveRecoveryOperation(saveFileURL: url as URL)
 		
 		saveRecover.completionBlock = {
-			dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			DispatchQueue.main.async(execute: { () -> Void in
 				if saveRecover.success {
 					self.succeededNums += 1
 				} else {
 					self.failedNums += 1
-					self.recoveryErrors[url] = saveRecover.error!
+					self.recoveryErrors[url as URL] = saveRecover.error!
 				}
 				if self.countNums == self.succeededNums + self.failedNums {
 					// we're done
 					
 					let alert = NSAlert()
-					alert.addButtonWithTitle("Relaunch NetHack")
+					alert.addButton(withTitle: "Relaunch NetHack")
 					
 					if self.failedNums != 0 {
-						alert.alertStyle = .WarningAlertStyle
+						alert.alertStyle = .warning
 						alert.messageText = "Recovery unsuccessful!"
 						alert.informativeText = "\(self.failedNums) file\(self.failedNums > 1 ? "s were" : " was") not successfully recovered."
-						alert.addButtonWithTitle("Quit")
-						alert.addButtonWithTitle("Show Errors")
+						alert.addButton(withTitle: "Quit")
+						alert.addButton(withTitle: "Show Errors")
 					} else {
-						alert.alertStyle = .InformationalAlertStyle
+						alert.alertStyle = .informational
 						alert.messageText = "Recovery successful"
 						alert.informativeText = "\(self.succeededNums) file\(self.succeededNums > 1 ? "s were" : " was") successfully recovered."
 					}
 					
-					alert.beginSheetModalForWindow(self.window, completionHandler: { (response) -> Void in
+					alert.beginSheetModal(for: self.window, completionHandler: { (response) -> Void in
 						switch response {
 						case NSAlertFirstButtonReturn:
 							do {
@@ -159,15 +161,15 @@ class AppDelegate: NSObject {
 		}
 	}
 	
-	@IBAction func tableButton(sender: NSButton) {
+	@IBAction func tableButton(_ sender: NSButton) {
 		self.window.endSheet(errorPanel, returnCode: sender.tag)
 	}
 }
 
 //MARK: - NSApplicationDelegate
 
-extension AppDelegate: NSApplicationDelegate {
-	func applicationDidFinishLaunching(aNotification: NSNotification) {
+extension AppDelegate {
+	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		// Insert code here to initialize your application
 		
 		if let errorToReport = errorToReport {
@@ -178,7 +180,7 @@ extension AppDelegate: NSApplicationDelegate {
 				SaveRecoveryOperation.load()
 
 				let anAlert = NSAlert(error: error)
-				anAlert.alertStyle = .CriticalAlertStyle
+				anAlert.alertStyle = .critical
 				
 				anAlert.informativeText += "\n\nRecovery will now close."
 				
@@ -190,13 +192,13 @@ extension AppDelegate: NSApplicationDelegate {
 		progress.startAnimation(nil)
 	}
 
-	func applicationWillTerminate(aNotification: NSNotification) {
+	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
 
-	func application(sender: NSApplication, openFile filename: String) -> Bool {
-		let fileURL = NSURL(fileURLWithPath: filename)
-		addURL(fileURL)
+	func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+		let fileURL = URL(fileURLWithPath: filename)
+		add(url: fileURL)
 		return true
 	}
 }
@@ -204,11 +206,11 @@ extension AppDelegate: NSApplicationDelegate {
 // MARK: - NSTableViewDataSource
 
 extension AppDelegate: NSTableViewDataSource {
-	func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+	func numberOfRows(in tableView: NSTableView) -> Int {
 		return recoveryErrors.count
 	}
 	
-	func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+	func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
 		guard let columnID = tableColumn?.identifier else {
 			return nil
 		}

@@ -49,40 +49,40 @@ let NH3D_EXPLODE_FROSTY: Int32 =		(GLYPH_EXPLODE_OFF + (EXPL_FROSTY * MAXEXPCHAR
 
 //MARK: for font
 var NH3DMSGFONT: String! {
-	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DMsgFontKey)
+	return UserDefaults.standard().string(forKey: NH3DMsgFontKey)
 }
 
 var NH3DWINDOWFONT: String! {
-	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DWindowFontKey)
+	return UserDefaults.standard().string(forKey: NH3DWindowFontKey)
 }
 
 var NH3DMAPFONT: String! {
-	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DMapFontKey)
+	return UserDefaults.standard().string(forKey: NH3DMapFontKey)
 }
 
 var NH3DBOLDFONT: String! {
-	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DBoldFontKey)
+	return UserDefaults.standard().string(forKey: NH3DBoldFontKey)
 }
 
 var NH3DINVFONT: String! {
-	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DInventryFontKey)
+	return UserDefaults.standard().string(forKey: NH3DInventryFontKey)
 }
 
 var NH3DMSGFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey(NH3DMsgFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DMsgFontSizeKey))
 }
 
 var NH3DWINDOWFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey(NH3DWindowFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DWindowFontSizeKey))
 }
 var NH3DMAPFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey(NH3DMapFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DMapFontSizeKey))
 }
 var NH3DBOLDFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey(NH3DBoldFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DBoldFontSizeKey))
 }
 var NH3DINVFONTSIZE: CGFloat {
-	return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey(NH3DInventryFontSizeKey))
+	return CGFloat(UserDefaults.standard().float(forKey: NH3DInventryFontSizeKey))
 }
 
 var TRADITIONAL_MAP: Bool {
@@ -90,35 +90,35 @@ var TRADITIONAL_MAP: Bool {
 }
 
 var TRADITIONAL_MAP_TILE: Bool {
-	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DTraditionalMapModeKey)
+	return UserDefaults.standard().bool(forKey: NH3DTraditionalMapModeKey)
 }
 
 var TILE_FILE_NAME: String! {
-	return NSUserDefaults.standardUserDefaults().stringForKey(NH3DTileNameKey)
+	return UserDefaults.standard().string(forKey: NH3DTileNameKey)
 }
 
 var TILES_PER_LINE: Int {
-	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DTilesPerLineKey)
+	return UserDefaults.standard().integer(forKey: NH3DTilesPerLineKey)
 }
 
 var NUMBER_OF_TILES_ROW: Int {
-	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DNumberOfTilesRowKey)
+	return UserDefaults.standard().integer(forKey: NH3DNumberOfTilesRowKey)
 }
 
 var OPENGLVIEW_WAITRATE: Double {
-	return NSUserDefaults.standardUserDefaults().doubleForKey(NH3DOpenGLWaitRateKey)
+	return UserDefaults.standard().double(forKey: NH3DOpenGLWaitRateKey)
 }
 
 var OPENGLVIEW_WAITSYNC: Bool {
-	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DOpenGLWaitSyncKey)
+	return UserDefaults.standard().bool(forKey: NH3DOpenGLWaitSyncKey)
 }
 
 var OPENGLVIEW_USEWAIT: Bool {
-	return NSUserDefaults.standardUserDefaults().boolForKey(NH3DOpenGLUseWaitRateKey)
+	return UserDefaults.standard().bool(forKey: NH3DOpenGLUseWaitRateKey)
 }
 
 var OPENGLVIEW_NUMBER_OF_THREADS: Int {
-	return NSUserDefaults.standardUserDefaults().integerForKey(NH3DOpenGLNumberOfThreadsKey)
+	return UserDefaults.standard().integer(forKey: NH3DOpenGLNumberOfThreadsKey)
 }
 
 var NH3DGL_USETILE: Bool {
@@ -137,8 +137,8 @@ var ESee_invisible: Int {
 	return u.uprops.12.extrinsic
 }
 
-private func perceives(ptr: UnsafePointer<permonst>) -> Bool {
-	return (ptr.memory.mflags1 & UInt(M1_SEE_INVIS)) != 0
+private func perceives(_ ptr: UnsafePointer<permonst>) -> Bool {
+	return (ptr.pointee.mflags1 & UInt(M1_SEE_INVIS)) != 0
 }
 
 var See_invisible: Bool {
@@ -167,61 +167,61 @@ var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
 }
 
-func IS_DOOR(typ: schar) -> Bool {
+func IS_DOOR(_ typ: schar) -> Bool {
 	return Int32(typ) == DOOR
 }
 
 /// returns `true` if the passed-in level is the rogue level
-func Is_rogue_level(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_rogue_level(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_rogue_level)
 }
 
 /// returns `true` if the passed-in level is Fort Knox
-func Is_knox(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_knox(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_knox_level)
 }
 
 /// returns `true` if the passed-in level is the sanctum level
-func Is_sanctum(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_sanctum(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_sanctum_level)
 }
 
 /// returns `true` if the passed-in level is the stronghold level
-func Is_stronghold(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_stronghold(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_stronghold_level)
 }
 
 /// returns `true` if the passed-in level is a Sokoban level
-func In_sokoban(x: UnsafeMutablePointer<d_level>) -> Bool {
-	return x.memory.dnum == dungeon_topology.d_sokoban_dnum
+func In_sokoban(_ x: UnsafeMutablePointer<d_level>) -> Bool {
+	return x.pointee.dnum == dungeon_topology.d_sokoban_dnum
 }
 
 /// returns `true` if the passed-in level is on the plane of earth
-func Is_earthlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_earthlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_earth_level)
 }
 
 /// returns `true` if the passed-in level is on the plane of water
-func Is_waterlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_waterlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_water_level)
 }
 
 /// returns `true` if the passed-in level is on the plane of fire
-func Is_firelevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_firelevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_fire_level)
 }
 
 /// returns `true` if the passed-in level is on the plane of air
-func Is_airlevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_airlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_air_level)
 }
 
 /// returns `true` if the passed-in level is on the astral plane
-func Is_astralevel(x: UnsafeMutablePointer<d_level>) -> Bool {
+func Is_astralevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	return on_level(x, &dungeon_topology.d_astral_level) 
 }
 
 /// Print to the console.
-func raw_print(str: UnsafePointer<CChar>) {
+func raw_print(_ str: UnsafePointer<CChar>) {
 	windowprocs.win_raw_print(str)
 }

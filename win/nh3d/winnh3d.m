@@ -26,7 +26,6 @@
 #ifdef CHDIR
 static void chdirx(const char *, boolean);
 #endif /* CHDIR */
-static boolean whoami(void);
 static void process_options(int, char **);
 
 

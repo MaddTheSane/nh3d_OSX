@@ -17,31 +17,31 @@ class NH3DFirstLaunchController: NSWindowController {
     }
 
 	class func runFirstTimeWindow() {
-		let defaults = NSUserDefaults.standardUserDefaults()
+		let defaults = UserDefaults.standard()
 		
 		// If we have a Hearse Token, it means that the user already knows about Hearse.
 		// So don't show the first time launch window
-		if defaults.objectForKey(kKeyHearseId) != nil {
-			defaults.setBool(false, forKey: NH3DIsFirstLaunch)
+		if defaults.object(forKey: kKeyHearseId) != nil {
+			defaults.set(false, forKey: NH3DIsFirstLaunch)
 		}
 		
-		if defaults.boolForKey(NH3DIsFirstLaunch) {
+		if defaults.bool(forKey: NH3DIsFirstLaunch) {
 			let controller = NH3DFirstLaunchController(windowNibName: "FirstLaunch")
 			let bindController = NSApp.delegate as! NH3DBindController
 			
-			controller.window?.opaque = false
-			controller.window?.backgroundColor = NSColor.clearColor()
+			controller.window?.isOpaque = false
+			controller.window?.backgroundColor = NSColor.clear()
 			
 			bindController.launchWindow?.beginSheet(controller.window!, completionHandler: { (response) in
 				NSApp.stopModal()
-				defaults.setBool(false, forKey: NH3DIsFirstLaunch)
+				defaults.set(false, forKey: NH3DIsFirstLaunch)
 				controller.window?.orderOut(nil)
 			})
-			NSApp.runModalForWindow(controller.window!)
+			NSApp.runModal(for: controller.window!)
 		}
 	}
 	
-	@IBAction func closePopUp(sender: AnyObject?) {
+	@IBAction func closePopUp(_ sender: AnyObject?) {
 		let bindController = NSApp.delegate as! NH3DBindController
 		
 		bindController.launchWindow?.endSheet(window!)
