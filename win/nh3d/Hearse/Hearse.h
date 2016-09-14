@@ -61,6 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL haveUploadedBones;
 
 + (nullable Hearse *) instance;
+#if __has_feature(objc_class_property)
+@property (class, readonly, strong, nullable) Hearse *instance;
+#endif
 + (BOOL) start;
 + (void) stop;
 
@@ -92,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) uploadBones;
 - (void) uploadBonesFile:(NSString *)file;
 - (void) downloadBones;
-- (NSString *) downloadSingleBonesFileWithForce:(BOOL)force wasForced:(BOOL *)pForcedDownload;
+- (nullable NSString *) downloadSingleBonesFileWithForce:(BOOL)force wasForced:(BOOL *)pForcedDownload;
 @property (readonly, copy) NSArray<NSString*> *existingBonesFiles;
 - (void) alertUserWithError:(NSError *)error;
 - (void) logHearseMessage:(NSString *)message;

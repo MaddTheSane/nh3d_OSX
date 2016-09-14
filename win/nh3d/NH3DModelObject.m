@@ -990,7 +990,7 @@ static const NH3DMaterial defaultMat = {
 	self.modelPivot = toSet;
 }
 
-- (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
+- (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
 {
 	return childObjects[index];
 }

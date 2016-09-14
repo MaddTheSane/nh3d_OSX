@@ -191,7 +191,7 @@ typedef struct NH3DParticle {
 @property BOOL isChild;
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
-- (NH3DModelObject *)childObjectAtIndex:(NSUInteger)index;
+- (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
 @property (readwrite) NH3DVertexType modelShift;

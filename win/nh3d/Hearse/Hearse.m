@@ -210,7 +210,7 @@ static NSString *const hearseCommandDownload = @"download";
 		if (!valid) {
 			return NO;
 		}
-		return flags & kSCNetworkReachabilityFlagsReachable;
+		return (bool)(flags & kSCNetworkReachabilityFlagsReachable);
 	}
 	return NO;
 }

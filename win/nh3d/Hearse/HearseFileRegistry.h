@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (nullable HearseFileRegistry *) instance;
+#if __has_feature(objc_class_property)
+@property (class, readonly, nullable, retain) HearseFileRegistry *instance;
+#endif
 
 + (void) retainInstance;
 + (void) releaseInstance;
