@@ -46,7 +46,7 @@ final class TileSet: NSObject {
 	}
 	
 	convenience init?(name named: String) {
-		let defaults = UserDefaults.standard()
+		let defaults = UserDefaults.standard
 		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return

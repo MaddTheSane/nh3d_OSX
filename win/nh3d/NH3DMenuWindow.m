@@ -326,7 +326,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	}
     // Dialog is up here.
 	
-	[NSApp stopSpeaking:self];
+	[_textWindow stopSpeaking:self];
 	_menuPanelStrings.stringValue = @"";
 	_menuPanelStringsShadow.stringValue = @"";
 

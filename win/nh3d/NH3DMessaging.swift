@@ -148,18 +148,18 @@ class NH3DMessaging: NSObject {
 			playSound.play()
 		}
 		
-		if let playSound1 = audioDict[URL.path!] {
+		if let playSound1 = audioDict[URL.path] {
 			playAud(playSound: playSound1)
 			return true
 		}
-		guard let reach = try? URL.checkResourceIsReachable() where reach == true else {
+		guard let reach = try? URL.checkResourceIsReachable(), reach == true else {
 			return false
 		}
 		
 		guard let playSound = try? AVAudioPlayer(contentsOf: URL) else {
 			return false
 		}
-		audioDict[URL.path!] = playSound
+		audioDict[URL.path] = playSound
 		playAud(playSound: playSound)
 		return true
 	}
@@ -199,14 +199,14 @@ class NH3DMessaging: NSObject {
 			break;
 			
 		case ATR_ULINE:
-			darkShadowStrAttributes[NSUnderlineStyleAttributeName] = NSUnderlineStyle.styleSingle.rawValue
+			darkShadowStrAttributes[NSUnderlineStyleAttributeName] = NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)
 			
 		case ATR_BOLD:
 			darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
 			
 		case ATR_BLINK, ATR_INVERSE:
-			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlTextColor()
-			darkShadowStrAttributes[NSBackgroundColorAttributeName] = NSColor.alternateSelectedControlColor()
+			darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor.alternateSelectedControlTextColor
+			darkShadowStrAttributes[NSBackgroundColorAttributeName] = NSColor.alternateSelectedControlColor
 			
 		default:
 			break
@@ -242,7 +242,7 @@ class NH3DMessaging: NSObject {
 		prepareAttributes()
 		style.alignment = .center
 		
-		let putString = AttributedString(string: questionStr,
+		let putString = NSAttributedString(string: questionStr,
 			attributes: lightShadowStrAttributes)
 		
 		questionTextField.attributedStringValue = putString
@@ -278,8 +278,8 @@ class NH3DMessaging: NSObject {
 		}
 		
 		guard let inputData = inputTextField.stringValue.data(using: String.Encoding(rawValue: NH3DTEXTENCODING), allowLossyConversion:true),
-			str = String(data: inputData, encoding: String.Encoding(rawValue: NH3DTEXTENCODING)),
-			cStr = str.cString(using: String.Encoding(rawValue: NH3DTEXTENCODING)) else {
+			let str = String(data: inputData, encoding: String.Encoding(rawValue: NH3DTEXTENCODING)),
+			let cStr = str.cString(using: String.Encoding(rawValue: NH3DTEXTENCODING)) else {
 				questionTextField.stringValue = ""
 				inputTextField.stringValue = ""
 				return -1
@@ -302,7 +302,7 @@ class NH3DMessaging: NSObject {
 	}
 	
 	func showOutRip(_ ripString: UnsafePointer<CChar>) {
-		let conv = String(CString: ripString, encoding: NH3DTEXTENCODING) ?? "You died.\n\nNothing eventful happened, though."
+		let conv = (NSString(cString: ripString, encoding: NH3DTEXTENCODING) as String?) ?? "You died.\n\nNothing eventful happened, though."
 		showOutRip(conv)
 	}
 	
@@ -315,7 +315,7 @@ class NH3DMessaging: NSObject {
 		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: "Optima Bold", size: 11)
 		
-		deathDescription.attributedStringValue = AttributedString(string: ripString,
+		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
 			attributes: lightShadowStrAttributes)
 		
 		ripPanel.alphaValue = 0
@@ -339,7 +339,7 @@ class NH3DMessaging: NSObject {
 		
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
 		
-		let putStr = AttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
+		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		
 		rawPrintWindow.textStorage?.append(putStr)
 	}

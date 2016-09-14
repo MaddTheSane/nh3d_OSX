@@ -8,7 +8,7 @@
 
 import Cocoa
 
-extension NHRecoveryErrors: ErrorProtocol {
+extension NHRecoveryErrors: Error {
 	public var _domain: String {
 		return NHRecoveryErrorDomain
 	}
@@ -35,10 +35,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	private var succeededNums = 0
 	dynamic private(set) var countNums = 0
 	
-	private var recoveryErrors = [URL: NSError]()
-	private var errorOrder = [URL]()
+	fileprivate var recoveryErrors = [URL: Error]()
+	fileprivate var errorOrder = [URL]()
 	
-	private var errorToReport: NHRecoveryErrors?
+	fileprivate var errorToReport: NHRecoveryErrors?
 	private let opQueue: OperationQueue = {
 		let aQueue = OperationQueue()
 		
@@ -54,15 +54,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
-		let selfBundleURL = Bundle.main().bundleURL
+		let selfBundleURL = Bundle.main.bundleURL
 		do {
-		 let parentBundleURL = try selfBundleURL.deletingLastPathComponent().deletingLastPathComponent()
-			guard let parentBundle = Bundle(url: parentBundleURL), parentBundleResources = parentBundle.resourcePath
-				where parentBundle.bundleURL.pathExtension == "app" else {
+		 let parentBundleURL = selfBundleURL.deletingLastPathComponent().deletingLastPathComponent()
+			guard let parentBundle = Bundle(url: parentBundleURL), let parentBundleResources = parentBundle.resourcePath
+				, parentBundle.bundleURL.pathExtension == "app" else {
 					throw NHRecoveryErrors.hostBundleNotFound
 			}
 			//Change to the NetHack resource directory.
-			FileManager.default().changeCurrentDirectoryPath(parentBundleResources)
+			FileManager.default.changeCurrentDirectoryPath(parentBundleResources)
 		} catch {
 			errorToReport = .hostBundleNotFound
 		}
@@ -70,16 +70,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	private func launchNetHack() throws {
 		let workspace = NSWorkspace.shared()
-		let parentBundleURL: NSURL = try {
-			let selfBundleURL = Bundle.main().bundleURL
-			return try selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+		let parentBundleURL: URL = {
+			let selfBundleURL = Bundle.main.bundleURL
+			return selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		}()
 		try workspace.launchApplication(at: parentBundleURL as URL, options: .default, configuration: [:])
 		NSApp.terminate(nil)
 	}
 	
-	func add(url: NSURL) {
-		let saveRecover = SaveRecoveryOperation(saveFileURL: url as URL)
+	func add(url: URL) {
+		let saveRecover = SaveRecoveryOperation(saveFileURL: url)
 		
 		saveRecover.completionBlock = {
 			DispatchQueue.main.async(execute: { () -> Void in
@@ -210,7 +210,7 @@ extension AppDelegate: NSTableViewDataSource {
 		return recoveryErrors.count
 	}
 	
-	func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
+	func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
 		guard let columnID = tableColumn?.identifier else {
 			return nil
 		}

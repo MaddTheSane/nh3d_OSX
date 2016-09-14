@@ -14,7 +14,7 @@ extension NH3DModelObject {
 	func calculateNormals() {
 		var l_Connect = [Int32](repeating: 0, count: verts_qty)
 		
-		memset(norms, 0, normal_qty * sizeof(float3))
+		memset(norms, 0, normal_qty * MemoryLayout<float3>.size)
 		
 		//faces
 		let theFaces = UnsafeBufferPointer(start: faces, count: face_qty)
@@ -59,7 +59,7 @@ extension NH3DModelObject {
 }
 
 extension float3 {
-	private init(start p_start: float3, end p_end : float3) {
+	fileprivate init(start p_start: float3, end p_end : float3) {
 		let pre = p_end - p_start
 		self = normalize(pre)
 	}

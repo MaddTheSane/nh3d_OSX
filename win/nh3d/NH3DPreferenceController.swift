@@ -15,10 +15,10 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 	var width: Int32 = 0
 	var height: Int32 = 0
 	
-	let unsfePtr1 = withUnsafeMutablePointer(&width) {
+	let unsfePtr1 = withUnsafeMutablePointer(to: &width) {
 		return $0
 	}
-	let unsfePtr2 = withUnsafeMutablePointer(&height) {
+	let unsfePtr2 = withUnsafeMutablePointer(to: &height) {
 		return $0
 	}
 	
@@ -96,7 +96,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		self.init(windowNibName: "PreferencePanel")
 	}
 	
-	func windowShouldClose(_ sender: AnyObject) -> Bool {
+	func windowShouldClose(_ sender: Any) -> Bool {
 		bindController?.endPreferencePanel()
 		
 		return true
@@ -107,7 +107,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		window?.makeKeyAndOrderFront(self)
 	}
 	
-	@IBAction override func changeFont(_ sender: AnyObject?) {
+	@IBAction override func changeFont(_ sender: Any?) {
 		guard let sender = sender as? NSFontManager else {
 			return
 		}
@@ -144,7 +144,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 			return
 		}
 		
-		let defaults = UserDefaults.standard()
+		let defaults = UserDefaults.standard
 		defaults.set(convertedFont.fontName, forKey: key)
 		defaults.set(Float(convertedFont.pointSize), forKey: sizeKey)
 	}
@@ -153,7 +153,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		guard let sender = sender else {
 			return
 		}
-		let defaults = UserDefaults.standard()
+		let defaults = UserDefaults.standard
 		let key: String
 		let sizeKey: String
 		fontButtonTag = sender.selectedCell()?.tag ?? 0
@@ -184,7 +184,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		}
 		
 		guard let familyName = defaults.string(forKey: key),
-			selFont = NSFont(name: familyName, size: CGFloat(defaults.float(forKey: sizeKey))) else {
+			let selFont = NSFont(name: familyName, size: CGFloat(defaults.float(forKey: sizeKey))) else {
 			return
 		}
 		
@@ -205,7 +205,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	
 	@IBAction func resetFontFamily(_ sender: AnyObject?) {
 		let initialValues = NSUserDefaultsController.shared().initialValues ?? [:]
-		let defaults = UserDefaults.standard()
+		let defaults = UserDefaults.standard
 		
 		defaults.set(initialValues[NH3DMsgFontKey],
 			forKey: NH3DMsgFontKey)
@@ -239,8 +239,8 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		//openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
 		openPanel.beginSheetModal(for: window!) { (result) -> Void in
 			if result == NSFileHandlingPanelOKButton {
-				let filePath = openPanel.url!.path!
-				let defaults = UserDefaults.standard()
+				let filePath = openPanel.url!.path
+				let defaults = UserDefaults.standard
 				if let tileSize = tilesInfoFromFile(at: filePath) {
 					defaults.set(tileSize.rows, forKey: NH3DTilesPerLineKey)
 					defaults.set(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
@@ -254,7 +254,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	}
 
 	@IBAction func resetTileSettings(_ sender: AnyObject?) {
-		let defaults = UserDefaults.standard()
+		let defaults = UserDefaults.standard
 		
 		defaults.removeObject(forKey: NH3DTileNameKey)
 		defaults.removeObject(forKey: NH3DTileSizeWidthKey)
@@ -264,7 +264,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	}
 	
 	@IBAction func clearID(_ sender: AnyObject?) {
-		UserDefaults.standard().removeObject(forKey: kKeyHearseId)
+		UserDefaults.standard.removeObject(forKey: kKeyHearseId)
 		restartHearse(nil)
 	}
 	

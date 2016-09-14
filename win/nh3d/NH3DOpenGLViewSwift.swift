@@ -23,7 +23,7 @@ private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {
 private func blankFloorMethod() {
 	// do nothing
 }
-private typealias LoadModelBlock = (glyph: Int32) -> NH3DModelObject?
+private typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
 private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
 	// do nothing
 	return nil
@@ -260,12 +260,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(MAX_GLYPH))
 	private var modelDictionary = [Int32: NH3DModelObject]()
-	private let viewLock = RecursiveLock()
+	private let viewLock = NSRecursiveLock()
 	
 	private typealias DrawFloorFunc = () -> ()
 	private var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
 	
-	private typealias SwitchMethod = (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void
+	private typealias SwitchMethod = (_ x: Int32, _ z: Int32, _ lx: Int32, _ lz: Int32) -> Void
 	private var switchMethodArray = [SwitchMethod](repeating: blankSwitchMethod, count: 11)
 	
 	private var isReady = false
@@ -404,8 +404,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 				Float(frameRect.width / frameRect.height),	/* Aspect ratio */
 				0.1,										/* Near limit Distance from origin*/
 				30)											/* Far limit  */
-			let anArr = withUnsafePointer(&aMatrix) { (arr) -> UnsafePointer<GLfloat> in
-				return UnsafePointer<GLfloat>(arr)
+			let anArr = withUnsafePointer(to: &aMatrix) { (arr) -> UnsafePointer<GLfloat> in
+				return UnsafeRawPointer(arr).assumingMemoryBound(to: GLfloat.self)
 			}
 			glMultMatrixf(anArr)
 		}
@@ -597,11 +597,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		if UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) {
+		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
 			wantsBestResolutionOpenGLSurface = true
 		}
-		let nCenter = NotificationCenter.default()
-		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(notification:)), name: "NSUserDefaultsDidChangeNotification", object: nil)
+		let nCenter = NotificationCenter.default
+		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(notification:)), name: UserDefaults.didChangeNotification, object: nil)
 		
 		dRefreshRate = getRefreshRate()
 		
@@ -633,7 +633,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			lockFocusIfCanDraw()
 			
-			NSColor.clear().set()
+			NSColor.clear.set()
 			NSBezierPath.fill(bounds)
 			
 			NSImage(named: "nh3d")?.draw(at: NSPoint(x: 156, y: 88), from: .zero, operation: .sourceOver, fraction: 0.7)
@@ -657,7 +657,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		let type = mapItem.modelDrawingType
 		if type != 10 {
-			switchMethodArray[Int(type)](x: mapItem.posX, z: mapItem.posY, lx: x, lz: z)
+			switchMethodArray[Int(type)](mapItem.posX, mapItem.posY, x, z)
 		} else {
 			// delay drawing for alpha blending.
 			delayDrawing.append((item: mapItem, x: x, z: z))
@@ -669,7 +669,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return 0
 		}
 		
-		guard let sourceTiff = sourcefile.tiffRepresentation, imgRep = NSBitmapImageRep(data: sourceTiff) else {
+		guard let sourceTiff = sourcefile.tiffRepresentation, let imgRep = NSBitmapImageRep(data: sourceTiff) else {
 			return 0
 		}
 		
@@ -1099,9 +1099,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			// next. particle objects
 			for (mapItem, lx, lz) in delayDrawing {
-				switchMethodArray[Int(mapItem.modelDrawingType)](x: mapItem.posX,
-					z: mapItem.posY,
-					lx: lx, lz: lz)
+				switchMethodArray[Int(mapItem.modelDrawingType)](mapItem.posX,
+				                                                 mapItem.posY,
+				                                                 lx, lz)
 			} // end for x
 			
 			if enemyPosition != 0 {
@@ -1135,7 +1135,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let viewRectPoints = bounds
 		let viewRectPixels: NSRect
 		
-		if UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) {
+		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
 			viewRectPixels = convertToBacking(viewRectPoints)
 		} else {
 			viewRectPixels = viewRectPoints
@@ -1167,7 +1167,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			var model = modelDictionary[glyph]
 			
 			if model == nil && defaultTex[Int(glyph)] == 0 {
-				if let newModel = loadModelBlocks[Int(glyph)](glyph: glyph) {
+				if let newModel = loadModelBlocks[Int(glyph)](glyph) {
 					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_PET_OFF {
 						newModel.isAnimated = true
 						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
@@ -1210,7 +1210,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					if NH3DGL_USETILE {
 						defaultTex[Int(glyph)] = createTexture(from: mapItem.tile!, color: nil)
 					} else {
-						defaultTex[Int(glyph)] = createTexture(from: mapItem.symbol, color: mapItem.color)
+						defaultTex[Int(glyph)] = createTexture(from: mapItem.symbol as NSString, color: mapItem.color)
 					}
 				}
 				glActiveTexture(GLenum(GL_TEXTURE0))
@@ -1677,7 +1677,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		let img = NSImage(size: NSSize(width: TEX_SIZE, height: TEX_SIZE))
 		var symbolSize = NSSize.zero
 		
-		img.backgroundColor = NSColor.clear()
+		img.backgroundColor = NSColor.clear
 		
 		if !NH3DGL_USETILE {
 			guard let symbol = symbol as? NSString else {
@@ -1685,12 +1685,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 				return 0
 			}
 			var attributes = [String: AnyObject]()
-			let fontName = UserDefaults.standard().string(forKey: NH3DWindowFontKey)!
+			let fontName = UserDefaults.standard.string(forKey: NH3DWindowFontKey)!
 			
 			attributes[NSFontAttributeName] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
 			
 			attributes[NSForegroundColorAttributeName] = color
-			attributes[NSBackgroundColorAttributeName] = NSColor.clear()
+			attributes[NSBackgroundColorAttributeName] = NSColor.clear
 			
 			symbolSize = symbol.size(withAttributes: attributes)
 			
@@ -1717,7 +1717,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		//var imgrep: NSBitmapImageRep?
-		guard let imgData = img.tiffRepresentation, imgrep = NSBitmapImageRep(data: imgData) else {
+		guard let imgData = img.tiffRepresentation, let imgrep = NSBitmapImageRep(data: imgData) else {
 			return 0
 		}
 		
@@ -1878,8 +1878,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return
 		}
 		
-		if UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
-			wantsBestResolutionOpenGLSurface = UserDefaults.standard().bool(forKey: NH3DUseRetinaOpenGL)
+		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) != wantsBestResolutionOpenGLSurface {
+			wantsBestResolutionOpenGLSurface = UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL)
 			reshape()
 		}
 		
@@ -1962,8 +1962,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		do {
 			let hi: Int = sender.state
-			UserDefaults.standard().set(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
-			NSUserDefaultsController.shared().values.setValue(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
+			UserDefaults.standard.set(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
+			(NSUserDefaultsController.shared().values as AnyObject).setValue(hi != NSOnState, forKey: NH3DOpenGLWaitSyncKey)
 		}
 		
 		nowUpdating = false
@@ -2002,8 +2002,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1003: // no wait
 			waitRate = dRefreshRate
 			sender.state = NSOnState
-			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.shared().values.setValue( (false as NSNumber),
+			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared().values as AnyObject).setValue( (false as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
 			sender.menu?.item(withTag: 1004)?.state = NSOffState
@@ -2013,8 +2013,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1004:
 			waitRate = WAIT_FAST
 			sender.state = NSOnState
-			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.shared().values.setValue( (true as NSNumber),
+			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared().values as AnyObject).setValue( (true as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
 			sender.menu?.item(withTag: 1003)?.state = NSOffState
@@ -2024,8 +2024,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1005:
 			waitRate = WAIT_NORMAL
 			sender.state = NSOnState
-			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.shared().values.setValue( (true as NSNumber),
+			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared().values as AnyObject).setValue( (true as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
 			sender.menu?.item(withTag: 1003)?.state = NSOffState
@@ -2035,8 +2035,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		case 1006:
 			waitRate = WAIT_SLOW
 			sender.state = NSOnState
-			UserDefaults.standard().set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			NSUserDefaultsController.shared().values.setValue( (true as NSNumber),
+			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared().values as AnyObject).setValue( (true as NSNumber),
 				forKey: NH3DOpenGLUseWaitRateKey)
 			
 			sender.menu?.item(withTag: 1003)?.state = NSOffState
@@ -2053,8 +2053,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		oglParamNowChanging = false
 		viewLock.unlock()
 		
-		UserDefaults.standard().set(waitRate, forKey:NH3DOpenGLWaitRateKey)
-		NSUserDefaultsController.shared().values.setValue((waitRate as NSNumber),
+		UserDefaults.standard.set(waitRate, forKey:NH3DOpenGLWaitRateKey)
+		(NSUserDefaultsController.shared().values as AnyObject).setValue((waitRate as NSNumber),
 			forKey: NH3DOpenGLWaitRateKey)
 	}
 
@@ -2816,7 +2816,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				offset = GLYPH_MON_OFF
 			}
 			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, offset: offset, modelName: "ampersand")
-			if let ret = ret where !ret.hasChildren {
+			if let ret = ret, !ret.hasChildren {
 				ret.addChildObject("emitter", type: .emitter)
 				ret.lastChild?.particleType = .aura
 				ret.lastChild?.particleColor = CLR_RED
@@ -2840,7 +2840,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		ret = checkLoadedModels(at: PM_DEATH, to: PM_FAMINE, modelName: "ampersand")
 		
-		if let ret = ret where !ret.hasChildren {
+		if let ret = ret, !ret.hasChildren {
 			ret.addChildObject("emitter", type: .emitter)
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_RED
@@ -3073,7 +3073,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					modelName: "atmark",
 					without: PM_KING_ARTHUR)
 				
-				if let ret = ret where !ret.hasChildren {
+				if let ret = ret, !ret.hasChildren {
 					ret.addChildObject("emitter", type: .emitter)
 					ret.lastChild?.particleType = .aura
 					ret.lastChild?.particleColor = CLR_BRIGHT_CYAN
@@ -4125,7 +4125,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar")
-		if let ret = ret where !ret.hasChildren {
+		if let ret = ret, !ret.hasChildren {
 			//Just add a simple texture for now
 			ret.setTexture(Int32(cellingTex))
 			ret.isAnimated = true
@@ -4147,7 +4147,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private final func loadModelFunc_Pets(glyph: Int32) -> NH3DModelObject? {
-		guard let model = loadModelBlocks[Int(glyph - GLYPH_PET_OFF)](glyph: glyph) else {
+		guard let model = loadModelBlocks[Int(glyph - GLYPH_PET_OFF)](glyph) else {
 			return nil
 		}
 		
@@ -4159,7 +4159,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			emission: (0.1, 0.1, 0.1, 1.0),					//  emission
 			shininess: 0.25)								//	shininess
 		}
-		if let lastChild = model.lastChild where lastChild.modelType == .emitter && lastChild.currentMaterial == PetHelper.pinkMaterial {
+		if let lastChild = model.lastChild, lastChild.modelType == .emitter && lastChild.currentMaterial == PetHelper.pinkMaterial {
 			// Already set up, return model unedited
 			return model
 		}

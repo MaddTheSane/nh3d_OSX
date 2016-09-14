@@ -40,7 +40,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	private(set) var dungeonNameString = AttributedString()
+	private(set) var dungeonNameString = NSAttributedString()
 	private var strAttributes = [String: AnyObject]()
 	private var shadow = NSShadow()
 	private var style = NSMutableParagraphStyle()
@@ -69,7 +69,7 @@ class MapModel: NSObject {
 	private(set) final var cursY: Int32 = 0
 	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_COLUMN)), count: Int(MAPSIZE_COLUMN))
 
-	private var lock = RecursiveLock()
+	private var lock = NSRecursiveLock()
 	
 	override init() {
 		for x in 0 ..< MAPSIZE_COLUMN {
@@ -120,7 +120,7 @@ class MapModel: NSObject {
 	final func startIndicator() {
 		indicatorIsActive = true;
 		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
-		RunLoop.current().add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+		RunLoop.current.add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
 	}
 	
 	@objc private func updateEnemyIndicator(timer: Timer) {
@@ -244,7 +244,7 @@ class MapModel: NSObject {
 	}
 
 	final func setDungeonName(_ str: String) {
-		dungeonNameString = AttributedString(string: str, attributes: strAttributes)
+		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}
 }
