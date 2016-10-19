@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -272,8 +271,6 @@
                             <rect key="frame" x="2" y="2" width="376" height="28"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5108">
                         <rect key="frame" x="625" y="246" width="169" height="228"/>
@@ -281,8 +278,6 @@
                             <rect key="frame" x="2" y="2" width="165" height="224"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="What is here?" horizontalHuggingPriority="750" verticalHuggingPriority="750" tag="71" translatesAutoresizingMaskIntoConstraints="NO" id="275">
                         <rect key="frame" x="597" y="183" width="21" height="23"/>
@@ -337,8 +332,6 @@
                                 <constraint firstAttribute="bottom" secondItem="5122" secondAttribute="bottom" id="m3D-SY-2z8"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Class" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="316">
                         <rect key="frame" x="625" y="476" width="169" height="36"/>
@@ -369,8 +362,6 @@
                                 <constraint firstAttribute="bottom" secondItem="479" secondAttribute="bottom" constant="2" id="omI-nN-MR7"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <imageView toolTip="Strength (STR)" translatesAutoresizingMaskIntoConstraints="NO" id="344" userLabel="STR Status Icon">
                         <rect key="frame" x="635" y="363" width="32" height="32"/>
@@ -454,8 +445,6 @@
                                 <constraint firstAttribute="trailing" secondItem="480" secondAttribute="trailing" constant="-1" id="XJj-bs-lK7"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="375">
                         <rect key="frame" x="12" y="90" width="156" height="28"/>
@@ -481,8 +470,6 @@
                                 <constraint firstItem="483" firstAttribute="top" secondItem="sI8-kA-0EZ" secondAttribute="top" constant="6" id="rR3-5t-bMV"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" size="11" name="Monaco"/>
                     </box>
                     <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="378">
@@ -508,8 +495,6 @@
                                 <constraint firstItem="484" firstAttribute="top" secondItem="bhz-T3-urN" secondAttribute="top" constant="6" id="eG7-ed-Unv"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <imageView toolTip="Armor Class (AC)" translatesAutoresizingMaskIntoConstraints="NO" id="380" userLabel="AC Status Icon">
                         <rect key="frame" x="635" y="255" width="32" height="32"/>
@@ -549,8 +534,6 @@
                                 <constraint firstAttribute="bottom" secondItem="485" secondAttribute="bottom" constant="1" id="iqC-Ji-MwI"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="455">
                         <rect key="frame" x="667" y="346" width="27" height="17"/>
@@ -644,8 +627,6 @@
                                 <constraint firstItem="5229" firstAttribute="top" secondItem="Z4g-W2-rcE" secondAttribute="top" constant="1" id="oV7-p2-rtf"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="453">
                         <rect key="frame" x="667" y="380" width="21" height="18"/>
@@ -962,11 +943,12 @@
                                 <constraint firstItem="452" firstAttribute="top" secondItem="280" secondAttribute="bottom" constant="10" id="yNX-zG-mVK"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5005">
                         <rect key="frame" x="248" y="194" width="330" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="z8H-am-ilm"/>
+                        </constraints>
                         <levelIndicatorCell key="cell" alignment="left" maxValue="100" warningValue="40" criticalValue="65" levelIndicatorStyle="continuousCapacity" id="6883"/>
                         <connections>
                             <binding destination="6780" name="enabled" keyPath="values.UseTraditionalMap" id="6839">
@@ -1368,65 +1350,44 @@
                             <outlet property="menu" destination="5915" id="6200"/>
                         </connections>
                     </button>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5437">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5437">
                         <rect key="frame" x="635" y="192" width="63" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6204"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5451">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5451">
                         <rect key="frame" x="635" y="187" width="61" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6201"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5453">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5453">
                         <rect key="frame" x="635" y="182" width="61" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6202"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5455">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5455">
                         <rect key="frame" x="635" y="177" width="63" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6203"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5457">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5457">
                         <rect key="frame" x="635" y="29" width="148" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6209"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5459">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5459">
                         <rect key="frame" x="635" y="24" width="148" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6210"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5461">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5461">
                         <rect key="frame" x="635" y="19" width="148" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6211"/>
                         </connections>
@@ -1450,11 +1411,8 @@
                             <outlet property="menu" destination="5915" id="6199"/>
                         </connections>
                     </button>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5464">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5464">
                         <rect key="frame" x="635" y="14" width="148" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6212"/>
                         </connections>
@@ -1476,38 +1434,26 @@
                             </binding>
                         </connections>
                     </slider>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5744">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5744">
                         <rect key="frame" x="720" y="192" width="63" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6205"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5746">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5746">
                         <rect key="frame" x="722" y="187" width="61" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6206"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5748">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5748">
                         <rect key="frame" x="722" y="182" width="61" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6207"/>
                         </connections>
                     </box>
-                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5750">
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="5750">
                         <rect key="frame" x="720" y="177" width="63" height="5"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
                         <connections>
                             <outlet property="menu" destination="5915" id="6208"/>
                         </connections>
@@ -1518,15 +1464,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="400" height="110"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6215" userLabel="Message Window">
+                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="6215" userLabel="Message Window">
                                     <rect key="frame" x="0.0" y="-50" width="400" height="110"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.94509803999999997" green="0.84313726" blue="0.67450982000000004" alpha="1" colorSpace="deviceRGB"/>
                                     <size key="minSize" width="400" height="110"/>
                                     <size key="maxSize" width="435" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="400" height="110"/>
-                                    <size key="maxSize" width="435" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" red="0.94509803999999997" green="0.84313726" blue="0.67450982000000004" alpha="1" colorSpace="deviceRGB"/>
@@ -3081,15 +3025,13 @@ Gw
                             <rect key="frame" x="1" y="1" width="398" height="133"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
+                                <textView editable="NO" importsGraphics="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
                                     <rect key="frame" x="0.0" y="0.0" width="398" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="398" height="133"/>
                                     <size key="maxSize" width="400" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="398" height="133"/>
-                                    <size key="maxSize" width="400" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -3186,15 +3128,13 @@ DQ
                             <rect key="frame" x="0.0" y="0.0" width="587" height="238"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
+                                <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
                                     <rect key="frame" x="0.0" y="12" width="587" height="238"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.96078432000000002" green="0.89019607999999995" blue="0.73725492000000004" alpha="1" colorSpace="deviceRGB"/>
                                     <size key="minSize" width="587" height="238"/>
                                     <size key="maxSize" width="600" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="587" height="238"/>
-                                    <size key="maxSize" width="600" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" red="0.96078432000000002" green="0.89019607999999995" blue="0.73725492000000004" alpha="1" colorSpace="deviceRGB"/>
@@ -3209,7 +3149,7 @@ DQ
                         </scroller>
                     </scrollView>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5429">
-                        <rect key="frame" x="42" y="291" width="62" height="24"/>
+                        <rect key="frame" x="42" y="290" width="62" height="26"/>
                         <buttonCell key="cell" type="bevel" title="Speak" bezelStyle="regularSquare" alignment="center" borderStyle="border" inset="2" id="6950">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Copperplate"/>
@@ -3266,7 +3206,7 @@ DQ
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
-                                    <rect key="frame" x="0.0" y="0.0" width="397" height="22"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3482,15 +3422,13 @@ DQ
                             <rect key="frame" x="1" y="1" width="633" height="347"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" selectable="NO" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
+                                <textView editable="NO" selectable="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
                                     <rect key="frame" x="0.0" y="0.0" width="633" height="347"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     <size key="minSize" width="633" height="347"/>
                                     <size key="maxSize" width="635" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="633" height="347"/>
-                                    <size key="maxSize" width="635" height="10000000"/>
                                 </textView>
                             </subviews>
                         </clipView>
@@ -4004,17 +3942,12 @@ DQ
                             <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <imageView wantsLayer="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6444">
-                                    <rect key="frame" x="0.0" y="0.0" width="639" height="439"/>
+                                <imageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6444">
+                                    <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" id="6961"/>
                                 </imageView>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="6444" firstAttribute="top" secondItem="qFK-Qf-Zkl" secondAttribute="top" id="95A-JH-jqm"/>
-                                <constraint firstItem="6444" firstAttribute="leading" secondItem="qFK-Qf-Zkl" secondAttribute="leading" id="Enx-Vh-y1P"/>
-                                <constraint firstAttribute="bottom" secondItem="6444" secondAttribute="bottom" id="OwY-3X-f6r"/>
-                                <constraint firstAttribute="trailing" secondItem="6444" secondAttribute="trailing" id="gIj-37-YOm"/>
-                            </constraints>
                         </clipView>
                         <constraints>
                             <constraint firstAttribute="height" constant="450" id="ebJ-oq-psO"/>
