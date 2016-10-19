@@ -16,7 +16,7 @@ class MapModel: NSObject {
 	
 	dynamic var playerDirection: Int32 = 0 {
 		willSet {
-			if (newValue >= 0 && newValue <= 3) {
+			if newValue >= 0 && newValue <= 3 {
 				
 				switch (playerDirection - newValue) {
 				case -3, 1:
@@ -41,7 +41,7 @@ class MapModel: NSObject {
 	}
 	
 	private(set) var dungeonNameString = NSAttributedString()
-	private var strAttributes = [String: AnyObject]()
+	private var strAttributes = [String: Any]()
 	private var shadow = NSShadow()
 	private var style = NSMutableParagraphStyle()
 	
@@ -52,7 +52,7 @@ class MapModel: NSObject {
 			return enemyWarnBaseInternal
 		}
 		set {
-			if (indicatorIsActive) {
+			if indicatorIsActive {
 				stopIndicator()
 				enemyWarnBaseInternal = (newValue > 90) ? 90 : newValue;
 				startIndicator()
@@ -137,7 +137,8 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:) final func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
+	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:)
+	final func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
 		var ch: Int32 = 0
 		var color: Int32 = 0
 		var special: UInt32 = 0
@@ -175,7 +176,8 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(setPosCursorAtX:atY:) final func setPosCursor(x: Int32, y: Int32) {
+	@objc(setPosCursorAtX:atY:)
+	final func setPosCursor(x: Int32, y: Int32) {
 		if (cursX == x && cursY == y) {
 			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].hasCursor = true
 			return;
@@ -194,7 +196,8 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc(mapArrayAtX:atY:) final func mapArray(x: Int32, y: Int32) -> NH3DMapItem? {
+	@objc(mapArrayAtX:atY:)
+	final func mapArray(x: Int32, y: Int32) -> NH3DMapItem? {
 		if (x < MAPSIZE_COLUMN) && (y < MAPSIZE_ROW) && (x >= 0) && (y >= 0) && (mapArray[Int(x)][Int(y)] != nil) {
 			return mapArray[Int(x)][Int(y)]
 		} else {

@@ -1231,7 +1231,7 @@ extern BOOL CocoaPortIsReady;
 																	  forKey:NH3DUseTileInLevelMapKey];
 }
 
-- (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask
+- (void)nh3dEventHandlerLoopWithMask:(NSEventMask)mask
 {
 	//Prevent buffer overflows: pad the character store a bit if strcpy is used.
 	char ch[3] = {0};

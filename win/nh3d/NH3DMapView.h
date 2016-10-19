@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) int clickType;
 
-- (void)nh3dEventHandlerLoopWithMask:(NSUInteger)mask;
+- (void)nh3dEventHandlerLoopWithMask:(NSEventMask)mask;
 
 // Notification
 - (void)defaultDidChange:(NSNotification *)notification;

@@ -1141,8 +1141,8 @@ struct window_procs nh3d_procs = {
     genl_outrip,
 #endif
     nh3d_preference_update,
-	genl_getmsghistory,
-	genl_putmsghistory,
+	nh3d_getmsghistory,
+	nh3d_putmsghistory,
 #ifdef STATUS_VIA_WINDOWPORT
 	hup_void_ndecl,                                   /* status_init */
 	hup_void_ndecl,                                   /* status_finish */
@@ -1391,7 +1391,7 @@ wd_message()
 - (int)nhPosKeyAtX:(int *)x atY:(int *)y keyMod:(int *)mod
 {
 	int ret = 0;
-	NSUInteger mask = (NSAnyEventMask);
+	NSEventMask mask = (NSAnyEventMask);
 
 	//Wait next Event
 	[_asciiMapView nh3dEventHandlerLoopWithMask:mask];
