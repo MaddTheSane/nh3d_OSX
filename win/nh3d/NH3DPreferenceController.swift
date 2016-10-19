@@ -46,7 +46,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 /// NH3D wants the number of rows and columns; other front-ends
 /// specify the width and height of one tile.<br>
 /// This assumes that there are no extra pixels, such as signatures.
-func tilesInfoFromFile(at fileName: String) -> (tileSize: NSSize, rows: Int, columns: Int)? {
+private func tilesInfo(fromFile fileName: String) -> (tileSize: NSSize, rows: Int, columns: Int)? {
 	guard let fileDimensions = sizeFrom(fileName: (fileName as NSString).lastPathComponent) else {
 		return nil
 	}
@@ -85,7 +85,7 @@ func tilesInfoFromFile(at fileName: String) -> (tileSize: NSSize, rows: Int, col
 		return imgSize
 	}()
 	
-	return (actualSize,Int(divWidth), Int(divHeight))
+	return (actualSize, Int(divWidth), Int(divHeight))
 }
 
 class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
@@ -158,7 +158,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		let sizeKey: String
 		fontButtonTag = sender.selectedCell()?.tag ?? 0
 		
-		switch (fontButtonTag) {
+		switch fontButtonTag {
 		case 1:
 			key = NH3DMsgFontKey
 			sizeKey = NH3DMsgFontSizeKey
@@ -241,7 +241,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 			if result == NSFileHandlingPanelOKButton {
 				let filePath = openPanel.url!.path
 				let defaults = UserDefaults.standard
-				if let tileSize = tilesInfoFromFile(at: filePath) {
+				if let tileSize = tilesInfo(fromFile: filePath) {
 					defaults.set(tileSize.rows, forKey: NH3DTilesPerLineKey)
 					defaults.set(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
 					defaults.set(Double(tileSize.tileSize.width), forKey: NH3DTileSizeWidthKey)

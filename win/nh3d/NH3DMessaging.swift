@@ -133,7 +133,7 @@ class NH3DMessaging: NSObject {
 		return true
 	}
 
-	@objc(playSoundAtURL:volume:) func playSound(URL: Foundation.URL, volume: Float) -> Bool {
+	@objc(playSoundAtURL:volume:) func playSound(url URL: Foundation.URL, volume: Float) -> Bool {
 		guard !SOUND_MUTE else {
 			return false
 		}
@@ -172,7 +172,7 @@ class NH3DMessaging: NSObject {
 			return
 		}
 		
-		guard let textStr = String(cString: text, encoding: String.Encoding(rawValue: NH3DTEXTENCODING)) else {
+		guard let textStr = String(cString: text, encoding: NH3DTextEncoding) else {
 			NSBeep()
 			return
 		}
@@ -234,7 +234,7 @@ class NH3DMessaging: NSObject {
 	}
 
 	func showInputPanel(_ messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
-		guard let questionStr = String(cString: messageStr, encoding: String.Encoding(rawValue: NH3DTEXTENCODING)) else {
+		guard let questionStr = String(cString: messageStr, encoding: NH3DTextEncoding) else {
 			return -1
 		}
 		var result = 0;
@@ -266,7 +266,7 @@ class NH3DMessaging: NSObject {
 			return -1
 		}
 		
-		if inputTextField.stringValue.lengthOfBytes(using: String.Encoding(rawValue: NH3DTEXTENCODING)) > Int(BUFSZ) {
+		if inputTextField.stringValue.lengthOfBytes(using: NH3DTextEncoding) > Int(BUFSZ) {
 			let alert = NSAlert()
 			alert.messageText = NSLocalizedString("There is too much number of the letters.", comment: "")
 			alert.informativeText = " "
@@ -277,9 +277,9 @@ class NH3DMessaging: NSObject {
 			return -1
 		}
 		
-		guard let inputData = inputTextField.stringValue.data(using: String.Encoding(rawValue: NH3DTEXTENCODING), allowLossyConversion:true),
-			let str = String(data: inputData, encoding: String.Encoding(rawValue: NH3DTEXTENCODING)),
-			let cStr = str.cString(using: String.Encoding(rawValue: NH3DTEXTENCODING)) else {
+		guard let inputData = inputTextField.stringValue.data(using: NH3DTextEncoding, allowLossyConversion: true),
+			let str = String(data: inputData, encoding: NH3DTextEncoding),
+			let cStr = str.cString(using: NH3DTextEncoding) else {
 				questionTextField.stringValue = ""
 				inputTextField.stringValue = ""
 				return -1
@@ -302,7 +302,7 @@ class NH3DMessaging: NSObject {
 	}
 	
 	func showOutRip(_ ripString: UnsafePointer<CChar>) {
-		let conv = (NSString(cString: ripString, encoding: NH3DTEXTENCODING) as String?) ?? "You died.\n\nNothing eventful happened, though."
+		let conv = String(cString: ripString, encoding: NH3DTextEncoding) ?? "You died.\n\nNothing eventful happened, though."
 		showOutRip(conv)
 	}
 	

@@ -14,7 +14,7 @@
 #import "NetHack3D-Swift.h"
 
 
-static GLfloat colors[16][3] = {
+static const GLfloat colors[16][3] = {
 	{ 0.1 , 0.1 , 0.1  },				// Black
 	{ 0.81424, 0.14136 , 0.14136 },		// Red
 	{ 0.17568 , 0.81424 , 0.17568 },	// Green

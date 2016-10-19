@@ -1772,7 +1772,9 @@ static char ynPreReady(const char *str)
 		NSString *from = [[NSBundle mainBundle] pathForResource:@"nethackrc" ofType:nil];
 		if (![fm copyItemAtPath:from toPath:nhrc error:&err]) {
 			NSAlert *alert = [NSAlert alertWithError:err];
+			NSString *oldMsg = alert.messageText;
 			alert.messageText = NSLocalizedString(@"Unable to create a new .nethackrc file", @"Unable to create a new .nethackrc file");
+			alert.informativeText = [oldMsg stringByAppendingFormat:@"\n%@", alert.informativeText];
 			[alert runModal];
 			return;
 		}
