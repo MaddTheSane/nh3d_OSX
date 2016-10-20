@@ -869,7 +869,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glClearColor(0.0, 0.0, 0.8, 0.0)
 			glFogf(GLenum(GL_FOG_END), 6.0)
 			glFogfv(GLenum(GL_FOG_COLOR), underwaterColor)
-		} else if Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy).typ) || (!Swift_Underwater() && (schar(MOAT) == Swift_RoomAtLocation(u.ux, u.uy).typ)) {
+		} else if isRoom(roomAtCurrentLocation.typ) || isDoor(roomAtCurrentLocation.typ) || (!Swift_Underwater() && (schar(MOAT) == roomAtCurrentLocation.typ)) {
 			// in room
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
@@ -886,30 +886,30 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glFogf(GLenum(GL_FOG_END), 4.5 + GLfloat(MAP_MARGIN) * NH3DGL_TILE_SIZE)
 			
 			for i in 1...MAP_MARGIN {
-				if ((Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ))
-					&& Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF ) {
+				if (isRoom(roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ) || isDoor(roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ))
+					&& roomAtLocation(x: u.ux, y: u.uy + xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF  {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 						
-				} else if ((Swift_IsRoom(Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ))
-					&& Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF) {
+				} else if ((isRoom(roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ) || isDoor(roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ))
+					&& roomAtLocation(x: u.ux, y: u.uy - xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF) {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 						
-				} else if (Swift_IsRoom(Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ))
-					&& Swift_RoomAtLocation(u.ux + xchar(i), u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
+				} else if (isRoom(roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ) || isDoor(roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ))
+					&& roomAtLocation(x: u.ux + xchar(i), y: u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 						
-				} else if (Swift_IsRoom(Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ) || IS_DOOR(Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ))
-					&& Swift_RoomAtLocation(u.ux - xchar(i), u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
+				} else if (isRoom(roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ) || isDoor(roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ))
+					&& roomAtLocation(x: u.ux - xchar(i), y: u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 				}
 			}
 			
 			glFogfv(GLenum(GL_FOG_COLOR), fogColor)
-		} else if Swift_RoomAtLocation(u.ux, u.uy).typ == schar(CORR) {
+		} else if roomAtCurrentLocation.typ == schar(CORR) {
 			// in corridor
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
@@ -923,20 +923,20 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 30.0)
 			
 			for i in 1...MAP_MARGIN {
-				if Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).typ == schar(CORR)
-					&&   Swift_RoomAtLocation(u.ux, u.uy + xchar(i)).lit == 0 {
+				if roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ == schar(CORR)
+					&&   roomAtLocation(x: u.ux, y: u.uy + xchar(i)).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
-				} else if Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).typ == schar(CORR)
-					&&   Swift_RoomAtLocation(u.ux, u.uy - xchar(i)).lit == 0 {
+				} else if roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ == schar(CORR)
+					&&   roomAtLocation(x: u.ux, y: u.uy - xchar(i)).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
-				} else if Swift_RoomAtLocation(u.ux + xchar(i), u.uy).typ == schar(CORR)
-					&&   Swift_RoomAtLocation(u.ux + xchar(i), u.uy).lit == 0 {
+				} else if roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ == schar(CORR)
+					&&   roomAtLocation(x: u.ux + xchar(i), y: u.uy).lit == 0 {
 						glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
-				} else if Swift_RoomAtLocation(u.ux - xchar(i), u.uy).typ == schar(CORR)
-					&&   Swift_RoomAtLocation(u.ux - xchar(i), u.uy).lit == 0 {
+				} else if roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ == schar(CORR)
+					&&   roomAtLocation(x: u.ux - xchar(i), y: u.uy).lit == 0 {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 				}
@@ -1504,10 +1504,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraY = cameraY
 				lastCameraZ = cameraZ
 				isReady = true
-			} else if CameraHelp.footstep.isPlaying && ((!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ)) && !SOUND_MUTE {
+			} else if CameraHelp.footstep.isPlaying && ((!isFloating || isRiding) && !isSoft(roomAtCurrentLocation.typ)) && !SOUND_MUTE {
 				CameraHelp.footstep.stop()
 				CameraHelp.footstep.play()
-			} else if (!isFloating || isRiding) && !Swift_IsSoft(Swift_RoomAtLocation(u.ux, u.uy).typ) && !SOUND_MUTE {
+			} else if (!isFloating || isRiding) && !isSoft(roomAtCurrentLocation.typ) && !SOUND_MUTE {
 				CameraHelp.footstep.play()
 			}
 			

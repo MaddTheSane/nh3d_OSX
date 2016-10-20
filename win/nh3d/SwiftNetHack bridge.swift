@@ -167,6 +167,7 @@ var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
 }
 
+@available(*, deprecated, renamed: "isDoor(_:)")
 func IS_DOOR(_ typ: schar) -> Bool {
 	return Int32(typ) == DOOR
 }
@@ -228,4 +229,8 @@ func raw_print(_ str: UnsafePointer<CChar>) {
 
 var NH3DTextEncoding: String.Encoding {
 	return String.Encoding(rawValue: NH3DTEXTENCODING)
+}
+
+var roomAtCurrentLocation: rm {
+	return roomAtLocation(x: u.ux, y: u.uy)
 }
