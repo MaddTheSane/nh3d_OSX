@@ -11,6 +11,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, NH3DModelDrawingTypes) {
+	NH3DModelDrawingBlackWall = 0,
+	NH3DModelDrawingPlayerPosition = 1,
+	NH3DModelDrawingHole = 2,
+	NH3DModelDrawingCorridor = 3,
+	NH3DModelDrawingPool = 4,
+	NH3DModelDrawingIce = 5,
+	NH3DModelDrawingLava = 6,
+	NH3DModelDrawingAir = 7,
+	NH3DModelDrawingCloud = 8,
+	NH3DModelDrawingWater = 9,
+	NH3DModelDrawingModel3D = 10,
+};
+
 @interface NH3DMapItem : NSObject
 
 - (instancetype)initWithParameter:(char)ch
@@ -44,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, strong, nullable) NSImage *foregroundTile;
 @property (readonly, strong, nullable) NSImage *backgroundTile;
 
-@property (readonly) int modelDrawingType;
+@property (readonly) NH3DModelDrawingTypes modelDrawingType;
 
 /// Returns \c YES if the tile has a corpse.
 @property (readonly, getter=isCorpse) BOOL corpse;

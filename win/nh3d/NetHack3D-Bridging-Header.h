@@ -76,91 +76,91 @@ static inline struct rm Swift_RoomAtLocation(xchar x, xchar y)
 
 NS_SWIFT_NAME(isSoft(_:))
 static inline BOOL Swift_IsSoft(schar type) {
-	return !!IS_SOFT(type);
+	return IS_SOFT(type);
 }
 
 /*! ROOM, STAIRS, furniture.. */
 NS_SWIFT_NAME(isRoom(_:))
 static inline BOOL Swift_IsRoom(schar type) {
-	return !!IS_ROOM(type);
+	return IS_ROOM(type);
 }
 
 NS_SWIFT_NAME(isWall(_:))
 static inline BOOL Swift_IsWall(schar type) {
-	return !!IS_WALL(type);
+	return IS_WALL(type);
 }
 
 NS_SWIFT_NAME(isStoneWall(_:))
 static inline BOOL Swift_IsStoneWall(schar type) {
-	return !!IS_STWALL(type);
+	return IS_STWALL(type);
 }
 
 /*! absolutely nonaccessible */
 NS_SWIFT_NAME(isRock(_:))
 static inline BOOL Swift_IsRock(schar type) {
-	return !!IS_ROCK(type);
+	return IS_ROCK(type);
 }
 
 NS_SWIFT_NAME(isDoor(_:))
 static inline BOOL Swift_IsDoor(schar type) {
-	return !!IS_DOOR(type);
+	return IS_DOOR(type);
 }
 
 NS_SWIFT_NAME(isTree(_:))
 static inline BOOL Swift_IsTree(schar type) {
-	return !!IS_TREE(type);
+	return IS_TREE(type);
 }
 
 /*! good position */
 NS_SWIFT_NAME(isAccessible(_:))
 static inline BOOL Swift_Accessible(schar type) {
-	return !!ACCESSIBLE(type);
+	return ACCESSIBLE(type);
 }
 
 
 NS_SWIFT_NAME(isPool(_:))
 static inline BOOL Swift_IsPool(schar type) {
-	return !!IS_POOL(type);
+	return IS_POOL(type);
 }
 
 NS_SWIFT_NAME(isThrone(_:))
 static inline BOOL Swift_IsThrone(schar type) {
-	return !!IS_THRONE(type);
+	return IS_THRONE(type);
 }
 
 NS_SWIFT_NAME(isFountain(_:))
 static inline BOOL Swift_IsFountain(schar type) {
-	return !!IS_FOUNTAIN(type);
+	return IS_FOUNTAIN(type);
 }
 
 NS_SWIFT_NAME(isSink(_:))
 static inline BOOL Swift_IsSink(schar type) {
-	return !!IS_SINK(type);
+	return IS_SINK(type);
 }
 
 NS_SWIFT_NAME(isGrave(_:))
 static inline BOOL Swift_IsGrave(schar type) {
-	return !!IS_GRAVE(type);
+	return IS_GRAVE(type);
 }
 
 NS_SWIFT_NAME(isAltar(_:))
 static inline BOOL Swift_IsAltar(schar type) {
-	return !!IS_ALTAR(type);
+	return IS_ALTAR(type);
 }
 
 NS_SWIFT_NAME(isDrawbridge(_:))
 static inline BOOL Swift_IsDrawbridge(schar type) {
-	return !!IS_DRAWBRIDGE(type);
+	return IS_DRAWBRIDGE(type);
 }
 
 NS_SWIFT_NAME(isFurniture(_:))
 static inline BOOL Swift_IsFurniture(schar type) {
-	return !!IS_FURNITURE(type);
+	return IS_FURNITURE(type);
 }
 
 NS_SWIFT_NAME(isAir(_:))
 static inline BOOL Swift_IsAir(schar type) {
-	return !!IS_AIR(type);
+	return IS_AIR(type);
 }
 
 /*! from tile.c */

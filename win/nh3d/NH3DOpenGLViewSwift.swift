@@ -404,10 +404,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 				Float(frameRect.width / frameRect.height),	/* Aspect ratio */
 				0.1,										/* Near limit Distance from origin*/
 				30)											/* Far limit  */
-			let anArr = withUnsafePointer(to: &aMatrix) { (arr) -> UnsafePointer<GLfloat> in
-				return UnsafeRawPointer(arr).assumingMemoryBound(to: GLfloat.self)
+			withUnsafePointer(to: &aMatrix) { (arr) -> Void in
+				arr.withMemoryRebound(to: GLfloat.self, capacity: MemoryLayout<GLKMatrix4>.size / MemoryLayout<GLfloat>.size, { (anArr) -> Void in
+					glMultMatrixf(anArr)
+				})
 			}
-			glMultMatrixf(anArr)
 		}
 		
 		// alpha blending
@@ -583,8 +584,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			if let link = link {
 				let aTime: CVTime = CVDisplayLinkGetNominalOutputVideoRefreshPeriod(link)
-				if aTime.flags & CVTimeFlags.isIndefinite.rawValue == 0 {
+				if (aTime.flags & CVTimeFlags.isIndefinite.rawValue) == 0 {
 					aRefreshRate = Double(aTime.timeScale) / Double(aTime.timeValue)
+				} else {
+					//Fall back to 60 if even that didn't work
+					aRefreshRate = 60
 				}
 				//dRefreshRate = CVDisplayLinkGetActualOutputVideoRefreshPeriod(link)
 			} else {
@@ -627,7 +631,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if isReady || !firstTime {
 			return
 		} else {
-			var attributes = [String: AnyObject]()
+			var attributes = [String: Any]()
 			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 20)
 			attributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.5, alpha: 0.6)
 			
@@ -641,7 +645,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 14)
 			("by Haruumi Yoshino 2005" as NSString).draw(at: NSPoint(x: 130.0, y: 56.0), withAttributes: attributes)
 			("NetHack" as NSString).draw(at: NSPoint(x: 192.0, y: 29.0), withAttributes: attributes)
-			attributes[NSFontAttributeName] =  NSFont(name: "Copperplate", size: 11)
+			attributes[NSFontAttributeName] = NSFont(name: "Copperplate", size: 11)
 			("Copyright © Stichting Mathematisch Centrum  Amsterdam, 1985. \n   NetHack may be freely redistributed. See license for details."
 				as NSString).draw(at: NSPoint(x: 38.0, y: 3.0), withAttributes: attributes)
 			
@@ -656,8 +660,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return
 		}
 		let type = mapItem.modelDrawingType
-		if type != 10 {
-			switchMethodArray[Int(type)](mapItem.posX, mapItem.posY, x, z)
+		if type != .model3D {
+			switchMethodArray[type.rawValue](mapItem.posX, mapItem.posY, x, z)
 		} else {
 			// delay drawing for alpha blending.
 			delayDrawing.append((item: mapItem, x: x, z: z))
@@ -1024,7 +1028,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			
 			if hasWait {
-				Thread.sleep(until: NSDate(timeIntervalSinceNow: 1.0 / Double(waitRate)) as Date)
+				Thread.sleep(until: Date(timeIntervalSinceNow: 1.0 / Double(waitRate)))
 			}
 		}
 		Thread.exit()
@@ -1099,9 +1103,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			// next. particle objects
 			for (mapItem, lx, lz) in delayDrawing {
-				switchMethodArray[Int(mapItem.modelDrawingType)](mapItem.posX,
-				                                                 mapItem.posY,
-				                                                 lx, lz)
+				let drawMethod = switchMethodArray[mapItem.modelDrawingType.rawValue]
+				drawMethod(mapItem.posX, mapItem.posY, lx, lz)
 			} // end for x
 			
 			if enemyPosition != 0 {
@@ -1260,31 +1263,37 @@ final class NH3DOpenGLView: NSOpenGLView {
 					glRotatef(model.animationValue, 0.0, 1.0, 0.0)
 				}
 				
-				if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= NUMMONS {
+				switch glyph {
+				case PM_GIANT_ANT+GLYPH_MON_OFF ... NUMMONS:
 					let materialCol = mapItem.material
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
-				} else if glyph == S_vwall + GLYPH_CMAP_OFF {
+					
+				case S_vwall + GLYPH_CMAP_OFF:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posz) % 5) != 0 {
 						model.childObject(at: 0).isActive = false
 					} else {
 						model.childObject(at: 0).isActive = true
 					}
-				} else if glyph == S_hwall + GLYPH_CMAP_OFF {
+					
+				case S_hwall + GLYPH_CMAP_OFF:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posx) % 5) != 0 {
 						model.childObject(at: 0).isActive = false
 					} else {
 						model.childObject(at: 0).isActive = true
 					}
-				} else if glyph >= PM_GIANT_ANT+GLYPH_STATUE_OFF && glyph <= (NUMMONS + GLYPH_STATUE_OFF) {
+					
+				case PM_GIANT_ANT+GLYPH_STATUE_OFF ... NUMMONS + GLYPH_STATUE_OFF:
 					model.currentMaterial = nh3dMaterialArray[Int(CLR_WHITE)]
-				} else if glyph >= PM_GIANT_ANT+GLYPH_PET_OFF && glyph <= NUMMONS+GLYPH_PET_OFF {
+					
+				case PM_GIANT_ANT+GLYPH_PET_OFF ... NUMMONS + GLYPH_PET_OFF:
 					let materialCol = mapItem.material
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
-				} else {
+					
+				default:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 				}
 				
@@ -1668,7 +1677,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	// MARK: -
 	
 	/// Creates a symbol based off of either an image or string, applying color as well.
-	private func createTexture(from symbol: AnyObject, color: NSColor?) -> GLuint {
+	private func createTexture(from symbol: Any, color: NSColor?) -> GLuint {
 		viewLock.lock()
 		defer {
 			viewLock.unlock()
@@ -1684,7 +1693,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				assert(false)
 				return 0
 			}
-			var attributes = [String: AnyObject]()
+			var attributes = [String: Any]()
 			let fontName = UserDefaults.standard.string(forKey: NH3DWindowFontKey)!
 			
 			attributes[NSFontAttributeName] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
@@ -1978,7 +1987,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		openGLContext?.setValues(&vsType, for: NSOpenGLContextParameter.swapInterval)
 	}
 	
-	@IBAction func useAntiAlias(sender: NSMenuItem) {
+	@IBAction func useAntiAlias(_ sender: NSMenuItem) {
 		viewLock.lock()
 		nowUpdating = true
 		if sender.state == NSOffState {

@@ -104,6 +104,7 @@
 			case S_magic_trap + GLYPH_CMAP_OFF:
 			case S_anti_magic_trap + GLYPH_CMAP_OFF:
 			case S_polymorph_trap + GLYPH_CMAP_OFF:
+			case S_vibrating_square + GLYPH_CMAP_OFF:
 			case S_digbeam + GLYPH_CMAP_OFF:
 			case S_flashbeam + GLYPH_CMAP_OFF:
 			case S_ss1 + GLYPH_CMAP_OFF:
@@ -227,52 +228,52 @@
 	NSColor *aColor;
 	
 	switch (color) {
-		case 0:
+		case CLR_BLACK:
 			aColor = [NSColor darkGrayColor];
 			break;
-		case 1:
+		case CLR_RED:
 			aColor = [NSColor redColor];
 			break;
-		case 2:
+		case CLR_GREEN:
 			aColor = [NSColor greenColor];
 			break;
-		case 3:
+		case CLR_BROWN:
 			aColor = [NSColor brownColor];
 			break;
-		case 4:
+		case CLR_BLUE:
 			aColor = [NSColor blueColor];
 			break;
-		case 5:
+		case CLR_MAGENTA:
 			aColor = [NSColor magentaColor];
 			break;
-		case 6:
+		case CLR_CYAN:
 			aColor = [NSColor cyanColor];
 			break;
-		case 7:
+		case CLR_GRAY:
 			aColor = [NSColor grayColor];
 			break;
-		case 8:
+		case NO_COLOR:
 			aColor = [[NSColor grayColor] highlightWithLevel:0.5];
 			break;
-		case 9:
+		case CLR_ORANGE:
 			aColor = [NSColor orangeColor];
 			break;
-		case 10:
+		case CLR_BRIGHT_GREEN:
 			aColor = [[NSColor greenColor] highlightWithLevel:0.5];
 			break;
-		case 11:
+		case CLR_YELLOW:
 			aColor = [NSColor yellowColor];
 			break;
-		case 12:
+		case CLR_BRIGHT_BLUE:
 			aColor = [[NSColor blueColor] highlightWithLevel:0.5];
 			break;
-		case 13:
+		case CLR_BRIGHT_MAGENTA:
 			aColor = [[NSColor magentaColor] highlightWithLevel:0.5];
 			break;
-		case 14:
+		case CLR_BRIGHT_CYAN:
 			aColor = [[NSColor cyanColor] highlightWithLevel:0.5];
 			break;
-		case 15:
+		case CLR_WHITE:
 			aColor = [NSColor whiteColor];
 			break;
 		default:

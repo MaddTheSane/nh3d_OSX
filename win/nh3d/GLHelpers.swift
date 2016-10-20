@@ -13,10 +13,11 @@ import OpenGL.GL
 /// to something usable by OpenGL's `glMaterialfv`.
 func glMaterialfv(_ face: GLenum, _ pname: GLenum, _ params1: NH3DMaterialType) {
 	var params = params1
-	let passedArr = withUnsafePointer(to: &params) { (aParam) -> UnsafePointer<GLfloat> in
-		return UnsafeRawPointer(aParam).assumingMemoryBound(to: GLfloat.self)
+	withUnsafePointer(to: &params) { (aParam) -> Void in
+		aParam.withMemoryRebound(to: GLfloat.self, capacity: 4, { (ptr2) -> Void in
+			glMaterialfv(face, pname, ptr2)
+		})
 	}
-	glMaterialfv(face, pname, passedArr)
 }
 
 /// Helper function that puts the data from an `NH3DMaterial` object
