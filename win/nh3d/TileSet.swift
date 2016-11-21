@@ -75,7 +75,7 @@ final class TileSet: NSObject {
 		self.init(image: img, tileSize: size)
 	}
 	
-	func sourceRect(for glyph: Int32) -> NSRect {
+	private func sourceRect(for glyph: Int32) -> NSRect {
 		let tile = glyphToTile(glyph)
 		return sourceRect(for: tile)
 	}

@@ -1609,7 +1609,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private func dorryCamera() {
 		if !isReady {
 			glTranslatef(-cameraX, -cameraY, -cameraZ)
-		} else if ( lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ ) {
+		} else if lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ {
 			glTranslatef(-cameraX, -cameraY, -cameraZ)
 			if drawMargin != 3 {
 				drawMargin = 0

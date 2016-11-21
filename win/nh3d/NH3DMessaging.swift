@@ -63,8 +63,8 @@ class NH3DMessaging: NSObject {
 	
 	private var msgArray = [Int]()
 	
-	private var darkShadowStrAttributes = [String: AnyObject]()
-	private var lightShadowStrAttributes = [String: AnyObject]()
+	private var darkShadowStrAttributes = [String: Any]()
+	private var lightShadowStrAttributes = [String: Any]()
 	private let darkShadow: NSShadow = {
 		//for view or backgrounded text field.
 		let adarkShadow = NSShadow()
@@ -88,7 +88,7 @@ class NH3DMessaging: NSObject {
 	
 	private var effectArray = [ScreenEffect]()
 	
-	func prepareAttributes() {
+	private func prepareAttributes() {
 		style = NSMutableParagraphStyle()
 		style.lineSpacing = -2
 		
@@ -99,14 +99,14 @@ class NH3DMessaging: NSObject {
 		
 		darkShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
 		darkShadowStrAttributes[NSShadowAttributeName] = darkShadow;
-		darkShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+		darkShadowStrAttributes[NSParagraphStyleAttributeName] = style.copy()
 		darkShadowStrAttributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 		
 		//Text attributes on Panel or Window.
 		
 		lightShadowStrAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
 		lightShadowStrAttributes[NSShadowAttributeName] = lightShadow;
-		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style;
+		lightShadowStrAttributes[NSParagraphStyleAttributeName] = style.copy()
 		lightShadowStrAttributes[NSForegroundColorAttributeName] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 	}
 
@@ -122,7 +122,8 @@ class NH3DMessaging: NSObject {
 		messageScrollView.drawsBackground = false
 	}
 
-	@objc(addEffectMessage:effectType:) func addEffect(message newMsg: String, effectType: Int32) -> Bool {
+	@objc(addEffectMessage:effectType:)
+	func addEffect(message newMsg: String, effectType: Int32) -> Bool {
 		guard effectType != 1 || effectType != 2 else {
 			return false
 		}
@@ -133,7 +134,8 @@ class NH3DMessaging: NSObject {
 		return true
 	}
 
-	@objc(playSoundAtURL:volume:) func playSound(url URL: Foundation.URL, volume: Float) -> Bool {
+	@objc(playSoundAtURL:volume:)
+	func playSound(url URL: Foundation.URL, volume: Float) -> Bool {
 		guard !SOUND_MUTE else {
 			return false
 		}
@@ -164,7 +166,8 @@ class NH3DMessaging: NSObject {
 		return true
 	}
 	
-	@objc(putMainMessage:text:) func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>?) {
+	@objc(putMainMessage:text:)
+	func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>?) {
 		prepareAttributes()
 		style.alignment = .left
 		
@@ -330,7 +333,8 @@ class NH3DMessaging: NSObject {
 		)
 	}
 	
-	@objc(putLogMessage:bold:) func putLog(message rawText: String, bold: Bool) {
+	@objc(putLogMessage:bold:)
+	func putLog(message rawText: String, bold: Bool) {
 		#if DEBUG
 			NSLog(" %@", rawText)
 		#endif

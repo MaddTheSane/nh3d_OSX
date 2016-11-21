@@ -785,9 +785,6 @@ extern BOOL CocoaPortIsReady;
 	int lkey = 0;
 	
 	if ([sender tag] < 50) {
-		if (iflags.num_pad && is_entering_number()) {
-			lkey = (int)[sender tag] + '0';
-		} else
 		switch (_mapModel.playerDirection) {
 			case PL_DIRECTION_FORWARD:
 				switch ([sender tag]) {
@@ -1296,7 +1293,7 @@ extern BOOL CocoaPortIsReady;
 								}
 							}
 							
-							if (event.modifierFlags & NSAlternateKeyMask) {
+							if (event.modifierFlags & NSEventModifierFlagOption) {
 								switch (ch[0]) {
 									case 'a':
 										[_againButton performClick:self];
@@ -1348,14 +1345,8 @@ extern BOOL CocoaPortIsReady;
 											self.keyBuffer = (int)ch[0];
 											break;
 										}
-										[_num5 performClick:self];
-										break;
-										
+										//fall-though
 									case '.':
-										if (iflags.num_pad && is_entering_number()) {
-											self.keyBuffer = (int)ch[0];
-											break;
-										}
 										[_num5 performClick:self];
 										break;
 										

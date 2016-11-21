@@ -210,7 +210,6 @@ E char readchar(void);
 E void sanity_check(void);
 E char yn_function(const char *, const char *, char);
 E boolean paranoid_query(boolean, const char *);
-E boolean is_entering_number(void);
 
 /* ### dbridge.c ### */
 
