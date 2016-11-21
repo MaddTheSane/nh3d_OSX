@@ -353,6 +353,7 @@
 		550B14C11CA06CD500945F09 /* Hearse.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BD1CA06CD500945F09 /* Hearse.m */; };
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
 		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
+		552673E91DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
@@ -1263,6 +1264,8 @@
 		550B14BF1CA06CD500945F09 /* FileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLogger.m; sourceTree = "<group>"; };
 		5514EA7F1CA9EE5E00FC2566 /* nethackrc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethackrc; sourceTree = "<group>"; };
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = C99Bool.h; sourceTree = "<group>"; };
+		552673E71DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBitmapImageRep+NH3DAdditions.h"; sourceTree = "<group>"; };
+		552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBitmapImageRep+NH3DAdditions.m"; sourceTree = "<group>"; };
 		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1437,6 +1440,8 @@
 				55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */,
 				2B6311CB08B7A27A00162523 /* winnh3d.h */,
 				2B6311CC08B7A27A00162523 /* winnh3d.m */,
+				552673E71DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.h */,
+				552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -3344,6 +3349,7 @@
 				2B5CC16B088EB7DF00940C58 /* files.c in Sources */,
 				2B5CC16C088EB7DF00940C58 /* fountain.c in Sources */,
 				2B5CC16D088EB7DF00940C58 /* hack.c in Sources */,
+				552673E91DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m in Sources */,
 				2B5CC16E088EB7DF00940C58 /* hacklib.c in Sources */,
 				55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */,
 				2B5CC16F088EB7DF00940C58 /* invent.c in Sources */,

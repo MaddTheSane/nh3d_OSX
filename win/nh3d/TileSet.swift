@@ -114,6 +114,7 @@ final class TileSet: NSObject {
 		let newImage = NSImage(size: tileSize)
 		let dstRect = NSRect(origin: .zero, size: tileSize)
 		newImage.lockFocus()
+		NSGraphicsContext.current()?.imageInterpolation = .none
 		self.image.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1)
 		newImage.unlockFocus()
 		// cache image

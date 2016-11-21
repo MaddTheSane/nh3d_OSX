@@ -450,7 +450,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		cloudTex = loadImageToTexture(named: "cloud")
 		hellTex = loadImageToTexture(named: "hell")
 		nullTex = loadImageToTexture(named: "null")
-		rougeTex = loadImageToTexture(named: "rouge")
+		rougeTex = loadImageToTexture(named: "rogue")
 		
 		floorCurrent = floorTex
 		cellingCurrent = cellingTex
@@ -673,7 +673,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return 0
 		}
 		
-		guard let sourceTiff = sourcefile.tiffRepresentation, let imgRep = NSBitmapImageRep(data: sourceTiff) else {
+		guard let sourceTiff = sourcefile.tiffRepresentation, let imgRep = NSBitmapImageRep(data: sourceTiff)?.forceRGBColorSpace() else {
 			return 0
 		}
 		
@@ -688,7 +688,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
 		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
-		glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(imgRep.pixelsWide), GLsizei(imgRep.pixelsHigh), 0, GLenum(imgRep.hasAlpha ? GL_RGBA : GL_RGB), GLenum(GL_UNSIGNED_BYTE), imgRep.bitmapData)
+		glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(imgRep.pixelsWide), GLsizei(imgRep.pixelsHigh), 0, GLenum(imgRep.hasAlpha ? GL_RGBA : GL_RGB), GLenum(GL_UNSIGNED_BYTE), UnsafeRawPointer(imgRep.bitmapData!))
 		
 		viewLock.unlock()
 		

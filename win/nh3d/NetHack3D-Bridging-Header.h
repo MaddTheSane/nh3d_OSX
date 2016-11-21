@@ -11,6 +11,7 @@
 #import "NH3DModelObject.h"
 #import "winnh3d.h"
 #include "extern.h"
+#import "NSBitmapImageRep+NH3DAdditions.h"
 
 #import "Hearse.h"
 

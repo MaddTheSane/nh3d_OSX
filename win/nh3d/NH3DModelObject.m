@@ -12,6 +12,7 @@
 #import "NH3DModelObject.h"
 #include <OpenGL/gl.h>
 #import "NetHack3D-Swift.h"
+#import "NSBitmapImageRep+NH3DAdditions.h"
 
 
 static const GLfloat colors[16][3] = {
@@ -105,7 +106,7 @@ static const NH3DMaterial defaultMat = {
 		}
 	}
 	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
+	imgrep = [[[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation] forceRGBColorSpace];
 	
 	if (!imgrep) {
 		return tex_id;
