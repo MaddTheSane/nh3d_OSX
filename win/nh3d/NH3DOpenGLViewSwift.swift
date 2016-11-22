@@ -258,20 +258,20 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
-	private var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(MAX_GLYPH))
+	fileprivate var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(MAX_GLYPH))
 	private var modelDictionary = [Int32: NH3DModelObject]()
 	private let viewLock = NSRecursiveLock()
 	
-	private typealias DrawFloorFunc = () -> ()
-	private var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
+	fileprivate typealias DrawFloorFunc = () -> Void
+	fileprivate var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
 	
-	private typealias SwitchMethod = (_ x: Int32, _ z: Int32, _ lx: Int32, _ lz: Int32) -> Void
-	private var switchMethodArray = [SwitchMethod](repeating: blankSwitchMethod, count: 11)
+	fileprivate typealias SwitchMethod = (_ x: Int32, _ z: Int32, _ lx: Int32, _ lz: Int32) -> Void
+	fileprivate var switchMethodArray = [SwitchMethod](repeating: blankSwitchMethod, count: 11)
 	
 	private var isReady = false
 	private(set) var isFloating = false
 	private(set) var isRiding = false
-	var isShocked: Bool {
+	@objc(shocked) var isShocked: Bool {
 		set {
 			viewLock.lock()
 			nowUpdating = true
@@ -279,32 +279,32 @@ final class NH3DOpenGLView: NSOpenGLView {
 			nowUpdating = false
 			viewLock.unlock()
 		}
-		get {
+		@objc(isShocked) get {
 			return _shocked
 		}
 	}
 	private var _shocked = false
 	
-	private var floorTex = GLuint(0)
-	private var floor2Tex = GLuint(0)
+	fileprivate private(set) var floorTex = GLuint(0)
+	fileprivate private(set) var floor2Tex = GLuint(0)
 	//GLuint		wallTex;
-	private var cellingTex = GLuint(0)
-	private var waterTex = GLuint(0)
-	private var poolTex = GLuint(0)
-	private var lavaTex = GLuint(0)
-	private var envelopTex = GLuint(0)
-	private var minesTex = GLuint(0)
-	private var airTex = GLuint(0)
-	private var cloudTex = GLuint(0)
-	private var hellTex = GLuint(0)
-	private var nullTex = GLuint(0)
-	private var rougeTex = GLuint(0)
+	fileprivate private(set) var cellingTex = GLuint(0)
+	fileprivate private(set) var waterTex = GLuint(0)
+	fileprivate private(set) var poolTex = GLuint(0)
+	fileprivate private(set) var lavaTex = GLuint(0)
+	fileprivate private(set) var envelopTex = GLuint(0)
+	fileprivate private(set) var minesTex = GLuint(0)
+	fileprivate private(set) var airTex = GLuint(0)
+	fileprivate private(set) var cloudTex = GLuint(0)
+	fileprivate private(set) var hellTex = GLuint(0)
+	fileprivate private(set) var nullTex = GLuint(0)
+	fileprivate private(set) var rougeTex = GLuint(0)
 	private var defaultTex = [GLuint](repeating: 0, count: Int(MAX_GLYPH))
 	
-	private var floorCurrent = GLuint(0)
-	private var cellingCurrent  = GLuint(0)
+	fileprivate private(set) var floorCurrent = GLuint(0)
+	fileprivate private(set) var cellingCurrent  = GLuint(0)
 	
-	private var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](repeating:[NH3DMapItem?](repeating: nil, count: Int(NH3DGL_MAPVIEWSIZE_ROW)), count: Int(NH3DGL_MAPVIEWSIZE_COLUMN))
+	fileprivate private(set) var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](repeating:[NH3DMapItem?](repeating: nil, count: Int(NH3DGL_MAPVIEWSIZE_ROW)), count: Int(NH3DGL_MAPVIEWSIZE_COLUMN))
 	
 	private var lastCameraX: GLfloat = 5.0
 	private var lastCameraY: GLfloat = 1.8
@@ -553,7 +553,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			effect.particleSize = 8.5
 			effect.particleType = .points
 			effect.particleColor = CLR_RED
-			effect.setParticleSpeed(x: 1.0, y: -1.0)
+			effect.particleSpeed = (x: 1.0, y: -1.0)
 			effect.particleSlowdown = 0.8
 			effect.particleLife = 1
 		}
@@ -695,7 +695,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return texID
 	}
 	
-	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, without: Int32...) -> NH3DModelObject? {
+	fileprivate final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, textureName: String? = nil, without: Int32...) -> NH3DModelObject? {
 		var withoutFlag = false
 		
 		for i in (startNum+offset)...(endNum+offset) {
@@ -722,6 +722,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		if modelName == "emitter" {
 			return NH3DModelObject()
+		} else if flag, let textureName = textureName {
+			return NH3DModelObject(with3DSFile: modelName, textureNamed: textureName)
 		} else {
 			return NH3DModelObject(with3DSFile: modelName, withTexture: flag)
 		}
@@ -734,62 +736,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	func turnOffSmooth() {
 		glDisable(GLenum(GL_POLYGON_SMOOTH))
-	}
-	
-	private func drawNullObject(x: GLfloat, z: GLfloat, tex: GLuint) {
-		glPushMatrix()
-		
-		glTranslatef(x, 0.0, z)
-		
-		glEnableClientState(GLenum(GL_VERTEX_ARRAY))
-		glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-		glEnableClientState(GLenum(GL_NORMAL_ARRAY))
-		
-		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-		
-		glActiveTexture(GLenum(GL_TEXTURE0))
-		glEnable(GLenum(GL_TEXTURE_2D))
-		
-		glBindTexture(GLenum(GL_TEXTURE_2D), tex)
-		glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
-		
-		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
-		
-		glNormalPointer(GLenum(GL_FLOAT), 0, nullObjectNorms)
-		glTexCoordPointer(2, GLenum(GL_FLOAT), 0, nullObjectTexVerts)
-		glVertexPointer(3, GLenum(GL_FLOAT), 0, nullObjectVerts)
-		glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 16)
-		
-		glDisableClientState(GLenum(GL_NORMAL_ARRAY))
-		glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-		glDisableClientState(GLenum(GL_VERTEX_ARRAY))
-		
-		glDisable(GLenum(GL_TEXTURE_2D))
-		
-		glPopMatrix()
-	}
-	
-	private func drawFloorAndCeiling(x: Float, z: Float, flag: Int32) {
-		glPushMatrix()
-		
-		glTranslatef(x, 0.0, z)
-		
-		glEnableClientState(GLenum(GL_VERTEX_ARRAY))
-		glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-		glEnableClientState(GLenum(GL_NORMAL_ARRAY))
-		
-		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-		
-		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
-		
-		// Draw floor
-		drawFloorArray[Int(flag)]()
-		
-		glDisableClientState(GLenum(GL_NORMAL_ARRAY))
-		glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-		glDisableClientState(GLenum(GL_VERTEX_ARRAY))
-		
-		glPopMatrix()
 	}
 	
 	private func createLightAndFog() {
@@ -999,12 +945,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		threadRunning = true
 		
 		for _ in 0..<OPENGLVIEW_NUMBER_OF_THREADS {
-			Thread.detachNewThreadSelector(#selector(NH3DOpenGLView.timerFired(sender:)), toTarget: self, with: self)
+			Thread.detachNewThreadSelector(#selector(NH3DOpenGLView.timerFired(_:)), toTarget: self, with: self)
 		}
 	}
 	
 	/// OpenGL update method.
-	@objc(timerFired:) private func timerFired(sender: AnyObject) {
+	@objc(timerFired:)
+	private func timerFired(_ sender: AnyObject) {
 		openGLContext?.makeCurrentContext()
 		
 		viewLock.lock()
@@ -1372,7 +1319,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[(S_hcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
 	}
 	
-	@objc(setCenterAtX:z:depth:) func setCenterAt(x: Int32, z: Int32, depth: Int32) {
+	@objc(setCenterAtX:z:depth:)
+	func setCenterAt(x: Int32, z: Int32, depth: Int32) {
 		viewLock.lock()
 		nowUpdating = true
 		
@@ -1784,7 +1732,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.lastChild?.lastChild?.particleType = .both
 				model?.lastChild?.lastChild?.particleColor = CLR_ORANGE
 				model?.lastChild?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
-				model?.lastChild?.lastChild?.setParticleSpeed(x: 0.0, y: 0.1)
+				model?.lastChild?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 				model?.lastChild?.lastChild?.particleSlowdown = 6.0
 				model?.lastChild?.lastChild?.particleLife = 0.30
 				model?.lastChild?.lastChild?.particleSize = 10.0
@@ -1806,7 +1754,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.lastChild?.lastChild?.particleType = .both
 				model?.lastChild?.lastChild?.particleColor = CLR_ORANGE
 				model?.lastChild?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
-				model?.lastChild?.lastChild?.setParticleSpeed(x: 0.0, y: 0.1)
+				model?.lastChild?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 				model?.lastChild?.lastChild?.particleSlowdown = 6.0
 				model?.lastChild?.lastChild?.particleLife = 0.30
 				model?.lastChild?.lastChild?.particleSize = 10.0
@@ -1858,28 +1806,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("door_knox")
 		model?.addTexture("door_rouge")
 		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model
-	}
-	
-	private func setParams(forMagicEffect magicItem: NH3DModelObject, color: Int32) {
-		magicItem.modelPivot = NH3DVertexType(x: 0, y: 1.2, z: 0)
-		magicItem.modelScale = NH3DVertexType(x: 0.4, y: 1.0, z: 0.4)
-		magicItem.particleType = .aura
-		magicItem.particleColor = color
-		magicItem.particleGravity = NH3DVertexType(x: 0, y: 6.5, z: 0)
-		magicItem.setParticleSpeed(x: 1, y: 1)
-		magicItem.particleSlowdown = 3.8
-		magicItem.particleLife = 0.4
-		magicItem.particleSize = 20
-	}
-	
-	private func setParams(forMagicExplosion magicItem: NH3DModelObject, color: Int32) {
-		magicItem.particleType = .aura
-		magicItem.particleColor = color
-		magicItem.particleGravity = NH3DVertexType(x: 0, y: 15.5, z: 0)
-		magicItem.setParticleSpeed(x: 1, y: 15)
-		magicItem.particleSlowdown = 8.8
-		magicItem.particleLife = 0.4
-		magicItem.particleSize = 35
 	}
 	
 	@objc private func defaultsDidChange(notification: NSNotification?) {
@@ -2066,7 +1992,88 @@ final class NH3DOpenGLView: NSOpenGLView {
 		(NSUserDefaultsController.shared().values as AnyObject).setValue((waitRate as NSNumber),
 			forKey: NH3DOpenGLWaitRateKey)
 	}
+}
 
+extension NH3DOpenGLView {
+	
+	private func setParams(forMagicEffect magicItem: NH3DModelObject, color: Int32) {
+		magicItem.modelPivot = NH3DVertexType(x: 0, y: 1.2, z: 0)
+		magicItem.modelScale = NH3DVertexType(x: 0.4, y: 1.0, z: 0.4)
+		magicItem.particleType = .aura
+		magicItem.particleColor = color
+		magicItem.particleGravity = NH3DVertexType(x: 0, y: 6.5, z: 0)
+		magicItem.particleSpeed = (x: 1, y: 1)
+		magicItem.particleSlowdown = 3.8
+		magicItem.particleLife = 0.4
+		magicItem.particleSize = 20
+	}
+	
+	private func setParams(forMagicExplosion magicItem: NH3DModelObject, color: Int32) {
+		magicItem.particleType = .aura
+		magicItem.particleColor = color
+		magicItem.particleGravity = NH3DVertexType(x: 0, y: 15.5, z: 0)
+		magicItem.particleSpeed = (x: 1, y: 15)
+		magicItem.particleSlowdown = 8.8
+		magicItem.particleLife = 0.4
+		magicItem.particleSize = 35
+	}
+	
+	private func drawNullObject(x: GLfloat, z: GLfloat, tex: GLuint) {
+		glPushMatrix()
+		
+		glTranslatef(x, 0.0, z)
+		
+		glEnableClientState(GLenum(GL_VERTEX_ARRAY))
+		glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+		glEnableClientState(GLenum(GL_NORMAL_ARRAY))
+		
+		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
+		
+		glActiveTexture(GLenum(GL_TEXTURE0))
+		glEnable(GLenum(GL_TEXTURE_2D))
+		
+		glBindTexture(GLenum(GL_TEXTURE_2D), tex)
+		glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
+		
+		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
+		
+		glNormalPointer(GLenum(GL_FLOAT), 0, nullObjectNorms)
+		glTexCoordPointer(2, GLenum(GL_FLOAT), 0, nullObjectTexVerts)
+		glVertexPointer(3, GLenum(GL_FLOAT), 0, nullObjectVerts)
+		glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 16)
+		
+		glDisableClientState(GLenum(GL_NORMAL_ARRAY))
+		glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+		glDisableClientState(GLenum(GL_VERTEX_ARRAY))
+		
+		glDisable(GLenum(GL_TEXTURE_2D))
+		
+		glPopMatrix()
+	}
+	
+	private func drawFloorAndCeiling(x: Float, z: Float, flag: Int32) {
+		glPushMatrix()
+		
+		glTranslatef(x, 0.0, z)
+		
+		glEnableClientState(GLenum(GL_VERTEX_ARRAY))
+		glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+		glEnableClientState(GLenum(GL_NORMAL_ARRAY))
+		
+		glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
+		
+		glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
+		
+		// Draw floor
+		drawFloorArray[Int(flag)]()
+		
+		glDisableClientState(GLenum(GL_NORMAL_ARRAY))
+		glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+		glDisableClientState(GLenum(GL_VERTEX_ARRAY))
+		
+		glPopMatrix()
+	}
+	
 	//MARK: - Load model methods. Used as closures
 
 	/// insect class
@@ -2681,7 +2688,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, offset: offset, modelName: "upperY")
 	}
 	
-	/// Zombie
+	/// Zombies
 	private final func loadModelFunc_Zombie(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
 		if glyph > GLYPH_PET_OFF {
@@ -2727,7 +2734,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 2.5, z: 0)
-			ret?.lastChild?.setParticleSpeed(x: 1, y: 1)
+			ret?.lastChild?.particleSpeed = (x: 1, y: 1)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2742,7 +2749,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.lastChild?.particleType = .both
 			ret?.lastChild?.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 			ret?.lastChild?.lastChild?.particleGravity = NH3DVertexType(x: -3.5, y: 1.5, z: 0.8)
-			ret?.lastChild?.lastChild?.setParticleSpeed(x: 1.5, y: 2.00)
+			ret?.lastChild?.lastChild?.particleSpeed = (x: 1.5, y: 2.00)
 			ret?.lastChild?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.lastChild?.particleLife = 0.5
 			ret?.lastChild?.lastChild?.particleSize = 6.0
@@ -2752,7 +2759,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.827, y: -1.800, z: -1.793)
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2813,7 +2820,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2830,7 +2837,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				ret.lastChild?.particleType = .aura
 				ret.lastChild?.particleColor = CLR_RED
 				ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-				ret.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+				ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 				ret.lastChild?.particleSlowdown = 8.8
 				ret.lastChild?.particleLife = 0.24
 				ret.lastChild?.particleSize = 8.0
@@ -2854,7 +2861,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_RED
 			ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret.lastChild?.particleSlowdown = 8.8
 			ret.lastChild?.particleLife = 0.24
 			ret.lastChild?.particleSize = 15.0
@@ -2862,7 +2869,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 			ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret.lastChild?.particleSlowdown = 8.8
 			ret.lastChild?.particleLife = 0.24
 			ret.lastChild?.particleSize = 8.0
@@ -2921,7 +2928,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2934,7 +2941,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2945,7 +2952,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2956,7 +2963,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2967,7 +2974,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2978,7 +2985,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -2989,7 +2996,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3000,7 +3007,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3011,7 +3018,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3022,7 +3029,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3033,7 +3040,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y:1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3048,7 +3055,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3062,7 +3069,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-			ret?.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
@@ -3087,7 +3094,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					ret.lastChild?.particleType = .aura
 					ret.lastChild?.particleColor = CLR_BRIGHT_CYAN
 					ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-					ret.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+					ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 					ret.lastChild?.particleSlowdown = 8.8
 					ret.lastChild?.particleLife = 0.24
 					ret.lastChild?.particleSize = 8.0
@@ -3164,7 +3171,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 0.1, z: 0.08)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleColor = CLR_BRIGHT_BLUE
-			ret?.lastChild?.setParticleSpeed(x: 0.0, y: -130.0)
+			ret?.lastChild?.particleSpeed = (x: 0.0, y: -130.0)
 			ret?.lastChild?.particleSlowdown = 4.2
 			ret?.lastChild?.particleLife = 0.8
 			ret?.lastChild?.particleSize = 8.0
@@ -3174,7 +3181,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 0.1, z: 0.00)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BLUE
-			ret?.lastChild?.setParticleSpeed(x: 0.0, y: -130.0)
+			ret?.lastChild?.particleSpeed = (x: 0.0, y: -130.0)
 			ret?.lastChild?.particleSlowdown = 4.2
 			ret?.lastChild?.particleLife = 0.28
 			ret?.lastChild?.particleSize = 8.0
@@ -3184,7 +3191,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 0.4, z: 0.00)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BLUE
-			ret?.lastChild?.setParticleSpeed(x: 0.0, y: -190.0)
+			ret?.lastChild?.particleSpeed = (x: 0.0, y: -190.0)
 			ret?.lastChild?.particleSlowdown = 4.2
 			ret?.lastChild?.particleLife = 1.2
 			ret?.lastChild?.particleSize = 8.0
@@ -3388,7 +3395,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.lastChild?.particleSize = 4.0
 			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -1.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_YELLOW
-			ret?.lastChild?.setParticleSpeed(x: 0.0, y: 200)
+			ret?.lastChild?.particleSpeed = (x: 0.0, y: 200)
 			ret?.lastChild?.particleSlowdown = 2.0
 			ret?.lastChild?.particleLife = 0.5
 			
@@ -3543,7 +3550,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		ret.particleColor = CLR_MAGENTA
 		//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 		ret.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-		ret.setParticleSpeed(x: 1.0, y: 1.00)
+		ret.particleSpeed = (x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
 		ret.particleSize = (20.0)
@@ -3649,7 +3656,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		ret.particleColor = CLR_GREEN
 		//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
 		ret.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-		ret.setParticleSpeed(x: 1.0, y: 1.00)
+		ret.particleSpeed = (x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
 		ret.particleSize = (20.0)
@@ -3712,7 +3719,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BROWN
 			ret?.particleGravity = NH3DVertexType(x: 0.0, y:6.5, z:0.0)
-			ret?.setParticleSpeed(x: 1.0, y:1.00)
+			ret?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
@@ -3723,14 +3730,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
 			ret?.particleGravity = NH3DVertexType(x: 0.0, y:6.5, z:0.0)
-			ret?.setParticleSpeed(x: 1.0, y:1.00)
+			ret?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
 			
-			// boomerang
-			//case S_boomleft + GLYPH_CMAP_OFF:
-			//case S_boomright + GLYPH_CMAP_OFF:
 		default:
 			break
 		}
@@ -3766,7 +3770,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_BLUE
 			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
@@ -3776,7 +3780,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_CYAN
 			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = (10.0)
@@ -3786,7 +3790,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
 			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
@@ -3796,7 +3800,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BLUE
 			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret?.setParticleSpeed(x: 1.0, y: 1.00)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
@@ -4133,10 +4137,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			return nil
 		}
 		
-		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar")
+		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar", textured: true, textureName: "floor")
 		if let ret = ret, !ret.hasChildren {
 			//Just add a simple texture for now
-			ret.setTexture(Int32(cellingTex))
+			//ret.setTexture(Int32(cellingTex))
 			ret.isAnimated = true
 			ret.useEnvironment = true
 			ret.animationRate = ((Float(arc4random() % 5) * 0.1) + 0.5) / 2
@@ -4180,7 +4184,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 		model.lastChild?.currentMaterial = PetHelper.pinkMaterial
 		model.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
-		model.lastChild?.setParticleSpeed(x: 1.0, y: 1.00)
+		model.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 		model.lastChild?.particleSlowdown = 12
 		model.lastChild?.particleLife = 1.2
 		model.lastChild?.particleSize = 4.0
@@ -4190,8 +4194,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	// MARK: -
 	
-	/// cache func address
-	private func cacheMethods() {
+	/// cache closures
+	fileprivate func cacheMethods() {
 		switchMethodArray[0] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
 		}
@@ -4896,7 +4900,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.particleType = .aura
 			ret.particleColor = CLR_BROWN
 			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret.setParticleSpeed(x: 1.0, y:1.00)
+			ret.particleSpeed = (x: 1.0, y:1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
 			ret.particleSize = 20.0
@@ -4910,7 +4914,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			ret.particleType = .aura
 			ret.particleColor = CLR_WHITE
 			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret.setParticleSpeed(x: 1.0, y:1.00)
+			ret.particleSpeed = (x: 1.0, y:1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
 			ret.particleSize = 20.0
