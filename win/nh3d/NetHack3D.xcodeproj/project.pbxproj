@@ -146,7 +146,6 @@
 		2B5CC087088EB5A600940C58 /* Mon-strt.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFD5088EB5A600940C58 /* Mon-strt.lev */; };
 		2B5CC08C088EB5A600940C58 /* opthelp in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFDA088EB5A600940C58 /* opthelp */; };
 		2B5CC08F088EB5A600940C58 /* oracle.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFDD088EB5A600940C58 /* oracle.lev */; };
-		2B5CC090088EB5A600940C58 /* oracles.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFDE088EB5A600940C58 /* oracles.txt */; };
 		2B5CC091088EB5A600940C58 /* orcus.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFDF088EB5A600940C58 /* orcus.lev */; };
 		2B5CC092088EB5A600940C58 /* Pri-fila.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE0088EB5A600940C58 /* Pri-fila.lev */; };
 		2B5CC093088EB5A600940C58 /* Pri-filb.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE1088EB5A600940C58 /* Pri-filb.lev */; };
@@ -154,8 +153,6 @@
 		2B5CC095088EB5A600940C58 /* Pri-loca.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE3088EB5A600940C58 /* Pri-loca.lev */; };
 		2B5CC096088EB5A600940C58 /* Pri-strt.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE4088EB5A600940C58 /* Pri-strt.lev */; };
 		2B5CC098088EB5A600940C58 /* quest.dat in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE6088EB5A600940C58 /* quest.dat */; };
-		2B5CC099088EB5A600940C58 /* quest.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE7088EB5A600940C58 /* quest.txt */; };
-		2B5CC09A088EB5A600940C58 /* quest_levs in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE8088EB5A600940C58 /* quest_levs */; };
 		2B5CC09B088EB5A600940C58 /* Ran-fila.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFE9088EB5A600940C58 /* Ran-fila.lev */; };
 		2B5CC09C088EB5A600940C58 /* Ran-filb.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFEA088EB5A600940C58 /* Ran-filb.lev */; };
 		2B5CC09D088EB5A600940C58 /* Ran-goal.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CBFEB088EB5A600940C58 /* Ran-goal.lev */; };
@@ -182,7 +179,6 @@
 		2B5CC0B6088EB5A600940C58 /* soko3-2.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC004088EB5A600940C58 /* soko3-2.lev */; };
 		2B5CC0B7088EB5A600940C58 /* soko4-1.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC005088EB5A600940C58 /* soko4-1.lev */; };
 		2B5CC0B8088EB5A600940C58 /* soko4-2.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC006088EB5A600940C58 /* soko4-2.lev */; };
-		2B5CC0BA088EB5A600940C58 /* spec_levs in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC008088EB5A600940C58 /* spec_levs */; };
 		2B5CC0BB088EB5A600940C58 /* Tou-fila.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC009088EB5A600940C58 /* Tou-fila.lev */; };
 		2B5CC0BC088EB5A600940C58 /* Tou-filb.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC00A088EB5A600940C58 /* Tou-filb.lev */; };
 		2B5CC0BD088EB5A600940C58 /* Tou-goal.lev in Resources */ = {isa = PBXBuildFile; fileRef = 2B5CC00B088EB5A600940C58 /* Tou-goal.lev */; };
@@ -2881,7 +2877,6 @@
 				2B5CC087088EB5A600940C58 /* Mon-strt.lev in Resources */,
 				2B5CC08C088EB5A600940C58 /* opthelp in Resources */,
 				2B5CC08F088EB5A600940C58 /* oracle.lev in Resources */,
-				2B5CC090088EB5A600940C58 /* oracles.txt in Resources */,
 				2B5CC091088EB5A600940C58 /* orcus.lev in Resources */,
 				2B5CC092088EB5A600940C58 /* Pri-fila.lev in Resources */,
 				2B5CC093088EB5A600940C58 /* Pri-filb.lev in Resources */,
@@ -2890,8 +2885,6 @@
 				2B5CC096088EB5A600940C58 /* Pri-strt.lev in Resources */,
 				5560A2B81C3481CC00BF77F7 /* engrave in Resources */,
 				2B5CC098088EB5A600940C58 /* quest.dat in Resources */,
-				2B5CC099088EB5A600940C58 /* quest.txt in Resources */,
-				2B5CC09A088EB5A600940C58 /* quest_levs in Resources */,
 				2B5CC09B088EB5A600940C58 /* Ran-fila.lev in Resources */,
 				55D555371C96019E001B0ECB /* boomerang.mtl in Resources */,
 				2B5CC09C088EB5A600940C58 /* Ran-filb.lev in Resources */,
@@ -2922,7 +2915,6 @@
 				2B5CC0B6088EB5A600940C58 /* soko3-2.lev in Resources */,
 				2B5CC0B7088EB5A600940C58 /* soko4-1.lev in Resources */,
 				2B5CC0B8088EB5A600940C58 /* soko4-2.lev in Resources */,
-				2B5CC0BA088EB5A600940C58 /* spec_levs in Resources */,
 				2B5CC0BB088EB5A600940C58 /* Tou-fila.lev in Resources */,
 				2B5CC0BC088EB5A600940C58 /* Tou-filb.lev in Resources */,
 				2B5CC0BD088EB5A600940C58 /* Tou-goal.lev in Resources */,
