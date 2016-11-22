@@ -65,3 +65,6 @@
 /* From mainRun and startNetHack3D: */
 "Restoring save file..." = "Restoring save file...";
 "%s, level %d" = "%s, level %d";
+
+"\nThere is already a game in progress under your name." = "\nThere is already a game in progress under your name.";
+"  Destroy old game? [yn] " = "  Destroy old game? [yn] ";

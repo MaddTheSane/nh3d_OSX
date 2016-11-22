@@ -1322,6 +1322,7 @@
 		55CD9CF01C45A439007F36B2 /* pmatchregex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pmatchregex.c; sourceTree = "<group>"; };
 		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
 		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
+		55D663061DE4F00B0007E0CC /* NH3DSwiftHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DSwiftHelpers.h; sourceTree = "<group>"; };
 		55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DFirstLaunchController.swift; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2560,6 +2561,7 @@
 			children = (
 				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
+				55D663061DE4F00B0007E0CC /* NH3DSwiftHelpers.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";

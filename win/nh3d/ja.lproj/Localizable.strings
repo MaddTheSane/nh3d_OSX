@@ -57,3 +57,6 @@
 /* From mainRun and startNetHack3D: */
 "Restoring save file..." = "セーブファイルを復元中．．．";
 "%s, level %d" = "%s  地下%d階";
+
+"\nThere is already a game in progress under your name." = "\nあなたの名前で不正終了したゲームが残っています．";
+"  Destroy old game? [yn] " = "破棄しますか？[yn] ";

@@ -125,7 +125,7 @@ final class TileSet: NSObject {
 	@available(*, deprecated, message:"Use -imageForGlyph: instead")
 	@objc(tileImageFromGlyph:) func tileImageFrom(_ glyph: Int32) -> NSImage? {
 		let tile = glyphToTile(glyph)
-		if (Int32(tile) >= total_tiles_used || tile < 0) {
+		if (Int32(tile) >= totalTilesUsed() || tile < 0) {
 			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.");
 			return nil;
 		}

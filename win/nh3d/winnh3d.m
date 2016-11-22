@@ -10,7 +10,7 @@
 #import "winnh3d.h"
 #import "NH3DMapView.h"
 #import "NetHack3D-Swift.h"
-#import "NetHack3D-Bridging-Header.h"
+#import "NH3DSwiftHelpers.h"
 #import "Hearse.h"
 
 #include <sys/stat.h>

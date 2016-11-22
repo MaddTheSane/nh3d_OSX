@@ -199,12 +199,8 @@ getlock()
 			c = [eraseSaveAlert runModal];
 		} else {
 			
-			(void) printf("\nThere is already a game in progress under your name.");
-			(void) printf("  Destroy old game? [yn] ");
-			/*
-			 (void) printf("\nあなたの名前で不正終了したゲームが残っています．");
-			 (void) printf("破棄しますか？[yn] ");
-			 */
+			(void) printf("%s", NSLocalizedString(@"\nThere is already a game in progress under your name.", @"").UTF8String);
+			(void) printf("%s", NSLocalizedString(@"  Destroy old game? [yn] ", @"").UTF8String);
 			(void) fflush(stdout);
 			c = getchar();
 			(void) putchar(c);
@@ -330,30 +326,30 @@ child(int wt)
 #endif
 		return(1);
 	}
-if(f == -1) {	/* cannot fork */
-pline("Fork failed.  Try again.");
-return(0);
-}
-/* fork succeeded; wait for child to exit */
-(void) signal(SIGINT,SIG_IGN);
-(void) signal(SIGQUIT,SIG_IGN);
-(void) wait( (int *) 0);
+	if(f == -1) {	/* cannot fork */
+		pline("Fork failed.  Try again.");
+		return(0);
+	}
+	/* fork succeeded; wait for child to exit */
+	(void) signal(SIGINT,SIG_IGN);
+	(void) signal(SIGQUIT,SIG_IGN);
+	(void) wait( (int *) 0);
 #ifdef _M_UNIX
-sco_mapoff();
+	sco_mapoff();
 #endif
 #ifdef __linux__
-linux_mapoff();
+	linux_mapoff();
 #endif
-(void) signal(SIGINT, (SIG_RET_TYPE) done1);
-//#ifdef WIZARD
-if(wizard) (void) signal(SIGQUIT,SIG_DFL);
-//#endif
-if(wt) {
-	raw_print("");
-	wait_synch();
-}
-resume_nhwindows();
-return(0);
+	(void) signal(SIGINT, (SIG_RET_TYPE) done1);
+	//#ifdef WIZARD
+	if(wizard) (void) signal(SIGQUIT,SIG_DFL);
+	//#endif
+	if(wt) {
+		raw_print("");
+		wait_synch();
+	}
+	resume_nhwindows();
+	return(0);
 }
 #endif
 
