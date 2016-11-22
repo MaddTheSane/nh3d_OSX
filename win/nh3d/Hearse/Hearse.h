@@ -60,9 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL haveUploadedBones;
 
-+ (nullable Hearse *) instance;
 #if __has_feature(objc_class_property)
 @property (class, readonly, strong, nullable) Hearse *instance;
+#else
++ (nullable Hearse *) instance;
 #endif
 + (BOOL) start;
 + (void) stop;
@@ -85,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSHTTPURLResponse *) httpPostRequestWithoutData:(NSMutableURLRequest *)req;
 - (nullable NSHTTPURLResponse *) httpGetRequest:(NSURLRequest *)req withData:(NSData *__nullable*__nullable)data;
 
-// header name is case insensitive!
+/// header name is case insensitive!
 - (nullable NSString *) getHeader:(NSString *)header fromResponse:(NSHTTPURLResponse *)response;
 
 - (nullable NSString *) extractHearseErrorMessageFromResponse:(NSHTTPURLResponse *)response data:(NSData *)data;

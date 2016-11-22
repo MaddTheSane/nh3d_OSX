@@ -167,7 +167,7 @@ var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
 }
 
-@available(*, deprecated, renamed: "isDoor(_:)")
+@available(*, unavailable, renamed: "isDoor(_:)")
 func IS_DOOR(_ typ: schar) -> Bool {
 	return Int32(typ) == DOOR
 }

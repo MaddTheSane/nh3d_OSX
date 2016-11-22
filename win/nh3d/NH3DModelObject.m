@@ -50,6 +50,7 @@ static const NH3DMaterial defaultMat = {
 @synthesize active;
 @synthesize animationRate;
 @synthesize animationValue;
+@synthesize particleColor;
 @synthesize particleType;
 @synthesize modelShift;
 @synthesize modelScale;
