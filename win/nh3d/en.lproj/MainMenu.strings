@@ -3,7 +3,7 @@
 "21.title" = "NetHack3D";
 
 /* Class = "NSMenu"; title = "Nethack3d"; ObjectID = "29"; */
-"29.title" = "Nethack3d";
+"29.title" = "NetHack3D";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
 "103.title" = "Help";

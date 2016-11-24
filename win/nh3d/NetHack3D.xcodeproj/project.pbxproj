@@ -384,6 +384,7 @@
 		55C4A5481CBCA333003A29B0 /* boomerang.png in Resources */ = {isa = PBXBuildFile; fileRef = 55C4A5471CBCA333003A29B0 /* boomerang.png */; };
 		55D555371C96019E001B0ECB /* boomerang.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 55D555351C96019E001B0ECB /* boomerang.mtl */; };
 		55D555381C96019E001B0ECB /* boomerang.obj in Resources */ = {isa = PBXBuildFile; fileRef = 55D555361C96019E001B0ECB /* boomerang.obj */; };
+		55E3784E1DE6454E000817A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55E378501DE6454E000817A4 /* InfoPlist.strings */; };
 		55E4AF9C1CB06433003D92B9 /* lev_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DE0891ADF000D38098 /* lev_comp.l */; };
 		55E4AF9D1CB06433003D92B9 /* lev_comp.y in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62DF0891ADF000D38098 /* lev_comp.y */; };
 		55E4AF9E1CB06455003D92B9 /* dgn_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D70891ADF000D38098 /* dgn_comp.l */; };
@@ -1323,6 +1324,8 @@
 		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
 		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
 		55D663061DE4F00B0007E0CC /* NH3DSwiftHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DSwiftHelpers.h; sourceTree = "<group>"; };
+		55E3784F1DE6454E000817A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E378511DE645DC000817A4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DFirstLaunchController.swift; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1511,6 +1514,7 @@
 				2B8AE3600960779400B6998D /* PreferencePanel.xib */,
 				553562701CA336D90015E8BA /* FirstLaunch.xib */,
 				55FC95411B5CD59700B0FFB4 /* Localizable.strings */,
+				55E378501DE6454E000817A4 /* InfoPlist.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				5514EA7F1CA9EE5E00FC2566 /* nethackrc */,
 				55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */,
@@ -2867,6 +2871,7 @@
 				2B5CC07A088EB5A600940C58 /* minend-3.lev in Resources */,
 				2B5CC07C088EB5A600940C58 /* minetn-1.lev in Resources */,
 				2B5CC07D088EB5A600940C58 /* minetn-2.lev in Resources */,
+				55E3784E1DE6454E000817A4 /* InfoPlist.strings in Resources */,
 				2B5CC07E088EB5A600940C58 /* minetn-3.lev in Resources */,
 				2B5CC07F088EB5A600940C58 /* minetn-4.lev in Resources */,
 				2B5CC080088EB5A600940C58 /* minetn-5.lev in Resources */,
@@ -3567,6 +3572,15 @@
 				554F7EC81C332FF900212F9F /* ja */,
 			);
 			name = readme_NetHack3D.rtf;
+			sourceTree = "<group>";
+		};
+		55E378501DE6454E000817A4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55E3784F1DE6454E000817A4 /* en */,
+				55E378511DE645DC000817A4 /* ja */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		55FC95411B5CD59700B0FFB4 /* Localizable.strings */ = {

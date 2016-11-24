@@ -135,7 +135,7 @@ class NH3DMessaging: NSObject {
 	}
 
 	@objc(playSoundAtURL:volume:)
-	func playSound(url URL: Foundation.URL, volume: Float) -> Bool {
+	func playSound(url: URL, volume: Float) -> Bool {
 		guard !SOUND_MUTE else {
 			return false
 		}
@@ -150,18 +150,18 @@ class NH3DMessaging: NSObject {
 			playSound.play()
 		}
 		
-		if let playSound1 = audioDict[URL.path] {
+		if let playSound1 = audioDict[url.path] {
 			playAud(playSound: playSound1)
 			return true
 		}
-		guard let reach = try? URL.checkResourceIsReachable(), reach == true else {
+		guard let reach = try? url.checkResourceIsReachable(), reach == true else {
 			return false
 		}
 		
-		guard let playSound = try? AVAudioPlayer(contentsOf: URL) else {
+		guard let playSound = try? AVAudioPlayer(contentsOf: url) else {
 			return false
 		}
-		audioDict[URL.path] = playSound
+		audioDict[url.path] = playSound
 		playAud(playSound: playSound)
 		return true
 	}
@@ -309,7 +309,8 @@ class NH3DMessaging: NSObject {
 		showOutRip(conv)
 	}
 	
-	@objc(showOutRipString:) func showOutRip(_ ripString: String) {
+	@objc(showOutRipString:)
+	func showOutRip(_ ripString: String) {
 		ripFlag = true;
 		
 		prepareAttributes()
