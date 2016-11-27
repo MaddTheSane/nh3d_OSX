@@ -105,13 +105,13 @@
 "107.title" = "Start";
 
 /* Class = "NSTextFieldCell"; title = "by Haruumi Yoshino 2005\n"; ObjectID = "108"; */
-"108.title" = "by Haruumi Yoshino 2005\n";
+"108.title" = "by Haruumi Yoshino 2005";
 
 /* Class = "NSTextFieldCell"; title = "http://www.sbrain.org/nethack3d/"; ObjectID = "109"; */
 "109.title" = "http://www.sbrain.org/nethack3d/";
 
 /* Class = "NSTextFieldCell"; title = "PlayerName\n"; ObjectID = "110"; */
-"110.title" = "PlayerName\n";
+"110.title" = "PlayerName";
 
 /* Class = "NSButtonCell"; title = "Radio"; ObjectID = "112"; */
 "112.title" = "Radio";

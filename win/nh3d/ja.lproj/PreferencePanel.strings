@@ -44,21 +44,6 @@
 /* Class = "NSButtonCell"; title = "パーティクル有効"; ObjectID = "72"; */
 "72.title" = "パーティクル有効";
 
-/* Class = "NSFormCell"; title = "メッセージ:"; ObjectID = "114"; */
-"114.title" = "メッセージ:";
-
-/* Class = "NSFormCell"; title = "ウインドウ:"; ObjectID = "115"; */
-"115.title" = "ウインドウ:";
-
-/* Class = "NSFormCell"; title = "マップ:"; ObjectID = "116"; */
-"116.title" = "マップ:";
-
-/* Class = "NSFormCell"; title = "ボールド:"; ObjectID = "117"; */
-"117.title" = "ボールド:";
-
-/* Class = "NSFormCell"; title = "メニュー:"; ObjectID = "118"; */
-"118.title" = "メニュー:";
-
 /* Class = "NSTabViewItem"; label = "ビューモード"; ObjectID = "148"; */
 "148.label" = "ビューモード";
 
@@ -131,9 +116,6 @@
 /* Class = "NSButtonCell"; title = "Switch"; ObjectID = "296"; */
 "296.title" = "Switch";
 
-/* Class = "NSFormCell"; title = "Field:"; ObjectID = "297"; */
-"297.title" = "Field:";
-
 /* Class = "NSButtonCell"; title = "Switch"; ObjectID = "299"; */
 "299.title" = "Switch";
 
@@ -143,16 +125,22 @@
 /* Class = "NSFormCell"; title = "Field:"; ObjectID = "301"; */
 "301.title" = "Field:";
 
+/* Class = "NSTextFieldCell"; title = "Bold Font:"; ObjectID = "4eC-sT-FUu"; */
+"4eC-sT-FUu.title" = "ボールド:";
+
 /* Class = "NSButtonCell"; title = "Use Retina OpenGL"; ObjectID = "CtN-9v-cCC"; */
 "CtN-9v-cCC.title" = "網膜OpenGLを使用します"; //fuzzy
+
+/* Class = "NSButton"; ibShadowedToolTip = "Resetting the ID may be needed if you encounter any problems with Hearse."; ObjectID = "DL7-aS-oXE"; */
+"DL7-aS-oXE.ibShadowedToolTip" = "Resetting the ID may be needed if you encounter any problems with Hearse.";
 
 /* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "G0B-3B-VGs"; */
 "G0B-3B-VGs.title" = "User Name:";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
 "JJV-y1-IiC.ibShadowedIsNilPlaceholder" = "example@me.com";
 
-/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
 "JJV-y1-IiC.ibShadowedNotApplicablePlaceholder" = "example@me.com";
 
 /* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
@@ -164,23 +152,38 @@
 /* Class = "NSTabViewItem"; label = "Gameplay"; ObjectID = "UNO-Cf-L9F"; */
 "UNO-Cf-L9F.label" = "Gameplay";
 
+/* Class = "NSTextFieldCell"; title = "Menu Item Font:"; ObjectID = "UyB-wg-y62"; */
+"UyB-wg-y62.title" = "メニュー:";
+
+/* Class = "NSTextFieldCell"; title = "Map Font:"; ObjectID = "Wie-bi-9sV"; */
+"Wie-bi-9sV.title" = "マップ:";
+
 /* Class = "NSTextFieldCell"; title = "E-mail:"; ObjectID = "Wjd-UH-del"; */
 "Wjd-UH-del.title" = "E-mail:";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
 "gsj-HG-CLm.ibShadowedIsNilPlaceholder" = "None";
 
-/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
 "gsj-HG-CLm.ibShadowedNotApplicablePlaceholder" = "None";
 
 /* Class = "NSButtonCell"; title = "Use NumPad for movement"; ObjectID = "hKa-Vf-sUd"; */
 "hKa-Vf-sUd.title" = "Use NumPad for movement";
+
+/* Class = "NSTextFieldCell"; title = "Window Font:"; ObjectID = "hru-Um-uiN"; */
+"hru-Um-uiN.title" = "ウインドウ:";
 
 /* Class = "NSButtonCell"; title = "Restart Hearse"; ObjectID = "q2G-nl-skg"; */
 "q2G-nl-skg.title" = "霊柩車を再起動します"; //Fuzzy translation
 
 /* Class = "NSTabViewItem"; label = "Hearse"; ObjectID = "qRh-wy-Aoe"; */
 "qRh-wy-Aoe.label" = "霊柩車";
+
+/* Class = "NSButtonCell"; title = "Reset ID"; ObjectID = "u7w-om-fLB"; */
+"u7w-om-fLB.title" = "Reset ID";
+
+/* Class = "NSTextFieldCell"; title = "Message Font:"; ObjectID = "v8U-aO-C7C"; */
+"v8U-aO-C7C.title" = "メッセージ:";
 
 /* Class = "NSButtonCell"; title = "Enable Hearse"; ObjectID = "vgV-I3-LD1"; */
 "vgV-I3-LD1.title" = "霊柩車を有効にします"; //Fuzzy translation

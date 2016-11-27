@@ -44,21 +44,6 @@
 /* Class = "NSButtonCell"; title = "Enable Particles"; ObjectID = "72"; */
 "72.title" = "Enable Particles";
 
-/* Class = "NSFormCell"; title = "Message Font:"; ObjectID = "114"; */
-"114.title" = "Message Font:";
-
-/* Class = "NSFormCell"; title = "Window Font:"; ObjectID = "115"; */
-"115.title" = "Window Font:";
-
-/* Class = "NSFormCell"; title = "Map Font:"; ObjectID = "116"; */
-"116.title" = "Map Font:";
-
-/* Class = "NSFormCell"; title = "Bold Font:"; ObjectID = "117"; */
-"117.title" = "Bold Font:";
-
-/* Class = "NSFormCell"; title = "Menu Item Font:"; ObjectID = "118"; */
-"118.title" = "Menu Item Font:";
-
 /* Class = "NSTabViewItem"; label = "View Mode"; ObjectID = "148"; */
 "148.label" = "View Mode";
 
@@ -89,8 +74,8 @@
 /* Class = "NSTextFieldCell"; title = "Slow          Medium         Fast"; ObjectID = "278"; */
 "278.title" = "Slow          Medium         Fast";
 
-/* Class = "NSButtonCell"; title = "Enable Frame rate limit"; ObjectID = "280"; */
-"280.title" = "Enable Frame rate limit";
+/* Class = "NSButtonCell"; title = "Enable Framerate limit"; ObjectID = "280"; */
+"280.title" = "Enable Framerate limit";
 
 /* Class = "NSButtonCell"; title = "Use tiled graphics for Alt. Objects"; ObjectID = "281"; */
 "281.title" = "Use tiled graphics for Alt. Objects";
@@ -98,10 +83,10 @@
 /* Class = "NSButtonCell"; title = "Use Tiled Graphics"; ObjectID = "282"; */
 "282.title" = "Use Tiled Graphics";
 
-/* Class = "NSTextFieldCell"; title = "8\n"; ObjectID = "285"; */
+/* Class = "NSTextFieldCell"; title = "8"; ObjectID = "285"; */
 "285.title" = "8";
 
-/* Class = "NSTextFieldCell"; title = "128\n\n"; ObjectID = "286"; */
+/* Class = "NSTextFieldCell"; title = "128"; ObjectID = "286"; */
 "286.title" = "128";
 
 /* Class = "NSTextFieldCell"; title = "Width"; ObjectID = "287"; */
@@ -119,7 +104,7 @@
 /* Class = "NSTextFieldCell"; title = "Tiles Per Line:"; ObjectID = "292"; */
 "292.title" = "Tiles Per Line:";
 
-/* Class = "NSTextFieldCell"; title = "Number of \nTiles Row:"; ObjectID = "293"; */
+/* Class = "NSTextFieldCell"; title = "Tile Rows:"; ObjectID = "293"; */
 "293.title" = "Tile Rows:";
 
 /* Class = "NSTextFieldCell"; title = "30"; ObjectID = "294"; */
@@ -131,9 +116,6 @@
 /* Class = "NSButtonCell"; title = "Switch"; ObjectID = "296"; */
 "296.title" = "Switch";
 
-/* Class = "NSFormCell"; title = "Field:"; ObjectID = "297"; */
-"297.title" = "Field:";
-
 /* Class = "NSButtonCell"; title = "Switch"; ObjectID = "299"; */
 "299.title" = "Switch";
 
@@ -143,16 +125,22 @@
 /* Class = "NSFormCell"; title = "Field:"; ObjectID = "301"; */
 "301.title" = "Field:";
 
+/* Class = "NSTextFieldCell"; title = "Bold Font:"; ObjectID = "4eC-sT-FUu"; */
+"4eC-sT-FUu.title" = "Bold Font:";
+
 /* Class = "NSButtonCell"; title = "Use Retina OpenGL"; ObjectID = "CtN-9v-cCC"; */
 "CtN-9v-cCC.title" = "Use Retina OpenGL";
+
+/* Class = "NSButton"; ibShadowedToolTip = "Resetting the ID may be needed if you encounter any problems with Hearse."; ObjectID = "DL7-aS-oXE"; */
+"DL7-aS-oXE.ibShadowedToolTip" = "Resetting the ID may be needed if you encounter any problems with Hearse.";
 
 /* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "G0B-3B-VGs"; */
 "G0B-3B-VGs.title" = "User Name:";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
 "JJV-y1-IiC.ibShadowedIsNilPlaceholder" = "example@me.com";
 
-/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
 "JJV-y1-IiC.ibShadowedNotApplicablePlaceholder" = "example@me.com";
 
 /* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
@@ -164,23 +152,38 @@
 /* Class = "NSTabViewItem"; label = "Gameplay"; ObjectID = "UNO-Cf-L9F"; */
 "UNO-Cf-L9F.label" = "Gameplay";
 
+/* Class = "NSTextFieldCell"; title = "Menu Item Font:"; ObjectID = "UyB-wg-y62"; */
+"UyB-wg-y62.title" = "Menu Item Font:";
+
+/* Class = "NSTextFieldCell"; title = "Map Font:"; ObjectID = "Wie-bi-9sV"; */
+"Wie-bi-9sV.title" = "Map Font:";
+
 /* Class = "NSTextFieldCell"; title = "E-mail:"; ObjectID = "Wjd-UH-del"; */
 "Wjd-UH-del.title" = "E-mail:";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
 "gsj-HG-CLm.ibShadowedIsNilPlaceholder" = "None";
 
-/* Class = "BindingConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedNotApplicablePlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
 "gsj-HG-CLm.ibShadowedNotApplicablePlaceholder" = "None";
 
 /* Class = "NSButtonCell"; title = "Use NumPad for movement"; ObjectID = "hKa-Vf-sUd"; */
 "hKa-Vf-sUd.title" = "Use NumPad for movement";
+
+/* Class = "NSTextFieldCell"; title = "Window Font:"; ObjectID = "hru-Um-uiN"; */
+"hru-Um-uiN.title" = "Window Font:";
 
 /* Class = "NSButtonCell"; title = "Restart Hearse"; ObjectID = "q2G-nl-skg"; */
 "q2G-nl-skg.title" = "Restart Hearse";
 
 /* Class = "NSTabViewItem"; label = "Hearse"; ObjectID = "qRh-wy-Aoe"; */
 "qRh-wy-Aoe.label" = "Hearse";
+
+/* Class = "NSButtonCell"; title = "Reset ID"; ObjectID = "u7w-om-fLB"; */
+"u7w-om-fLB.title" = "Reset ID";
+
+/* Class = "NSTextFieldCell"; title = "Message Font:"; ObjectID = "v8U-aO-C7C"; */
+"v8U-aO-C7C.title" = "Message Font:";
 
 /* Class = "NSButtonCell"; title = "Enable Hearse"; ObjectID = "vgV-I3-LD1"; */
 "vgV-I3-LD1.title" = "Enable Hearse";

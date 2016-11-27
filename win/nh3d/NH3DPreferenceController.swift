@@ -149,14 +149,14 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		defaults.set(Float(convertedFont.pointSize), forKey: sizeKey)
 	}
 	
-	@IBAction func showFontPanelAction(_ sender: NSMatrix?) {
+	@IBAction func showFontPanelAction(_ sender: NSButton?) {
 		guard let sender = sender else {
 			return
 		}
 		let defaults = UserDefaults.standard
 		let key: String
 		let sizeKey: String
-		fontButtonTag = sender.selectedCell()?.tag ?? 0
+		fontButtonTag = sender.tag
 		
 		switch fontButtonTag {
 		case 1:
