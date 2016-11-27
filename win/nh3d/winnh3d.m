@@ -1841,8 +1841,9 @@ void app_recover(const char* path)
 		return;
 	}
 	
-	NSString *filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	NSString *filePath;
 	@autoreleasepool {
+		filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
 		//this little dance is to make sure we have an absolute path.
 		NSURL *fileURL = [NSURL fileURLWithPath:filePath];
 		filePath = [fileURL path];

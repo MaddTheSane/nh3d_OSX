@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
@@ -422,7 +423,7 @@
                             <binding destination="4761" name="value" keyPath="selection.powUpdate" id="4984"/>
                         </connections>
                     </imageView>
-                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="372">
+                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="372" userLabel="Gold">
                         <rect key="frame" x="12" y="124" width="156" height="28"/>
                         <view key="contentView" id="5JY-LF-6le">
                             <rect key="frame" x="2" y="2" width="152" height="24"/>
@@ -446,7 +447,7 @@
                             </constraints>
                         </view>
                     </box>
-                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="375">
+                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="375" userLabel="Experience">
                         <rect key="frame" x="12" y="90" width="156" height="28"/>
                         <view key="contentView" id="sI8-kA-0EZ">
                             <rect key="frame" x="2" y="2" width="152" height="24"/>
@@ -472,7 +473,7 @@
                         </view>
                         <font key="titleFont" size="11" name="Monaco"/>
                     </box>
-                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="378">
+                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="378" userLabel="Time">
                         <rect key="frame" x="12" y="57" width="156" height="28"/>
                         <view key="contentView" id="bhz-T3-urN">
                             <rect key="frame" x="2" y="2" width="152" height="24"/>
@@ -510,7 +511,7 @@
                             <binding destination="4761" name="value" keyPath="selection.lvUpdate" id="4986"/>
                         </connections>
                     </imageView>
-                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="390">
+                    <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="390" userLabel="Score">
                         <rect key="frame" x="12" y="23" width="156" height="28"/>
                         <view key="contentView" id="cjq-FO-kKh">
                             <rect key="frame" x="2" y="2" width="152" height="24"/>
@@ -959,7 +960,7 @@
                         </connections>
                     </levelIndicator>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5006">
-                        <rect key="frame" x="379" y="5" width="50" height="10"/>
+                        <rect key="frame" x="375" y="5" width="50" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="E33-Td-PtU"/>
                             <constraint firstAttribute="width" constant="50" id="ggw-4n-zn3"/>
@@ -992,7 +993,7 @@
                             <binding destination="4761" name="warningValue" keyPath="selection.playerWaningPow" previousBinding="5106" id="5107"/>
                         </connections>
                     </levelIndicator>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5112">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5112" userLabel="Player HP shadow">
                         <rect key="frame" x="720" y="454" width="27" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0000" id="6887">
                             <font key="font" metaFont="fixedUser"/>
@@ -1005,7 +1006,7 @@
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5113">
                         <rect key="frame" x="720" y="403" width="27" height="12"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0000" id="6888">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="0000" id="6888">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1016,7 +1017,7 @@
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5114">
                         <rect key="frame" x="754" y="403" width="27" height="12"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6889">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6889">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1027,7 +1028,7 @@
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5115">
                         <rect key="frame" x="754" y="454" width="27" height="12"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6890">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6890">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1081,7 +1082,7 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5128">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5128" userLabel="Player AC">
                         <rect key="frame" x="665" y="260" width="45" height="20"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00000" id="6894">
                             <font key="font" size="14" name="Courier"/>
@@ -1156,12 +1157,12 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5141">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5141" userLabel="Gold Number">
                         <rect key="frame" x="14" y="127" width="115" height="26"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="9kO-w8-813"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6899">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6899">
                             <font key="font" size="17" name="AmericanTypewriter"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1174,12 +1175,12 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5142">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5142" userLabel="Exp Number">
                         <rect key="frame" x="13" y="93" width="116" height="26"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="3ad-m3-FOj"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6900">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6900">
                             <font key="font" size="17" name="AmericanTypewriter"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1192,12 +1193,12 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5143">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5143" userLabel="Time Number">
                         <rect key="frame" x="14" y="61" width="116" height="26"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="bG9-3i-QFi"/>
                         </constraints>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6901">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6901">
                             <font key="font" size="17" name="AmericanTypewriter"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1210,9 +1211,9 @@
                             </binding>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5144">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5144" userLabel="Score Number">
                         <rect key="frame" x="14" y="26" width="116" height="27"/>
-                        <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6902">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="00000000" id="6902">
                             <font key="font" size="17" name="AmericanTypewriter"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1663,10 +1664,12 @@
                 <constraints>
                     <constraint firstItem="5264" firstAttribute="leading" secondItem="365" secondAttribute="trailing" constant="5" id="09a-Dk-65Q"/>
                     <constraint firstItem="6341" firstAttribute="top" secondItem="6823" secondAttribute="bottom" constant="25" id="0FG-xU-XOp"/>
+                    <constraint firstItem="577" firstAttribute="width" secondItem="5125" secondAttribute="width" id="0Hq-ND-gir"/>
                     <constraint firstItem="457" firstAttribute="trailing" secondItem="465" secondAttribute="trailing" id="0KU-CM-JgE"/>
                     <constraint firstItem="5463" firstAttribute="leading" secondItem="6214" secondAttribute="trailing" constant="27" id="0UJ-1x-Y9P"/>
                     <constraint firstItem="453" firstAttribute="top" secondItem="469" secondAttribute="bottom" constant="4" id="0fq-lW-Uh8"/>
                     <constraint firstItem="5459" firstAttribute="trailing" secondItem="5457" secondAttribute="trailing" id="0gG-zn-Jqg"/>
+                    <constraint firstItem="5006" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="0k6-l7-BE9"/>
                     <constraint firstItem="5437" firstAttribute="top" secondItem="386" secondAttribute="bottom" constant="4" id="0sY-4q-Vyl"/>
                     <constraint firstItem="5144" firstAttribute="top" secondItem="5143" secondAttribute="bottom" constant="8" symbolic="YES" id="14E-dI-pop"/>
                     <constraint firstItem="5358" firstAttribute="leading" secondItem="4994" secondAttribute="trailing" constant="4" id="17y-d6-xLq"/>
@@ -1711,6 +1714,7 @@
                     <constraint firstItem="6193" firstAttribute="top" secondItem="314" secondAttribute="top" id="8Mj-u0-TPQ"/>
                     <constraint firstItem="5455" firstAttribute="top" secondItem="5453" secondAttribute="bottom" constant="4" id="8Qg-4c-9oE"/>
                     <constraint firstItem="5094" firstAttribute="trailing" secondItem="5264" secondAttribute="trailing" id="8UD-dd-p4A"/>
+                    <constraint firstItem="578" firstAttribute="width" secondItem="5126" secondAttribute="width" id="8XO-s2-cxA"/>
                     <constraint firstItem="5112" firstAttribute="baseline" secondItem="5159" secondAttribute="firstBaseline" id="8fj-TJ-Kpa"/>
                     <constraint firstItem="6823" firstAttribute="centerX" secondItem="6822" secondAttribute="centerX" id="8mh-Zo-9pL"/>
                     <constraint firstItem="5459" firstAttribute="top" secondItem="5457" secondAttribute="bottom" constant="4" id="8oI-8z-ZwF"/>
@@ -1786,7 +1790,6 @@
                     <constraint firstItem="5160" firstAttribute="trailing" secondItem="5159" secondAttribute="trailing" id="K7p-ww-oPp"/>
                     <constraint firstItem="383" firstAttribute="trailing" secondItem="362" secondAttribute="trailing" id="KBn-nX-IUn"/>
                     <constraint firstItem="585" firstAttribute="baseline" secondItem="5128" secondAttribute="firstBaseline" id="KK8-U4-mzl"/>
-                    <constraint firstItem="5006" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="379" id="KZG-Ld-9V2"/>
                     <constraint firstItem="387" firstAttribute="top" secondItem="5128" secondAttribute="bottom" constant="13" id="KtK-V2-boR"/>
                     <constraint firstItem="6369" firstAttribute="leading" secondItem="6368" secondAttribute="trailing" constant="18" id="Ku1-jW-2RG"/>
                     <constraint firstItem="581" firstAttribute="trailing" secondItem="580" secondAttribute="trailing" id="Kz3-LR-Qe6"/>

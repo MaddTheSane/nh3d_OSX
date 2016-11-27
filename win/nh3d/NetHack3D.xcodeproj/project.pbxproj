@@ -1191,8 +1191,6 @@
 		2B6311CB08B7A27A00162523 /* winnh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = winnh3d.h; sourceTree = "<group>"; };
 		2B6311CC08B7A27A00162523 /* winnh3d.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = winnh3d.m; sourceTree = "<group>"; };
 		2B6474FD096D5DDB005A4652 /* NH3Dcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3Dcommon.h; sourceTree = "<group>"; };
-		2B6474FE096D5DF0005A4652 /* Cocoa-compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Cocoa-compat.h"; path = "compat/Cocoa-compat.h"; sourceTree = "<group>"; };
-		2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Cocoa-compat.m"; path = "compat/Cocoa-compat.m"; sourceTree = "<group>"; };
 		2B6F3EDF091AF3E500367391 /* footStep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = footStep.wav; sourceTree = "<group>"; };
 		2B6F3EE1091AF3E500367391 /* waterDrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop.wav; sourceTree = "<group>"; };
 		2B6F3F87091B59F500367391 /* waterDrop2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = waterDrop2.wav; sourceTree = "<group>"; };
@@ -1410,8 +1408,6 @@
 				550B14B91CA06CAC00945F09 /* Hearse */,
 				55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */,
 				551659B51C77CBDB00013270 /* C99Bool.h */,
-				2B6474FE096D5DF0005A4652 /* Cocoa-compat.h */,
-				2B6474FF096D5DFB005A4652 /* Cocoa-compat.m */,
 				55B7D8591C209FF300CF5C9E /* GLHelpers.swift */,
 				55BF8B331B76AECB0031A45A /* MapModel.swift */,
 				2B6474FD096D5DDB005A4652 /* NH3Dcommon.h */,
