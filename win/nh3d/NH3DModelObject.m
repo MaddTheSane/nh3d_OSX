@@ -56,7 +56,6 @@ static const NH3DMaterial defaultMat = {
 @synthesize modelScale;
 @synthesize modelRotate;
 @synthesize modelPivot;
-@synthesize hasChildren = hasChildObject;
 @synthesize particleLife;
 @synthesize particleSlowdown = slowdown;
 @synthesize particleGravity;
@@ -70,6 +69,11 @@ static const NH3DMaterial defaultMat = {
 @synthesize numberOfTextures;
 @synthesize particleSpeedX = xspeed;
 @synthesize particleSpeedY = yspeed;
+
+- (BOOL)hasChildren
+{
+	return childObjects ? childObjects.count > 0 : NO;
+}
 
 - (NSInteger)countOfChildObjects
 {
@@ -655,7 +659,6 @@ static const NH3DMaterial defaultMat = {
 	
 	currentMaterial = defaultMat;
 	
-	hasChildObject = NO;
 	childObjects = nil;
 	
 	modelScale.x = 1.0;
@@ -1037,12 +1040,32 @@ static const NH3DMaterial defaultMat = {
 		
 		[modelobj setIsChild:YES];
 		[childObjects addObject:modelobj];
-		hasChildObject = YES;
 	} else {
 		NSLog(@"NH3DModelObject: Can't add Child object '%@'. Please check filename or location.", childName);
 	}
 }
 
+- (void)addChildObject:(NSString *)childName textureName:(NSString*)type
+{
+	NH3DModelObject *modelobj = nil;
+
+	modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName textureNamed:type];
+	if (modelobj == nil) {
+		modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName textureNamed:type];
+	}
+
+	
+	if (modelobj != nil) {
+		if (childObjects == nil) {
+			childObjects = [[NSMutableArray alloc] init];
+		}
+		
+		[modelobj setIsChild:YES];
+		[childObjects addObject:modelobj];
+	} else {
+		NSLog(@"NH3DModelObject: Can't add Child object '%@'. Please check filename or location.", childName);
+	}
+}
 
 //-------------------------------------------------------------------------------------
 
@@ -1328,7 +1351,7 @@ static const NH3DMaterial defaultMat = {
 		}
 		
 		// Draw children
-		if (hasChildObject) {
+		if (self.hasChildren) {
 			for (NH3DModelObject *childObject in childObjects) {
 				[childObject drawSelf];
 			}
@@ -1338,7 +1361,7 @@ static const NH3DMaterial defaultMat = {
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"Model \"%@\" (\"%@\"), vertices %i, model type %li, children: %@", modelName, modelCode, verts_qty, (long)modelType, hasChildObject ? @([self countOfChildObjects]) : @"NO"];
+	return [NSString stringWithFormat:@"Model \"%@\" (\"%@\"), vertices %i, model type %li, children: %@", modelName, modelCode, verts_qty, (long)modelType, self.hasChildren ? @([self countOfChildObjects]) : @"NO"];
 }
 
 - (NSString *)debugDescription

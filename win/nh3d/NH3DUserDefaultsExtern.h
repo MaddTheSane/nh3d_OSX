@@ -13,17 +13,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *NH3DMsgFontKey;
-extern NSString *NH3DMapFontKey;
-extern NSString *NH3DBoldFontKey;
-extern NSString *NH3DInventryFontKey;
-extern NSString *NH3DWindowFontKey;
+extern NSString *const NH3DMsgFontKey;
+extern NSString *const NH3DMapFontKey;
+extern NSString *const NH3DBoldFontKey;
+extern NSString *const NH3DInventryFontKey;
+extern NSString *const NH3DWindowFontKey;
 
-extern NSString *NH3DMsgFontSizeKey;
-extern NSString *NH3DMapFontSizeKey;
-extern NSString *NH3DBoldFontSizeKey;
-extern NSString *NH3DInventryFontSizeKey;
-extern NSString *NH3DWindowFontSizeKey;
+extern NSString *const NH3DMsgFontSizeKey;
+extern NSString *const NH3DMapFontSizeKey;
+extern NSString *const NH3DBoldFontSizeKey;
+extern NSString *const NH3DInventryFontSizeKey;
+extern NSString *const NH3DWindowFontSizeKey;
 
 extern const NSStringEncoding NH3DTEXTENCODING;
 
@@ -40,10 +40,10 @@ extern const NSStringEncoding NH3DTEXTENCODING;
 #define NH3DBOLDFONTSIZE	[[NSUserDefaults standardUserDefaults] floatForKey:NH3DBoldFontSizeKey]
 #define NH3DINVFONTSIZE		[[NSUserDefaults standardUserDefaults] floatForKey:NH3DInventryFontSizeKey]
 
-extern NSString *NH3DOpenGLWaitRateKey;
-extern NSString *NH3DOpenGLWaitSyncKey;
-extern NSString *NH3DOpenGLUseWaitRateKey;
-extern NSString *NH3DOpenGLNumberOfThreadsKey;
+extern NSString *const NH3DOpenGLWaitRateKey;
+extern NSString *const NH3DOpenGLWaitSyncKey;
+extern NSString *const NH3DOpenGLUseWaitRateKey;
+extern NSString *const NH3DOpenGLNumberOfThreadsKey;
 extern NSString *const NH3DUseRetinaOpenGL;
 
 #define OPENGLVIEW_WAITRATE [[NSUserDefaults standardUserDefaults] doubleForKey:NH3DOpenGLWaitRateKey]
@@ -51,8 +51,8 @@ extern NSString *const NH3DUseRetinaOpenGL;
 #define OPENGLVIEW_USEWAIT	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DOpenGLUseWaitRateKey]
 #define OPENGLVIEW_NUMBER_OF_THREADS	[[NSUserDefaults standardUserDefaults] integerForKey:NH3DOpenGLNumberOfThreadsKey]
 
-extern NSString *NH3DUseTileInLevelMapKey;
-extern NSString *NH3DUseSightRestrictionKey;
+extern NSString *const NH3DUseTileInLevelMapKey;
+extern NSString *const NH3DUseSightRestrictionKey;
 
 #define RESTRICTED_VIEW	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseSightRestrictionKey]
 #define TILED_LEVELMAP	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTileInLevelMapKey]
@@ -67,8 +67,8 @@ static inline BOOL SOUND_MUTE_func() {
 
 // Map Mode
 
-extern NSString *NH3DUseTraditionalMapKey;
-extern NSString *NH3DTraditionalMapModeKey;
+extern NSString *const NH3DUseTraditionalMapKey;
+extern NSString *const NH3DTraditionalMapModeKey;
 
 static inline BOOL TRADITIONAL_MAP_func() {
 	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey];
@@ -101,11 +101,11 @@ extern NSString *const NH3DIsFirstLaunch;
 #define PL_DIRECTION_BACK	2
 #define PL_DIRECTION_LEFT	3
 
-// default colmun + MapView number of column.
+/// default colmun + MapView number of column.
 #define MAPSIZE_COLUMN 90
-// default row + MapView number of row.
+/// default row + MapView number of row.
 #define MAPSIZE_ROW 32
-// for MapView
+/// for MapView
 #define MAP_MARGIN 5
 
 #define MAPVIEWSIZE_COLUMN	11
@@ -113,7 +113,7 @@ extern NSString *const NH3DIsFirstLaunch;
 
 // OpenGLView
 
-extern NSString *NH3DGLTileKey;
+extern NSString *const NH3DGLTileKey;
 
 #define NH3DGL_TILE_SIZE			4.00f
 #define NH3DGL_MAPVIEWSIZE_COLUMN	11

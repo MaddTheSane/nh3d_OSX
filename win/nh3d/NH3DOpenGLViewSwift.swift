@@ -918,8 +918,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	deinit {
-		delayDrawing.removeAll()
-		modelDictionary.removeAll()
+		delayDrawing.removeAll(keepingCapacity: false)
+		modelDictionary.removeAll(keepingCapacity: false)
 		
 		for i in 0..<Int(MAX_GLYPH) {
 			var texid = defaultTex[i]
@@ -2202,7 +2202,7 @@ extension NH3DOpenGLView {
 		
 		switch glyph {
 		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF,
-		PM_KOBOLD+GLYPH_PET_OFF, PM_LARGE_KOBOLD+GLYPH_PET_OFF:
+		     PM_KOBOLD+GLYPH_PET_OFF, PM_LARGE_KOBOLD+GLYPH_PET_OFF:
 			let offset: Int32
 			if glyph > GLYPH_PET_OFF {
 				offset = GLYPH_PET_OFF
@@ -2461,7 +2461,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
 		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF,
-		PM_GNOME+GLYPH_PET_OFF, PM_GNOME_LORD+GLYPH_PET_OFF:
+		     PM_GNOME+GLYPH_PET_OFF, PM_GNOME_LORD+GLYPH_PET_OFF:
 			let offset: Int32
 			if glyph > GLYPH_PET_OFF {
 				offset = GLYPH_PET_OFF
@@ -2475,14 +2475,14 @@ extension NH3DOpenGLView {
 				without: PM_GNOMISH_WIZARD, PM_GNOME_KING)
 			
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF,
-		PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
+		     PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.01, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF,
-		PM_GNOME_KING + GLYPH_PET_OFF:
+		     PM_GNOME_KING + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.05, z: -0.25)
@@ -2728,7 +2728,8 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: -0.28, z: 1)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF:
+		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF,
+		     PM_HIGH_PRIEST + GLYPH_PET_OFF, PM_MEDUSA + GLYPH_PET_OFF, PM_CROESUS + GLYPH_PET_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3820,8 +3821,7 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_DARK,
 			to: NH3D_EXPLODE_DARK + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
 		
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_GRAY)
@@ -3836,8 +3836,7 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_NOXIOUS,
 			to: NH3D_EXPLODE_NOXIOUS + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
 		
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_GREEN)
@@ -3852,8 +3851,8 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_MUDDY,
 			to: NH3D_EXPLODE_MUDDY + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
+		
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_BROWN)
 		}
@@ -3867,8 +3866,8 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_WET,
 			to: NH3D_EXPLODE_WET + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
+		
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_BLUE)
 		}
@@ -3882,8 +3881,8 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_MAGICAL,
 			to: NH3D_EXPLODE_MAGICAL + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
+		
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_BRIGHT_MAGENTA)
 		}
@@ -3897,8 +3896,7 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_FIERY,
 			to: NH3D_EXPLODE_FIERY + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
 		
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_ORANGE)
@@ -3913,8 +3911,7 @@ extension NH3DOpenGLView {
 		ret = checkLoadedModels(at: NH3D_EXPLODE_FROSTY,
 			to: NH3D_EXPLODE_FROSTY + MAXEXPCHARS,
 			offset: 0,
-			modelName: "emitter",
-			textured: false)
+			modelName: "emitter")
 		if let ret = ret {
 			setParams(forMagicExplosion: ret, color: CLR_BRIGHT_CYAN)
 		}
@@ -4137,7 +4134,7 @@ extension NH3DOpenGLView {
 			return nil
 		}
 		
-		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar", textured: true, textureName: "floor")
+		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar", textured: true, textureName: "ceiling")
 		if let ret = ret, !ret.hasChildren {
 			//Just add a simple texture for now
 			//ret.setTexture(Int32(cellingTex))
@@ -4147,8 +4144,9 @@ extension NH3DOpenGLView {
 			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
 			ret.modelShift = NH3DVertexType(x: 0, y: 0, z: 0)
 			ret.modelPivot = NH3DVertexType(x: 0.0, y: 0.0, z: 0.0)
-			ret.addChildObject(loadDat.modelName, type: .object)
-			ret.lastChild?.setTexture(Int32(cellingTex))
+			//ret.addChildObject(loadDat.modelName, type: .object)
+			ret.addChildObject(loadDat.modelName, textureName: "ceiling")
+			//ret.lastChild?.setTexture(Int32(cellingTex))
 			ret.lastChild?.useEnvironment = false
 			ret.lastChild?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			ret.lastChild?.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5

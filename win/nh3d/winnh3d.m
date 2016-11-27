@@ -61,29 +61,29 @@ extern BOOL CocoaPortIsReady;
 BOOL CocoaPortIsReady = NO;
 
 // UserDefaultKeys
-NSString *NH3DMsgFontKey = @"MainFontName";
-NSString *NH3DMapFontKey = @"FixedWidthFontName";
-NSString *NH3DBoldFontKey = @"BoldFontName" ;
-NSString *NH3DInventryFontKey = @"MenuItemFontName";
-NSString *NH3DWindowFontKey = @"WindowFontName";
+NSString *const NH3DMsgFontKey = @"MainFontName";
+NSString *const NH3DMapFontKey = @"FixedWidthFontName";
+NSString *const NH3DBoldFontKey = @"BoldFontName" ;
+NSString *const NH3DInventryFontKey = @"MenuItemFontName";
+NSString *const NH3DWindowFontKey = @"WindowFontName";
 
-NSString *NH3DMsgFontSizeKey = @"MainFontSize";
-NSString *NH3DMapFontSizeKey = @"FixedWidthFontSize";
-NSString *NH3DBoldFontSizeKey = @"BoldFontSize";
-NSString *NH3DInventryFontSizeKey = @"MenuItemFontSize";
-NSString *NH3DWindowFontSizeKey = @"WindowFontSize";
+NSString *const NH3DMsgFontSizeKey = @"MainFontSize";
+NSString *const NH3DMapFontSizeKey = @"FixedWidthFontSize";
+NSString *const NH3DBoldFontSizeKey = @"BoldFontSize";
+NSString *const NH3DInventryFontSizeKey = @"MenuItemFontSize";
+NSString *const NH3DWindowFontSizeKey = @"WindowFontSize";
 
-NSString *NH3DOpenGLWaitRateKey = @"OpenGLViewFrameRateValue";
-NSString *NH3DOpenGLWaitSyncKey = @"OpenGLViewisWaitSync";
-NSString *NH3DOpenGLUseWaitRateKey = @"OpenGLViewHasWaitRate";
-NSString *NH3DOpenGLNumberOfThreadsKey = @"OpenGLViewNumberOfThreads";
-NSString *NH3DGLTileKey = @"OpenGLViewUseTile";
+NSString *const NH3DOpenGLWaitRateKey = @"OpenGLViewFrameRateValue";
+NSString *const NH3DOpenGLWaitSyncKey = @"OpenGLViewisWaitSync";
+NSString *const NH3DOpenGLUseWaitRateKey = @"OpenGLViewHasWaitRate";
+NSString *const NH3DOpenGLNumberOfThreadsKey = @"OpenGLViewNumberOfThreads";
+NSString *const NH3DGLTileKey = @"OpenGLViewUseTile";
 
-NSString *NH3DUseTileInLevelMapKey = @"LevelMapisUseTile";
-NSString *NH3DUseSightRestrictionKey = @"ASCIIMapisRestricted";
+NSString *const NH3DUseTileInLevelMapKey = @"LevelMapisUseTile";
+NSString *const NH3DUseSightRestrictionKey = @"ASCIIMapisRestricted";
 
-NSString *NH3DUseTraditionalMapKey = @"UseTraditionalMap";
-NSString *NH3DTraditionalMapModeKey = @"TraditionalMapMode";
+NSString *const NH3DUseTraditionalMapKey = @"UseTraditionalMap";
+NSString *const NH3DTraditionalMapModeKey = @"TraditionalMapMode";
 
 NSString *const NH3DTileNameKey = @"TileName";
 NSString *const NH3DTileSizeWidthKey = @"TileSizeWidth";
@@ -1590,6 +1590,7 @@ static char ynPreReady(const char *str)
 		isResuming = false;
 	}
 	
+	//NSString *dName = [NSString localizedStringWithFormat:NSLocalizedString(@"%s, level %d", @""), dungeons[u.uz.dnum].dname, depth(&u.uz)];
 	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];

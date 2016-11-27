@@ -224,7 +224,11 @@ func Is_astralevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 
 /// Print to the console.
 func raw_print(_ str: UnsafePointer<CChar>) {
-	windowprocs.win_raw_print?(str)
+	if let aRawPrint = windowprocs.win_raw_print {
+		aRawPrint(str)
+	} else {
+		print(String(cString: str))
+	}
 }
 
 var NH3DTextEncoding: String.Encoding {

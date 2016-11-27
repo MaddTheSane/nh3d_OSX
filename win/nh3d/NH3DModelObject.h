@@ -191,6 +191,7 @@ typedef struct NH3DParticle {
 @property BOOL isChild;
 
 - (void)addChildObject:(NSString *)childName type:(NH3DModelType)type;
+- (void)addChildObject:(NSString *)childName textureName:(NSString*)texture;
 - (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 

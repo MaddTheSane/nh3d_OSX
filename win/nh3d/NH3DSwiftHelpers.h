@@ -9,6 +9,7 @@
 #ifndef NH3DSwiftBridging_h
 #define NH3DSwiftBridging_h
 
+#include <stdbool.h>
 #include "C99Bool.h"
 //#import "NH3Dcommon.h"
 #import <Foundation/NSObjCRuntime.h>
@@ -16,57 +17,66 @@
 #include "extern.h"
 
 static inline BOOL Swift_Invis() {
-	return !!Invis;
+	return (bool)(Invis);
 }
 
 /// Returns \c true if player is stealthy.
 static inline BOOL Swift_Stealth() {
-	return !!Stealth;
+	return (bool)(Stealth);
 }
 
 /// Returns \c true if player is blind.
 static inline BOOL Swift_Blind() {
-	return !!Blind;
+	return (bool)(Blind);
 }
 
 /// Returns \c true if player is underwater.
 static inline BOOL Swift_Underwater() {
-	return !!Underwater;
+	return (bool)(Underwater);
 }
 
+/// Returns \c true if player can teleport at will
 static inline BOOL Swift_Teleportation() {
-	return !!Teleportation;
+	return (bool)(Teleportation);
 }
 
 /// Returns \c true if player has teleportation control
 static inline BOOL Swift_Teleport_control() {
-	return !!Teleport_control;
+	return (bool)(Teleport_control);
 }
 
+/// Returns \c true if player is hallucinating
 static inline BOOL Swift_Hallucination() {
-	return !!Hallucination;
+	return (bool)(Hallucination);
 }
 
+/// Returns \c true if player is flying
 static inline BOOL Swift_Flying() {
-	return !!Flying;
+	return (bool)(Flying);
 }
 
 /// Returns \c true if player is levitating
 static inline BOOL Swift_Levitation() {
-	return !!Levitation;
+	return (bool)(Levitation);
 }
 
+/// Returns \c true if player can levitate at will
+static inline BOOL Swift_LevitationAtWill() {
+	return Lev_at_will;
+}
+
+/// Returns \c true if player is swimming underwater
 static inline BOOL Swift_Swimming() {
-	return !!Swimming;
+	return (bool)(Swimming);
 }
 
 static inline BOOL Swift_Amphibious() {
-	return !!Amphibious;
+	return (bool)(Amphibious);
 }
 
 /// Returns \c true if player has infravision.
 static inline BOOL Swift_Infravision() {
-	return !!Infravision;
+	return (bool)(Infravision);
 }
 
 NS_SWIFT_NAME(roomAtLocation(x:y:))
@@ -180,6 +190,7 @@ static inline short glyphToTile(int i)
 	return glyph2tile[i];
 }
 
+/// Something really bad happened!
 __dead2 NS_SWIFT_NAME(panic(_:))
 static inline void Swift_Panic(const char *__nonnull panicText)
 {
