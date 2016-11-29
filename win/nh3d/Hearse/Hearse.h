@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) uploadBones;
 - (void) uploadBonesFile:(NSString *)file;
 - (void) downloadBones;
-- (nullable NSString *) downloadSingleBonesFileWithForce:(BOOL)force wasForced:(BOOL *)pForcedDownload;
+- (nullable NSString *) downloadSingleBonesFileWithForce:(BOOL)force wasForced:(BOOL *__nullable)pForcedDownload;
 @property (readonly, copy) NSArray<NSString*> *existingBonesFiles;
 - (void) alertUserWithError:(NSError *)error;
 - (void) logHearseMessage:(NSString *)message;
