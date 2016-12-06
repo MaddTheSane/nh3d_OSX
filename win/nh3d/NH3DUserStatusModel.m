@@ -98,7 +98,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	shadow.shadowOffset = NSMakeSize(2, -2);
 	shadow.shadowBlurRadius = 0.5;
 			
-	style.alignment = NSCenterTextAlignment;
+	style.alignment = NSTextAlignmentCenter;
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT size: 14];
 	strAttributes[NSShadowAttributeName] = shadow;

@@ -1873,7 +1873,7 @@ void error(const char *s, ...)
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = @"NetHack Error!";
 	alert.informativeText = [nss stringByAppendingString:@"\n\nNetHack will now crash."];
-	alert.alertStyle = NSCriticalAlertStyle;
+	alert.alertStyle = NSAlertStyleCritical;
 	[alert runModal];
 	
 	exit(EXIT_FAILURE);

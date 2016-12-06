@@ -678,8 +678,6 @@ static const NH3DMaterial defaultMat = {
 - (instancetype)init
 {
 	if (self = [super init]) {
-		int i;
-		
 		[self initParams];
 		
 		slowdown = 2.0f;
@@ -694,7 +692,7 @@ static const NH3DMaterial defaultMat = {
 		particleLife = 1.0;
 		particles = malloc(MAX_PARTICLES * sizeof(NH3DParticle));
 		
-		for (i = 0; i < MAX_PARTICLES; i++) {
+		for (int i = 0; i < MAX_PARTICLES; i++) {
 			particles[i].active = YES;
 			particles[i].life = 0.8f;
 			

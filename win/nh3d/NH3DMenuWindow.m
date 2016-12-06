@@ -78,8 +78,8 @@
 	NSButtonCell* cell = [[NSButtonCell alloc] init];
 	NSTableColumn* tableColumn = [_menuTableWindow tableColumnWithIdentifier:@"name"];
 	
-	cell.bezelStyle = NSRecessedBezelStyle;
-	cell.buttonType = NSMomentaryLightButton;
+	cell.bezelStyle = NSBezelStyleRecessed;
+	cell.buttonType = NSButtonTypeMomentaryLight;
 	cell.bordered = YES;
 	cell.gradientType = NSGradientNone;
 	cell.highlightsBy = NSNoCellMask;
@@ -93,7 +93,7 @@
 - (void)prepareAttributes
 {
 	style = [[NSMutableParagraphStyle alloc] init];
-	style.alignment = NSLeftTextAlignment;
+	style.alignment = NSTextAlignmentLeft;
 	style.lineSpacing = 1;
 	
 	//Text attributes in View or backgrounded text field.

@@ -174,7 +174,7 @@ getlock()
 		
 		{
 			NSAlert *recoverAlert = [[NSAlert alloc] init];
-			recoverAlert.alertStyle = NSWarningAlertStyle;
+			recoverAlert.alertStyle = NSAlertStyleWarning;
 			recoverAlert.messageText = NSLocalizedString(@"Recover?", @"");
 			recoverAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Attempt recovery?\n\nThis will launch a recovery app.", @"");
 			[recoverAlert addButtonWithTitle:NSLocalizedString(@"Yes", @"Yes")];
