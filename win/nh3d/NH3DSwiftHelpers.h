@@ -177,7 +177,7 @@ static inline BOOL Swift_IsAir(schar type) {
 /// Returns the amount of tiles used by NetHack.
 static inline int totalTilesUsed()
 {
-	/*! from tile.c */
+	/* from tile.c */
 	extern int total_tiles_used;
 	return total_tiles_used;
 }
@@ -188,6 +188,12 @@ static inline short glyphToTile(int i)
 	/* from tile.c */
 	extern short glyph2tile[];
 	return glyph2tile[i];
+}
+
+NS_SWIFT_NAME(glyphIsMonster(_:))
+static inline BOOL Swift_glyphIsMonster(int glyph1)
+{
+	return glyph_is_monster(glyph1);
 }
 
 /// Something really bad happened!

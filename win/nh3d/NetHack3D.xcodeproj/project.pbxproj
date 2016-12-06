@@ -1263,6 +1263,7 @@
 		552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBitmapImageRep+NH3DAdditions.m"; sourceTree = "<group>"; };
 		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileSet.swift; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
+		552E49381DF73E4B00205CE0 /* NH3DEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DEnums.h; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
 		5535626F1CA336D90015E8BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FirstLaunch.xib; sourceTree = "<group>"; };
@@ -2562,6 +2563,7 @@
 				552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */,
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 				55D663061DE4F00B0007E0CC /* NH3DSwiftHelpers.h */,
+				552E49381DF73E4B00205CE0 /* NH3DEnums.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";

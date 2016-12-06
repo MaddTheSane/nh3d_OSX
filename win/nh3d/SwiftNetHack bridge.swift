@@ -11,41 +11,101 @@ import Foundation
 
 //#define GLYPH_MON_OFF		0
 
-let GLYPH_PET_OFF: Int32 =		(NUMMONS	+ GLYPH_MON_OFF)
-let GLYPH_INVIS_OFF: Int32 =	(NUMMONS	+ GLYPH_PET_OFF)
-let GLYPH_DETECT_OFF: Int32 =	(1			+ GLYPH_INVIS_OFF)
-let GLYPH_BODY_OFF: Int32 =		(NUMMONS	+ GLYPH_DETECT_OFF)
-let GLYPH_RIDDEN_OFF: Int32 =	(NUMMONS	+ GLYPH_BODY_OFF)
-let GLYPH_OBJ_OFF: Int32 =		(NUMMONS	+ GLYPH_RIDDEN_OFF)
-let GLYPH_CMAP_OFF: Int32 =		(NUM_OBJECTS	+ GLYPH_OBJ_OFF)
-let GLYPH_EXPLODE_OFF: Int32 =	((MAXPCHARS - MAXEXPCHARS) + GLYPH_CMAP_OFF)
-let GLYPH_ZAP_OFF: Int32 =		((MAXEXPCHARS * EXPL_MAX) + GLYPH_EXPLODE_OFF)
-let GLYPH_SWALLOW_OFF: Int32 =	((NUM_ZAP << 2) + GLYPH_ZAP_OFF)
-let GLYPH_WARNING_OFF: Int32 =	((NUMMONS << 3) + GLYPH_SWALLOW_OFF)
-let GLYPH_STATUE_OFF: Int32 =	(WARNCOUNT + GLYPH_WARNING_OFF)
-let MAX_GLYPH: Int32 =			(NUMMONS + GLYPH_STATUE_OFF)
+var GLYPH_PET_OFF: Int32 {
+	return NetHackGlyphPetOffset
+}
+var GLYPH_INVIS_OFF: Int32 {
+	return NetHackGlyphInvisibleOffset
+}
+var GLYPH_DETECT_OFF: Int32 {
+	return NetHackGlyphDetectOffset
+}
+var GLYPH_BODY_OFF: Int32 {
+	return NetHackGlyphBodyOffset
+}
+var GLYPH_RIDDEN_OFF: Int32 {
+	return NetHackGlyphRiddenOffset
+}
+var GLYPH_OBJ_OFF: Int32 {
+	return NetHackGlyphObjectOffset
+}
+var GLYPH_CMAP_OFF: Int32 {
+	return NetHackGlyphCMapOffset
+}
+var GLYPH_EXPLODE_OFF: Int32 {
+	return NetHackGlyphExplodeOffset
+}
+var GLYPH_ZAP_OFF: Int32 {
+	return NetHackGlyphZapOffset
+}
+var GLYPH_SWALLOW_OFF: Int32 {
+	return NetHackGlyphExplodeOffset
+}
+var GLYPH_WARNING_OFF: Int32 {
+	return NetHackGlyphWarningOffset
+}
+var GLYPH_STATUE_OFF: Int32 {
+	return NetHackGlyphStatueOffset
+}
+var MAX_GLYPH: Int32 {
+	return NetHackGlyphMaxGlyph
+}
 
-let NO_GLYPH		= MAX_GLYPH
-let GLYPH_INVISIBLE	= GLYPH_INVIS_OFF
+var NO_GLYPH: Int32 {
+	return NetHackGlyphNoGlyph
+}
+var GLYPH_INVISIBLE: Int32 {
+	return NetHackGlyphInvisible
+}
 
 
 // ZAP Types  * AD_xxx defined from monattk.h
-let NH3D_ZAP_MAGIC_MISSILE: Int32 =		(GLYPH_ZAP_OFF + ((AD_MAGM-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_FIRE: Int32 =		(GLYPH_ZAP_OFF + ((AD_FIRE-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_COLD: Int32 =		(GLYPH_ZAP_OFF + ((AD_COLD-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_SLEEP: Int32 =		(GLYPH_ZAP_OFF + ((AD_SLEE-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_DEATH: Int32 =		(GLYPH_ZAP_OFF + ((AD_DISN-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_LIGHTNING: Int32 =	(GLYPH_ZAP_OFF + ((AD_ELEC-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_POISONGAS: Int32 =	(GLYPH_ZAP_OFF + ((AD_DRST-1) * NH3D_ZAP_DIRECTION))
-let NH3D_ZAP_MAGIC_ACID: Int32 =		(GLYPH_ZAP_OFF + ((AD_ACID-1) * NH3D_ZAP_DIRECTION))
+var NH3D_ZAP_MAGIC_MISSILE: Int32 {
+	return NetHack3DZapMagicMissile
+}
+var NH3D_ZAP_MAGIC_FIRE: Int32 {
+	return NetHack3DZapMagicFire
+}
+var NH3D_ZAP_MAGIC_COLD: Int32 {
+	return NetHack3DZapMagicCold
+}
+var NH3D_ZAP_MAGIC_SLEEP: Int32 {
+	return NetHack3DZapMagicSleep
+}
+var NH3D_ZAP_MAGIC_DEATH: Int32 {
+	return NetHack3DZapMagicDeath
+}
+var NH3D_ZAP_MAGIC_LIGHTNING: Int32 {
+	return NetHack3DZapMagicLightning
+}
+var NH3D_ZAP_MAGIC_POISONGAS: Int32 {
+	return NetHack3DZapMagicPoisonGas
+}
+var NH3D_ZAP_MAGIC_ACID: Int32 {
+	return NetHack3DZapMagicAcid
+}
 // Explosion types * EXPL_xxx defined from hack.h
-let NH3D_EXPLODE_DARK: Int32 =			(GLYPH_EXPLODE_OFF + (EXPL_DARK * MAXEXPCHARS))
-let NH3D_EXPLODE_NOXIOUS: Int32 =		(GLYPH_EXPLODE_OFF + (EXPL_NOXIOUS * MAXEXPCHARS))
-let NH3D_EXPLODE_MUDDY: Int32 =			(GLYPH_EXPLODE_OFF + (EXPL_MUDDY * MAXEXPCHARS))
-let NH3D_EXPLODE_WET: Int32 =			(GLYPH_EXPLODE_OFF + (EXPL_WET * MAXEXPCHARS))
-let NH3D_EXPLODE_MAGICAL: Int32 =		(GLYPH_EXPLODE_OFF + (EXPL_MAGICAL * MAXEXPCHARS))
-let NH3D_EXPLODE_FIERY: Int32 =			(GLYPH_EXPLODE_OFF + (EXPL_FIERY * MAXEXPCHARS))
-let NH3D_EXPLODE_FROSTY: Int32 =		(GLYPH_EXPLODE_OFF + (EXPL_FROSTY * MAXEXPCHARS))
+var NH3D_EXPLODE_DARK: Int32 {
+	return NetHack3DExplodeDark
+}
+var NH3D_EXPLODE_NOXIOUS: Int32 {
+	return NetHack3DExplodeNoxious
+}
+var NH3D_EXPLODE_MUDDY: Int32 {
+	return NetHack3DExplodeMuddy
+}
+var NH3D_EXPLODE_WET: Int32 {
+	return NetHack3DExplodeWet
+}
+var NH3D_EXPLODE_MAGICAL: Int32 {
+	return NetHack3DExplodeMagical
+}
+var NH3D_EXPLODE_FIERY: Int32 {
+	return NetHack3DExplodeFiery
+}
+var NH3D_EXPLODE_FROSTY: Int32 {
+	return NetHack3DExplodeFrosty
+}
 
 //MARK: for font
 var NH3DMSGFONT: String! {

@@ -15,3 +15,4 @@
 
 #import "Hearse.h"
 #import "NH3DSwiftHelpers.h"
+#import "NH3DEnums.h"
