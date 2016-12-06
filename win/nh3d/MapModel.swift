@@ -74,7 +74,7 @@ class MapModel: NSObject {
 	override init() {
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
-				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + GLYPH_CMAP_OFF, color: 0, posX: x, posY: y, special: 0, bgGlyph: NO_GLYPH)
+				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + NetHackGlyphCMapOffset, color: 0, posX: x, posY: y, special: 0, bgGlyph: NetHackGlyphNoGlyph)
 			}
 		}
 		
@@ -230,7 +230,7 @@ class MapModel: NSObject {
 		lock.lock()
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
-				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + GLYPH_CMAP_OFF, color: 0, posX: x, posY: y, special: 0, bgGlyph: NO_GLYPH)
+				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: S_stone + NetHackGlyphCMapOffset, color: 0, posX: x, posY: y, special: 0, bgGlyph: NetHackGlyphNoGlyph)
 			}
 		}
 		lock.unlock()

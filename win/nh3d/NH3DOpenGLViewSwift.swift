@@ -258,7 +258,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
-	fileprivate var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(MAX_GLYPH))
+	fileprivate var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(NetHackGlyphMaxGlyph))
 	private var modelDictionary = [Int32: NH3DModelObject]()
 	private let viewLock = NSRecursiveLock()
 	
@@ -299,7 +299,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	fileprivate private(set) var hellTex = GLuint(0)
 	fileprivate private(set) var nullTex = GLuint(0)
 	fileprivate private(set) var rougeTex = GLuint(0)
-	private var defaultTex = [GLuint](repeating: 0, count: Int(MAX_GLYPH))
+	private var defaultTex = [GLuint](repeating: 0, count: Int(NetHackGlyphMaxGlyph))
 	
 	fileprivate private(set) var floorCurrent = GLuint(0)
 	fileprivate private(set) var cellingCurrent  = GLuint(0)
@@ -327,7 +327,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private(set) var centerX: Int32 = 0
 	private(set) var centerZ: Int32 = 0
-	private(set) var playerdepth: Int32 = 0
+	private(set) var playerDepth: Int32 = 0
 	private(set) var drawMargin: Int32 = 0
 	var enemyPosition: Int32 {
 		set {
@@ -837,22 +837,22 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			for i in 1...MAP_MARGIN {
 				if (isRoom(roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ) || isDoor(roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ))
-					&& roomAtLocation(x: u.ux, y: u.uy + xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF  {
+					&& roomAtLocation(x: u.ux, y: u.uy + xchar(i)).glyph == S_stone + NetHackGlyphCMapOffset  {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 						
 				} else if ((isRoom(roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ) || isDoor(roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ))
-					&& roomAtLocation(x: u.ux, y: u.uy - xchar(i)).glyph == S_stone + GLYPH_CMAP_OFF) {
+					&& roomAtLocation(x: u.ux, y: u.uy - xchar(i)).glyph == S_stone + NetHackGlyphCMapOffset) {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 						
 				} else if (isRoom(roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ) || isDoor(roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ))
-					&& roomAtLocation(x: u.ux + xchar(i), y: u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
+					&& roomAtLocation(x: u.ux + xchar(i), y: u.uy).glyph == S_stone + NetHackGlyphCMapOffset {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 						
 				} else if (isRoom(roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ) || isDoor(roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ))
-					&& roomAtLocation(x: u.ux - xchar(i), y: u.uy).glyph == S_stone + GLYPH_CMAP_OFF {
+					&& roomAtLocation(x: u.ux - xchar(i), y: u.uy).glyph == S_stone + NetHackGlyphCMapOffset {
 						glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 						break
 				}
@@ -921,7 +921,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		delayDrawing.removeAll(keepingCapacity: false)
 		modelDictionary.removeAll(keepingCapacity: false)
 		
-		for i in 0..<Int(MAX_GLYPH) {
+		for i in 0..<Int(NetHackGlyphMaxGlyph) {
 			var texid = defaultTex[i]
 			glDeleteTextures(1, &texid)
 		}
@@ -1103,7 +1103,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	func drawModelArray(_ mapItem: NH3DMapItem) {
 		let glyph = mapItem.glyph
 		
-		if glyph != S_room + GLYPH_CMAP_OFF {
+		if glyph != S_room + NetHackGlyphCMapOffset {
 			viewLock.lock()
 			defer {
 				viewLock.unlock()
@@ -1118,7 +1118,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			if model == nil && defaultTex[Int(glyph)] == 0 {
 				if let newModel = loadModelBlocks[Int(glyph)](glyph) {
-					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + GLYPH_PET_OFF {
+					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + NetHackGlyphPetOffset {
 						newModel.isAnimated = true
 						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
 						newModel.modelPivot = NH3DVertexType(x: 0.0, y: 0.3, z: 0.0)
@@ -1145,8 +1145,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			
 			if (model == nil
-			 && !(glyph >= S_stone+GLYPH_CMAP_OFF
-				&& glyph <= S_water+GLYPH_CMAP_OFF)) { // Draw alternate object.
+			 && !(glyph >= S_stone+NetHackGlyphCMapOffset
+				&& glyph <= S_water+NetHackGlyphCMapOffset)) { // Draw alternate object.
 				var f: Float = 0
 				var angle: Float = 5.0
 				
@@ -1216,7 +1216,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
 					
-				case S_vwall + GLYPH_CMAP_OFF:
+				case S_vwall + NetHackGlyphCMapOffset:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posz) % 5) != 0 {
 						model.childObject(at: 0).isActive = false
@@ -1224,7 +1224,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 						model.childObject(at: 0).isActive = true
 					}
 					
-				case S_hwall + GLYPH_CMAP_OFF:
+				case S_hwall + NetHackGlyphCMapOffset:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posx) % 5) != 0 {
 						model.childObject(at: 0).isActive = false
@@ -1232,10 +1232,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 						model.childObject(at: 0).isActive = true
 					}
 					
-				case PM_GIANT_ANT+GLYPH_STATUE_OFF ... NUMMONS + GLYPH_STATUE_OFF:
+				case PM_GIANT_ANT+NetHackGlyphStatueOffset ... NUMMONS + NetHackGlyphStatueOffset:
 					model.currentMaterial = nh3dMaterialArray[Int(CLR_WHITE)]
 					
-				case PM_GIANT_ANT+GLYPH_PET_OFF ... NUMMONS + GLYPH_PET_OFF:
+				case PM_GIANT_ANT+NetHackGlyphPetOffset ... NUMMONS + NetHackGlyphPetOffset:
 					let materialCol = mapItem.material
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
@@ -1310,13 +1310,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	func changeWallsTexture(_ texID: Int32) {
-		modelDictionary[(S_vwall + GLYPH_CMAP_OFF)]?.setTexture(texID)
-		modelDictionary[(S_hwall + GLYPH_CMAP_OFF)]?.setTexture(texID)
-		modelDictionary[(S_tlcorn + GLYPH_CMAP_OFF)]?.setTexture(texID)
-		modelDictionary[(S_vodoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
-		modelDictionary[(S_hodoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
-		modelDictionary[(S_vcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
-		modelDictionary[(S_hcdoor + GLYPH_CMAP_OFF)]?.setTexture(texID)
+		modelDictionary[(S_vwall + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(S_hwall + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(S_tlcorn + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(S_vodoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(S_hodoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(S_vcdoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(S_hcdoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
 	}
 	
 	@objc(setCenterAtX:z:depth:)
@@ -1327,7 +1327,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		centerX = x
 		centerZ = z
 		
-		if playerdepth != depth {
+		if playerDepth != depth {
 			elementalLevel = 0
 			isReady = false
 			
@@ -1407,7 +1407,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				elementalLevel = 0
 			}
 		}
-		playerdepth = depth
+		playerDepth = depth
 		
 		viewLock.unlock()
 		
@@ -1738,7 +1738,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.lastChild?.lastChild?.particleSize = 10.0
 			}
 		}
-		modelDictionary[S_vwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_vwall + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "hwall", textureNamed: "wall_start")
 		model?.addTexture("wall_mines")
@@ -1761,7 +1761,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			model?.lastChild?.modelRotate = NH3DVertexType(x: 0.0, y: -90.0, z: 0.0)
 		}
-		modelDictionary[S_hwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_hwall + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "corner", withTexture: true)
 		model?.addTexture("corner_mines")
@@ -1769,43 +1769,43 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture("corner_knox")
 		model?.addTexture("corner_rouge")
 		
-		modelDictionary[S_tlcorn + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_trcorn + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_blcorn + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_brcorn + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_crwall + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_tuwall + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_tdwall + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_tlwall + GLYPH_CMAP_OFF] = model
-		modelDictionary[S_trwall + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_tlcorn + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_trcorn + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_blcorn + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_brcorn + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_crwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_tuwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_tdwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_tlwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[S_trwall + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "vopendoor", textureNamed: "door")
 		model?.addTexture("door_mines")
 		model?.addTexture("door_hell")
 		model?.addTexture("door_knox")
 		model?.addTexture("door_rouge")
-		modelDictionary[S_vodoor + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_vodoor + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "hopendoor", textureNamed: "door")
 		model?.addTexture("door_mines")
 		model?.addTexture("door_hell")
 		model?.addTexture("door_knox")
 		model?.addTexture("door_rouge")
-		modelDictionary[S_hodoor + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_hodoor + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "vdoor", textureNamed: "door")
 		model?.addTexture("door_mines")
 		model?.addTexture("door_hell")
 		model?.addTexture("door_knox")
 		model?.addTexture("door_rouge")
-		modelDictionary[S_vcdoor + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_vcdoor + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "hdoor", textureNamed: "door")
 		model?.addTexture("door_mines")
 		model?.addTexture("door_hell")
 		model?.addTexture("door_knox")
 		model?.addTexture("door_rouge")
-		modelDictionary[S_hcdoor + GLYPH_CMAP_OFF] = model
+		modelDictionary[S_hcdoor + NetHackGlyphCMapOffset] = model
 	}
 	
 	@objc private func defaultsDidChange(notification: NSNotification?) {
@@ -1878,7 +1878,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		if useTile != NH3DGL_USETILE {
-			for i in 0..<Int(MAX_GLYPH) {
+			for i in 0..<Int(NetHackGlyphMaxGlyph) {
 				var texid = defaultTex[i]
 				glDeleteTextures(1, &texid)
 				defaultTex[i] = 0
@@ -2079,8 +2079,8 @@ extension NH3DOpenGLView {
 	/// insect class
 	private func loadModelFunc_insect(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2090,8 +2090,8 @@ extension NH3DOpenGLView {
 	/// blob class
 	private func loadModelFunc_blob(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2101,8 +2101,8 @@ extension NH3DOpenGLView {
 	/// cockatrice class
 	private func loadModelFunc_cockatrice(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2112,8 +2112,8 @@ extension NH3DOpenGLView {
 	/// dog or canine class
 	private func loadModelFunc_dog(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2123,8 +2123,8 @@ extension NH3DOpenGLView {
 	/// eye or sphere class
 	private func loadModelFunc_sphere(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2134,8 +2134,8 @@ extension NH3DOpenGLView {
 	/// cat or feline class
 	private func loadModelFunc_cat(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2145,8 +2145,8 @@ extension NH3DOpenGLView {
 	/// gremlins and gargoyles class
 	private func loadModelFunc_gremlins(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2156,15 +2156,15 @@ extension NH3DOpenGLView {
 	/// humanoids class
 	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+GLYPH_PET_OFF {
+		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+NetHackGlyphPetOffset {
 			ret = NH3DModelObject(with3DSFile:"lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: 0.2, z: -0.21)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2176,8 +2176,8 @@ extension NH3DOpenGLView {
 	/// imps and minor demons
 	private func loadModelFunc_imp(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2188,8 +2188,8 @@ extension NH3DOpenGLView {
 	/// jellies
 	private func loadModelFunc_jellys(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2202,23 +2202,23 @@ extension NH3DOpenGLView {
 		
 		switch glyph {
 		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF,
-		     PM_KOBOLD+GLYPH_PET_OFF, PM_LARGE_KOBOLD+GLYPH_PET_OFF:
+		     PM_KOBOLD+NetHackGlyphPetOffset, PM_LARGE_KOBOLD+NetHackGlyphPetOffset:
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
 
 			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK", without: PM_KOBOLD_LORD, PM_KOBOLD_SHAMAN)
 			
-		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+GLYPH_PET_OFF:
+		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + GLYPH_PET_OFF:
+		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: -0.01, z: -0.15)
@@ -2239,8 +2239,8 @@ extension NH3DOpenGLView {
 	// mimics
 	private func loadModelFunc_mimics(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2250,8 +2250,8 @@ extension NH3DOpenGLView {
 	/// nymphs
 	private func loadModelFunc_nymphs(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2262,15 +2262,15 @@ extension NH3DOpenGLView {
 	private func loadModelFunc_orc(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
-		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + GLYPH_PET_OFF {
+		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + NetHackGlyphPetOffset {
 			ret = NH3DModelObject(with3DSFile: "lowerO", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.15, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2283,8 +2283,8 @@ extension NH3DOpenGLView {
 	/// piercers
 	private final func loadModelFunc_piercers(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2294,8 +2294,8 @@ extension NH3DOpenGLView {
 	/// quadrupeds
 	private final func loadModelFunc_quadrupeds(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2305,8 +2305,8 @@ extension NH3DOpenGLView {
 	/// rodents
 	private final func loadModelFunc_rodents(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2316,8 +2316,8 @@ extension NH3DOpenGLView {
 	/// spiders
 	private final func loadModelFunc_spiders(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2327,8 +2327,8 @@ extension NH3DOpenGLView {
 	/// trapper
 	private final func loadModelFunc_trapper(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2338,8 +2338,8 @@ extension NH3DOpenGLView {
 	/// unicorns and horses
 	private final func loadModelFunc_unicorns(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2349,8 +2349,8 @@ extension NH3DOpenGLView {
 	/// vortices
 	private final func loadModelFunc_vortices(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2360,8 +2360,8 @@ extension NH3DOpenGLView {
 	/// worms
 	private final func loadModelFunc_worms(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2371,8 +2371,8 @@ extension NH3DOpenGLView {
 	/// xan
 	private final func loadModelFunc_xan(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2382,8 +2382,8 @@ extension NH3DOpenGLView {
 	/// lights
 	private final func loadModelFunc_lights(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2393,8 +2393,8 @@ extension NH3DOpenGLView {
 	/// Angels
 	private final func loadModelFunc_Angels(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2404,8 +2404,8 @@ extension NH3DOpenGLView {
 	/// Bats and birds
 	private final func loadModelFunc_Bats(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2415,8 +2415,8 @@ extension NH3DOpenGLView {
 	/// Centaurs
 	private final func loadModelFunc_Centaurs(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2426,8 +2426,8 @@ extension NH3DOpenGLView {
 	/// Dragons
 	private final func loadModelFunc_Dragons(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2437,8 +2437,8 @@ extension NH3DOpenGLView {
 	/// Elementals
 	private final func loadModelFunc_Elementals(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2448,8 +2448,8 @@ extension NH3DOpenGLView {
 	/// Fungi
 	private final func loadModelFunc_Fungi(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2461,10 +2461,10 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
 		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF,
-		     PM_GNOME+GLYPH_PET_OFF, PM_GNOME_LORD+GLYPH_PET_OFF:
+		     PM_GNOME+NetHackGlyphPetOffset, PM_GNOME_LORD+NetHackGlyphPetOffset:
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2475,14 +2475,14 @@ extension NH3DOpenGLView {
 				without: PM_GNOMISH_WIZARD, PM_GNOME_KING)
 			
 		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF,
-		     PM_GNOMISH_WIZARD + GLYPH_PET_OFF:
+		     PM_GNOMISH_WIZARD + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.01, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF,
-		     PM_GNOME_KING + GLYPH_PET_OFF:
+		     PM_GNOME_KING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.05, z: -0.25)
@@ -2498,8 +2498,8 @@ extension NH3DOpenGLView {
 	/// Giant Humanoids
 	private final func loadModelFunc_giantHumanoids(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2509,8 +2509,8 @@ extension NH3DOpenGLView {
 	/// Kops
 	private final func loadModelFunc_Kops(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2520,8 +2520,8 @@ extension NH3DOpenGLView {
 	/// Liches
 	private final func loadModelFunc_Liches(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2531,8 +2531,8 @@ extension NH3DOpenGLView {
 	/// Mummies
 	private final func loadModelFunc_Mummies(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2542,8 +2542,8 @@ extension NH3DOpenGLView {
 	/// Nagas
 	private final func loadModelFunc_Nagas(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2555,10 +2555,10 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
 		case PM_OGRE + GLYPH_MON_OFF, PM_OGRE_LORD + GLYPH_MON_OFF,
-		PM_OGRE + GLYPH_PET_OFF, PM_OGRE_LORD + GLYPH_PET_OFF:
+		PM_OGRE + NetHackGlyphPetOffset, PM_OGRE_LORD + NetHackGlyphPetOffset:
 		let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2568,7 +2568,7 @@ extension NH3DOpenGLView {
 				modelName: "upperO",
 				without: PM_OGRE_KING)
 			
-		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + GLYPH_PET_OFF:
+		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.15, z: -0.18)
@@ -2583,8 +2583,8 @@ extension NH3DOpenGLView {
 	/// Puddings
 	private final func loadModelFunc_Puddings(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2599,8 +2599,8 @@ extension NH3DOpenGLView {
 	/// Rust monster or disenchanter
 	private final func loadModelFunc_Rustmonster(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2610,8 +2610,8 @@ extension NH3DOpenGLView {
 	/// Snakes
 	private final func loadModelFunc_Snakes(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2621,8 +2621,8 @@ extension NH3DOpenGLView {
 	/// Trolls
 	private final func loadModelFunc_Trolls(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2639,10 +2639,10 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
 		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF,
-			PM_VAMPIRE + GLYPH_PET_OFF, PM_VAMPIRE_LORD + GLYPH_PET_OFF:
+			PM_VAMPIRE + NetHackGlyphPetOffset, PM_VAMPIRE_LORD + NetHackGlyphPetOffset:
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2664,8 +2664,8 @@ extension NH3DOpenGLView {
 	/// Wraiths
 	private final func loadModelFunc_Wraiths(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2680,8 +2680,8 @@ extension NH3DOpenGLView {
 	/// Primates
 	private final func loadModelFunc_Yeti(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2691,8 +2691,8 @@ extension NH3DOpenGLView {
 	/// Zombies
 	private final func loadModelFunc_Zombie(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2702,8 +2702,8 @@ extension NH3DOpenGLView {
 	/// Golems
 	private final func loadModelFunc_Golems(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2715,21 +2715,21 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + GLYPH_PET_OFF:
+		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: -0.18, z: 0)
 			ret?.lastChild?.modelRotate = NH3DVertexType(x: 0, y: 11.7, z: 0)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + GLYPH_PET_OFF:
+		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("nurse", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: -0.28, z: 1)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF,
-		     PM_HIGH_PRIEST + GLYPH_PET_OFF, PM_MEDUSA + GLYPH_PET_OFF, PM_CROESUS + GLYPH_PET_OFF:
+		     PM_HIGH_PRIEST + NetHackGlyphPetOffset, PM_MEDUSA + NetHackGlyphPetOffset, PM_CROESUS + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -2767,8 +2767,8 @@ extension NH3DOpenGLView {
 			
 		default:
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2787,8 +2787,8 @@ extension NH3DOpenGLView {
 	/// Ghosts
 	private final func loadModelFunc_Ghosts(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2798,13 +2798,13 @@ extension NH3DOpenGLView {
 	/// Major Demons
 	private final func loadModelFunc_MajorDamons(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
 		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ||
-		glyph != PM_DJINNI+GLYPH_PET_OFF || glyph != PM_SANDESTIN+GLYPH_PET_OFF {
+		glyph != PM_DJINNI+NetHackGlyphPetOffset || glyph != PM_SANDESTIN+NetHackGlyphPetOffset {
 			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, offset: offset, modelName: "ampersand")
 		} else {
 			return checkLoadedModels(at: PM_DJINNI, to: PM_SANDESTIN, offset: offset, modelName: "ampersand")
@@ -2815,7 +2815,7 @@ extension NH3DOpenGLView {
 	private final func loadModelFunc_GraterDamons(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
-		if glyph == PM_JUIBLEX + GLYPH_MON_OFF || glyph == PM_JUIBLEX + GLYPH_PET_OFF {
+		if glyph == PM_JUIBLEX + GLYPH_MON_OFF || glyph == PM_JUIBLEX + NetHackGlyphPetOffset {
 			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -2827,8 +2827,8 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSize = 8.0
 		} else {
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
@@ -2882,8 +2882,8 @@ extension NH3DOpenGLView {
 	/// sea monsters
 	private final func loadModelFunc_seamonsters(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -2893,8 +2893,8 @@ extension NH3DOpenGLView {
 	/// lizards
 	private final func loadModelFunc_lizards(glyph: Int32) -> NH3DModelObject? {
 		let offset: Int32
-		if glyph > GLYPH_PET_OFF {
-			offset = GLYPH_PET_OFF
+		if glyph > NetHackGlyphPetOffset {
+			offset = NetHackGlyphPetOffset
 		} else {
 			offset = GLYPH_MON_OFF
 		}
@@ -3077,13 +3077,13 @@ extension NH3DOpenGLView {
 			
 		default:
 			let offset: Int32
-			if glyph > GLYPH_PET_OFF {
-				offset = GLYPH_PET_OFF
+			if glyph > NetHackGlyphPetOffset {
+				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
 			if (glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF) ||
-			(glyph >= PM_LORD_CARNARVON + GLYPH_PET_OFF && glyph <= PM_NORN + GLYPH_PET_OFF) {
+			(glyph >= PM_LORD_CARNARVON + NetHackGlyphPetOffset && glyph <= PM_NORN + NetHackGlyphPetOffset) {
 				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
 					to: PM_NORN,
 					offset: offset,
@@ -3119,36 +3119,36 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case S_bars + GLYPH_CMAP_OFF:
+		case S_bars + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "ironbar", withTexture: true)
 			
-		case S_tree + GLYPH_CMAP_OFF:
+		case S_tree + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: true)
 			ret?.modelScale = NH3DVertexType(x: 2.5, y: 1.7, z: 2.5)
 			
-		case S_upstair + GLYPH_CMAP_OFF:
+		case S_upstair + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "upStair", withTexture: true)
 			
-		case S_dnstair + GLYPH_CMAP_OFF:
+		case S_dnstair + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "downStair", withTexture: true)
 			
-		case S_upladder + GLYPH_CMAP_OFF:
+		case S_upladder + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "upladder", withTexture: true)
 			
-		case S_dnladder + GLYPH_CMAP_OFF:
+		case S_dnladder + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "downladder", withTexture: true)
 			
-		case S_altar + GLYPH_CMAP_OFF:
+		case S_altar + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "altar", withTexture: true)
 			
-		case S_grave + GLYPH_CMAP_OFF:
+		case S_grave + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "grave", withTexture: true)
 			ret?.modelScale = NH3DVertexType(x: 0.6, y: 0.6, z: 0.6)
 			
-		case S_throne + GLYPH_CMAP_OFF:
+		case S_throne + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "opulent_throne", withTexture: true)
 			
-		case S_sink + GLYPH_CMAP_OFF:
+		case S_sink + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "sink", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 1.277, z: -0.812)
@@ -3165,7 +3165,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.3
 			ret?.lastChild?.particleSize = 8.0
 			
-		case S_fountain + GLYPH_CMAP_OFF:
+		case S_fountain + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.34, y: 2.68, z: 0.65)
@@ -3197,21 +3197,21 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 1.2
 			ret?.lastChild?.particleSize = 8.0
 			
-		case S_vodbridge + GLYPH_CMAP_OFF:
+		case S_vodbridge + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
 			ret?.modelRotate = NH3DVertexType(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
-		case S_hodbridge + GLYPH_CMAP_OFF:
+		case S_hodbridge + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 4.0, y: 0.0, z: 0.0)
 			
-		case S_vcdbridge + GLYPH_CMAP_OFF:
+		case S_vcdbridge + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
-		case S_hcdbridge + GLYPH_CMAP_OFF:
+		case S_hcdbridge + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
 			ret?.modelRotate = NH3DVertexType(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
@@ -3229,21 +3229,21 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case S_arrow_trap + GLYPH_CMAP_OFF:
+		case S_arrow_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "arrowtrap", withTexture: true)
 			
-		case S_dart_trap + GLYPH_CMAP_OFF:
+		case S_dart_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "dartTrap", withTexture: true)
 			
-		case S_falling_rock_trap + GLYPH_CMAP_OFF:
+		case S_falling_rock_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "rockfalltrap", withTexture: true)
 			
-			//case S_squeaky_board + GLYPH_CMAP_OFF :
-		case S_land_mine + GLYPH_CMAP_OFF:
+			//case S_squeaky_board + NetHackGlyphCMapOffset :
+		case S_land_mine + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "landmine", withTexture: true)
 			
-			//case S_rolling_boulder_trap + GLYPH_CMAP_OFF :
-		case S_sleeping_gas_trap + GLYPH_CMAP_OFF:
+			//case S_rolling_boulder_trap + NetHackGlyphCMapOffset :
+		case S_sleeping_gas_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
@@ -3255,7 +3255,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.56
 			ret?.lastChild?.particleSize = 5.0
 			
-		case S_rust_trap + GLYPH_CMAP_OFF:
+		case S_rust_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
@@ -3267,7 +3267,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.56
 			ret?.lastChild?.particleSize = 5.0
 			
-		case S_fire_trap + GLYPH_CMAP_OFF:
+		case S_fire_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
@@ -3279,22 +3279,22 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSlowdown = 2.0
 			ret?.lastChild?.particleLife = 0.5
 			
-		case S_bear_trap + GLYPH_CMAP_OFF:
+		case S_bear_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "beartrap", withTexture: true)
 			
-		case S_pit + GLYPH_CMAP_OFF:
+		case S_pit + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_spiked_pit + GLYPH_CMAP_OFF:
+		case S_spiked_pit + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "spikepit", withTexture: true)
 			
-		case S_hole + GLYPH_CMAP_OFF :
+		case S_hole + NetHackGlyphCMapOffset :
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_trap_door + GLYPH_CMAP_OFF:
+		case S_trap_door + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_teleportation_trap + GLYPH_CMAP_OFF:
+		case S_teleportation_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.38, y: 3.82, z: 0.75917)
@@ -3316,7 +3316,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.particleLife = 0.25
 			
-		case S_level_teleporter + GLYPH_CMAP_OFF:
+		case S_level_teleporter + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.38, y: 3.82, z: 0.75917)
@@ -3338,7 +3338,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.particleLife = 0.25
 			
-		case S_magic_portal + GLYPH_CMAP_OFF:
+		case S_magic_portal + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "magicportal", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.8, y: 0.7, z: 0.8)
@@ -3351,10 +3351,10 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSize = 2.0
 			
 			//TODO: implement web and statue trap
-			//case S_web + GLYPH_CMAP_OFF :
-			//case S_statue_trap + GLYPH_CMAP_OFF :
+			//case S_web + NetHackGlyphCMapOffset :
+			//case S_statue_trap + NetHackGlyphCMapOffset :
 			
-		case S_magic_trap + GLYPH_CMAP_OFF:
+		case S_magic_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
@@ -3365,7 +3365,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_anti_magic_trap + GLYPH_CMAP_OFF:
+		case S_anti_magic_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
@@ -3376,7 +3376,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_polymorph_trap + GLYPH_CMAP_OFF:
+		case S_polymorph_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
@@ -3387,7 +3387,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_vibrating_square + GLYPH_CMAP_OFF:
+		case S_vibrating_square + NetHackGlyphCMapOffset:
 			//TODO: implement proper vibrating square model
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
@@ -3418,7 +3418,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM:
+		case NetHack3DZapMagicMissile + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
@@ -3426,7 +3426,7 @@ extension NH3DOpenGLView {
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM:
+		case NetHack3DZapMagicMissile + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
@@ -3434,7 +3434,7 @@ extension NH3DOpenGLView {
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT:
+		case NetHack3DZapMagicMissile + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
@@ -3442,7 +3442,7 @@ extension NH3DOpenGLView {
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT:
+		case NetHack3DZapMagicMissile + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
@@ -3463,28 +3463,28 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM:
+		case NetHack3DZapMagicFire + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
-		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM:
+		case NetHack3DZapMagicFire + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
-		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT:
+		case NetHack3DZapMagicFire + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
-		case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT:
+		case NetHack3DZapMagicFire + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
@@ -3503,7 +3503,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM:
+		case NetHack3DZapMagicCold + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
@@ -3511,7 +3511,7 @@ extension NH3DOpenGLView {
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM:
+		case NetHack3DZapMagicCold + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
@@ -3519,7 +3519,7 @@ extension NH3DOpenGLView {
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT:
+		case NetHack3DZapMagicCold + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
@@ -3527,7 +3527,7 @@ extension NH3DOpenGLView {
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT:
+		case NetHack3DZapMagicCold + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
@@ -3564,7 +3564,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM:
+		case NetHack3DZapMagicDeath + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
@@ -3572,7 +3572,7 @@ extension NH3DOpenGLView {
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM:
+		case NetHack3DZapMagicDeath + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
@@ -3580,7 +3580,7 @@ extension NH3DOpenGLView {
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT:
+		case NetHack3DZapMagicDeath + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
@@ -3588,7 +3588,7 @@ extension NH3DOpenGLView {
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT:
+		case NetHack3DZapMagicDeath + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
@@ -3608,7 +3608,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
+		case NetHack3DZapMagicLightning + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
@@ -3616,7 +3616,7 @@ extension NH3DOpenGLView {
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
+		case NetHack3DZapMagicLightning + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
@@ -3624,7 +3624,7 @@ extension NH3DOpenGLView {
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT:
+		case NetHack3DZapMagicLightning + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
@@ -3632,7 +3632,7 @@ extension NH3DOpenGLView {
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT:
+		case NetHack3DZapMagicLightning + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
@@ -3670,7 +3670,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
+		case NetHack3DZapMagicAcid + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 0.0, z: 0.0)
@@ -3678,7 +3678,7 @@ extension NH3DOpenGLView {
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
+		case NetHack3DZapMagicAcid + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: 0.0, y: 0.0, z: -90.0)
@@ -3686,7 +3686,7 @@ extension NH3DOpenGLView {
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT:
+		case NetHack3DZapMagicAcid + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: -45.0, z: 0.0)
@@ -3694,7 +3694,7 @@ extension NH3DOpenGLView {
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
 			
-		case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT:
+		case NetHack3DZapMagicAcid + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
 				ret.modelRotate = NH3DVertexType(x: -90.0, y: 45.0, z: 0.0)
@@ -3714,7 +3714,7 @@ extension NH3DOpenGLView {
 		
 		switch glyph {
 			// dig beam
-		case S_digbeam + GLYPH_CMAP_OFF:
+		case S_digbeam + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret?.particleType = .aura
@@ -3726,7 +3726,7 @@ extension NH3DOpenGLView {
 			ret?.particleSize = 20.0
 			
 			// camera flash
-		case S_flashbeam + GLYPH_CMAP_OFF:
+		case S_flashbeam + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
@@ -3748,10 +3748,10 @@ extension NH3DOpenGLView {
 		let ret: NH3DModelObject? = NH3DModelObject(objFile: "boomerang", withTexture: true)
 		
 		switch glyph {
-		case S_boomleft + GLYPH_CMAP_OFF:
+		case S_boomleft + NetHackGlyphCMapOffset:
 			break
 			
-		case S_boomright + GLYPH_CMAP_OFF:
+		case S_boomright + NetHackGlyphCMapOffset:
 			break
 			
 		default:
@@ -3766,7 +3766,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case S_ss1 + GLYPH_CMAP_OFF:
+		case S_ss1 + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_BLUE
@@ -3776,7 +3776,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
 			
-		case S_ss2 + GLYPH_CMAP_OFF:
+		case S_ss2 + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_CYAN
@@ -3786,7 +3786,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = (10.0)
 			
-		case S_ss3 + GLYPH_CMAP_OFF:
+		case S_ss3 + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
@@ -3796,7 +3796,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
 			
-		case S_ss4 + GLYPH_CMAP_OFF:
+		case S_ss4 + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BLUE
@@ -3818,8 +3818,8 @@ extension NH3DOpenGLView {
 	/// DARK-type explosion
 	private final func loadModelFunc_explotionDARK(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_DARK,
-			to: NH3D_EXPLODE_DARK + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeDark,
+			to: NetHack3DExplodeDark + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		
@@ -3833,8 +3833,8 @@ extension NH3DOpenGLView {
 	/// NOXIOUS-type explosion
 	private final func loadModelFunc_explotionNOXIOUS(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_NOXIOUS,
-			to: NH3D_EXPLODE_NOXIOUS + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeNoxious,
+			to: NetHack3DExplodeNoxious + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		
@@ -3848,8 +3848,8 @@ extension NH3DOpenGLView {
 	/// MUDDY-type explosion
 	private final func loadModelFunc_explotionMUDDY(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_MUDDY,
-			to: NH3D_EXPLODE_MUDDY + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeMuddy,
+			to: NetHack3DExplodeMuddy + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		
@@ -3863,8 +3863,8 @@ extension NH3DOpenGLView {
 	/// WET-type explosion
 	private final func loadModelFunc_explotionWET(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_WET,
-			to: NH3D_EXPLODE_WET + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeWet,
+			to: NetHack3DExplodeWet + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		
@@ -3878,8 +3878,8 @@ extension NH3DOpenGLView {
 	/// MAGICAL-type explosion
 	private final func loadModelFunc_explotionMAGICAL(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_MAGICAL,
-			to: NH3D_EXPLODE_MAGICAL + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeMagical,
+			to: NetHack3DExplodeMagical + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		
@@ -3893,8 +3893,8 @@ extension NH3DOpenGLView {
 	/// FIERY-type explosion
 	private final func loadModelFunc_explotionFIERY(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_FIERY,
-			to: NH3D_EXPLODE_FIERY + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeFiery,
+			to: NetHack3DExplodeFiery + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		
@@ -3908,8 +3908,8 @@ extension NH3DOpenGLView {
 	/// FROSTY-type explosion
 	private final func loadModelFunc_explotionFROSTY(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NH3D_EXPLODE_FROSTY,
-			to: NH3D_EXPLODE_FROSTY + MAXEXPCHARS,
+		ret = checkLoadedModels(at: NetHack3DExplodeFrosty,
+			to: NetHack3DExplodeFrosty + MAXEXPCHARS,
 			offset: 0,
 			modelName: "emitter")
 		if let ret = ret {
@@ -3940,166 +3940,166 @@ extension NH3DOpenGLView {
 	private final func loadModelFunc_Statues(glyph: Int32) -> NH3DModelObject? {
 		var loadDat: (at: Int32, to: Int32, modelName: String)
 		switch glyph {
-		case (PM_GIANT_ANT + GLYPH_STATUE_OFF)...(PM_QUEEN_BEE + GLYPH_STATUE_OFF):
+		case (PM_GIANT_ANT + NetHackGlyphStatueOffset)...(PM_QUEEN_BEE + NetHackGlyphStatueOffset):
 			loadDat = (PM_GIANT_ANT, PM_QUEEN_BEE, "lowerA")
 			
-		case (PM_ACID_BLOB + GLYPH_STATUE_OFF)...(PM_GELATINOUS_CUBE + GLYPH_STATUE_OFF):
+		case (PM_ACID_BLOB + NetHackGlyphStatueOffset)...(PM_GELATINOUS_CUBE + NetHackGlyphStatueOffset):
 			loadDat = (PM_ACID_BLOB, PM_GELATINOUS_CUBE, "lowerB")
 			
-		case (PM_CHICKATRICE + GLYPH_STATUE_OFF)...(PM_PYROLISK + GLYPH_STATUE_OFF):
+		case (PM_CHICKATRICE + NetHackGlyphStatueOffset)...(PM_PYROLISK + NetHackGlyphStatueOffset):
 			loadDat = (PM_CHICKATRICE, PM_PYROLISK, "lowerC")
 			
-		case (PM_JACKAL + GLYPH_STATUE_OFF)...(PM_HELL_HOUND + GLYPH_STATUE_OFF):
+		case (PM_JACKAL + NetHackGlyphStatueOffset)...(PM_HELL_HOUND + NetHackGlyphStatueOffset):
 			loadDat = (PM_JACKAL, PM_HELL_HOUND, "lowerD")
 			
-		case (PM_GAS_SPORE + GLYPH_STATUE_OFF)...(PM_SHOCKING_SPHERE + GLYPH_STATUE_OFF):
+		case (PM_GAS_SPORE + NetHackGlyphStatueOffset)...(PM_SHOCKING_SPHERE + NetHackGlyphStatueOffset):
 			loadDat = (PM_GAS_SPORE, PM_SHOCKING_SPHERE, "lowerE")
 			
-		case (PM_KITTEN + GLYPH_STATUE_OFF)...(PM_TIGER + GLYPH_STATUE_OFF):
+		case (PM_KITTEN + NetHackGlyphStatueOffset)...(PM_TIGER + NetHackGlyphStatueOffset):
 			loadDat = (PM_KITTEN, PM_TIGER, "lowerF")
 			
-		case (PM_GREMLIN + GLYPH_STATUE_OFF)...(PM_WINGED_GARGOYLE + GLYPH_STATUE_OFF):
+		case (PM_GREMLIN + NetHackGlyphStatueOffset)...(PM_WINGED_GARGOYLE + NetHackGlyphStatueOffset):
 			loadDat = (PM_GREMLIN, PM_WINGED_GARGOYLE, "lowerG")
 			
-		case (PM_HOBBIT + GLYPH_STATUE_OFF)...(PM_MASTER_MIND_FLAYER + GLYPH_STATUE_OFF):
+		case (PM_HOBBIT + NetHackGlyphStatueOffset)...(PM_MASTER_MIND_FLAYER + NetHackGlyphStatueOffset):
 			loadDat = (PM_HOBBIT, PM_MASTER_MIND_FLAYER, "lowerH")
 			
-		case (PM_MANES + GLYPH_STATUE_OFF)...(PM_TENGU + GLYPH_STATUE_OFF):
+		case (PM_MANES + NetHackGlyphStatueOffset)...(PM_TENGU + NetHackGlyphStatueOffset):
 			loadDat = (PM_MANES, PM_TENGU, "lowerI")
 			
-		case (PM_BLUE_JELLY + GLYPH_STATUE_OFF)...(PM_OCHRE_JELLY + GLYPH_STATUE_OFF):
+		case (PM_BLUE_JELLY + NetHackGlyphStatueOffset)...(PM_OCHRE_JELLY + NetHackGlyphStatueOffset):
 			loadDat = (PM_BLUE_JELLY, PM_OCHRE_JELLY, "lowerJ")
 			
-		case (PM_KOBOLD + GLYPH_STATUE_OFF)...(PM_KOBOLD_SHAMAN + GLYPH_STATUE_OFF):
+		case (PM_KOBOLD + NetHackGlyphStatueOffset)...(PM_KOBOLD_SHAMAN + NetHackGlyphStatueOffset):
 			loadDat = (PM_KOBOLD, PM_KOBOLD_SHAMAN, "lowerK")
 			
-		case (PM_LEPRECHAUN + GLYPH_STATUE_OFF):
+		case (PM_LEPRECHAUN + NetHackGlyphStatueOffset):
 			loadDat = (PM_LEPRECHAUN, PM_LEPRECHAUN, "lowerL")
 			
-		case (PM_SMALL_MIMIC + GLYPH_STATUE_OFF)...(PM_GIANT_MIMIC + GLYPH_STATUE_OFF):
+		case (PM_SMALL_MIMIC + NetHackGlyphStatueOffset)...(PM_GIANT_MIMIC + NetHackGlyphStatueOffset):
 			loadDat = (PM_SMALL_MIMIC, PM_GIANT_MIMIC, "lowerM")
 			
-		case (PM_WOOD_NYMPH + GLYPH_STATUE_OFF)...(PM_MOUNTAIN_NYMPH + GLYPH_STATUE_OFF):
+		case (PM_WOOD_NYMPH + NetHackGlyphStatueOffset)...(PM_MOUNTAIN_NYMPH + NetHackGlyphStatueOffset):
 			loadDat = (PM_WOOD_NYMPH, PM_MOUNTAIN_NYMPH, "lowerN")
 			
-		case (PM_GOBLIN + GLYPH_STATUE_OFF)...(PM_ORC_CAPTAIN + GLYPH_STATUE_OFF):
+		case (PM_GOBLIN + NetHackGlyphStatueOffset)...(PM_ORC_CAPTAIN + NetHackGlyphStatueOffset):
 			loadDat = (PM_GOBLIN, PM_ORC_CAPTAIN, "lowerO")
 			
-		case (PM_ROCK_PIERCER + GLYPH_STATUE_OFF)...(PM_GLASS_PIERCER + GLYPH_STATUE_OFF):
+		case (PM_ROCK_PIERCER + NetHackGlyphStatueOffset)...(PM_GLASS_PIERCER + NetHackGlyphStatueOffset):
 			loadDat = (PM_ROCK_PIERCER, PM_GLASS_PIERCER, "lowerP")
 			
-		case (PM_ROTHE + GLYPH_STATUE_OFF)...(PM_MASTODON + GLYPH_STATUE_OFF):
+		case (PM_ROTHE + NetHackGlyphStatueOffset)...(PM_MASTODON + NetHackGlyphStatueOffset):
 			loadDat = (PM_ROTHE, PM_MASTODON, "lowerQ")
 			
-		case (PM_SEWER_RAT + GLYPH_STATUE_OFF)...(PM_WOODCHUCK + GLYPH_STATUE_OFF):
+		case (PM_SEWER_RAT + NetHackGlyphStatueOffset)...(PM_WOODCHUCK + NetHackGlyphStatueOffset):
 			loadDat = (PM_SEWER_RAT, PM_WOODCHUCK, "lowerR")
 			
-		case (PM_CAVE_SPIDER + GLYPH_STATUE_OFF)...(PM_SCORPION + GLYPH_STATUE_OFF):
+		case (PM_CAVE_SPIDER + NetHackGlyphStatueOffset)...(PM_SCORPION + NetHackGlyphStatueOffset):
 			loadDat = (PM_CAVE_SPIDER, PM_SCORPION, "lowerS")
 			
-		case (PM_LURKER_ABOVE + GLYPH_STATUE_OFF)...(PM_TRAPPER + GLYPH_STATUE_OFF):
+		case (PM_LURKER_ABOVE + NetHackGlyphStatueOffset)...(PM_TRAPPER + NetHackGlyphStatueOffset):
 			loadDat = (PM_LURKER_ABOVE, PM_TRAPPER, "lowerT")
 			
-		case (PM_PONY + GLYPH_STATUE_OFF)...(PM_WARHORSE + GLYPH_STATUE_OFF):
+		case (PM_PONY + NetHackGlyphStatueOffset)...(PM_WARHORSE + NetHackGlyphStatueOffset):
 			loadDat = (PM_PONY, PM_WARHORSE, "lowerU")
 			
-		case (PM_FOG_CLOUD + GLYPH_STATUE_OFF)...(PM_FIRE_VORTEX + GLYPH_STATUE_OFF):
+		case (PM_FOG_CLOUD + NetHackGlyphStatueOffset)...(PM_FIRE_VORTEX + NetHackGlyphStatueOffset):
 			loadDat = (PM_FOG_CLOUD, PM_FIRE_VORTEX, "lowerV")
 			
-		case (PM_BABY_LONG_WORM + GLYPH_STATUE_OFF)...(PM_PURPLE_WORM + GLYPH_STATUE_OFF):
+		case (PM_BABY_LONG_WORM + NetHackGlyphStatueOffset)...(PM_PURPLE_WORM + NetHackGlyphStatueOffset):
 			loadDat = (PM_BABY_LONG_WORM, PM_PURPLE_WORM, "lowerW")
 			
-		case (PM_GRID_BUG + GLYPH_STATUE_OFF)...(PM_XAN + GLYPH_STATUE_OFF):
+		case (PM_GRID_BUG + NetHackGlyphStatueOffset)...(PM_XAN + NetHackGlyphStatueOffset):
 			loadDat = (PM_GRID_BUG, PM_XAN, "lowerX")
 			
-		case (PM_YELLOW_LIGHT + GLYPH_STATUE_OFF)...(PM_BLACK_LIGHT + GLYPH_STATUE_OFF):
+		case (PM_YELLOW_LIGHT + NetHackGlyphStatueOffset)...(PM_BLACK_LIGHT + NetHackGlyphStatueOffset):
 			loadDat = (PM_YELLOW_LIGHT, PM_BLACK_LIGHT, "lowerY")
 			
-		case (PM_ZRUTY + GLYPH_STATUE_OFF):
+		case (PM_ZRUTY + NetHackGlyphStatueOffset):
 			loadDat = (PM_ZRUTY, PM_ZRUTY, "lowerZ")
 			
-		case (PM_COUATL + GLYPH_STATUE_OFF)...(PM_ARCHON + GLYPH_STATUE_OFF):
+		case (PM_COUATL + NetHackGlyphStatueOffset)...(PM_ARCHON + NetHackGlyphStatueOffset):
 			loadDat = (PM_COUATL, PM_ARCHON, "upperA")
 			
-		case (PM_BAT + GLYPH_STATUE_OFF)...(PM_VAMPIRE_BAT + GLYPH_STATUE_OFF):
+		case (PM_BAT + NetHackGlyphStatueOffset)...(PM_VAMPIRE_BAT + NetHackGlyphStatueOffset):
 			loadDat = (PM_BAT, PM_VAMPIRE_BAT, "upperB")
 			
-		case (PM_PLAINS_CENTAUR + GLYPH_STATUE_OFF)...(PM_MOUNTAIN_CENTAUR + GLYPH_STATUE_OFF):
+		case (PM_PLAINS_CENTAUR + NetHackGlyphStatueOffset)...(PM_MOUNTAIN_CENTAUR + NetHackGlyphStatueOffset):
 			loadDat = (PM_PLAINS_CENTAUR, PM_MOUNTAIN_CENTAUR, "upperC")
 			
-		case (PM_BABY_GRAY_DRAGON + GLYPH_STATUE_OFF)...(PM_YELLOW_DRAGON + GLYPH_STATUE_OFF):
+		case (PM_BABY_GRAY_DRAGON + NetHackGlyphStatueOffset)...(PM_YELLOW_DRAGON + NetHackGlyphStatueOffset):
 			loadDat = (PM_BABY_GRAY_DRAGON, PM_YELLOW_DRAGON, "upperD")
 			
-		case (PM_STALKER + GLYPH_STATUE_OFF)...(PM_WATER_ELEMENTAL + GLYPH_STATUE_OFF):
+		case (PM_STALKER + NetHackGlyphStatueOffset)...(PM_WATER_ELEMENTAL + NetHackGlyphStatueOffset):
 			loadDat = (PM_STALKER, PM_WATER_ELEMENTAL, "upperE")
 			
-		case (PM_LICHEN + GLYPH_STATUE_OFF)...(PM_VIOLET_FUNGUS + GLYPH_STATUE_OFF):
+		case (PM_LICHEN + NetHackGlyphStatueOffset)...(PM_VIOLET_FUNGUS + NetHackGlyphStatueOffset):
 			loadDat = (PM_LICHEN, PM_VIOLET_FUNGUS, "upperF")
 			
-		case (PM_GNOME+GLYPH_STATUE_OFF)...(PM_GNOME_KING+GLYPH_STATUE_OFF):
+		case (PM_GNOME+NetHackGlyphStatueOffset)...(PM_GNOME_KING+NetHackGlyphStatueOffset):
 			loadDat = (PM_GNOME, PM_GNOME_KING, "upperG")
 			
-		case (PM_GIANT+GLYPH_STATUE_OFF)...(PM_MINOTAUR+GLYPH_STATUE_OFF):
+		case (PM_GIANT+NetHackGlyphStatueOffset)...(PM_MINOTAUR+NetHackGlyphStatueOffset):
 			loadDat = (PM_GIANT, PM_MINOTAUR, "upperH")
 			
-		case PM_JABBERWOCK+GLYPH_STATUE_OFF:
+		case PM_JABBERWOCK+NetHackGlyphStatueOffset:
 			loadDat = (PM_JABBERWOCK, PM_JABBERWOCK, "upperJ")
 			
-		case (PM_KEYSTONE_KOP+GLYPH_STATUE_OFF)...(PM_KOP_KAPTAIN+GLYPH_STATUE_OFF):
+		case (PM_KEYSTONE_KOP+NetHackGlyphStatueOffset)...(PM_KOP_KAPTAIN+NetHackGlyphStatueOffset):
 			loadDat = (PM_KEYSTONE_KOP, PM_KOP_KAPTAIN, "upperK")
 			
-		case (PM_LICH+GLYPH_STATUE_OFF)...(PM_ARCH_LICH+GLYPH_STATUE_OFF):
+		case (PM_LICH+NetHackGlyphStatueOffset)...(PM_ARCH_LICH+NetHackGlyphStatueOffset):
 			loadDat = (PM_LICH, PM_ARCH_LICH, "upperL")
 			
-		case (PM_KOBOLD_MUMMY+GLYPH_STATUE_OFF)...(PM_GIANT_MUMMY+GLYPH_STATUE_OFF):
+		case (PM_KOBOLD_MUMMY+NetHackGlyphStatueOffset)...(PM_GIANT_MUMMY+NetHackGlyphStatueOffset):
 			loadDat = (PM_KOBOLD_MUMMY, PM_GIANT_MUMMY, "upperM")
 			
-		case (PM_RED_NAGA_HATCHLING+GLYPH_STATUE_OFF)...(PM_GUARDIAN_NAGA+GLYPH_STATUE_OFF):
+		case (PM_RED_NAGA_HATCHLING+NetHackGlyphStatueOffset)...(PM_GUARDIAN_NAGA+NetHackGlyphStatueOffset):
 			loadDat = (PM_RED_NAGA_HATCHLING, PM_GUARDIAN_NAGA, "upperN")
 			
-		case (PM_OGRE+GLYPH_STATUE_OFF)...(PM_OGRE_KING+GLYPH_STATUE_OFF):
+		case (PM_OGRE+NetHackGlyphStatueOffset)...(PM_OGRE_KING+NetHackGlyphStatueOffset):
 			loadDat = (PM_OGRE, PM_OGRE_KING, "upperO")
 			
-		case (PM_GRAY_OOZE+GLYPH_STATUE_OFF)...(PM_GREEN_SLIME+GLYPH_STATUE_OFF):
+		case (PM_GRAY_OOZE+NetHackGlyphStatueOffset)...(PM_GREEN_SLIME+NetHackGlyphStatueOffset):
 			loadDat = (PM_GRAY_OOZE, PM_GREEN_SLIME, "upperP")
 			
-		case PM_QUANTUM_MECHANIC+GLYPH_STATUE_OFF:
+		case PM_QUANTUM_MECHANIC+NetHackGlyphStatueOffset:
 			loadDat = (PM_QUANTUM_MECHANIC, PM_QUANTUM_MECHANIC, "upperQ")
 			
-		case (PM_RUST_MONSTER+GLYPH_STATUE_OFF)...(PM_DISENCHANTER+GLYPH_STATUE_OFF):
+		case (PM_RUST_MONSTER+NetHackGlyphStatueOffset)...(PM_DISENCHANTER+NetHackGlyphStatueOffset):
 			loadDat = (PM_RUST_MONSTER, PM_DISENCHANTER, "upperR")
 			
-		case (PM_GARTER_SNAKE+GLYPH_STATUE_OFF)...(PM_COBRA+GLYPH_STATUE_OFF):
+		case (PM_GARTER_SNAKE+NetHackGlyphStatueOffset)...(PM_COBRA+NetHackGlyphStatueOffset):
 			loadDat = (PM_GARTER_SNAKE, PM_COBRA, "upperS")
 			
-		case (PM_TROLL+GLYPH_STATUE_OFF)...(PM_OLOG_HAI+GLYPH_STATUE_OFF):
+		case (PM_TROLL+NetHackGlyphStatueOffset)...(PM_OLOG_HAI+NetHackGlyphStatueOffset):
 			loadDat = (PM_TROLL, PM_OLOG_HAI, "upperT")
 			
-		case PM_UMBER_HULK+GLYPH_STATUE_OFF:
+		case PM_UMBER_HULK+NetHackGlyphStatueOffset:
 			loadDat = (PM_UMBER_HULK, PM_UMBER_HULK, "upperU")
 			
-		case (PM_VAMPIRE+GLYPH_STATUE_OFF)...(PM_VLAD_THE_IMPALER+GLYPH_STATUE_OFF):
+		case (PM_VAMPIRE+NetHackGlyphStatueOffset)...(PM_VLAD_THE_IMPALER+NetHackGlyphStatueOffset):
 			loadDat = (PM_VAMPIRE, PM_VLAD_THE_IMPALER, "upperV")
 			
-		case (PM_BARROW_WIGHT+GLYPH_STATUE_OFF)...(PM_NAZGUL+GLYPH_STATUE_OFF):
+		case (PM_BARROW_WIGHT+NetHackGlyphStatueOffset)...(PM_NAZGUL+NetHackGlyphStatueOffset):
 			loadDat = (PM_BARROW_WIGHT, PM_NAZGUL, "upperW")
 			
-		case PM_XORN+GLYPH_STATUE_OFF:
+		case PM_XORN+NetHackGlyphStatueOffset:
 			loadDat = (PM_XORN, PM_XORN, "upperX")
 			
-		case (PM_MONKEY+GLYPH_STATUE_OFF)...(PM_SASQUATCH+GLYPH_STATUE_OFF):
+		case (PM_MONKEY+NetHackGlyphStatueOffset)...(PM_SASQUATCH+NetHackGlyphStatueOffset):
 			loadDat = (PM_MONKEY, PM_SASQUATCH, "upperY")
 			
-		case (PM_KOBOLD_ZOMBIE+GLYPH_STATUE_OFF)...(PM_SKELETON+GLYPH_STATUE_OFF):
+		case (PM_KOBOLD_ZOMBIE+NetHackGlyphStatueOffset)...(PM_SKELETON+NetHackGlyphStatueOffset):
 			loadDat = (PM_KOBOLD_ZOMBIE, PM_SKELETON, "upperZ")
 			
-		case (PM_STRAW_GOLEM+GLYPH_STATUE_OFF)...(PM_IRON_GOLEM+GLYPH_STATUE_OFF):
+		case (PM_STRAW_GOLEM+NetHackGlyphStatueOffset)...(PM_IRON_GOLEM+NetHackGlyphStatueOffset):
 			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, "backslash")
 			
-		case (PM_STRAW_GOLEM+GLYPH_STATUE_OFF)...(PM_IRON_GOLEM+GLYPH_STATUE_OFF):
+		case (PM_STRAW_GOLEM+NetHackGlyphStatueOffset)...(PM_IRON_GOLEM+NetHackGlyphStatueOffset):
 			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, "backslash")
 			
-		case (PM_ELVENKING+GLYPH_STATUE_OFF)...(PM_WIZARD_OF_YENDOR+GLYPH_STATUE_OFF):
+		case (PM_ELVENKING+NetHackGlyphStatueOffset)...(PM_WIZARD_OF_YENDOR+NetHackGlyphStatueOffset):
 			loadDat = (PM_ELVENKING, PM_WIZARD_OF_YENDOR, "atmark")
 			
 			/*
@@ -4108,33 +4108,33 @@ extension NH3DOpenGLView {
 			loadModelBlocks[ Int(PM_GHOST + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
 			loadModelBlocks[ Int(PM_SHADE + GLYPH_INVIS_OFF) ] = loadModelFunc_Ghosts
 			*/
-		case (PM_WATER_DEMON+GLYPH_STATUE_OFF)...(PM_SANDESTIN+GLYPH_STATUE_OFF):
+		case (PM_WATER_DEMON+NetHackGlyphStatueOffset)...(PM_SANDESTIN+NetHackGlyphStatueOffset):
 			loadDat = (PM_WATER_DEMON, PM_SANDESTIN, "ampersand")
 			
-		case (PM_JUIBLEX+GLYPH_STATUE_OFF)...(PM_DEMOGORGON+GLYPH_STATUE_OFF):
+		case (PM_JUIBLEX+NetHackGlyphStatueOffset)...(PM_DEMOGORGON+NetHackGlyphStatueOffset):
 			loadDat = (PM_JUIBLEX, PM_DEMOGORGON, "ampersand")
 			
 			// daemon "The Riders"
-		case (PM_DEATH+GLYPH_STATUE_OFF)...(PM_FAMINE+GLYPH_STATUE_OFF):
+		case (PM_DEATH+NetHackGlyphStatueOffset)...(PM_FAMINE+NetHackGlyphStatueOffset):
 			loadDat = (PM_DEATH, PM_FAMINE, "ampersand")
 			
-		case (PM_JELLYFISH+GLYPH_STATUE_OFF)...(PM_KRAKEN+GLYPH_STATUE_OFF):
+		case (PM_JELLYFISH+NetHackGlyphStatueOffset)...(PM_KRAKEN+NetHackGlyphStatueOffset):
 			loadDat = (PM_JELLYFISH, PM_KRAKEN, "semicolon")
 			
-		case (PM_NEWT+GLYPH_STATUE_OFF)...(PM_SALAMANDER+GLYPH_STATUE_OFF):
+		case (PM_NEWT+NetHackGlyphStatueOffset)...(PM_SALAMANDER+NetHackGlyphStatueOffset):
 			loadDat = (PM_NEWT, PM_SALAMANDER, "colon")
 			
-		case PM_LONG_WORM_TAIL+GLYPH_STATUE_OFF:
+		case PM_LONG_WORM_TAIL+NetHackGlyphStatueOffset:
 			loadDat = (PM_LONG_WORM_TAIL, PM_LONG_WORM_TAIL, "wormtail")
 			
-		case (PM_ARCHEOLOGIST+GLYPH_STATUE_OFF)...(PM_APPRENTICE+GLYPH_STATUE_OFF):
+		case (PM_ARCHEOLOGIST+NetHackGlyphStatueOffset)...(PM_APPRENTICE+NetHackGlyphStatueOffset):
 			loadDat = (PM_ARCHEOLOGIST, PM_APPRENTICE, "atmark")
 			
 		default:
 			return nil
 		}
 		
-		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: GLYPH_STATUE_OFF, modelName: "pillar", textured: true, textureName: "ceiling")
+		let ret = checkLoadedModels(at: loadDat.at, to: loadDat.to, offset: NetHackGlyphStatueOffset, modelName: "pillar", textured: true, textureName: "ceiling")
 		if let ret = ret, !ret.hasChildren {
 			//Just add a simple texture for now
 			//ret.setTexture(Int32(cellingTex))
@@ -4158,7 +4158,7 @@ extension NH3DOpenGLView {
 	}
 	
 	private final func loadModelFunc_Pets(glyph: Int32) -> NH3DModelObject? {
-		guard let model = loadModelBlocks[Int(glyph - GLYPH_PET_OFF)](glyph) else {
+		guard let model = loadModelBlocks[Int(glyph - NetHackGlyphPetOffset)](glyph) else {
 			return nil
 		}
 		
@@ -4815,27 +4815,27 @@ extension NH3DOpenGLView {
 		}
 		
 		// Invisible
-		loadModelBlocks[Int(GLYPH_INVISIBLE)] = { _ in
+		loadModelBlocks[Int(NetHackGlyphInvisible)] = { _ in
 			return NH3DModelObject(with3DSFile: "invisible", withTexture: false)
 		}
 		
 		// -------------------------- Map Symbol Section ----------------------------- //
-		loadModelBlocks[Int(S_bars + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_tree + GLYPH_CMAP_OFF)] = loadModelFunc_MapSymbols
-		for i in Int(S_upstair + GLYPH_CMAP_OFF)...Int(S_fountain + GLYPH_CMAP_OFF) {
+		loadModelBlocks[Int(S_bars + NetHackGlyphCMapOffset)] = loadModelFunc_MapSymbols
+		loadModelBlocks[Int(S_tree + NetHackGlyphCMapOffset)] = loadModelFunc_MapSymbols
+		for i in Int(S_upstair + NetHackGlyphCMapOffset)...Int(S_fountain + NetHackGlyphCMapOffset) {
 			loadModelBlocks[i] = loadModelFunc_MapSymbols
 		}
 		
-		for i in Int(S_vodbridge + GLYPH_CMAP_OFF)...Int(S_hcdbridge + GLYPH_CMAP_OFF) {
+		for i in Int(S_vodbridge + NetHackGlyphCMapOffset)...Int(S_hcdbridge + NetHackGlyphCMapOffset) {
 			loadModelBlocks[i] = loadModelFunc_MapSymbols
 		}
 		
 		//  ------------------------------  Boulder ---------------------------------- //
-		loadModelBlocks[Int(BOULDER + GLYPH_OBJ_OFF)] = { _ in
+		loadModelBlocks[Int(BOULDER + NetHackGlyphObjectOffset)] = { _ in
 			return NH3DModelObject(with3DSFile: "boulder", withTexture: true)
 		}
 		// --------------------------  Trap Symbol Section --------------------------- //
-		for i in Int(S_arrow_trap + GLYPH_CMAP_OFF)...Int(S_vibrating_square + GLYPH_CMAP_OFF) {
+		for i in Int(S_arrow_trap + NetHackGlyphCMapOffset)...Int(S_vibrating_square + NetHackGlyphCMapOffset) {
 			loadModelBlocks[i] = loadModelFunc_TrapSymbol
 		}
 		
@@ -4844,55 +4844,55 @@ extension NH3DOpenGLView {
 		// ZAP symbols ( NUM_ZAP * four directions )
 		
 		// type Magic Missile
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicMissile
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicMissile
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicMissile
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicMissile
+		loadModelBlocks[Int(NetHack3DZapMagicMissile + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicMissile
+		loadModelBlocks[Int(NetHack3DZapMagicMissile + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicMissile
+		loadModelBlocks[Int(NetHack3DZapMagicMissile + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicMissile
+		loadModelBlocks[Int(NetHack3DZapMagicMissile + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicMissile
 		
 		// type Magic FIRE
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicFIRE
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicFIRE
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicFIRE
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicFIRE
+		loadModelBlocks[Int(NetHack3DZapMagicFire + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicFIRE
+		loadModelBlocks[Int(NetHack3DZapMagicFire + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicFIRE
+		loadModelBlocks[Int(NetHack3DZapMagicFire + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicFIRE
+		loadModelBlocks[Int(NetHack3DZapMagicFire + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicFIRE
 		
 		// type Magic COLD
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicCOLD
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicCOLD
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicCOLD
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicCOLD
+		loadModelBlocks[Int(NetHack3DZapMagicCold + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicCOLD
+		loadModelBlocks[Int(NetHack3DZapMagicCold + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicCOLD
+		loadModelBlocks[Int(NetHack3DZapMagicCold + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicCOLD
+		loadModelBlocks[Int(NetHack3DZapMagicCold + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicCOLD
 		
 		// type Magic SLEEP
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicSLEEP
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicSLEEP
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicSLEEP
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicSLEEP
+		loadModelBlocks[Int(NetHack3DZapMagicSleep + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicSLEEP
+		loadModelBlocks[Int(NetHack3DZapMagicSleep + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicSLEEP
+		loadModelBlocks[Int(NetHack3DZapMagicSleep + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicSLEEP
+		loadModelBlocks[Int(NetHack3DZapMagicSleep + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicSLEEP
 		
 		// type Magic DEATH
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicDEATH
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicDEATH
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicDEATH
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicDEATH
+		loadModelBlocks[Int(NetHack3DZapMagicDeath + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicDEATH
+		loadModelBlocks[Int(NetHack3DZapMagicDeath + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicDEATH
+		loadModelBlocks[Int(NetHack3DZapMagicDeath + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicDEATH
+		loadModelBlocks[Int(NetHack3DZapMagicDeath + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicDEATH
 		
 		// type Magic LIGHTNING
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicLIGHTNING
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicLIGHTNING
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicLIGHTNING
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NetHack3DZapMagicLightning + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NetHack3DZapMagicLightning + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NetHack3DZapMagicLightning + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicLIGHTNING
+		loadModelBlocks[Int(NetHack3DZapMagicLightning + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicLIGHTNING
 		
 		// type Magic POISONGAS
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicPOISONGAS
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicPOISONGAS
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicPOISONGAS
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicPOISONGAS
+		loadModelBlocks[Int(NetHack3DZapMagicPoisonGas + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicPOISONGAS
+		loadModelBlocks[Int(NetHack3DZapMagicPoisonGas + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicPOISONGAS
+		loadModelBlocks[Int(NetHack3DZapMagicPoisonGas + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicPOISONGAS
+		loadModelBlocks[Int(NetHack3DZapMagicPoisonGas + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicPOISONGAS
 		
 		// type Magic ACID
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicACID
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicACID
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicACID
-		loadModelBlocks[Int(NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicACID
+		loadModelBlocks[Int(NetHack3DZapMagicAcid + NH3D_ZAP_VBEAM)] = loadModelFunc_MagicACID
+		loadModelBlocks[Int(NetHack3DZapMagicAcid + NH3D_ZAP_HBEAM)] = loadModelFunc_MagicACID
+		loadModelBlocks[Int(NetHack3DZapMagicAcid + NH3D_ZAP_LSLANT)] = loadModelFunc_MagicACID
+		loadModelBlocks[Int(NetHack3DZapMagicAcid + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicACID
 		
 		// dig beam
-		loadModelBlocks[Int(S_digbeam + GLYPH_CMAP_OFF)] = { _ in
+		loadModelBlocks[Int(S_digbeam + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
 			ret.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret.particleType = .aura
@@ -4906,7 +4906,7 @@ extension NH3DOpenGLView {
 			return ret
 		}
 		// camera flash
-		loadModelBlocks[Int(S_flashbeam + GLYPH_CMAP_OFF)] = { _ in
+		loadModelBlocks[Int(S_flashbeam + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
 			ret.modelScale = NH3DVertexType(x: 1.4, y: 1.5, z: 1.4)
 			ret.particleType = .aura
@@ -4920,47 +4920,47 @@ extension NH3DOpenGLView {
 			return ret
 		}
 		// boomerang
-		loadModelBlocks[Int(S_boomleft + GLYPH_CMAP_OFF)] = loadModelFunc_Boomerang
-		loadModelBlocks[Int(S_boomright + GLYPH_CMAP_OFF)] = loadModelFunc_Boomerang
+		loadModelBlocks[Int(S_boomleft + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
+		loadModelBlocks[Int(S_boomright + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
 		
 		// magic shild
-		loadModelBlocks[Int(S_ss1 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
-		loadModelBlocks[Int(S_ss2 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
-		loadModelBlocks[Int(S_ss3 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
-		loadModelBlocks[Int(S_ss4 + GLYPH_CMAP_OFF)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss1 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss2 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss3 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(S_ss4 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
 		
 		// pets
-		for i in Int(PM_GIANT_ANT + GLYPH_PET_OFF)...Int(PM_APPRENTICE + GLYPH_PET_OFF) {
+		for i in Int(PM_GIANT_ANT + NetHackGlyphPetOffset)...Int(PM_APPRENTICE + NetHackGlyphPetOffset) {
 			loadModelBlocks[i] = loadModelFunc_Pets
 		}
 		
 		// statues
-		for i in Int(PM_GIANT_ANT + GLYPH_STATUE_OFF)...Int(PM_APPRENTICE + GLYPH_STATUE_OFF) {
+		for i in Int(PM_GIANT_ANT + NetHackGlyphStatueOffset)...Int(PM_APPRENTICE + NetHackGlyphStatueOffset) {
 			loadModelBlocks[i] = loadModelFunc_Statues
 		}
 		
 		// explosion symbols ( 9 postion * 7 types )
 		for i in 0..<MAXEXPCHARS {
 			// type DARK
-			loadModelBlocks[Int(NH3D_EXPLODE_DARK + i)] = loadModelFunc_explotionDARK
+			loadModelBlocks[Int(NetHack3DExplodeDark + i)] = loadModelFunc_explotionDARK
 			
 			// type NOXIOUS
-			loadModelBlocks[Int(NH3D_EXPLODE_NOXIOUS + i)] = loadModelFunc_explotionNOXIOUS
+			loadModelBlocks[Int(NetHack3DExplodeNoxious + i)] = loadModelFunc_explotionNOXIOUS
 			
 			// type MUDDY
-			loadModelBlocks[Int(NH3D_EXPLODE_MUDDY + i)] = loadModelFunc_explotionMUDDY
+			loadModelBlocks[Int(NetHack3DExplodeMuddy + i)] = loadModelFunc_explotionMUDDY
 			
 			// type WET
-			loadModelBlocks[Int(NH3D_EXPLODE_WET + i)] = loadModelFunc_explotionWET
+			loadModelBlocks[Int(NetHack3DExplodeWet + i)] = loadModelFunc_explotionWET
 			
 			// type MAGICAL
-			loadModelBlocks[Int(NH3D_EXPLODE_MAGICAL + i)] = loadModelFunc_explotionMAGICAL
+			loadModelBlocks[Int(NetHack3DExplodeMagical + i)] = loadModelFunc_explotionMAGICAL
 			
 			// type FIERY
-			loadModelBlocks[Int(NH3D_EXPLODE_FIERY + i)] = loadModelFunc_explotionFIERY
+			loadModelBlocks[Int(NetHack3DExplodeFiery + i)] = loadModelFunc_explotionFIERY
 			
 			// type FROSTY
-			loadModelBlocks[Int(NH3D_EXPLODE_FROSTY + i)] = loadModelFunc_explotionFROSTY
+			loadModelBlocks[Int(NetHack3DExplodeFrosty + i)] = loadModelFunc_explotionFROSTY
 		}
 	}
 }

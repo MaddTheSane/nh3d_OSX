@@ -11,98 +11,128 @@ import Foundation
 
 //#define GLYPH_MON_OFF		0
 
+@available(*, unavailable, renamed: "NetHackGlyphPetOffset")
 var GLYPH_PET_OFF: Int32 {
 	return NetHackGlyphPetOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphInvisibleOffset")
 var GLYPH_INVIS_OFF: Int32 {
 	return NetHackGlyphInvisibleOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphDetectOffset")
 var GLYPH_DETECT_OFF: Int32 {
 	return NetHackGlyphDetectOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphBodyOffset")
 var GLYPH_BODY_OFF: Int32 {
 	return NetHackGlyphBodyOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphRiddenOffset")
 var GLYPH_RIDDEN_OFF: Int32 {
 	return NetHackGlyphRiddenOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphObjectOffset")
 var GLYPH_OBJ_OFF: Int32 {
 	return NetHackGlyphObjectOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphCMapOffset")
 var GLYPH_CMAP_OFF: Int32 {
 	return NetHackGlyphCMapOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphExplodeOffset")
 var GLYPH_EXPLODE_OFF: Int32 {
 	return NetHackGlyphExplodeOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphZapOffset")
 var GLYPH_ZAP_OFF: Int32 {
 	return NetHackGlyphZapOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphSwallowOffset")
 var GLYPH_SWALLOW_OFF: Int32 {
-	return NetHackGlyphExplodeOffset
+	return NetHackGlyphSwallowOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphWarningOffset")
 var GLYPH_WARNING_OFF: Int32 {
 	return NetHackGlyphWarningOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphStatueOffset")
 var GLYPH_STATUE_OFF: Int32 {
 	return NetHackGlyphStatueOffset
 }
+@available(*, unavailable, renamed: "NetHackGlyphMaxGlyph")
 var MAX_GLYPH: Int32 {
 	return NetHackGlyphMaxGlyph
 }
 
+@available(*, unavailable, renamed: "NetHackGlyphNoGlyph")
 var NO_GLYPH: Int32 {
 	return NetHackGlyphNoGlyph
 }
+@available(*, unavailable, renamed: "NetHackGlyphInvisible")
 var GLYPH_INVISIBLE: Int32 {
 	return NetHackGlyphInvisible
 }
 
 
 // ZAP Types  * AD_xxx defined from monattk.h
+@available(*, unavailable, renamed: "NetHack3DZapMagicMissile")
 var NH3D_ZAP_MAGIC_MISSILE: Int32 {
 	return NetHack3DZapMagicMissile
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicFire")
 var NH3D_ZAP_MAGIC_FIRE: Int32 {
 	return NetHack3DZapMagicFire
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicCold")
 var NH3D_ZAP_MAGIC_COLD: Int32 {
 	return NetHack3DZapMagicCold
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicSleep")
 var NH3D_ZAP_MAGIC_SLEEP: Int32 {
 	return NetHack3DZapMagicSleep
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicDeath")
 var NH3D_ZAP_MAGIC_DEATH: Int32 {
 	return NetHack3DZapMagicDeath
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicLightning")
 var NH3D_ZAP_MAGIC_LIGHTNING: Int32 {
 	return NetHack3DZapMagicLightning
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicPoisonGas")
 var NH3D_ZAP_MAGIC_POISONGAS: Int32 {
 	return NetHack3DZapMagicPoisonGas
 }
+@available(*, unavailable, renamed: "NetHack3DZapMagicAcid")
 var NH3D_ZAP_MAGIC_ACID: Int32 {
 	return NetHack3DZapMagicAcid
 }
 // Explosion types * EXPL_xxx defined from hack.h
+@available(*, unavailable, renamed: "NetHack3DExplodeDark")
 var NH3D_EXPLODE_DARK: Int32 {
 	return NetHack3DExplodeDark
 }
+@available(*, unavailable, renamed: "NetHack3DExplodeNoxious")
 var NH3D_EXPLODE_NOXIOUS: Int32 {
 	return NetHack3DExplodeNoxious
 }
+@available(*, unavailable, renamed: "NetHack3DExplodeMuddy")
 var NH3D_EXPLODE_MUDDY: Int32 {
 	return NetHack3DExplodeMuddy
 }
+@available(*, unavailable, renamed: "NetHack3DExplodeWet")
 var NH3D_EXPLODE_WET: Int32 {
 	return NetHack3DExplodeWet
 }
+@available(*, unavailable, renamed: "NetHack3DExplodeMagical")
 var NH3D_EXPLODE_MAGICAL: Int32 {
 	return NetHack3DExplodeMagical
 }
+@available(*, unavailable, renamed: "NetHack3DExplodeFiery")
 var NH3D_EXPLODE_FIERY: Int32 {
 	return NetHack3DExplodeFiery
 }
+@available(*, unavailable, renamed: "NetHack3DExplodeFrosty")
 var NH3D_EXPLODE_FROSTY: Int32 {
 	return NetHack3DExplodeFrosty
 }
