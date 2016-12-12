@@ -124,7 +124,7 @@
 }
 
 
-/// Override NSObject designated initializer. Normary don't use this.
+/// Override NSObject designated initializer. Normally don't use this.
 - (instancetype) init {
 	return [self initWithParameter:' '
 							 glyph:S_stone+GLYPH_CMAP_OFF

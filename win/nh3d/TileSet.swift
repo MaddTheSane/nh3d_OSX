@@ -46,11 +46,12 @@ final class TileSet: NSObject {
 	}
 	
 	convenience init?(name named: String) {
-		let defaults = UserDefaults.standard
 		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return
 		}
+		
+		let defaults = UserDefaults.standard
 		
 		let size = NSSize(width: CGFloat(defaults.double(forKey: NH3DTileSizeWidthKey)),
 		                  height: CGFloat(defaults.double(forKey: NH3DTileSizeHeightKey)))
@@ -103,7 +104,8 @@ final class TileSet: NSObject {
 		return size
 	}
 	
-	@objc(imageForGlyph:) func imageFor(_ glyph: Int32) -> NSImage {
+	@objc(imageForGlyph:)
+	func imageFor(_ glyph: Int32) -> NSImage {
 		let tile = glyphToTile(glyph)
 		// Check for cached image:
 		if let img = cache[tile] {
@@ -125,7 +127,7 @@ final class TileSet: NSObject {
 	@available(*, deprecated, message:"Use -imageForGlyph: instead")
 	@objc(tileImageFromGlyph:) func tileImageFrom(_ glyph: Int32) -> NSImage? {
 		let tile = glyphToTile(glyph)
-		if (Int32(tile) >= totalTilesUsed() || tile < 0) {
+		if Int32(tile) >= totalTilesUsed() || tile < 0 {
 			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.");
 			return nil;
 		}
