@@ -64,3 +64,4 @@
 "are in non-scoring discovery mode." = "スコアの載らない発見モードで起動した．";
 "NetHack Error!" = "NetHackエラー！"; //fuzzy
 "\n\nNetHack will now crash." = "\n\nNetHackがクラッシュするようになりました．"; //fuzzy
+"Only user \"%s\" may access debug (wizard) mode." = "「%s」のみがデバッグ(wizard)モードを使用できる．";

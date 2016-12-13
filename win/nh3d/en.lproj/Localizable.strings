@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   NetHack3D
 
@@ -72,3 +72,4 @@
 "are in non-scoring discovery mode." = "are in non-scoring discovery mode.";
 "NetHack Error!" = "NetHack Error!";
 "\n\nNetHack will now crash." = "\n\nNetHack will now crash.";
+"Only user \"%s\" may access debug (wizard) mode." = "Only user \"%s\" may access debug (wizard) mode.";
