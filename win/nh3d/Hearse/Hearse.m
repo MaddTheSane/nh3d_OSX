@@ -266,17 +266,30 @@ static NSString *const hearseCommandDownload = @"download";
 }
 
 - (NSHTTPURLResponse *) httpGetRequest:(NSURLRequest *)req withData:(NSData **)data {
-	NSURLResponse *response;
-	NSError *error;
-	NSData *received = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
-	if (data) {
-		*data = received;
-	}
-	if (!received) {
-		[self logMessage:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
-									error.localizedDescription,
-									error.userInfo[NSURLErrorFailingURLStringErrorKey]]];
-		return nil;
+	__block NSURLResponse *response;
+	__block NSData *inData;
+	dispatch_semaphore_t inner = dispatch_semaphore_create(0);
+	NSURLSession *session = [NSURLSession sharedSession];
+	[[session dataTaskWithRequest:req
+			completionHandler:^(NSData *received,
+								NSURLResponse *response1,
+								NSError *error) {
+				response = response1;
+				if (data) {
+					inData = received;
+				}
+				if (!received) {
+					[self logMessage:[NSString stringWithFormat:@"Connection failed! Error - %@ %@",
+									  error.localizedDescription,
+									  error.userInfo[NSURLErrorFailingURLStringErrorKey]]];
+					response = nil;
+				}
+				dispatch_semaphore_signal(inner);
+			}] resume];
+	dispatch_semaphore_wait(inner, dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));
+
+	if (inData) {
+		*data = inData;
 	}
 	return (NSHTTPURLResponse *) response;
 }
