@@ -68,3 +68,7 @@
 
 "\nThere is already a game in progress under your name." = "\nThere is already a game in progress under your name.";
 "  Destroy old game? [yn] " = "  Destroy old game? [yn] ";
+
+"are in non-scoring discovery mode." = "are in non-scoring discovery mode.";
+"NetHack Error!" = "NetHack Error!";
+"\n\nNetHack will now crash." = "\n\nNetHack will now crash.";

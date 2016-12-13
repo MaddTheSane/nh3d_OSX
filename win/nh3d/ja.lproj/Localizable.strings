@@ -49,10 +49,10 @@
 
 
 "There is already a game in progress under your name.  Destroy old game?" = "あなたの名前で不正終了したゲームが残っています．破棄しますか？";
-"Remove old save?" = "Remove old save?";
-"Old Save File" = "Old Save File";
+"Remove old save?" = "古い保存を削除しますか？"; //fuzzy
+"Old Save File" = "古いファイルを保存する"; //fuzzy
 "Do you want to keep the save file?" = "セーブファイルを残しておきますか？";
-"Unable to create a new .nethackrc file" = "Unable to create a new ‘.nethackrc’ file";
+"Unable to create a new .nethackrc file" = "新しい '.nethackrc'ファイルを作成できません"; //fuzzy
 
 /* From mainRun and startNetHack3D: */
 "Restoring save file..." = "セーブファイルを復元中．．．";
@@ -60,3 +60,7 @@
 
 "\nThere is already a game in progress under your name." = "\nあなたの名前で不正終了したゲームが残っています．";
 "  Destroy old game? [yn] " = "破棄しますか？[yn] ";
+
+"are in non-scoring discovery mode." = "スコアの載らない発見モードで起動した．";
+"NetHack Error!" = "NetHackエラー！"; //fuzzy
+"\n\nNetHack will now crash." = "\n\nNetHackがクラッシュするようになりました．"; //fuzzy

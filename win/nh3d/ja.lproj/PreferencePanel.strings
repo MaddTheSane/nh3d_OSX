@@ -1,6 +1,6 @@
 
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "5"; */
-"5.title" = "Preferences";
+"5.title" = "設定"; //fuzzy
 
 /* Class = "NSTabViewItem"; label = "ビュー設定"; ObjectID = "8"; */
 "8.label" = "ビュー設定";
@@ -48,7 +48,7 @@
 "148.label" = "ビューモード";
 
 /* Class = "NSBox"; title = "NetHack View Mode"; ObjectID = "161"; */
-"161.title" = "NetHack View Mode";
+"161.title" = "NetHackビューモード"; //fuzzy
 
 /* Class = "NSBox"; title = "Box"; ObjectID = "163"; */
 "163.title" = "Box";
@@ -111,7 +111,7 @@
 "294.title" = "30";
 
 /* Class = "NSButtonCell"; title = "Apply"; ObjectID = "295"; */
-"295.title" = "Apply";
+"295.title" = "適用"; //fuzzy
 
 /* Class = "NSButtonCell"; title = "Switch"; ObjectID = "296"; */
 "296.title" = "Switch";
@@ -132,10 +132,10 @@
 "CtN-9v-cCC.title" = "網膜OpenGLを使用します"; //fuzzy
 
 /* Class = "NSButton"; ibShadowedToolTip = "Resetting the ID may be needed if you encounter any problems with Hearse."; ObjectID = "DL7-aS-oXE"; */
-"DL7-aS-oXE.ibShadowedToolTip" = "Resetting the ID may be needed if you encounter any problems with Hearse.";
+"DL7-aS-oXE.ibShadowedToolTip" = "Hearseに問題が発生した場合は、IDをリセットする必要があります．"; //fuzzy
 
 /* Class = "NSTextFieldCell"; title = "User Name:"; ObjectID = "G0B-3B-VGs"; */
-"G0B-3B-VGs.title" = "User Name:";
+"G0B-3B-VGs.title" = "ユーザー名:"; //fuzzy
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "example@me.com"; ObjectID = "JJV-y1-IiC"; */
 "JJV-y1-IiC.ibShadowedIsNilPlaceholder" = "example@me.com";
@@ -144,13 +144,13 @@
 "JJV-y1-IiC.ibShadowedNotApplicablePlaceholder" = "example@me.com";
 
 /* Class = "NSTextFieldCell"; title = "Maximum messages:"; ObjectID = "LN5-mm-Rkn"; */
-"LN5-mm-Rkn.title" = "Maximum messages:";
+"LN5-mm-Rkn.title" = "最大メッセージ数:";//fuzzy
 
 /* Class = "NSBox"; title = "Box"; ObjectID = "NZh-H0-Htk"; */
 "NZh-H0-Htk.title" = "Box";
 
 /* Class = "NSTabViewItem"; label = "Gameplay"; ObjectID = "UNO-Cf-L9F"; */
-"UNO-Cf-L9F.label" = "Gameplay";
+"UNO-Cf-L9F.label" = "ゲームプレイ"; //fuzzy
 
 /* Class = "NSTextFieldCell"; title = "Menu Item Font:"; ObjectID = "UyB-wg-y62"; */
 "UyB-wg-y62.title" = "メニュー:";
@@ -159,7 +159,7 @@
 "Wie-bi-9sV.title" = "マップ:";
 
 /* Class = "NSTextFieldCell"; title = "E-mail:"; ObjectID = "Wjd-UH-del"; */
-"Wjd-UH-del.title" = "E-mail:";
+"Wjd-UH-del.title" = "Eメール:";//fuzzy
 
 /* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "None"; ObjectID = "gsj-HG-CLm"; */
 "gsj-HG-CLm.ibShadowedIsNilPlaceholder" = "None";
@@ -168,7 +168,7 @@
 "gsj-HG-CLm.ibShadowedNotApplicablePlaceholder" = "None";
 
 /* Class = "NSButtonCell"; title = "Use NumPad for movement"; ObjectID = "hKa-Vf-sUd"; */
-"hKa-Vf-sUd.title" = "Use NumPad for movement";
+"hKa-Vf-sUd.title" = "移動にナンバーパッドを使用する"; //fuzzy
 
 /* Class = "NSTextFieldCell"; title = "Window Font:"; ObjectID = "hru-Um-uiN"; */
 "hru-Um-uiN.title" = "ウインドウ:";
@@ -180,7 +180,7 @@
 "qRh-wy-Aoe.label" = "霊柩車";
 
 /* Class = "NSButtonCell"; title = "Reset ID"; ObjectID = "u7w-om-fLB"; */
-"u7w-om-fLB.title" = "Reset ID";
+"u7w-om-fLB.title" = "識別情報をリセットする"; //fuzzy
 
 /* Class = "NSTextFieldCell"; title = "Message Font:"; ObjectID = "v8U-aO-C7C"; */
 "v8U-aO-C7C.title" = "メッセージ:";

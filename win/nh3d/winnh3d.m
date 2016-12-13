@@ -9,8 +9,8 @@
 #include "C99Bool.h"
 #import "winnh3d.h"
 #import "NH3DMapView.h"
-#import "NetHack3D-Swift.h"
 #import "NH3DSwiftHelpers.h"
+#import "NetHack3D-Swift.h"
 #import "Hearse.h"
 
 #include <sys/stat.h>
@@ -1193,10 +1193,7 @@ wd_message()
 #endif
 		if (discover)
 			
-			You("are in non-scoring discovery mode.");
-	/*
-	 You("スコアの載らない発見モードで起動した．");
-	 */
+			You("%s", [NSLocalizedString(@"are in non-scoring discovery mode.", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
 }
 
 //--------------------------------------------------------------//
@@ -1871,8 +1868,8 @@ void error(const char *s, ...)
 	va_end(the_args);
 	Printf("%s\n", [nss UTF8String]);
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = @"NetHack Error!";
-	alert.informativeText = [nss stringByAppendingString:@"\n\nNetHack will now crash."];
+	alert.messageText = NSLocalizedString(@"NetHack Error!", @"");
+	alert.informativeText = [nss stringByAppendingString:NSLocalizedString(@"\n\nNetHack will now crash.", @"")];
 	alert.alertStyle = NSAlertStyleCritical;
 	[alert runModal];
 	
