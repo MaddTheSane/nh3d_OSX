@@ -6,12 +6,14 @@
 #include <math.h>
 #include <tgmath.h>
 #include <errno.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include <stdio.h>
 #include <signal.h>
 #include <pwd.h>
+#include <ctype.h>
+#include <limits.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/fcntl.h>

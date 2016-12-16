@@ -166,7 +166,7 @@
 	if (glyph == NO_GLYPH) {
 		return nil;
 	} else {
-		return [[TileSet instance] tileImageFromGlyph:glyph];
+		return [[TileSet instance] imageForGlyph:glyph];
 	}
 }
 
@@ -175,9 +175,9 @@
 	if (glyph == NO_GLYPH) {
 		return nil;
 	} else if ([TileSet instance].tileSize.width == 16 && [TileSet instance].tileSize.height == 16) {
-		return [[TileSet instance] tileImageFromGlyph:glyph];
+		return [[TileSet instance] imageForGlyph:glyph];
 	} else {
-		NSImage *smallTile = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		NSImage *smallTile = [[[TileSet instance] imageForGlyph:glyph] copy];
 		smallTile.size = NSMakeSize(16.0, 16.0);
 		
 		return smallTile;

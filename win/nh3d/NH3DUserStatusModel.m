@@ -226,7 +226,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerArmour = nil;
 	} else {
-		playerArmour = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerArmour = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -240,7 +240,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerCloak = nil;
 	} else {
-		playerCloak = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerCloak = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -254,7 +254,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerHelmet = nil;
 	} else {
-		playerHelmet = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerHelmet = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -268,7 +268,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerShield = nil;
 	} else {
-		playerShield = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerShield = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -282,7 +282,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerGloves = nil;
 	} else {
-		playerGloves = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerGloves = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -296,7 +296,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerShoes = nil;
 	} else {
-		playerShoes = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerShoes = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -310,7 +310,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerRingL = nil;
 	} else {
-		playerRingL = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerRingL = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -324,7 +324,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerRingR = nil;		
 	} else {
-		playerRingR = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerRingR = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -338,7 +338,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerWeapon = nil;
 	} else {		
-		playerWeapon = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerWeapon = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -352,7 +352,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerSubWeapon = nil;
 	} else {
-		playerSubWeapon = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerSubWeapon = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -366,7 +366,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerAmulet = nil;
 	} else {
-		playerAmulet = [[ [TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerAmulet = [[ [TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -380,7 +380,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerBlindFold = nil;
 	} else {
-		playerBlindFold = [[[TileSet instance] tileImageFromGlyph:glyph] copy];
+		playerBlindFold = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 

@@ -177,10 +177,11 @@ static NSString *const hearseCommandDownload = @"download";
 
 - (instancetype) init {
 	if (self = [super init]) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[HearseFileRegistry retainInstance];
-		username = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseUsername] copy];
-		email = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseEmail] copy];
-		hearseId = [[[NSUserDefaults standardUserDefaults] stringForKey:kKeyHearseId] copy];
+		username = [[defaults stringForKey:kKeyHearseUsername] copy];
+		email = [[defaults stringForKey:kKeyHearseEmail] copy];
+		hearseId = [[defaults stringForKey:kKeyHearseId] copy];
 		clientVersionCrc = [Hearse md5HexForString:clientVersion];
 		netHackVersion = [NSString stringWithFormat:@"%d,%d,%d,%d",
 						  VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL, EDITLEVEL];

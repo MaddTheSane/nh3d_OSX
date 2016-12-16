@@ -1467,8 +1467,9 @@ wd_message()
 static char ynPreReady(const char *str)
 {
 	NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
+	NSString *nsStr = @(str);
 	eraseSaveAlert.messageText = NSLocalizedString(@"Old Save File", @"");
-	eraseSaveAlert.informativeText = NSLocalizedString(@(str), @"");
+	eraseSaveAlert.informativeText = NSLocalizedStringWithDefaultValue(nsStr, nil, [NSBundle mainBundle], nsStr, @"");
 	
 	[eraseSaveAlert addButtonWithTitle:@"No"];
 	[eraseSaveAlert addButtonWithTitle:@"Yes"];
@@ -1804,8 +1805,7 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 
 #ifdef USER_SOUNDS
 
-void
-play_usersound(const char *filename, int volume)
+void play_usersound(const char *filename, int volume)
 {
 	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:nil];
 	
