@@ -297,8 +297,8 @@ void nh3d_askname()
 			plname[0] = 0;
 			
 			NSAlert *alert = [[NSAlert alloc] init];
-			alert.messageText = NSLocalizedString(@"A name is too long, and it is difficult to learn.", @"");
-			alert.informativeText = NSLocalizedString(@"Please input it within 1 to 20 characters.", @"");
+			alert.messageText = NSLocalizedString(@"A name is too long, and it is difficult to learn.", "The name is too long.");
+			alert.informativeText = NSLocalizedString(@"Make sure the name is between 1 to 20 characters.", @"");
 			[alert runModal];
 		} else {
 			NSString *pcName = [[NSString alloc] initWithCString:plname encoding:NH3DTEXTENCODING];
@@ -1193,7 +1193,7 @@ wd_message()
 #endif
 		if (discover)
 			
-			You("%s", [NSLocalizedString(@"are in non-scoring discovery mode.", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
+			You("%s", [NSLocalizedString(@"are in non-scoring discovery mode.", @"(you) are in non-scoring discovery mode.") cStringUsingEncoding:NH3DTEXTENCODING]);
 }
 
 //--------------------------------------------------------------//
@@ -1302,8 +1302,8 @@ wd_message()
 - (BOOL)windowShouldClose:(id)sender
 {
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = NSLocalizedString(@"Quit NetHack3D", @"");
-	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"");
+	alert.messageText = NSLocalizedString(@"Quit NetHack3D", @"Quit NetHack3D");
+	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"Do you really want to Force Quit?");
 	[alert addButtonWithTitle:@"Cancel"];
 	[alert addButtonWithTitle:@"Quit"];
 	NSInteger choise = [alert runModal];
@@ -1326,7 +1326,7 @@ wd_message()
 		[_stDrawer close:self];
 	} 
 	
-	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
+	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'", @"'See you again.' leaving message") cStringUsingEncoding:NH3DTEXTENCODING]);
 	ret = [_messenger showLogPanel];
 	
 	if (ret == NSTerminateNow) {
@@ -1376,7 +1376,7 @@ wd_message()
 {
 	//NSInteger result;
 	NSAlert *alert = [NSAlert alertWithError:error];
-	NSLog(@"%@", error);
+	NSLog(@"Error: %@", error.localizedDescription);
 	/*result = */[alert runModal];
 }
 
@@ -1430,7 +1430,7 @@ wd_message()
 	[_glMapView updateMap];
 	[_userStatus updatePlayer];
 	
-	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
+	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"'Level name', level 'number'") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 }
 
@@ -1468,7 +1468,7 @@ static char ynPreReady(const char *str)
 {
 	NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
 	NSString *nsStr = @(str);
-	eraseSaveAlert.messageText = NSLocalizedString(@"Old Save File", @"");
+	eraseSaveAlert.messageText = NSLocalizedString(@"Old Save File", @"Old Save File");
 	eraseSaveAlert.informativeText = NSLocalizedStringWithDefaultValue(nsStr, nil, [NSBundle mainBundle], nsStr, @"");
 	
 	[eraseSaveAlert addButtonWithTitle:@"No"];
@@ -1556,7 +1556,7 @@ static char ynPreReady(const char *str)
 		}
 #endif
 		
-		pline("%s", [NSLocalizedString(@"Restoring save file...", @"") cStringUsingEncoding:NH3DTEXTENCODING]);
+		pline("%s", [NSLocalizedString(@"Restoring save file...", @"Restoring save file...") cStringUsingEncoding:NH3DTEXTENCODING]);
 		
 		mark_synch();	/* flush output */
 		if (!dorecover(fd))
@@ -1868,8 +1868,8 @@ void error(const char *s, ...)
 	va_end(the_args);
 	Printf("%s\n", [nss UTF8String]);
 	NSAlert *alert = [[NSAlert alloc] init];
-	alert.messageText = NSLocalizedString(@"NetHack Error!", @"");
-	alert.informativeText = [nss stringByAppendingString:NSLocalizedString(@"\n\nNetHack will now crash.", @"")];
+	alert.messageText = NSLocalizedString(@"NetHack Error!", @"NetHack Error!");
+	alert.informativeText = [nss stringByAppendingString:NSLocalizedString(@"\n\nNetHack will now crash.", @"NetHack will now crash.")];
 	alert.alertStyle = NSAlertStyleCritical;
 	[alert runModal];
 	

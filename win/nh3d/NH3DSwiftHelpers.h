@@ -17,47 +17,47 @@
 #include "extern.h"
 
 static inline BOOL Swift_Invis() {
-	return (bool)(Invis);
+	return (bool)Invis;
 }
 
 /// Returns \c true if player is stealthy.
 static inline BOOL Swift_Stealth() {
-	return (bool)(Stealth);
+	return (bool)Stealth;
 }
 
 /// Returns \c true if player is blind.
 static inline BOOL Swift_Blind() {
-	return (bool)(Blind);
+	return (bool)Blind;
 }
 
 /// Returns \c true if player is underwater.
 static inline BOOL Swift_Underwater() {
-	return (bool)(Underwater);
+	return (bool)Underwater;
 }
 
 /// Returns \c true if player can teleport at will
 static inline BOOL Swift_Teleportation() {
-	return (bool)(Teleportation);
+	return (bool)Teleportation;
 }
 
 /// Returns \c true if player has teleportation control
 static inline BOOL Swift_Teleport_control() {
-	return (bool)(Teleport_control);
+	return (bool)Teleport_control;
 }
 
 /// Returns \c true if player is hallucinating
 static inline BOOL Swift_Hallucination() {
-	return (bool)(Hallucination);
+	return (bool)Hallucination;
 }
 
 /// Returns \c true if player is flying
 static inline BOOL Swift_Flying() {
-	return (bool)(Flying);
+	return (bool)Flying;
 }
 
 /// Returns \c true if player is levitating
 static inline BOOL Swift_Levitation() {
-	return (bool)(Levitation);
+	return (bool)Levitation;
 }
 
 /// Returns \c true if player can levitate at will
@@ -67,16 +67,16 @@ static inline BOOL Swift_LevitationAtWill() {
 
 /// Returns \c true if player is swimming underwater
 static inline BOOL Swift_Swimming() {
-	return (bool)(Swimming);
+	return (bool)Swimming;
 }
 
 static inline BOOL Swift_Amphibious() {
-	return (bool)(Amphibious);
+	return (bool)Amphibious;
 }
 
 /// Returns \c true if player has infravision.
 static inline BOOL Swift_Infravision() {
-	return (bool)(Infravision);
+	return (bool)Infravision;
 }
 
 NS_SWIFT_NAME(roomAtLocation(x:y:))
