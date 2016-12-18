@@ -84,8 +84,8 @@ veryold(int fd)
 #endif
 			return(0);
 	}
-(void) close(fd);
-return(1);
+	(void) close(fd);
+	return(1);
 }
 
 static int
@@ -175,8 +175,8 @@ getlock()
 		{
 			NSAlert *recoverAlert = [[NSAlert alloc] init];
 			recoverAlert.alertStyle = NSAlertStyleWarning;
-			recoverAlert.messageText = NSLocalizedString(@"Recover?", @"");
-			recoverAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Attempt recovery?\n\nThis will launch a recovery app.", @"");
+			recoverAlert.messageText = NSLocalizedString(@"Recover?", @"Recover?");
+			recoverAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Attempt recovery?\n\nThis will launch a recovery app.", @"There is already a game in progress under your name.  Attempt recovery?\n\nThis will launch a recovery app.");
 			[recoverAlert addButtonWithTitle:NSLocalizedString(@"Yes", @"Yes")];
 			[recoverAlert addButtonWithTitle:NSLocalizedString(@"No", @"No")];
 			
@@ -187,14 +187,14 @@ getlock()
 		
 		if (iflags.window_inited) {
 			NSAlert *eraseSaveAlert = [[NSAlert alloc] init];
-			eraseSaveAlert.messageText = NSLocalizedString(@"Remove old save?", @"");
-			eraseSaveAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Destroy old game?", @"");
+			eraseSaveAlert.messageText = NSLocalizedString(@"Remove old save?", @"Remove old save?");
+			eraseSaveAlert.informativeText = NSLocalizedString(@"There is already a game in progress under your name.  Destroy old game?", @"There is already a game in progress under your name.  Destroy old game?");
 			
-			NSButton *noButton = [eraseSaveAlert addButtonWithTitle:@"No"];
-			noButton.tag = 'n';
+			NSButton *button = [eraseSaveAlert addButtonWithTitle:NSLocalizedString(@"No", @"No")];
+			button.tag = 'n';
 			
-			noButton = [eraseSaveAlert addButtonWithTitle:@"Yes"];
-			noButton.tag = 'y';
+			button = [eraseSaveAlert addButtonWithTitle:NSLocalizedString(@"Yes", @"Yes")];
+			button.tag = 'y';
 			
 			c = [eraseSaveAlert runModal];
 		} else {

@@ -523,9 +523,8 @@
 		2B31DBA108CD73C5008CCAAC /* gnyesno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gnyesno.h; sourceTree = "<group>"; };
 		2B31DBA208CD73C5008CCAAC /* mapbg.xpm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mapbg.xpm; sourceTree = "<group>"; };
 		2B31DBA308CD73C5008CCAAC /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		2B31DBA508CD73C5008CCAAC /* Info.pli */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.pli; sourceTree = "<group>"; };
 		2B31DBA608CD73C5008CCAAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2B31DBA708CD73C5008CCAAC /* Install.Qt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Install.Qt; sourceTree = "<group>"; };
+		2B31DBA708CD73C5008CCAAC /* Install.Qt */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = Install.Qt; sourceTree = "<group>"; };
 		2B31DBA808CD73C5008CCAAC /* knethack.lnk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = knethack.lnk; sourceTree = "<group>"; };
 		2B31DBA908CD73C5008CCAAC /* knh-mini.xpm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "knh-mini.xpm"; sourceTree = "<group>"; };
 		2B31DBAA08CD73C5008CCAAC /* knh.xpm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = knh.xpm; sourceTree = "<group>"; };
@@ -1617,7 +1616,6 @@
 		2B31DBA408CD73C5008CCAAC /* Qt */ = {
 			isa = PBXGroup;
 			children = (
-				2B31DBA508CD73C5008CCAAC /* Info.pli */,
 				2B31DBA608CD73C5008CCAAC /* Info.plist */,
 				2B31DBA708CD73C5008CCAAC /* Install.Qt */,
 				2B31DBA808CD73C5008CCAAC /* knethack.lnk */,

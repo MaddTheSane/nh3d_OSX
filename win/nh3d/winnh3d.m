@@ -1589,7 +1589,7 @@ static char ynPreReady(const char *str)
 	}
 	
 	//NSString *dName = [NSString localizedStringWithFormat:NSLocalizedString(@"%s, level %d", @""), dungeons[u.uz.dnum].dname, depth(&u.uz)];
-	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
+	Sprintf(buf, [NSLocalizedString(@"%s, level %d", @"'Level name', level 'number'") cStringUsingEncoding:NH3DTEXTENCODING], dungeons[u.uz.dnum].dname, depth(&u.uz));
 	
 	[_mapModel setDungeonName:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 	CocoaPortIsReady = YES;
@@ -1866,7 +1866,7 @@ void error(const char *s, ...)
 	va_start(the_args, s);
 	NSString *nss = [[NSString alloc] initWithFormat:@(s) arguments:the_args];
 	va_end(the_args);
-	Printf("%s\n", [nss UTF8String]);
+	Printf("%s\n", [nss cStringUsingEncoding:NH3DTEXTENCODING]);
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = NSLocalizedString(@"NetHack Error!", @"NetHack Error!");
 	alert.informativeText = [nss stringByAppendingString:NSLocalizedString(@"\n\nNetHack will now crash.", @"NetHack will now crash.")];
