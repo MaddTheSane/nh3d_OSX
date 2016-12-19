@@ -131,25 +131,28 @@ static BOOL copy_bytes(int ifd, int ofd);
 	(void) strcpy(lock, basename);
 	gfd = [self openLevelFile:0];
 	if (gfd < 0) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Cannot open level 0 for %s.", basename];
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCannotOpenLevel0 userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCannotOpenLevel0 userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	if (read(gfd, (genericptr_t) &hpid, sizeof hpid) != sizeof hpid) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Checkpoint data incompletely "
 				  "written or subsequently clobbered;\n"
 				  "recovery for \"%s\" impossible.", basename];
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorIncompleteCheckpointData userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorIncompleteCheckpointData userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 
 		Close(gfd);
 		return;
 	}
 	if (read(gfd, (genericptr_t) &savelev, sizeof(savelev))
 		!= sizeof(savelev)) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Checkpointing was not in effect for %s -- recovery impossible.",
 				basename];
 		Close(gfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCheckpointNotInEffect userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCheckpointNotInEffect userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	if ((read(gfd, (genericptr_t) savename, sizeof savename)
@@ -160,9 +163,10 @@ static BOOL copy_bytes(int ifd, int ofd);
 		|| (read(gfd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
 			!= sizeof pltmpsiz) || (pltmpsiz > PL_NSIZ)
 		|| (read(gfd, (genericptr_t) &plbuf, pltmpsiz) != pltmpsiz)) {
+			NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 			errStr = [[NSString alloc] initWithFormat:@"Error reading %s -- can't recover.", lock];
 			Close(gfd);
-			_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorReading userInfo:@{NSLocalizedDescriptionKey: errStr}];
+			_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorReading userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 			return;
 		}
 	
@@ -176,71 +180,79 @@ static BOOL copy_bytes(int ifd, int ofd);
 	 */
 	sfd = [self createSaveFile];
 	if (sfd < 0) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Cannot create savefile %s.", savename];
 		Close(gfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCannotCreateSave userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCannotCreateSave userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	
 	lfd = [self openLevelFile:savelev];
 	if (lfd < 0) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Cannot open level of save for %s.", basename];
 		Close(gfd);
 		Close(sfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCannotOpenLevel userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorCannotOpenLevel userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	
 	if (write(sfd, (genericptr_t) &version_data, sizeof version_data)
 		!= sizeof version_data) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed.", savename];
 		Close(gfd);
 		Close(sfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	
 	if (write(sfd, (genericptr_t) &sfi, sizeof sfi) != sizeof sfi) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed (savefile_info).", savename];
 		Close(gfd);
 		Close(sfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	
 	if (write(sfd, (genericptr_t) &pltmpsiz, sizeof pltmpsiz)
 		!= sizeof pltmpsiz) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed (player name size).", savename];
 		Close(gfd);
 		Close(sfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	
 	if (write(sfd, (genericptr_t) &plbuf, pltmpsiz) != pltmpsiz) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		errStr = [[NSString alloc] initWithFormat:@"Error writing %s; recovery failed (player name).", savename];
 		Close(gfd);
 		Close(sfd);
-		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr}];
+		_error = [[NSError alloc] initWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorWriting userInfo:@{NSLocalizedDescriptionKey: errStr, NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	
 	if (!copy_bytes(lfd, sfd)) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		Close(gfd);
 		Close(sfd);
 		Close(lfd);
 		(void) unlink(lock);
-		_error = [NSError errorWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorFileCopy userInfo:nil];
+		_error = [NSError errorWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorFileCopy userInfo:@{NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	Close(lfd);
 	(void) unlink(lock);
 	
 	if (!copy_bytes(gfd, sfd)) {
+		NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 		Close(gfd);
 		Close(sfd);
 		(void) unlink(lock);
-		_error = [NSError errorWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorFileCopy userInfo:nil];
+		_error = [NSError errorWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorFileCopy userInfo:@{NSUnderlyingErrorKey: posixErr}];
 		return;
 	}
 	Close(gfd);
@@ -258,9 +270,10 @@ static BOOL copy_bytes(int ifd, int ofd);
 				levc = (xchar) lev;
 				write(sfd, (genericptr_t) &levc, sizeof(levc));
 				if (!copy_bytes(lfd, sfd)) {
+					NSError *posixErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:errno userInfo:nil];
 					Close(lfd);
 					(void) unlink(lock);
-					_error = [NSError errorWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorFileCopy userInfo:nil];
+					_error = [NSError errorWithDomain:NHRecoveryErrorDomain code:NHRecoveryErrorFileCopy userInfo:@{NSUnderlyingErrorKey: posixErr}];
 					return;
 				}
 				Close(lfd);
@@ -316,8 +329,8 @@ BOOL copy_bytes(int ifd, int ofd)
 		nto = write(ofd, buf, nfrom);
 		if (nto != nfrom) {
 			Fprintf(stderr, "file copy failed!\n");
-			return false;
+			return NO;
 		}
 	} while (nfrom == BUFSIZ);
-	return true;
+	return YES;
 }

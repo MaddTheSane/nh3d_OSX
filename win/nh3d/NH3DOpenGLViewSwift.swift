@@ -4203,7 +4203,7 @@ extension NH3DOpenGLView {
 				flag: 2)
 		}
 		switchMethodArray[2] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
-			self.drawFloorAndCeiling( x: Float(x) * NH3DGL_TILE_SIZE,
+			self.drawFloorAndCeiling(x: Float(x) * NH3DGL_TILE_SIZE,
 				z: Float(z) * NH3DGL_TILE_SIZE,
 				flag: 1)
 			
@@ -4912,7 +4912,7 @@ extension NH3DOpenGLView {
 			ret.particleType = .aura
 			ret.particleColor = CLR_WHITE
 			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
-			ret.particleSpeed = (x: 1.0, y:1.00)
+			ret.particleSpeed = (x: 1.0, y: 1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
 			ret.particleSize = 20.0

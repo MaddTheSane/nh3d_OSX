@@ -112,7 +112,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 						case NSAlertFirstButtonReturn:
 							do {
 								try self.launchNetHack()
-							} catch let error as NSError {
+							} catch let error {
 								NSBeep()
 								NSAlert(error: error).runModal()
 								exit(EXIT_FAILURE)
@@ -164,29 +164,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBAction func tableButton(_ sender: NSButton) {
 		self.window.endSheet(errorPanel, returnCode: sender.tag)
 	}
-}
+//}
 
 //MARK: - NSApplicationDelegate
 
-extension AppDelegate {
+//extension AppDelegate {
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
-		// Insert code here to initialize your application
-		
 		if let errorToReport = errorToReport {
-			do {
-				throw errorToReport
-			} catch let error as NSError {
 				// force loading of SaveRecoveryOperation class
 				SaveRecoveryOperation.load()
 
-				let anAlert = NSAlert(error: error)
+				let anAlert = NSAlert(error: errorToReport)
 				anAlert.alertStyle = .critical
 				
 				anAlert.informativeText += "\n\nRecovery will now close."
 				
 				anAlert.runModal()
 				NSApp.terminate(nil)
-			}
 		}
 		
 		progress.startAnimation(nil)
