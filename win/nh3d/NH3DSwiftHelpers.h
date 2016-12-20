@@ -196,6 +196,12 @@ static inline BOOL Swift_glyphIsMonster(int glyph1)
 	return glyph_is_monster(glyph1);
 }
 
+NS_SWIFT_NAME(objectToGlyph(_:))
+static inline int Swift_objToGlyph(struct obj *__nonnull obj2)
+{
+	return obj_to_glyph(obj2);
+}
+
 /// Something really bad happened!
 __dead2 NS_SWIFT_NAME(panic(_:))
 static inline void Swift_Panic(const char *__nonnull panicText)

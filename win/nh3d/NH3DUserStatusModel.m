@@ -101,8 +101,8 @@ extern const char *hu_stat[]; /* from eat.c */
 	style.alignment = NSTextAlignmentCenter;
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DWINDOWFONT size: 14];
-	strAttributes[NSShadowAttributeName] = shadow;
-	strAttributes[NSParagraphStyleAttributeName] = style;
+	strAttributes[NSShadowAttributeName] = [shadow copy];
+	strAttributes[NSParagraphStyleAttributeName] = [style copy];
 }
 /*
 - ( id )initWithCoder:( NSCoder * )coder
@@ -366,7 +366,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	if (!glyph) {
 		playerAmulet = nil;
 	} else {
-		playerAmulet = [[ [TileSet instance] imageForGlyph:glyph] copy];
+		playerAmulet = [[[TileSet instance] imageForGlyph:glyph] copy];
 	}
 }
 
@@ -384,11 +384,56 @@ extern const char *hu_stat[]; /* from eat.c */
 	}
 }
 
+static NSString *stripParentheses(NSString *text)
+{
+	static NSString *leftHandStr;
+	static NSString *rightHandStr;
+	static NSString *weapInHand;
+	static NSString *weapInHands;
+	static NSString *otherHand;
+	static const char *hand = NULL;
+	if (hand != body_part(HAND)) {
+		hand = body_part(HAND);
+		NSString *handPart = @(hand);
+		const char* hand_s = makeplural(hand);
+		NSString *handsPart = @(hand_s);
+		leftHandStr = [NSString stringWithFormat:@" (on left %@)", handPart];
+		rightHandStr = [NSString stringWithFormat:@" (on right %@)", handPart];
+		weapInHand = [NSString stringWithFormat:@" (weapon in %@)", handPart];
+		weapInHands = [NSString stringWithFormat:@" (weapon in %@)", handsPart];
+		otherHand = [NSString stringWithFormat:@" (wielded in other %@)", handPart];
+	}
+
+	if ([text hasSuffix:@" (being worn)"]) {
+		text = [text substringToIndex:text.length - @" (being worn)".length];
+	} else if ([text hasSuffix:weapInHands]) {
+		text = [text substringToIndex:text.length - weapInHands.length];
+	} else if ([text hasSuffix:weapInHand]) {
+		text = [text substringToIndex:text.length - weapInHand.length];
+	} else if ([text hasSuffix:leftHandStr])  {
+		text = [text substringToIndex:text.length - leftHandStr.length];
+	} else if ([text hasSuffix:rightHandStr])  {
+		text = [text substringToIndex:text.length - rightHandStr.length];
+	} else if ([text hasSuffix:@" (alternate weapon; not wielded)"]) {
+		text = [text substringToIndex:text.length - @" (alternate weapon; not wielded)".length];
+	} else if ([text hasSuffix:otherHand]) {
+		text = [text substringToIndex:text.length - otherHand.length];
+	} else if ([text hasSuffix:@" (in quiver)"]) {
+		text = [text substringToIndex:text.length - @" (in quiver)".length];
+	} else if ([text hasSuffix:@" (in quiver pouch)"]) {
+		text = [text substringToIndex:text.length - @" (in quiver pouch)".length];
+	} else if ([text hasSuffix:@" (at the ready)"]) {
+		text = [text substringToIndex:text.length - @" (at the ready)".length];
+	}
+
+	return text;
+}
+
 - (void)updatePlayerInventory
 {
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
-		self.playerArmorString = @(Doname2(uarm)); //[NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]
+		self.playerArmorString = stripParentheses(@(Doname2(uarm))); //stripParentheses([NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING])
 	} else {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
@@ -396,7 +441,7 @@ extern const char *hu_stat[]; /* from eat.c */
 
 	if (uarmu && !uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
-		self.playerArmorString = @(Doname2(uarmu));
+		self.playerArmorString = stripParentheses(@(Doname2(uarmu)));
 	} else if (!uarm) {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
@@ -404,7 +449,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uarmc) {
 		[self setPlayerCloak:obj_to_glyph(uarmc)];
-		self.playerCloakString = @(Doname2(uarmc));
+		self.playerCloakString = stripParentheses(@(Doname2(uarmc)));
 	} else {
 		[self setPlayerCloak:0];
 		self.playerCloakString = nil;
@@ -412,7 +457,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uarmh) {
 		[self setPlayerHelmet:obj_to_glyph(uarmh)];
-		self.playerHelmetString = @(Doname2(uarmh));
+		self.playerHelmetString = stripParentheses(@(Doname2(uarmh)));
 	} else {
 		[self setPlayerHelmet:0];
 		self.playerHelmetString = nil;
@@ -420,7 +465,7 @@ extern const char *hu_stat[]; /* from eat.c */
 		
 	if (uarmg) {
 		[self setPlayerGloves:obj_to_glyph(uarmg)];
-		self.playerGlovesString = @(Doname2(uarmg));
+		self.playerGlovesString = stripParentheses(@(Doname2(uarmg)));
 	} else {
 		[self setPlayerGloves:0];
 		self.playerGlovesString = nil;
@@ -428,7 +473,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uarmf) {
 		[self setPlayerShoes:obj_to_glyph(uarmf)];
-		self.playerShoesString = @(Doname2(uarmf));
+		self.playerShoesString = stripParentheses(@(Doname2(uarmf)));
 	} else {
 		[self setPlayerShoes:0];
 		self.playerShoesString = nil;
@@ -436,7 +481,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uleft) {
 		[self setPlayerRingL:obj_to_glyph(uleft)];
-		self.playerRingLString = @(Doname2(uleft));
+		self.playerRingLString = stripParentheses(@(Doname2(uleft)));
 	} else {
 		[self setPlayerRingL:0];
 		self.playerRingLString = nil;
@@ -444,7 +489,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uright) {
 		[self setPlayerRingR:obj_to_glyph(uright)];
-		self.playerRingRString = @(Doname2(uright));
+		self.playerRingRString = stripParentheses(@(Doname2(uright)));
 	} else {
 		[self setPlayerRingR:0];
 		self.playerRingRString = nil;
@@ -452,7 +497,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uwep) {
 		[self setPlayerWeapon:obj_to_glyph(uwep)];
-		self.playerWeaponString = @(Doname2(uwep));
+		self.playerWeaponString = stripParentheses(@(Doname2(uwep)));
 	} else {
 		[self setPlayerWeapon:0];
 		self.playerWeaponString = nil;
@@ -460,7 +505,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uswapwep && !u.twoweap) {
 		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
-		self.playerSubWeaponString = @(Doname2(uswapwep));
+		self.playerSubWeaponString = stripParentheses(@(Doname2(uswapwep)));
 	} else {
 		[self setPlayerSubWeapon:0];
 		self.playerSubWeaponString = nil;
@@ -468,10 +513,10 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uarms && !u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uarms)];
-		self.playerShieldString = @(Doname2(uarms));
+		self.playerShieldString = stripParentheses(@(Doname2(uarms)));
 	} else if (u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uswapwep)];
-		self.playerShieldString = @(Doname2(uswapwep));
+		self.playerShieldString = stripParentheses(@(Doname2(uswapwep)));
 	} else {
 		[self setPlayerShield:0];
 		self.playerShieldString = nil;
@@ -479,7 +524,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (uamul) {
 		[self setPlayerAmulet:obj_to_glyph(uamul)];
-		self.playerAmuletString = @(Doname2(uamul));
+		self.playerAmuletString = stripParentheses(@(Doname2(uamul)));
 	} else {
 		[self setPlayerAmulet:0];
 		self.playerAmuletString = nil;
@@ -487,7 +532,7 @@ extern const char *hu_stat[]; /* from eat.c */
 	
 	if (ublindf) {
 		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
-		self.playerBlindFoldString = @(Doname2(ublindf));
+		self.playerBlindFoldString = stripParentheses(@(Doname2(ublindf)));
 	} else if (uarmh) {
 		[self setPlayerBlindFold:0];
 		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.
