@@ -1,24 +1,29 @@
 # This is a simple .nethackrc for NetHack3D.
 # Modify for your own personal use.
 
+OPTIONS=hilite_pet
+OPTIONS=menustyle:full
+OPTIONS=hilite_pile
+
 #Effect Message Section
 #Type1 = Camera Shake
 #Type2 = Splash(Only in three front directions)
 
-EFFECT=MESG	"You get zapped.*"		2
 EFFECT=MESG	"You hit .*[\.!]"		2
 EFFECT=MESG	"You kick .*\[\.!]"		2
 EFFECT=MESG	"You bite .*\[\.!]"		2
 EFFECT=MESG	"You sting .*[\.!]"		2
 EFFECT=MESG	"You butt .*[\.!]"		2
 EFFECT=MESG	"You touch .*[\.!]"		2
-EFFECT=MESG	"You suck .*[\.!]"		2
+EFFECT=MESG	"Your tentacles suck .*[\.!]" 2
 
-EFFECT=MESG	".*bites.*!"				1
-EFFECT=MESG	".*stings.*!"				1
-EFFECT=MESG	".*butts.*!"				1
+EFFECT=MESG	".*bites!"					1
+EFFECT=MESG	".*stings!"					1
+EFFECT=MESG	".*butts!"					1
+EFFECT=MESG	".*kicks!"					1
 EFFECT=MESG	".*touches you!"			1
-EFFECT=MESG	".*tentacles.*suck you!"	1
-EFFECT=MESG	".*are.*splashed by acid!"	1
+EFFECT=MESG	".*tentacles suck you!"		1
+EFFECT=MESG	".*are splashed by acid!"	1
 EFFECT=MESG	".*hits!"					1
 EFFECT=MESG	".*hit.*by.*magic missiles.*"	1
+EFFECT=MESG	"You get zapped!"			1
