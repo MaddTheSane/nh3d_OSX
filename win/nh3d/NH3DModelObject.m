@@ -274,7 +274,7 @@ static const NH3DMaterial defaultMat = {
 					if (mtlName.absolutePath) {
 						sourceURL = [NSURL fileURLWithPath:mtlName];
 					} else {
-						NSLog(@"Unable to locate mtl file");
+						NSLog(@"Unable to locate mtl file named '%@', skipping.", mtlName);
 						continue;
 					}
 				}

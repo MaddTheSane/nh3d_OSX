@@ -291,14 +291,14 @@ void nh3d_player_selection()
 void nh3d_askname()
 {
 	@autoreleasepool {
-		nh3d_getlin([NSLocalizedString(@"Who are you?", @"") cStringUsingEncoding:NH3DTEXTENCODING], plname);
+		nh3d_getlin([NSLocalizedString(@"Who are you?", @"Asking for the player name") cStringUsingEncoding:NH3DTEXTENCODING], plname);
 		
 		if ([NSString stringWithCString:plname encoding:NH3DTEXTENCODING].length >= PL_NSIZ-11) {
 			plname[0] = 0;
 			
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = NSLocalizedString(@"A name is too long, and it is difficult to learn.", "The name is too long.");
-			alert.informativeText = NSLocalizedString(@"Make sure the name is between 1 to 20 characters.", @"");
+			alert.informativeText = NSLocalizedString(@"Please input it within 1 to 20 characters.", @"Make sure the name is between 1 to 20 characters.");
 			[alert runModal];
 		} else {
 			NSString *pcName = [[NSString alloc] initWithCString:plname encoding:NH3DTEXTENCODING];
