@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="box content view" minToolsVersion="7.0"/>
@@ -1619,7 +1619,7 @@
                                     <action selector="controllerActions:" target="5648" id="4ew-Th-RSU"/>
                                 </connections>
                             </button>
-                            <button toolTip="Kick" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w1P-Hp-jlj">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w1P-Hp-jlj">
                                 <rect key="frame" x="21" y="-7" width="32" height="32"/>
                                 <buttonCell key="cell" type="round" title="k" bezelStyle="circular" alignment="center" controlSize="small" enabled="NO" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="G6z-2d-BO3">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -3026,7 +3026,7 @@ Gw
                         <rect key="frame" x="0.0" y="29" width="400" height="135"/>
                         <clipView key="contentView" id="szt-dP-q4S">
                             <rect key="frame" x="1" y="1" width="398" height="133"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
                                     <rect key="frame" x="0.0" y="0.0" width="398" height="133"/>
@@ -3129,7 +3129,7 @@ DQ
                         <rect key="frame" x="44" y="47" width="587" height="238"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="n3r-1g-Qlx">
                             <rect key="frame" x="0.0" y="0.0" width="587" height="238"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
                                     <rect key="frame" x="0.0" y="12" width="587" height="238"/>
@@ -3206,7 +3206,7 @@ DQ
                         <rect key="frame" x="48" y="61" width="397" height="370"/>
                         <clipView key="contentView" id="QxK-KS-b2V">
                             <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
                                     <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
@@ -3423,7 +3423,7 @@ DQ
                         <rect key="frame" x="0.0" y="32" width="635" height="349"/>
                         <clipView key="contentView" id="Hj5-ZN-y1C">
                             <rect key="frame" x="1" y="1" width="633" height="347"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
                                     <rect key="frame" x="0.0" y="0.0" width="633" height="347"/>
@@ -3943,7 +3943,7 @@ DQ
                         <rect key="frame" x="45" y="61" width="650" height="450"/>
                         <clipView key="contentView" autoresizesSubviews="NO" wantsLayer="YES" drawsBackground="NO" copiesOnScroll="NO" id="qFK-Qf-Zkl">
                             <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <imageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6444">
                                     <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>

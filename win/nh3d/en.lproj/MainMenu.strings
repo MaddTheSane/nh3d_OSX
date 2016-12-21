@@ -1330,6 +1330,3 @@
 
 /* Class = "NSButtonCell"; title = ","; ObjectID = "tiT-la-Gr7"; */
 "tiT-la-Gr7.title" = ",";
-
-/* Class = "NSButton"; ibShadowedToolTip = "Kick"; ObjectID = "w1P-Hp-jlj"; */
-"w1P-Hp-jlj.ibShadowedToolTip" = "Kick";
