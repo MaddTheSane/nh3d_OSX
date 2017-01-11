@@ -56,8 +56,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		
 		let selfBundleURL = Bundle.main.bundleURL
 		do {
-			let parentBundleURL = selfBundleURL.deletingLastPathComponent().deletingLastPathComponent()
-			guard let parentBundle = Bundle(url: parentBundleURL), let parentBundleResources = parentBundle.resourcePath,
+			let parentBundleURL = selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+			guard let parentBundle = Bundle(url: parentBundleURL),
+				let parentBundleResources = parentBundle.resourcePath,
 				parentBundle.bundleURL.pathExtension == "app" else {
 					throw NHRecoveryErrors.hostBundleNotFound
 			}
@@ -74,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			let selfBundleURL = Bundle.main.bundleURL
 			return selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		}()
-		try workspace.launchApplication(at: parentBundleURL as URL, options: .default, configuration: [:])
+		try workspace.launchApplication(at: parentBundleURL, options: .default, configuration: [:])
 		NSApp.terminate(nil)
 	}
 	
