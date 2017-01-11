@@ -64,6 +64,24 @@ final class TileSet: NSObject {
 			return nil
 		}
 		
+		do {
+			let x2Loc: String = {
+				//var toRet = ""
+				let ext = (loc as NSString).pathExtension
+				let parentPath = (loc as NSString).deletingLastPathComponent
+				var lastPath = ((loc as NSString).lastPathComponent as NSString).deletingPathExtension
+				lastPath += "@2x"
+				lastPath = (lastPath as NSString).appendingPathExtension(ext) ?? "\(lastPath).\(ext)"
+				var toRet = parentPath
+				toRet = (toRet as NSString).appendingPathComponent(lastPath)
+				
+				return toRet
+			}()
+			if img.representations.count == 1, !(img.representations[0] is NSPDFImageRep), let img2 = NSImage(contentsOfFile: x2Loc) {
+				img.addRepresentation(img2.representations[0])
+			}
+		}
+		
 		if size == .zero {
 			if let nameSize = sizeFrom(fileName: (loc as NSString).lastPathComponent) {
 				size = NSSize(width: Int(nameSize.width), height: Int(nameSize.height))
