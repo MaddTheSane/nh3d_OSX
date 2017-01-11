@@ -8,32 +8,104 @@
 
 import Cocoa
 
+// Code taken from http://stackoverflow.com/a/30404532/1975001
+extension String {
+	/// Creates an `NSRange` from a comparable `String` range.
+	fileprivate func nsRange(from range: Range<String.Index>) -> NSRange {
+		let utf16view = self.utf16
+		let from = range.lowerBound.samePosition(in: utf16view)
+		let to = range.upperBound.samePosition(in: utf16view)
+		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
+		               length: utf16view.distance(from: from, to: to))
+	}
+	
+	/// Creates a `String` range from the passed in `NSRange`.
+	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
+	/// - returns: a `String` range, or `nil` if `nsRange` could not be converted.
+	///
+	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
+	/// *before* calling this method, otherwise if the beginning or end of
+	/// `nsRange` is in between Unicode code points, this method will return `nil`.
+	fileprivate func range(from nsRange: NSRange) -> Range<String.Index>? {
+		guard
+			let preRange = nsRange.toRange(),
+			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
+			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
+			let from = String.Index(from16, within: self),
+			let to = String.Index(to16, within: self)
+			else { return nil }
+		return from ..< to
+	}
+}
+
+
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
-	// FIXME: this is ugly!  Transition to Regex/NSScanner.
-	var width: Int32 = 0
-	var height: Int32 = 0
-	
-	let unsfePtr1 = withUnsafeMutablePointer(to: &width) {
-		return $0
-	}
-	let unsfePtr2 = withUnsafeMutablePointer(to: &height) {
-		return $0
-	}
-	
-	var valist = getVaList([unsfePtr1, unsfePtr2])
+	let regex1 = try! NSRegularExpression(pattern: "[^\\d]+(\\d+)[xX](\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
+	let regex2 = try! NSRegularExpression(pattern: "[^\\d]+(\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
 	
 	// First, try finding both width and height
-	if vsscanf(fileName, "%*[^0-9]%dx%d.%*s", valist) == 2 {
-		return (width, height)
+	matchTwoSize: do {
+		let matches = regex1.matches(in: fileName, range: NSRange(location: 0, length: fileName.utf16.count))
+		
+		if let match = matches.first {
+			if NSEqualRanges(match.range, NSRange(location: NSNotFound, length: 0)) {
+				break matchTwoSize
+			}
+			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
+			let match1: Range<String.Index>? = {
+				let NSmatch1 = match.rangeAt(1)
+				return fileName.range(from: NSmatch1)
+			}()
+			let match2: Range<String.Index>? = {
+				let NSmatch1 = match.rangeAt(2)
+				return fileName.range(from: NSmatch1)
+			}()
+			
+			if let match1 = match1, let match2 = match2 {
+				let matchWidth = fileName[match1]
+				let matchHeight = fileName[match2]
+				
+				#if REDUNDANT_SAFETY_CHECKS
+					guard let intMatchWidth = Int(matchWidth), let intMatchHeight = Int(matchHeight) else {
+						break matchTwoSize
+					}
+					return (Int32(intMatchWidth), Int32(intMatchHeight))
+				#else
+					return (Int32(Int(matchWidth)!), Int32(Int(matchHeight)!))
+				#endif
+			}
+		}
 	}
 	
-	// Regenerate the VaList
-	valist = getVaList([unsfePtr1])
-	// Next, try for a square size
-	if vsscanf(fileName, "%*[^0-9]%d.%*s", valist) == 1 {
-		return (width, width)
+	do {
+		// Next, try for a square size
+		let matches = regex2.matches(in: fileName, range: NSRange(location: 0, length: fileName.utf16.count))
+		
+		if let match = matches.first {
+			if NSEqualRanges(match.range, NSRange(location: NSNotFound, length: 0)) {
+				return nil
+			}
+			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
+			let match1: Range<String.Index>? = {
+				let NSmatch1 = match.rangeAt(1)
+				return fileName.range(from: NSmatch1)
+			}()
+			
+			if let match1 = match1 {
+				let matchSquare = fileName[match1]
+				#if REDUNDANT_SAFETY_CHECKS
+					guard let tmpIntSquare = Int(matchSquare) else {
+						return nil
+					}
+					let tmpSquare = Int32(tmpIntSquare)
+				#else
+					let tmpSquare = Int32(Int(matchSquare)!)
+				#endif
+				return (tmpSquare, tmpSquare)
+			}
+		}
 	}
 	
 	// We didn't get either
