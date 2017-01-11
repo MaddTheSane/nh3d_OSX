@@ -12,11 +12,11 @@
 #import "NH3DUserDefaultsExtern.h"
 
 @interface NH3DUserStatusModel : NSObject {
+@private
 	//IBOutlet NSTextField *inputName;
 	IBOutlet NSDrawer *stDrawer;
 	IBOutlet NSWindow *window;
 	
-@private
 	NSMutableDictionary *strAttributes;
 	NSShadow *shadow;
 	NSMutableParagraphStyle  *style;

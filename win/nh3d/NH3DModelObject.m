@@ -106,7 +106,7 @@ static const NH3DMaterial defaultMat = {
 															  fileName]];
 		
 		if (sourcefile == nil) {
-			NSLog(@"texture file %@ is not found.",fileName);
+			NSLog(@"texture file %@ was not found.",fileName);
 			return 0;
 		}
 	}
@@ -742,8 +742,7 @@ static const NH3DMaterial defaultMat = {
 		
 		particleType = NH3DParticleTypePoints;
 		
-		for (i = 0; i < MAX_TEXTURES; i++)
-			textures[i] = 0;
+		memset(textures, 0, sizeof(textures));
 		
 		numberOfTextures = 0;
 		
@@ -773,7 +772,7 @@ static const NH3DMaterial defaultMat = {
 - (instancetype)initWith3DSFile:(NSString *)name textureNamed:(NSString*)texName
 {
 	if (self = [super init]) {
-		modelCode = [name copy];
+		modelCode = [[NSString alloc] initWithString:name];
 		
 		[self initParams];
 		

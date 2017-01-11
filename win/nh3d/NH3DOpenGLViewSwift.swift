@@ -3719,8 +3719,8 @@ extension NH3DOpenGLView {
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BROWN
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y:6.5, z:0.0)
-			ret?.particleSpeed = (x: 1.0, y:1.00)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
@@ -3730,7 +3730,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y:6.5, z:0.0)
+			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4

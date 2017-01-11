@@ -8,9 +8,6 @@
 
 import Foundation
 
-
-//#define GLYPH_MON_OFF		0
-
 @available(*, unavailable, renamed: "NetHackGlyphPetOffset")
 var GLYPH_PET_OFF: Int32 {
 	return NetHackGlyphPetOffset

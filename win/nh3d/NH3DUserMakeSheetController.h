@@ -14,6 +14,7 @@
 
 
 @interface NH3DUserMakeSheetController : NSWindowController {
+@private
 	NH3DUserStatusModel *_userStatus;
 	
 	IBOutlet NSMatrix *chooseRace;
@@ -21,7 +22,6 @@
 	IBOutlet NSMatrix *chooseAlign;
 	IBOutlet NSMatrix *chooseGender;
 	
-@private
 	// for UserMakeSeet
 	BOOL done_race;
 	BOOL done_role;

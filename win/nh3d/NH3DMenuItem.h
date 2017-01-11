@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 	//NSImage			*img;
 	NSSize			stringSize;
 	NSUInteger		strLength;
-	
 }
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;

@@ -277,6 +277,7 @@
 			[self setEn_lowful:NO];
 			[self setEn_newtral:NO];
 			[self setEn_chaotic:NO];
+			break;
 	}
 	
 	switch (race) {
@@ -322,7 +323,7 @@
 					[self setEn_newtral:YES];
 					[self setEn_chaotic:YES];
 					break;
-				case 7 :
+				case 7:
 					[chooseAlign selectCellWithTag:2];
 					[self setEn_lowful:NO];
 					[self setEn_newtral:NO];
@@ -331,25 +332,25 @@
 			}
 			
 			break;
-		case 1 :
+		case 1:
 			[chooseAlign selectCellWithTag:2];
 			[self setEn_lowful:NO];
 			[self setEn_newtral:NO];
 			[self setEn_chaotic:YES];
 			break;
-		case 2 :
+		case 2:
 			[chooseAlign selectCellWithTag:0];
 			[self setEn_lowful:YES];
 			[self setEn_newtral:NO];
 			[self setEn_chaotic:NO];
 			break;
-		case 3 :
+		case 3:
 			[chooseAlign selectCellWithTag:1];
 			[self setEn_lowful:NO];
 			[self setEn_newtral:YES];
 			[self setEn_chaotic:NO];
 			break;
-		case 4 :
+		case 4:
 			[chooseAlign selectCellWithTag:2];
 			[self setEn_lowful:NO];
 			[self setEn_newtral:NO];
@@ -360,7 +361,7 @@
 
 - (IBAction)checkGender:(id)sender
 {
-	int tag,role;
+	NSInteger tag, role;
 	tag = [chooseGender selectedTag];
 	role = [chooseRole selectedTag];
 	

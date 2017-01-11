@@ -96,6 +96,7 @@ void nethack3d_exit(int status);
 void nh3d_set_savefile_name();
 #endif
 @interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
+@private
 	IBOutlet NSMenu  *_mainMenu;
 	IBOutlet NH3DUserStatusModel *_userStatus;
 	IBOutlet NH3DMessaging *_messenger;

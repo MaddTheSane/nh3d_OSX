@@ -15,6 +15,7 @@
 #import "NH3DUserDefaultsExtern.h"
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
+@private
 	IBOutlet NSPanel *_menuPanel;
 	IBOutlet NSTableView *_menuTableWindow;
 	IBOutlet NSTextField *_menuPanelStrings;
@@ -29,7 +30,6 @@
 	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSTextView *_ripTextwindow;
 	
-@private
 	NSMutableArray<NH3DMenuItem*> *nh3dMenu;
 	NSMutableDictionary *darkShadowStrAttributes;
 	NSMutableDictionary *lightShadowStrAttributes;

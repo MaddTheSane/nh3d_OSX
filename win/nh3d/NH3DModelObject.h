@@ -75,19 +75,19 @@ typedef struct NH3DParticle {
 @interface NH3DModelObject : NSObject <NSFastEnumeration> {
 @private
 	BOOL				active;
-	NSString			*modelName;					/* model name from data */
-	NSString			*modelCode;					/* model name from filename */
-	unsigned short		verts_qty;					/* vertex counts */
-	unsigned short		face_qty;					/* faces counts */
-	unsigned short		normal_qty;					/* normal counts */
-	unsigned short		texcords_qty;				/* texcoords counts */
-	NH3DFaceType		texReference[MAX_POLYGONS];	/* OBJ face optional texture reference */
-	NH3DFaceType		normReference[MAX_POLYGONS];/* OBJ face optional normal reference */
+	NSString			*modelName;					/**< model name from data */
+	NSString			*modelCode;					/**< model name from filename */
+	unsigned short		verts_qty;					/**< vertex counts */
+	unsigned short		face_qty;					/**< faces counts */
+	unsigned short		normal_qty;					/**< normal counts */
+	unsigned short		texcords_qty;				/**< texcoords counts */
+	NH3DFaceType		texReference[MAX_POLYGONS];	/**< OBJ face optional texture reference */
+	NH3DFaceType		normReference[MAX_POLYGONS];/**< OBJ face optional normal reference */
 	
-	vector_float3		*verts;		/* vertex points */
-	vector_float3		*norms;		/* normals */
-	NH3DFaceType		*faces;		/* faces */
-	NH3DMapCoordType	*texcoords;	/* TextureCoords */
+	vector_float3		*verts;		/**< vertex points */
+	vector_float3		*norms;		/**< normals */
+	NH3DFaceType		*faces;		/**< faces */
+	NH3DMapCoordType	*texcoords;	/**< TextureCoords */
 	
 	NH3DMaterial		currentMaterial;
 	
@@ -96,7 +96,7 @@ typedef struct NH3DParticle {
 	NSInteger			numberOfTextures;
 	BOOL				useEnvironment;
 	
-	NH3DParticle		*particles;			/* particle Array */
+	NH3DParticle		*particles;			/**< particle Array */
 	NH3DParticleType	particleType;
 	NH3DVertexType		particleGravity;
 	int					particleColor;
