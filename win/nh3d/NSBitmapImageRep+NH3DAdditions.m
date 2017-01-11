@@ -13,7 +13,7 @@
 - (NSBitmapImageRep*)forceRGBColorSpace
 {
 	if (self.colorSpace.colorSpaceModel != NSColorSpaceModelRGB) {
-		NSBitmapImageRep *imgRep2 = [self bitmapImageRepByConvertingToColorSpace:NSColorSpace.sRGBColorSpace renderingIntent:NSColorRenderingIntentDefault];
+		NSBitmapImageRep *imgRep2 = [self bitmapImageRepByConvertingToColorSpace:NSColorSpace.genericRGBColorSpace renderingIntent:NSColorRenderingIntentDefault];
 		if (__builtin_expect(imgRep2 != nil, 1)) {
 			return imgRep2;
 		}
