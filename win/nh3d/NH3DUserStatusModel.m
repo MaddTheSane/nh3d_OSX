@@ -396,14 +396,14 @@ static NSString *stripParentheses(NSString *text)
 	// ...but regenerate them when our hands change
 	if (hand != body_part(HAND)) {
 		hand = body_part(HAND);
-		NSString *handPart = @(hand);
+		NSString *handPart = [NSString stringWithCString:hand encoding:NH3DTEXTENCODING];
 		const char* hand_s = makeplural(hand);
-		NSString *handsPart = @(hand_s);
-		leftHandStr = [NSString stringWithFormat:@" (on left %@)", handPart];
-		rightHandStr = [NSString stringWithFormat:@" (on right %@)", handPart];
-		weapInHand = [NSString stringWithFormat:@" (weapon in %@)", handPart];
-		weapInHands = [NSString stringWithFormat:@" (weapon in %@)", handsPart];
-		otherHand = [NSString stringWithFormat:@" (wielded in other %@)", handPart];
+		NSString *handsPart = [NSString stringWithCString:hand_s encoding:NH3DTEXTENCODING];
+		leftHandStr = [[NSString alloc] initWithFormat:@" (on left %@)", handPart];
+		rightHandStr = [[NSString alloc] initWithFormat:@" (on right %@)", handPart];
+		weapInHand = [[NSString alloc] initWithFormat:@" (weapon in %@)", handPart];
+		weapInHands = [[NSString alloc] initWithFormat:@" (weapon in %@)", handsPart];
+		otherHand = [[NSString alloc] initWithFormat:@" (wielded in other %@)", handPart];
 	}
 
 	if ([text hasSuffix:@" (being worn)"]) {
