@@ -23,7 +23,6 @@ private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {
 private func blankFloorMethod() {
 	// do nothing
 }
-private typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
 private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
 	// do nothing
 	return nil
@@ -258,6 +257,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
+	fileprivate typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
 	fileprivate var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(NetHackGlyphMaxGlyph))
 	private var modelDictionary = [Int32: NH3DModelObject]()
 	private let viewLock = NSRecursiveLock()

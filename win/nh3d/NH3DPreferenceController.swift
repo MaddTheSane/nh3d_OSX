@@ -8,37 +8,6 @@
 
 import Cocoa
 
-// Code taken from http://stackoverflow.com/a/30404532/1975001
-extension String {
-	/// Creates an `NSRange` from a comparable `String` range.
-	fileprivate func nsRange(from range: Range<String.Index>) -> NSRange {
-		let utf16view = self.utf16
-		let from = range.lowerBound.samePosition(in: utf16view)
-		let to = range.upperBound.samePosition(in: utf16view)
-		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
-		               length: utf16view.distance(from: from, to: to))
-	}
-	
-	/// Creates a `String` range from the passed in `NSRange`.
-	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
-	/// - returns: a `String` range, or `nil` if `nsRange` could not be converted.
-	///
-	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
-	/// *before* calling this method, otherwise if the beginning or end of
-	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	fileprivate func range(from nsRange: NSRange) -> Range<String.Index>? {
-		guard
-			let preRange = nsRange.toRange(),
-			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
-			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
-			let from = String.Index(from16, within: self),
-			let to = String.Index(to16, within: self)
-			else { return nil }
-		return from ..< to
-	}
-}
-
-
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
@@ -52,7 +21,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 		let matches = regex1.matches(in: fileName, range: NSRange(location: 0, length: fileName.utf16.count))
 		
 		if let match = matches.first {
-			if NSEqualRanges(match.range, NSRange(location: NSNotFound, length: 0)) {
+			if match.range.notFound {
 				break matchTwoSize
 			}
 			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
@@ -86,7 +55,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 		let matches = regex2.matches(in: fileName, range: NSRange(location: 0, length: fileName.utf16.count))
 		
 		if let match = matches.first {
-			if NSEqualRanges(match.range, NSRange(location: NSNotFound, length: 0)) {
+			if match.range.notFound {
 				return nil
 			}
 			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")

@@ -351,6 +351,7 @@
 		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
 		552673E91DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
+		5531D4B91E280E2F00BDBF21 /* SwiftAdditionsSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
 		5539E6191CB2F03F00ED6EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5539E6181CB2F03F00ED6EF3 /* AppDelegate.swift */; };
@@ -1265,6 +1266,7 @@
 		552E49381DF73E4B00205CE0 /* NH3DEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DEnums.h; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
+		5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAdditionsSmall.swift; sourceTree = "<group>"; };
 		5535626F1CA336D90015E8BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FirstLaunch.xib; sourceTree = "<group>"; };
 		553562721CA336E30015E8BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
 		553562741CA336ED0015E8BA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
@@ -2562,6 +2564,7 @@
 				32CA4F630368D1EE00C91783 /* NetHack3D_Prefix.pch */,
 				55D663061DE4F00B0007E0CC /* NH3DSwiftHelpers.h */,
 				552E49381DF73E4B00205CE0 /* NH3DEnums.h */,
+				5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -3378,6 +3381,7 @@
 				2B5CC188088EB7DF00940C58 /* music.c in Sources */,
 				2B5CC189088EB7DF00940C58 /* o_init.c in Sources */,
 				2B5CC18A088EB7DF00940C58 /* objects.c in Sources */,
+				5531D4B91E280E2F00BDBF21 /* SwiftAdditionsSmall.swift in Sources */,
 				2B5CC18B088EB7DF00940C58 /* objnam.c in Sources */,
 				2B5CC18C088EB7DF00940C58 /* options.c in Sources */,
 				2B5CC18D088EB7DF00940C58 /* pager.c in Sources */,
