@@ -42,8 +42,10 @@ extension String {
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
-	let regex1 = try! NSRegularExpression(pattern: "[^\\d]+(\\d+)[xX](\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
-	let regex2 = try! NSRegularExpression(pattern: "[^\\d]+(\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
+	// TODO: prune it down to one regex: "\\A[^\\d]+(\\d+)\\..{2,4}|[^\\d]+(\\d+)[xX\\*](\\d+)\\..{2,4}"
+	// or "\\A([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX\\*](\\d+))\\..{2,4}"
+	let regex1 = try! NSRegularExpression(pattern: "\\A[^\\d]+(\\d+)[xX](\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
+	let regex2 = try! NSRegularExpression(pattern: "\\A[^\\d]+(\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
 	
 	// First, try finding both width and height
 	matchTwoSize: do {
