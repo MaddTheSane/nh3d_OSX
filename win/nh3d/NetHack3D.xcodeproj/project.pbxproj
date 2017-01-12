@@ -463,6 +463,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5531D5231E282EEF00BDBF21 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1267,6 +1280,7 @@
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
 		5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAdditionsSmall.swift; sourceTree = "<group>"; };
+		5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FruitzOfDojo.xcodeproj; path = FDFramework/FruitzOfDojo.xcodeproj; sourceTree = "<group>"; };
 		5535626F1CA336D90015E8BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FirstLaunch.xib; sourceTree = "<group>"; };
 		553562721CA336E30015E8BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
 		553562741CA336ED0015E8BA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
@@ -1473,6 +1487,7 @@
 		29B97314FDCFA39411CA2CEA /* NetHack3D */ = {
 			isa = PBXGroup;
 			children = (
+				5531D5241E2830B300BDBF21 /* Third-party */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				5560A2A51C347F8C00BF77F7 /* Other Sources */,
 				29B97315FDCFA39411CA2CEA /* NetHack */,
@@ -2543,6 +2558,15 @@
 			path = hints;
 			sourceTree = "<group>";
 		};
+		5531D5241E2830B300BDBF21 /* Third-party */ = {
+			isa = PBXGroup;
+			children = (
+				5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */,
+			);
+			name = "Third-party";
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		5539E6171CB2F03F00ED6EF3 /* RecoverApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -2717,6 +2741,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				5531D5231E282EEF00BDBF21 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
