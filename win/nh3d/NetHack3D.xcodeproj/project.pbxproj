@@ -351,6 +351,9 @@
 		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
 		552673E91DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
+		55307ABE1E295D4100E0335A /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55307ABD1E295D4100E0335A /* SoundController.swift */; };
+		55307AC21E295E7800E0335A /* FDAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55887EAA1E28BF5200C88D01 /* FDAudio.framework */; };
+		55307AC31E295E7800E0335A /* FDAudio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55887EAA1E28BF5200C88D01 /* FDAudio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5531D4B91E280E2F00BDBF21 /* SwiftAdditionsSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */; };
 		5535626E1CA336D90015E8BA /* FirstLaunch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553562701CA336D90015E8BA /* FirstLaunch.xib */; };
 		55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55388FDA1C8340C2002D3B99 /* GLKit.framework */; };
@@ -398,6 +401,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55307AC41E295E7800E0335A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 5531D5051E282D6000BDBF21;
+			remoteInfo = FDAudio;
+		};
 		5539E6271CB32A8600ED6EF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -447,6 +457,27 @@
 			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
 			remoteInfo = headers;
 		};
+		55887EA51E28BF5200C88D01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 556478241CECEE1000ECD01B;
+			remoteInfo = FruitzOfDojo;
+		};
+		55887EA71E28BF5200C88D01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55F926101CED18F900145952;
+			remoteInfo = FruitzOfDojoSwift;
+		};
+		55887EA91E28BF5200C88D01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5531D5061E282D6000BDBF21;
+			remoteInfo = FDAudio;
+		};
 		55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -462,6 +493,20 @@
 			remoteInfo = makefiles;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5531D5231E282EEF00BDBF21 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				55307AC31E295E7800E0335A /* FDAudio.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29B97316FDCFA39411CA2CEA /* nh3dmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nh3dmain.m; sourceTree = "<group>"; };
@@ -1266,7 +1311,9 @@
 		552E49381DF73E4B00205CE0 /* NH3DEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DEnums.h; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
+		55307ABD1E295D4100E0335A /* SoundController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundController.swift; sourceTree = "<group>"; };
 		5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAdditionsSmall.swift; sourceTree = "<group>"; };
+		5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FruitzOfDojo.xcodeproj; path = FDFramework/FruitzOfDojo.xcodeproj; sourceTree = "<group>"; };
 		5535626F1CA336D90015E8BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FirstLaunch.xib; sourceTree = "<group>"; };
 		553562721CA336E30015E8BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
 		553562741CA336ED0015E8BA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/FirstLaunch.strings; sourceTree = "<group>"; };
@@ -1392,6 +1439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */,
+				55307AC21E295E7800E0335A /* FDAudio.framework in Frameworks */,
 				55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
@@ -1440,6 +1488,7 @@
 				2B6311CC08B7A27A00162523 /* winnh3d.m */,
 				552673E71DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.h */,
 				552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */,
+				55307ABD1E295D4100E0335A /* SoundController.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1473,6 +1522,7 @@
 		29B97314FDCFA39411CA2CEA /* NetHack3D */ = {
 			isa = PBXGroup;
 			children = (
+				5531D5241E2830B300BDBF21 /* Third-party */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				5560A2A51C347F8C00BF77F7 /* Other Sources */,
 				29B97315FDCFA39411CA2CEA /* NetHack */,
@@ -2543,6 +2593,15 @@
 			path = hints;
 			sourceTree = "<group>";
 		};
+		5531D5241E2830B300BDBF21 /* Third-party */ = {
+			isa = PBXGroup;
+			children = (
+				5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */,
+			);
+			name = "Third-party";
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		5539E6171CB2F03F00ED6EF3 /* RecoverApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -2567,6 +2626,16 @@
 				5531D4B81E280E2F00BDBF21 /* SwiftAdditionsSmall.swift */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		55887EA01E28BF5200C88D01 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55887EA61E28BF5200C88D01 /* FruitzOfDojo.framework */,
+				55887EA81E28BF5200C88D01 /* FruitzOfDojoSwift.framework */,
+				55887EAA1E28BF5200C88D01 /* FDAudio.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		55E4AFA01CB065B8003D92B9 /* dgn_comp */ = {
@@ -2717,6 +2786,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				5531D5231E282EEF00BDBF21 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2724,6 +2794,7 @@
 				5539E6281CB32A8600ED6EF3 /* PBXTargetDependency */,
 				557CE1C91C8E207900B43765 /* PBXTargetDependency */,
 				557CE1CB1C8E207900B43765 /* PBXTargetDependency */,
+				55307AC51E295E7800E0335A /* PBXTargetDependency */,
 			);
 			name = NetHack3D;
 			productInstallPath = "$(HOME)/Applications";
@@ -2774,6 +2845,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NetHack3D */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 55887EA01E28BF5200C88D01 /* Products */;
+					ProjectRef = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NetHack3D */,
@@ -2791,6 +2868,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		55887EA61E28BF5200C88D01 /* FruitzOfDojo.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FruitzOfDojo.framework;
+			remoteRef = 55887EA51E28BF5200C88D01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55887EA81E28BF5200C88D01 /* FruitzOfDojoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FruitzOfDojoSwift.framework;
+			remoteRef = 55887EA71E28BF5200C88D01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55887EAA1E28BF5200C88D01 /* FDAudio.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FDAudio.framework;
+			remoteRef = 55887EA91E28BF5200C88D01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5539E6141CB2F03F00ED6EF3 /* Resources */ = {
@@ -3392,6 +3493,7 @@
 				2B5CC191088EB7DF00940C58 /* potion.c in Sources */,
 				2B5CC192088EB7DF00940C58 /* pray.c in Sources */,
 				2B5CC193088EB7DF00940C58 /* priest.c in Sources */,
+				55307ABE1E295D4100E0335A /* SoundController.swift in Sources */,
 				2B5CC197088EB7DF00940C58 /* quest.c in Sources */,
 				2B5CC198088EB7DF00940C58 /* questpgr.c in Sources */,
 				2B5CC199088EB7DF00940C58 /* read.c in Sources */,
@@ -3456,6 +3558,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55307AC51E295E7800E0335A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FDAudio;
+			targetProxy = 55307AC41E295E7800E0335A /* PBXContainerItemProxy */;
+		};
 		5539E6281CB32A8600ED6EF3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5539E6151CB2F03F00ED6EF3 /* RecoverApp */;
