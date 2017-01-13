@@ -394,7 +394,6 @@
 		55E4AF9E1CB06455003D92B9 /* dgn_comp.l in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D70891ADF000D38098 /* dgn_comp.l */; };
 		55E4AF9F1CB06455003D92B9 /* dgn_comp.y in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB62D80891ADF000D38098 /* dgn_comp.y */; };
 		55F416651CA250B000AE8943 /* NH3DFirstLaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */; };
-		55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F544C01C3614A100A1A1EE /* AVFoundation.framework */; };
 		55FC953F1B5CD59700B0FFB4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95411B5CD59700B0FFB4 /* Localizable.strings */; };
 		55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */; };
 		55FEB8191C37111F008B3A8C /* NH3DPreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */; };
@@ -1443,7 +1442,6 @@
 				55388FDB1C8340C2002D3B99 /* GLKit.framework in Frameworks */,
 				2B02FB2009497C03008FEDB0 /* OpenGL.framework in Frameworks */,
 				2B89E8340957180300978B9C /* Foundation.framework in Frameworks */,
-				55F544C11C3614A100A1A1EE /* AVFoundation.framework in Frameworks */,
 				2B02FB1E09497BDB008FEDB0 /* AppKit.framework in Frameworks */,
 				2B02FB3509497C21008FEDB0 /* Cocoa.framework in Frameworks */,
 			);

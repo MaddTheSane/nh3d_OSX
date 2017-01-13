@@ -310,7 +310,7 @@ WINGNOMELIB = -lgnomeui -lgnome -lart_lgpl -lgtk -lgdk -lpopt
 # For Linux?
 #WINNH3DLIB = -L$(GNUSTEPDIR)/Libraries -lgnustep-gui -lgnustep-base -lobjc -lGL -lGLU
 # For MacOSX_PPC
-WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -lncurses -framework AVFoundation \
+WINNH3DLIB = -L$(MACOSXDIR) -F$(MACOSXDIR)/Frameworks -lncurses \
 -framework AppKit -framework OpenGL -framework Cocoa $(OSXARCH) \
 -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/ \
 -rpath @executable_path/../Frameworks -framework SystemConfiguration \

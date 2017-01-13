@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import AVFoundation
 
 let DIALOG_OK		= 128
 let DIALOG_CANCEL	= 129
