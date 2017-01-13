@@ -728,7 +728,6 @@ static const NH3DMaterial defaultMat = {
 	if (self != nil) {
 		modelCode = [name copy];
 
-		int i;
 		[self initParams];
 		slowdown = 3.0f;
 		xspeed = 0;
