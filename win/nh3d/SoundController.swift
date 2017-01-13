@@ -48,10 +48,10 @@ public final class SoundController: NSObject {
 		
 		var volume: Float {
 			get {
-				return audioFile.volume
+				return audioFile.volume * 100
 			}
 			set {
-				audioFile.volume = newValue
+				audioFile.volume = newValue / 100
 			}
 		}
 		
@@ -93,6 +93,11 @@ public final class SoundController: NSObject {
 	
 	@objc(sharedSoundController) static let shared = SoundController()
 	
+	private override init() {
+		super.init()
+		FDAudioMixer.shared?.start()
+	}
+	
 	private var audioObjects: [SoundObject] = {
 		var arrs = [SoundObject]()
 		for i in 0..<8 {
@@ -104,7 +109,7 @@ public final class SoundController: NSObject {
 	
 	func stopAll() {
 		for obj in audioObjects {
-			obj.audioFile.stop()
+			obj.stop()
 		}
 	}
 	

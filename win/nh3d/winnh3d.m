@@ -307,7 +307,7 @@ void nh3d_askname()
 	}
 }
 
-static NSMutableDictionary<NSString*, NSSound*> *soundDict = nil;
+static NSMutableDictionary<NSString*, NSURL*> *soundDict = nil;
 
 void nh3d_get_nh_event()
 {
@@ -315,7 +315,7 @@ void nh3d_get_nh_event()
 	dispatch_once(&onceToken, ^{
 		soundDict = [[NSMutableDictionary alloc] initWithCapacity:9];
 	});
-	NSSound *soundEffect = nil;
+	NSURL *soundEffect = nil;
 	
 	@autoreleasepool {
 		if (SOUND_MUTE)
@@ -327,10 +327,10 @@ void nh3d_get_nh_event()
 #define PlaySoundName(aName) \
 soundEffect = soundDict[aName]; \
 if (!soundEffect) { \
-soundEffect = [NSSound soundNamed:aName]; \
+soundEffect = [NSURL fileURLWithPath: [[NSBundle mainBundle] pathForSoundResource:aName]];\
 soundDict[aName] = soundEffect; \
 } \
-[soundEffect play]
+[[SoundController sharedSoundController] playAudioFileAtURL:soundEffect volume:100 priority:SoundPriorityLow]
 
 			case 1:
 				PlaySoundName(@"waterDrop");
@@ -379,10 +379,6 @@ soundDict[aName] = soundEffect; \
 				break;
 		}
 #undef PlaySoundName
-	}
-	// Make sure we're playing the sound
-	if (soundEffect != nil && !soundEffect.isPlaying) {
-		[soundEffect play];
 	}
 }
 
@@ -1597,6 +1593,8 @@ static char ynPreReady(const char *str)
 	/* first-time inventory */
 	[_NH3DUserStatusModel updatePlayerInventory];
 	[_userStatus updatePlayer];
+	// Poke the sound controller
+	[SoundController sharedSoundController];
 	
 #if !defined(HEARSE_DISABLE)
 	[Hearse start];

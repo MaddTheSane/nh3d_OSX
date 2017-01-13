@@ -1444,7 +1444,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// Sets the camera's x-y-z position.
 	@objc(setCameraAtX:atY:atZ:) func setCamera(x: Float, y: Float, z: Float) {
 		struct CameraHelp {
-			static let footstep = NSSound(named: "footStep")!
+			static let footstep = URL(fileURLWithPath: Bundle.main.path(forSoundResource: "footStep")!)
 		}
 		viewLock.lock()
 		do {
@@ -1461,11 +1461,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraY = cameraY
 				lastCameraZ = cameraZ
 				isReady = true
-			} else if CameraHelp.footstep.isPlaying && ((!isFloating || isRiding) && !isSoft(roomAtCurrentLocation.typ)) && !SOUND_MUTE {
-				CameraHelp.footstep.stop()
-				CameraHelp.footstep.play()
 			} else if (!isFloating || isRiding) && !isSoft(roomAtCurrentLocation.typ) && !SOUND_MUTE {
-				CameraHelp.footstep.play()
+				SoundController.shared.playAudioFile(at: CameraHelp.footstep, volume: 100, priority: .high)
 			}
 			
 			nowUpdating = false

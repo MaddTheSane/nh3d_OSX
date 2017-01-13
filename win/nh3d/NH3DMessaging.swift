@@ -59,8 +59,6 @@ class NH3DMessaging: NSObject {
 	@IBOutlet weak var inputTextField: NSTextField!
 	@IBOutlet weak var questionTextField: NSTextField!
 	
-	private var audioDict = [String: AVAudioPlayer]()
-	
 	private var msgArray = [Int]()
 	
 	private var darkShadowStrAttributes = [String: Any]()
@@ -140,29 +138,8 @@ class NH3DMessaging: NSObject {
 			return false
 		}
 		
-		func playAud(playSound: AVAudioPlayer) {
-			if playSound.isPlaying {
-				return
-				//playSound.pause()
-				//playSound.currentTime = 0
-			}
-			playSound.volume = volume * 0.01
-			playSound.play()
-		}
+		SoundController.shared.playAudioFile(at: url, volume: volume)
 		
-		if let playSound1 = audioDict[url.path] {
-			playAud(playSound: playSound1)
-			return true
-		}
-		guard let reach = try? url.checkResourceIsReachable(), reach == true else {
-			return false
-		}
-		
-		guard let playSound = try? AVAudioPlayer(contentsOf: url) else {
-			return false
-		}
-		audioDict[url.path] = playSound
-		playAud(playSound: playSound)
 		return true
 	}
 	
