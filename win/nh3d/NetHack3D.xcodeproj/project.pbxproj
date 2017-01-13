@@ -447,6 +447,27 @@
 			remoteGlobalIDString = 557CE1CC1C8E242500B43765;
 			remoteInfo = headers;
 		};
+		55887EA51E28BF5200C88D01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 556478241CECEE1000ECD01B;
+			remoteInfo = FruitzOfDojo;
+		};
+		55887EA71E28BF5200C88D01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55F926101CED18F900145952;
+			remoteInfo = FruitzOfDojoSwift;
+		};
+		55887EA91E28BF5200C88D01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5531D5061E282D6000BDBF21;
+			remoteInfo = FDAudio;
+		};
 		55BCFCAD1C9C87780076210F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -2593,6 +2614,16 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		55887EA01E28BF5200C88D01 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55887EA61E28BF5200C88D01 /* FruitzOfDojo.framework */,
+				55887EA81E28BF5200C88D01 /* FruitzOfDojoSwift.framework */,
+				55887EAA1E28BF5200C88D01 /* FDAudio.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		55E4AFA01CB065B8003D92B9 /* dgn_comp */ = {
 			isa = PBXGroup;
 			children = (
@@ -2799,6 +2830,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NetHack3D */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 55887EA01E28BF5200C88D01 /* Products */;
+					ProjectRef = 5531D4F81E282D2700BDBF21 /* FruitzOfDojo.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NetHack3D */,
@@ -2816,6 +2853,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		55887EA61E28BF5200C88D01 /* FruitzOfDojo.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FruitzOfDojo.framework;
+			remoteRef = 55887EA51E28BF5200C88D01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55887EA81E28BF5200C88D01 /* FruitzOfDojoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FruitzOfDojoSwift.framework;
+			remoteRef = 55887EA71E28BF5200C88D01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55887EAA1E28BF5200C88D01 /* FDAudio.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FDAudio.framework;
+			remoteRef = 55887EA91E28BF5200C88D01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5539E6141CB2F03F00ED6EF3 /* Resources */ = {
