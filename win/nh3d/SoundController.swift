@@ -10,6 +10,9 @@ import Foundation
 import FDAudio
 
 private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
+	if urlA == urlB {
+		return true
+	}
 	var dat1: (NSCopying & NSSecureCoding & NSObjectProtocol)? = nil
 	var dat2: (NSCopying & NSSecureCoding & NSObjectProtocol)? = nil
 	var bothAreValid = true
@@ -158,7 +161,7 @@ public final class SoundController: NSObject {
 
 	
 	@objc(playAudioFileAtURL:volume:priority:)
-	func playAudioFile(at url: URL, volume: Float, priority: Priority = .medium) {
+	func playAudioFile(at url: URL, volume: Float = 100, priority: Priority = .medium) {
 		var obj2: SoundObject? = nil
 		
 		//See if there's an audio object that points to the requested URL

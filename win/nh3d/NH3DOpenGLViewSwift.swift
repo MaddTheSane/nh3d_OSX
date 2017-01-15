@@ -15,6 +15,13 @@ import GLKit.GLKMathUtils
 import CoreVideo
 
 
+// TODO: change from "backslash" to a single quote mark (')
+/// TODO: change from "backslash" to a single quote mark (`'`)
+private var golemModel: String {
+	return "backslash"
+}
+
+/// The size of textures generated from tiles and text.
 private let TEX_SIZE = 256
 
 private func blankSwitchMethod(x: Int32, z: Int32, lx: Int32, lz: Int32) {
@@ -1462,7 +1469,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				lastCameraZ = cameraZ
 				isReady = true
 			} else if (!isFloating || isRiding) && !isSoft(roomAtCurrentLocation.typ) && !SOUND_MUTE {
-				SoundController.shared.playAudioFile(at: CameraHelp.footstep, volume: 100, priority: .high)
+				SoundController.shared.playAudioFile(at: CameraHelp.footstep, priority: .high)
 			}
 			
 			nowUpdating = false
@@ -1670,8 +1677,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			img.unlockFocus()
 		}
 		
-		//var imgrep: NSBitmapImageRep?
-		guard let imgData = img.tiffRepresentation, let imgrep = NSBitmapImageRep(data: imgData) else {
+		guard let imgData = img.tiffRepresentation, let imgrep = NSBitmapImageRep(data: imgData)?.forceRGBColorSpace() else {
 			return 0
 		}
 		
@@ -2704,7 +2710,7 @@ extension NH3DOpenGLView {
 		} else {
 			offset = GLYPH_MON_OFF
 		}
-		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, offset: offset, modelName: "backslash")
+		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, offset: offset, modelName: golemModel)
 	}
 	
 	/// Human or Elves
@@ -4091,10 +4097,7 @@ extension NH3DOpenGLView {
 			loadDat = (PM_KOBOLD_ZOMBIE, PM_SKELETON, "upperZ")
 			
 		case (PM_STRAW_GOLEM+NetHackGlyphStatueOffset)...(PM_IRON_GOLEM+NetHackGlyphStatueOffset):
-			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, "backslash")
-			
-		case (PM_STRAW_GOLEM+NetHackGlyphStatueOffset)...(PM_IRON_GOLEM+NetHackGlyphStatueOffset):
-			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, "backslash")
+			loadDat = (PM_STRAW_GOLEM, PM_IRON_GOLEM, golemModel)
 			
 		case (PM_ELVENKING+NetHackGlyphStatueOffset)...(PM_WIZARD_OF_YENDOR+NetHackGlyphStatueOffset):
 			loadDat = (PM_ELVENKING, PM_WIZARD_OF_YENDOR, "atmark")
