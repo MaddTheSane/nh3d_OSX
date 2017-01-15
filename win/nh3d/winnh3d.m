@@ -1805,9 +1805,12 @@ FILE *cocoa_dlb_fopen(const char *filename, const char *mode)
 
 void play_usersound(const char *filename, int volume)
 {
+	if (SOUND_MUTE) {
+		return;
+	}
 	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:nil];
 	
-	[_NH3DMessenger playSoundAtURL:url volume:volume];
+	[SoundController.sharedSoundController playAudioFileAtURL:url volume:volume priority:SoundPriorityMedium];
 }
 
 #endif

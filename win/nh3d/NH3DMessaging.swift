@@ -130,17 +130,6 @@ class NH3DMessaging: NSObject {
 		effectArray.append(newObj)
 		return true
 	}
-
-	@objc(playSoundAtURL:volume:)
-	func playSound(url: URL, volume: Float) -> Bool {
-		guard !SOUND_MUTE else {
-			return false
-		}
-		
-		SoundController.shared.playAudioFile(at: url, volume: volume)
-		
-		return true
-	}
 	
 	@objc(putMainMessage:text:)
 	func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>?) {
