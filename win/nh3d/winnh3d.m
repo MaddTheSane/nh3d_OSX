@@ -327,7 +327,7 @@ void nh3d_get_nh_event()
 #define PlaySoundName(aName) \
 soundEffect = soundDict[aName]; \
 if (!soundEffect) { \
-soundEffect = [NSURL fileURLWithPath: [[NSBundle mainBundle] pathForSoundResource:aName]];\
+soundEffect = [[NSURL fileURLWithPath: [[NSBundle mainBundle] pathForSoundResource:aName]] fileReferenceURL];\
 soundDict[aName] = soundEffect; \
 } \
 [[SoundController sharedSoundController] playAudioFileAtURL:soundEffect volume:100 priority:SoundPriorityLow]
