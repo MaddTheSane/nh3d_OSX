@@ -47,7 +47,6 @@ public final class SoundController: NSObject {
 		var isFinished: Bool {
 			return audioFile.isFinished || audioFile.file == nil
 		}
-
 		
 		var volume: Float {
 			get {
@@ -59,7 +58,7 @@ public final class SoundController: NSObject {
 		}
 		
 		@discardableResult
-		func startFile(url: URL) -> Bool {
+		func startFile(at url: URL) -> Bool {
 			return audioFile.startFile(url, loop: false)
 		}
 		
@@ -128,7 +127,6 @@ public final class SoundController: NSObject {
 	
 	private func findObject(withPriorityLowerThan newPrio: Priority) -> SoundObject? {
 		for obj in audioObjects {
-			
 			if obj.currentPriority.rawValue < newPrio.rawValue {
 				return obj
 			}
@@ -139,7 +137,6 @@ public final class SoundController: NSObject {
 
 	private func findObject(withPriorityEqualTo newPrio: Priority) -> SoundObject? {
 		for obj in audioObjects {
-			
 			// Just in case
 			if obj.currentPriority.rawValue <= newPrio.rawValue {
 				return obj
@@ -158,7 +155,6 @@ public final class SoundController: NSObject {
 		
 		return nil
 	}
-
 	
 	@objc(playAudioFileAtURL:volume:priority:)
 	func playAudioFile(at url: URL, volume: Float = 100, priority: Priority = .medium) {
@@ -194,6 +190,6 @@ public final class SoundController: NSObject {
 		
 		obj.volume = volume
 		obj.currentPriority = priority
-		obj.startFile(url: url)
+		obj.startFile(at: url)
 	}
 }
