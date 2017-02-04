@@ -65,6 +65,8 @@ final class TileSet: NSObject {
 		}
 		
 		do {
+			//Attempt to find (and use) Retina @2x images
+			//TODO: check if hi-res, multi-page images work.
 			let x2Loc: String = {
 				//var toRet = ""
 				let ext = (loc as NSString).pathExtension
