@@ -9,7 +9,6 @@
 #ifndef NH3DEnums_h
 #define NH3DEnums_h
 
-#include <stdbool.h>
 #include "C99Bool.h"
 #import <Foundation/NSObjCRuntime.h>
 
