@@ -33,10 +33,14 @@ final class TileSet: NSObject {
 
 	init(image img: NSImage, tileSize ts: NSSize) {
 		let rect = NSRect(origin: .zero, size: img.size)
+		#if true
+			image = img.copy() as! NSImage
+		#else
 		image = NSImage(size: rect.size)
 		image.lockFocus()
 		img.draw(in: rect, from: rect, operation: .copy, fraction: 1.0)
 		image.unlockFocus()
+		#endif
 		
 		tileSize = ts
 		rows = Int(image.size.height / tileSize.height)
@@ -69,9 +73,10 @@ final class TileSet: NSObject {
 			//TODO: check if hi-res, multi-page images work.
 			let x2Loc: String = {
 				//var toRet = ""
-				let ext = (loc as NSString).pathExtension
-				let parentPath = (loc as NSString).deletingLastPathComponent
-				var lastPath = ((loc as NSString).lastPathComponent as NSString).deletingPathExtension
+				let nsLoc = loc as NSString
+				let ext = nsLoc.pathExtension
+				let parentPath = nsLoc.deletingLastPathComponent
+				var lastPath = (nsLoc.lastPathComponent as NSString).deletingPathExtension
 				lastPath += "@2x"
 				lastPath = (lastPath as NSString).appendingPathExtension(ext) ?? "\(lastPath).\(ext)"
 				var toRet = parentPath
