@@ -114,6 +114,9 @@ void nh3d_set_savefile_name();
 @property (weak) IBOutlet NSWindow *mainWindow;
 @property (weak) IBOutlet NSWindow *launchWindow;
 
+@property (weak) IBOutlet NSView *majorMapView;
+@property (weak) IBOutlet NSView *minorMapView;
+
 - (void)didPresentError:(NSError *)error;
 
 - (void)printGlyph:(winid)wid xPos:(xchar)x yPos:(xchar)y glyph:(int)glyph bkglyph:(int)bkglyph;

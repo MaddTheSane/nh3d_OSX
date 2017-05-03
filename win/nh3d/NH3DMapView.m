@@ -149,7 +149,7 @@ extern BOOL CocoaPortIsReady;
 			}
 		}
 		
-		self.frame = NSMakeRect(4.0, 366.0, 176.0, 176.0);
+		self.frame = NSMakeRect(0, 0, 176.0, 176.0);
 		
 		self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 		
