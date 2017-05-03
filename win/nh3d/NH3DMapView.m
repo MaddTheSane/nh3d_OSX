@@ -94,7 +94,6 @@ extern BOOL CocoaPortIsReady;
 		//NSLog(@"%f,%f,%f,%f",frameRect.origin.x,frameRect.origin.y,frameRect.size.width,frameRect.size.height);
 		
 		if (TRADITIONAL_MAP) {
-			self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0);
 			self.mapBase = [NSImage imageNamed:@"trBase"];
 			self.trMapImage = nil;
 		} else {
@@ -114,6 +113,11 @@ extern BOOL CocoaPortIsReady;
 				selector:@selector(defaultDidChange:)
 					name:@"NSUserDefaultsDidChangeNotification"
 				  object:nil];
+	if (TRADITIONAL_MAP) {
+		self.frame = NSMakeRect(0, 0, 440.0, 320.0);
+		[self removeFromSuperview];
+		[_bindController.majorMapView addSubview:self];
+	}
 }
 
 - (void)defaultDidChange:(NSNotification *)notification
@@ -130,7 +134,10 @@ extern BOOL CocoaPortIsReady;
 			[self unlockFocus];
 		}
 		
-		self.frame = NSMakeRect(183.0, 222.0, 440.0, 320.0) ;
+		[self removeFromSuperview];
+		[_bindController.majorMapView addSubview:self];
+		
+		self.frame = NSMakeRect(0, 0, 440.0, 320.0) ;
 		
 		self.mapBase = [NSImage imageNamed:@"trBase"];
 		
@@ -148,6 +155,9 @@ extern BOOL CocoaPortIsReady;
 				[self unlockFocus];
 			}
 		}
+		
+		[self removeFromSuperview];
+		[_bindController.minorMapView addSubview:self];
 		
 		self.frame = NSMakeRect(0, 0, 176.0, 176.0);
 		
