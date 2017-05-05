@@ -1023,28 +1023,28 @@ final class NH3DOpenGLView: NSOpenGLView {
 			// draw models
 			// first, normal objects
 			switch mapModel.playerDirection {
-			case PL_DIRECTION_FORWARD:
+			case .forward:
 				for x in 0..<NH3DGL_MAPVIEWSIZE_COLUMN {
 					for z in 0..<(MAP_MARGIN+drawMargin) {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
-			case PL_DIRECTION_RIGHT:
+			case .right:
 				for z in 0..<NH3DGL_MAPVIEWSIZE_ROW {
 					for x in ((MAP_MARGIN-drawMargin)..<NH3DGL_MAPVIEWSIZE_COLUMN).reversed() {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
-			case PL_DIRECTION_BACK:
+			case .back:
 				for x in 0..<NH3DGL_MAPVIEWSIZE_COLUMN {
 					for z in ((MAP_MARGIN-drawMargin)..<NH3DGL_MAPVIEWSIZE_ROW).reversed() {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
-			case PL_DIRECTION_LEFT:
+			case .left:
 				for z in 0..<NH3DGL_MAPVIEWSIZE_ROW {
 					for x in 0..<(MAP_MARGIN+drawMargin) {
 						drawGLView(x: x, z: z)
@@ -1275,7 +1275,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			
 			for x in (centerX-MAP_MARGIN)..<(centerX+1+MAP_MARGIN) {
-				for z in (centerZ-MAP_MARGIN)..<(centerZ+1+MAP_MARGIN) {
+				for z in (centerZ - MAP_MARGIN) ..< (centerZ + 1 + MAP_MARGIN) {
 					let mapItem = mapModel.mapArray(x: x, y: z)
 					mapItemValue[localx][localz] = mapItem
 					localz += 1
@@ -1502,13 +1502,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		struct EffectHelper {
 			static var effectCount = 0
 		}
-		let localPos = effectArray[enemyPosition - 1].modelShift
+		let localPos = effectArray[Int(enemyPosition - 1)].modelShift
 		
-		effectArray[enemyPosition - 1].modelPivot = NH3DVertexType(x: cameraX+localPos.x,
+		effectArray[Int(enemyPosition - 1)].modelPivot = NH3DVertexType(x: cameraX+localPos.x,
 			y: localPos.y,
 			z: cameraZ + localPos.z)
 		if EffectHelper.effectCount < Int(waitRate) / 2 {
-			effectArray[enemyPosition - 1].drawSelf()
+			effectArray[Int(enemyPosition - 1)].drawSelf()
 			EffectHelper.effectCount += 1
 		} else {
 			EffectHelper.effectCount = 0
@@ -1540,7 +1540,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			static var shockDirection = false
 		}
 		
-		ShockHelp.cameraShock = ( ShockHelp.shockDirection ) ? ShockHelp.cameraShock + 0.04 : ShockHelp.cameraShock - 0.04
+		ShockHelp.cameraShock = ShockHelp.shockDirection ? ShockHelp.cameraShock + 0.04 : ShockHelp.cameraShock - 0.04
 		if ShockHelp.cameraShock > 0.08 {
 			ShockHelp.shockDirection = false
 		}
@@ -1822,7 +1822,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		if TRADITIONAL_MAP && !firstTime {
-			mapModel.playerDirection = PL_DIRECTION_FORWARD
+			mapModel.playerDirection = .forward
 			//[ self clearGLContext ];
 			openGLContext?.clearDrawable()
 			isHidden = true

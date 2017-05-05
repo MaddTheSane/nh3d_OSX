@@ -96,10 +96,17 @@ extern NSString *const NH3DIsFirstLaunch;
 #define NUMBER_OF_TILES_ROW		[[NSUserDefaults standardUserDefaults] integerForKey:NH3DNumberOfTilesRowKey]
 
 // Player Directions
-#define PL_DIRECTION_FORWARD 0
-#define PL_DIRECTION_RIGHT	1
-#define PL_DIRECTION_BACK	2
-#define PL_DIRECTION_LEFT	3
+typedef NS_ENUM(int, NH3DPlayerDirection) {
+	NH3DPlayerDirectionForward	= 0,
+	NH3DPlayerDirectionRight	= 1,
+	NH3DPlayerDirectionBack		= 2,
+	NH3DPlayerDirectionLeft		= 3,
+};
+
+#define PL_DIRECTION_FORWARD NH3DPlayerDirectionForward
+#define PL_DIRECTION_RIGHT	NH3DPlayerDirectionRight
+#define PL_DIRECTION_BACK	NH3DPlayerDirectionBack
+#define PL_DIRECTION_LEFT	NH3DPlayerDirectionLeft
 
 /// default colmun + MapView number of column.
 #define MAPSIZE_COLUMN 90

@@ -14,11 +14,11 @@ class MapModel: NSObject {
 	@IBOutlet weak var enemyIndicator: NSLevelIndicator!
 	@IBOutlet weak var glMapView: NH3DOpenGLView!
 	
-	dynamic var playerDirection: Int32 = 0 {
+	dynamic var playerDirection: NH3DPlayerDirection = .forward {
 		willSet {
-			if newValue >= 0 && newValue <= 3 {
+			if newValue.rawValue >= 0 && newValue.rawValue <= 3 {
 				
-				switch (playerDirection - newValue) {
+				switch (playerDirection.rawValue - newValue.rawValue) {
 				case -3, 1:
 					glMapView.setCamera(head: glMapView.cameraHead + 90, pitch: 0, roll: 0)
 					
@@ -124,11 +124,11 @@ class MapModel: NSObject {
 	}
 	
 	@objc private func updateEnemyIndicator(timer: Timer) {
-		var value = enemyWarnBase + Int(arc4random() % 3 + 1)
+		var value = enemyWarnBase + Int32(arc4random() % 3 + 1)
 		let alert = NSSound(named: "Hero")!
 		
 		if enemyIndicator.intValue == value {
-			value = enemyWarnBase - Int(arc4random() % 3 + 1)
+			value = enemyWarnBase - Int32(arc4random() % 3 + 1)
 		}
 		enemyIndicator.intValue = value
 		
@@ -207,22 +207,22 @@ class MapModel: NSObject {
 	}
 	
 	@IBAction final func turnPlayerRight(_ sender: AnyObject?) {
-		if playerDirection != 3 {
+		if playerDirection != .left {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
-			self.playerDirection = playerDirection + 1
+			self.playerDirection = NH3DPlayerDirection(rawValue: playerDirection.rawValue + 1)!
 		} else {
-			self.playerDirection = 0
+			self.playerDirection = .forward
 		}
 	}
 	
 	@IBAction final func turnPlayerLeft(_ sender: AnyObject?) {
-		if playerDirection != 0 {
+		if playerDirection != .forward {
 			// don't this instance value direct Increment/decrement
 			// playerDirection binded by Cocoa binding.
-			self.playerDirection = playerDirection - 1;
+			self.playerDirection = NH3DPlayerDirection(rawValue: playerDirection.rawValue - 1)!
 		} else {
-			self.playerDirection = 3;
+			self.playerDirection = .left;
 		}
 	}
 	
