@@ -28,6 +28,17 @@
 @synthesize material = color;
 @synthesize bgGlyph;
 
+- (nullable NSString*)alternateSymbolForDirection:(NH3DPlayerDirection)direction;
+{
+	if (!hasAlternateSymbol) {
+		return nil;
+	}
+	if (SYMHANDLING(H_IBM)) {
+
+	}
+	return nil;
+}
+
 - (void)checkDrawingType
 {
 	if (glyph ==  S_stone+GLYPH_CMAP_OFF &&
