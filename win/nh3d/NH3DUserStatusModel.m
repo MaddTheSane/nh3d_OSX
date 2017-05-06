@@ -435,7 +435,7 @@ static NSString *stripParentheses(NSString *text)
 {
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
-		self.playerArmorString = stripParentheses(@(Doname2(uarm))); //stripParentheses([NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING])
+		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
@@ -443,7 +443,7 @@ static NSString *stripParentheses(NSString *text)
 
 	if (uarmu && !uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
-		self.playerArmorString = stripParentheses(@(Doname2(uarmu)));
+		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarmu) encoding:NH3DTEXTENCODING]);
 	} else if (!uarm) {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
@@ -451,7 +451,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uarmc) {
 		[self setPlayerCloak:obj_to_glyph(uarmc)];
-		self.playerCloakString = stripParentheses(@(Doname2(uarmc)));
+		self.playerCloakString = stripParentheses([NSString stringWithCString:Doname2(uarmc) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerCloak:0];
 		self.playerCloakString = nil;
@@ -459,7 +459,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uarmh) {
 		[self setPlayerHelmet:obj_to_glyph(uarmh)];
-		self.playerHelmetString = stripParentheses(@(Doname2(uarmh)));
+		self.playerHelmetString = stripParentheses([NSString stringWithCString:Doname2(uarmh) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerHelmet:0];
 		self.playerHelmetString = nil;
@@ -467,7 +467,7 @@ static NSString *stripParentheses(NSString *text)
 		
 	if (uarmg) {
 		[self setPlayerGloves:obj_to_glyph(uarmg)];
-		self.playerGlovesString = stripParentheses(@(Doname2(uarmg)));
+		self.playerGlovesString = stripParentheses([NSString stringWithCString:Doname2(uarmg) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerGloves:0];
 		self.playerGlovesString = nil;
@@ -475,7 +475,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uarmf) {
 		[self setPlayerShoes:obj_to_glyph(uarmf)];
-		self.playerShoesString = stripParentheses(@(Doname2(uarmf)));
+		self.playerShoesString = stripParentheses([NSString stringWithCString:Doname2(uarmf) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerShoes:0];
 		self.playerShoesString = nil;
@@ -483,7 +483,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uleft) {
 		[self setPlayerRingL:obj_to_glyph(uleft)];
-		self.playerRingLString = stripParentheses(@(Doname2(uleft)));
+		self.playerRingLString = stripParentheses([NSString stringWithCString:Doname2(uleft) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerRingL:0];
 		self.playerRingLString = nil;
@@ -491,7 +491,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uright) {
 		[self setPlayerRingR:obj_to_glyph(uright)];
-		self.playerRingRString = stripParentheses(@(Doname2(uright)));
+		self.playerRingRString = stripParentheses([NSString stringWithCString:Doname2(uright) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerRingR:0];
 		self.playerRingRString = nil;
@@ -499,7 +499,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uwep) {
 		[self setPlayerWeapon:obj_to_glyph(uwep)];
-		self.playerWeaponString = stripParentheses(@(Doname2(uwep)));
+		self.playerWeaponString = stripParentheses([NSString stringWithCString:Doname2(uwep) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerWeapon:0];
 		self.playerWeaponString = nil;
@@ -507,7 +507,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uswapwep && !u.twoweap) {
 		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
-		self.playerSubWeaponString = stripParentheses(@(Doname2(uswapwep)));
+		self.playerSubWeaponString = stripParentheses([NSString stringWithCString:Doname2(uswapwep) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerSubWeapon:0];
 		self.playerSubWeaponString = nil;
@@ -526,7 +526,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uamul) {
 		[self setPlayerAmulet:obj_to_glyph(uamul)];
-		self.playerAmuletString = stripParentheses(@(Doname2(uamul)));
+		self.playerAmuletString = stripParentheses([NSString stringWithCString:Doname2(uamul) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerAmulet:0];
 		self.playerAmuletString = nil;
@@ -534,7 +534,7 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (ublindf) {
 		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
-		self.playerBlindFoldString = stripParentheses(@(Doname2(ublindf)));
+		self.playerBlindFoldString = stripParentheses([NSString stringWithCString:Doname2(ublindf) encoding:NH3DTEXTENCODING]);
 	} else if (uarmh) {
 		[self setPlayerBlindFold:0];
 		//Needed, otherwise the blindfold overlaps the helmet, and it doesn't show up.

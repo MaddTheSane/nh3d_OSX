@@ -178,9 +178,9 @@ typedef struct NH3DParticle {
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the particleGravity property");
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
-- (void)setParticleSpeedX:(GLfloat)x Y:(GLfloat)y NS_SWIFT_NAME(setParticleSpeed(x:y:));
-@property (readonly) GLfloat particleSpeedX;
-@property (readonly) GLfloat particleSpeedY;
+- (void)setParticleSpeedX:(GLfloat)x Y:(GLfloat)y NS_REFINED_FOR_SWIFT;
+@property (readonly) GLfloat particleSpeedX NS_REFINED_FOR_SWIFT;
+@property (readonly) GLfloat particleSpeedY NS_REFINED_FOR_SWIFT;
 @property (nonatomic) GLfloat particleSlowdown;
 @property (nonatomic) GLfloat particleLife;
 @property (nonatomic) GLfloat particleSize;

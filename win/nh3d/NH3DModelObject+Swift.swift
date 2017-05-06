@@ -50,10 +50,10 @@ extension NH3DModelObject {
 	
 	var particleSpeed: (x: GLfloat, y: GLfloat) {
 		get {
-			return (particleSpeedX, particleSpeedY)
+			return (__particleSpeedX, __particleSpeedY)
 		}
 		set(nv) {
-			setParticleSpeed(x: nv.x, y: nv.y)
+			__setParticleSpeedX(nv.x, y: nv.y)
 		}
 	}
 }
