@@ -28,6 +28,235 @@
 @synthesize material = color;
 @synthesize bgGlyph;
 
+- (nullable NSString*)alternateSymbolForDirection:(NH3DPlayerDirection)direction;
+{
+	if (!hasAlternateSymbol) {
+		return nil;
+	}
+	if (SYMHANDLING(H_IBM)) {
+		switch (symbol) {
+			case -77://179:
+				if (direction == NH3DPlayerDirectionRight || direction == NH3DPlayerDirectionLeft) {
+					return @"\u2500";
+				}
+				return nil;
+				break;
+				
+			case -60://196:
+				if (direction == NH3DPlayerDirectionRight || direction == NH3DPlayerDirectionLeft) {
+					return @"\u2502";
+				}
+				return nil;
+				break;
+				
+			case -65://191: //┐
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"\u250C";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"\u2514";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"┘";
+						//return @"\u2518";
+						break;
+
+					default:
+						break;
+				}
+				break;
+				
+			case -64://192: //└
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"\u2518";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"\u2510";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"\u250C";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			case -39://217: //┘
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"\u2510";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"\u250C";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"\u2514";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			case -38://218: //┌
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"\u2514";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"\u250C";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"\u2510";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			case -63://193: //┴
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"├";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"┬";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"┤";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+				
+			case -61://195: //├
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"┬";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"┤";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"┴";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			case -62://194: //┬
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"┤";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"┴";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"├";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			case -76://180: //┤
+				switch (direction) {
+					case NH3DPlayerDirectionForward:
+						return nil;
+						break;
+						
+					case NH3DPlayerDirectionRight:
+						return @"┬";
+						break;
+						
+					case NH3DPlayerDirectionBack:
+						return @"├";
+						break;
+						
+					case NH3DPlayerDirectionLeft:
+						return @"┴";
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			default:
+				return nil;
+				break;
+		}
+	}
+	if (direction == NH3DPlayerDirectionForward || direction == NH3DPlayerDirectionBack) {
+		return nil;
+	}
+	switch (symbol) {
+		case '-':
+			return @"|";
+			break;
+			
+		case '|':
+			return @"-";
+			break;
+			
+		default:
+			break;
+	}
+	return nil;
+}
+
 - (void)checkDrawingType
 {
 	if (glyph ==  S_stone+GLYPH_CMAP_OFF &&

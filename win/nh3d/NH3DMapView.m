@@ -299,16 +299,8 @@ extern BOOL CocoaPortIsReady;
 		}
 	} else if (mapItem != nil) {
 		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-		float fontsize = NH3DMAPFONTSIZE;
-		float drawMargin = fontsize/4;
-		
-		if ([mapItem.symbol isEqualToString:@"-" ] && mapItem.hasAlternateSymbol) {
-			mapItem.cSymbol = '|';
-			mapItem.hasAlternateSymbol = NO;
-		} else if ([mapItem.symbol isEqualToString:@"|"] && mapItem.hasAlternateSymbol) {
-			mapItem.cSymbol = '-';
-			mapItem.hasAlternateSymbol = NO;
-		}
+		CGFloat fontsize = NH3DMAPFONTSIZE;
+		CGFloat drawMargin = fontsize/4;
 		
 		attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: fontsize];
 		
@@ -336,10 +328,15 @@ extern BOOL CocoaPortIsReady;
 							  (NSMaxY(bounds)-(y*fontsize)),
 							  fontsize+drawMargin, fontsize+drawMargin));
 		
-		[mapItem.symbol drawInRect:NSMakeRect(bounds.origin.x+drawMargin+(x*fontsize),
-												(NSMaxY(bounds)+drawMargin-(y*fontsize)),
-												fontsize, fontsize)
-					  withAttributes:attributes];
+		NSString *symbol = mapItem.symbol;
+		if (mapItemValue[x][y].hasAlternateSymbol && [mapItem alternateSymbolForDirection:_mapModel.playerDirection]) {
+			symbol = [mapItem alternateSymbolForDirection:_mapModel.playerDirection];
+		}
+		
+		[symbol drawInRect:NSMakeRect(bounds.origin.x+drawMargin+(x*fontsize),
+									  (NSMaxY(bounds)+drawMargin-(y*fontsize)),
+									  fontsize, fontsize)
+			withAttributes:attributes];
 	}
 	
 	//[_mapModel mapArrayAtX:x atY:y];
@@ -499,9 +496,6 @@ extern BOOL CocoaPortIsReady;
 		attributes[NSShadowAttributeName] = lshadow;
 		
 		// Replace Wall/OpenDoor charctor for Right,Left direction
-		switch (_mapModel.playerDirection) {
-			case PL_DIRECTION_RIGHT:
-			case PL_DIRECTION_LEFT:
 				if (!mapItemValue[x][y].hasAlternateSymbol) {
 					switch (mapItemValue[x][y].glyph) {
 						case S_vwall+GLYPH_CMAP_OFF:			/* vwall */
@@ -516,9 +510,6 @@ extern BOOL CocoaPortIsReady;
 						case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
-							(mapItemValue[x][y]).cSymbol = '-';
-							[mapItemValue[x][y] setHasAlternateSymbol:YES];
-							break;
 						case S_hwall+GLYPH_CMAP_OFF:			/* hwall */
 						case S_tlcorn+GLYPH_CMAP_OFF:			/* tlcorn */
 						case S_trcorn+GLYPH_CMAP_OFF:			/* trcorn */
@@ -536,23 +527,12 @@ extern BOOL CocoaPortIsReady;
 						case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
 						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM:
 						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
-							(mapItemValue[x][y]).cSymbol = '|';
 							[mapItemValue[x][y] setHasAlternateSymbol:YES];
+							break;
+						default:
 							break;
 					}
 				}
-				break;
-			default:
-				if ([mapItemValue[x][y].symbol isEqualToString:@"-"] && mapItemValue[x][y].hasAlternateSymbol) {
-					(mapItemValue[x][y]).cSymbol = '|';
-					[mapItemValue[x][y] setHasAlternateSymbol:NO];
-				} else if ([mapItemValue[x][y].symbol isEqualToString:@"|"] && mapItemValue[x][y].hasAlternateSymbol) {
-					(mapItemValue[x][y]).cSymbol = '-';
-					[mapItemValue[x][y] setHasAlternateSymbol:NO];
-				}
-				
-				break;
-		}
 		
 		//Draw view
 		if ([self lockFocusIfCanDraw]) {
@@ -566,11 +546,16 @@ extern BOOL CocoaPortIsReady;
 				needClear = NO;
 			}
 			
-			[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
-																 (NSMaxY(bounds) - ((y+1)*16.0)),
-																 16.0, 16.0)
-											  options:NSStringDrawingUsesDeviceMetrics
-										   attributes:attributes];
+			NSString *symbol = mapItemValue[x][y].symbol;
+			if (mapItemValue[x][y].hasAlternateSymbol && [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection]) {
+				symbol = [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection];
+			}
+			
+			[symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+											(NSMaxY(bounds) - ((y+1)*16.0)),
+											16.0, 16.0)
+						 options:NSStringDrawingUsesDeviceMetrics
+					  attributes:attributes];
 			
 			if (mapItemValue[x][y].hasCursor) {
 				[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
@@ -649,11 +634,16 @@ extern BOOL CocoaPortIsReady;
 				}
 				attributes[NSShadowAttributeName] = lshadow;
 				
-				[mapItemValue[x][y].symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
-																	  (NSMaxY(bounds)-((y+1)*16.0)),
-																	  16.0,16.0)
-												options:NSStringDrawingUsesDeviceMetrics
-												attributes:attributes];
+				NSString *symbol = mapItemValue[x][y].symbol;
+				if (mapItemValue[x][y].hasAlternateSymbol && [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection]) {
+					symbol = [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection];
+				}
+
+				[symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+												(NSMaxY(bounds)-((y+1)*16.0)),
+												16.0,16.0)
+							 options:NSStringDrawingUsesDeviceMetrics
+						  attributes:attributes];
 				
 				if (mapItemValue[x][y].hasCursor) {
 					[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
@@ -1625,17 +1615,12 @@ extern BOOL CocoaPortIsReady;
 					
 					attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE];
 					
-					
-					if ([mapcell.symbol isEqualToString:@"-"] && mapcell.hasAlternateSymbol) {
-						mapcell.cSymbol = '|';
-						mapcell.hasAlternateSymbol = NO;
-					} else if ([mapcell.symbol isEqualToString:@"|"] && mapcell.hasAlternateSymbol) {
-						mapcell.cSymbol = '-';
-						mapcell.hasAlternateSymbol = NO;
-					}
-					
 					attributes[NSForegroundColorAttributeName] = [mapcell.color highlightWithLevel:0.2];
-					drawSize = [mapcell.symbol sizeWithAttributes:attributes];
+					NSString *symbol = mapcell.symbol;
+					if (mapcell.hasAlternateSymbol && [mapcell alternateSymbolForDirection:_mapModel.playerDirection]) {
+						symbol = [mapcell alternateSymbolForDirection:_mapModel.playerDirection];
+					}
+					drawSize = [symbol sizeWithAttributes:attributes];
 					
 					lshadow.shadowOffset = NSMakeSize(0.8, 0.8);
 					lshadow.shadowBlurRadius = 5.5;
@@ -1643,9 +1628,9 @@ extern BOOL CocoaPortIsReady;
 					
 					attributes[NSShadowAttributeName] = lshadow;
 					
-					[mapcell.symbol drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
-															imgSize.height - (drawSize.height * (CGFloat)y))
-								 withAttributes:attributes];
+					[symbol drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
+													imgSize.height - (drawSize.height * (CGFloat)y))
+						 withAttributes:attributes];
 					
 					[attributes removeAllObjects];
 				}

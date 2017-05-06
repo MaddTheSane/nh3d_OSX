@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
+#import "NH3DUserDefaultsExtern.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,6 +52,7 @@ typedef NS_ENUM(NSInteger, NH3DModelDrawingTypes) {
 @property (nonatomic) BOOL hasAlternateSymbol;
 @property (nonatomic) BOOL hasCursor;
 @property (readonly) BOOL hasBackground;
+- (nullable NSString*)alternateSymbolForDirection:(NH3DPlayerDirection)direction;
 
 /// The foreground tile layered over the background tile.
 @property (readonly, strong, nullable) NSImage *tile;
