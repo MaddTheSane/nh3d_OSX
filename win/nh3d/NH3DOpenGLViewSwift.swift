@@ -1024,35 +1024,32 @@ final class NH3DOpenGLView: NSOpenGLView {
 			// first, normal objects
 			switch mapModel.playerDirection {
 			case .forward:
-				for x in 0..<NH3DGL_MAPVIEWSIZE_COLUMN {
-					for z in 0..<(MAP_MARGIN+drawMargin) {
+				for x in 0 ..< NH3DGL_MAPVIEWSIZE_COLUMN {
+					for z in 0 ..< (MAP_MARGIN + drawMargin) {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
 			case .right:
-				for z in 0..<NH3DGL_MAPVIEWSIZE_ROW {
-					for x in ((MAP_MARGIN-drawMargin)..<NH3DGL_MAPVIEWSIZE_COLUMN).reversed() {
+				for z in 0 ..< NH3DGL_MAPVIEWSIZE_ROW {
+					for x in ((MAP_MARGIN - drawMargin) ..< NH3DGL_MAPVIEWSIZE_COLUMN).reversed() {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
 			case .back:
-				for x in 0..<NH3DGL_MAPVIEWSIZE_COLUMN {
-					for z in ((MAP_MARGIN-drawMargin)..<NH3DGL_MAPVIEWSIZE_ROW).reversed() {
+				for x in 0 ..< NH3DGL_MAPVIEWSIZE_COLUMN {
+					for z in ((MAP_MARGIN - drawMargin) ..< NH3DGL_MAPVIEWSIZE_ROW).reversed() {
 						drawGLView(x: x, z: z)
 					}
 				}
 				
 			case .left:
-				for z in 0..<NH3DGL_MAPVIEWSIZE_ROW {
-					for x in 0..<(MAP_MARGIN+drawMargin) {
+				for z in 0 ..< NH3DGL_MAPVIEWSIZE_ROW {
+					for x in 0 ..< (MAP_MARGIN + drawMargin) {
 						drawGLView(x: x, z: z)
 					}
 				}
-				
-			default:
-				break
 			}
 			
 			// next. particle objects
