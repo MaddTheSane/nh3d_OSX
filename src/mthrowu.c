@@ -331,6 +331,7 @@ m_throw(struct monst *mon,  /* launching monster */
             if (ohitmon(mtmp, singleobj, range, TRUE))
                 break;
         } else if (bhitpos.x == u.ux && bhitpos.y == u.uy) {
+            int dam, hitv;
             if (multi)
                 nomul(0);
 
@@ -361,7 +362,6 @@ m_throw(struct monst *mon,  /* launching monster */
             }
             oldumort = u.umortality;
             switch (singleobj->otyp) {
-                int dam, hitv;
             case EGG:
                 if (!touch_petrifies(&mons[singleobj->corpsenm])) {
                     impossible("monster throwing egg type %d",

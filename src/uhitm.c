@@ -1756,11 +1756,11 @@ damageum(register struct monst *mdef, register struct attack *mattk)
 STATIC_OVL int
 explum(register struct monst *mdef, register struct attack *mattk)
 {
+    boolean resistance; /* only for cold/fire/elec */
     register int tmp = d((int) mattk->damn, (int) mattk->damd);
 
     You("explode!");
     switch (mattk->adtyp) {
-        boolean resistance; /* only for cold/fire/elec */
 
     case AD_BLND:
         if (!resists_blnd(mdef)) {
