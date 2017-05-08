@@ -480,19 +480,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
 			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: -1)
-			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: 3)
+			effect.particleGravity = float3(x: 3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: -1)
-			effect.particleGravity = NH3DVertexType(x: 0, y: -0.5, z: 3)
+			effect.particleGravity = float3(x: 0, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: -1)
-			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: 3)
+			effect.particleGravity = float3(x: -3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		
@@ -500,19 +500,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: -1)
-			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: 3)
+			effect.particleGravity = float3(x: 3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 0)
-			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: 0)
+			effect.particleGravity = float3(x: 3, y: -0.5, z: 0)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = NH3DVertexType(x: 3, y: -0.5, z: -3)
+			effect.particleGravity = float3(x: 3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		
@@ -520,19 +520,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: -3)
+			effect.particleGravity = float3(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: -3)
+			effect.particleGravity = float3(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
 			effect.modelShift = NH3DVertexType(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = NH3DVertexType(x: 0, y: -0.5, z: -3)
+			effect.particleGravity = float3(x: 0, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		
@@ -540,19 +540,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
 			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: 1)
-			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: -3)
+			effect.particleGravity = float3(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
 			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: 0)
-			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: 0)
+			effect.particleGravity = float3(x: -3, y: -0.5, z: 0)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
 			effect.modelShift = NH3DVertexType(x: -1, y: 1.8, z: -1)
-			effect.particleGravity = NH3DVertexType(x: -3, y: -0.5, z: 3)
+			effect.particleGravity = float3(x: -3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		
@@ -1731,7 +1731,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.lastChild?.lastChild?.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
 				model?.lastChild?.lastChild?.particleType = .both
 				model?.lastChild?.lastChild?.particleColor = CLR_ORANGE
-				model?.lastChild?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
+				model?.lastChild?.lastChild?.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
 				model?.lastChild?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 				model?.lastChild?.lastChild?.particleSlowdown = 6.0
 				model?.lastChild?.lastChild?.particleLife = 0.30
@@ -1753,7 +1753,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				model?.lastChild?.lastChild?.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
 				model?.lastChild?.lastChild?.particleType = .both
 				model?.lastChild?.lastChild?.particleColor = CLR_ORANGE
-				model?.lastChild?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.0, z: 0)
+				model?.lastChild?.lastChild?.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
 				model?.lastChild?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 				model?.lastChild?.lastChild?.particleSlowdown = 6.0
 				model?.lastChild?.lastChild?.particleLife = 0.30
@@ -2001,7 +2001,7 @@ extension NH3DOpenGLView {
 		magicItem.modelScale = NH3DVertexType(x: 0.4, y: 1.0, z: 0.4)
 		magicItem.particleType = .aura
 		magicItem.particleColor = color
-		magicItem.particleGravity = NH3DVertexType(x: 0, y: 6.5, z: 0)
+		magicItem.particleGravity = float3(x: 0, y: 6.5, z: 0)
 		magicItem.particleSpeed = (x: 1, y: 1)
 		magicItem.particleSlowdown = 3.8
 		magicItem.particleLife = 0.4
@@ -2011,7 +2011,7 @@ extension NH3DOpenGLView {
 	private func setParams(forMagicExplosion magicItem: NH3DModelObject, color: Int32) {
 		magicItem.particleType = .aura
 		magicItem.particleColor = color
-		magicItem.particleGravity = NH3DVertexType(x: 0, y: 15.5, z: 0)
+		magicItem.particleGravity = float3(x: 0, y: 15.5, z: 0)
 		magicItem.particleSpeed = (x: 1, y: 15)
 		magicItem.particleSlowdown = 8.8
 		magicItem.particleLife = 0.4
@@ -2734,7 +2734,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 2.5, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: 2.5, z: 0)
 			ret?.lastChild?.particleSpeed = (x: 1, y: 1)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2749,7 +2749,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.lastChild?.modelPivot = NH3DVertexType(x: -0.827, y: 1.968, z: 1.793)
 			ret?.lastChild?.lastChild?.particleType = .both
 			ret?.lastChild?.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
-			ret?.lastChild?.lastChild?.particleGravity = NH3DVertexType(x: -3.5, y: 1.5, z: 0.8)
+			ret?.lastChild?.lastChild?.particleGravity = float3(x: -3.5, y: 1.5, z: 0.8)
 			ret?.lastChild?.lastChild?.particleSpeed = (x: 1.5, y: 2.00)
 			ret?.lastChild?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.lastChild?.particleLife = 0.5
@@ -2759,7 +2759,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.827, y: -1.800, z: -1.793)
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2820,7 +2820,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2837,7 +2837,7 @@ extension NH3DOpenGLView {
 				ret.addChildObject("emitter", type: .emitter)
 				ret.lastChild?.particleType = .aura
 				ret.lastChild?.particleColor = CLR_RED
-				ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+				ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 				ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 				ret.lastChild?.particleSlowdown = 8.8
 				ret.lastChild?.particleLife = 0.24
@@ -2861,7 +2861,7 @@ extension NH3DOpenGLView {
 			ret.addChildObject("emitter", type: .emitter)
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_RED
-			ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret.lastChild?.particleSlowdown = 8.8
 			ret.lastChild?.particleLife = 0.24
@@ -2869,7 +2869,7 @@ extension NH3DOpenGLView {
 			ret.addChildObject("emitter", type: .emitter)
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
-			ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret.lastChild?.particleSlowdown = 8.8
 			ret.lastChild?.particleLife = 0.24
@@ -2928,7 +2928,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2941,7 +2941,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2952,7 +2952,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2963,7 +2963,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2974,7 +2974,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2985,7 +2985,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2996,7 +2996,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3007,7 +3007,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3018,7 +3018,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3029,7 +3029,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3040,7 +3040,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3055,7 +3055,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3069,7 +3069,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3094,7 +3094,7 @@ extension NH3DOpenGLView {
 					ret.addChildObject("emitter", type: .emitter)
 					ret.lastChild?.particleType = .aura
 					ret.lastChild?.particleColor = CLR_BRIGHT_CYAN
-					ret.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+					ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 					ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 					ret.lastChild?.particleSlowdown = 8.8
 					ret.lastChild?.particleLife = 0.24
@@ -3154,14 +3154,14 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 1.277, z: -0.812)
 			ret?.lastChild?.particleType = .points
 			ret?.lastChild?.particleColor = CLR_CYAN
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y:-8.8, z:1.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y:-8.8, z:1.0)
 			ret?.lastChild?.particleLife = 0.21
 			ret?.lastChild?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.687, z: 0.512)
 			ret?.lastChild?.particleType = .points
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y:-5.8, z:1.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y:-5.8, z:1.0)
 			ret?.lastChild?.particleLife = 0.3
 			ret?.lastChild?.particleSize = 8.0
 			
@@ -3169,7 +3169,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.34, y: 2.68, z: 0.65)
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 0.1, z: 0.08)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: 0.1, z: 0.08)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleColor = CLR_BRIGHT_BLUE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: -130.0)
@@ -3179,7 +3179,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.34, y: -1.70, z: -0.65)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.98, y: 0.7, z: 0.98)
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 0.1, z: 0.00)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: 0.1, z: 0.00)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BLUE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: -130.0)
@@ -3189,7 +3189,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.5, y: 0.7, z: 0.5)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 1.35, z: -0.0)
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 0.4, z: 0.00)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: 0.4, z: 0.00)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BLUE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: -190.0)
@@ -3248,7 +3248,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -4.0, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_MAGENTA
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 300)
 			ret?.lastChild?.particleSlowdown = 5.2
@@ -3260,7 +3260,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -4.0, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_BRIGHT_GREEN
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 300.0)
 			ret?.lastChild?.particleSlowdown = 5.2
@@ -3273,7 +3273,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleSize = 4.0
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -1.0, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: -1.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_ORANGE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 200)
 			ret?.lastChild?.particleSlowdown = 2.0
@@ -3300,7 +3300,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.38, y: 3.82, z: 0.75917)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -4.8, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_CYAN
 			ret?.lastChild?.particleSpeed = (x: 0.0, y:0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
@@ -3310,7 +3310,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.38, y: 0.42, z: 0.75917)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 4.8, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: 4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_CYAN
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
@@ -3322,7 +3322,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.38, y: 3.82, z: 0.75917)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -4.8, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 			ret?.lastChild?.particleSpeed = (x: 0.0, y:0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
@@ -3332,7 +3332,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: -0.38, y: 0.42, z: 0.75917)
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: 4.8, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: 4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_MAGENTA
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
@@ -3344,7 +3344,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelScale = NH3DVertexType(x: 0.8, y: 0.7, z: 0.8)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_BLUE
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.4
@@ -3359,7 +3359,7 @@ extension NH3DOpenGLView {
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_MAGENTA
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3370,7 +3370,7 @@ extension NH3DOpenGLView {
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_CYAN
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3381,7 +3381,7 @@ extension NH3DOpenGLView {
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BROWN
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3394,7 +3394,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleSize = 4.0
-			ret?.lastChild?.particleGravity = NH3DVertexType(x: 0, y: -1.0, z: 0)
+			ret?.lastChild?.particleGravity = float3(x: 0, y: -1.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_YELLOW
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 200)
 			ret?.lastChild?.particleSlowdown = 2.0
@@ -3550,7 +3550,7 @@ extension NH3DOpenGLView {
 		ret.particleType = .aura
 		ret.particleColor = CLR_MAGENTA
 		//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-		ret.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+		ret.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 		ret.particleSpeed = (x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
@@ -3656,7 +3656,7 @@ extension NH3DOpenGLView {
 		ret.particleType = .aura
 		ret.particleColor = CLR_GREEN
 		//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
-		ret.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+		ret.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 		ret.particleSpeed = (x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
@@ -3719,7 +3719,7 @@ extension NH3DOpenGLView {
 			ret?.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BROWN
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3730,7 +3730,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3770,7 +3770,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_BLUE
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3780,7 +3780,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_CYAN
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3790,7 +3790,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3800,7 +3800,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BLUE
-			ret?.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -4178,7 +4178,7 @@ extension NH3DOpenGLView {
 		model.lastChild?.particleType = .both
 		model.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 		model.lastChild?.currentMaterial = PetHelper.pinkMaterial
-		model.lastChild?.particleGravity = NH3DVertexType(x: 0.0, y: 2.5, z: 0.0)
+		model.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
 		model.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 		model.lastChild?.particleSlowdown = 12
 		model.lastChild?.particleLife = 1.2
@@ -4894,7 +4894,7 @@ extension NH3DOpenGLView {
 			ret.modelScale = NH3DVertexType(x: 0.7, y: 1.0, z: 0.7)
 			ret.particleType = .aura
 			ret.particleColor = CLR_BROWN
-			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret.particleSpeed = (x: 1.0, y: 1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
@@ -4908,7 +4908,7 @@ extension NH3DOpenGLView {
 			ret.modelScale = NH3DVertexType(x: 1.4, y: 1.5, z: 1.4)
 			ret.particleType = .aura
 			ret.particleColor = CLR_WHITE
-			ret.particleGravity = NH3DVertexType(x: 0.0, y: 6.5, z: 0.0)
+			ret.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
 			ret.particleSpeed = (x: 1.0, y: 1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4

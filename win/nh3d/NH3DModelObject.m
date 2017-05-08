@@ -699,17 +699,11 @@ static const NH3DMaterial defaultMat = {
 		xspeed = 0;
 		yspeed = 0;
 		
-		particleGravity.x = 0;
-		particleGravity.y = -4.0f;
-		particleGravity.z = 0;
+		particleGravity = (vector_float3){0, -4.0f, 0};
 		particleSize = 1.0;
 		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
 		particles = malloc(MAX_PARTICLES * sizeof(NH3DParticle));
-		vector_float3 gravity_vect;
-		gravity_vect.x = particleGravity.x;
-		gravity_vect.y = particleGravity.y;
-		gravity_vect.z = particleGravity.z;
 		
 		for (int i = 0; i < MAX_PARTICLES; i++) {
 			particles[i].active = YES;
@@ -722,7 +716,7 @@ static const NH3DMaterial defaultMat = {
 			particles[i].direction.x = ((float) (rand() % 50) - 26.0f) * 10.0f;
 			particles[i].direction.y = ((float) (rand() % 50) - 25.0f) * 10.0f;
 			particles[i].direction.z = ((float) (rand() % 50) - 25.0f) * 10.0f;
-			particles[i].gravity = gravity_vect;
+			particles[i].gravity = particleGravity;
 		}
 		
 		modelName = [NSDate date].description;
@@ -750,9 +744,7 @@ static const NH3DMaterial defaultMat = {
 		xspeed = 0;
 		yspeed = 0;
 		
-		particleGravity.x = 0;
-		particleGravity.y = -4.0f;
-		particleGravity.z = 0;
+		particleGravity = (vector_float3){0, -4.0f, 0};
 		
 		particleSize = 1.0;
 		
@@ -796,9 +788,7 @@ static const NH3DMaterial defaultMat = {
 		xspeed = 0;
 		yspeed = 0;
 		
-		particleGravity.x = 0;
-		particleGravity.y = 0;
-		particleGravity.z = 0;
+		particleGravity = 0;
 		particleSize = 0;
 		particleType = NH3DParticleTypePoints;
 		
@@ -895,25 +885,21 @@ static const NH3DMaterial defaultMat = {
 	animationValue += animationRate;
 }
 
-- (void)setParticleGravity:(NH3DVertexType)aParticleGravity
+- (void)setParticleGravity:(vector_float3)aParticleGravity
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
 	
 	particleGravity = aParticleGravity;
-	vector_float3 gravity_vect;
-	gravity_vect.x = particleGravity.x;
-	gravity_vect.y = particleGravity.y;
-	gravity_vect.z = particleGravity.z;
 	
 	for (int i = 0; i < MAX_PARTICLES; i++) {
-		particles[i].gravity = gravity_vect;
+		particles[i].gravity = aParticleGravity;
 	}
 }
 
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = x_gravity;
 	toSet.y = y_gravity;
 	toSet.z = z_gravity;
@@ -1346,7 +1332,6 @@ static const NH3DMaterial defaultMat = {
 							currentParticle->g = colors[particleColor][1];
 							currentParticle->b = colors[particleColor][2];
 						}
-						
 					}
 				}
 				

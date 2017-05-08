@@ -66,7 +66,7 @@ typedef struct NH3DMaterial {
 	BOOL				useEnvironment;
 	
 	NH3DParticleType	particleType;
-	NH3DVertexType		particleGravity;
+	vector_float3		particleGravity;
 	int					particleColor;
 	GLfloat				particleLife;
 	GLfloat				particleSize;
@@ -142,7 +142,7 @@ typedef struct NH3DMaterial {
 @property GLfloat animationValue;
 @property GLfloat animationRate;
 
-@property (nonatomic) NH3DVertexType particleGravity;
+@property (nonatomic) vector_float3 particleGravity;
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the particleGravity property");
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
