@@ -319,7 +319,7 @@ func raw_print(_ str: UnsafePointer<CChar>) {
 }
 
 var NH3DTextEncoding: String.Encoding {
-	return String.Encoding(rawValue: NH3DTEXTENCODING)
+	return String.Encoding(rawValue: __NH3DTEXTENCODING)
 }
 
 var roomAtCurrentLocation: rm {
