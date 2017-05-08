@@ -1864,8 +1864,9 @@ void app_recover(const char* path)
 void error(const char *s, ...)
 {
 	va_list the_args;
+	NSString *preNss = [[NSString alloc] initWithCString:s encoding:NH3DTEXTENCODING];
 	va_start(the_args, s);
-	NSString *nss = [[NSString alloc] initWithFormat:@(s) arguments:the_args];
+	NSString *nss = [[NSString alloc] initWithFormat:preNss arguments:the_args];
 	va_end(the_args);
 	Printf("%s\n", [nss cStringUsingEncoding:NH3DTEXTENCODING]);
 	NSAlert *alert = [[NSAlert alloc] init];
