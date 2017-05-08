@@ -40,37 +40,6 @@ typedef struct NH3DMaterial {
 	GLfloat				shininess;
 } NH3DMaterial;
 
-typedef struct NH3DParticle {
-	BOOL active;
-	/*! model life */
-	GLfloat life;
-	/*! Fade speed */
-	GLfloat fade;
-	/*! Red value */
-	GLfloat r;
-	/*! Green value */
-	GLfloat g;
-	/*! Blue value */
-	GLfloat b;
-	/*! X position */
-	GLfloat x;
-	/*! Y position */
-	GLfloat y;
-	/*! Z position */
-	GLfloat z;
-	/*! X direction */
-	GLfloat xi;
-	/*! Y direction */
-	GLfloat yi;
-	/*! Z direction */
-	GLfloat zi;
-	/*! X gravity */
-	GLfloat xg;
-	/*! Y gravity */
-	GLfloat yg;
-	/*! Z gravity */
-	GLfloat zg;
-} NH3DParticle;
 
 @interface NH3DModelObject : NSObject <NSFastEnumeration> {
 @private
@@ -96,7 +65,6 @@ typedef struct NH3DParticle {
 	NSInteger			numberOfTextures;
 	BOOL				useEnvironment;
 	
-	NH3DParticle		*particles;			/**< particle Array */
 	NH3DParticleType	particleType;
 	NH3DVertexType		particleGravity;
 	int					particleColor;

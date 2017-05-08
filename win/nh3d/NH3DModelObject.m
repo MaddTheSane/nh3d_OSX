@@ -15,6 +15,18 @@
 #import "NSBitmapImageRep+NH3DAdditions.h"
 
 
+typedef struct NH3DParticle {
+	BOOL active;
+	GLfloat life;    /*!< model life */
+	GLfloat fade;    /*!< Fade speed */
+	GLfloat r;       /*!< Red value */
+	GLfloat g;       /*!< Green value */
+	GLfloat b;       /*!< Blue value */
+	vector_float3 position;
+	vector_float3 direction;
+	vector_float3 gravity;
+} NH3DParticle;
+
 static const GLfloat colors[16][3] = {
 	{ 0.1 , 0.1 , 0.1  },				// Black
 	{ 0.81424, 0.14136 , 0.14136 },		// Red
@@ -43,6 +55,9 @@ static const NH3DMaterial defaultMat = {
 };
 
 @implementation NH3DModelObject
+{
+	NH3DParticle		*particles;			/**< particle Array */
+}
 @synthesize currentMaterial;
 @synthesize isChild;
 @synthesize animated = animate;
@@ -691,6 +706,10 @@ static const NH3DMaterial defaultMat = {
 		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
 		particles = malloc(MAX_PARTICLES * sizeof(NH3DParticle));
+		vector_float3 gravity_vect;
+		gravity_vect.x = particleGravity.x;
+		gravity_vect.y = particleGravity.y;
+		gravity_vect.z = particleGravity.z;
 		
 		for (int i = 0; i < MAX_PARTICLES; i++) {
 			particles[i].active = YES;
@@ -700,12 +719,10 @@ static const NH3DMaterial defaultMat = {
 			particles[i].r = colors[i * (12 / MAX_PARTICLES)][0];
 			particles[i].g = colors[i * (12 / MAX_PARTICLES)][1];
 			particles[i].b = colors[i * (12 / MAX_PARTICLES)][2];
-			particles[i].xi = ((float) (rand() % 50) - 26.0f) * 10.0f;
-			particles[i].yi = ((float) (rand() % 50) - 25.0f) * 10.0f;
-			particles[i].zi = ((float) (rand() % 50) - 25.0f) * 10.0f;
-			particles[i].xg = particleGravity.x;
-			particles[i].yg = particleGravity.y;
-			particles[i].zg = particleGravity.z;
+			particles[i].direction.x = ((float) (rand() % 50) - 26.0f) * 10.0f;
+			particles[i].direction.y = ((float) (rand() % 50) - 25.0f) * 10.0f;
+			particles[i].direction.z = ((float) (rand() % 50) - 25.0f) * 10.0f;
+			particles[i].gravity = gravity_vect;
 		}
 		
 		modelName = [NSDate date].description;
@@ -884,11 +901,13 @@ static const NH3DMaterial defaultMat = {
 		return;
 	
 	particleGravity = aParticleGravity;
+	vector_float3 gravity_vect;
+	gravity_vect.x = particleGravity.x;
+	gravity_vect.y = particleGravity.y;
+	gravity_vect.z = particleGravity.z;
 	
 	for (int i = 0; i < MAX_PARTICLES; i++) {
-		particles[i].xg = particleGravity.x;
-		particles[i].yg = particleGravity.y;
-		particles[i].zg = particleGravity.z;
+		particles[i].gravity = gravity_vect;
 	}
 }
 
@@ -1213,12 +1232,13 @@ static const NH3DMaterial defaultMat = {
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 				
 				for (i = 0; i < MAX_PARTICLES; i++) {
-					GLfloat colorArray[4] = {particles[i].r, particles[i].g, particles[i].b, particles[i].life};
+					NH3DParticle *currentParticle = &particles[i];
+					GLfloat colorArray[4] = {currentParticle->r, currentParticle->g, currentParticle->b, currentParticle->life};
 					
-					if (particles[i].active) {
-						px = particles[i].x;
-						py = particles[i].y;
-						pz = particles[i].z;
+					if (currentParticle->active) {
+						px = currentParticle->position.x;
+						py = currentParticle->position.y;
+						pz = currentParticle->position.z;
 						float pSize;
 						
 						switch (particleType) {
@@ -1305,32 +1325,26 @@ static const NH3DMaterial defaultMat = {
 						
 						
 						// Move on the axes by appropriate amount
-						particles[i].x += particles[i].xi / (slowdown * 1000);
-						particles[i].y += particles[i].yi / (slowdown * 1000);
-						particles[i].z += particles[i].zi / (slowdown * 1000);
+						currentParticle->position += currentParticle->direction / (slowdown * 1000);
 						// Take gravity into account
-						particles[i].xi += particles[i].xg;
-						particles[i].yi += particles[i].yg;
-						particles[i].zi += particles[i].zg;
+						currentParticle->direction += currentParticle->gravity;
 						// Reduce particle's life by 'fade'
-						particles[i].life -= particles[i].fade;
+						currentParticle->life -= currentParticle->fade;
 						
-						if (particles[i].life < 0.0f) {
-							particles[i].life = particleLife;
+						if (currentParticle->life < 0.0f) {
+							currentParticle->life = particleLife;
 							
-							particles[i].fade = (float) (rand() % 100) / 1000.0f +
+							currentParticle->fade = (float) (rand() % 100) / 1000.0f +
 							0.003f;
-							particles[i].x = 0.0f;   // Center on X axis
-							particles[i].y = 0.0f;   // Center on Y axis
-							particles[i].z = 0.0f;   // Center on Z axis
+							currentParticle->position = 0.0f;
 							// X axis speed and direction
-							particles[i].xi = xspeed + (float) (random() % 60) - 32.0f;
-							particles[i].yi = yspeed + (float) (random() % 60) - 30.0f;
-							particles[i].zi = (float) (random() % 60) - 30.0f;
+							currentParticle->direction.x = xspeed + (float) (random() % 60) - 32.0f;
+							currentParticle->direction.y = yspeed + (float) (random() % 60) - 30.0f;
+							currentParticle->direction.z = (float) (random() % 60) - 30.0f;
 							
-							particles[i].r = colors[particleColor][0];
-							particles[i].g = colors[particleColor][1];
-							particles[i].b = colors[particleColor][2];
+							currentParticle->r = colors[particleColor][0];
+							currentParticle->g = colors[particleColor][1];
+							currentParticle->b = colors[particleColor][2];
 						}
 						
 					}
