@@ -19,7 +19,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="NetHack3D" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="NetHack3Dpos" animationBehavior="default" id="21" userLabel="Main Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
-            <rect key="contentRect" x="196" y="123" width="800" height="576"/>
+            <rect key="contentRect" x="196" y="123" width="800" height="579"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="800" height="580"/>
             <value key="maxSize" type="size" width="800" height="580"/>
@@ -2803,6 +2803,7 @@
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hunger1" id="6934"/>
                             <connections>
                                 <binding destination="4761" name="value" keyPath="selection.stHunger" id="5466"/>
+                                <binding destination="4761" name="toolTip" keyPath="selection.stHungerTip" id="wCT-P1-iOl"/>
                             </connections>
                         </imageView>
                         <imageView toolTip="Confused" translatesAutoresizingMaskIntoConstraints="NO" id="5013" userLabel="Confused">
@@ -2852,6 +2853,7 @@
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Load0" id="6940"/>
                             <connections>
                                 <binding destination="4761" name="value" keyPath="selection.stLoad" id="aEW-xX-QZd"/>
+                                <binding destination="4761" name="toolTip" keyPath="selection.stLoadTip" id="i6t-nw-4tu"/>
                             </connections>
                         </imageView>
                     </subviews>

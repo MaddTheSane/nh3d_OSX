@@ -656,6 +656,28 @@ static NSString *stripParentheses(NSString *text)
 
 #pragma mark -
 
+- (NSString*)stHungerTip
+{
+	return [@(hu_stat[stHunger]) stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+}
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingStHungerTip
+{
+	return [NSSet setWithObject:@"stHunger"];
+}
+
+- (NSString*)stLoadTip
+{
+	return @(enc_stat[stLoad]);
+}
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingStLoadTip
+{
+	return [NSSet setWithObject:@"stLoad"];
+}
+
+#pragma mark -
+
 - (void)setPlayerName:(NSString *)aString {
 	if (![playerName isEqualToString:aString] && aString.length <= PL_NSIZ-11) {
 		playerName = [aString copy];
@@ -690,13 +712,6 @@ static NSString *stripParentheses(NSString *text)
 - (void)setPlayerGender:(NSString *)aString {
 	if (![playerGender isEqualToString: NSLocalizedString(aString, @"")]) {
 		playerGender = NSLocalizedString(aString, @"");
-	}
-}
-
-- (void)setPlayerStatusLine:(NSString *)aString
-{
-	if (![playerStatusLine isEqualToString:aString]) {
-		playerStatusLine = [aString copy];
 	}
 }
 
@@ -920,7 +935,7 @@ static NSString *stripParentheses(NSString *text)
 	chaosIcon = enable;
 }
 
-- (void)setStHunger:(char)aBool
+- (void)setStHunger:(unsigned)aBool
 {
 	stHunger = aBool;
 }
@@ -955,7 +970,7 @@ static NSString *stripParentheses(NSString *text)
 	stHallu = aBool;
 }
 
-- (void)setStLoad:(char)curVal
+- (void)setStLoad:(int)curVal
 {
 	stLoad = curVal;
 }

@@ -184,6 +184,8 @@
 - (NSImage *)stHallu;
 - (NSImage *)stLoad;
 
+@property (readonly, copy) NSString *stHungerTip;
+@property (readonly, copy) NSString *stLoadTip;
 
 - (void)setPlayerStr:(int)aValue;
 
@@ -207,14 +209,14 @@
 - (void)setNewtralIcon:(BOOL)enable;
 - (void)setChaosIcon:(BOOL)enable;
 
-- (void)setStHunger:(char)curVal;
+- (void)setStHunger:(unsigned)curVal;
 - (void)setStConfuse:(BOOL)aBool;
 - (void)setStSick:(BOOL)aBool;
 - (void)setStIll:(BOOL)aBool;
 - (void)setStBlind:(BOOL)aBool;
 - (void)setStStun:(BOOL)aBool;
 - (void)setStHallu:(BOOL)aBool;
-- (void)setStLoad:(char)curVal;
+- (void)setStLoad:(int)curVal;
 - (void)checkStDrawer;
 
 //- (void)createPlayer;
