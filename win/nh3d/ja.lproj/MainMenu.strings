@@ -119,8 +119,8 @@
 /* Class = "NSMenuItem"; title = "あれはなんだろう？"; ObjectID = "500"; */
 "500.title" = "あれはなんだろう？";
 
-/* Class = "NSMenuItem"; title = "あれは ..."; ObjectID = "501"; */
-"501.title" = "あれは ．．．";
+/* Class = "NSMenuItem"; title = "あれは…"; ObjectID = "501"; */
+"501.title" = "あれは…";
 
 /* Class = "NSMenuItem"; title = "ゲーム"; ObjectID = "520"; */
 "520.title" = "ゲーム";
@@ -170,14 +170,14 @@
 /* Class = "NSMenu"; title = "NetHack3D"; ObjectID = "4846"; */
 "4846.title" = "NetHack3D";
 
-/* Class = "NSMenuItem"; title = "NetHack3Dについて..."; ObjectID = "4847"; */
-"4847.title" = "NetHack3Dについて．．．";
+/* Class = "NSMenuItem"; title = "NetHack3Dについて"; ObjectID = "4847"; */
+"4847.title" = "NetHack3Dについて";
 
 /* Class = "NSMenuItem"; title = "ゲームオプション…"; ObjectID = "4850"; */
-"4850.title" = "ゲームオプション．．．";
+"4850.title" = "ゲームオプション…";
 
-/* Class = "NSMenuItem"; title = "セーブせずに終了..."; ObjectID = "4851"; */
-"4851.title" = "セーブせずに終了．．．";
+/* Class = "NSMenuItem"; title = "セーブせずに終了…"; ObjectID = "4851"; */
+"4851.title" = "セーブせずに終了…";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "4853"; */
 "4853.title" = "Services";
@@ -204,10 +204,10 @@
 "4867.title" = "保存と終了";
 
 /* Class = "NSMenuItem"; title = "ページ設定…"; ObjectID = "4873"; */
-"4873.title" = "ページ設定．．．";
+"4873.title" = "ページ設定…";
 
 /* Class = "NSMenuItem"; title = "プリント…"; ObjectID = "4877"; */
-"4877.title" = "プリント．．．";
+"4877.title" = "プリント…";
 
 /* Class = "NSMenuItem"; title = "ウインドウ"; ObjectID = "4881"; */
 "4881.title" = "ウインドウ";
@@ -251,11 +251,11 @@
 /* Class = "NSMenuItem"; title = "バージョン"; ObjectID = "5027"; */
 "5027.title" = "バージョン";
 
-/* Class = "NSMenuItem"; title = "コンパイルの表示 ..."; ObjectID = "5028"; */
-"5028.title" = "コンパイルの表示 ．．．";
+/* Class = "NSMenuItem"; title = "コンパイルの表示…"; ObjectID = "5028"; */
+"5028.title" = "コンパイルの表示…";
 
-/* Class = "NSMenuItem"; title = "歴史 ..."; ObjectID = "5029"; */
-"5029.title" = "歴史 ．．．";
+/* Class = "NSMenuItem"; title = "歴史…"; ObjectID = "5029"; */
+"5029.title" = "歴史…";
 
 /* Class = "NSMenuItem"; title = "武器装備"; ObjectID = "5031"; */
 "5031.title" = "武器装備";
@@ -422,8 +422,8 @@
 /* Class = "NSBox"; title = "Box"; ObjectID = "5255"; */
 "5255.title" = "Box";
 
-/* Class = "NSWindow"; title = "さようなら..."; ObjectID = "5320"; */
-"5320.title" = "さようなら．．．";
+/* Class = "NSWindow"; title = "さようなら…"; ObjectID = "5320"; */
+"5320.title" = "さようなら…";
 
 /* Class = "NSBox"; title = "Box"; ObjectID = "5437"; */
 "5437.title" = "Box";
@@ -503,14 +503,14 @@
 /* Class = "NSMenu"; title = "ヘルプ"; ObjectID = "5934"; */
 "5934.title" = "ヘルプ";
 
-/* Class = "NSMenuItem"; title = "バージョン..."; ObjectID = "6006"; */
-"6006.title" = "バージョン．．．";
+/* Class = "NSMenuItem"; title = "バージョン…"; ObjectID = "6006"; */
+"6006.title" = "バージョン…";
 
-/* Class = "NSMenuItem"; title = "コンパイルの表示 ..."; ObjectID = "6007"; */
-"6007.title" = "コンパイルの表示 ．．．";
+/* Class = "NSMenuItem"; title = "コンパイルの表示…"; ObjectID = "6007"; */
+"6007.title" = "コンパイルの表示…";
 
-/* Class = "NSMenuItem"; title = "歴史 ..."; ObjectID = "6008"; */
-"6008.title" = "歴史 ．．．";
+/* Class = "NSMenuItem"; title = "歴史…"; ObjectID = "6008"; */
+"6008.title" = "歴史…";
 
 /* Class = "NSMenuItem"; title = "装備品をいろいろ外す"; ObjectID = "6009"; */
 "6009.title" = "装備品をいろいろ外す";
@@ -689,8 +689,8 @@
 /* Class = "NSMenuItem"; title = "あれはなんだろう？"; ObjectID = "6081"; */
 "6081.title" = "あれはなんだろう？";
 
-/* Class = "NSMenuItem"; title = "あれは ..."; ObjectID = "6082"; */
-"6082.title" = "あれは ．．．";
+/* Class = "NSMenuItem"; title = "あれは…"; ObjectID = "6082"; */
+"6082.title" = "あれは…";
 
 /* Class = "NSMenu"; title = "Menu"; ObjectID = "6240"; */
 "6240.title" = "Menu";
@@ -764,8 +764,8 @@
 /* Class = "NSMenuItem"; title = "あれはなんだろう？"; ObjectID = "6575"; */
 "6575.title" = "あれはなんだろう？";
 
-/* Class = "NSMenuItem"; title = "あれは ..."; ObjectID = "6576"; */
-"6576.title" = "あれは ．．．";
+/* Class = "NSMenuItem"; title = "あれは…"; ObjectID = "6576"; */
+"6576.title" = "あれは…";
 
 /* Class = "NSMenuItem"; title = "装備"; ObjectID = "6577"; */
 "6577.title" = "装備";
@@ -935,14 +935,14 @@
 /* Class = "NSMenu"; title = "ゲーム"; ObjectID = "6641"; */
 "6641.title" = "ゲーム";
 
-/* Class = "NSMenuItem"; title = "バージョン..."; ObjectID = "6642"; */
-"6642.title" = "バージョン．．．";
+/* Class = "NSMenuItem"; title = "バージョン…"; ObjectID = "6642"; */
+"6642.title" = "バージョン…";
 
-/* Class = "NSMenuItem"; title = "コンパイルの表示 ..."; ObjectID = "6643"; */
-"6643.title" = "コンパイルの表示 ．．．";
+/* Class = "NSMenuItem"; title = "コンパイルの表示…"; ObjectID = "6643"; */
+"6643.title" = "コンパイルの表示…";
 
-/* Class = "NSMenuItem"; title = "歴史 ..."; ObjectID = "6644"; */
-"6644.title" = "歴史 ．．．";
+/* Class = "NSMenuItem"; title = "歴史…"; ObjectID = "6644"; */
+"6644.title" = "歴史…";
 
 /* Class = "NSMenuItem"; title = "情報"; ObjectID = "6645"; */
 "6645.title" = "情報";
@@ -1004,8 +1004,8 @@
 /* Class = "NSMenuItem"; title = "低速フレームレート（1/30秒）"; ObjectID = "6750"; */
 "6750.title" = "低速フレームレート（1/30秒）";
 
-/* Class = "NSMenuItem"; title = "NetHack3Dの設定..."; ObjectID = "6799"; */
-"6799.title" = "NetHack3Dの設定．．．";
+/* Class = "NSMenuItem"; title = "NetHack3Dの設定…"; ObjectID = "6799"; */
+"6799.title" = "NetHack3Dの設定…";
 
 /* Class = "NSTextFieldCell"; title = "STR"; ObjectID = "6861"; */
 "6861.title" = "STR";
@@ -1326,10 +1326,10 @@
 "qqU-Tg-6UE.ibShadowedIsNilPlaceholder" = "かぶと";
 
 /* Class = "NSMenuItem"; title = "Dungeon Overview"; ObjectID = "sbe-4J-BhS"; */
-"sbe-4J-BhS.title" = "Dungeon Overview";
+"sbe-4J-BhS.title" = "迷宮の概要を表示";
 
 /* Class = "NSMenuItem"; title = "Level Map…"; ObjectID = "ske-b7-lNY"; */
-"ske-b7-lNY.title" = "Level Map．．．";
+"ske-b7-lNY.title" = "全体マップを表示";
 
 /* Class = "NSButtonCell"; title = ","; ObjectID = "tiT-la-Gr7"; */
 "tiT-la-Gr7.title" = ",";
