@@ -412,7 +412,7 @@ static const NH3DMaterial defaultMat = {
 	NSRange fileRange = NSMakeRange(0, 0);
 	
 	// Open 3DS file and Create NSData object
-	NSData *file_3ds;
+	NSData *file_3ds = nil;
 	NSURL *dataURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"3ds"];
 	if (dataURL) {
 		file_3ds = [[NSData alloc] initWithContentsOfURL:dataURL
@@ -452,14 +452,14 @@ static const NH3DMaterial defaultMat = {
 		[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 		fileRange.location += sizeof(unsigned short);
 		
-		l_ChunkIdent = NSSwapLittleShortToHost(shortBuffer);
+		l_ChunkIdent = CFSwapInt16LittleToHost(shortBuffer);
 		
 		//NSLog(@"ChunkID: %x",l_ChunkIdent);
 		
 		[file_3ds getBytes:&longBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned int))];
 		fileRange.location += sizeof(unsigned int);
 		
-		l_ChunkLength = NSSwapLittleIntToHost(longBuffer);
+		l_ChunkLength = CFSwapInt32LittleToHost(longBuffer);
 		
 		//NSLog(@"Chunk_length: %d",l_ChunkLength);
 		
@@ -489,7 +489,7 @@ static const NH3DMaterial defaultMat = {
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location, sizeof(unsigned short))];
 				fileRange.location += sizeof(unsigned short);
 				
-				verts_qty =  NSSwapLittleShortToHost(l_Counts);
+				verts_qty =  CFSwapInt16LittleToHost(l_Counts);
 				
 				if (verts_qty > MAX_VERTICES) {
 					verts_qty = MAX_VERTICES;
@@ -536,7 +536,7 @@ static const NH3DMaterial defaultMat = {
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 				fileRange.location += sizeof(unsigned short);
 				
-				face_qty = NSSwapLittleShortToHost(l_Counts);
+				face_qty = CFSwapInt16LittleToHost(l_Counts);
 				
 				if (face_qty > MAX_POLYGONS) {
 					face_qty = MAX_POLYGONS;
@@ -552,28 +552,28 @@ static const NH3DMaterial defaultMat = {
 						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 						fileRange.location += sizeof(unsigned short);
 						
-						faces[i].a = NSSwapLittleShortToHost(shortBuffer);
+						faces[i].a = CFSwapInt16LittleToHost(shortBuffer);
 						
 						//NSLog(@"%d Polygon point a: %d",i,faces[i].a);
 						
 						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 						fileRange.location += sizeof(unsigned short);
 						
-						faces[i].b = NSSwapLittleShortToHost(shortBuffer);
+						faces[i].b = CFSwapInt16LittleToHost(shortBuffer);
 						
 						//NSLog(@"%d Polygon point b: %d",i,faces[i].b);
 						
 						[file_3ds getBytes:&shortBuffer range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 						fileRange.location += sizeof(unsigned short);
 						
-						faces[i].c = NSSwapLittleShortToHost(shortBuffer);
+						faces[i].c = CFSwapInt16LittleToHost(shortBuffer);
 						
 						//NSLog(@"%d Polygon point c: %d",i,faces[i].c);
 						
 						[file_3ds getBytes:&l_Face_Flag range:NSMakeRange(fileRange.location , sizeof(unsigned short))];
 						fileRange.location += sizeof(unsigned short);
 						
-						l_Face_Flag = NSSwapLittleShortToHost(l_Face_Flag);
+						l_Face_Flag = CFSwapInt16LittleToHost(l_Face_Flag);
 						
 						//NSLog(@"%d Face flags: %x",i,l_Face_Flag);
 					}
@@ -587,7 +587,7 @@ static const NH3DMaterial defaultMat = {
 				[file_3ds getBytes:&l_Counts range:NSMakeRange(fileRange.location, sizeof(unsigned short))];
 				fileRange.location += sizeof(unsigned short);
 				
-				texcords_qty = NSSwapLittleShortToHost(l_Counts);
+				texcords_qty = CFSwapInt16LittleToHost(l_Counts);
 				
 				if (texcords_qty > MAX_POLYGONS) {
 					texcords_qty = MAX_POLYGONS;
