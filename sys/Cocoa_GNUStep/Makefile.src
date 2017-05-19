@@ -244,7 +244,7 @@ WINNH3DSRC =  \
 	../win/nh3d/NH3DModelObject.m ../win/nh3d/NH3DPanel.m \
 	../win/nh3d/NH3DUserMakeSheetController.m ../win/nh3d/NH3DUserStatusModel.m \
 	../win/nh3d/winnh3d.m ../win/nh3d/Hearse/Hearse.m ../win/nh3d/Hearse/FileLogger.m \
-	../win/nh3d/Hearse/HearseFileRegistry.m \
+	../win/nh3d/Hearse/HearseFileRegistry.m  ../win/nh3d/NH3DTextureObject.m \
 	$(WINNH3DSSRC)
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DSOBJ = GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.o \
@@ -253,7 +253,8 @@ WINNH3DSOBJ = GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.
 WINNH3DOBJ = NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DModelObject.o NH3DPanel.o \
 	NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
-	$(WINNH3DSOBJ) NH3DMapItem.o Hearse.o FileLogger.o HearseFileRegistry.o
+	$(WINNH3DSOBJ) NH3DMapItem.o Hearse.o FileLogger.o HearseFileRegistry.o \
+	NH3DTextureObject.o
 #	NH3DSwiftCode.o
 #	Cocoa-compat.o
 #
@@ -717,7 +718,9 @@ NH3DUserMakeSheetController.o: ../win/nh3d/NH3DUserMakeSheetController.m $(HACK_
 	$(CC) $(OBJCFLAG) $(NH3DINC) -c ../win/nh3d/NH3DUserMakeSheetController.m
 NH3DUserStatusModel.o: ../win/nh3d/NH3DUserStatusModel.m $(HACK_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DUserStatusModel.m
-
+NH3DTextureObject.o: ../win/nh3d/NH3DTextureObject.m $(HACK_H)
+	$(CC) $(OBJCFLAG) $(NH3DINC) -I. -c ../win/nh3d/NH3DTextureObject.m
+												
 HearseFileRegistry.o: ../win/nh3d/Hearse/HearseFileRegistry.m $(CONFIG_H)
 	$(CC) $(OBJCFLAG) $(NH3DINC) -fno-objc-arc -c ../win/nh3d/Hearse/HearseFileRegistry.m
 Hearse.o: ../win/nh3d/Hearse/Hearse.m $(CONFIG_H)

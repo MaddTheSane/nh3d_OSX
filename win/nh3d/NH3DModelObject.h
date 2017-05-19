@@ -40,6 +40,8 @@ typedef struct NH3DMaterial {
 	GLfloat				shininess;
 } NH3DMaterial;
 
+@class NH3DTextureObject;
+
 
 @interface NH3DModelObject : NSObject <NSFastEnumeration> {
 @private
@@ -105,6 +107,9 @@ typedef struct NH3DMaterial {
 
 + (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName NS_SWIFT_NAME(model(named:textureNamed:));
 
++ (nullable instancetype)modelNamed:(NSString*)name texture:(NH3DTextureObject*)texName NS_SWIFT_NAME(model(named:texture:));
+
+
 @property (getter=isActive) BOOL active;
 
 /*! model name from data */
@@ -135,6 +140,7 @@ typedef struct NH3DMaterial {
 - (GLuint)texture;
 - (void)setTexture:(int)tex_id;
 - (BOOL)addTexture:(NSString *)textureName;
+- (void)addTextureObject:(NH3DTextureObject *)tex;
 @property (readonly) NSInteger numberOfTextures;
 @property BOOL useEnvironment;
 

@@ -12,6 +12,7 @@
 #import "winnh3d.h"
 #include "extern.h"
 #import "NSBitmapImageRep+NH3DAdditions.h"
+#import "NH3DTextureObject.h"
 
 #import "Hearse.h"
 #import "NH3DSwiftHelpers.h"

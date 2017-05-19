@@ -380,6 +380,7 @@
 		5560A2BD1C34927200BF77F7 /* sysconf in Resources */ = {isa = PBXBuildFile; fileRef = 5560A2BC1C34927200BF77F7 /* sysconf */; };
 		5585264B1C868A2F00813BF2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585264A1C868A2F00813BF2 /* libz.tbd */; };
 		55A571031C8D61A000FE4A3B /* NH3DModelObject+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */; };
+		55B23DEE1ECF78B90097EB52 /* NH3DTextureObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B23DED1ECF78B90097EB52 /* NH3DTextureObject.m */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
@@ -1351,6 +1352,8 @@
 		5585264A1C868A2F00813BF2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NH3DModelObject+Swift.swift"; sourceTree = "<group>"; };
 		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55B23DEC1ECF78B90097EB52 /* NH3DTextureObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NH3DTextureObject.h; sourceTree = "<group>"; };
+		55B23DED1ECF78B90097EB52 /* NH3DTextureObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NH3DTextureObject.m; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLHelpers.swift; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
@@ -2628,6 +2631,8 @@
 				2B2E1EDE0919086F008805B3 /* NH3DModelObject.m */,
 				55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */,
 				552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */,
+				55B23DEC1ECF78B90097EB52 /* NH3DTextureObject.h */,
+				55B23DED1ECF78B90097EB52 /* NH3DTextureObject.m */,
 			);
 			name = OpenGL;
 			sourceTree = "<group>";
@@ -3506,6 +3511,7 @@
 				2B5CC182088EB7DF00940C58 /* monmove.c in Sources */,
 				2B5CC183088EB7DF00940C58 /* monst.c in Sources */,
 				2B5CC184088EB7DF00940C58 /* monstr.c in Sources */,
+				55B23DEE1ECF78B90097EB52 /* NH3DTextureObject.m in Sources */,
 				2B5CC185088EB7DF00940C58 /* mplayer.c in Sources */,
 				2B5CC186088EB7DF00940C58 /* mthrowu.c in Sources */,
 				2B5CC187088EB7DF00940C58 /* muse.c in Sources */,

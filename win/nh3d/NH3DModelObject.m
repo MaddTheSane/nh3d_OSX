@@ -13,6 +13,7 @@
 #include <OpenGL/gl.h>
 #import "NetHack3D-Swift.h"
 #import "NSBitmapImageRep+NH3DAdditions.h"
+#import "NH3DTextureObject.h"
 
 
 typedef struct NH3DParticle {
@@ -54,9 +55,14 @@ static const NH3DMaterial defaultMat = {
 		1.0 
 };
 
+@interface NH3DModelObject ()
+- (void)setUpTextureObjectsIncludingTexture:(NH3DTextureObject*)tex;
+@end
+
 @implementation NH3DModelObject
 {
 	NH3DParticle		*particles;			/**< particle Array */
+	NSMutableArray<NH3DTextureObject*> *textureObjects;
 }
 @synthesize currentMaterial;
 @synthesize isChild;
@@ -107,6 +113,34 @@ static const NH3DMaterial defaultMat = {
 		modObj = [[NH3DModelObject alloc] initWithOBJFile:name textureNamed:texName];
 	}
 	return modObj;
+}
+
++ (nullable instancetype)modelNamed:(NSString*)name texture:(NH3DTextureObject*)texName
+{
+	NH3DModelObject *modObj = [[NH3DModelObject alloc] initWith3DSFile:name textureNamed:nil];
+	if (!modObj) {
+		modObj = [[NH3DModelObject alloc] initWithOBJFile:name textureNamed:nil];
+	}
+
+	if (!modObj) {
+		return nil;
+	}
+	
+	[modObj setUpTextureObjectsIncludingTexture:texName];
+	//textureObjects
+	return modObj;
+}
+
+- (void)setUpTextureObjectsIncludingTexture:(NH3DTextureObject*)tex
+{
+	textureObjects = [NSMutableArray arrayWithObject:tex];
+	modelType = NH3DModelTypeTexturedObject;
+}
+
+- (void)addTextureObject:(NH3DTextureObject *)tex
+{
+	NSAssert(textureObjects != nil, @"Texture objects can't be added this way when using normal textures");
+	[textureObjects addObject:tex];
 }
 
 - (GLuint)loadImageToTexture:(NSString *)fileName
@@ -854,6 +888,9 @@ static const NH3DMaterial defaultMat = {
 
 - (GLuint)texture
 {
+	if (textureObjects) {
+		return textureObjects[texture].texture;
+	}
 	if (texture > numberOfTextures) {
 		return texture;
 	}
@@ -867,6 +904,7 @@ static const NH3DMaterial defaultMat = {
 
 - (BOOL)addTexture:(NSString *)textureName
 {
+	NSAssert(textureObjects == nil, @"Textures can't be added this way when using texture objects");
 	if (numberOfTextures+1 < MAX_TEXTURES) {
 		textures[numberOfTextures] = [self loadImageToTexture:textureName];
 		++numberOfTextures;
