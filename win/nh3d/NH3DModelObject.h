@@ -101,9 +101,9 @@ typedef struct NH3DMaterial {
 - (nullable instancetype) initWith3DSFile:(NSString *)name withTexture:(BOOL)flag NS_SWIFT_NAME(init(with3DSFile:withTexture:));
 - (nullable instancetype)initWith3DSFile:(NSString *)name textureNamed:(nullable NSString*)texName NS_DESIGNATED_INITIALIZER NS_SWIFT_NAME(init(with3DSFile:textureNamed:)); // This is a designated initializer.
 
-+ (nullable instancetype)modelNamed:(NSString*)name withTexture:(BOOL)flag;
++ (nullable instancetype)modelNamed:(NSString*)name withTexture:(BOOL)flag NS_SWIFT_NAME(model(named:withTexture:));
 
-+ (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName;
++ (nullable instancetype)modelNamed:(NSString*)name textureNamed:(nullable NSString*)texName NS_SWIFT_NAME(model(named:textureNamed:));
 
 @property (getter=isActive) BOOL active;
 

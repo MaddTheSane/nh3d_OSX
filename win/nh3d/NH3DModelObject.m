@@ -811,10 +811,7 @@ static const NH3DMaterial defaultMat = {
 }
 
 - (void) dealloc {
-	for (int i = 0; i < numberOfTextures; i++) {
-		GLuint texid = textures[i];
-		glDeleteTextures(1, &texid);
-	}
+	glDeleteTextures(MAX_TEXTURES, textures);
 	
 	free(verts);
 	free(norms);
@@ -1050,10 +1047,7 @@ static const NH3DMaterial defaultMat = {
 {
 	NH3DModelObject *modelobj = nil;
 
-	modelobj = [[NH3DModelObject alloc] initWith3DSFile:childName textureNamed:type];
-	if (modelobj == nil) {
-		modelobj = [[NH3DModelObject alloc] initWithOBJFile:childName textureNamed:type];
-	}
+	modelobj = [NH3DModelObject modelNamed:childName textureNamed:type];
 
 	
 	if (modelobj != nil) {

@@ -20,12 +20,9 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 	do {
 		let vals = try urlA.resourceValues(forKeys: [.fileResourceIdentifierKey])
 		dat1 = vals.fileResourceIdentifier
-	} catch _ {
-		bothAreValid = false
-	}
-	do {
-		let vals = try urlB.resourceValues(forKeys: [.fileResourceIdentifierKey])
-		dat2 = vals.fileResourceIdentifier
+		
+		let vals2 = try urlB.resourceValues(forKeys: [.fileResourceIdentifierKey])
+		dat2 = vals2.fileResourceIdentifier
 	} catch _ {
 		bothAreValid = false
 	}
@@ -102,7 +99,7 @@ public final class SoundController: NSObject {
 	
 	private var audioObjects: [SoundObject] = {
 		var arrs = [SoundObject]()
-		for i in 0..<8 {
+		for _ in 0 ..< 8 {
 			arrs.append(SoundObject())
 		}
 		
