@@ -24,10 +24,10 @@
 	return [self initWithBitmapImageRep:imgrep];
 }
 
-- (instancetype)initWithBitmapImageRep:(NSBitmapImageRep*)imgRep
+- (instancetype)initWithBitmapImageRep:(NSBitmapImageRep*)preImgRep
 {
 	if (self = [super init]) {
-		NSBitmapImageRep *imgrep = [imgRep forceRGBColorSpace];
+		NSBitmapImageRep *imgrep = [preImgRep forceRGBColorSpace];
 		
 		if (!imgrep) {
 			return nil;

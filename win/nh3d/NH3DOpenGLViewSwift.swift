@@ -1718,11 +1718,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		//  -------------------------- Map Symbols Section. -------------------------- //
 		
-		model = NH3DModelObject(with3DSFile: "vwall", textureNamed: "wall_start")
-		model?.addTexture("wall_mines")
-		model?.addTexture("wall_hell")
-		model?.addTexture("wall_knox")
-		model?.addTexture("wall_rouge")
+		let wallStart = NH3DTextureObject(imageNamed: "wall_start")!
+		let wallMines = NH3DTextureObject(imageNamed: "wall_mines")!
+		let wallHell = NH3DTextureObject(imageNamed: "wall_hell")!
+		let wallKnox = NH3DTextureObject(imageNamed: "wall_knox")!
+		let wallRouge = NH3DTextureObject(imageNamed: "wall_rouge")!
+		
+		model = NH3DModelObject.model(named: "vwall", texture: wallStart)
+		model?.add(wallMines)
+		model?.add(wallHell)
+		model?.add(wallKnox)
+		model?.add(wallRouge)
 		do {
 			model?.addChildObject("torch", type: .texturedObject)
 			model?.lastChild?.modelPivot = NH3DVertexType(x: 0.478, y: 2.834, z: 0.007)
@@ -1740,11 +1746,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		modelDictionary[S_vwall + NetHackGlyphCMapOffset] = model
 		
-		model = NH3DModelObject(with3DSFile: "hwall", textureNamed: "wall_start")
-		model?.addTexture("wall_mines")
-		model?.addTexture("wall_hell")
-		model?.addTexture("wall_knox")
-		model?.addTexture("wall_rouge")
+		model = NH3DModelObject.model(named: "hwall", texture: wallStart)
+		model?.add(wallMines)
+		model?.add(wallHell)
+		model?.add(wallKnox)
+		model?.add(wallRouge)
 		do {
 			model?.addChildObject("torch", type: .texturedObject)
 			model?.lastChild?.modelPivot = NH3DVertexType(x: -0.005, y: 2.834, z: 0.483)
@@ -1779,32 +1785,38 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[S_tlwall + NetHackGlyphCMapOffset] = model
 		modelDictionary[S_trwall + NetHackGlyphCMapOffset] = model
 		
-		model = NH3DModelObject(with3DSFile: "vopendoor", textureNamed: "door")
-		model?.addTexture("door_mines")
-		model?.addTexture("door_hell")
-		model?.addTexture("door_knox")
-		model?.addTexture("door_rouge")
+		let doorStart = NH3DTextureObject(imageNamed: "door")!
+		let doorMines = NH3DTextureObject(imageNamed: "door_mines")!
+		let doorHell = NH3DTextureObject(imageNamed: "door_hell")!
+		let doorKnox = NH3DTextureObject(imageNamed: "door_knox")!
+		let doorRouge = NH3DTextureObject(imageNamed: "door_rouge")!
+
+		model = NH3DModelObject.model(named: "vopendoor", texture: doorStart)
+		model?.add(doorMines)
+		model?.add(doorHell)
+		model?.add(doorKnox)
+		model?.add(doorRouge)
 		modelDictionary[S_vodoor + NetHackGlyphCMapOffset] = model
 		
-		model = NH3DModelObject(with3DSFile: "hopendoor", textureNamed: "door")
-		model?.addTexture("door_mines")
-		model?.addTexture("door_hell")
-		model?.addTexture("door_knox")
-		model?.addTexture("door_rouge")
+		model = NH3DModelObject.model(named: "hopendoor", texture: doorStart)
+		model?.add(doorMines)
+		model?.add(doorHell)
+		model?.add(doorKnox)
+		model?.add(doorRouge)
 		modelDictionary[S_hodoor + NetHackGlyphCMapOffset] = model
 		
-		model = NH3DModelObject(with3DSFile: "vdoor", textureNamed: "door")
-		model?.addTexture("door_mines")
-		model?.addTexture("door_hell")
-		model?.addTexture("door_knox")
-		model?.addTexture("door_rouge")
+		model = NH3DModelObject.model(named: "vdoor", texture: doorStart)
+		model?.add(doorMines)
+		model?.add(doorHell)
+		model?.add(doorKnox)
+		model?.add(doorRouge)
 		modelDictionary[S_vcdoor + NetHackGlyphCMapOffset] = model
 		
-		model = NH3DModelObject(with3DSFile: "hdoor", textureNamed: "door")
-		model?.addTexture("door_mines")
-		model?.addTexture("door_hell")
-		model?.addTexture("door_knox")
-		model?.addTexture("door_rouge")
+		model = NH3DModelObject.model(named: "hdoor", texture: doorStart)
+		model?.add(doorMines)
+		model?.add(doorHell)
+		model?.add(doorKnox)
+		model?.add(doorRouge)
 		modelDictionary[S_hcdoor + NetHackGlyphCMapOffset] = model
 	}
 	
