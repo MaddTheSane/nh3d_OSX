@@ -14,6 +14,7 @@ import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 import CoreVideo
 
+private let bridgeTex = NH3DTextureObject(imageNamed: "bridge")!
 
 // TODO: change from "backslash" to a single quote mark (')
 /// TODO: change from "backslash" to a single quote mark (`'`)
@@ -3210,21 +3211,21 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSize = 8.0
 			
 		case S_vodbridge + NetHackGlyphCMapOffset:
-			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
+			ret = NH3DModelObject.model(named: "bridgeUP", texture: bridgeTex)
 			ret?.modelRotate = NH3DVertexType(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
 		case S_hodbridge + NetHackGlyphCMapOffset:
-			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
+			ret = NH3DModelObject.model(named: "bridge", texture: bridgeTex)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 4.0, y: 0.0, z: 0.0)
 			
 		case S_vcdbridge + NetHackGlyphCMapOffset:
-			ret = NH3DModelObject(with3DSFile: "bridgeUP", textureNamed: "bridge")
+			ret = NH3DModelObject.model(named: "bridgeUP", texture: bridgeTex)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
 		case S_hcdbridge + NetHackGlyphCMapOffset:
-			ret = NH3DModelObject(with3DSFile: "bridge", withTexture: true)
+			ret = NH3DModelObject.model(named: "bridge", texture: bridgeTex)
 			ret?.modelRotate = NH3DVertexType(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 4.0, y: 0.0, z: 0.0)
@@ -3362,9 +3363,13 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.4
 			ret?.lastChild?.particleSize = 2.0
 			
-			//TODO: implement web and statue trap
-			//case S_web + NetHackGlyphCMapOffset :
-			//case S_statue_trap + NetHackGlyphCMapOffset :
+		case S_web + NetHackGlyphCMapOffset:
+			ret = NH3DModelObject(with3DSFile: "tree", withTexture: false)
+			ret?.modelScale = NH3DVertexType(x: 2.5, y: 1.7, z: 2.5)
+			ret?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
+			
+			//TODO: implement statue trap
+		//case S_statue_trap + NetHackGlyphCMapOffset:
 			
 		case S_magic_trap + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
@@ -4184,6 +4189,7 @@ extension NH3DOpenGLView {
 			return model
 		}
 		
+		// Add floating "hearts" over target
 		model.addChildObject("emitter", type: .emitter)
 		model.lastChild?.modelScale = NH3DVertexType(x: 2, y: 1, z: 2)
 		model.lastChild?.modelPivot = NH3DVertexType(x: 0, y: 3, z: 0)

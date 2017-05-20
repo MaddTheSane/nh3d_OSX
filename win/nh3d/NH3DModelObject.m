@@ -108,18 +108,18 @@ static const NH3DMaterial defaultMat = {
 
 + (instancetype)modelNamed:(NSString*)name textureNamed:(NSString*)texName
 {
-	NH3DModelObject *modObj = [[NH3DModelObject alloc] initWith3DSFile:name textureNamed:texName];
+	NH3DModelObject *modObj = [[self alloc] initWith3DSFile:name textureNamed:texName];
 	if (!modObj) {
-		modObj = [[NH3DModelObject alloc] initWithOBJFile:name textureNamed:texName];
+		modObj = [[self alloc] initWithOBJFile:name textureNamed:texName];
 	}
 	return modObj;
 }
 
 + (nullable instancetype)modelNamed:(NSString*)name texture:(NH3DTextureObject*)texName
 {
-	NH3DModelObject *modObj = [[NH3DModelObject alloc] initWith3DSFile:name textureNamed:nil];
+	NH3DModelObject *modObj = [[self alloc] initWith3DSFile:name textureNamed:nil];
 	if (!modObj) {
-		modObj = [[NH3DModelObject alloc] initWithOBJFile:name textureNamed:nil];
+		modObj = [[self alloc] initWithOBJFile:name textureNamed:nil];
 	}
 
 	if (!modObj) {
@@ -127,7 +127,7 @@ static const NH3DMaterial defaultMat = {
 	}
 	
 	[modObj setUpTextureObjectsIncludingTexture:texName];
-	//textureObjects
+	
 	return modObj;
 }
 
