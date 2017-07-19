@@ -65,8 +65,10 @@ extension float3 {
 	}
 }
 
-extension NH3DMaterial: Equatable {
-	
+extension NH3DMaterial: Equatable, CustomStringConvertible {
+	public var description: String {
+		return "ambient: \(ambient), diffuse: \(diffuse), specular: \(specular), emission: \(emission), shininess: \(shininess)"
+	}
 }
 
 extension nh3d_face3: Equatable, CustomStringConvertible, CustomDebugStringConvertible {

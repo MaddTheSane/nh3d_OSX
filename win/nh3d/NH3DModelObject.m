@@ -1261,14 +1261,14 @@ static const NH3DMaterial defaultMat = {
 						
 						switch (particleType) {
 							case NH3DParticleTypePoints:
-								glPointSize(((random() % 500 )*0.01) + particleSize);
+								glPointSize(((random() % 500) * 0.01) + particleSize);
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
-								glVertex3f(px + 0.02f, py + 0.02f, pz +0.02f);
-								glVertex3f(px - 0.02f, py + 0.02f, pz -0.02f);
-								glVertex3f(px + 0.02f, py - 0.02f, pz +0.02f);
-								glVertex3f(px - 0.02f, py - 0.02f, pz -0.02f);
+								glVertex3f(px + 0.02f, py + 0.02f, pz + 0.02f);
+								glVertex3f(px - 0.02f, py + 0.02f, pz - 0.02f);
+								glVertex3f(px + 0.02f, py - 0.02f, pz + 0.02f);
+								glVertex3f(px - 0.02f, py - 0.02f, pz - 0.02f);
 								glEnd();
 								break;
 								
@@ -1287,10 +1287,10 @@ static const NH3DMaterial defaultMat = {
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
-								glVertex3f(px + 0.02f, py + 0.02f, pz +0.02f);
-								glVertex3f(px - 0.02f, py + 0.02f, pz -0.02f);
-								glVertex3f(px + 0.02f, py - 0.02f, pz +0.02f);
-								glVertex3f(px - 0.02f, py - 0.02f, pz -0.02f);
+								glVertex3f(px + 0.02f, py + 0.02f, pz + 0.02f);
+								glVertex3f(px - 0.02f, py + 0.02f, pz - 0.02f);
+								glVertex3f(px + 0.02f, py - 0.02f, pz + 0.02f);
+								glVertex3f(px - 0.02f, py - 0.02f, pz - 0.02f);
 								glEnd();
 								
 								glLineWidth((random() % 4) + particleSize);
