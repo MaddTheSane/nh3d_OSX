@@ -27,11 +27,11 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
             assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
             let match1: Range<String.Index>? = {
                 let NSmatch1 = match.range(at: 1)
-                return fileName.range(from: NSmatch1)
+				return Range(NSmatch1, in: fileName)
             }()
             let match2: Range<String.Index>? = {
                 let NSmatch1 = match.range(at: 2)
-                return fileName.range(from: NSmatch1)
+				return Range(NSmatch1, in: fileName)
             }()
             
             if let match1 = match1, let match2 = match2 {
@@ -61,7 +61,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
             assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
             let match1: Range<String.Index>? = {
                 let NSmatch1 = match.range(at: 1)
-                return fileName.range(from: NSmatch1)
+				return Range(NSmatch1, in: fileName)
             }()
             
             if let match1 = match1 {

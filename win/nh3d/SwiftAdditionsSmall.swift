@@ -30,13 +30,7 @@ extension NSRange {
 	public var notFound: Bool {
 		return location == NSNotFound
 	}
-	
-	/// Returns a Boolean value that indicates whether a specified
-	/// position is in the given range.
-	public func contains(_ location: Int) -> Bool {
-		return NSLocationInRange(location, self)
-	}
-	
+		
 	/// The maximum value from the range.
 	public var max: Int {
 		return NSMaxRange(self)
@@ -77,7 +71,8 @@ extension NSRange {
 // Code taken from http://stackoverflow.com/a/30404532/1975001
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
-	internal func nsRange(from range: Range<String.Index>) -> NSRange {
+	@available(swift, deprecated: 4.0, message: "Use `NSRange(_in:)` instead")
+	public func nsRange(from range: Range<String.Index>) -> NSRange {
 		return NSRange(range, in: self)
 	}
 	
@@ -88,7 +83,8 @@ extension String {
 	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	internal func range(from nsRange: NSRange) -> Range<String.Index>? {
+	@available(swift, deprecated: 4.0, message: "Use `Range(_in:)` instead")
+	public func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = Range(nsRange),
 			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
@@ -99,4 +95,3 @@ extension String {
 		return from ..< to
 	}
 }
-

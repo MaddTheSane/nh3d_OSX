@@ -121,7 +121,7 @@ process_options(int argc, char *argv[])
 			case 'd':
 				if ((argv[0][1] == 'D' && !argv[0][2])
 					|| !strcmpi(*argv, "-debug")) {
-					wizard = TRUE, discover = FALSE;
+					wizard = TRUE; discover = FALSE;
 				} else if (!strncmpi(*argv, "-DECgraphics", l)) {
 					raw_print("-DECgraphics aren't supported on this windowing system.");
 					//load_symset("DECGraphics", PRIMARY);
@@ -132,7 +132,7 @@ process_options(int argc, char *argv[])
 				break;
 
 			case 'X':
-				wizard = TRUE, discover = TRUE;
+				wizard = TRUE; discover = TRUE;
 				break;
 #ifdef NEWS
 			case 'n':

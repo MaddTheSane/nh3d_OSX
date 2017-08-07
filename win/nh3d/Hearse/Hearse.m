@@ -266,7 +266,7 @@ static NSString *const hearseCommandDownload = @"download";
 	return [self httpGetRequestWithoutData:req];
 }
 
-- (NSHTTPURLResponse *) httpGetRequest:(NSURLRequest *)req withData:(NSData **)data {
+- (NSHTTPURLResponse *) httpGetRequest:(NSURLRequest *)req withData:(NSData * __autoreleasing *)data {
 	__block NSURLResponse *response;
 	__block NSData *inData;
 	dispatch_semaphore_t inner = dispatch_semaphore_create(0);

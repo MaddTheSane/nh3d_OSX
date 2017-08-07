@@ -44,12 +44,12 @@ extern struct window_procs nh3d_procs;
 
 // binding NetHack C codes to NH3DObjects.
 void nh3d_init_nhwindows(int*__null_unspecified argc, char*__null_unspecified*__null_unspecified argv);
-void nh3d_player_selection();
-void nh3d_askname();
-void nh3d_get_nh_event();
+void nh3d_player_selection(void);
+void nh3d_askname(void);
+void nh3d_get_nh_event(void);
 void nh3d_exit_nhwindows(const char *__null_unspecified str);
 void nh3d_suspend_nhwindows(const char *__null_unspecified str);
-void nh3d_resume_nhwindows();
+void nh3d_resume_nhwindows(void);
 winid nh3d_create_nhwindow(int type);
 void nh3d_clear_nhwindow(winid wid);
 void nh3d_display_nhwindow(winid wid, boolean block);
@@ -63,25 +63,25 @@ void nh3d_add_menu(winid wid, int glyph, const ANY_P *__null_unspecified identif
 		const char *__null_unspecified str, boolean presel);
 void nh3d_end_menu(winid wid, const char *prompt);
 int nh3d_select_menu(winid wid, int how, menu_item *__null_unspecified*__null_unspecified menu_list);
-void nh3d_update_inventory();
-void nh3d_mark_synch();
-void nh3d_wait_synch();
+void nh3d_update_inventory(void);
+void nh3d_mark_synch(void);
+void nh3d_wait_synch(void);
 void nh3d_cliparound(int x, int y);
 void nh3d_cliparound_window(winid wid, int x, int y);
 void nh3d_print_glyph(winid wid,xchar x,xchar y,int glyph, int under);
 void nh3d_raw_print(const char *__null_unspecified str);
 void nh3d_raw_print_bold(const char *__null_unspecified str);
-int nh3d_nhgetch();
+int nh3d_nhgetch(void);
 int nh3d_nh_poskey(int *__null_unspecified x, int *__null_unspecified y, int *mod);
-void nh3d_nhbell();
-int nh3d_doprev_message();
+void nh3d_nhbell(void);
+int nh3d_doprev_message(void);
 char nh3d_yn_function(const char *__null_unspecified question, const char *__null_unspecified choices, char def);
 void nh3d_getlin(const char *prompt, char *__null_unspecified line);
-int nh3d_get_ext_cmd();
+int nh3d_get_ext_cmd(void);
 void nh3d_number_pad(int num);
-void nh3d_delay_output();
-void nh3d_start_screen();
-void nh3d_end_screen();
+void nh3d_delay_output(void);
+void nh3d_start_screen(void);
+void nh3d_end_screen(void);
 void nh3d_outrip(winid wid, int how, time_t when);
 //int nh3d_kbhit();
 
@@ -93,7 +93,7 @@ extern void app_recover(const char* path);
 void nh3d_create_nhwindow_by_id(int type, winid i);
 void nethack3d_exit(int status);
 #ifndef GNUSTEP
-void nh3d_set_savefile_name();
+void nh3d_set_savefile_name(void);
 #endif
 @interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
 @private
