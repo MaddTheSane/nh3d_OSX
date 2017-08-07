@@ -2692,8 +2692,9 @@ mon_animal_list(boolean construct)
                       n * sizeof *animal_list);
         animal_list_count = n;
     } else { /* release */
-        if (animal_list)
-            free((genericptr_t) animal_list), animal_list = 0;
+        if (animal_list) {
+            free((genericptr_t) animal_list); animal_list = 0;
+        }
         animal_list_count = 0;
     }
 }

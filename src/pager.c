@@ -122,8 +122,9 @@ look_at_object(char *buf, /* output buffer */
         Strcpy(buf, (otmp->otyp != STRANGE_OBJECT)
                      ? distant_name(otmp, xname)
                      : obj_descr[STRANGE_OBJECT].oc_name);
-        if (fakeobj)
-            dealloc_obj(otmp), otmp = 0;
+        if (fakeobj) {
+            dealloc_obj(otmp); otmp = 0;
+        }
     } else
         Strcpy(buf, something); /* sanity precaution */
 
@@ -1230,9 +1231,10 @@ help_menu(int *sel)
 
     any = zeroany; /* zero all bits */
     start_menu(tmpwin);
-    if (!wizard)
-        help_menu_items[WIZHLP_SLOT] = "",
+    if (!wizard) {
+        help_menu_items[WIZHLP_SLOT] = "";
         help_menu_items[WIZHLP_SLOT + 1] = (char *) 0;
+    }
     for (i = 0; help_menu_items[i]; i++)
 #ifdef PORT_HELP
         /* port-specific line has a %s in it for the PORT_ID */

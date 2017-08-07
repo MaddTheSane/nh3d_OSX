@@ -434,7 +434,7 @@ e_died(struct entity *etmp, int dest, int how)
             }
         }
         /* we might have crawled out of the moat to survive */
-        etmp->ex = u.ux, etmp->ey = u.uy;
+        etmp->ex = u.ux; etmp->ey = u.uy;
     } else {
         int entitycnt;
 

@@ -109,7 +109,7 @@ formatkiller(char *buf, unsigned siz, int how)
     case KILLED_BY:
         (void) strncat(buf, killed_by_prefix[how], siz - 1);
         l = strlen(buf);
-        buf += l, siz -= l;
+        buf += l; siz -= l;
         break;
     }
     /* we're writing into buf[0] (after possibly advancing buf) rather than
@@ -839,9 +839,9 @@ outentry(int rank, struct toptenentry *t1, xchar so)
         Sprintf(eos(linebuf), "  %c%s.", highc(*(t1->death)), t1->death + 1);
 
     lngr = (int) strlen(linebuf);
-    if (t1->hp <= 0)
-        hpbuf[0] = '-', hpbuf[1] = '\0';
-    else
+    if (t1->hp <= 0) {
+        hpbuf[0] = '-'; hpbuf[1] = '\0';
+    } else
         Sprintf(hpbuf, "%d", t1->hp);
     /* beginning of hp column after padding (not actually padded yet) */
     hppos = COLNO - (sizeof("  Hp [max]") - 1); /* sizeof(str) includes \0 */

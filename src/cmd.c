@@ -3672,7 +3672,7 @@ click_to_cmd(int x, int y, int mod)
 
     if (flags.travelcmd) {
         if (abs(x) <= 1 && abs(y) <= 1) {
-            x = sgn(x), y = sgn(y);
+            x = sgn(x); y = sgn(y);
         } else {
             u.tx = u.ux + x;
             u.ty = u.uy + y;
@@ -3736,16 +3736,17 @@ click_to_cmd(int x, int y, int mod)
         }
     } else {
         /* convert without using floating point, allowing sloppy clicking */
-        if (x > 2 * abs(y))
-            x = 1, y = 0;
-        else if (y > 2 * abs(x))
-            x = 0, y = 1;
-        else if (x < -2 * abs(y))
-            x = -1, y = 0;
-        else if (y < -2 * abs(x))
-            x = 0, y = -1;
-        else
-            x = sgn(x), y = sgn(y);
+        if (x > 2 * abs(y)) {
+            x = 1; y = 0;
+        } else if (y > 2 * abs(x)) {
+            x = 0; y = 1;
+        } else if (x < -2 * abs(y)) {
+            x = -1; y = 0;
+        } else if (y < -2 * abs(x)) {
+            x = 0; y = -1;
+        } else {
+            x = sgn(x); y = sgn(y);
+        }
 
         if (x == 0 && y == 0) /* map click on player to "rest" command */
             return ".";

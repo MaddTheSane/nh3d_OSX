@@ -1493,22 +1493,28 @@ potionbreathe(register struct obj *obj)
         }
         break;
     case POT_FULL_HEALING:
-        if (Upolyd && u.mh < u.mhmax)
-            u.mh++, context.botl = 1;
-        if (u.uhp < u.uhpmax)
-            u.uhp++, context.botl = 1;
+        if (Upolyd && u.mh < u.mhmax) {
+            u.mh++; context.botl = 1;
+        }
+        if (u.uhp < u.uhpmax) {
+            u.uhp++; context.botl = 1;
+        }
         /*FALLTHRU*/
     case POT_EXTRA_HEALING:
-        if (Upolyd && u.mh < u.mhmax)
-            u.mh++, context.botl = 1;
-        if (u.uhp < u.uhpmax)
-            u.uhp++, context.botl = 1;
+        if (Upolyd && u.mh < u.mhmax) {
+            u.mh++; context.botl = 1;
+        }
+        if (u.uhp < u.uhpmax) {
+            u.uhp++; context.botl = 1;
+        }
         /*FALLTHRU*/
     case POT_HEALING:
-        if (Upolyd && u.mh < u.mhmax)
-            u.mh++, context.botl = 1;
-        if (u.uhp < u.uhpmax)
-            u.uhp++, context.botl = 1;
+        if (Upolyd && u.mh < u.mhmax) {
+            u.mh++; context.botl = 1;
+        }
+        if (u.uhp < u.uhpmax) {
+            u.uhp++; context.botl = 1;
+        }
         exercise(A_CON, TRUE);
         break;
     case POT_SICKNESS:

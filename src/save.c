@@ -115,10 +115,12 @@ dosave0()
        a few of things before saving so that they won't be restored in
        an improper state; these will be no-ops for normal save sequence */
     u.uinvulnerable = 0;
-    if (iflags.save_uinwater)
-        u.uinwater = 1, iflags.save_uinwater = 0;
-    if (iflags.save_uburied)
-        u.uburied = 1, iflags.save_uburied = 0;
+    if (iflags.save_uinwater) {
+        u.uinwater = 1; iflags.save_uinwater = 0;
+    }
+    if (iflags.save_uburied) {
+        u.uburied = 1; iflags.save_uburied = 0;
+    }
 
     if (!program_state.something_worth_saving || !SAVEF[0])
         return 0;

@@ -639,8 +639,9 @@ costly_alteration(struct obj *obj, int alter_type)
     } else {
         /* this get_obj_location shouldn't fail, but if it does,
            use hero's location */
-        if (!get_obj_location(obj, &ox, &oy, CONTAINED_TOO))
-            ox = u.ux, oy = u.uy;
+        if (!get_obj_location(obj, &ox, &oy, CONTAINED_TOO)) {
+            ox = u.ux; oy = u.uy;
+        }
         if (!costly_spot(ox, oy))
             return;
         objroom = *in_rooms(ox, oy, SHOPBASE);
@@ -649,10 +650,11 @@ costly_alteration(struct obj *obj, int alter_type)
             return;
     }
 
-    if (obj->quan == 1L)
-        those = "that", them = "it";
-    else
-        those = "those", them = "them";
+    if (obj->quan == 1L) {
+        those = "that"; them = "it";
+    } else {
+        those = "those"; them = "them";
+    }
 
     /* when shopkeeper describes the object as being uncursed or unblessed
        hero will know that it is now uncursed; will also make the feedback
@@ -1765,8 +1767,9 @@ discard_minvent(struct monst *mtmp)
         obj_extract_self(otmp);
         if (otmp->owornmask) {
             if (keeping_mon) {
-                if (otmp == mwep)
-                    mwepgone(mtmp), mwep = 0;
+                if (otmp == mwep) {
+                    mwepgone(mtmp); mwep = 0;
+                }
                 mtmp->misc_worn_check &= ~otmp->owornmask;
                 update_mon_intrinsics(mtmp, otmp, FALSE, TRUE);
             }

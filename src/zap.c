@@ -652,10 +652,10 @@ revive(struct obj *corpse, boolean by_hero)
             get_container_location(container, &holder, &container_nesting);
         switch (holder) {
         case OBJ_MINVENT:
-            x = carrier->mx, y = carrier->my;
+            x = carrier->mx; y = carrier->my;
             break;
         case OBJ_INVENT:
-            x = u.ux, y = u.uy;
+            x = u.ux; y = u.uy;
             break;
         case OBJ_FLOOR:
             (void) get_obj_location(corpse, &x, &y, CONTAINED_TOO);
@@ -677,7 +677,7 @@ revive(struct obj *corpse, boolean by_hero)
         return (struct monst *) 0;
 
     /* record the object's location now that we're sure where it is */
-    corpse->ox = x, corpse->oy = y;
+    corpse->ox = x; corpse->oy = y;
 
     /* prepare for the monster */
     montype = corpse->corpsenm;
@@ -686,8 +686,9 @@ revive(struct obj *corpse, boolean by_hero)
        ghost are at same location, revived creature shouldn't be bumped
        to an adjacent spot by ghost which joins with it] */
     if (MON_AT(x, y)) {
-        if (enexto(&xy, x, y, mptr))
-            x = xy.x, y = xy.y;
+        if (enexto(&xy, x, y, mptr)) {
+            x = xy.x; y = xy.y;
+        }
     }
 
     if (mons[montype].mlet == S_EEL && !IS_POOL(levl[x][y].typ)) {
@@ -717,7 +718,7 @@ revive(struct obj *corpse, boolean by_hero)
         }
     } else if (has_omonst(corpse)) {
         /* use saved traits */
-        xy.x = x, xy.y = y;
+        xy.x = x; xy.y = y;
         mtmp = montraits(corpse, &xy);
         if (mtmp && mtmp->mtame && !mtmp->isminion)
             wary_dog(mtmp, TRUE);
@@ -740,7 +741,7 @@ revive(struct obj *corpse, boolean by_hero)
     if (by_hero) {
         struct monst *shkp = 0;
 
-        x = corpse->ox, y = corpse->oy;
+        x = corpse->ox; y = corpse->oy;
         if (costly_spot(x, y))
             shkp = shop_keeper(*in_rooms(x, y, SHOPBASE));
 
@@ -811,7 +812,7 @@ revive(struct obj *corpse, boolean by_hero)
         break;
     case OBJ_FLOOR:
         /* in case MON_AT+enexto for invisible mon */
-        x = corpse->ox, y = corpse->oy;
+        x = corpse->ox; y = corpse->oy;
         /* not useupf(), which charges */
         if (corpse->quan > 1L)
             corpse = splitobj(corpse, 1L);
@@ -1515,7 +1516,7 @@ poly_obj(struct obj *obj, int id)
         addinv_core1(otmp);
         addinv_core2(otmp);
     } else if (obj_location == OBJ_FLOOR) {
-        ox = otmp->ox, oy = otmp->oy; /* set by replace_object() */
+        ox = otmp->ox; oy = otmp->oy; /* set by replace_object() */
         if (obj->otyp == BOULDER && otmp->otyp != BOULDER
             && !does_block(ox, oy, &levl[ox][oy]))
             unblock_point(ox, oy);
@@ -3104,7 +3105,7 @@ bhit(register int ddx, register int ddy,    /* direction */
                    not canspotmon() because it makes no difference
                    whether the hero can see the monster or not. */
                 if (mtmp->minvis) {
-                    obj->ox = u.ux, obj->oy = u.uy;
+                    obj->ox = u.ux; obj->oy = u.uy;
                     (void) flash_hits_mon(mtmp, obj);
                 } else {
                     tmp_at(DISP_END, 0);
@@ -3808,7 +3809,7 @@ buzz(register int type, register int nd, register xchar sx, register xchar sy, r
             goto make_bounce;
 
         /* hit() and miss() need bhitpos to match the target */
-        bhitpos.x = sx, bhitpos.y = sy;
+        bhitpos.x = sx; bhitpos.y = sy;
         /* Fireballs only damage when they explode */
         if (type != ZT_SPELL(ZT_FIRE))
             range += zap_over_floor(sx, sy, type, &shopdamage, 0);

@@ -77,7 +77,7 @@ use_camera(struct obj *obj)
     } else if ((mtmp = bhit(u.dx, u.dy, COLNO, FLASHED_LIGHT,
                             (int (*)(MONST_P, OBJ_P)) 0,
                             (int (*)(OBJ_P, OBJ_P)) 0, &obj)) != 0) {
-        obj->ox = u.ux, obj->oy = u.uy;
+        obj->ox = u.ux; obj->oy = u.uy;
         (void) flash_hits_mon(mtmp, obj);
     }
     return 1;
@@ -463,7 +463,7 @@ use_magic_whistle(struct obj *obj)
                    actually moves because line-of-sight may change */
                 if (mtmp->m_ap_type)
                     seemimic(mtmp);
-                omx = mtmp->mx, omy = mtmp->my;
+                omx = mtmp->mx; omy = mtmp->my;
                 mnexto(mtmp);
                 if (mtmp->mx != omx || mtmp->my != omy) {
                     mtmp->mundetected = 0; /* reveal non-mimic hider */
@@ -2305,7 +2305,7 @@ use_trap(struct obj *otmp)
         return;
     }
     trapinfo.tobj = otmp;
-    trapinfo.tx = u.ux, trapinfo.ty = u.uy;
+    trapinfo.tx = u.ux; trapinfo.ty = u.uy;
     tmp = ACURR(A_DEX);
     trapinfo.time_needed =
         (tmp > 17) ? 2 : (tmp > 12) ? 3 : (tmp > 7) ? 4 : 5;

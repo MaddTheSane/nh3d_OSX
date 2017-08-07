@@ -927,10 +927,12 @@ getobj(register const char *let, register const char *word)
     boolean prezero;
     long dummymask;
 
-    if (*let == ALLOW_COUNT)
-        let++, allowcnt = 1;
-    if (*let == COIN_CLASS)
-        let++, usegold = TRUE;
+    if (*let == ALLOW_COUNT) {
+        let++; allowcnt = 1;
+    }
+    if (*let == COIN_CLASS) {
+        let++; usegold = TRUE;
+    }
 
     /* Equivalent of an "ugly check" for gold */
     if (usegold && !strcmp(word, "eat")
@@ -938,10 +940,12 @@ getobj(register const char *let, register const char *word)
             || youmonst.data == &mons[PM_RUST_MONSTER]))
         usegold = FALSE;
 
-    if (*let == ALL_CLASSES)
-        let++, allowall = TRUE;
-    if (*let == ALLOW_NONE)
-        let++, allownone = TRUE;
+    if (*let == ALL_CLASSES) {
+        let++; allowall = TRUE;
+    }
+    if (*let == ALLOW_NONE) {
+        let++; allownone = TRUE;
+    }
     /* "ugly check" for reading fortune cookies, part 1.
      * The normal 'ugly check' keeps the object on the inventory list.
      * We don't want to do that for shirts/cookies, so the check for
@@ -1762,9 +1766,11 @@ identify_pack(int id_limit,
 
     unid_cnt = 0;
     the_obj = 0; /* if unid_cnt ends up 1, this will be it */
-    for (obj = invent; obj; obj = obj->nobj)
-        if (not_fully_identified(obj))
-            ++unid_cnt, the_obj = obj;
+    for (obj = invent; obj; obj = obj->nobj) {
+        if (not_fully_identified(obj)) {
+            ++unid_cnt; the_obj = obj;
+        }
+    }
 
     if (!unid_cnt) {
         You("have already identified all %sof your possessions.",
@@ -2551,8 +2557,9 @@ dfeature_at(int x, int y, char *buf)
             break; /* "closed door" */
         }
         /* override door description for open drawbridge */
-        if (is_drawbridge_wall(x, y) >= 0)
-            dfeature = "open drawbridge portcullis", cmap = -1;
+        if (is_drawbridge_wall(x, y) >= 0) {
+            dfeature = "open drawbridge portcullis"; cmap = -1;
+        }
     } else if (IS_FOUNTAIN(ltyp))
         cmap = S_fountain; /* "fountain" */
     else if (IS_THRONE(ltyp))
@@ -3146,8 +3153,9 @@ let_to_name(char let, boolean unpaid, boolean showsym)
 void
 free_invbuf()
 {
-    if (invbuf)
-        free((genericptr_t) invbuf), invbuf = (char *) 0;
+    if (invbuf) {
+        free((genericptr_t) invbuf); invbuf = (char *) 0;
+    }
     invbufsiz = 0;
 }
 

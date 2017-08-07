@@ -658,8 +658,9 @@ touch_artifact(struct obj *obj, struct monst *mon)
         touch_blasted = TRUE;
         dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
         /* add half (maybe quarter) of the usual silver damage bonus */
-        if (objects[obj->otyp].oc_material == SILVER && Hate_silver)
-            tmp = rnd(10), dmg += Maybe_Half_Phys(tmp);
+        if (objects[obj->otyp].oc_material == SILVER && Hate_silver) {
+            tmp = rnd(10); dmg += Maybe_Half_Phys(tmp);
+        }
         Sprintf(buf, "touching %s", oart->name);
         losehp(dmg, buf, KILLED_BY); /* magic damage, not physical */
         exercise(A_WIS, FALSE);
@@ -1839,8 +1840,9 @@ retouch_object(struct obj **objp,   /* might be destroyed or unintentionally dro
         if (!touch_blasted) {
             /* damage is somewhat arbitrary; half the usual 1d20 physical
                for silver, 1d10 magical for <foo>bane, potentially both */
-            if (ag)
-                tmp = rnd(10), dmg += Maybe_Half_Phys(tmp);
+            if (ag) {
+                tmp = rnd(10); dmg += Maybe_Half_Phys(tmp);
+            }
             if (bane)
                 dmg += rnd(10);
             Sprintf(buf, "handling %s", killer_xname(obj));

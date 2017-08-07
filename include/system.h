@@ -91,7 +91,7 @@ E int srandom(unsigned int);
 #endif
 #else
 E long lrand48(void);
-E void srand48();
+E void srand48(long);
 #endif /* BSD || ULTRIX || RANDOM */
 
 #if !defined(BSD) || defined(ultrix)
@@ -350,7 +350,9 @@ E char *memset(char *, int, int);
 #if defined(BSD) && defined(ultrix) /* i.e., old versions of Ultrix */
 E void sleep();
 #endif
-#if defined(ULTRIX) || defined(SYSV)
+#if defined(__MACH__)
+E unsigned sleep(unsigned);
+#elif defined(ULTRIX) || defined(SYSV)
 E unsigned sleep();
 #endif
 #if defined(HPUX)
@@ -506,7 +508,7 @@ E char *tgoto(const char *, int, int);
 #else
 #if !(defined(HPUX) && defined(_POSIX_SOURCE))
 E int tgetent(char *, const char *);
-E void tputs(const char *, int, int (*)());
+E void tputs(const char *, int, int (*)(int));
 #endif
 E int tgetnum(const char *);
 E int tgetflag(const char *);

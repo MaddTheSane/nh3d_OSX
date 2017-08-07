@@ -838,7 +838,7 @@ set_savefile_name(boolean regularize_it)
 {
 /* NetHack 3D */
 #if defined(NH3D_GRAPHICS)
-	extern void nh3d_set_savefile_name();
+	extern void nh3d_set_savefile_name(void);
 	nh3d_set_savefile_name();
 	return;
 #endif	

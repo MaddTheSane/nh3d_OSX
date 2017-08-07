@@ -1147,12 +1147,14 @@ u_on_newpos(int x, int y)
     cliparound(u.ux, u.uy);
 #endif
     /* ridden steed always shares hero's location */
-    if (u.usteed)
-        u.usteed->mx = u.ux, u.usteed->my = u.uy;
+    if (u.usteed) {
+        u.usteed->mx = u.ux; u.usteed->my = u.uy;
+    }
     /* when changing levels, don't leave old position set with
        stale values from previous level */
-    if (!on_level(&u.uz, &u.uz0))
-        u.ux0 = u.ux, u.uy0 = u.uy;
+    if (!on_level(&u.uz, &u.uz0)) {
+        u.ux0 = u.ux; u.uy0 = u.uy;
+    }
 }
 
 /* place you on a random location */
@@ -2064,7 +2066,7 @@ init_mapseen(d_level *lev)
     (void) memset((genericptr_t) init, 0, sizeof *init);
     /* memset is fine for feature bits, flags, and rooms array;
        explicitly initialize pointers to null */
-    init->next = 0, init->br = 0, init->custom = 0;
+    init->next = 0; init->br = 0; init->custom = 0;
     init->final_resting_place = 0;
     /* lastseentyp[][] is reused for each level, so get rid of
        previous level's data */
@@ -2336,9 +2338,9 @@ recalc_mapseen()
             /* else FALLTHRU */
             case DBWALL:
             case DRAWBRIDGE_DOWN:
-                if (Is_stronghold(&u.uz))
-                    mptr->flags.castle = 1, mptr->flags.castletune = 1;
-                else if (Is_knox(&u.uz))
+                if (Is_stronghold(&u.uz)) {
+                    mptr->flags.castle = 1; mptr->flags.castletune = 1;
+                } else if (Is_knox(&u.uz))
                     mptr->flags.ludios = 1;
                 break;
             default:

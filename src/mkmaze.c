@@ -402,8 +402,9 @@ fixup_special()
             break;
         }
 
-        if (r->rname.str)
-            free((genericptr_t) r->rname.str), r->rname.str = 0;
+        if (r->rname.str) {
+            free((genericptr_t) r->rname.str); r->rname.str = 0;
+        }
     }
 
     /* place dungeon branch if not placed above */
@@ -481,8 +482,9 @@ fixup_special()
         }
     }
 
-    if (lregions)
-        free((genericptr_t) lregions), lregions = 0;
+    if (lregions) {
+        free((genericptr_t) lregions); lregions = 0;
+    }
     num_lregions = 0;
 }
 

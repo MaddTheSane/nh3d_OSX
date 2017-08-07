@@ -141,10 +141,12 @@ unload_qtlist()
 {
     if (msg_file)
         (void) dlb_fclose(msg_file), msg_file = 0;
-    if (qt_list.common)
-        free((genericptr_t) qt_list.common), qt_list.common = 0;
-    if (qt_list.chrole)
-        free((genericptr_t) qt_list.chrole), qt_list.chrole = 0;
+    if (qt_list.common) {
+        free((genericptr_t) qt_list.common); qt_list.common = 0;
+    }
+    if (qt_list.chrole) {
+        free((genericptr_t) qt_list.chrole); qt_list.chrole = 0;
+    }
     return;
 }
 

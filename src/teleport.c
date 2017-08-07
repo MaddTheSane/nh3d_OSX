@@ -237,7 +237,7 @@ teleds(register int nux, register int nuy, boolean allow_drag)
         /* unearth it */
         buried_ball_to_punishment();
     }
-    ball_active = (Punished && uball->where != OBJ_FREE),
+    ball_active = (Punished && uball->where != OBJ_FREE);
     ball_still_in_range = FALSE;
 
     /* If they have to move the ball, then drag if allow_drag is true;
@@ -994,12 +994,13 @@ rloc(struct monst *mtmp, /* mx==0 implies migrating monster arrival */
     }
 
     if (mtmp->iswiz && mtmp->mx) { /* Wizard, not just arriving */
-        if (!In_W_tower(u.ux, u.uy, &u.uz))
-            x = xupstair, y = yupstair;
-        else if (!xdnladder) /* bottom level of tower */
-            x = xupladder, y = yupladder;
-        else
-            x = xdnladder, y = ydnladder;
+        if (!In_W_tower(u.ux, u.uy, &u.uz)) {
+            x = xupstair; y = yupstair;
+        } else if (!xdnladder) /* bottom level of tower */ {
+            x = xupladder; y = yupladder;
+        } else {
+            x = xdnladder; y = ydnladder;
+        }
         /* if the wiz teleports away to heal, try the up staircase,
            to block the player's escaping before he's healed
            (deliberately use `goodpos' rather than `rloc_pos_ok' here) */

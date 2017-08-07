@@ -1084,14 +1084,15 @@ really_done(int how)
     if (have_windows) {
         wait_synch();
         free_pickinv_cache(); /* extra persistent window if perm_invent */
-        if (WIN_INVEN != WIN_ERR)
-            destroy_nhwindow(WIN_INVEN),  WIN_INVEN = WIN_ERR;
+        if (WIN_INVEN != WIN_ERR) {
+            destroy_nhwindow(WIN_INVEN);  WIN_INVEN = WIN_ERR;
+        }
         display_nhwindow(WIN_MESSAGE, TRUE);
-        destroy_nhwindow(WIN_MAP),  WIN_MAP = WIN_ERR;
+        destroy_nhwindow(WIN_MAP);  WIN_MAP = WIN_ERR;
 #ifndef STATUS_VIA_WINDOWPORT
-        destroy_nhwindow(WIN_STATUS),  WIN_STATUS = WIN_ERR;
+        destroy_nhwindow(WIN_STATUS);  WIN_STATUS = WIN_ERR;
 #endif
-        destroy_nhwindow(WIN_MESSAGE),  WIN_MESSAGE = WIN_ERR;
+        destroy_nhwindow(WIN_MESSAGE);  WIN_MESSAGE = WIN_ERR;
 
         if (!done_stopprint || flags.tombstone)
             endwin = create_nhwindow(NHW_TEXT);
@@ -1256,8 +1257,9 @@ really_done(int how)
 
     /* "So when I die, the first thing I will see in Heaven is a
      * score list?" */
-    if (have_windows && !iflags.toptenwin)
-        exit_nhwindows((char *) 0), have_windows = FALSE;
+    if (have_windows && !iflags.toptenwin) {
+        exit_nhwindows((char *) 0); have_windows = FALSE;
+    }
     topten(how, endtime);
     if (have_windows)
         exit_nhwindows((char *) 0);

@@ -142,7 +142,7 @@ eatmdone(VOID_ARGS)
     if (eatmbuf) {
         if (nomovemsg == eatmbuf)
             nomovemsg = 0;
-        free((genericptr_t) eatmbuf), eatmbuf = 0;
+        free((genericptr_t) eatmbuf); eatmbuf = 0;
     }
     /* update display */
     if (youmonst.m_ap_type) {
@@ -1475,13 +1475,14 @@ rottenfood(struct obj *obj)
         const char *what, *where;
         int duration = rnd(10);
 
-        if (!Blind)
-            what = "goes", where = "dark";
-        else if (Levitation || Is_airlevel(&u.uz) || Is_waterlevel(&u.uz))
-            what = "you lose control of", where = "yourself";
-        else
-            what = "you slap against the",
+        if (!Blind) {
+            what = "goes"; where = "dark";
+        } else if (Levitation || Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)) {
+            what = "you lose control of"; where = "yourself";
+        } else {
+            what = "you slap against the";
             where = (u.usteed) ? "saddle" : surface(u.ux, u.uy);
+        }
         pline_The("world spins and %s %s.", what, where);
         incr_itimeout(&HDeaf, duration);
         nomul(-duration);
@@ -1769,8 +1770,8 @@ bounded_increase(int old, int inc, int typ)
         old -= uright->spe;
     if (uleft && uleft->otyp == typ)
         old -= uleft->spe;
-    absold = abs(old), absinc = abs(inc);
-    sgnold = sgn(old), sgninc = sgn(inc);
+    absold = abs(old); absinc = abs(inc);
+    sgnold = sgn(old); sgninc = sgn(inc);
 
     if (absinc == 0 || sgnold != sgninc || absold + absinc < 10) {
         ; /* use inc as-is */
