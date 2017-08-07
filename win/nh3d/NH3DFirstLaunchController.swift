@@ -16,7 +16,7 @@ class NH3DFirstLaunchController: NSWindowController {
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     }
 
-	class func runFirstTimeWindow() {
+	@objc class func runFirstTimeWindow() {
 		let defaults = UserDefaults.standard
 		
 		// If we have a Hearse Token, it means that the user already knows about Hearse.
@@ -26,7 +26,7 @@ class NH3DFirstLaunchController: NSWindowController {
 		}
 		
 		if defaults.bool(forKey: NH3DIsFirstLaunch) {
-			let controller = NH3DFirstLaunchController(windowNibName: "FirstLaunch")
+			let controller = NH3DFirstLaunchController(windowNibName: NSNib.Name(rawValue: "FirstLaunch"))
 			let bindController = NSApp.delegate as! NH3DBindController
 			
 			controller.window?.isOpaque = false

@@ -14,7 +14,7 @@ class MapModel: NSObject {
 	@IBOutlet weak var enemyIndicator: NSLevelIndicator!
 	@IBOutlet weak var glMapView: NH3DOpenGLView!
 	
-	dynamic var playerDirection: NH3DPlayerDirection = .forward {
+	@objc dynamic var playerDirection: NH3DPlayerDirection = .forward {
 		willSet {
 			if newValue.rawValue >= 0 && newValue.rawValue <= 3 {
 				
@@ -40,12 +40,12 @@ class MapModel: NSObject {
 		}
 	}
 	
-	private(set) var dungeonNameString = NSAttributedString()
-	private var strAttributes = [String: Any]()
+	@objc private(set) var dungeonNameString = NSAttributedString()
+	private var strAttributes = [NSAttributedStringKey: Any]()
 	
 	private var indicatorIsActive = false
 	
-	var enemyWarnBase: Int32 {
+	@objc var enemyWarnBase: Int32 {
 		get {
 			return enemyWarnBaseInternal
 		}
@@ -63,8 +63,8 @@ class MapModel: NSObject {
 	private(set) final var loadingStatus = 0
 	private var indicatorTimer: Timer?
 	
-	private(set) final var cursX: Int32 = 0
-	private(set) final var cursY: Int32 = 0
+	@objc private(set) final var cursX: Int32 = 0
+	@objc private(set) final var cursY: Int32 = 0
 	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_COLUMN)), count: Int(MAPSIZE_COLUMN))
 
 	private var lock = NSRecursiveLock()
@@ -104,18 +104,18 @@ class MapModel: NSObject {
 		style.alignment = .center
 		
 		strAttributes = [:]
-		strAttributes[NSFontAttributeName] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
-		strAttributes[NSShadowAttributeName] = shadow.copy()
-		strAttributes[NSParagraphStyleAttributeName] = style.copy()
+		strAttributes[NSAttributedStringKey.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
+		strAttributes[NSAttributedStringKey.shadow] = shadow.copy()
+		strAttributes[NSAttributedStringKey.paragraphStyle] = style.copy()
 	}
 	
-	final func stopIndicator() {
+	@objc final func stopIndicator() {
 		indicatorTimer?.invalidate()
 		indicatorTimer = nil;
 		indicatorIsActive = false;
 	}
 	
-	final func startIndicator() {
+	@objc final func startIndicator() {
 		indicatorIsActive = true;
 		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
 		RunLoop.current.add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
@@ -123,7 +123,7 @@ class MapModel: NSObject {
 	
 	@objc private func updateEnemyIndicator(timer: Timer) {
 		var value = enemyWarnBase + Int32(arc4random() % 3 + 1)
-		let alert = NSSound(named: "Hero")!
+		let alert = NSSound(named: NSSound.Name(rawValue: "Hero"))!
 		
 		if enemyIndicator.intValue == value {
 			value = enemyWarnBase - Int32(arc4random() % 3 + 1)
@@ -156,7 +156,7 @@ class MapModel: NSObject {
 			lock.lock()
 			
 			//  make map
-			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingBitPattern: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
+			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(extendingOrTruncating: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
 			
 			lock.unlock()
 			
@@ -224,7 +224,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	final func clearMapModel() {
+	@objc final func clearMapModel() {
 		lock.lock()
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
@@ -234,17 +234,17 @@ class MapModel: NSObject {
 		lock.unlock()
 	}
 
-	final func updateAllMaps() {
+	@objc final func updateAllMaps() {
 		asciiMapView.updateMap()
 		glMapView.updateMap()
 	}
 
-	final func reloadAllMaps() {
+	@objc final func reloadAllMaps() {
 		asciiMapView.reloadMap()
 		glMapView.updateMap()
 	}
 
-	final func setDungeonName(_ str: String) {
+	@objc final func setDungeonName(_ str: String) {
 		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}

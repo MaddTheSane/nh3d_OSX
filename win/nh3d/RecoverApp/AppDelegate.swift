@@ -19,10 +19,10 @@ extension NHRecoveryErrors: Error {
 }
 
 /// NSTableViewDataSource url table column key
-private let locURLKey = "NHRecoverURL"
+private let locURLKey = NSUserInterfaceItemIdentifier(rawValue: "NHRecoverURL")
 
 /// NSTableViewDataSource error table column key
-private let recoverErrorKey = "NHRecoverError"
+private let recoverErrorKey = NSUserInterfaceItemIdentifier(rawValue: "NHRecoverError")
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	private var failedNums = 0
 	private var succeededNums = 0
-	dynamic private(set) var countNums = 0
+	@objc dynamic private(set) var countNums = 0
 	
 	fileprivate var recoveryErrors = [URL: Error]()
 	fileprivate var errorOrder = [URL]()
@@ -70,12 +70,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	}
 	
 	private func launchNetHack() throws {
-		let workspace = NSWorkspace.shared()
+		let workspace = NSWorkspace.shared
 		let parentBundleURL: URL = {
 			let selfBundleURL = Bundle.main.bundleURL
 			return selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		}()
-		try workspace.launchApplication(at: parentBundleURL, options: .default, configuration: [:])
+		try workspace.launchApplication(at: parentBundleURL, options: NSWorkspace.LaunchOptions.default, configuration: [:])
 		NSApp.terminate(nil)
 	}
 	
@@ -110,23 +110,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					
 					alert.beginSheetModal(for: self.window, completionHandler: { (response) -> Void in
 						switch response {
-						case NSAlertFirstButtonReturn:
+						case NSApplication.ModalResponse.alertFirstButtonReturn:
 							do {
 								try self.launchNetHack()
 							} catch let error {
-								NSBeep()
+								NSSound.beep()
 								NSAlert(error: error).runModal()
 								exit(EXIT_FAILURE)
 							}
 							
-						case NSAlertSecondButtonReturn:
+						case NSApplication.ModalResponse.alertSecondButtonReturn:
 							NSApp.terminate(nil)
 							
-						case NSAlertThirdButtonReturn:
+						case NSApplication.ModalResponse.alertThirdButtonReturn:
 							self.showErrorList()
 							
 						default:
-							NSBeep()
+							NSSound.beep()
 							sleep(1)
 							exit(EXIT_FAILURE)
 						}
@@ -144,26 +144,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		errorOrder = Array(recoveryErrors.keys)
 		errorTable.reloadData()
 		self.window.beginSheet(errorPanel) { (resp) in
-			if resp == -1 {
+			if resp.rawValue == -1 {
 				// Just quit
 				NSApp.terminate(nil)
-			} else if resp == 0 {
+			} else if resp.rawValue == 0 {
 				do {
 					try self.launchNetHack()
 				} catch let error as NSError {
-					NSBeep()
+					NSSound.beep()
 					NSAlert(error: error).runModal()
 					exit(EXIT_FAILURE)
 				}
 			} else {
 				//Don't quit
-				NSBeep()
+				NSSound.beep()
 			}
 		}
 	}
 	
 	@IBAction func tableButton(_ sender: NSButton) {
-		self.window.endSheet(errorPanel, returnCode: sender.tag)
+		self.window.endSheet(errorPanel, returnCode: NSApplication.ModalResponse(rawValue: sender.tag))
 	}
 //}
 

@@ -11,11 +11,7 @@
 
 import Foundation
 
-public func ==(rhs: NSRange, lhs: NSRange) -> Bool {
-	return NSEqualRanges(rhs, lhs)
-}
-
-extension NSRange: Equatable {
+extension NSRange {
 	/// An `NSRange` with a `location` of `NSNotFound` and a `length` of `0`.
 	public static let notFound = NSRange(location: NSNotFound, length: 0)
 	
@@ -82,11 +78,7 @@ extension NSRange: Equatable {
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
 	internal func nsRange(from range: Range<String.Index>) -> NSRange {
-		let utf16view = self.utf16
-		let from = range.lowerBound.samePosition(in: utf16view)
-		let to = range.upperBound.samePosition(in: utf16view)
-		return NSRange(location: utf16view.distance(from: utf16view.startIndex, to: from),
-		               length: utf16view.distance(from: from, to: to))
+		return NSRange(range, in: self)
 	}
 	
 	/// Creates a `String` range from the passed in `NSRange`.
@@ -98,7 +90,7 @@ extension String {
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
 	internal func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
-			let preRange = nsRange.toRange(),
+			let preRange = Range(nsRange),
 			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
 			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
 			let from = String.Index(from16, within: self),

@@ -24,14 +24,14 @@ import Cocoa
 
 
 final class TileSet: NSObject {
-	static var instance: TileSet?
+	@objc static var instance: TileSet?
 	let image: NSImage
-	let tileSize: NSSize
+	@objc let tileSize: NSSize
 	private let rows: Int
 	private let columns: Int
 	private var cache: [Int16: NSImage] = [:]
 
-	init(image img: NSImage, tileSize ts: NSSize) {
+	@objc init(image img: NSImage, tileSize ts: NSSize) {
 		let rect = NSRect(origin: .zero, size: img.size)
 		#if true
 			image = img.copy() as! NSImage
@@ -49,8 +49,8 @@ final class TileSet: NSObject {
 		super.init()
 	}
 	
-	convenience init?(name named: String) {
-		guard let img = NSImage(named: named) else {
+	@objc convenience init?(name named: String) {
+		guard let img = NSImage(named: NSImage.Name(rawValue: named)) else {
 			self.init(imageAtLocation: named)
 			return
 		}
@@ -62,7 +62,7 @@ final class TileSet: NSObject {
 		self.init(image: img, tileSize: size)
 	}
 	
-	convenience init?(imageAtLocation loc: String, tileSize size1: NSSize = .zero) {
+	@objc convenience init?(imageAtLocation loc: String, tileSize size1: NSSize = .zero) {
 		var size = size1
 		guard let img = NSImage(contentsOfFile: loc) else {
 			return nil
@@ -143,7 +143,7 @@ final class TileSet: NSObject {
 		let newImage = NSImage(size: tileSize)
 		let dstRect = NSRect(origin: .zero, size: tileSize)
 		newImage.lockFocus()
-		NSGraphicsContext.current()?.imageInterpolation = .none
+		NSGraphicsContext.current?.imageInterpolation = .none
 		self.image.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1)
 		newImage.unlockFocus()
 		// cache image

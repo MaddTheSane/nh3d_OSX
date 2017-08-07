@@ -11,7 +11,7 @@ import simd
 
 extension NH3DModelObject {
 	/// Calculate the normals of the 3D model.
-	func calculateNormals() {
+	@objc func calculateNormals() {
 		var l_Connect = [Int32](repeating: 0, count: verts_qty)
 		
 		memset(norms, 0, normal_qty * MemoryLayout<float3>.size)
