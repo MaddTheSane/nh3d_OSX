@@ -310,8 +310,9 @@ class NH3DMessaging: NSObject {
 		lightShadowStrAttributes[NSAttributedStringKey.font] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
 		
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
-		
-		rawPrintWindow.textStorage?.append(putStr)
+		DispatchQueue.main.async {
+			self.rawPrintWindow.textStorage?.append(putStr)
+		}
 	}
 	
 	@objc func showLogPanel() -> NSApplication.TerminateReply {

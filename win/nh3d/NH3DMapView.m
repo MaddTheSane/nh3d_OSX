@@ -125,50 +125,52 @@ extern BOOL CocoaPortIsReady;
 	if (!CocoaPortIsReady) {
 		return;
 	}
-	if (TRADITIONAL_MAP) {
-		if (isReady) {
-			[self lockFocusIfCanDraw];
-			NSEraseRect(self.bounds);
-			[[NSColor windowBackgroundColor] set];
-			[NSBezierPath fillRect:self.bounds];
-			[self unlockFocus];
-		}
-		
-		[self removeFromSuperview];
-		[_bindController.majorMapView addSubview:self];
-		
-		self.frame = NSMakeRect(0, 0, 440.0, 320.0) ;
-		
-		self.mapBase = [NSImage imageNamed:@"trBase"];
-		
-		[self makeTraditionalMap];
-		
-		[self updateMap];
-		[self setNeedsDisplay:YES];
-		[_bindController.mainWindow displayIfNeeded];
-	} else if (!TRADITIONAL_MAP) {
-		if (isReady) {
-			if ([self lockFocusIfCanDraw]) {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		if (TRADITIONAL_MAP) {
+			if (isReady) {
+				[self lockFocusIfCanDraw];
 				NSEraseRect(self.bounds);
 				[[NSColor windowBackgroundColor] set];
 				[NSBezierPath fillRect:self.bounds];
 				[self unlockFocus];
 			}
+			
+			[self removeFromSuperview];
+			[_bindController.majorMapView addSubview:self];
+			
+			self.frame = NSMakeRect(0, 0, 440.0, 320.0) ;
+			
+			self.mapBase = [NSImage imageNamed:@"trBase"];
+			
+			[self makeTraditionalMap];
+			
+			[self updateMap];
+			[self setNeedsDisplay:YES];
+			[_bindController.mainWindow displayIfNeeded];
+		} else if (!TRADITIONAL_MAP) {
+			if (isReady) {
+				if ([self lockFocusIfCanDraw]) {
+					NSEraseRect(self.bounds);
+					[[NSColor windowBackgroundColor] set];
+					[NSBezierPath fillRect:self.bounds];
+					[self unlockFocus];
+				}
+			}
+			
+			[self removeFromSuperview];
+			[_bindController.minorMapView addSubview:self];
+			
+			self.frame = NSMakeRect(0, 0, 176.0, 176.0);
+			
+			self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
+			
+			self.trMapImage = nil;
+			
+			[self updateMap];
+			[self setNeedsDisplay:YES];
+			[_bindController.mainWindow displayIfNeeded];
 		}
-		
-		[self removeFromSuperview];
-		[_bindController.minorMapView addSubview:self];
-		
-		self.frame = NSMakeRect(0, 0, 176.0, 176.0);
-		
-		self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
-		
-		self.trMapImage = nil;
-		
-		[self updateMap];
-		[self setNeedsDisplay:YES];
-		[_bindController.mainWindow displayIfNeeded];
-	}
+	});
 }
 
 - (void) dealloc {
