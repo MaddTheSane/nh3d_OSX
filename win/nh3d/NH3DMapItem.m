@@ -35,16 +35,16 @@
 	}
 	if (SYMHANDLING(H_IBM)) {
 		switch (symbol) {
-			case -77://179:
+			case -77://179: //│
 				if (direction == NH3DPlayerDirectionRight || direction == NH3DPlayerDirectionLeft) {
-					return @"\u2500";
+					return @"─";
 				}
 				return nil;
 				break;
 				
-			case -60://196:
+			case -60://196: //─
 				if (direction == NH3DPlayerDirectionRight || direction == NH3DPlayerDirectionLeft) {
-					return @"\u2502";
+					return @"│";
 				}
 				return nil;
 				break;
@@ -56,11 +56,11 @@
 						break;
 						
 					case NH3DPlayerDirectionRight:
-						return @"\u250C";
+						return @"┌";
 						break;
 						
 					case NH3DPlayerDirectionBack:
-						return @"\u2514";
+						return @"└";
 						break;
 						
 					case NH3DPlayerDirectionLeft:
@@ -80,15 +80,15 @@
 						break;
 						
 					case NH3DPlayerDirectionRight:
-						return @"\u2518";
+						return @"┘";
 						break;
 						
 					case NH3DPlayerDirectionBack:
-						return @"\u2510";
+						return @"┐";
 						break;
 						
 					case NH3DPlayerDirectionLeft:
-						return @"\u250C";
+						return @"┌";
 						break;
 						
 					default:
@@ -103,15 +103,15 @@
 						break;
 						
 					case NH3DPlayerDirectionRight:
-						return @"\u2510";
+						return @"┐";
 						break;
 						
 					case NH3DPlayerDirectionBack:
-						return @"\u250C";
+						return @"┌";
 						break;
 						
 					case NH3DPlayerDirectionLeft:
-						return @"\u2514";
+						return @"└";
 						break;
 						
 					default:
@@ -126,15 +126,15 @@
 						break;
 						
 					case NH3DPlayerDirectionRight:
-						return @"\u2514";
+						return @"└";
 						break;
 						
 					case NH3DPlayerDirectionBack:
-						return @"\u250C";
+						return @"┘";
 						break;
 						
 					case NH3DPlayerDirectionLeft:
-						return @"\u2510";
+						return @"┐";
 						break;
 						
 					default:
