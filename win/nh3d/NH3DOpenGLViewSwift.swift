@@ -37,14 +37,14 @@ private func loadModelFunc_default(glyph: Int32) -> NH3DModelObject? {
 }
 
 // memo.   << MAP_ITEM_SIZE >>
-//        y               +2.0,+6.0            y
-//        |              ( RIGHT,TOP )            |
-//        |                                    |
-//        |      0,0,2.0                        |
-//        | ( CENTER of Item )                |  -    -2.0 ( BACK )
-//        |                                    |/ z
-//        ---------------- x                    ---------------- x
-//    -2.0,0.0( LEFT,BOTTOM )                  / +    +2.0 ( FRONT )
+//		y			   +2.0,+6.0			y
+//		|			  ( RIGHT,TOP )			|
+//		|									|
+//		|	  0,0,2.0						|
+//		| ( CENTER of Item )				|  -	-2.0 ( BACK )
+//		|									|/ z
+//		---------------- x					---------------- x
+//	-2.0,0.0( LEFT,BOTTOM )				  / +	+2.0 ( FRONT )
 
 
 
@@ -374,7 +374,7 @@ final class NH3DOpenGLView: NSOpenGLView {
     private var firstTime = true
     private var oglParamNowChanging = false
     private var useTile = false
-    
+	
     private var keyArray = [Int32]()
     private var delayDrawing = [(item: NH3DMapItem, x: Int32, z: Int32)]()
     
@@ -640,8 +640,8 @@ final class NH3DOpenGLView: NSOpenGLView {
             return
         } else {
             var attributes = [NSAttributedStringKey: Any]()
-            attributes[NSAttributedStringKey.font] = NSFont(name: "Copperplate", size: 20)
-            attributes[NSAttributedStringKey.foregroundColor] = NSColor(calibratedWhite: 0.5, alpha: 0.6)
+            attributes[.font] = NSFont(name: "Copperplate", size: 20)
+            attributes[.foregroundColor] = NSColor(calibratedWhite: 0.5, alpha: 0.6)
             
             lockFocusIfCanDraw()
             
@@ -649,13 +649,12 @@ final class NH3DOpenGLView: NSOpenGLView {
             NSBezierPath.fill(bounds)
             
             NSImage(named: NSImage.Name(rawValue: "nh3d"))?.draw(at: NSPoint(x: 156, y: 88), from: .zero, operation: .sourceOver, fraction: 0.7)
-            ("NetHack3D" as NSString).draw(at: NSPoint(x: 168.0, y: 70.0), withAttributes: attributes)
-            attributes[NSAttributedStringKey.font] = NSFont(name: "Copperplate", size: 14)
-            ("by Haruumi Yoshino 2005" as NSString).draw(at: NSPoint(x: 130.0, y: 56.0), withAttributes: attributes)
-            ("NetHack" as NSString).draw(at: NSPoint(x: 192.0, y: 29.0), withAttributes: attributes)
-            attributes[NSAttributedStringKey.font] = NSFont(name: "Copperplate", size: 11)
-            ("Copyright © Stichting Mathematisch Centrum  Amsterdam, 1985. \n   NetHack may be freely redistributed. See license for details."
-                as NSString).draw(at: NSPoint(x: 38.0, y: 3.0), withAttributes: attributes)
+            "NetHack3D".draw(at: NSPoint(x: 168.0, y: 70.0), withAttributes: attributes)
+            attributes[.font] = NSFont(name: "Copperplate", size: 14)
+            "by Haruumi Yoshino 2005".draw(at: NSPoint(x: 130.0, y: 56.0), withAttributes: attributes)
+            "NetHack".draw(at: NSPoint(x: 192.0, y: 29.0), withAttributes: attributes)
+            attributes[.font] = NSFont(name: "Copperplate", size: 11)
+            "Copyright © Stichting Mathematisch Centrum  Amsterdam, 1985. \n   NetHack may be freely redistributed. See license for details.".draw(at: NSPoint(x: 38.0, y: 3.0), withAttributes: attributes)
             
             unlockFocus()
             
@@ -1646,10 +1645,10 @@ final class NH3DOpenGLView: NSOpenGLView {
             var attributes = [NSAttributedStringKey: Any]()
             let fontName = UserDefaults.standard.string(forKey: NH3DWindowFontKey)!
             
-            attributes[NSAttributedStringKey.font] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
+            attributes[.font] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
             
-            attributes[NSAttributedStringKey.foregroundColor] = color
-            attributes[NSAttributedStringKey.backgroundColor] = NSColor.clear
+            attributes[.foregroundColor] = color
+            attributes[.backgroundColor] = NSColor.clear
             
             symbolSize = symbol.size(withAttributes: attributes)
             

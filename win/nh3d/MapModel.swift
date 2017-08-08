@@ -104,9 +104,9 @@ class MapModel: NSObject {
 		style.alignment = .center
 		
 		strAttributes = [:]
-		strAttributes[NSAttributedStringKey.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)  
-		strAttributes[NSAttributedStringKey.shadow] = shadow.copy()
-		strAttributes[NSAttributedStringKey.paragraphStyle] = style.copy()
+		strAttributes[.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)
+		strAttributes[.shadow] = shadow.copy()
+		strAttributes[.paragraphStyle] = style.copy()
 	}
 	
 	@objc final func stopIndicator() {
@@ -156,7 +156,7 @@ class MapModel: NSObject {
 			lock.lock()
 			
 			//  make map
-			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(extendingOrTruncating: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
+			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingIfNeeded: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
 			
 			lock.unlock()
 			

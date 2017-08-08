@@ -57,8 +57,8 @@ final class TileSet: NSObject {
 		
 		let defaults = UserDefaults.standard
 		
-		let size = NSSize(width: CGFloat(defaults.double(forKey: NH3DTileSizeWidthKey)),
-		                  height: CGFloat(defaults.double(forKey: NH3DTileSizeHeightKey)))
+		let size = NSSize(width: defaults.double(forKey: NH3DTileSizeWidthKey),
+		                  height: defaults.double(forKey: NH3DTileSizeHeightKey))
 		self.init(image: img, tileSize: size)
 	}
 	
@@ -112,9 +112,7 @@ final class TileSet: NSObject {
 		let row = rows - 1 - Int(tile) / columns;
 		let col = Int(tile) % columns;
 
-		var r = NSRect()
-		r.origin = CGPoint(x: CGFloat(col) * tileSize.width, y: CGFloat(row) * tileSize.height)
-		r.size = tileSize
+		let r = NSRect(origin: CGPoint(x: CGFloat(col) * tileSize.width, y: CGFloat(row) * tileSize.height), size: tileSize)
 		return r
 	}
 	

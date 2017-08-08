@@ -94,17 +94,17 @@ class NH3DMessaging: NSObject {
 		
 		//Text attributes in View or backgrounded text field.
 		
-		darkShadowStrAttributes[NSAttributedStringKey.font] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
-		darkShadowStrAttributes[NSAttributedStringKey.shadow] = darkShadow;
-		darkShadowStrAttributes[NSAttributedStringKey.paragraphStyle] = style.copy()
-		darkShadowStrAttributes[NSAttributedStringKey.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
+		darkShadowStrAttributes[.font] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
+		darkShadowStrAttributes[.shadow] = darkShadow;
+		darkShadowStrAttributes[.paragraphStyle] = style.copy()
+		darkShadowStrAttributes[.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 		
 		//Text attributes on Panel or Window.
 		
-		lightShadowStrAttributes[NSAttributedStringKey.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
-		lightShadowStrAttributes[NSAttributedStringKey.shadow] = lightShadow;
-		lightShadowStrAttributes[NSAttributedStringKey.paragraphStyle] = style.copy()
-		lightShadowStrAttributes[NSAttributedStringKey.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
+		lightShadowStrAttributes[.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
+		lightShadowStrAttributes[.shadow] = lightShadow;
+		lightShadowStrAttributes[.paragraphStyle] = style.copy()
+		lightShadowStrAttributes[.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 	}
 
 	override init() {
@@ -167,14 +167,14 @@ class NH3DMessaging: NSObject {
 			break;
 			
 		case ATR_ULINE:
-			darkShadowStrAttributes[NSAttributedStringKey.underlineStyle] = NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)
+			darkShadowStrAttributes[.underlineStyle] = NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)
 			
 		case ATR_BOLD:
-			darkShadowStrAttributes[NSAttributedStringKey.font] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
+			darkShadowStrAttributes[.font] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
 			
 		case ATR_BLINK, ATR_INVERSE:
-			darkShadowStrAttributes[NSAttributedStringKey.foregroundColor] = NSColor.alternateSelectedControlTextColor
-			darkShadowStrAttributes[NSAttributedStringKey.backgroundColor] = NSColor.alternateSelectedControlColor
+			darkShadowStrAttributes[.foregroundColor] = NSColor.alternateSelectedControlTextColor
+			darkShadowStrAttributes[.backgroundColor] = NSColor.alternateSelectedControlColor
 			
 		default:
 			break
@@ -196,7 +196,7 @@ class NH3DMessaging: NSObject {
 	
 	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
 	@objc func clearMainMessage() {
-		messageWindow.textStorage!.addAttribute(NSAttributedStringKey.foregroundColor,
+		messageWindow.textStorage!.addAttribute(.foregroundColor,
 			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
 			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
@@ -281,8 +281,8 @@ class NH3DMessaging: NSObject {
 		prepareAttributes()
 		style.alignment = .center
 		
-		lightShadowStrAttributes[NSAttributedStringKey.paragraphStyle] = style
-		lightShadowStrAttributes[NSAttributedStringKey.font] = NSFont(name: "Optima Bold", size: 11)
+		lightShadowStrAttributes[.paragraphStyle] = style
+		lightShadowStrAttributes[.font] = NSFont(name: "Optima Bold", size: 11)
 		
 		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
 			attributes: lightShadowStrAttributes)
@@ -307,7 +307,7 @@ class NH3DMessaging: NSObject {
 		prepareAttributes()
 		style.alignment = .left
 		
-		lightShadowStrAttributes[NSAttributedStringKey.font] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
+		lightShadowStrAttributes[.font] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
 		
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
 		DispatchQueue.main.async {

@@ -18,7 +18,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
     
     // First, try finding both width and height
     matchTwoSize: do {
-        let matches = regex1.matches(in: fileName, range: NSRange(location: 0, length: fileName.utf16.count))
+		let matches = regex1.matches(in: fileName, range: NSRange(fileName.startIndex ..< fileName.endIndex, in: fileName))
         
         if let match = matches.first {
             if match.range.notFound {
