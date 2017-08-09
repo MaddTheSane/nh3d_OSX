@@ -72,7 +72,7 @@ extension NSRange {
 extension String {
 	/// Creates an `NSRange` from a comparable `String` range.
 	@available(swift, deprecated: 4.0, message: "Use `NSRange(_in:)` instead")
-	public func nsRange(from range: Range<String.Index>) -> NSRange {
+	internal func nsRange(from range: Range<String.Index>) -> NSRange {
 		return NSRange(range, in: self)
 	}
 	
@@ -84,7 +84,7 @@ extension String {
 	/// *before* calling this method, otherwise if the beginning or end of
 	/// `nsRange` is in between Unicode code points, this method will return `nil`.
 	@available(swift, deprecated: 4.0, message: "Use `Range(_in:)` instead")
-	public func range(from nsRange: NSRange) -> Range<String.Index>? {
+	internal func range(from nsRange: NSRange) -> Range<String.Index>? {
 		guard
 			let preRange = Range(nsRange),
 			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),

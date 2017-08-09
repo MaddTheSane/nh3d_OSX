@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableURLRequest *) requestForCommand:(NSString *)cmd;
 - (nullable NSHTTPURLResponse *) httpGetRequestWithoutData:(NSURLRequest *)req;
 - (nullable NSHTTPURLResponse *) httpPostRequestWithoutData:(NSMutableURLRequest *)req;
-- (nullable NSHTTPURLResponse *) httpGetRequest:(NSURLRequest *)req withData:(NSData *__nullable*__nullable)data;
+- (nullable NSHTTPURLResponse *) httpGetRequest:(NSURLRequest *)req withData:(NSData *__autoreleasing __nullable*__nullable)data;
 
 /// header name is case insensitive!
 - (nullable NSString *) getHeader:(NSString *)header fromResponse:(NSHTTPURLResponse *)response;
