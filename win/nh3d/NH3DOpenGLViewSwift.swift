@@ -4176,12 +4176,12 @@ extension NH3DOpenGLView {
 		}
 		
 		struct PetHelper {
-		static let pinkMaterial =
-			NH3DMaterial(ambient: (0.01, 0.01, 0.01, 1.0),	//	ambient color
-			diffuse: (0.5, 0.25, 0.25, 1.0),				//	diffuse color
-			specular: (0.7, 0.6, 0.6, 1.0),					//	specular color
-			emission: (0.1, 0.1, 0.1, 1.0),					//  emission
-			shininess: 0.25)								//	shininess
+			static let pinkMaterial =
+				NH3DMaterial(ambient: (0.01, 0.01, 0.01, 1.0),	//	ambient color
+					diffuse: (0.5, 0.25, 0.25, 1.0),			//	diffuse color
+					specular: (0.7, 0.6, 0.6, 1.0),				//	specular color
+					emission: (0.1, 0.1, 0.1, 1.0),				//	emission
+					shininess: 0.25)							//	shininess
 		}
 		if let lastChild = model.lastChild, lastChild.modelType == .emitter && lastChild.currentMaterial == PetHelper.pinkMaterial {
 			// Already set up, return model unedited

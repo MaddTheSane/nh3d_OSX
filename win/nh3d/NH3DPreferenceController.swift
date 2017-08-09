@@ -317,8 +317,8 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	
 	@IBAction func restartHearse(_ sender: AnyObject?) {
 		#if !HEARSE_DISABLE
-		Hearse.stop()
-		Hearse.start()
+			Hearse.stop()
+			Hearse.start()
 		#endif
 	}
 }

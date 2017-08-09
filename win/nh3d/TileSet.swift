@@ -30,22 +30,22 @@ final class TileSet: NSObject {
 	private let rows: Int
 	private let columns: Int
 	private var cache: [Int16: NSImage] = [:]
-
+	
 	@objc init(image img: NSImage, tileSize ts: NSSize) {
 		let rect = NSRect(origin: .zero, size: img.size)
 		#if true
 			image = img.copy() as! NSImage
 		#else
-		image = NSImage(size: rect.size)
-		image.lockFocus()
-		img.draw(in: rect, from: rect, operation: .copy, fraction: 1.0)
-		image.unlockFocus()
+			image = NSImage(size: rect.size)
+			image.lockFocus()
+			img.draw(in: rect, from: rect, operation: .copy, fraction: 1.0)
+			image.unlockFocus()
 		#endif
 		
 		tileSize = ts
 		rows = Int(image.size.height / tileSize.height)
 		columns = Int(image.size.width / tileSize.width)
-
+		
 		super.init()
 	}
 	
@@ -111,7 +111,7 @@ final class TileSet: NSObject {
 	private func sourceRect(for tile: Int16) -> NSRect {
 		let row = rows - 1 - Int(tile) / columns;
 		let col = Int(tile) % columns;
-
+		
 		let r = NSRect(origin: CGPoint(x: CGFloat(col) * tileSize.width, y: CGFloat(row) * tileSize.height), size: tileSize)
 		return r
 	}

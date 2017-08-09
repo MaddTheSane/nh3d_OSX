@@ -30,7 +30,7 @@ extension NSRange {
 	public var notFound: Bool {
 		return location == NSNotFound
 	}
-		
+	
 	/// The maximum value from the range.
 	public var max: Int {
 		return NSMaxRange(self)

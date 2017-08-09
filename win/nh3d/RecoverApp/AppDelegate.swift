@@ -45,12 +45,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		aQueue.name = "NetHack Recovery"
 		
 		//if #available(OSX 10.10, *) {
-		    aQueue.qualityOfService = .userInitiated
+		aQueue.qualityOfService = .userInitiated
 		//}
 		
 		return aQueue
 	}()
-
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		
@@ -138,7 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		opQueue.addOperation(saveRecover)
 		countNums += 1
 	}
-
+	
 	func showErrorList() {
 		//Created to make sure we have data in constant order.
 		errorOrder = Array(recoveryErrors.keys)
@@ -172,25 +172,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //extension AppDelegate {
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		if let errorToReport = errorToReport {
-				// force loading of SaveRecoveryOperation class
-				SaveRecoveryOperation.load()
-
-				let anAlert = NSAlert(error: errorToReport)
-				anAlert.alertStyle = .critical
-				
-				anAlert.informativeText += "\n\nRecovery will now close."
-				
-				anAlert.runModal()
-				NSApp.terminate(nil)
+			// force loading of SaveRecoveryOperation class
+			SaveRecoveryOperation.load()
+			
+			let anAlert = NSAlert(error: errorToReport)
+			anAlert.alertStyle = .critical
+			
+			anAlert.informativeText += "\n\nRecovery will now close."
+			
+			anAlert.runModal()
+			NSApp.terminate(nil)
 		}
 		
 		progress.startAnimation(nil)
 	}
-
+	
 	func applicationWillTerminate(_ aNotification: Notification) {
 		// Insert code here to tear down your application
 	}
-
+	
 	func application(_ sender: NSApplication, openFile filename: String) -> Bool {
 		let fileURL = URL(fileURLWithPath: filename)
 		add(url: fileURL)

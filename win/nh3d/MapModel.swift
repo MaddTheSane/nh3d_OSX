@@ -66,7 +66,7 @@ class MapModel: NSObject {
 	@objc private(set) final var cursX: Int32 = 0
 	@objc private(set) final var cursY: Int32 = 0
 	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_COLUMN)), count: Int(MAPSIZE_COLUMN))
-
+	
 	private var lock = NSRecursiveLock()
 	
 	override init() {
@@ -93,7 +93,7 @@ class MapModel: NSObject {
 			startIndicator()
 		}
 	}
-
+	
 	private func prepareAttributes() {
 		let shadow = NSShadow()
 		shadow.shadowColor = NSColor(calibratedWhite: 0, alpha: 0.7)
@@ -147,7 +147,7 @@ class MapModel: NSObject {
 			panic("Illegal map size!")
 		} else {
 			// map glyph to character and color
-
+			
 			mapglyph(glf, &ch, &color, &special, x, y)
 			// add view Margin
 			let x2 = x + MAP_MARGIN
@@ -181,13 +181,13 @@ class MapModel: NSObject {
 			return;
 		} else {
 			mapArray[Int(cursX+MAP_MARGIN)][Int(cursY+MAP_MARGIN)].hasCursor = false
-
+			
 			cursX = x
 			cursY = y
 			
 			// center the map on the cursor, not the player.
 			asciiMapView.setCenter(x: x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
-
+			
 			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].hasCursor = true
 			asciiMapView.needClear = true
 			updateAllMaps()
@@ -233,17 +233,17 @@ class MapModel: NSObject {
 		}
 		lock.unlock()
 	}
-
+	
 	@objc final func updateAllMaps() {
 		asciiMapView.updateMap()
 		glMapView.updateMap()
 	}
-
+	
 	@objc final func reloadAllMaps() {
 		asciiMapView.reloadMap()
 		glMapView.updateMap()
 	}
-
+	
 	@objc final func setDungeonName(_ str: String) {
 		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString

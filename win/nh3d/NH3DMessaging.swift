@@ -106,7 +106,7 @@ class NH3DMessaging: NSObject {
 		lightShadowStrAttributes[.paragraphStyle] = style.copy()
 		lightShadowStrAttributes[.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 	}
-
+	
 	override init() {
 		super.init()
 		msgArray.reserveCapacity(Int(iflags.msg_history))
@@ -118,7 +118,7 @@ class NH3DMessaging: NSObject {
 		messageWindow.drawsBackground = false
 		messageScrollView.drawsBackground = false
 	}
-
+	
 	@objc(addEffectMessage:effectType:)
 	func addEffect(message newMsg: String, effectType: Int32) -> Bool {
 		guard effectType != 1 || effectType != 2 else {
@@ -196,11 +196,11 @@ class NH3DMessaging: NSObject {
 	
 	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
 	@objc func clearMainMessage() {
-		messageWindow.textStorage!.addAttribute(.foregroundColor,
-			value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
-			range: NSRange(location: 0, length: messageWindow.textStorage!.length))
+		messageWindow.textStorage?.addAttribute(.foregroundColor,
+		                                        value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
+		                                        range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
-
+	
 	@objc func showInputPanel(_ messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
 		guard let questionStr = String(cString: messageStr, encoding: NH3DTextEncoding) else {
 			return -1
@@ -211,7 +211,7 @@ class NH3DMessaging: NSObject {
 		style.alignment = .center
 		
 		let putString = NSAttributedString(string: questionStr,
-			attributes: lightShadowStrAttributes)
+		                                   attributes: lightShadowStrAttributes)
 		
 		questionTextField.attributedStringValue = putString
 		
@@ -285,7 +285,7 @@ class NH3DMessaging: NSObject {
 		lightShadowStrAttributes[.font] = NSFont(name: "Optima Bold", size: 11)
 		
 		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
-			attributes: lightShadowStrAttributes)
+		                                                            attributes: lightShadowStrAttributes)
 		
 		ripPanel.alphaValue = 0
 		ripPanel.orderFront(self)
@@ -293,9 +293,9 @@ class NH3DMessaging: NSObject {
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
 			self.window.animator().alphaValue = 0
 			self.ripPanel.animator().alphaValue = 1
-			}, completionHandler: {
-				self.ripPanel.flush()
-			}
+		}, completionHandler: {
+			self.ripPanel.flush()
+		}
 		)
 	}
 	
@@ -332,11 +332,11 @@ class NH3DMessaging: NSObject {
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
 			ripOrMainWindow.animator().alphaValue = 0
 			self.rawPrintPanel.animator().alphaValue = 1
-			}, completionHandler: {
-				NSApp.runModal(for: self.rawPrintPanel)
-				self.rawPrintPanel.orderOut(self)
-				clearlocks()
-				NSApp.reply(toApplicationShouldTerminate: true)
+		}, completionHandler: {
+			NSApp.runModal(for: self.rawPrintPanel)
+			self.rawPrintPanel.orderOut(self)
+			clearlocks()
+			NSApp.reply(toApplicationShouldTerminate: true)
 		})
 		
 		return .terminateLater

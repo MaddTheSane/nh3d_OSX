@@ -20,7 +20,7 @@ extension NH3DModelObject {
 		let theFaces = UnsafeBufferPointer(start: faces, count: face_qty)
 		let theVerts = UnsafeBufferPointer(start: verts, count: verts_qty)
 		let theNorms = UnsafeMutableBufferPointer(start: norms, count: normal_qty)
-
+		
 		for face in theFaces {
 			let l_vect1 = theVerts[Int(face.a)]
 			let l_vect2 = theVerts[Int(face.b)]

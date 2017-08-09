@@ -1507,10 +1507,7 @@
 			isa = PBXGroup;
 			children = (
 				5531D5241E2830B300BDBF21 /* Third-party */,
-				080E96DDFE201D6D7F000001 /* Classes */,
-				5560A2A51C347F8C00BF77F7 /* Other Sources */,
-				29B97315FDCFA39411CA2CEA /* NetHack */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
+				55A2C5B21F3A98A700D17A85 /* NetHack3D */,
 				5539E6171CB2F03F00ED6EF3 /* RecoverApp */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -2671,6 +2668,17 @@
 				55887EAA1E28BF5200C88D01 /* FDAudio.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		55A2C5B21F3A98A700D17A85 /* NetHack3D */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				5560A2A51C347F8C00BF77F7 /* Other Sources */,
+				29B97315FDCFA39411CA2CEA /* NetHack */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+			);
+			name = NetHack3D;
 			sourceTree = "<group>";
 		};
 		55E4AFA01CB065B8003D92B9 /* dgn_comp */ = {

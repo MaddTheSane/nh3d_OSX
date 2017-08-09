@@ -9,13 +9,13 @@
 import Cocoa
 
 class NH3DFirstLaunchController: NSWindowController {
-
-    override func windowDidLoad() {
-        super.windowDidLoad()
-    
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-    }
-
+	
+	override func windowDidLoad() {
+		super.windowDidLoad()
+		
+		// Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+	}
+	
 	@objc class func runFirstTimeWindow() {
 		let defaults = UserDefaults.standard
 		
