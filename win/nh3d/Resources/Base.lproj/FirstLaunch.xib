@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13178.6"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
@@ -18,7 +19,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="380" height="431"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="380" height="431"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +46,7 @@
                             <binding destination="IDI-nx-W6u" name="value" keyPath="values.hearse" id="2dU-dh-BB0"/>
                         </connections>
                     </button>
-                    <box title="Box" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-c1-gNX">
+                    <box borderType="line" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="WNy-c1-gNX">
                         <rect key="frame" x="39" y="241" width="302" height="96"/>
                         <view key="contentView" id="jwa-5v-P5T">
                             <rect key="frame" x="1" y="1" width="300" height="94"/>
@@ -133,10 +134,8 @@
                                 <constraint firstItem="aPu-cx-8Ht" firstAttribute="top" secondItem="jwa-5v-P5T" secondAttribute="top" constant="20" symbolic="YES" id="yOn-JY-5S5"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <box title="Map View" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="hvt-zq-LJl">
+                    <box borderType="line" title="Map View" translatesAutoresizingMaskIntoConstraints="NO" id="hvt-zq-LJl">
                         <rect key="frame" x="39" y="57" width="302" height="180"/>
                         <view key="contentView" id="2VV-Zx-2Mb">
                             <rect key="frame" x="1" y="1" width="300" height="164"/>
@@ -165,7 +164,7 @@
                                                 <binding destination="IDI-nx-W6u" name="value" keyPath="values.LevelMapisUseTile" id="wVK-pY-xI7"/>
                                             </connections>
                                         </button>
-                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="YJc-q5-Ya9">
+                                        <button toolTip="Uses tiled images instead of letters in the 3D view if there isn't a 3D model available for the object." translatesAutoresizingMaskIntoConstraints="NO" id="YJc-q5-Ya9">
                                             <rect key="frame" x="-2" y="64" width="227" height="18"/>
                                             <buttonCell key="cell" type="check" title="Use tiled graphics for Alt. Objects" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wPJ-rG-rgN">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -257,8 +256,6 @@
                                 <constraint firstItem="N5Q-9N-N1t" firstAttribute="leading" secondItem="2VV-Zx-2Mb" secondAttribute="leading" constant="20" symbolic="YES" id="AyZ-xP-SeC"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D60-mF-Hj3">
                         <rect key="frame" x="249" y="13" width="95" height="32"/>
@@ -275,6 +272,7 @@ DQ
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="D60-mF-Hj3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="0KO-js-KAd"/>
                     <constraint firstItem="WNy-c1-gNX" firstAttribute="top" secondItem="hE3-fo-nta" secondAttribute="bottom" constant="5" id="38O-f8-Vqk"/>
                     <constraint firstItem="Eeb-Jq-qg4" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="3LP-CI-3kj"/>
                     <constraint firstItem="dyE-8u-NY0" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="4n3-eL-4QG"/>
@@ -287,6 +285,7 @@ DQ
                     <constraint firstItem="Eeb-Jq-qg4" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="QLm-MR-CIY"/>
                     <constraint firstItem="hE3-fo-nta" firstAttribute="top" secondItem="Eeb-Jq-qg4" secondAttribute="bottom" constant="8" symbolic="YES" id="Uqd-bL-rp7"/>
                     <constraint firstAttribute="bottom" secondItem="D60-mF-Hj3" secondAttribute="bottom" constant="20" symbolic="YES" id="XgE-cg-e2a"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hE3-fo-nta" secondAttribute="trailing" constant="20" symbolic="YES" id="dUd-gu-c3T"/>
                     <constraint firstItem="WNy-c1-gNX" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="42" id="fO5-Yn-OH6"/>
                     <constraint firstItem="hvt-zq-LJl" firstAttribute="leading" secondItem="WNy-c1-gNX" secondAttribute="leading" id="hYn-1p-r0a"/>
                     <constraint firstItem="hE3-fo-nta" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="46" id="m4h-YX-RyU"/>
