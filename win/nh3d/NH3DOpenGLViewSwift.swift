@@ -960,6 +960,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	@objc(timerFired:)
 	private func timerFired(_ sender: AnyObject) {
 		openGLContext?.makeCurrentContext()
+		assert(!Thread.isMainThread)
+		Thread.current.name = "NH3D OpenGL thread"
 		
 		viewLock.lock()
 		
