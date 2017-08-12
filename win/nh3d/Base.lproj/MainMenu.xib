@@ -3152,7 +3152,7 @@ DQ
                         <rect key="frame" x="44" y="47" width="587" height="238"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="n3r-1g-Qlx">
                             <rect key="frame" x="0.0" y="0.0" width="587" height="238"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
                                     <rect key="frame" x="0.0" y="12" width="587" height="238"/>
@@ -3230,7 +3230,7 @@ DQ
                         <rect key="frame" x="48" y="61" width="397" height="370"/>
                         <clipView key="contentView" id="QxK-KS-b2V">
                             <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
                                     <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
@@ -3406,16 +3406,16 @@ DQ
         </window>
         <customObject id="5507" userLabel="NH3DMenuWindow" customClass="NH3DMenuWindow">
             <connections>
-                <outlet property="_menuPanel" destination="5496" id="5508"/>
-                <outlet property="_menuPanelStrings" destination="5579" id="5580"/>
-                <outlet property="_menuPanelStringsShadow" destination="5589" id="5590"/>
-                <outlet property="_menuScrollview" destination="5498" id="5606"/>
-                <outlet property="_menuTableWindow" destination="5499" id="5509"/>
-                <outlet property="_messenger" destination="5161" id="5669"/>
                 <outlet property="_ripTextwindow" destination="5665" id="5670"/>
-                <outlet property="_textPanel" destination="5366" id="5621"/>
-                <outlet property="_textScrollView" destination="5378" id="5622"/>
                 <outlet property="_textWindow" destination="5379" id="5623"/>
+                <outlet property="menuPanel" destination="5496" id="5508"/>
+                <outlet property="menuPanelStrings" destination="5579" id="5580"/>
+                <outlet property="menuPanelStringsShadow" destination="5589" id="5590"/>
+                <outlet property="menuScrollview" destination="5498" id="5606"/>
+                <outlet property="menuTableWindow" destination="5499" id="5509"/>
+                <outlet property="messenger" destination="5161" id="5669"/>
+                <outlet property="textPanel" destination="5366" id="5621"/>
+                <outlet property="textScrollView" destination="5378" id="5622"/>
                 <outlet property="window" destination="21" id="x4M-LS-NnH"/>
             </connections>
         </customObject>
@@ -3448,7 +3448,7 @@ DQ
                         <rect key="frame" x="0.0" y="32" width="635" height="349"/>
                         <clipView key="contentView" id="Hj5-ZN-y1C">
                             <rect key="frame" x="1" y="1" width="633" height="347"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
                                     <rect key="frame" x="0.0" y="0.0" width="633" height="347"/>
@@ -4553,7 +4553,7 @@ DQ
         </menu>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" frameAutosaveName="NH3DStartwinPos" animationBehavior="default" id="6764" userLabel="StartWindow">
             <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
-            <rect key="contentRect" x="214" y="651" width="321" height="233"/>
+            <rect key="contentRect" x="214" y="651" width="328" height="233"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="6765">
                 <rect key="frame" x="0.0" y="0.0" width="328" height="233"/>

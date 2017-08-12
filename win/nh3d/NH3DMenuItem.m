@@ -60,7 +60,7 @@
 - (NSAttributedString *)name
 {
 	NSAttributedString *aStr = nil;
-	NSMutableDictionary *strAttributes = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary<NSAttributedStringKey,id> *strAttributes = [[NSMutableDictionary alloc] init];
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 	
@@ -125,7 +125,7 @@
 	if (accelerator) {
 		NSAttributedString *aStr = nil;
 		NSShadow *lightShadow = [[NSShadow alloc] init];
-		NSMutableDictionary *strAttributes = [[NSMutableDictionary alloc] init];
+		NSMutableDictionary<NSAttributedStringKey,id> *strAttributes = [[NSMutableDictionary alloc] init];
 		
 		lightShadow.shadowColor = [NSColor cyanColor];
 		lightShadow.shadowOffset = NSMakeSize(0,0);
@@ -140,7 +140,7 @@
 			case ATR_NONE:
 				break;
 			case ATR_ULINE:
-				strAttributes[NSUnderlineStyleAttributeName] = @1;
+				strAttributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
 				break;
 			case ATR_BOLD:
 				strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DBOLDFONT

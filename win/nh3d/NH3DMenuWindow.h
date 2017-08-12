@@ -16,23 +16,12 @@
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
 @private
-	IBOutlet NSPanel *_menuPanel;
-	IBOutlet NSTableView *_menuTableWindow;
-	IBOutlet NSTextField *_menuPanelStrings;
-	IBOutlet NSTextField *_menuPanelStringsShadow;
-	IBOutlet NSScrollView *_menuScrollview;
-	
 	IBOutlet NSTextView *_textWindow;
-	
-	IBOutlet NSScrollView *_textScrollView;
-	IBOutlet NSPanel *_textPanel;
-	/* I am going to collect it.Probably. Perhaps.... */
-	IBOutlet NH3DMessaging *_messenger;
 	IBOutlet NSTextView *_ripTextwindow;
 	
 	NSMutableArray<NH3DMenuItem*> *nh3dMenu;
-	NSMutableDictionary *darkShadowStrAttributes;
-	NSMutableDictionary *lightShadowStrAttributes;
+	NSMutableDictionary<NSAttributedStringKey,id> *darkShadowStrAttributes;
+	NSMutableDictionary<NSAttributedStringKey,id> *lightShadowStrAttributes;
 	NSShadow *darkShadow;
 	NSShadow *lightShadow;
 	NSMutableParagraphStyle  *style;
@@ -45,6 +34,19 @@
 }
 
 @property (weak) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSPanel *menuPanel;
+@property (weak) IBOutlet NSTableView *menuTableWindow;
+@property (weak) IBOutlet NSTextField *menuPanelStrings;
+@property (weak) IBOutlet NSTextField *menuPanelStringsShadow;
+@property (weak) IBOutlet NSScrollView *menuScrollview;
+
+//@property (weak) IBOutlet NSTextView *textWindow;
+
+@property (weak) IBOutlet NSScrollView *textScrollView;
+@property (weak) IBOutlet NSPanel *textPanel;
+/* I am going to collect it.Probably. Perhaps.... */
+@property (weak) IBOutlet NH3DMessaging *messenger;
+//@property (weak) IBOutlet NSTextView *ripTextwindow;
 
 @property BOOL isMenu;
 
