@@ -1594,7 +1594,7 @@ static char ynPreReady(const char *str)
 	[_NH3DUserStatusModel updatePlayerInventory];
 	[_userStatus updatePlayer];
 	// Poke the sound controller
-	[SoundController sharedSoundController];
+	(void)[SoundController sharedSoundController];
 	
 #if !defined(HEARSE_DISABLE)
 	[Hearse start];
