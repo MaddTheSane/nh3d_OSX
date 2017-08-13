@@ -67,31 +67,3 @@ extension NSRange {
 		self = NSUnionRange(self, otherRange)
 	}
 }
-
-// Code taken from http://stackoverflow.com/a/30404532/1975001
-extension String {
-	/// Creates an `NSRange` from a comparable `String` range.
-	@available(swift, deprecated: 4.0, message: "Use `NSRange(_in:)` instead")
-	internal func nsRange(from range: Range<String.Index>) -> NSRange {
-		return NSRange(range, in: self)
-	}
-	
-	/// Creates a `String` range from the passed in `NSRange`.
-	/// - parameter nsRange: An `NSRange` to convert to a `String` range.
-	/// - returns: a `String` range, or `nil` if `nsRange` could not be converted.
-	///
-	/// Make sure you have called `-[NSString rangeOfComposedCharacterSequencesForRange:]`
-	/// *before* calling this method, otherwise if the beginning or end of
-	/// `nsRange` is in between Unicode code points, this method will return `nil`.
-	@available(swift, deprecated: 4.0, message: "Use `Range(_in:)` instead")
-	internal func range(from nsRange: NSRange) -> Range<String.Index>? {
-		guard
-			let preRange = Range(nsRange),
-			let from16 = utf16.index(utf16.startIndex, offsetBy: preRange.lowerBound, limitedBy: utf16.endIndex),
-			let to16 = utf16.index(utf16.startIndex, offsetBy: preRange.upperBound, limitedBy: utf16.endIndex),
-			let from = String.Index(from16, within: self),
-			let to = String.Index(to16, within: self)
-			else { return nil }
-		return from ..< to
-	}
-}
