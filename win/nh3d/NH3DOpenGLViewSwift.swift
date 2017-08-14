@@ -266,15 +266,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
 	fileprivate typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
-	fileprivate var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(NetHackGlyphMaxGlyph))
+	private var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(NetHackGlyphMaxGlyph))
 	private var modelDictionary = [Int32: NH3DModelObject]()
 	private let viewLock = NSRecursiveLock()
 	
 	fileprivate typealias DrawFloorFunc = () -> Void
-	fileprivate var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
+	private var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
 	
 	fileprivate typealias SwitchMethod = (_ x: Int32, _ z: Int32, _ lx: Int32, _ lz: Int32) -> Void
-	fileprivate var switchMethodArray = [SwitchMethod](repeating: blankSwitchMethod, count: 11)
+	private var switchMethodArray = [SwitchMethod](repeating: blankSwitchMethod, count: 11)
 	
 	private var isReady = false
 	private(set) var isFloating = false
@@ -293,26 +293,26 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	private var _shocked = false
 	
-	fileprivate private(set) var floorTex = GLuint(0)
-	fileprivate private(set) var floor2Tex = GLuint(0)
+	private var floorTex = GLuint(0)
+	private var floor2Tex = GLuint(0)
 	//GLuint		wallTex;
-	fileprivate private(set) var cellingTex = GLuint(0)
-	fileprivate private(set) var waterTex = GLuint(0)
-	fileprivate private(set) var poolTex = GLuint(0)
-	fileprivate private(set) var lavaTex = GLuint(0)
-	fileprivate private(set) var envelopTex = GLuint(0)
-	fileprivate private(set) var minesTex = GLuint(0)
-	fileprivate private(set) var airTex = GLuint(0)
-	fileprivate private(set) var cloudTex = GLuint(0)
-	fileprivate private(set) var hellTex = GLuint(0)
-	fileprivate private(set) var nullTex = GLuint(0)
-	fileprivate private(set) var rougeTex = GLuint(0)
+	private var cellingTex = GLuint(0)
+	private var waterTex = GLuint(0)
+	private var poolTex = GLuint(0)
+	private var lavaTex = GLuint(0)
+	private var envelopTex = GLuint(0)
+	private var minesTex = GLuint(0)
+	private var airTex = GLuint(0)
+	private var cloudTex = GLuint(0)
+	private var hellTex = GLuint(0)
+	private var nullTex = GLuint(0)
+	private var rougeTex = GLuint(0)
 	private var defaultTex = [GLuint](repeating: 0, count: Int(NetHackGlyphMaxGlyph))
 	
-	fileprivate private(set) var floorCurrent = GLuint(0)
-	fileprivate private(set) var cellingCurrent  = GLuint(0)
+	private var floorCurrent = GLuint(0)
+	private var cellingCurrent  = GLuint(0)
 	
-	fileprivate private(set) var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](repeating:[NH3DMapItem?](repeating: nil, count: Int(NH3DGL_MAPVIEWSIZE_ROW)), count: Int(NH3DGL_MAPVIEWSIZE_COLUMN))
+	private var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](repeating:[NH3DMapItem?](repeating: nil, count: Int(NH3DGL_MAPVIEWSIZE_ROW)), count: Int(NH3DGL_MAPVIEWSIZE_COLUMN))
 	
 	private var lastCameraX: GLfloat = 5.0
 	private var lastCameraY: GLfloat = 1.8
@@ -358,13 +358,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private var effectArray = [NH3DModelObject]()
 	
 	private var nowUpdating = false
-	@objc var running: Bool {
+	@objc(running) var isRunning: Bool {
 		set {
 			viewLock.lock()
 			_running = newValue
 			viewLock.unlock()
 		}
-		get {
+		@objc(isRunning) get {
 			return _running
 		}
 	}
@@ -702,7 +702,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return texID
 	}
 	
-	fileprivate final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, textureName: String? = nil, without: Int32...) -> NH3DModelObject? {
+	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, textureName: String? = nil, without: Int32...) -> NH3DModelObject? {
 		var withoutFlag = false
 		
 		for i in (startNum+offset)...(endNum+offset) {
@@ -4209,7 +4209,7 @@ extension NH3DOpenGLView {
 	// MARK: -
 	
 	/// cache closures
-	fileprivate func cacheMethods() {
+	private func cacheMethods() {
 		switchMethodArray[0] = {[unowned self] (x: Int32, z: Int32, lx: Int32, lz: Int32) -> Void in
 			self.drawNullObject(x: Float(x)*NH3DGL_TILE_SIZE, z: Float(z)*NH3DGL_TILE_SIZE, tex: self.nullTex)
 		}

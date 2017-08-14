@@ -39,7 +39,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 				let matchHeight = fileName[match2]
 				
 				#if REDUNDANT_SAFETY_CHECKS
-					guard let intMatchWidth = Int(matchWidth), let intMatchHeight = Int(matchHeight) else {
+					guard let intMatchWidth = Int(String(matchWidth)), let intMatchHeight = Int(String(matchHeight)) else {
 						break matchTwoSize
 					}
 					return (Int32(intMatchWidth), Int32(intMatchHeight))
@@ -50,13 +50,13 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 		}
 	}
 	
-	do {
+	matchOneSize: do {
 		// Next, try for a square size
 		let matches = regex2.matches(in: fileName, range: NSRange(fileName.startIndex ..< fileName.endIndex, in: fileName))
 		
 		if let match = matches.first {
 			if match.range.notFound {
-				return nil
+				break matchOneSize
 			}
 			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
 			let match1: Range<String.Index>? = {
@@ -67,7 +67,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 			if let match1 = match1 {
 				let matchSquare = fileName[match1]
 				#if REDUNDANT_SAFETY_CHECKS
-					guard let tmpIntSquare = Int(matchSquare) else {
+					guard let tmpIntSquare = Int(String(matchSquare)) else {
 						return nil
 					}
 					let tmpSquare = Int32(tmpIntSquare)
@@ -227,7 +227,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		}
 		
 		guard let familyName = defaults.string(forKey: key),
-			let selFont = NSFont(name: familyName, size: CGFloat(defaults.float(forKey: sizeKey))) else {
+			let selFont = NSFont(name: familyName, size: CGFloat(defaults.double(forKey: sizeKey))) else {
 				return
 		}
 		

@@ -35,10 +35,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	private var succeededNums = 0
 	@objc dynamic private(set) var countNums = 0
 	
-	fileprivate var recoveryErrors = [URL: Error]()
-	fileprivate var errorOrder = [URL]()
+	private var recoveryErrors = [URL: Error]()
+	private var errorOrder = [URL]()
 	
-	fileprivate var errorToReport: NHRecoveryErrors?
+	private var errorToReport: NHRecoveryErrors?
 	private let opQueue: OperationQueue = {
 		let aQueue = OperationQueue()
 		

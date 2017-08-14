@@ -14,7 +14,7 @@ extension NH3DModelObject {
 	@objc func calculateNormals() {
 		var l_Connect = [Int32](repeating: 0, count: verts_qty)
 		
-		memset(norms, 0, normal_qty * MemoryLayout<float3>.size)
+		memset(norms, 0, normal_qty * MemoryLayout<float3>.stride)
 		
 		//faces
 		let theFaces = UnsafeBufferPointer(start: faces, count: face_qty)
