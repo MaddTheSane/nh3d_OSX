@@ -10,128 +10,123 @@ import Foundation
 
 @available(*, unavailable, renamed: "NetHackGlyphPetOffset")
 var GLYPH_PET_OFF: Int32 {
-	return NetHackGlyphPetOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphInvisibleOffset")
 var GLYPH_INVIS_OFF: Int32 {
-	return NetHackGlyphInvisibleOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphDetectOffset")
 var GLYPH_DETECT_OFF: Int32 {
-	return NetHackGlyphDetectOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphBodyOffset")
 var GLYPH_BODY_OFF: Int32 {
-	return NetHackGlyphBodyOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphRiddenOffset")
 var GLYPH_RIDDEN_OFF: Int32 {
-	return NetHackGlyphRiddenOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphObjectOffset")
 var GLYPH_OBJ_OFF: Int32 {
-	return NetHackGlyphObjectOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphCMapOffset")
 var GLYPH_CMAP_OFF: Int32 {
-	return NetHackGlyphCMapOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphExplodeOffset")
 var GLYPH_EXPLODE_OFF: Int32 {
-	return NetHackGlyphExplodeOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphZapOffset")
 var GLYPH_ZAP_OFF: Int32 {
-	return NetHackGlyphZapOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphSwallowOffset")
 var GLYPH_SWALLOW_OFF: Int32 {
-	return NetHackGlyphSwallowOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphWarningOffset")
 var GLYPH_WARNING_OFF: Int32 {
-	return NetHackGlyphWarningOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphStatueOffset")
 var GLYPH_STATUE_OFF: Int32 {
-	return NetHackGlyphStatueOffset
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphMaxGlyph")
 var MAX_GLYPH: Int32 {
-	return NetHackGlyphMaxGlyph
+	fatalError()
 }
-
 @available(*, unavailable, renamed: "NetHackGlyphNoGlyph")
 var NO_GLYPH: Int32 {
-	return NetHackGlyphNoGlyph
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHackGlyphInvisible")
 var GLYPH_INVISIBLE: Int32 {
-	return NetHackGlyphInvisible
+	fatalError()
 }
-
-
-// ZAP Types  * AD_xxx defined from monattk.h
 @available(*, unavailable, renamed: "NetHack3DZapMagicMissile")
 var NH3D_ZAP_MAGIC_MISSILE: Int32 {
-	return NetHack3DZapMagicMissile
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicFire")
 var NH3D_ZAP_MAGIC_FIRE: Int32 {
-	return NetHack3DZapMagicFire
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicCold")
 var NH3D_ZAP_MAGIC_COLD: Int32 {
-	return NetHack3DZapMagicCold
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicSleep")
 var NH3D_ZAP_MAGIC_SLEEP: Int32 {
-	return NetHack3DZapMagicSleep
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicDeath")
 var NH3D_ZAP_MAGIC_DEATH: Int32 {
-	return NetHack3DZapMagicDeath
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicLightning")
 var NH3D_ZAP_MAGIC_LIGHTNING: Int32 {
-	return NetHack3DZapMagicLightning
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicPoisonGas")
 var NH3D_ZAP_MAGIC_POISONGAS: Int32 {
-	return NetHack3DZapMagicPoisonGas
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DZapMagicAcid")
 var NH3D_ZAP_MAGIC_ACID: Int32 {
-	return NetHack3DZapMagicAcid
+	fatalError()
 }
-// Explosion types * EXPL_xxx defined from hack.h
 @available(*, unavailable, renamed: "NetHack3DExplodeDark")
 var NH3D_EXPLODE_DARK: Int32 {
-	return NetHack3DExplodeDark
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DExplodeNoxious")
 var NH3D_EXPLODE_NOXIOUS: Int32 {
-	return NetHack3DExplodeNoxious
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DExplodeMuddy")
 var NH3D_EXPLODE_MUDDY: Int32 {
-	return NetHack3DExplodeMuddy
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DExplodeWet")
 var NH3D_EXPLODE_WET: Int32 {
-	return NetHack3DExplodeWet
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DExplodeMagical")
 var NH3D_EXPLODE_MAGICAL: Int32 {
-	return NetHack3DExplodeMagical
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DExplodeFiery")
 var NH3D_EXPLODE_FIERY: Int32 {
-	return NetHack3DExplodeFiery
+	fatalError()
 }
 @available(*, unavailable, renamed: "NetHack3DExplodeFrosty")
 var NH3D_EXPLODE_FROSTY: Int32 {
-	return NetHack3DExplodeFrosty
+	fatalError()
 }
 
 //MARK: for font
@@ -256,57 +251,67 @@ var Invisible: Bool {
 
 @available(*, unavailable, renamed: "isDoor(_:)")
 func IS_DOOR(_ typ: schar) -> Bool {
-	return Int32(typ) == DOOR
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is the rogue level
+@available(*, unavailable, renamed: "isRogueLevel(_:)")
 func Is_rogue_level(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_rogue_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is Fort Knox
+@available(*, unavailable, renamed: "isFortKnox(_:)")
 func Is_knox(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_knox_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is the sanctum level
+@available(*, unavailable, renamed: "isSanctum(_:)")
 func Is_sanctum(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_sanctum_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is the stronghold level
+@available(*, unavailable, renamed: "isStrongholdLevel(_:)")
 func Is_stronghold(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_stronghold_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is a Sokoban level
+@available(*, unavailable, renamed: "inSokoban(_:)")
 func In_sokoban(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return x.pointee.dnum == dungeon_topology.d_sokoban_dnum
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is on the plane of earth
+@available(*, unavailable, renamed: "isEarthLevel(_:)")
 func Is_earthlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_earth_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is on the plane of water
+@available(*, unavailable, renamed: "isWaterLevel(_:)")
 func Is_waterlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_water_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is on the plane of fire
+@available(*, unavailable, renamed: "isFireLevel(_:)")
 func Is_firelevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_fire_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is on the plane of air
+@available(*, unavailable, renamed: "isAirLevel(_:)")
 func Is_airlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_air_level)
+	fatalError()
 }
 
 /// returns `true` if the passed-in level is on the astral plane
+@available(*, unavailable, renamed: "isAstralLevel(_:)")
 func Is_astralevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
-	return on_level(x, &dungeon_topology.d_astral_level) 
+	fatalError()
 }
 
 /// Print to the console.

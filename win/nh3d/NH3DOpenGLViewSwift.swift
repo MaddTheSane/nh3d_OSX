@@ -1164,9 +1164,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 				
 				if defaultTex[Int(glyph)] == 0 {
 					if NH3DGL_USETILE {
-						defaultTex[Int(glyph)] = createTexture(from: mapItem.tile!, color: nil)
+						defaultTex[Int(glyph)] = createTexture(from: mapItem.foregroundTile!, color: nil)
 					} else {
-						defaultTex[Int(glyph)] = createTexture(from: mapItem.symbol as NSString, color: mapItem.color)
+						defaultTex[Int(glyph)] = createTexture(from: mapItem.symbol, color: mapItem.color)
 					}
 				}
 				glActiveTexture(GLenum(GL_TEXTURE0))
@@ -1360,49 +1360,49 @@ final class NH3DOpenGLView: NSOpenGLView {
 				elementalLevel = 0
 				
 				//glPolygonMode( GL_FRONT_AND_BACK,GL_FILL );
-			} else if Is_knox(&u.uz) || Is_sanctum(&u.uz) || Is_stronghold(&u.uz) {
+			} else if isFortKnox(&u.uz) || isSanctum(&u.uz) || isStrongholdLevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex
 				cellingCurrent = floor2Tex
 				elementalLevel = 0
-			} else if In_sokoban(&u.uz) {
+			} else if inSokoban(&u.uz) {
 				changeWallsTexture(0)
 				floorCurrent = floorTex
 				cellingCurrent = floorTex
 				elementalLevel = 0
 				/* not yet */
 				
-			} else if Is_earthlevel(&u.uz) {
+			} else if isEarthLevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex
 				cellingCurrent = floor2Tex
 				
 				elementalLevel = 1
-			} else if Is_waterlevel(&u.uz) {
+			} else if isWaterLevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex
 				cellingCurrent = floor2Tex
 				
 				elementalLevel = 2
-			} else if Is_firelevel(&u.uz) {
+			} else if isFireLevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex
 				cellingCurrent = floor2Tex
 				
 				elementalLevel = 3
-			} else if Is_airlevel(&u.uz) {
+			} else if isAirLevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex
 				cellingCurrent = floor2Tex
 				
 				elementalLevel = 4
-			} else if Is_astralevel(&u.uz) {
+			} else if isAstralLevel(&u.uz) {
 				changeWallsTexture(3)
 				floorCurrent = floor2Tex
 				cellingCurrent = floor2Tex
 				
 				elementalLevel = 5
-			} else if Is_rogue_level(&u.uz) {
+			} else if isRogueLevel(&u.uz) {
 				changeWallsTexture(4)
 				floorCurrent = rougeTex
 				cellingCurrent = rougeTex
@@ -1640,7 +1640,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		img.backgroundColor = NSColor.clear
 		
 		if !NH3DGL_USETILE {
-			guard let symbol = symbol as? NSString else {
+			guard let symbol = symbol as? String else {
 				assert(false)
 				return 0
 			}

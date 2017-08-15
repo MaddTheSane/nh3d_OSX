@@ -211,5 +211,178 @@ static inline void Swift_Panic(const char *__nonnull panicText)
 	abort();
 }
 
+//! returns \c true if the passed-in level is on the astral plane
+NS_SWIFT_NAME(isAstralLevel(_:))
+static inline bool Swift_Is_astralevel(d_level *__nonnull xx)
+{
+	return Is_astralevel(xx);
+}
+
+//! returns \c true if the passed-in level is on the plane of earth
+NS_SWIFT_NAME(isEarthLevel(_:))
+static inline bool Swift_Is_earthlevel(d_level *__nonnull xx)
+{
+	return Is_earthlevel(xx);
+}
+
+//! returns \c true if the passed-in level is on the plane of water
+NS_SWIFT_NAME(isWaterLevel(_:))
+static inline bool Swift_Is_waterlevel(d_level *__nonnull xx)
+{
+	return Is_waterlevel(xx);
+}
+
+//! returns \c true if the passed-in level is on the plane of fire
+NS_SWIFT_NAME(isFireLevel(_:))
+static inline bool Swift_Is_firelevel(d_level *__nonnull xx)
+{
+	return Is_firelevel(xx);
+}
+
+//! returns \c true if the passed-in level is on the plane of air
+NS_SWIFT_NAME(isAirLevel(_:))
+static inline bool Swift_Is_airlevel(d_level *__nonnull xx)
+{
+	return Is_airlevel(xx);
+}
+
+NS_SWIFT_NAME(isMedusaLevel(_:))
+static inline bool Swift_Is_medusa_level(d_level *__nonnull xx)
+{
+	return Is_medusa_level(xx);
+}
+
+NS_SWIFT_NAME(isOracleLevel(_:))
+static inline bool Swift_Is_oracle_level(d_level *__nonnull xx)
+{
+	return Is_oracle_level(xx);
+}
+NS_SWIFT_NAME(isValley(_:))
+static inline bool Swift_Is_valley(d_level *__nonnull xx)
+{
+	return Is_valley(xx);
+}
+
+NS_SWIFT_NAME(isJuiblexLevel(_:))
+static inline bool Swift_Is_juiblex_level(d_level *__nonnull xx)
+{
+	return Is_juiblex_level(xx);
+}
+
+NS_SWIFT_NAME(isAsmodeusLevel(_:))
+static inline bool Swift_Is_asmo_level(d_level *__nonnull xx)
+{
+	return Is_asmo_level(xx);
+}
+
+NS_SWIFT_NAME(isBaalzebubLevel(_:))
+static inline bool Swift_Is_baal_level(d_level *__nonnull xx)
+{
+	return Is_baal_level(xx);
+}
+
+NS_SWIFT_NAME(isWizard1Level(_:))
+static inline bool Swift_Is_wiz1_level(d_level *__nonnull xx)
+{
+	return Is_wiz1_level(xx);
+}
+
+NS_SWIFT_NAME(isWizard2Level(_:))
+static inline bool Swift_Is_wiz2_level(d_level *__nonnull xx)
+{
+	return Is_wiz2_level(xx);
+}
+
+NS_SWIFT_NAME(isWizard3Level(_:))
+static inline bool Swift_Is_wiz3_level(d_level *__nonnull xx)
+{
+	return Is_wiz3_level(xx);
+}
+
+//! returns \c true if the passed-in level is the sanctum level
+NS_SWIFT_NAME(isSanctum(_:))
+static inline bool Swift_Is_sanctum(d_level *__nonnull xx)
+{
+	return Is_sanctum(xx);
+}
+
+NS_SWIFT_NAME(isPortalLevel(_:))
+static inline bool Swift_Is_portal_level(d_level *__nonnull xx)
+{
+	return Is_portal_level(xx);
+}
+
+//! returns \c true if the passed-in level is the rogue level
+NS_SWIFT_NAME(isRogueLevel(_:))
+static inline bool Swift_Is_rogue_level(d_level *__nonnull xx)
+{
+	return Is_rogue_level(xx);
+}
+
+//! returns \c true if the passed-in level is the stronghold level
+NS_SWIFT_NAME(isStrongholdLevel(_:))
+static inline bool Swift_Is_stronghold(d_level *__nonnull xx)
+{
+	return Is_stronghold(xx);
+}
+
+NS_SWIFT_NAME(isBigRoom(_:))
+static inline bool Swift_Is_bigroom(d_level *__nonnull xx)
+{
+	return Is_bigroom(xx);
+}
+
+NS_SWIFT_NAME(isQuestStart(_:))
+static inline bool Swift_Is_qstart(d_level *__nonnull xx)
+{
+	return Is_qstart(xx);
+}
+
+NS_SWIFT_NAME(isQuestLocation(_:))
+static inline bool Swift_Is_qlocate(d_level *__nonnull xx)
+{
+	return Is_qlocate(xx);
+}
+
+NS_SWIFT_NAME(isNemesis(_:))
+static inline bool Swift_Is_nemesis(d_level *__nonnull xx)
+{
+	return Is_nemesis(xx);
+}
+
+//! returns \c true if the passed-in level is Fort Knox
+NS_SWIFT_NAME(isFortKnox(_:))
+static inline bool Swift_Is_knox(d_level *__nonnull xx)
+{
+	return Is_knox(xx);
+}
+NS_SWIFT_NAME(isMineEndLevel(_:))
+static inline bool Swift_Is_mineend_level(d_level *__nonnull xx)
+{
+	return Is_mineend_level(xx);
+}
+NS_SWIFT_NAME(isSokobanEndLevel(_:))
+static inline bool Swift_Is_sokoend_level(d_level *__nonnull xx)
+{
+	return Is_sokoend_level(xx);
+}
+
+//! returns \c true if the passed-in level is a Sokoban level
+NS_SWIFT_NAME(inSokoban(_:))
+static inline bool Swift_In_sokoban(d_level *__nonnull xx)
+{
+	return In_sokoban(xx);
+}
+
+static inline bool Swift_Inhell(void)
+{
+	return Inhell;
+}
+
+NS_SWIFT_NAME(inEndgame(_:))
+static inline bool Swift_In_endgame(d_level *__nonnull xx)
+{
+	return In_endgame(xx);
+}
 
 #endif /* NH3DSwiftBridging_h */
