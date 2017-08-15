@@ -95,7 +95,7 @@ extern NSString *const NH3DIsFirstLaunch;
 #define TILES_PER_LINE			[[NSUserDefaults standardUserDefaults] integerForKey:NH3DTilesPerLineKey ]
 #define NUMBER_OF_TILES_ROW		[[NSUserDefaults standardUserDefaults] integerForKey:NH3DNumberOfTilesRowKey]
 
-// Player Directions
+//! Player Directions
 typedef NS_ENUM(int, NH3DPlayerDirection) {
 	NH3DPlayerDirectionForward	= 0,
 	NH3DPlayerDirectionRight	= 1,

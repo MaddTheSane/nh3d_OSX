@@ -1353,7 +1353,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				floorCurrent = minesTex
 				cellingCurrent = cellingTex
 				elementalLevel = 0
-			} else if In_hell(&u.uz) {
+			} else if Swift_Inhell() {
 				changeWallsTexture(2)
 				floorCurrent = hellTex
 				cellingCurrent = cellingTex

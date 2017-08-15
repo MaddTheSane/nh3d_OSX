@@ -87,7 +87,6 @@
 }
 
 - (void) logString:(NSString *)message {
-	extern const NSStringEncoding NH3DTEXTENCODING;
 	NSDate *date = [[NSDate alloc] init];
 	NSString *ts = date.description;
 	size_t size = [ts lengthOfBytesUsingEncoding:NSASCIIStringEncoding] + 2;
@@ -105,7 +104,7 @@
 	if (!raw_print) {
 		NSLog(@"%@", message);
 	} else {
-		raw_print([message cStringUsingEncoding:NH3DTEXTENCODING]);
+		raw_print(msg);
 	}
 }
 
