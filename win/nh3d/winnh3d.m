@@ -57,7 +57,6 @@ static void wd_message(void);
 //const NSStringEncoding NH3DTEXTENCODING = NSASCIIStringEncoding;
 const NSStringEncoding NH3DTEXTENCODING = NSUTF8StringEncoding;
 
-extern BOOL CocoaPortIsReady;
 BOOL CocoaPortIsReady = NO;
 
 // UserDefaultKeys

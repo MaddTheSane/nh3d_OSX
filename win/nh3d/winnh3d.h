@@ -41,6 +41,7 @@ typedef struct nh3d_nhwindow_data {
 } NH3DWinData;
 
 extern struct window_procs nh3d_procs;
+extern BOOL CocoaPortIsReady;
 
 // binding NetHack C codes to NH3DObjects.
 void nh3d_init_nhwindows(int*__null_unspecified argc, char*__null_unspecified*__null_unspecified argv);

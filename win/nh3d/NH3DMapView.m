@@ -34,8 +34,6 @@
 #define MODKEY_CTRL 2
 #define MODKEY_COMMAND 3
 
-extern BOOL CocoaPortIsReady;
-
 @interface NH3DMapView ()
 @property (strong) NSImage *mapBase;
 @property (strong) NSImage *trMapImage;
