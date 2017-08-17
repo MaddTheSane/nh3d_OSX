@@ -259,41 +259,53 @@
 
 - (void)checkDrawingType
 {
+	// Quiet undefined behavior warnings
+	if ((posX-MAP_MARGIN) < 0 || (posY-MAP_MARGIN) < 0 || posY-MAP_MARGIN >= ROWNO || posX-MAP_MARGIN >= COLNO) {
+		modelDrawingType = NH3DModelDrawingBlackWall;
+		return;
+	}
+	
 	if (glyph ==  S_stone+GLYPH_CMAP_OFF &&
 		(!IS_ROOM(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) && !IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ))) {
 		// draw type is corrwall object (10 = stone wall type / 0 = black wall type)
-		modelDrawingType = 0;
+		modelDrawingType = NH3DModelDrawingBlackWall;
 	} else if (player) {
 		// draw type is playerpositon
-		modelDrawingType = 1;
+		modelDrawingType = NH3DModelDrawingPlayerPosition;
 	} else {
 		switch (glyph) {
 			case S_stone + GLYPH_CMAP_OFF:
 				modelDrawingType = (IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
 									|| IS_STWALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
-									|| IS_DOOR(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)) ? 0 : 1 ;
+									|| IS_DOOR(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)) ? NH3DModelDrawingBlackWall : NH3DModelDrawingPlayerPosition ;
 				break;
 			case S_room + GLYPH_CMAP_OFF:
 			case S_corr + GLYPH_CMAP_OFF:
 			case S_litcorr  + GLYPH_CMAP_OFF:
-				modelDrawingType = 3;
+				modelDrawingType = NH3DModelDrawingCorridor;
 				break;
-			case S_pool + GLYPH_CMAP_OFF: modelDrawingType = 4;
-				break;
-				
-			case S_ice + GLYPH_CMAP_OFF: modelDrawingType = 5;
+			case S_pool + GLYPH_CMAP_OFF:
+				modelDrawingType = NH3DModelDrawingPool;
 				break;
 				
-			case S_lava + GLYPH_CMAP_OFF: modelDrawingType = 6;
+			case S_ice + GLYPH_CMAP_OFF:
+				modelDrawingType = NH3DModelDrawingIce;
 				break;
 				
-			case S_air + GLYPH_CMAP_OFF: modelDrawingType = 7;
+			case S_lava + GLYPH_CMAP_OFF:
+				modelDrawingType = NH3DModelDrawingLava;
 				break;
 				
-			case S_cloud + GLYPH_CMAP_OFF: modelDrawingType = 8;
+			case S_air + GLYPH_CMAP_OFF:
+				modelDrawingType = NH3DModelDrawingAir;
 				break;
 				
-			case S_water + GLYPH_CMAP_OFF: modelDrawingType = 9;
+			case S_cloud + GLYPH_CMAP_OFF:
+				modelDrawingType = NH3DModelDrawingCloud;
+				break;
+				
+			case S_water + GLYPH_CMAP_OFF:
+				modelDrawingType = NH3DModelDrawingWater;
 				break;
 				
 			case S_dnstair + GLYPH_CMAP_OFF:
@@ -302,8 +314,7 @@
 			case S_spiked_pit + GLYPH_CMAP_OFF:
 			case S_trap_door + GLYPH_CMAP_OFF:
 			case S_hole + GLYPH_CMAP_OFF:
-				
-				modelDrawingType = 2;
+				modelDrawingType = NH3DModelDrawingHole;
 				break;
 				
 			case PM_HIGH_PRIEST + GLYPH_MON_OFF:
@@ -340,13 +351,12 @@
 			case S_ss2 + GLYPH_CMAP_OFF:
 			case S_ss3 + GLYPH_CMAP_OFF:
 			case S_ss4 + GLYPH_CMAP_OFF:
-				
-				modelDrawingType = 10;
+				modelDrawingType = NH3DModelDrawingModel3D;
 				break;
 				
 			default :
 				modelDrawingType = ( (glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_DARK_ONE + GLYPH_MON_OFF)
-									|| (glyph >= GLYPH_EXPLODE_OFF && glyph < GLYPH_SWALLOW_OFF) ) ? 10 : 3 ;
+									|| (glyph >= GLYPH_EXPLODE_OFF && glyph < GLYPH_SWALLOW_OFF) ) ? NH3DModelDrawingModel3D : NH3DModelDrawingCorridor ;
 				break;
 		}
 	}
