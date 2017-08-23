@@ -1859,24 +1859,24 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if !hasWait {
 			dRefreshRate = getRefreshRate()
 			waitRate = dRefreshRate
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .offState
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .offState
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .offState
+			oglFrameRateMenu?.item(withTag: 1004)?.state = .off
+			oglFrameRateMenu?.item(withTag: 1005)?.state = .off
+			oglFrameRateMenu?.item(withTag: 1006)?.state = .off
 		} else if OPENGLVIEW_WAITRATE == WAIT_FAST {
 			waitRate = WAIT_FAST
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .onState
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .offState
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .offState
+			oglFrameRateMenu?.item(withTag: 1004)?.state = .on
+			oglFrameRateMenu?.item(withTag: 1005)?.state = .off
+			oglFrameRateMenu?.item(withTag: 1006)?.state = .off
 		} else if OPENGLVIEW_WAITRATE == WAIT_NORMAL {
 			waitRate = WAIT_NORMAL
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .offState
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .onState
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .offState
+			oglFrameRateMenu?.item(withTag: 1004)?.state = .off
+			oglFrameRateMenu?.item(withTag: 1005)?.state = .on
+			oglFrameRateMenu?.item(withTag: 1006)?.state = .off
 		} else {
 			waitRate = WAIT_SLOW
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .offState
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .offState
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .onState
+			oglFrameRateMenu?.item(withTag: 1004)?.state = .off
+			oglFrameRateMenu?.item(withTag: 1005)?.state = .off
+			oglFrameRateMenu?.item(withTag: 1006)?.state = .on
 		}
 		
 		cameraStep = Float(waitRate / 8.5)
@@ -1911,8 +1911,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		do {
 			let hi: NSControl.StateValue = sender.state
-			UserDefaults.standard.set(hi != .onState, forKey: NH3DOpenGLWaitSyncKey)
-			(NSUserDefaultsController.shared.values as AnyObject).setValue(hi != .onState, forKey: NH3DOpenGLWaitSyncKey)
+			UserDefaults.standard.set(hi != .on, forKey: NH3DOpenGLWaitSyncKey)
+			(NSUserDefaultsController.shared.values as AnyObject).setValue(hi != .on, forKey: NH3DOpenGLWaitSyncKey)
 		}
 		
 		nowUpdating = false
@@ -1930,12 +1930,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 	@IBAction func useAntiAlias(_ sender: NSMenuItem) {
 		viewLock.lock()
 		nowUpdating = true
-		if sender.state == .offState {
+		if sender.state == .off {
 			turnOnSmooth()
-			sender.state = .onState
+			sender.state = .on
 		} else {
 			turnOffSmooth()
-			sender.state = .offState
+			sender.state = .off
 		}
 		nowUpdating = false
 		viewLock.unlock()
@@ -1950,47 +1950,47 @@ final class NH3DOpenGLView: NSOpenGLView {
 		switch sender.tag {
 		case 1003: // no wait
 			waitRate = dRefreshRate
-			sender.state = .onState
+			sender.state = .on
 			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			(NSUserDefaultsController.shared.values as AnyObject).setValue( (false as NSNumber),
-			                                                                forKey: NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared.values as AnyObject).setValue((false as NSNumber),
+			                                                               forKey: NH3DOpenGLUseWaitRateKey)
 			
-			sender.menu?.item(withTag: 1004)?.state = .offState
-			sender.menu?.item(withTag: 1005)?.state = .offState
-			sender.menu?.item(withTag: 1006)?.state = .offState
+			sender.menu?.item(withTag: 1004)?.state = .off
+			sender.menu?.item(withTag: 1005)?.state = .off
+			sender.menu?.item(withTag: 1006)?.state = .off
 			
 		case 1004:
 			waitRate = WAIT_FAST
-			sender.state = .onState
-			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			(NSUserDefaultsController.shared.values as AnyObject).setValue( (true as NSNumber),
-			                                                                forKey: NH3DOpenGLUseWaitRateKey)
+			sender.state = .on
+			UserDefaults.standard.set(true, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared.values as AnyObject).setValue((true as NSNumber),
+			                                                               forKey: NH3DOpenGLUseWaitRateKey)
 			
-			sender.menu?.item(withTag: 1003)?.state = .offState
-			sender.menu?.item(withTag: 1005)?.state = .offState
-			sender.menu?.item(withTag: 1006)?.state = .offState
+			sender.menu?.item(withTag: 1003)?.state = .off
+			sender.menu?.item(withTag: 1005)?.state = .off
+			sender.menu?.item(withTag: 1006)?.state = .off
 			
 		case 1005:
 			waitRate = WAIT_NORMAL
-			sender.state = .onState
-			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			(NSUserDefaultsController.shared.values as AnyObject).setValue( (true as NSNumber),
-			                                                                forKey: NH3DOpenGLUseWaitRateKey)
+			sender.state = .on
+			UserDefaults.standard.set(true, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared.values as AnyObject).setValue((true as NSNumber),
+			                                                               forKey: NH3DOpenGLUseWaitRateKey)
 			
-			sender.menu?.item(withTag: 1003)?.state = .offState
-			sender.menu?.item(withTag: 1004)?.state = .offState
-			sender.menu?.item(withTag: 1006)?.state = .offState
+			sender.menu?.item(withTag: 1003)?.state = .off
+			sender.menu?.item(withTag: 1004)?.state = .off
+			sender.menu?.item(withTag: 1006)?.state = .off
 			
 		case 1006:
 			waitRate = WAIT_SLOW
-			sender.state = .onState
-			UserDefaults.standard.set(false, forKey:NH3DOpenGLUseWaitRateKey)
-			(NSUserDefaultsController.shared.values as AnyObject).setValue( (true as NSNumber),
-			                                                                forKey: NH3DOpenGLUseWaitRateKey)
+			sender.state = .on
+			UserDefaults.standard.set(true, forKey:NH3DOpenGLUseWaitRateKey)
+			(NSUserDefaultsController.shared.values as AnyObject).setValue((true as NSNumber),
+			                                                               forKey: NH3DOpenGLUseWaitRateKey)
 			
-			sender.menu?.item(withTag: 1003)?.state = .offState
-			sender.menu?.item(withTag: 1004)?.state = .offState
-			sender.menu?.item(withTag: 1005)?.state = .offState
+			sender.menu?.item(withTag: 1003)?.state = .off
+			sender.menu?.item(withTag: 1004)?.state = .off
+			sender.menu?.item(withTag: 1005)?.state = .off
 			
 		default:
 			break
