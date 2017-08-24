@@ -95,14 +95,14 @@ class NH3DMessaging: NSObject {
 		//Text attributes in View or backgrounded text field.
 		
 		darkShadowStrAttributes[.font] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
-		darkShadowStrAttributes[.shadow] = darkShadow;
+		darkShadowStrAttributes[.shadow] = darkShadow
 		darkShadowStrAttributes[.paragraphStyle] = style.copy()
 		darkShadowStrAttributes[.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 		
 		//Text attributes on Panel or Window.
 		
 		lightShadowStrAttributes[.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
-		lightShadowStrAttributes[.shadow] = lightShadow;
+		lightShadowStrAttributes[.shadow] = lightShadow
 		lightShadowStrAttributes[.paragraphStyle] = style.copy()
 		lightShadowStrAttributes[.foregroundColor] = NSColor(calibratedWhite: 0.0, alpha: 0.8)
 	}
@@ -156,7 +156,7 @@ class NH3DMessaging: NSObject {
 						glView.enemyPosition = lastAttackDirection
 						
 					default:
-						break;
+						break
 					}
 				}
 			}
@@ -164,7 +164,7 @@ class NH3DMessaging: NSObject {
 		
 		switch attr {
 		case ATR_NONE:
-			break;
+			break
 			
 		case ATR_ULINE:
 			darkShadowStrAttributes[.underlineStyle] = NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)
@@ -205,7 +205,7 @@ class NH3DMessaging: NSObject {
 		guard let questionStr = String(cString: messageStr, encoding: NH3DTextEncoding) else {
 			return -1
 		}
-		var result = 0;
+		var result = 0
 		
 		prepareAttributes()
 		style.alignment = .center
@@ -276,7 +276,7 @@ class NH3DMessaging: NSObject {
 	
 	@objc(showOutRipString:)
 	func showOutRip(_ ripString: String) {
-		ripFlag = true;
+		ripFlag = true
 		
 		prepareAttributes()
 		style.alignment = .center

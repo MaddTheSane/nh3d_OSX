@@ -52,10 +52,10 @@ class MapModel: NSObject {
 		set {
 			if indicatorIsActive {
 				stopIndicator()
-				enemyWarnBaseInternal = (newValue > 90) ? 90 : newValue;
+				enemyWarnBaseInternal = (newValue > 90) ? 90 : newValue
 				startIndicator()
 			} else {
-				enemyWarnBaseInternal = (newValue > 90) ? 90 : newValue;
+				enemyWarnBaseInternal = (newValue > 90) ? 90 : newValue
 			}
 		}
 	}
@@ -83,6 +83,17 @@ class MapModel: NSObject {
 	final override func awakeFromNib() {
 		super.awakeFromNib()
 		prepareAttributes()
+		NotificationCenter.default.addObserver(self, selector: #selector(MapModel.defaultsDidChange(notification:)), name: UserDefaults.didChangeNotification, object: nil)
+	}
+	
+	@objc private func defaultsDidChange(notification: Notification) {
+		prepareAttributes()
+		dungeonNameString = NSAttributedString(string: dungeonNameString.string, attributes: strAttributes)
+		dungeonNameField.attributedStringValue = dungeonNameString
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	@IBAction func toggleIndicator(_ sender: AnyObject?) {
@@ -111,12 +122,12 @@ class MapModel: NSObject {
 	
 	@objc final func stopIndicator() {
 		indicatorTimer?.invalidate()
-		indicatorTimer = nil;
-		indicatorIsActive = false;
+		indicatorTimer = nil
+		indicatorIsActive = false
 	}
 	
 	@objc final func startIndicator() {
-		indicatorIsActive = true;
+		indicatorIsActive = true
 		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
 		RunLoop.current.add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
 	}
@@ -165,7 +176,7 @@ class MapModel: NSObject {
 				
 				//set player pos for asciiview, openGLView
 				asciiMapView.setCenter(x: x2, y: y2, depth: Int32(depth(&u.uz)))
-				glMapView.setCenterAt(x: x2, z: y2, depth: Int32(depth(&u.uz)))
+				glMapView.setCenter(x: x2, z: y2, depth: Int32(depth(&u.uz)))
 			}
 			
 			if TRADITIONAL_MAP {
@@ -178,7 +189,7 @@ class MapModel: NSObject {
 	final func setPosCursor(x: Int32, y: Int32) {
 		if (cursX == x && cursY == y) {
 			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].hasCursor = true
-			return;
+			return
 		} else {
 			mapArray[Int(cursX+MAP_MARGIN)][Int(cursY+MAP_MARGIN)].hasCursor = false
 			
@@ -200,7 +211,7 @@ class MapModel: NSObject {
 			return mapArray[Int(x)][Int(y)]
 		} else {
 			//NSLog(@"MapLoadError atX:%d,Y:%d",x,y);
-			return nil;
+			return nil
 		}
 	}
 	
@@ -220,7 +231,7 @@ class MapModel: NSObject {
 			// playerDirection binded by Cocoa binding.
 			self.playerDirection = NH3DPlayerDirection(rawValue: playerDirection.rawValue - 1)!
 		} else {
-			self.playerDirection = .left;
+			self.playerDirection = .left
 		}
 	}
 	

@@ -319,7 +319,7 @@ func raw_print(_ str: UnsafePointer<CChar>) {
 	if let aRawPrint = windowprocs.win_raw_print {
 		aRawPrint(str)
 	} else {
-		print(String(cString: str))
+		print(String(cString: str, encoding: NH3DTextEncoding)!)
 	}
 }
 

@@ -109,7 +109,7 @@
 	NSNotificationCenter *nCenter = [NSNotificationCenter defaultCenter];
 	[nCenter addObserver:self
 				selector:@selector(defaultDidChange:)
-					name:@"NSUserDefaultsDidChangeNotification"
+					name:NSUserDefaultsDidChangeNotification
 				  object:nil];
 	if (TRADITIONAL_MAP) {
 		self.frame = NSMakeRect(0, 0, 440.0, 320.0);
@@ -786,7 +786,7 @@
 	
 	if ([sender tag] < 50) {
 		switch (_mapModel.playerDirection) {
-			case PL_DIRECTION_FORWARD:
+			case NH3DPlayerDirectionForward:
 				switch ([sender tag]) {
 					case 1:
 						lkey = (iflags.num_pad) ? '1' : 'b';
@@ -827,7 +827,7 @@
 				}
 				//[ self setKeyBuffer:lkey ];
 				break;
-			case PL_DIRECTION_RIGHT:
+			case NH3DPlayerDirectionRight:
 				switch ([sender tag]) {
 					case 1:
 						lkey = (iflags.num_pad) ? '7' : 'y';
@@ -868,7 +868,7 @@
 				}
 				//[ self setKeyBuffer:lkey ];
 				break;
-			case PL_DIRECTION_BACK:
+			case NH3DPlayerDirectionBack:
 				switch ([sender tag]) {
 					case 1: 
 						lkey = (iflags.num_pad) ? '9' : 'u';
@@ -909,7 +909,7 @@
 				}
 				//[ self setKeyBuffer:lkey ];
 				break;
-			case PL_DIRECTION_LEFT:
+			case NH3DPlayerDirectionLeft:
 				switch ([sender tag]) {
 					case 1: 
 						lkey = (iflags.num_pad) ? '3' : 'n';

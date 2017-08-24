@@ -455,7 +455,7 @@
 {
 	if (SYMHANDLING(H_IBM)) {
 		char tinyStr[] = {symbol, 0};
-		NSString *toRet = [NSString stringWithCString:tinyStr encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingDOSLatinUS)];
+		NSString *toRet = CFBridgingRelease(CFStringCreateWithCString(kCFAllocatorDefault, tinyStr, kCFStringEncodingDOSLatinUS));
 		return toRet;
 	} else {
 		return [NSString stringWithFormat:@"%c", symbol];

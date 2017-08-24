@@ -287,8 +287,8 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 				if let tileSize = tilesInfo(fromFile: filePath) {
 					defaults.set(tileSize.rows, forKey: NH3DTilesPerLineKey)
 					defaults.set(tileSize.columns, forKey: NH3DNumberOfTilesRowKey)
-					defaults.set(Double(tileSize.tileSize.width), forKey: NH3DTileSizeWidthKey)
-					defaults.set(Double(tileSize.tileSize.height), forKey: NH3DTileSizeHeightKey)
+					defaults.set(tileSize.tileSize.width.native, forKey: NH3DTileSizeWidthKey)
+					defaults.set(tileSize.tileSize.height.native, forKey: NH3DTileSizeHeightKey)
 				}
 				
 				defaults.set(filePath, forKey: NH3DTileNameKey)

@@ -109,8 +109,8 @@ final class TileSet: NSObject {
 	}
 	
 	private func sourceRect(for tile: Int16) -> NSRect {
-		let row = rows - 1 - Int(tile) / columns;
-		let col = Int(tile) % columns;
+		let row = rows - 1 - Int(tile) / columns
+		let col = Int(tile) % columns
 		
 		let r = NSRect(origin: CGPoint(x: CGFloat(col) * tileSize.width, y: CGFloat(row) * tileSize.height), size: tileSize)
 		return r
@@ -121,9 +121,9 @@ final class TileSet: NSObject {
 		if size.width > 32.0 || size.height > 32.0 {
 			// since these images are used in menus we want to scale them down
 			var m = max(size.width, size.height)
-			m = 32.0 / m;
-			size.width  *= m;
-			size.height *= m;
+			m = 32.0 / m
+			size.width  *= m
+			size.height *= m
 		}
 		
 		return size
@@ -153,8 +153,8 @@ final class TileSet: NSObject {
 	@objc(tileImageFromGlyph:) func tileImageFrom(_ glyph: Int32) -> NSImage? {
 		let tile = glyphToTile(glyph)
 		if Int32(tile) >= totalTilesUsed() || tile < 0 {
-			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.");
-			return nil;
+			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.")
+			return nil
 		}
 		return imageFor(glyph)
 	}

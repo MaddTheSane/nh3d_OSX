@@ -604,7 +604,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				aRefreshRate = 60
 			}
 		}
-		return aRefreshRate;
+		return aRefreshRate
 	}
 	
 	override func awakeFromNib() {
@@ -1326,7 +1326,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	@objc(setCenterAtX:z:depth:)
-	func setCenterAt(x: Int32, z: Int32, depth: Int32) {
+	func setCenter(x: Int32, z: Int32, depth: Int32) {
 		viewLock.lock()
 		nowUpdating = true
 		
