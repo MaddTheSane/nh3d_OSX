@@ -104,7 +104,7 @@
 	if (!raw_print) {
 		NSLog(@"%@", message);
 	} else {
-		raw_print(msg);
+		raw_print([message cStringUsingEncoding:NSASCIIStringEncoding]);
 	}
 }
 
