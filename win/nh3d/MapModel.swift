@@ -13,6 +13,7 @@ class MapModel: NSObject {
 	@IBOutlet weak var dungeonNameField: NSTextField!
 	@IBOutlet weak var enemyIndicator: NSLevelIndicator!
 	@IBOutlet weak var glMapView: NH3DOpenGLView!
+	private var kvoo = [NSKeyValueObservation]()
 	
 	@objc dynamic var playerDirection: NH3DPlayerDirection = .forward {
 		willSet {
@@ -41,7 +42,11 @@ class MapModel: NSObject {
 	}
 	
 	@objc private(set) var dungeonNameString = NSAttributedString()
-	private var strAttributes = [NSAttributedStringKey: Any]()
+	private var strAttributes: [NSAttributedStringKey: Any] = {
+		var toRet = [NSAttributedStringKey: Any]()
+		toRet.reserveCapacity(4)
+		return toRet
+	}()
 	
 	private var indicatorIsActive = false
 	
@@ -83,17 +88,19 @@ class MapModel: NSObject {
 	final override func awakeFromNib() {
 		super.awakeFromNib()
 		prepareAttributes()
-		NotificationCenter.default.addObserver(self, selector: #selector(MapModel.defaultsDidChange(notification:)), name: UserDefaults.didChangeNotification, object: nil)
-	}
-	
-	@objc private func defaultsDidChange(notification: Notification) {
-		prepareAttributes()
-		dungeonNameString = NSAttributedString(string: dungeonNameString.string, attributes: strAttributes)
-		dungeonNameField.attributedStringValue = dungeonNameString
-	}
-	
-	deinit {
-		NotificationCenter.default.removeObserver(self)
+		let updateDungeon = {
+			self.prepareAttributes()
+			self.dungeonNameString = NSAttributedString(string: self.dungeonNameString.string, attributes: self.strAttributes)
+			self.dungeonNameField.attributedStringValue = self.dungeonNameString
+		}
+		var toOb = UserDefaults.standard.observe(\.windowFontKey) { (defaults, cng) in
+			updateDungeon()
+		}
+		kvoo.append(toOb)
+		toOb = UserDefaults.standard.observe(\.windowFontSizeKey) { (defaults, cng) in
+			updateDungeon()
+		}
+		kvoo.append(toOb)
 	}
 	
 	@IBAction func toggleIndicator(_ sender: AnyObject?) {
@@ -114,7 +121,7 @@ class MapModel: NSObject {
 		let style = NSMutableParagraphStyle()
 		style.alignment = .center
 		
-		strAttributes = [:]
+		strAttributes.removeAll(keepingCapacity: true)
 		strAttributes[.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE + 4.0)
 		strAttributes[.shadow] = shadow.copy()
 		strAttributes[.paragraphStyle] = style.copy()

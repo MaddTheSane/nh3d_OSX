@@ -151,20 +151,20 @@ var NH3DINVFONT: String! {
 }
 
 var NH3DMSGFONTSIZE: CGFloat {
-	return CGFloat(UserDefaults.standard.float(forKey: NH3DMsgFontSizeKey))
+	return CGFloat(UserDefaults.standard.double(forKey: NH3DMsgFontSizeKey))
 }
 
 var NH3DWINDOWFONTSIZE: CGFloat {
-	return CGFloat(UserDefaults.standard.float(forKey: NH3DWindowFontSizeKey))
+	return CGFloat(UserDefaults.standard.double(forKey: NH3DWindowFontSizeKey))
 }
 var NH3DMAPFONTSIZE: CGFloat {
-	return CGFloat(UserDefaults.standard.float(forKey: NH3DMapFontSizeKey))
+	return CGFloat(UserDefaults.standard.double(forKey: NH3DMapFontSizeKey))
 }
 var NH3DBOLDFONTSIZE: CGFloat {
-	return CGFloat(UserDefaults.standard.float(forKey: NH3DBoldFontSizeKey))
+	return CGFloat(UserDefaults.standard.double(forKey: NH3DBoldFontSizeKey))
 }
 var NH3DINVFONTSIZE: CGFloat {
-	return CGFloat(UserDefaults.standard.float(forKey: NH3DInventryFontSizeKey))
+	return CGFloat(UserDefaults.standard.double(forKey: NH3DInventryFontSizeKey))
 }
 
 var TRADITIONAL_MAP: Bool {
