@@ -575,7 +575,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func getRefreshRate() -> Double {
-        // TODO: What if moved to another display?
 		let displayNum: CGDirectDisplayID
 		if let aNum = self.window?.screen?.deviceDescription[NSDeviceDescriptionKey(rawValue: "NSScreenNumber")] as? NSNumber {
 			displayNum = aNum.uint32Value
@@ -607,6 +606,17 @@ final class NH3DOpenGLView: NSOpenGLView {
 		return aRefreshRate
 	}
 	
+	@objc private func windowDidChangeScreen(_ notification: Notification) {
+		if let notObj = notification.object as AnyObject?, notObj === window {
+			viewLock.lock()
+			dRefreshRate = getRefreshRate()
+			if !hasWait {
+				waitRate = dRefreshRate
+			}
+			viewLock.unlock()
+		}
+	}
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
@@ -614,6 +624,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		let nCenter = NotificationCenter.default
 		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(notification:)), name: UserDefaults.didChangeNotification, object: nil)
+		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.windowDidChangeScreen(_:)), name: NSWindow.didChangeScreenNotification, object: window)
 		
 		dRefreshRate = getRefreshRate()
 		
