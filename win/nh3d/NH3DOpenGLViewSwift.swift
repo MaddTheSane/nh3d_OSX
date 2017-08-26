@@ -1902,11 +1902,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		if useTile != NH3DGL_USETILE {
-			for i in 0..<Int(NetHackGlyphMaxGlyph) {
-				var texid = defaultTex[i]
-				glDeleteTextures(1, &texid)
-				defaultTex[i] = 0
-			}
+			glDeleteTextures(NetHackGlyphMaxGlyph, defaultTex)
+			memset(&defaultTex, 0, Int(NetHackGlyphMaxGlyph) * MemoryLayout<GLuint>.size)
 			useTile = NH3DGL_USETILE
 		}
 		

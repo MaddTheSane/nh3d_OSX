@@ -8,17 +8,6 @@
 
 import Cocoa
 
-extension UserDefaults {
-	@objc dynamic var windowFontKey: String {
-		return string(forKey: NH3DWindowFontKey)!
-	}
-	
-	@objc dynamic var windowFontSizeKey: CGFloat.NativeType {
-		return CGFloat.NativeType(double(forKey: NH3DWindowFontSizeKey))
-	}
-}
-
-
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {

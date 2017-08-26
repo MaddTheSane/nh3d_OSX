@@ -103,11 +103,6 @@ typedef NS_ENUM(int, NH3DPlayerDirection) {
 	NH3DPlayerDirectionLeft		= 3,
 };
 
-#define PL_DIRECTION_FORWARD NH3DPlayerDirectionForward
-#define PL_DIRECTION_RIGHT	NH3DPlayerDirectionRight
-#define PL_DIRECTION_BACK	NH3DPlayerDirectionBack
-#define PL_DIRECTION_LEFT	NH3DPlayerDirectionLeft
-
 /// default colmun + MapView number of column.
 #define MAPSIZE_COLUMN 90
 /// default row + MapView number of row.

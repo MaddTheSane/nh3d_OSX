@@ -168,7 +168,7 @@ var NH3DINVFONTSIZE: CGFloat {
 }
 
 var TRADITIONAL_MAP: Bool {
-	return TRADITIONAL_MAP_func()
+	return PreferencesManager.shared.useTraditionalMap
 }
 
 var TRADITIONAL_MAP_TILE: Bool {
@@ -204,11 +204,11 @@ var OPENGLVIEW_NUMBER_OF_THREADS: Int {
 }
 
 var NH3DGL_USETILE: Bool {
-	return NH3DGL_USETILE_func()
+	return PreferencesManager.shared.useTiles
 }
 
 var SOUND_MUTE: Bool {
-	return SOUND_MUTE_func()
+	return PreferencesManager.shared.isMuted
 }
 
 var HSee_invisible: Int {
@@ -329,4 +329,9 @@ var NH3DTextEncoding: String.Encoding {
 
 var roomAtCurrentLocation: rm {
 	return roomAtLocation(x: u.ux, y: u.uy)
+}
+
+/// Returns `true` if the passed-in level is a wizard level.
+func isWizardLevel(_ xx: UnsafeMutablePointer<d_level>) -> Bool {
+	return isWizard1Level(xx) || isWizard2Level(xx) || isWizard3Level(xx)
 }

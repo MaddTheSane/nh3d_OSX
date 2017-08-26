@@ -397,7 +397,7 @@
 			[self unlockFocus];
 		} else {
 			switch (_mapModel.playerDirection) {
-				case PL_DIRECTION_FORWARD:
+				case NH3DPlayerDirectionForward:
 					for (x = centerX - MAP_MARGIN; x < centerX + 1 + MAP_MARGIN; x++) {
 						for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
 							[lock lock];
@@ -414,7 +414,7 @@
 					[self enemyCheck];
 					break;
 					
-				case PL_DIRECTION_RIGHT:
+				case NH3DPlayerDirectionRight:
 					for (x = centerX + MAP_MARGIN; x > centerX - 1 - MAP_MARGIN; x--) {
 						for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
 							[lock lock];
@@ -431,7 +431,7 @@
 					[self enemyCheck];
 					break;
 					
-				case PL_DIRECTION_BACK:
+				case NH3DPlayerDirectionBack:
 					for (x = centerX + MAP_MARGIN; x > centerX-1-MAP_MARGIN; x--) {
 						for (y = centerY + MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
 							[lock lock];
@@ -448,7 +448,7 @@
 					[self enemyCheck];
 					break;
 					
-				case PL_DIRECTION_LEFT:
+				case NH3DPlayerDirectionLeft:
 					for (x = centerX-MAP_MARGIN; x < centerX+1+MAP_MARGIN; x++) {
 						for (y = centerY+MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
 							[lock lock];
@@ -1517,19 +1517,19 @@
 								
 							} else {
 								switch (_mapModel.playerDirection) {
-									case PL_DIRECTION_FORWARD:
+									case NH3DPlayerDirectionForward:
 										[_mapModel setPosCursorAtX:_mapModel.cursX+((int)(downPoint.x/16) - viewCursX)
 															   atY:_mapModel.cursY+(((int)(downPoint.y/16) - viewCursY)* -1)];
 										break;
-									case PL_DIRECTION_RIGHT:
+									case NH3DPlayerDirectionRight:
 										[_mapModel setPosCursorAtX:_mapModel.cursX+((int)(downPoint.y/16) - viewCursY)
 																atY:_mapModel.cursY+((int)(downPoint.x/16) - viewCursX)];
 										break;
-									case PL_DIRECTION_BACK:
+									case NH3DPlayerDirectionBack:
 										[_mapModel setPosCursorAtX:_mapModel.cursX+(((int)(downPoint.x/16) - viewCursX)* -1)
 															   atY:_mapModel.cursY+((int)(downPoint.y/16) - viewCursY)];
 										break;
-									case PL_DIRECTION_LEFT:
+									case NH3DPlayerDirectionLeft:
 										[_mapModel setPosCursorAtX:_mapModel.cursX+(((int)(downPoint.y/16) - viewCursY)* -1)
 															   atY:_mapModel.cursY+(((int)(downPoint.x/16) - viewCursX)* -1)];
 										break;

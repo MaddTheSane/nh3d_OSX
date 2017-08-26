@@ -25,6 +25,7 @@ static inline BOOL Swift_Stealth() {
 	return (bool)Stealth;
 }
 
+//! the Eyes operate even when you really are blind or don't have any eyes.
 /// Returns \c true if player is blind.
 static inline BOOL Swift_Blind() {
 	return (bool)Blind;
@@ -405,6 +406,18 @@ NS_SWIFT_NAME(inEndgame(_:))
 static inline bool Swift_In_endgame(d_level *__nonnull xx)
 {
 	return In_endgame(xx);
+}
+
+//! means blind because of a cover.
+static inline bool Swift_Blindfolded()
+{
+	return Blindfolded;
+}
+
+//! blind because of a blindfold, and \b only that.
+static inline bool Swift_Blindfolded_only()
+{
+	return Blindfolded_only;
 }
 
 #endif /* NH3DSwiftBridging_h */

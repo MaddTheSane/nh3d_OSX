@@ -351,6 +351,7 @@
 		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
 		552673E91DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
+		552D4F8B1F520F38006D3FA3 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552D4F8A1F520F38006D3FA3 /* PreferencesManager.swift */; };
 		55307ABE1E295D4100E0335A /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55307ABD1E295D4100E0335A /* SoundController.swift */; };
 		55307AC21E295E7800E0335A /* FDAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55887EAA1E28BF5200C88D01 /* FDAudio.framework */; };
 		55307AC31E295E7800E0335A /* FDAudio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55887EAA1E28BF5200C88D01 /* FDAudio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1308,6 +1309,7 @@
 		552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSBitmapImageRep+NH3DAdditions.m"; sourceTree = "<group>"; };
 		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TileSet.swift; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
+		552D4F8A1F520F38006D3FA3 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		552E49381DF73E4B00205CE0 /* NH3DEnums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DEnums.h; sourceTree = "<group>"; };
 		552F3D441B5EE343001D9D13 /* NetHack3D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetHack3D-Bridging-Header.h"; sourceTree = "<group>"; };
 		552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NH3DOpenGLViewSwift.swift; sourceTree = "<group>"; };
@@ -1466,6 +1468,7 @@
 				2BFFE4B508FDF33B00A57B66 /* NH3DPanel.h */,
 				2BFFE4B608FDF33B00A57B66 /* NH3DPanel.m */,
 				55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */,
+				552D4F8A1F520F38006D3FA3 /* PreferencesManager.swift */,
 				2B5458D9095D23F3007A1049 /* NH3DUserMakeSheetController.h */,
 				2B5458DA095D23F3007A1049 /* NH3DUserMakeSheetController.m */,
 				2B20F3650890346C0009D9E3 /* NH3DUserStatusModel.h */,
@@ -3539,6 +3542,7 @@
 				2B5CC193088EB7DF00940C58 /* priest.c in Sources */,
 				55307ABE1E295D4100E0335A /* SoundController.swift in Sources */,
 				2B5CC197088EB7DF00940C58 /* quest.c in Sources */,
+				552D4F8B1F520F38006D3FA3 /* PreferencesManager.swift in Sources */,
 				2B5CC198088EB7DF00940C58 /* questpgr.c in Sources */,
 				2B5CC199088EB7DF00940C58 /* read.c in Sources */,
 				2B5CC19A088EB7DF00940C58 /* rect.c in Sources */,

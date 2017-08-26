@@ -93,11 +93,11 @@ class MapModel: NSObject {
 			self.dungeonNameString = NSAttributedString(string: self.dungeonNameString.string, attributes: self.strAttributes)
 			self.dungeonNameField.attributedStringValue = self.dungeonNameString
 		}
-		var toOb = UserDefaults.standard.observe(\.windowFontKey) { (defaults, cng) in
+		var toOb = UserDefaults.standard.observe(\.WindowFontName) { (defaults, cng) in
 			updateDungeon()
 		}
 		kvoo.append(toOb)
-		toOb = UserDefaults.standard.observe(\.windowFontSizeKey) { (defaults, cng) in
+		toOb = UserDefaults.standard.observe(\.WindowFontSize) { (defaults, cng) in
 			updateDungeon()
 		}
 		kvoo.append(toOb)
