@@ -115,27 +115,27 @@ typedef struct NH3DMaterial {
 /*! model name from data */
 @property (readonly, copy) NSString *modelName;
 /*! vertex counts */
-@property (readonly) NSInteger verts_qty;
+@property (readonly) NSInteger verts_qty NS_REFINED_FOR_SWIFT;
 /*! faces counts */
-@property (readonly) NSInteger face_qty;
+@property (readonly) NSInteger face_qty NS_REFINED_FOR_SWIFT;
 /*! normal counts */
-@property (readonly) NSInteger normal_qty;
+@property (readonly) NSInteger normal_qty NS_REFINED_FOR_SWIFT;
 /*! texcoords counts */
-@property (readonly) NSInteger texcords_qty;
+@property (readonly) NSInteger texcords_qty NS_REFINED_FOR_SWIFT;
 
 /*! vertex points */
-@property (readonly) vector_float3 *verts NS_RETURNS_INNER_POINTER;
+@property (readonly) vector_float3 *verts NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
 /*! normals */
-@property (readonly) vector_float3 *norms NS_RETURNS_INNER_POINTER;
+@property (readonly) vector_float3 *norms NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
 
 /*! faces */
-@property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER;
+@property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
 /*! OBJ face optional texture reference */
 @property (readonly) NH3DFaceType *texReference NS_RETURNS_INNER_POINTER;
 /*! OBJ face optional normal reference */
 @property (readonly) NH3DFaceType *normReference NS_RETURNS_INNER_POINTER;
 /*! TextureCoords */
-@property (readonly) NH3DMapCoordType *texcoords NS_RETURNS_INNER_POINTER;
+@property (readonly) NH3DMapCoordType *texcoords NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
 
 - (GLuint)texture;
 - (void)setTexture:(int)tex_id;
