@@ -575,7 +575,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func getRefreshRate() -> Double {
-		// TODO: What if moved to another display?
+        // TODO: What if moved to another display?
 		let displayNum: CGDirectDisplayID
 		if let aNum = self.window?.screen?.deviceDescription[NSDeviceDescriptionKey(rawValue: "NSScreenNumber")] as? NSNumber {
 			displayNum = aNum.uint32Value
@@ -764,6 +764,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		glPushMatrix()
+		defer {
+			glPopMatrix()
+		}
 		
 		glTranslatef(lastCameraX,
 		             lastCameraY,
@@ -916,8 +919,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		glEnable(GLenum(GL_LIGHT0))
 		glEnable(GLenum(GL_LIGHT1))
-		
-		glPopMatrix()
 	}
 	
 	override var isOpaque: Bool {
@@ -975,7 +976,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			if isReady && !nowUpdating && !self.needsDisplay {
 				//if ( isReady && !nowUpdating ) {
 				autoreleasepool {
-					self.updateGLView()
+					updateGLView()
 				}
 			}
 			
@@ -993,6 +994,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		
 		if viewLock.try() {
+			defer {
+				viewLock.unlock()
+			}
 			struct updateGLViewHelper {
 				static var clearCnt = 0
 			}
@@ -1069,19 +1073,18 @@ final class NH3DOpenGLView: NSOpenGLView {
 			delayDrawing.removeAll()
 			
 			nowUpdating = false
-			viewLock.unlock()
 		}
 	}
 	
 	override func reshape() {
 		super.reshape()
-		CGLLockContext(openGLContext!.cglContextObj!)
 		viewLock.lock()
 		nowUpdating = true
+		CGLLockContext(openGLContext!.cglContextObj!)
 		defer {
 			CGLUnlockContext(openGLContext!.cglContextObj!)
-			viewLock.unlock()
 			nowUpdating = false
+			viewLock.unlock()
 		}
 		// Get the view size in Points
 		let viewRectPoints = bounds

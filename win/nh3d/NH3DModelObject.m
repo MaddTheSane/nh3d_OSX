@@ -743,6 +743,9 @@ static const NH3DMaterial defaultMat = {
 			particles[i].active = YES;
 			particles[i].life = 0.8f;
 			
+			particles[i].position.x = 0;
+			particles[i].position.y = 0;
+			particles[i].position.z = 0;
 			particles[i].fade = (float) ( rand() % 100 ) / 1000.0f + 0.003;
 			particles[i].r = colors[i * (12 / MAX_PARTICLES)][0];
 			particles[i].g = colors[i * (12 / MAX_PARTICLES)][1];

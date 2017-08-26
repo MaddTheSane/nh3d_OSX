@@ -29,12 +29,10 @@ extension NH3DModelObject {
 		
 		memset(normals.baseAddress!, 0, normals.count * MemoryLayout<float3>.stride)
 		
-		//faces
-		let theFaces = faces
 		let theVerts = vertexes
 		let theNorms = normals
 		
-		for face in theFaces {
+		for face in faces {
 			let l_vect1 = theVerts[Int(face.a)]
 			let l_vect2 = theVerts[Int(face.b)]
 			let l_vect3 = theVerts[Int(face.c)]
@@ -54,7 +52,8 @@ extension NH3DModelObject {
 		}
 		
 		for (i, connect) in l_Connect.enumerated() {
-			if connect > 0 {
+			// Dividing by 1 will result in the same number.
+			if connect > 1 {
 				let connFloat = Float(connect)
 				theNorms[i] /= float3(connFloat)
 			}
