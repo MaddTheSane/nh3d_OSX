@@ -116,12 +116,12 @@ final class TileSet: NSObject {
 		return r
 	}
 	
-	var imageSize: NSSize {
+	@objc var imageSize: NSSize {
 		var size = tileSize
-		if size.width > 32.0 || size.height > 32.0 {
+		if size.width > 16 || size.height > 16 {
 			// since these images are used in menus we want to scale them down
 			var m = max(size.width, size.height)
-			m = 32.0 / m
+			m = 16 / m
 			size.width  *= m
 			size.height *= m
 		}

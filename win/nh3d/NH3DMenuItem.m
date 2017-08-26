@@ -60,7 +60,7 @@
 - (NSAttributedString *)name
 {
 	NSAttributedString *aStr = nil;
-	NSMutableDictionary<NSAttributedStringKey,id> *strAttributes = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary<NSAttributedStringKey,id> *strAttributes = [[NSMutableDictionary alloc] initWithCapacity:5];
 	
 	strAttributes[NSFontAttributeName] = [NSFont fontWithName:NH3DINVFONT size: NH3DINVFONTSIZE];
 	
@@ -98,7 +98,7 @@
 		lightShadow.shadowBlurRadius = 6.0;
 		
 		strAttributes[NSShadowAttributeName] = lightShadow;
-	} else if (([ name isCaseInsensitiveLike:NSLocalizedString(@"*cursed*",@"")] || [name isCaseInsensitiveLike:NSLocalizedString(@"*cursed *",@"") ])
+	} else if (([name isCaseInsensitiveLike:NSLocalizedString(@"*cursed*",@"")] || [name isCaseInsensitiveLike:NSLocalizedString(@"*cursed *",@"") ])
 			   && (![name isCaseInsensitiveLike:NSLocalizedString(@"*uncursed*",@"")] && ![name isCaseInsensitiveLike:NSLocalizedString(@"*called*",@"")])) {
 		
 		NSShadow *cursedShadow = [[NSShadow alloc] init];
@@ -125,7 +125,7 @@
 	if (accelerator) {
 		NSAttributedString *aStr = nil;
 		NSShadow *lightShadow = [[NSShadow alloc] init];
-		NSMutableDictionary<NSAttributedStringKey,id> *strAttributes = [[NSMutableDictionary alloc] init];
+		NSMutableDictionary<NSAttributedStringKey,id> *strAttributes = [[NSMutableDictionary alloc] initWithCapacity:6];
 		
 		lightShadow.shadowColor = [NSColor cyanColor];
 		lightShadow.shadowOffset = NSMakeSize(0,0);
@@ -178,7 +178,7 @@
 		return [[TileSet instance] imageForGlyph:glyph];
 	} else {
 		NSImage *smallTile = [[[TileSet instance] imageForGlyph:glyph] copy];
-		smallTile.size = NSMakeSize(16.0, 16.0);
+		smallTile.size = [TileSet instance].imageSize;
 		
 		return smallTile;
 	}

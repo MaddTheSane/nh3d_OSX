@@ -927,11 +927,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	deinit {
 		delayDrawing.removeAll(keepingCapacity: false)
 		modelDictionary.removeAll(keepingCapacity: false)
-		
-		for i in 0..<Int(NetHackGlyphMaxGlyph) {
-			var texid = defaultTex[i]
-			glDeleteTextures(1, &texid)
-		}
+		glDeleteTextures(NetHackGlyphMaxGlyph, &defaultTex)
 		
 		glDeleteTextures(1, &floorTex)
 		glDeleteTextures(1, &floor2Tex)
@@ -2737,14 +2733,14 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + NetHackGlyphPetOffset:
-			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
+			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("nurse", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: -0.28, z: 1)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF,
 		     PM_HIGH_PRIEST + NetHackGlyphPetOffset, PM_MEDUSA + NetHackGlyphPetOffset, PM_CROESUS + NetHackGlyphPetOffset:
-			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
+			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
@@ -2755,7 +2751,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSize = 8.0
 			
 		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF:
-			ret = NH3DModelObject(with3DSFile:"atmark", withTexture:false)
+			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0.0, y: -0.28, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -3302,7 +3298,7 @@ extension NH3DOpenGLView {
 		case S_spiked_pit + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "spikepit", withTexture: true)
 			
-		case S_hole + NetHackGlyphCMapOffset :
+		case S_hole + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
 		case S_trap_door + NetHackGlyphCMapOffset:
@@ -3779,7 +3775,7 @@ extension NH3DOpenGLView {
 		return ret
 	}
 
-	// magic shild
+	/// magic shield
 	private final func loadModelFunc_MagicSHILD(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
