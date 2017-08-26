@@ -30,19 +30,21 @@ extension UserDefaults {
 	}
 }
 
-class PreferencesManager {
-	static let shared = PreferencesManager()
+class PreferencesManager: NSObject {
+	@objc static let shared = PreferencesManager()
 	private var kvoo: [NSKeyValueObservation] = []
-	private(set) var useTraditionalMap: Bool
-	private(set) var useTiles: Bool
-	private(set) var isMuted: Bool
+	@objc private(set) var useTraditionalMap: Bool
+	@objc private(set) var useTiles: Bool
+	@objc private(set) var isMuted: Bool
 
-	private init() {
+	private override init() {
 		var kvoo2 = [NSKeyValueObservation]()
 		let defaults = UserDefaults.standard
 		useTraditionalMap = defaults.bool(forKey: NH3DUseTraditionalMapKey)
 		useTiles = defaults.bool(forKey: NH3DGLTileKey)
 		isMuted = defaults.bool(forKey: NH3DSoundMuteKey)
+		
+		super.init()
 		
 		var toOb = UserDefaults.standard.observe(\.UseTraditionalMap) { (defaults, cng) in
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DUseTraditionalMapKey)

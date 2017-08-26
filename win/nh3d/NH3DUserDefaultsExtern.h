@@ -63,7 +63,7 @@ static inline BOOL SOUND_MUTE_func() {
 	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey];
 }
 
-#define SOUND_MUTE	SOUND_MUTE_func()
+#define SOUND_MUTE	PreferencesManager.shared.isMuted
 
 // Map Mode
 
@@ -74,7 +74,7 @@ static inline BOOL TRADITIONAL_MAP_func() {
 	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey];
 }
 
-#define TRADITIONAL_MAP			TRADITIONAL_MAP_func()
+#define TRADITIONAL_MAP			PreferencesManager.shared.useTraditionalMap
 #define TRADITIONAL_MAP_TILE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey]
 
 // Tile settings
@@ -127,7 +127,7 @@ static inline BOOL NH3DGL_USETILE_func()
 	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DGLTileKey];
 }
 
-#define NH3DGL_USETILE NH3DGL_USETILE_func()
+#define NH3DGL_USETILE PreferencesManager.shared.useTiles
 
 #define ENEMY_IS_NONE	0
 #define ENEMY_IS_LEFT	1
