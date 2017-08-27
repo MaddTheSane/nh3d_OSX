@@ -46,19 +46,19 @@ class PreferencesManager: NSObject {
 		
 		super.init()
 		
-		var toOb = UserDefaults.standard.observe(\.UseTraditionalMap) { (defaults, cng) in
+		var toOb = defaults.observe(\.UseTraditionalMap) { (defaults, cng) in
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DUseTraditionalMapKey)
 			self.useTraditionalMap = newVal
 		}
 		kvoo2.append(toOb)
 		
-		toOb = UserDefaults.standard.observe(\.OpenGLViewUseTile) { (defaults, cng) in
+		toOb = defaults.observe(\.OpenGLViewUseTile) { (defaults, cng) in
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DGLTileKey)
 			self.useTiles = newVal
 		}
 		kvoo2.append(toOb)
 		
-		toOb = UserDefaults.standard.observe(\.SoundMute) { (defaults, cng) in
+		toOb = defaults.observe(\.SoundMute) { (defaults, cng) in
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DSoundMuteKey)
 			self.isMuted = newVal
 		}

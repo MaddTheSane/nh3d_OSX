@@ -116,7 +116,7 @@ final class TileSet: NSObject {
 		return r
 	}
 	
-	@objc var imageSize: NSSize {
+	@objc private(set) lazy var imageSize: NSSize = {
 		var size = tileSize
 		if size.width > 16 || size.height > 16 {
 			// since these images are used in menus we want to scale them down
@@ -127,7 +127,7 @@ final class TileSet: NSObject {
 		}
 		
 		return size
-	}
+	}()
 	
 	@objc(imageForGlyph:)
 	func imageFor(_ glyph: Int32) -> NSImage {
