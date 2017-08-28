@@ -2017,7 +2017,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 
 extension NH3DOpenGLView {
 	
-	private func setParams(forMagicEffect magicItem: NH3DModelObject, color: Int32) {
+	final private func setParams(forMagicEffect magicItem: NH3DModelObject, color: Int32) {
 		magicItem.modelPivot = NH3DVertexType(x: 0, y: 1.2, z: 0)
 		magicItem.modelScale = NH3DVertexType(x: 0.4, y: 1.0, z: 0.4)
 		magicItem.particleType = .aura
@@ -2029,7 +2029,7 @@ extension NH3DOpenGLView {
 		magicItem.particleSize = 20
 	}
 	
-	private func setParams(forMagicExplosion magicItem: NH3DModelObject, color: Int32) {
+	final private func setParams(forMagicExplosion magicItem: NH3DModelObject, color: Int32) {
 		magicItem.particleType = .aura
 		magicItem.particleColor = color
 		magicItem.particleGravity = float3(x: 0, y: 15.5, z: 0)
@@ -3842,106 +3842,92 @@ extension NH3DOpenGLView {
 	
 	/// DARK-type explosion
 	private final func loadModelFunc_explotionDARK(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeDark,
-		                        to: NetHack3DExplodeDark + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeDark,
+		                               to: NetHack3DExplodeDark + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_GRAY)
+			return ret
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/// NOXIOUS-type explosion
 	private final func loadModelFunc_explotionNOXIOUS(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeNoxious,
-		                        to: NetHack3DExplodeNoxious + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeNoxious,
+		                               to: NetHack3DExplodeNoxious + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_GREEN)
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/// MUDDY-type explosion
 	private final func loadModelFunc_explotionMUDDY(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeMuddy,
-		                        to: NetHack3DExplodeMuddy + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeMuddy,
+		                               to: NetHack3DExplodeMuddy + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_BROWN)
+			return ret
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/// WET-type explosion
 	private final func loadModelFunc_explotionWET(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeWet,
-		                        to: NetHack3DExplodeWet + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeWet,
+		                               to: NetHack3DExplodeWet + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_BLUE)
+			return ret
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/// MAGICAL-type explosion
 	private final func loadModelFunc_explotionMAGICAL(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeMagical,
-		                        to: NetHack3DExplodeMagical + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeMagical,
+		                               to: NetHack3DExplodeMagical + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_BRIGHT_MAGENTA)
+			return ret
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/// FIERY-type explosion
 	private final func loadModelFunc_explotionFIERY(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeFiery,
-		                        to: NetHack3DExplodeFiery + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeFiery,
+		                               to: NetHack3DExplodeFiery + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_ORANGE)
+			return ret
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/// FROSTY-type explosion
 	private final func loadModelFunc_explotionFROSTY(glyph: Int32) -> NH3DModelObject? {
-		var ret: NH3DModelObject? = nil
-		ret = checkLoadedModels(at: NetHack3DExplodeFrosty,
-		                        to: NetHack3DExplodeFrosty + MAXEXPCHARS,
-		                        offset: 0,
-		                        modelName: "emitter")
-		if let ret = ret {
+		if let ret = checkLoadedModels(at: NetHack3DExplodeFrosty,
+		                               to: NetHack3DExplodeFrosty + MAXEXPCHARS,
+		                               offset: 0,
+		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_BRIGHT_CYAN)
+			return ret
 		}
 		
-		return ret
+		return nil
 	}
 	
 	/*
