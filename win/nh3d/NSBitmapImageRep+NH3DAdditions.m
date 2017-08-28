@@ -21,12 +21,12 @@
 		imgRep2 = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:widePix pixelsHigh:self.pixelsHigh bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSCalibratedRGBColorSpace bytesPerRow:4 * widePix bitsPerPixel:32];
 		
 		NSGraphicsContext *img2Ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:imgRep2];
-		NSGraphicsContext *currentCtx = [NSGraphicsContext currentContext];
+		[NSGraphicsContext saveGraphicsState];
 		[NSGraphicsContext setCurrentContext:img2Ctx];
 		
 		[self drawAtPoint:NSZeroPoint];
 		
-		[NSGraphicsContext setCurrentContext:currentCtx];
+		[NSGraphicsContext restoreGraphicsState];
 		return imgRep2;
 	}
 

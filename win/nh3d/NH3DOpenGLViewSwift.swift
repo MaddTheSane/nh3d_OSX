@@ -1741,19 +1741,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.add(wallHell)
 		model?.add(wallKnox)
 		model?.add(wallRouge)
-		do {
-			model?.addChildObject("torch", type: .texturedObject)
-			model?.lastChild?.modelPivot = NH3DVertexType(x: 0.478, y: 2.834, z: 0.007)
-			model?.lastChild?.addChildObject("emitter", type: .emitter)
-			do {
-				model?.lastChild?.lastChild?.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
-				model?.lastChild?.lastChild?.particleType = .both
-				model?.lastChild?.lastChild?.particleColor = CLR_ORANGE
-				model?.lastChild?.lastChild?.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
-				model?.lastChild?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
-				model?.lastChild?.lastChild?.particleSlowdown = 6.0
-				model?.lastChild?.lastChild?.particleLife = 0.30
-				model?.lastChild?.lastChild?.particleSize = 10.0
+		model?.addChildObject("torch", type: .texturedObject)
+		if let torchObj = model?.lastChild {
+			torchObj.modelPivot = NH3DVertexType(x: 0.478, y: 2.834, z: 0.007)
+			torchObj.addChildObject("emitter", type: .emitter)
+			if let torchEmitter = torchObj.lastChild {
+				torchEmitter.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
+				torchEmitter.particleType = .both
+				torchEmitter.particleColor = CLR_ORANGE
+				torchEmitter.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
+				torchEmitter.particleSpeed = (x: 0.0, y: 0.1)
+				torchEmitter.particleSlowdown = 6.0
+				torchEmitter.particleLife = 0.30
+				torchEmitter.particleSize = 10.0
 			}
 		}
 		modelDictionary[S_vwall + NetHackGlyphCMapOffset] = model
@@ -1763,21 +1763,21 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.add(wallHell)
 		model?.add(wallKnox)
 		model?.add(wallRouge)
-		do {
-			model?.addChildObject("torch", type: .texturedObject)
-			model?.lastChild?.modelPivot = NH3DVertexType(x: -0.005, y: 2.834, z: 0.483)
-			model?.lastChild?.addChildObject("emitter", type: .emitter)
-			do {
-				model?.lastChild?.lastChild?.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
-				model?.lastChild?.lastChild?.particleType = .both
-				model?.lastChild?.lastChild?.particleColor = CLR_ORANGE
-				model?.lastChild?.lastChild?.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
-				model?.lastChild?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
-				model?.lastChild?.lastChild?.particleSlowdown = 6.0
-				model?.lastChild?.lastChild?.particleLife = 0.30
-				model?.lastChild?.lastChild?.particleSize = 10.0
+		model?.addChildObject("torch", type: .texturedObject)
+		if let torchObj = model?.lastChild {
+			torchObj.modelPivot = NH3DVertexType(x: -0.005, y: 2.834, z: 0.483)
+			torchObj.addChildObject("emitter", type: .emitter)
+			if let torchEmitter = torchObj.lastChild {
+				torchEmitter.modelPivot = NH3DVertexType(x: 0.593, y: 1.261, z: 0)
+				torchEmitter.particleType = .both
+				torchEmitter.particleColor = CLR_ORANGE
+				torchEmitter.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
+				torchEmitter.particleSpeed = (x: 0.0, y: 0.1)
+				torchEmitter.particleSlowdown = 6.0
+				torchEmitter.particleLife = 0.30
+				torchEmitter.particleSize = 10.0
 			}
-			model?.lastChild?.modelRotate = NH3DVertexType(x: 0.0, y: -90.0, z: 0.0)
+			torchObj.modelRotate = NH3DVertexType(x: 0.0, y: -90.0, z: 0.0)
 		}
 		modelDictionary[S_hwall + NetHackGlyphCMapOffset] = model
 		
@@ -2935,7 +2935,7 @@ extension NH3DOpenGLView {
 		return ret
 	}
 	
-	// Unique person
+	/// Unique person
 	private final func loadModelFunc_Uniqueperson(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
@@ -3860,6 +3860,7 @@ extension NH3DOpenGLView {
 		                               offset: 0,
 		                               modelName: "emitter") {
 			setParams(forMagicExplosion: ret, color: CLR_GREEN)
+			return ret
 		}
 		
 		return nil

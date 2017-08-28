@@ -443,7 +443,7 @@ static const NH3DMaterial defaultMat = {
 	unsigned int l_ChunkLength = 0;
 	
 	/// location is used for current location, length is the total size of the data file.
-	NSRange fileRange = NSMakeRange(0, 0);
+	NSRange fileRange;
 	
 	// Open 3DS file and Create NSData object
 	NSData *file_3ds = nil;
