@@ -94,6 +94,7 @@ class NH3DMessaging: NSObject {
 		
 		//Text attributes in View or backgrounded text field.
 		
+		style.alignment = .left
 		darkShadowStrAttributes[.font] = NSFont(name: NH3DMSGFONT, size: NH3DMSGFONTSIZE)
 		darkShadowStrAttributes[.shadow] = darkShadow
 		darkShadowStrAttributes[.paragraphStyle] = style.copy()
@@ -101,6 +102,7 @@ class NH3DMessaging: NSObject {
 		
 		//Text attributes on Panel or Window.
 		
+		style.alignment = .center
 		lightShadowStrAttributes[.font] = NSFont(name: NH3DWINDOWFONT, size: NH3DWINDOWFONTSIZE)
 		lightShadowStrAttributes[.shadow] = lightShadow
 		lightShadowStrAttributes[.paragraphStyle] = style.copy()
@@ -136,8 +138,6 @@ class NH3DMessaging: NSObject {
 	@objc(putMainMessage:text:)
 	func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>?) {
 		prepareAttributes()
-		style.alignment = .left
-		darkShadowStrAttributes[.paragraphStyle] = style.copy()
 		
 		guard let text = text else {
 			return
@@ -211,8 +211,6 @@ class NH3DMessaging: NSObject {
 		var result = 0
 		
 		prepareAttributes()
-		style.alignment = .center
-		lightShadowStrAttributes[.paragraphStyle] = style.copy()
 		
 		let putString = NSAttributedString(string: questionStr,
 		                                   attributes: lightShadowStrAttributes)
@@ -286,7 +284,6 @@ class NH3DMessaging: NSObject {
 		style.alignment = .center
 		
 		lightShadowStrAttributes[.paragraphStyle] = style.copy()
-
 		lightShadowStrAttributes[.font] = NSFont(name: "Optima Bold", size: 11)
 		
 		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
@@ -311,6 +308,7 @@ class NH3DMessaging: NSObject {
 		prepareAttributes()
 		style.alignment = .left
 		
+		lightShadowStrAttributes[.paragraphStyle] = style.copy()
 		lightShadowStrAttributes[.font] = NSFont(name: bold ? "Courier Bold" : "Courier", size: 12)
 		
 		let putStr = NSAttributedString(string: rawText + "\n", attributes: lightShadowStrAttributes)
