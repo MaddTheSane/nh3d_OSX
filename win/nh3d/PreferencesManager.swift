@@ -38,7 +38,6 @@ class PreferencesManager: NSObject {
 	@objc private(set) var isMuted: Bool
 
 	private override init() {
-		var kvoo2 = [NSKeyValueObservation]()
 		let defaults = UserDefaults.standard
 		useTraditionalMap = defaults.bool(forKey: NH3DUseTraditionalMapKey)
 		useTiles = defaults.bool(forKey: NH3DGLTileKey)
@@ -50,20 +49,18 @@ class PreferencesManager: NSObject {
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DUseTraditionalMapKey)
 			self.useTraditionalMap = newVal
 		}
-		kvoo2.append(toOb)
+		kvoo.append(toOb)
 		
 		toOb = defaults.observe(\.OpenGLViewUseTile) { (defaults, cng) in
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DGLTileKey)
 			self.useTiles = newVal
 		}
-		kvoo2.append(toOb)
+		kvoo.append(toOb)
 		
 		toOb = defaults.observe(\.SoundMute) { (defaults, cng) in
 			let newVal = cng.newValue ?? defaults.bool(forKey: NH3DSoundMuteKey)
 			self.isMuted = newVal
 		}
-		kvoo2.append(toOb)
-
-		self.kvoo = kvoo2
+		kvoo.append(toOb)
 	}
 }

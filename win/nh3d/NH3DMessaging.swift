@@ -89,8 +89,8 @@ class NH3DMessaging: NSObject {
 		style = NSMutableParagraphStyle()
 		style.lineSpacing = -2
 		
-		darkShadowStrAttributes = [:]
-		lightShadowStrAttributes = [:]
+		darkShadowStrAttributes.removeAll(keepingCapacity: true)
+		lightShadowStrAttributes.removeAll(keepingCapacity: true)
 		
 		//Text attributes in View or backgrounded text field.
 		
@@ -110,6 +110,8 @@ class NH3DMessaging: NSObject {
 	override init() {
 		super.init()
 		msgArray.reserveCapacity(Int(iflags.msg_history))
+		darkShadowStrAttributes.reserveCapacity(8)
+		lightShadowStrAttributes.reserveCapacity(8)
 	}
 	
 	override func awakeFromNib() {
@@ -121,7 +123,7 @@ class NH3DMessaging: NSObject {
 	
 	@objc(addEffectMessage:effectType:)
 	func addEffect(message newMsg: String, effectType: Int32) -> Bool {
-		guard effectType != 1 || effectType != 2 else {
+		guard effectType == 1 || effectType == 2 else {
 			return false
 		}
 		guard let newObj = ScreenEffect(message: newMsg, effect: effectType) else {
@@ -135,6 +137,7 @@ class NH3DMessaging: NSObject {
 	func putMainMessage(attribute attr: Int32, text: UnsafePointer<CChar>?) {
 		prepareAttributes()
 		style.alignment = .left
+		darkShadowStrAttributes[.paragraphStyle] = style.copy()
 		
 		guard let text = text else {
 			return
@@ -167,7 +170,7 @@ class NH3DMessaging: NSObject {
 			break
 			
 		case ATR_ULINE:
-			darkShadowStrAttributes[.underlineStyle] = NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)
+			darkShadowStrAttributes[.underlineStyle] = NSUnderlineStyle.styleSingle.rawValue
 			
 		case ATR_BOLD:
 			darkShadowStrAttributes[.font] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)
@@ -209,6 +212,7 @@ class NH3DMessaging: NSObject {
 		
 		prepareAttributes()
 		style.alignment = .center
+		lightShadowStrAttributes[.paragraphStyle] = style.copy()
 		
 		let putString = NSAttributedString(string: questionStr,
 		                                   attributes: lightShadowStrAttributes)
@@ -281,7 +285,8 @@ class NH3DMessaging: NSObject {
 		prepareAttributes()
 		style.alignment = .center
 		
-		lightShadowStrAttributes[.paragraphStyle] = style
+		lightShadowStrAttributes[.paragraphStyle] = style.copy()
+
 		lightShadowStrAttributes[.font] = NSFont(name: "Optima Bold", size: 11)
 		
 		deathDescription.attributedStringValue = NSAttributedString(string: ripString,
@@ -295,8 +300,7 @@ class NH3DMessaging: NSObject {
 			self.ripPanel.animator().alphaValue = 1
 		}, completionHandler: {
 			self.ripPanel.flush()
-		}
-		)
+		})
 	}
 	
 	@objc(putLogMessage:bold:)
