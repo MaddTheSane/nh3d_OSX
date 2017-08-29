@@ -10,27 +10,34 @@ import Foundation
 import simd
 
 extension NH3DModelObject {
-	
+	/// Normals
 	var normals: UnsafeMutableBufferPointer<float3> {
 		return UnsafeMutableBufferPointer(start: __norms, count: __normal_qty)
 	}
 	
+	/// Vertex points
 	var vertexes: UnsafeMutableBufferPointer<float3> {
 		return UnsafeMutableBufferPointer(start: __verts, count: __verts_qty)
 	}
 	
+	/// Faces
 	var faces: UnsafeMutableBufferPointer<NH3DFaceType> {
 		return UnsafeMutableBufferPointer(start: __faces, count: __face_qty)
 	}
 	
+	/// Texture coordinates
+	var textureCoordinates: UnsafeMutableBufferPointer<NH3DMapCoordType> {
+		return UnsafeMutableBufferPointer(start: __texcoords, count: __texcords_qty)
+	}
+	
 	/// Calculate the normals of the 3D model.
 	@objc func calculateNormals() {
-		var l_Connect = [Int32](repeating: 0, count: vertexes.count)
-		
-		memset(normals.baseAddress!, 0, normals.count * MemoryLayout<float3>.stride)
-		
-		let theVerts = vertexes
 		let theNorms = normals
+		let theVerts = vertexes
+
+		var l_Connect = [Int32](repeating: 0, count: theVerts.count)
+
+		memset(theNorms.baseAddress!, 0, theNorms.count * MemoryLayout<float3>.stride)
 		
 		for face in faces {
 			let l_vect1 = theVerts[Int(face.a)]

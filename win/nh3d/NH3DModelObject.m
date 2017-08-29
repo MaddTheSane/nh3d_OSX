@@ -243,10 +243,10 @@ static const NH3DMaterial defaultMat = {
 			NSLog(@"Invalid OBJ file \"%@\"? Vertexes: %li, Normals: %li, Faces: %li, Texture Coordinates: %li", name, (long)vtxCnt, (long)nmlCnt, (long)facCnt, (long)cooCnt);
 			return NO;
 		}
-		verts = calloc(sizeof(vector_float3), vtxCnt);
-		norms = calloc(sizeof(vector_float3), nmlCnt);
-		faces = calloc(sizeof(NH3DFaceType), facCnt);
-		texcoords = calloc(sizeof(NH3DMapCoordType), cooCnt);
+		verts = calloc(vtxCnt, sizeof(vector_float3));
+		norms = calloc(nmlCnt, sizeof(vector_float3));
+		faces = calloc(facCnt, sizeof(NH3DFaceType));
+		texcoords = calloc(cooCnt, sizeof(NH3DMapCoordType));
 	}
 	
 	for (NSString *line in lines) {
