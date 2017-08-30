@@ -2009,7 +2009,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		oglParamNowChanging = false
 		viewLock.unlock()
 		
-		UserDefaults.standard.set(waitRate, forKey:NH3DOpenGLWaitRateKey)
+		UserDefaults.standard.set(waitRate, forKey: NH3DOpenGLWaitRateKey)
 		(NSUserDefaultsController.shared.values as AnyObject).setValue((waitRate as NSNumber),
 		                                                               forKey: NH3DOpenGLWaitRateKey)
 	}
@@ -2178,7 +2178,7 @@ extension NH3DOpenGLView {
 	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+NetHackGlyphPetOffset {
-			ret = NH3DModelObject(with3DSFile:"lowerH", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: 0.2, z: -0.21)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2234,13 +2234,13 @@ extension NH3DOpenGLView {
 			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK", without: PM_KOBOLD_LORD, PM_KOBOLD_SHAMAN)
 			
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+NetHackGlyphPetOffset:
-			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + NetHackGlyphPetOffset:
-			ret = NH3DModelObject(with3DSFile:"lowerK", withTexture: false)
+			ret = NH3DModelObject(with3DSFile: "lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = NH3DVertexType(x: 0, y: -0.01, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
@@ -2797,7 +2797,6 @@ extension NH3DOpenGLView {
 			                        to: PM_WIZARD_OF_YENDOR,
 			                        offset: offset,
 			                        modelName: "atmark",
-			                        textured: false,
 			                        without: PM_ELVENKING, PM_NURSE, PM_HIGH_PRIEST, PM_MEDUSA,
 			                        PM_CROESUS, PM_WIZARD_OF_YENDOR)
 		}

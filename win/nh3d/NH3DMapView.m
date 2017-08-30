@@ -496,43 +496,43 @@
 		attributes[NSShadowAttributeName] = lshadow;
 		
 		// Replace Wall/OpenDoor charctor for Right,Left direction
-				if (!mapItemValue[x][y].hasAlternateSymbol) {
-					switch (mapItemValue[x][y].glyph) {
-						case S_vwall+GLYPH_CMAP_OFF:			/* vwall */
-						case S_tlwall+GLYPH_CMAP_OFF:			/* tlwall */
-						case S_trwall+GLYPH_CMAP_OFF:			/* trwall */
-						case S_hodoor+GLYPH_CMAP_OFF:			/* hodoor */
-						case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM:			/* vbeam */
-						case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM:
-						case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM:
-						case NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM:
-						case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM:
-						case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
-						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM:
-						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
-						case S_hwall+GLYPH_CMAP_OFF:			/* hwall */
-						case S_tlcorn+GLYPH_CMAP_OFF:			/* tlcorn */
-						case S_trcorn+GLYPH_CMAP_OFF:			/* trcorn */
-						case S_blcorn+GLYPH_CMAP_OFF:			/* blcorn */
-						case S_brcorn+GLYPH_CMAP_OFF:			/* brcorn */
-						case S_crwall+GLYPH_CMAP_OFF:			/* crwall */
-						case S_tuwall+GLYPH_CMAP_OFF:			/* tuwall */
-						case S_tdwall+GLYPH_CMAP_OFF:			/* tdwall */
-						case S_vodoor+GLYPH_CMAP_OFF:			/* vodoor */
-						case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM:			/* hbeam */
-						case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM:
-						case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM:
-						case NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM:
-						case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM:
-						case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
-						case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM:
-						case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
-							[mapItemValue[x][y] setHasAlternateSymbol:YES];
-							break;
-						default:
-							break;
-					}
-				}
+		if (!mapItemValue[x][y].hasAlternateSymbol) {
+			switch (mapItemValue[x][y].glyph) {
+				case S_vwall+GLYPH_CMAP_OFF:			/* vwall */
+				case S_tlwall+GLYPH_CMAP_OFF:			/* tlwall */
+				case S_trwall+GLYPH_CMAP_OFF:			/* trwall */
+				case S_hodoor+GLYPH_CMAP_OFF:			/* hodoor */
+				case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_VBEAM:			/* vbeam */
+				case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_VBEAM:
+				case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_VBEAM:
+				case NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_VBEAM:
+				case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_VBEAM:
+				case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_VBEAM:
+				case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_VBEAM:
+				case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_VBEAM:
+				case S_hwall+GLYPH_CMAP_OFF:			/* hwall */
+				case S_tlcorn+GLYPH_CMAP_OFF:			/* tlcorn */
+				case S_trcorn+GLYPH_CMAP_OFF:			/* trcorn */
+				case S_blcorn+GLYPH_CMAP_OFF:			/* blcorn */
+				case S_brcorn+GLYPH_CMAP_OFF:			/* brcorn */
+				case S_crwall+GLYPH_CMAP_OFF:			/* crwall */
+				case S_tuwall+GLYPH_CMAP_OFF:			/* tuwall */
+				case S_tdwall+GLYPH_CMAP_OFF:			/* tdwall */
+				case S_vodoor+GLYPH_CMAP_OFF:			/* vodoor */
+				case NH3D_ZAP_MAGIC_MISSILE + NH3D_ZAP_HBEAM:			/* hbeam */
+				case NH3D_ZAP_MAGIC_FIRE + NH3D_ZAP_HBEAM:
+				case NH3D_ZAP_MAGIC_COLD + NH3D_ZAP_HBEAM:
+				case NH3D_ZAP_MAGIC_SLEEP + NH3D_ZAP_HBEAM:
+				case NH3D_ZAP_MAGIC_DEATH + NH3D_ZAP_HBEAM:
+				case NH3D_ZAP_MAGIC_LIGHTNING + NH3D_ZAP_HBEAM:
+				case NH3D_ZAP_MAGIC_POISONGAS + NH3D_ZAP_HBEAM:
+				case NH3D_ZAP_MAGIC_ACID + NH3D_ZAP_HBEAM:
+					[mapItemValue[x][y] setHasAlternateSymbol:YES];
+					break;
+				default:
+					break;
+			}
+		}
 		
 		//Draw view
 		if ([self lockFocusIfCanDraw]) {
@@ -1019,24 +1019,33 @@
 
 	keyBuffer = 0;
 	switch ([sender tag]) {
-		case 0:	keyBuffer = 'A';	/* Remove Many */
+		case 0:		/* Remove Many */
+			keyBuffer = 'A';
 			break;
-		case 1: keyBuffer = 'w';	/* Wield Weapon */
+		case 1:		/* Wield Weapon */
+			keyBuffer = 'w';
 			break;
-		case 2: keyBuffer = 'x';	/* Exchange Weapon */
+		case 2:		/* Exchange Weapon */
+			keyBuffer = 'x';
 			break;
-		case 3: keyBuffer = '#';	/* Two Weapon Combat */
+		case 3:		/* Two Weapon Combat */
+			keyBuffer = '#';
 			extendKey = [self checkExtendCmdList:"twoweapon"];
 			break;
-		case 4: keyBuffer = 'Q';	/* Load quiver */
+		case 4:		/* Load quiver */
+			keyBuffer = 'Q';
 			break;
-		case 5: keyBuffer = 'W';	/* Wear Armour */
+		case 5:		/* Wear Armour */
+			keyBuffer = 'W';
 			break;
-		case 6: keyBuffer = 'T';	/* Take off Armour */
+		case 6:		/* Take off Armour */
+			keyBuffer = 'T';
 			break;
-		case 7: keyBuffer = 'P';	/* Put on non-Armour */
+		case 7:		/* Put on non-Armour */
+			keyBuffer = 'P';
 			break;
-		case 8: keyBuffer = 'R';	/* Remove non-Armour */
+		case 8:		/* Remove non-Armour */
+			keyBuffer = 'R';
 			break;
 	}
 	
@@ -1049,58 +1058,84 @@
 {
 	keyBuffer = 0;
 	switch ([sender tag]) {
-		case 0: keyBuffer = lastKeyBuffer;	/* Again */
+		case 0:		/* Again */
+			keyBuffer = lastKeyBuffer;
 			break;
-		case 1: keyBuffer = 'F';	/* Fight */
+		case 1:		/* Fight */
+			keyBuffer = 'F';
 			break;
-		case 2: keyBuffer = 'f';	/* Fire from Quiver */
+		case 2:		/* Fire from Quiver */
+			keyBuffer = 'f';
 			break;
-		case 3: keyBuffer = 't';	/* Throw */
+		case 3:		/* Throw */
+			keyBuffer = 't';
 			break;
-		case 4: keyBuffer = C('d');	/* kick */
+		case 4:		/* kick */
+			keyBuffer = C('d');
 			break;
-		case 5: keyBuffer = '.';	/* Rest */
+		case 5:		/* Rest */
+			keyBuffer = '.';
 			break;
-		case 6: keyBuffer = '\343';	/* Chat */
+		case 6:		/* Chat */
+			keyBuffer = M('c');
 			break;
-		case 7: keyBuffer = 'e';	/* Eat */
+		case 7:		/* Eat */
+			keyBuffer = 'e';
 			break;
-		case 8: keyBuffer = 's';	/* Search */
+		case 8:		/* Search */
+			keyBuffer = 's';
 			break;
-		case 9: keyBuffer = M('u');	/* Untrap */
+		case 9:		/* Untrap */
+			keyBuffer = M('u');
 			break;
-		case 10: keyBuffer = '\346';	/* Force */
+		case 10:	/* Force */
+			keyBuffer = M('f');
 			break;
-		case 11: keyBuffer = 'D';	/* Drop many */
+		case 11:	/* Drop many */
+			keyBuffer = 'D';
 			break;
-		case 12: keyBuffer = 'd';	/* Drop */
+		case 12:	/* Drop */
+			keyBuffer = 'd';
 			break;
-		case 13: keyBuffer = ',';	/* Get */
+		case 13:	/* Get */
+			keyBuffer = ',';
 			break;
-		case 14: keyBuffer = '\354'; /* Loot */
+		case 14:	/* Loot */
+			keyBuffer = M('l');
 			break;
-		case 15: keyBuffer = 'c';	/* Cloase Door */
+		case 15:	/* Cloase Door */
+			keyBuffer = 'c';
 			break;
-		case 16: keyBuffer = 'o';	/* Open Door */
+		case 16:	/* Open Door */
+			keyBuffer = 'o';
 			break;
-		case 17: keyBuffer = '>';	/* Down */
+		case 17:	/* Down */
+			keyBuffer = '>';
 			break;
-		case 18: keyBuffer = '<';	/* UP */
+		case 18:	/* UP */
+			keyBuffer = '<';
 			break;
-		case 19: keyBuffer = '\352';	/* Jump */
+		case 19:	/* Jump */
+			keyBuffer = M('j');
 			break;
-		case 20: keyBuffer = '\363';	/* Sit */
+		case 20:	/* Sit */
+			keyBuffer = M('s');
 			break;
-		case 21: keyBuffer = '#';	/* Ride */
-				 extendKey = [self checkExtendCmdList:"ride"];
+		case 21:	/* Ride */
+			keyBuffer = '#';
+			extendKey = [self checkExtendCmdList:"ride"];
 			break;
-		case 22: keyBuffer = 'p';	/* Pay */
+		case 22:	/* Pay */
+			keyBuffer = 'p';
 			break;
-		case 23: keyBuffer = '\367'; /* Wipe Face */
+		case 23:	/* Wipe Face */
+			keyBuffer = M('w');
 			break;
-		case 24: keyBuffer = 'a';	/* Apply */
+		case 24:	/* Apply */
+			keyBuffer = 'a';
 			break;
-		case 25: keyBuffer = 'E';	/* Engrave */
+		case 25:	/* Engrave */
+			keyBuffer = 'E';
 			break;
 	}
 
@@ -1113,29 +1148,41 @@
 {
 	keyBuffer = 0;
 	switch ([sender tag]) {
-		case 0: keyBuffer = 'q';	/* Quaff Potion */
+		case 0:		/* Quaff Potion */
+			keyBuffer = 'q';
 			break;
-		case 1: keyBuffer = 'r';	/* Read Scroll/Book */
+		case 1:		/* Read Scroll/Book */
+			keyBuffer = 'r';
 			break;
-		case 2: keyBuffer = 'z';	/* Zap wand */
+		case 2:		/* Zap wand */
+			keyBuffer = 'z';
 			break;
-		case 3: keyBuffer = 'Z';	/* Zap Spell */
+		case 3:		/* Zap Spell */
+			keyBuffer = 'Z';
 			break;
-		case 4: keyBuffer = '\344';	/* Dip */
+		case 4:		/* Dip */
+			keyBuffer = M('d');
 			break;
-		case 5: keyBuffer = '\362';	/* Rub */
+		case 5:		/* Rub */
+			keyBuffer = M('r');
 			break;
-		case 6: keyBuffer = '\351'; /* Invoke */
+		case 6:		/* Invoke */
+			keyBuffer = M('i');
 			break;
-		case 7: keyBuffer = '\357';	/* Offer */
+		case 7:		/* Offer */
+			keyBuffer = M('o');
 			break;
-		case 8: keyBuffer = '\360';	/* Pray */
+		case 8:		/* Pray */
+			keyBuffer = M('p');
 			break;
-		case 9: keyBuffer = '\024';	/* Telport */
+		case 9:		/* Telport */
+			keyBuffer = C('t');
 			break;
-		case 10: keyBuffer = '\355';	/* Monster Action */
+		case 10:	/* Monster Action */
+			keyBuffer = M('m');
 			break;
-		case 11: keyBuffer = '\364';	/* Turn undead */
+		case 11:	/* Turn undead */
+			keyBuffer = M('t');
 			break;
 	}
 	
@@ -1148,27 +1195,36 @@
 {
 	keyBuffer = 0;
 	switch ([sender tag]) {
-		case 0: keyBuffer = 'i';	/* Inventory */
+		case 0: 	/* Inventory */
+			keyBuffer = 'i';
 			break;
-		case 1: keyBuffer = '#';	/* Conduct */
-				extendKey = [self checkExtendCmdList:"conduct"];
+		case 1:		/* Conduct */
+			keyBuffer = '#';
+			extendKey = [self checkExtendCmdList:"conduct"];
 			break;
-		case 2: keyBuffer = '\\';	/* Discoveries */
+		case 2:		/* Discoveries */
+			keyBuffer = '\\';
 			break;
-		case 3: keyBuffer = '+';	/* list/Reorder spell */
+		case 3:		/* list/Reorder spell */
+			keyBuffer = '+';
 			break;
-		case 4: keyBuffer = '\341';	/* Adjust Letters */
+		case 4:		/* Adjust Letters */
+			keyBuffer = M('a');
 			break;
-		case 5: keyBuffer = '\356';	/* Name Object */
+		case 5:		/* Name Object */
+			keyBuffer = M('n');
 			break;
-		case 6: keyBuffer = '\356'; /* Name Object Type */
+		case 6:		/* Name Object Type */
+			keyBuffer = M('n');
 			break;
-		case 7: keyBuffer = 'C';	/* Name Creature */
+		case 7:		/* Name Creature */
+			keyBuffer = 'C';
 			break;
-		case 8: keyBuffer = M('e'); /* Qualifications */
+		case 8:		/* Qualifications */
+			keyBuffer = M('e');
 			break;
-		case 9:
-			keyBuffer = C('o'); /* Dungeon Overview */
+		case 9:		/* Dungeon Overview */
+			keyBuffer = C('o');
 			break;
 	}
 		
@@ -1195,7 +1251,7 @@
 			break;
 		case 6: keyBuffer = 'v';	/* Version */
 			break;
-		case 7: keyBuffer = '\366';	/* Compile Info */
+		case 7: keyBuffer = M('v');	/* Compile Info */
 			break;
 		case 8: keyBuffer = 'V';	/* History */
 			break;
