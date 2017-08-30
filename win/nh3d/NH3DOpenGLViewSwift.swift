@@ -1134,7 +1134,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			if model == nil && defaultTex[Int(glyph)] == 0 {
 				if let newModel = loadModelBlocks[Int(glyph)](glyph) {
-					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph <= PM_APPRENTICE + NetHackGlyphPetOffset {
+					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph < NUMMONS + NetHackGlyphPetOffset {
 						newModel.isAnimated = true
 						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
 						newModel.modelPivot = NH3DVertexType(x: 0.0, y: 0.3, z: 0.0)
@@ -4940,12 +4940,12 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(S_ss4 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
 		
 		// pets
-		for i in Int(PM_GIANT_ANT + NetHackGlyphPetOffset)...Int(PM_APPRENTICE + NetHackGlyphPetOffset) {
+		for i in Int(PM_GIANT_ANT + NetHackGlyphPetOffset) ..< Int(NUMMONS + NetHackGlyphPetOffset) {
 			loadModelBlocks[i] = loadModelFunc_Pets
 		}
 		
 		// statues
-		for i in Int(PM_GIANT_ANT + NetHackGlyphStatueOffset) ... Int(PM_APPRENTICE + NetHackGlyphStatueOffset) {
+		for i in Int(PM_GIANT_ANT + NetHackGlyphStatueOffset) ..< Int(NUMMONS + NetHackGlyphStatueOffset) {
 			loadModelBlocks[i] = loadModelFunc_Statues
 		}
 		
