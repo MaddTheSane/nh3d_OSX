@@ -658,7 +658,11 @@ static NSString *stripParentheses(NSString *text)
 
 - (NSString*)stHungerTip
 {
-	return [@(hu_stat[stHunger]) stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	NSString *toAdd = @"Full";
+	if (hu_stat[stHunger][0] != ' ') {
+		toAdd = [@(hu_stat[stHunger]) stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	}
+	return [@"Hunger: " stringByAppendingString:toAdd];
 }
 
 + (NSSet<NSString *> *)keyPathsForValuesAffectingStHungerTip
@@ -668,7 +672,11 @@ static NSString *stripParentheses(NSString *text)
 
 - (NSString*)stLoadTip
 {
-	return @(enc_stat[stLoad]);
+	NSString *toAdd = @"Unencumbered";
+	if (enc_stat[stLoad][0] != '\0') {
+		toAdd = @(enc_stat[stLoad]);
+	}
+	return [@"Load: " stringByAppendingString:toAdd];
 }
 
 + (NSSet<NSString *> *)keyPathsForValuesAffectingStLoadTip
