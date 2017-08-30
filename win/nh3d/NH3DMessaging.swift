@@ -12,7 +12,7 @@ let DIALOG_OK		= 128
 let DIALOG_CANCEL	= 129
 
 class NH3DMessaging: NSObject {
-	private final class ScreenEffect {
+	private final class ScreenEffect: CustomStringConvertible {
 		private var regex = regex_init()
 		let effect: Int32
 		/// The regex string used to match against.<br>
@@ -35,6 +35,10 @@ class NH3DMessaging: NSObject {
 		
 		func matches(_ str: String) -> Bool {
 			return regex_match(str, regex)
+		}
+		
+		var description: String {
+			return "Screen Effect #\(effect): `\(str)`"
 		}
 	}
 	

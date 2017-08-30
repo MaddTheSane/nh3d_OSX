@@ -277,7 +277,7 @@
 			case S_stone + GLYPH_CMAP_OFF:
 				modelDrawingType = (IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
 									|| IS_STWALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
-									|| IS_DOOR(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)) ? NH3DModelDrawingBlackWall : NH3DModelDrawingPlayerPosition ;
+									|| IS_DOOR(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)) ? NH3DModelDrawingBlackWall : NH3DModelDrawingPlayerPosition;
 				break;
 			case S_room + GLYPH_CMAP_OFF:
 			case S_corr + GLYPH_CMAP_OFF:
@@ -355,8 +355,8 @@
 				break;
 				
 			default :
-				modelDrawingType = ( (glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_DARK_ONE + GLYPH_MON_OFF)
-									|| (glyph >= GLYPH_EXPLODE_OFF && glyph < GLYPH_SWALLOW_OFF) ) ? NH3DModelDrawingModel3D : NH3DModelDrawingCorridor ;
+				modelDrawingType = ((glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_DARK_ONE + GLYPH_MON_OFF)
+									|| (glyph >= GLYPH_EXPLODE_OFF && glyph < GLYPH_SWALLOW_OFF)) ? NH3DModelDrawingModel3D : NH3DModelDrawingCorridor;
 				break;
 		}
 	}
@@ -372,16 +372,6 @@
 							  posY:0
 						   special:0
 						   bgGlyph:NO_GLYPH];
-}
-
-- (instancetype)initWithParameter:(char)ch
-							glyph:(int)glf
-							color:(int)col
-							 posX:(int)x
-							 posY:(int)y
-						  special:(int)sp
-{
-	return [self initWithParameter:ch glyph:glf color:col posX:x posY:YES special:sp bgGlyph:NO_GLYPH];
 }
 
 // This is designated initializer.
