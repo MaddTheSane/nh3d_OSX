@@ -1341,8 +1341,8 @@ wd_message()
 
 - (void)setTile
 {
-	[TileSet setInstance:[[TileSet alloc] initWithName:TILE_FILE_NAME]];
-	
+	TileSet.instance = [[TileSet alloc] initWithName:TILE_FILE_NAME];
+
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey];
 }
