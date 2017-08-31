@@ -688,7 +688,7 @@
 		
 		if (!TRADITIONAL_MAP) {
 			if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
-				[@"Center of Map" drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
+				[NSLocalizedString(@"Center of Map", @"Center of Map") drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
 			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
 				[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
 				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
