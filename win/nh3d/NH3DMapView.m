@@ -1568,7 +1568,7 @@
 								trcpX = (centerX - _mapModel.cursX - MAP_MARGIN) + (int)(downPoint.x/tsizeX) - (int)((bounds.size.width/tsizeX) / 2);
 								trcpY = (centerY - _mapModel.cursY - MAP_MARGIN) + (int)(downPoint.y/tsizeY) - (int)((bounds.size.height/tsizeY) / 2);
 								
-								[_mapModel setPosCursorAtX:_mapModel.cursX + trcpX -1
+								[_mapModel setPosCursorAtX:_mapModel.cursX + trcpX - 1
 													   atY:_mapModel.cursY + trcpY  * -1];
 								
 							} else {

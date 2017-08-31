@@ -1281,7 +1281,7 @@ wd_message()
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {	
 	@autoreleasepool {
-		[TileSet setInstance:[[TileSet alloc] initWithName:TILE_FILE_NAME]];
+		TileSet.instance = [[TileSet alloc] initWithName:TILE_FILE_NAME];
 		
 		_NH3DBindController = self;
 		_NH3DUserStatusModel = _userStatus;
@@ -1298,7 +1298,7 @@ wd_message()
 {
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = NSLocalizedString(@"Quit NetHack3D", @"Quit NetHack3D");
-	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"Do you really want to Force Quit?");
+	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"Do you really want to quit and lose progress?");
 	[alert addButtonWithTitle:@"Cancel"];
 	[alert addButtonWithTitle:@"Quit"];
 	NSInteger choise = [alert runModal];
@@ -1383,7 +1383,7 @@ wd_message()
 - (int)nhPosKeyAtX:(int *)x atY:(int *)y keyMod:(int *)mod
 {
 	int ret = 0;
-	NSEventMask mask = (NSAnyEventMask);
+	NSEventMask mask = (NSEventMaskAny);
 
 	//Wait next Event
 	[_asciiMapView nh3dEventHandlerLoopWithMask:mask];
@@ -1403,9 +1403,9 @@ wd_message()
 - (int)nhGetKey
 {
 	int ret;
-	NSEventMask mask = (NSLeftMouseDownMask	|
-						NSKeyDownMask		|
-						NSApplicationDefinedMask);
+	NSEventMask mask = (NSEventMaskLeftMouseDown	|
+						NSEventMaskKeyDown			|
+						NSEventMaskApplicationDefined);
 	
 	[_asciiMapView setGetCharMode:YES];
 	//Wait next Event
@@ -1839,9 +1839,8 @@ void app_recover(const char* path)
 		return;
 	}
 	
-	NSString *filePath;
-	@autoreleasepool {
-		filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	NSString *filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	{
 		//this little dance is to make sure we have an absolute path.
 		NSURL *fileURL = [NSURL fileURLWithPath:filePath];
 		filePath = [fileURL path];
@@ -1854,6 +1853,7 @@ void app_recover(const char* path)
 		[[NSAlert alertWithError:error] runModal];
 		return;
 	}
+	[recoverApp activateWithOptions:NSApplicationActivateAllWindows];
 	
 	exit(EXIT_SUCCESS);
 }

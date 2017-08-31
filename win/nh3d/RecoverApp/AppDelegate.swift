@@ -75,7 +75,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			let selfBundleURL = Bundle.main.bundleURL
 			return selfBundleURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 		}()
-		try workspace.launchApplication(at: parentBundleURL, options: NSWorkspace.LaunchOptions.default, configuration: [:])
+		let newApp = try workspace.launchApplication(at: parentBundleURL, options: NSWorkspace.LaunchOptions.default, configuration: [:])
+		newApp.activate(options: .activateAllWindows)
 		NSApp.terminate(nil)
 	}
 	
@@ -88,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 					self.succeededNums += 1
 				} else {
 					self.failedNums += 1
-					self.recoveryErrors[url as URL] = saveRecover.error!
+					self.recoveryErrors[url] = saveRecover.error!
 				}
 				if self.countNums == self.succeededNums + self.failedNums {
 					// we're done
@@ -182,6 +183,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			
 			anAlert.runModal()
 			NSApp.terminate(nil)
+			return
 		}
 		
 		progress.startAnimation(nil)
