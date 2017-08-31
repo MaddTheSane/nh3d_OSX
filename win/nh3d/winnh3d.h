@@ -36,8 +36,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef struct nh3d_nhwindow_data {
-	__unsafe_unretained id	win;
-	int						type;
+	__unsafe_unretained id	__nullable	win;
+	int									type;
 } NH3DWinData;
 
 extern struct window_procs nh3d_procs;
@@ -69,15 +69,15 @@ void nh3d_mark_synch(void);
 void nh3d_wait_synch(void);
 void nh3d_cliparound(int x, int y);
 void nh3d_cliparound_window(winid wid, int x, int y);
-void nh3d_print_glyph(winid wid,xchar x,xchar y,int glyph, int under);
+void nh3d_print_glyph(winid wid, xchar x, xchar y, int glyph, int under);
 void nh3d_raw_print(const char *__null_unspecified str);
 void nh3d_raw_print_bold(const char *__null_unspecified str);
 int nh3d_nhgetch(void);
-int nh3d_nh_poskey(int *__null_unspecified x, int *__null_unspecified y, int *mod);
+int nh3d_nh_poskey(int *__null_unspecified x, int *__null_unspecified y, int *__null_unspecified mod);
 void nh3d_nhbell(void);
 int nh3d_doprev_message(void);
 char nh3d_yn_function(const char *__null_unspecified question, const char *__null_unspecified choices, char def);
-void nh3d_getlin(const char *prompt, char *__null_unspecified line);
+void nh3d_getlin(const char *__null_unspecified prompt, char *__null_unspecified line);
 int nh3d_get_ext_cmd(void);
 void nh3d_number_pad(int num);
 void nh3d_delay_output(void);
