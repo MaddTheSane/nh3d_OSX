@@ -1782,10 +1782,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 		modelDictionary[S_hwall + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "corner", withTexture: true)
-		model?.addTexture("corner_mines")
-		model?.addTexture("corner_hell")
-		model?.addTexture("corner_knox")
-		model?.addTexture("corner_rouge")
+		model?.addTexture(named: "corner_mines")
+		model?.addTexture(named: "corner_hell")
+		model?.addTexture(named: "corner_knox")
+		model?.addTexture(named: "corner_rouge")
 		
 		modelDictionary[S_tlcorn + NetHackGlyphCMapOffset] = model
 		modelDictionary[S_trcorn + NetHackGlyphCMapOffset] = model

@@ -139,7 +139,7 @@ typedef struct NH3DMaterial {
 
 - (GLuint)texture;
 - (void)setTexture:(int)tex_id;
-- (BOOL)addTexture:(NSString *)textureName;
+- (BOOL)addTexture:(NSString *)textureName NS_SWIFT_NAME(addTexture(named:));
 - (void)addTextureObject:(NH3DTextureObject *)tex;
 @property (readonly) NSInteger numberOfTextures;
 @property BOOL useEnvironment;
