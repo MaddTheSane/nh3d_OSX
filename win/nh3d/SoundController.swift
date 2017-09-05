@@ -26,13 +26,13 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 	} catch _ {
 		bothAreValid = false
 	}
-	if bothAreValid {
-		theSame = dat1?.isEqual(dat2) ?? false
+	if bothAreValid, let dat1 = dat1, let dat2 = dat2 {
+		theSame = dat1.isEqual(dat2)
 	}
 	return theSame
 }
 
-public final class SoundController: NSObject {
+final class SoundController: NSObject {
 	private final class SoundObject {
 		let audioFile = FDAudioFile(mixer: FDAudioMixer.shared)!
 		var currentPriority = Priority.medium
