@@ -195,7 +195,7 @@
 						break;
 						
 					case NH3DPlayerDirectionRight:
-						return @"┤";
+						return @"├";
 						break;
 						
 					case NH3DPlayerDirectionBack:
@@ -203,7 +203,7 @@
 						break;
 						
 					case NH3DPlayerDirectionLeft:
-						return @"├";
+						return @"┤";
 						break;
 						
 					default:
