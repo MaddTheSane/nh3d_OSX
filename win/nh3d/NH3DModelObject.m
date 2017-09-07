@@ -817,7 +817,7 @@ static const NH3DMaterial defaultMat = {
 - (instancetype)initWith3DSFile:(NSString *)name textureNamed:(NSString*)texName
 {
 	if (self = [super init]) {
-		modelCode = [[NSString alloc] initWithString:name];
+		modelCode = [name copy];
 		
 		[self initParams];
 		

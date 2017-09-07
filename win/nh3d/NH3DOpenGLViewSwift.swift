@@ -3141,6 +3141,8 @@ extension NH3DOpenGLView {
 		switch glyph {
 		case S_bars + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "ironbar", withTexture: true)
+			ret?.modelShift = float3(x: 0, y: 0, z: -3)
+			ret?.modelScale = float3(x: 0.8, y: 1, z: 0.8)
 			
 		case S_tree + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: true)
