@@ -169,16 +169,16 @@ typedef struct NH3DMaterial {
 - (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
-@property (readwrite) NH3DVertexType modelShift;
+@property (readwrite) vector_float3 modelShift;
 - (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz NS_SWIFT_NAME(setModelShift(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelShift property");
 
-@property (readwrite) NH3DVertexType modelScale;
+@property (readwrite) vector_float3 modelScale;
 - (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz NS_SWIFT_NAME(setModelScale(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelScale property");
 
-@property (readwrite) NH3DVertexType modelRotate;
+@property (readwrite) vector_float3 modelRotate;
 - (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz NS_SWIFT_NAME(setModelRotate(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelRotate property");
 
-@property (readwrite) NH3DVertexType modelPivot;
+@property (readwrite) vector_float3 modelPivot;
 - (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz NS_SWIFT_NAME(setPivot(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelPivot property");
 
 @property NH3DMaterial currentMaterial;

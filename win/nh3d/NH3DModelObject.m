@@ -23,9 +23,9 @@ typedef struct NH3DParticle {
 	GLfloat r;       /*!< Red value */
 	GLfloat g;       /*!< Green value */
 	GLfloat b;       /*!< Blue value */
-	vector_float3 position;
-	vector_float3 direction;
-	vector_float3 gravity;
+	vector_float3 position;		/*< Position */
+	vector_float3 direction;	/*< Direction */
+	vector_float3 gravity;		/*< Gravity */
 } NH3DParticle;
 
 static const GLfloat colors[16][3] = {
@@ -1000,7 +1000,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = sx;
 	toSet.y = sy;
 	toSet.z = sz;
@@ -1009,7 +1009,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = scx;
 	toSet.y = scy;
 	toSet.z = scz;
@@ -1018,7 +1018,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = rx;
 	toSet.y = ry;
 	toSet.z = rz;
@@ -1027,7 +1027,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz
 {
-	NH3DVertexType toSet;
+	vector_float3 toSet;
 	toSet.x = px;
 	toSet.y = py;
 	toSet.z = pz;
@@ -1158,29 +1158,32 @@ static const NH3DMaterial defaultMat = {
 				glBegin(GL_TRIANGLES);
 				
 				for (i = 0; i < face_qty; i++) {
+					vector_float3 vertShift = verts[faces[i].a] + modelShift;
 					glNormal3f(norms[faces[i].a].x,
 							   norms[faces[i].a].y,
 							   norms[faces[i].a].z);
 					
-					glVertex3f(verts[faces[i].a].x + modelShift.x,
-							   verts[faces[i].a].y + modelShift.y,
-							   verts[faces[i].a].z + modelShift.z);
+					glVertex3f(vertShift.x,
+							   vertShift.y,
+							   vertShift.z);
 					//--------------------------------------------------------------------------------------------- 1st vertex is over
+					vertShift = verts[faces[i].b] + modelShift;
 					glNormal3f(norms[faces[i].b].x,
 							   norms[faces[i].b].y,
 							   norms[faces[i].b].z);
 					
-					glVertex3f(verts[faces[i].b].x + modelShift.x,
-							   verts[faces[i].b].y + modelShift.y,
-							   verts[faces[i].b].z + modelShift.z);
+					glVertex3f(vertShift.x,
+							   vertShift.y,
+							   vertShift.z);
 					//--------------------------------------------------------------------------------------------- 2nd vertex is over
+					vertShift = verts[faces[i].c] + modelShift;
 					glNormal3f(norms[faces[i].c].x,
 							   norms[faces[i].c].y,
 							   norms[faces[i].c].z);
 					
-					glVertex3f(verts[faces[i].c].x + modelShift.x,
-							   verts[faces[i].c].y + modelShift.y,
-							   verts[faces[i].c].z + modelShift.z);
+					glVertex3f(vertShift.x,
+							   vertShift.y,
+							   vertShift.z);
 					//--------------------------------------------------------------------------------------------- 3rd vertex is over
 					//--------------------------------------------------------------------------------------------- draw is over
 				}
@@ -1205,6 +1208,7 @@ static const NH3DMaterial defaultMat = {
 				glBegin(GL_TRIANGLES);
 				
 				for (i = 0; i < face_qty; i++) {
+					vector_float3 vertShift = verts[faces[i].a] + modelShift;
 					glNormal3f(norms[faces[i].a].x,
 							   norms[faces[i].a].y,
 							   norms[faces[i].a].z);
@@ -1212,10 +1216,11 @@ static const NH3DMaterial defaultMat = {
 					glTexCoord2f(texcoords[faces[i].a].s,
 								 texcoords[faces[i].a].t);
 					
-					glVertex3f(verts[faces[i].a].x + modelShift.x,
-							   verts[faces[i].a].y + modelShift.y,
-							   verts[faces[i].a].z + modelShift.z);
+					glVertex3f(vertShift.x,
+							   vertShift.y,
+							   vertShift.z);
 					//--------------------------------------------------------------------------------------------- 1st vertex is over
+					vertShift = verts[faces[i].b] + modelShift;
 					glNormal3f(norms[faces[i].b].x,
 							   norms[faces[i].b].y,
 							   norms[faces[i].b].z);
@@ -1224,10 +1229,11 @@ static const NH3DMaterial defaultMat = {
 								 texcoords[faces[i].b].t);
 					
 					
-					glVertex3f(verts[faces[i].b].x + modelShift.x,
-							   verts[faces[i].b].y + modelShift.y,
-							   verts[faces[i].b].z + modelShift.z);
+					glVertex3f(vertShift.x,
+							   vertShift.y,
+							   vertShift.z);
 					//--------------------------------------------------------------------------------------------- 2nd vertex is over
+					vertShift = verts[faces[i].c] + modelShift;
 					glNormal3f(norms[faces[i].c].x,
 							   norms[faces[i].c].y,
 							   norms[faces[i].c].z);
@@ -1235,9 +1241,9 @@ static const NH3DMaterial defaultMat = {
 					glTexCoord2f(texcoords[faces[i].c].s,
 								 texcoords[faces[i].c].t);
 					
-					glVertex3f(verts[faces[i].c].x + modelShift.x,
-							   verts[faces[i].c].y + modelShift.y,
-							   verts[faces[i].c].z + modelShift.z);
+					glVertex3f(vertShift.x,
+							   vertShift.y,
+							   vertShift.z);
 					//--------------------------------------------------------------------------------------------- 3rd vertex is over
 					//--------------------------------------------------------------------------------------------- draw is over
 				}
@@ -1313,6 +1319,7 @@ static const NH3DMaterial defaultMat = {
 								
 								glColor4fv(colorArray);
 								
+								// TODO: remove magic numbers!
 								glVertex3f(px + 0.3975f , py + 0.2f , pz + 2.0f   );	glVertex3f(px + 1.11333f, py		 , pz + 1.6963f);
 								glVertex3f(px + 1.11333f, py		 , pz + 1.6963f);	glVertex3f(px + 1.6958f , py + 0.1f , pz + 1.1338f);
 								glVertex3f(px + 1.6958f , py + 0.1f , pz + 1.1338f);	glVertex3f(px + 2.0f	 , py		 , pz + 0.3984f);
