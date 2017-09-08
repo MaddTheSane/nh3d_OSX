@@ -23,9 +23,9 @@ typedef struct NH3DParticle {
 	GLfloat r;       /*!< Red value */
 	GLfloat g;       /*!< Green value */
 	GLfloat b;       /*!< Blue value */
-	vector_float3 position;		/*< Position */
-	vector_float3 direction;	/*< Direction */
-	vector_float3 gravity;		/*< Gravity */
+	vector_float3 position;		/*!< Position */
+	vector_float3 direction;	/*!< Direction */
+	vector_float3 gravity;		/*!< Gravity */
 } NH3DParticle;
 
 static const GLfloat colors[16][3] = {
