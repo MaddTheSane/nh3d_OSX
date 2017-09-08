@@ -137,13 +137,63 @@ final class TileSet: NSObject {
 			return img
 		}
 		// get image
-		let srcRect = sourceRect(for: glyph)
+		let srcRect = sourceRect(for: tile)
 		let newImage = NSImage(size: tileSize)
 		let dstRect = NSRect(origin: .zero, size: tileSize)
-		newImage.lockFocus()
-		NSGraphicsContext.current?.imageInterpolation = .none
-		self.image.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1)
-		newImage.unlockFocus()
+		if !(image.representations[0] is NSPDFImageRep) {
+			at1x: do { //@1x
+				guard let imgBir1x = image.representations.first(where: { (imgRep) -> Bool in
+					let bmpSize = NSSize(width: imgRep.pixelsWide, height: imgRep.pixelsHigh)
+					return bmpSize == image.size
+				}) else {
+					break at1x
+				}
+				let bir1x = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(tileSize.width), pixelsHigh: Int(tileSize.height), bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitLittleEndian, .alphaFirst], bytesPerRow: Int(tileSize.width) * 4, bitsPerPixel: 32)!
+				NSGraphicsContext.saveGraphicsState()
+				NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bir1x)
+				imgBir1x.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1, respectFlipped: true, hints: nil)
+				NSGraphicsContext.restoreGraphicsState()
+				newImage.addRepresentation(bir1x)
+			}
+			at2x: do { //@2x
+				guard let imgBir2x = image.representations.first(where: { (imgRep) -> Bool in
+					let bmpSize = NSSize(width: imgRep.pixelsWide, height: imgRep.pixelsHigh)
+					let at2xSize = NSSize(width: image.size.width * 2, height: image.size.height * 2)
+					return bmpSize == at2xSize
+				}) else {
+					break at2x
+				}
+				let bir2x = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(tileSize.width) * 2, pixelsHigh: Int(tileSize.height) * 2, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitLittleEndian, .alphaFirst], bytesPerRow: Int(tileSize.width) * 4 * 2, bitsPerPixel: 32)!
+				NSGraphicsContext.saveGraphicsState()
+				NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bir2x)
+				let dstRect2x: NSRect = {
+					var toRet = dstRect
+					toRet.size.width *= 2
+					toRet.size.height *= 2
+					return toRet
+				}()
+				let srcRect2x: NSRect = {
+					var toRet = srcRect
+					toRet.origin.x *= 2
+					toRet.origin.y *= 2
+					toRet.size.width *= 2
+					toRet.size.height *= 2
+					return toRet
+				}()
+
+				imgBir2x.draw(in: dstRect2x, from: srcRect2x, operation: .copy, fraction: 1, respectFlipped: true, hints: nil)
+				NSGraphicsContext.restoreGraphicsState()
+				imgBir2x.size = tileSize
+				newImage.addRepresentation(bir2x)
+			}
+		}
+		// last resort
+		if newImage.representations.count == 0 {
+			newImage.lockFocus()
+			NSGraphicsContext.current?.imageInterpolation = .none
+			self.image.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1)
+			newImage.unlockFocus()
+		}
 		// cache image
 		cache[tile] = newImage
 		return newImage

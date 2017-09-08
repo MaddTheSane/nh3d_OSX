@@ -1644,10 +1644,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			viewLock.unlock()
 		}
 		var texID: GLuint = 0
-		let img = NSImage(size: NSSize(width: TEX_SIZE, height: TEX_SIZE))
+		let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitLittleEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32)!
 		var symbolSize = NSSize.zero
-		
-		img.backgroundColor = NSColor.clear
 		
 		if !NH3DGL_USETILE {
 			guard let symbol = symbol as? String else {
@@ -1665,11 +1663,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			symbolSize = symbol.size(withAttributes: attributes)
 			
 			// Draw texture
-			img.lockFocus()
+			NSGraphicsContext.saveGraphicsState()
+			NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: img)
 			
 			symbol.draw(at: NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
 			
-			img.unlockFocus()
+			NSGraphicsContext.restoreGraphicsState()
 		} else {
 			guard let symbol = symbol as? NSImage else {
 				assert(false)
@@ -1678,12 +1677,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 			symbolSize = symbol.size
 			
 			// Draw Tiled texture
-			img.lockFocus()
+			NSGraphicsContext.saveGraphicsState()
+			NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: img)
 			symbol.draw(in: NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
 			            from: NSRect(origin: .zero, size: symbolSize),
 			            operation: .sourceOver,
 			            fraction: 1.0)
-			img.unlockFocus()
+			NSGraphicsContext.restoreGraphicsState()
 		}
 		
 		guard let imgData = img.tiffRepresentation, let imgrep = NSBitmapImageRep(data: imgData)?.forceRGBColorSpace() else {
