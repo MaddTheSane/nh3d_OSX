@@ -62,9 +62,7 @@
 	NSBitmapImageRep	*imgrep;
 	
 	if (sourcefile == nil) {
-		sourcefile = [[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",
-															  [NSBundle mainBundle].resourcePath,
-															  fileName]];
+		sourcefile = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:fileName]];
 		
 		if (sourcefile == nil) {
 			NSLog(@"texture file %@ was not found.",fileName);
