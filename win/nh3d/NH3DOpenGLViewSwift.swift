@@ -1644,7 +1644,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			viewLock.unlock()
 		}
 		var texID: GLuint = 0
-		let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitLittleEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32)!
+		let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitNativeEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32)!
 		var symbolSize = NSSize.zero
 		
 		if !NH3DGL_USETILE {
