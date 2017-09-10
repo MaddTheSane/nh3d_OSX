@@ -96,17 +96,7 @@ void nethack3d_exit(int status);
 #ifndef GNUSTEP
 void nh3d_set_savefile_name(void);
 #endif
-@interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate> {
-@private
-	IBOutlet NSMenu  *_mainMenu;
-	IBOutlet NH3DUserStatusModel *_userStatus;
-	IBOutlet NH3DMessaging *_messenger;
-	IBOutlet MapModel *_mapModel;
-	IBOutlet NH3DOpenGLView *_glMapView;
-	IBOutlet NH3DMapView *_asciiMapView;
-	IBOutlet NH3DMenuWindow *_menuWindow;
-	IBOutlet NSDrawer *_stDrawer;
-}
+@interface NH3DBindController : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
 - (void)setTile;
 
@@ -118,6 +108,14 @@ void nh3d_set_savefile_name(void);
 @property (weak) IBOutlet NSView *majorMapView;
 @property (weak) IBOutlet NSView *minorMapView;
 
+@property (weak) IBOutlet NSMenu *mainMenu;
+@property (weak) IBOutlet NH3DUserStatusModel *userStatus;
+@property (weak) IBOutlet NH3DMessaging *messenger;
+@property (weak) IBOutlet MapModel *mapModel;
+@property (weak) IBOutlet NH3DOpenGLView *glMapView;
+@property (weak) IBOutlet NH3DMapView *asciiMapView;
+@property (weak) IBOutlet NH3DMenuWindow *menuWindow;
+@property (weak) IBOutlet NSDrawer *stDrawer;
 - (void)didPresentError:(NSError *)error;
 
 - (void)printGlyph:(winid)wid xPos:(xchar)x yPos:(xchar)y glyph:(int)glyph bkglyph:(int)bkglyph;

@@ -16,8 +16,8 @@
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
 @private
-	IBOutlet NSTextView *_textWindow;
-	IBOutlet NSTextView *_ripTextwindow;
+	__unsafe_unretained IBOutlet NSTextView *_textWindow;
+	__unsafe_unretained IBOutlet NSTextView *_ripTextwindow;
 	
 	NSMutableArray<NH3DMenuItem*> *nh3dMenu;
 	NSMutableDictionary<NSAttributedStringKey,id> *darkShadowStrAttributes;

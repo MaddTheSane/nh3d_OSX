@@ -19,6 +19,9 @@ extern const char *hu_stat[]; /* from eat.c */
 
 
 @implementation NH3DUserStatusModel
+@synthesize stDrawer;
+@synthesize window;
+
 @synthesize playerDex;
 @synthesize playerCon;
 @synthesize playerInt;

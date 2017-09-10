@@ -34,7 +34,7 @@ NS_ENUM(int) {
 	NetHackGlyphNoGlyph = NO_GLYPH,
 	NetHackGlyphInvisible = GLYPH_INVISIBLE,
 	
-	// ZAP Types  * AD_xxx defined from monattk.h
+	//! ZAP Types  * AD_xxx defined from monattk.h
 	NetHack3DZapMagicMissile = NH3D_ZAP_MAGIC_MISSILE,
 	NetHack3DZapMagicFire = NH3D_ZAP_MAGIC_FIRE,
 	NetHack3DZapMagicCold = NH3D_ZAP_MAGIC_COLD,
@@ -44,7 +44,7 @@ NS_ENUM(int) {
 	NetHack3DZapMagicPoisonGas = NH3D_ZAP_MAGIC_POISONGAS,
 	NetHack3DZapMagicAcid = NH3D_ZAP_MAGIC_ACID,
 	
-	// Explosion types * EXPL_xxx defined from hack.h
+	//! Explosion types * EXPL_xxx defined from hack.h
 	NetHack3DExplodeDark = NH3D_EXPLODE_DARK,
 	NetHack3DExplodeNoxious = NH3D_EXPLODE_NOXIOUS,
 	NetHack3DExplodeMuddy = NH3D_EXPLODE_MUDDY,

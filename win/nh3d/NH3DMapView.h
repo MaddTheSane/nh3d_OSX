@@ -21,11 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NH3DMapView : NSView
 {
 @private
-	IBOutlet MapModel *_mapModel;
-	IBOutlet NH3DBindController *_bindController;
-	IBOutlet NH3DMessaging *_messenger;
-	IBOutlet NSImageView *_mapLview;
-	IBOutlet NSPanel	*_mapLpanel;
 	NSColor	*bgColor;
 	int	centerX;
 	int centerY;
@@ -46,22 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 	// ----------------------------------------------------------//
 	int extendKey;
 	
-	IBOutlet NSButton *_num1;
-	IBOutlet NSButton *_num2;
-	IBOutlet NSButton *_num3;
-	IBOutlet NSButton *_num4;
-	IBOutlet NSButton *_num5;
-	IBOutlet NSButton *_num6;
-	IBOutlet NSButton *_num7;
-	IBOutlet NSButton *_num8;
-	IBOutlet NSButton *_num9;
-	
-	IBOutlet NSButton *_turnRight;
-	IBOutlet NSButton *_turnLeft;
-	
-	IBOutlet NSButton *_help1;
-	IBOutlet NSButton *_help2;
-
 	NSPoint downPoint;
 	int		clickType;
 	int		viewCursX;
@@ -86,8 +65,30 @@ NS_ASSUME_NONNULL_BEGIN
 	
 	NSRecursiveLock *lock;
 }
+@property (weak) IBOutlet MapModel *mapModel;
+@property (weak) IBOutlet NH3DBindController *bindController;
+@property (weak) IBOutlet NH3DMessaging *messenger;
+@property (weak) IBOutlet NSImageView *mapLview;
+@property (weak) IBOutlet NSPanel	*mapLpanel;
 
-@property (nonatomic, strong) NSColor *bgColor;
+@property (weak) IBOutlet NSButton *num1;
+@property (weak) IBOutlet NSButton *num2;
+@property (weak) IBOutlet NSButton *num3;
+@property (weak) IBOutlet NSButton *num4;
+@property (weak) IBOutlet NSButton *num5;
+@property (weak) IBOutlet NSButton *num6;
+@property (weak) IBOutlet NSButton *num7;
+@property (weak) IBOutlet NSButton *num8;
+@property (weak) IBOutlet NSButton *num9;
+
+@property (weak) IBOutlet NSButton *turnRight;
+@property (weak) IBOutlet NSButton *turnLeft;
+
+@property (weak) IBOutlet NSButton *help1;
+@property (weak) IBOutlet NSButton *help2;
+
+
+@property (nonatomic, copy) NSColor *bgColor;
 @property (weak) IBOutlet NSButton *fireArrowButton;
 @property (weak) IBOutlet NSButton *kickButton;
 @property (weak) IBOutlet NSButton *zapSpellButton;

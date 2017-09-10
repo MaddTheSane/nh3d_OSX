@@ -18,7 +18,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="NetHack3D" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="NetHack3Dpos" animationBehavior="default" id="21" userLabel="Main Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
-            <rect key="contentRect" x="196" y="123" width="800" height="580"/>
+            <rect key="contentRect" x="196" y="123" width="800" height="579"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="800" height="580"/>
             <value key="maxSize" type="size" width="800" height="580"/>
@@ -62,32 +62,32 @@
                                 <rect key="frame" x="0.0" y="0.0" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
-                                    <outlet property="_bindController" destination="5089" id="5849"/>
-                                    <outlet property="_help1" destination="293" id="5946"/>
-                                    <outlet property="_help2" destination="275" id="5947"/>
-                                    <outlet property="_mapLpanel" destination="6441" id="6478"/>
-                                    <outlet property="_mapLview" destination="6444" id="6477"/>
-                                    <outlet property="_mapModel" destination="5173" id="5731"/>
-                                    <outlet property="_messenger" destination="5161" id="6476"/>
-                                    <outlet property="_num1" destination="286" id="5948"/>
-                                    <outlet property="_num2" destination="281" id="5949"/>
-                                    <outlet property="_num3" destination="287" id="5950"/>
-                                    <outlet property="_num4" destination="282" id="5951"/>
-                                    <outlet property="_num5" destination="452" id="5952"/>
-                                    <outlet property="_num6" destination="283" id="5953"/>
-                                    <outlet property="_num7" destination="285" id="5954"/>
-                                    <outlet property="_num8" destination="280" id="5955"/>
-                                    <outlet property="_num9" destination="284" id="5956"/>
-                                    <outlet property="_turnLeft" destination="5463" id="6163"/>
-                                    <outlet property="_turnRight" destination="5358" id="6164"/>
                                     <outlet property="againButton" destination="XGZ-lm-wXf" id="8qm-w3-K33"/>
+                                    <outlet property="bindController" destination="5089" id="5849"/>
                                     <outlet property="fireArrowButton" destination="R1X-KA-2BD" id="7cT-pt-bcY"/>
+                                    <outlet property="help1" destination="293" id="5946"/>
+                                    <outlet property="help2" destination="275" id="5947"/>
                                     <outlet property="kickButton" destination="YSQ-yz-IJi" id="LAx-kh-8Xh"/>
+                                    <outlet property="mapLpanel" destination="6441" id="6478"/>
+                                    <outlet property="mapLview" destination="6444" id="6477"/>
+                                    <outlet property="mapModel" destination="5173" id="5731"/>
                                     <outlet property="menu" destination="6240" id="6243"/>
+                                    <outlet property="messenger" destination="5161" id="6476"/>
+                                    <outlet property="num1" destination="286" id="5948"/>
+                                    <outlet property="num2" destination="281" id="5949"/>
+                                    <outlet property="num3" destination="287" id="5950"/>
+                                    <outlet property="num4" destination="282" id="5951"/>
+                                    <outlet property="num5" destination="452" id="5952"/>
+                                    <outlet property="num6" destination="283" id="5953"/>
+                                    <outlet property="num7" destination="285" id="5954"/>
+                                    <outlet property="num8" destination="280" id="5955"/>
+                                    <outlet property="num9" destination="284" id="5956"/>
                                     <outlet property="openButton" destination="Xgt-Jt-ORS" id="EAG-tJ-lB9"/>
                                     <outlet property="pickUpButton" destination="84z-Fq-US6" id="geK-Ri-KIW"/>
                                     <outlet property="searchButton" destination="9Sm-65-g4R" id="4id-FZ-y0a"/>
                                     <outlet property="throwButton" destination="DKt-pB-xVh" id="rbF-ah-ZWh"/>
+                                    <outlet property="turnLeft" destination="5463" id="6163"/>
+                                    <outlet property="turnRight" destination="5358" id="6164"/>
                                     <outlet property="zapSpellButton" destination="S5s-Xf-pjS" id="Olj-Gg-8dR"/>
                                 </connections>
                             </customView>
@@ -2904,18 +2904,18 @@
         </customView>
         <customObject id="5089" userLabel="NH3DBindController" customClass="NH3DBindController">
             <connections>
-                <outlet property="_asciiMapView" destination="5648" id="5756"/>
-                <outlet property="_glMapView" destination="6193" id="6425"/>
-                <outlet property="_mainMenu" destination="29" id="6195"/>
-                <outlet property="_mapModel" destination="5173" id="5259"/>
-                <outlet property="_menuWindow" destination="5507" id="5513"/>
-                <outlet property="_messenger" destination="5161" id="5258"/>
-                <outlet property="_stDrawer" destination="4999" id="5755"/>
-                <outlet property="_userStatus" destination="4755" id="5257"/>
+                <outlet property="asciiMapView" destination="5648" id="5756"/>
+                <outlet property="glMapView" destination="6193" id="6425"/>
                 <outlet property="launchWindow" destination="6764" id="24y-2l-20j"/>
+                <outlet property="mainMenu" destination="29" id="6195"/>
                 <outlet property="mainWindow" destination="21" id="5091"/>
                 <outlet property="majorMapView" destination="RUh-a8-H5Q" id="ic9-Ws-ZwD"/>
+                <outlet property="mapModel" destination="5173" id="5259"/>
+                <outlet property="menuWindow" destination="5507" id="5513"/>
+                <outlet property="messenger" destination="5161" id="5258"/>
                 <outlet property="minorMapView" destination="rno-5P-KjT" id="Jwr-8z-s58"/>
+                <outlet property="stDrawer" destination="4999" id="5755"/>
+                <outlet property="userStatus" destination="4755" id="5257"/>
             </connections>
         </customObject>
         <customObject id="5161" userLabel="NH3DMessenger" customClass="NH3DMessaging" customModule="NetHack3D" customModuleProvider="target">
@@ -2946,11 +2946,11 @@
             <rect key="contentRect" x="253" y="631" width="365" height="118"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="5308">
-                <rect key="frame" x="0.0" y="0.0" width="365" height="118"/>
+                <rect key="frame" x="0.0" y="0.0" width="365" height="127"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5311">
-                        <rect key="frame" x="18" y="82" width="329" height="16"/>
+                        <rect key="frame" x="18" y="91" width="329" height="16"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="6942">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2958,7 +2958,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5309">
-                        <rect key="frame" x="20" y="52" width="325" height="22"/>
+                        <rect key="frame" x="20" y="61" width="325" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="325" id="vr7-Qc-6YH"/>
                         </constraints>
@@ -3003,7 +3003,7 @@ Gw
                     <constraint firstItem="5313" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5308" secondAttribute="leading" constant="20" symbolic="YES" id="9Am-GI-2rB"/>
                     <constraint firstItem="5312" firstAttribute="trailing" secondItem="5309" secondAttribute="trailing" id="F8y-Hf-UhA"/>
                     <constraint firstItem="5312" firstAttribute="width" secondItem="5313" secondAttribute="width" id="ISE-ur-WZn"/>
-                    <constraint firstItem="5312" firstAttribute="top" secondItem="5309" secondAttribute="bottom" constant="11" id="LiD-LH-vv8"/>
+                    <constraint firstItem="5312" firstAttribute="top" secondItem="5309" secondAttribute="bottom" constant="20" symbolic="YES" id="LiD-LH-vv8"/>
                     <constraint firstItem="5311" firstAttribute="top" secondItem="5308" secondAttribute="top" constant="20" symbolic="YES" id="Nks-Qr-hrL"/>
                     <constraint firstItem="5312" firstAttribute="baseline" secondItem="5313" secondAttribute="baseline" id="Zpy-em-l5C"/>
                     <constraint firstItem="5311" firstAttribute="leading" secondItem="5308" secondAttribute="leading" constant="20" symbolic="YES" id="acP-rC-d82"/>

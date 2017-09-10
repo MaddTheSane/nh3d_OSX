@@ -13,10 +13,6 @@
 
 @interface NH3DUserStatusModel : NSObject {
 @private
-	//IBOutlet NSTextField *inputName;
-	IBOutlet NSDrawer *stDrawer;
-	IBOutlet NSWindow *window;
-	
 	NSMutableDictionary *strAttributes;
 	NSShadow *shadow;
 	NSMutableParagraphStyle  *style;
@@ -89,6 +85,9 @@
 	
 //	NSLock *lock;
 }
+//IBOutlet NSTextField *inputName;
+@property (weak) IBOutlet NSDrawer *stDrawer;
+@property (weak) IBOutlet NSWindow *window;
 
 - (void)prepareAttributes;
 
