@@ -518,10 +518,10 @@ static NSString *stripParentheses(NSString *text)
 	
 	if (uarms && !u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uarms)];
-		self.playerShieldString = stripParentheses(@(Doname2(uarms)));
+		self.playerShieldString = stripParentheses([NSString stringWithCString:Doname2(uarms) encoding:NH3DTEXTENCODING]);
 	} else if (u.twoweap) {
 		[self setPlayerShield:obj_to_glyph(uswapwep)];
-		self.playerShieldString = stripParentheses(@(Doname2(uswapwep)));
+		self.playerShieldString = stripParentheses([NSString stringWithCString:Doname2(uswapwep) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerShield:0];
 		self.playerShieldString = nil;
@@ -663,7 +663,7 @@ static NSString *stripParentheses(NSString *text)
 {
 	NSString *toAdd = @"Full";
 	if (hu_stat[stHunger][0] != ' ') {
-		toAdd = [@(hu_stat[stHunger]) stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+		toAdd = [[NSString stringWithCString:hu_stat[stHunger] encoding:NH3DTEXTENCODING] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	}
 	return [@"Hunger: " stringByAppendingString:toAdd];
 }
@@ -677,7 +677,7 @@ static NSString *stripParentheses(NSString *text)
 {
 	NSString *toAdd = @"Unencumbered";
 	if (enc_stat[stLoad][0] != '\0') {
-		toAdd = @(enc_stat[stLoad]);
+		toAdd = [[NSString stringWithCString:enc_stat[stLoad] encoding:NH3DTEXTENCODING] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	}
 	return [@"Load: " stringByAppendingString:toAdd];
 }
@@ -737,8 +737,9 @@ static NSString *stripParentheses(NSString *text)
 		strcount = playerTime;
 	} else {
 		playerStr = aValue;
-		if (strcount < playerTime - 15)
+		if (strcount < playerTime - 15) {
 			[self setStrUpdate:NO];
+		}
 	}
 }
 
@@ -751,8 +752,9 @@ static NSString *stripParentheses(NSString *text)
 		dexcount = playerTime;
 	} else {
 		playerDex = aValue;
-		if (dexcount < playerTime - 15)
+		if (dexcount < playerTime - 15) {
 			[self setDexUpdate:NO];
+		}
 	}
 }
 
@@ -765,8 +767,9 @@ static NSString *stripParentheses(NSString *text)
 		concount = playerTime;
 	} else {
 		playerCon = aValue;
-		if (concount < playerTime - 15)
+		if (concount < playerTime - 15) {
 			[self setConUpdate:NO];
+		}
 	}
 }
 
@@ -779,8 +782,9 @@ static NSString *stripParentheses(NSString *text)
 		intcount = playerTime;
 	} else {
 		playerInt = aValue;
-		if (intcount < playerTime - 15)
+		if (intcount < playerTime - 15) {
 			[self setIntUpdate:NO];
+		}
 	}
 }
 
@@ -793,8 +797,9 @@ static NSString *stripParentheses(NSString *text)
 		wiscount = playerTime;
 	} else {
 		playerWis = aValue;
-		if (wiscount < playerTime - 15)
+		if (wiscount < playerTime - 15) {
 			[self setWisUpdate:NO];
+		}
 	}
 }
 
@@ -807,8 +812,9 @@ static NSString *stripParentheses(NSString *text)
 		chacount = playerTime;
 	} else {
 		playerCha = aValue;
-		if (chacount < playerTime - 15)
+		if (chacount < playerTime - 15) {
 			[self setChaUpdate:NO];
+		}
 	}
 }
 
@@ -821,16 +827,18 @@ static NSString *stripParentheses(NSString *text)
 		playerMaxhp = aValue;
 		[self setPlayerWaningHp:aValue];
 		[self setPlayerCriticalHp:aValue];
-		if (!firstTime)
+		if (!firstTime) {
 			[self setHpUpdate:YES];
+		}
 		hpcount = playerTime;
 	} else if (playerMaxhp != aValue) {
 		playerMaxhp = aValue;
 		[self setPlayerWaningHp:aValue];
 		[self setPlayerCriticalHp:aValue];
 	}
-	if (hpcount < playerTime - 15)
+	if (hpcount < playerTime - 15) {
 		[self setHpUpdate:NO];
+	}
 }
 
 - (void)setPlayerMaxpow:(int)aValue {
@@ -840,8 +848,9 @@ static NSString *stripParentheses(NSString *text)
 		playerMaxpow = aValue;
 		[self setPlayerWaningPow:aValue];
 		[self setPlayerCriticalPow:aValue];
-		if (!firstTime)
+		if (!firstTime) {
 			[self setPowUpdate:YES];
+		}
 		powcount = playerTime;
 		
 	} else if (playerMaxpow != aValue) {
@@ -849,8 +858,9 @@ static NSString *stripParentheses(NSString *text)
 		[self setPlayerWaningPow:aValue];
 		[self setPlayerCriticalPow:aValue];
 	}
-	if (powcount < playerTime - 15)
+	if (powcount < playerTime - 15) {
 		[self setPowUpdate:NO];
+	}
 }
 
 - (void)setPlayerAc:(int)aValue {
@@ -862,8 +872,9 @@ static NSString *stripParentheses(NSString *text)
 		account = playerTime;
 	} else {
 		playerAc = aValue;
-		if (account < playerTime - 15)
+		if (account < playerTime - 15) {
 			[self setAcUpdate:NO];
+		}
 	}
 }
 
@@ -876,8 +887,9 @@ static NSString *stripParentheses(NSString *text)
 		lvcount = playerTime;
 	} else {
 		playerLv = aValue;
-		if (lvcount < playerTime - 15)
+		if (lvcount < playerTime - 15) {
 			[self setLvUpdate:NO];
+		}
 	}
 }
 
@@ -1045,35 +1057,41 @@ static NSString *stripParentheses(NSString *text)
 	self.playerExp = u.uexp;
 	self.playerAc = u.uac;
 	
-	if (Hallucination)
+	if (Hallucination) {
 		[self setStHallu:YES];
-	else
+	} else {
 		[self setStHallu:NO];
+	}
 	
-	if (Confusion)
+	if (Confusion) {
 		[self setStConfuse:YES];
-	else
+	} else {
 		[self setStConfuse:NO];
+	}
 	
-	if (Stunned)
+	if (Stunned) {
 		[self setStStun:YES];
-	else
+	} else {
 		[self setStStun:NO];
+	}
 	
-	if (Blind)
+	if (Blind) {
 		[self setStBlind:YES];
-	else
+	} else {
 		[self setStBlind:NO];
+	}
 	
-	if (Sick)
+	if (Sick) {
 		[self setStSick:YES];
-	else
+	} else {
 		[self setStSick:NO];
+	}
 	
-	if (Vomiting)
+	if (Vomiting) {
 		[self setStIll:YES];
-	else
+	} else {
 		[self setStIll:NO];
+	}
 	
 	[self setStHunger:u.uhs];
 	[self setStLoad:near_capacity()];

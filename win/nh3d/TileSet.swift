@@ -140,7 +140,7 @@ final class TileSet: NSObject {
 		let srcRect = sourceRect(for: tile)
 		let newImage = NSImage(size: tileSize)
 		let dstRect = NSRect(origin: .zero, size: tileSize)
-		if !(image.representations[0] is NSPDFImageRep) {
+		if !(image.representations.first is NSPDFImageRep) {
 			at1x: do { //@1x
 				guard let imgBir1x = image.representations.first(where: { (imgRep) -> Bool in
 					let bmpSize = NSSize(width: imgRep.pixelsWide, height: imgRep.pixelsHigh)
