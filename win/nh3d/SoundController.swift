@@ -106,7 +106,7 @@ final class SoundController: NSObject {
 		return arrs
 	}()
 	
-	func stopAll() {
+	@objc func stopAll() {
 		for obj in audioObjects {
 			obj.stop()
 		}
