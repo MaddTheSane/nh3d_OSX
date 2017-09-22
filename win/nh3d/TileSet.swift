@@ -130,7 +130,7 @@ final class TileSet: NSObject {
 	}()
 	
 	@objc(imageForGlyph:)
-	func imageFor(_ glyph: Int32) -> NSImage {
+	func image(for glyph: Int32) -> NSImage {
 		let tile = glyphToTile(glyph)
 		// Check for cached image:
 		if let img = cache[tile] {
@@ -157,12 +157,17 @@ final class TileSet: NSObject {
 					
 					return CGColorSpace(name: CGColorSpace.sRGB)!
 				}()
-				let ctx1x = CGContext(data: nil, width: Int(tileSize.width), height: Int(tileSize.height), bitsPerComponent: 8, bytesPerRow: Int(tileSize.width) * 4, space: clrSpace, bitmapInfo: CGBitmapInfo.byteOrder32Host.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue)!
+				guard let ctx1x = CGContext(data: nil, width: Int(tileSize.width), height: Int(tileSize.height), bitsPerComponent: 8, bytesPerRow: Int(tileSize.width) * 4, space: clrSpace, bitmapInfo: CGBitmapInfo.byteOrder32Host.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue) else {
+					break at1x
+				}
 				NSGraphicsContext.saveGraphicsState()
 				NSGraphicsContext.current = NSGraphicsContext(cgContext: ctx1x, flipped: false)
 				imgBir1x.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1, respectFlipped: true, hints: nil)
 				NSGraphicsContext.restoreGraphicsState()
-				let bir1x = NSBitmapImageRep(cgImage: ctx1x.makeImage()!)
+				guard let cgImage1x = ctx1x.makeImage() else {
+					break at1x
+				}
+				let bir1x = NSBitmapImageRep(cgImage: cgImage1x)
 				newImage.addRepresentation(bir1x)
 			}
 			at2x: do { //@2x
@@ -197,12 +202,17 @@ final class TileSet: NSObject {
 					return toRet
 				}()
 
-				let ctx2x = CGContext(data: nil, width: Int(dstRect2x.width), height: Int(dstRect2x.height), bitsPerComponent: 8, bytesPerRow: Int(dstRect2x.width) * 4, space: clrSpace, bitmapInfo: CGBitmapInfo.byteOrder32Host.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue)!
+				guard let ctx2x = CGContext(data: nil, width: Int(dstRect2x.width), height: Int(dstRect2x.height), bitsPerComponent: 8, bytesPerRow: Int(dstRect2x.width) * 4, space: clrSpace, bitmapInfo: CGBitmapInfo.byteOrder32Host.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue) else {
+					break at2x
+				}
 				NSGraphicsContext.saveGraphicsState()
 				NSGraphicsContext.current = NSGraphicsContext(cgContext: ctx2x, flipped: false)
 				imgBir2x.draw(in: dstRect2x, from: srcRect2x, operation: .copy, fraction: 1, respectFlipped: true, hints: nil)
 				NSGraphicsContext.restoreGraphicsState()
-				let bir2x = NSBitmapImageRep(cgImage: ctx2x.makeImage()!)
+				guard let cgImage2x = ctx2x.makeImage() else {
+					break at2x
+				}
+				let bir2x = NSBitmapImageRep(cgImage: cgImage2x)
 				bir2x.size = tileSize
 				newImage.addRepresentation(bir2x)
 			}
@@ -226,6 +236,6 @@ final class TileSet: NSObject {
 			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.")
 			return nil
 		}
-		return imageFor(glyph)
+		return image(for: glyph)
 	}
 }

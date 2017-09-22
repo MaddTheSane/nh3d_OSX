@@ -409,26 +409,36 @@ static NSString *stripParentheses(NSString *text)
 		otherHand = [[NSString alloc] initWithFormat:@" (wielded in other %@)", handPart];
 	}
 
-	if ([text hasSuffix:@" (being worn)"]) {
-		text = [text substringToIndex:text.length - @" (being worn)".length];
-	} else if ([text hasSuffix:weapInHands]) {
-		text = [text substringToIndex:text.length - weapInHands.length];
-	} else if ([text hasSuffix:weapInHand]) {
-		text = [text substringToIndex:text.length - weapInHand.length];
-	} else if ([text hasSuffix:leftHandStr])  {
-		text = [text substringToIndex:text.length - leftHandStr.length];
-	} else if ([text hasSuffix:rightHandStr])  {
-		text = [text substringToIndex:text.length - rightHandStr.length];
-	} else if ([text hasSuffix:@" (alternate weapon; not wielded)"]) {
-		text = [text substringToIndex:text.length - @" (alternate weapon; not wielded)".length];
-	} else if ([text hasSuffix:otherHand]) {
-		text = [text substringToIndex:text.length - otherHand.length];
-	} else if ([text hasSuffix:@" (in quiver)"]) {
-		text = [text substringToIndex:text.length - @" (in quiver)".length];
-	} else if ([text hasSuffix:@" (in quiver pouch)"]) {
-		text = [text substringToIndex:text.length - @" (in quiver pouch)".length];
-	} else if ([text hasSuffix:@" (at the ready)"]) {
-		text = [text substringToIndex:text.length - @" (at the ready)".length];
+	if ([text containsString:@" (being worn)"]) {
+		NSRange replaceRange = [text rangeOfString:@" (being worn)"];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:weapInHands]) {
+		NSRange replaceRange = [text rangeOfString:weapInHands];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:weapInHand]) {
+		NSRange replaceRange = [text rangeOfString:weapInHand];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:leftHandStr])  {
+		NSRange replaceRange = [text rangeOfString:leftHandStr];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:rightHandStr])  {
+		NSRange replaceRange = [text rangeOfString:rightHandStr];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:@" (alternate weapon; not wielded)"]) {
+		NSRange replaceRange = [text rangeOfString:@" (alternate weapon; not wielded)"];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:otherHand]) {
+		NSRange replaceRange = [text rangeOfString:otherHand];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:@" (in quiver)"]) {
+		NSRange replaceRange = [text rangeOfString:@" (in quiver)"];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:@" (in quiver pouch)"]) {
+		NSRange replaceRange = [text rangeOfString:@" (in quiver pouch)"];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
+	} else if ([text containsString:@" (at the ready)"]) {
+		NSRange replaceRange = [text rangeOfString:@" (at the ready)"];
+		text = [text stringByReplacingCharactersInRange:replaceRange withString:@""];
 	}
 
 	return text;
