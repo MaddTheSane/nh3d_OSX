@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13189.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1703,7 +1703,6 @@
                     <constraint firstItem="5451" firstAttribute="leading" secondItem="5453" secondAttribute="leading" id="1Jp-ge-S3o"/>
                     <constraint firstItem="578" firstAttribute="firstBaseline" secondItem="581" secondAttribute="firstBaseline" id="1Wv-qa-gy9"/>
                     <constraint firstItem="5131" firstAttribute="trailing" secondItem="5132" secondAttribute="trailing" id="24l-pY-6bY"/>
-                    <constraint firstItem="314" firstAttribute="leading" secondItem="RUh-a8-H5Q" secondAttribute="trailing" constant="5" id="29L-nI-UJe"/>
                     <constraint firstItem="6214" firstAttribute="centerY" secondItem="6406" secondAttribute="centerY" id="2Gp-5w-clL"/>
                     <constraint firstItem="350" firstAttribute="top" secondItem="5113" secondAttribute="bottom" constant="8" symbolic="YES" id="2HX-am-lDR"/>
                     <constraint firstItem="5112" firstAttribute="baseline" secondItem="465" secondAttribute="firstBaseline" id="2Un-JK-W2g"/>
