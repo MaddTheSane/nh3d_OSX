@@ -425,44 +425,8 @@
 /* Class = "NSWindow"; title = "さようなら…"; ObjectID = "5320"; */
 "5320.title" = "さようなら…";
 
-/* Class = "NSBox"; title = "Box"; ObjectID = "5437"; */
-"5437.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5451"; */
-"5451.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5453"; */
-"5453.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5455"; */
-"5455.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5457"; */
-"5457.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5459"; */
-"5459.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5461"; */
-"5461.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5464"; */
-"5464.title" = "Box";
-
 /* Class = "NSWindow"; title = "NetHack3D"; ObjectID = "5650"; */
 "5650.title" = "NetHack3D";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5744"; */
-"5744.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5746"; */
-"5746.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5748"; */
-"5748.title" = "Box";
-
-/* Class = "NSBox"; title = "Box"; ObjectID = "5750"; */
-"5750.title" = "Box";
 
 /* Class = "NSMenu"; title = "Menu"; ObjectID = "5915"; */
 "5915.title" = "Menu";
@@ -1179,7 +1143,7 @@
 "6958.title" = "選択解除";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "6960"; */
-"6960.title" = "OK";
+"6960.title" = "閉じる";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "6962"; */
 "6962.title" = "OK";
@@ -1235,7 +1199,7 @@
 /* Class = "NSButtonCell"; title = "5"; ObjectID = "6988"; */
 "6988.title" = "5";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Body armor slot"; ObjectID = "0G0-hH-8Ck"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Body armor slot"; ObjectID = "0G0-hH-8Ck"; */
 "0G0-hH-8Ck.ibShadowedIsNilPlaceholder" = "よろい";
 
 /* Class = "NSButtonCell"; title = "t"; ObjectID = "2vX-8R-dH4"; */
@@ -1247,7 +1211,7 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Pick Up"; ObjectID = "84z-Fq-US6"; */
 "84z-Fq-US6.ibShadowedToolTip" = "拾う";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Left ring slot"; ObjectID = "8U4-Uc-vdF"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Left ring slot"; ObjectID = "8U4-Uc-vdF"; */
 "8U4-Uc-vdF.ibShadowedIsNilPlaceholder" = "指輪（右手）";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Search"; ObjectID = "9Sm-65-g4R"; */
@@ -1256,16 +1220,16 @@
 /* Class = "NSButtonCell"; title = "a"; ObjectID = "AXU-wL-KKa"; */
 "AXU-wL-KKa.title" = "a";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "Azr-fb-WJi"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "Azr-fb-WJi"; */
 "Azr-fb-WJi.ibShadowedIsNilPlaceholder" = "グローブ";
 
 /* Class = "NSButtonCell"; title = "f"; ObjectID = "Cap-43-Uu2"; */
 "Cap-43-Uu2.title" = "f";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Amulet slot"; ObjectID = "Caw-w7-sGP"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Amulet slot"; ObjectID = "Caw-w7-sGP"; */
 "Caw-w7-sGP.ibShadowedIsNilPlaceholder" = "首飾り";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "DCX-Co-TEa"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Gloves slot"; ObjectID = "DCX-Co-TEa"; */
 "DCX-Co-TEa.ibShadowedIsNilPlaceholder" = "グローブ";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Throw"; ObjectID = "DKt-pB-xVh"; */
@@ -1274,10 +1238,10 @@
 /* Class = "NSButtonCell"; title = "k"; ObjectID = "G6z-2d-BO3"; */
 "G6z-2d-BO3.title" = "k";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Cloak slot"; ObjectID = "LjC-a9-yh9"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Cloak slot"; ObjectID = "LjC-a9-yh9"; */
 "LjC-a9-yh9.ibShadowedIsNilPlaceholder" = "クローク類";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "blindfold slot"; ObjectID = "MrB-Yl-ORA"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "blindfold slot"; ObjectID = "MrB-Yl-ORA"; */
 "MrB-Yl-ORA.ibShadowedIsNilPlaceholder" = "Blindfold slot";
 
 /* Class = "NSButtonCell"; title = "k"; ObjectID = "MrC-BN-3Jd"; */
@@ -1292,10 +1256,10 @@
 /* Class = "NSButton"; ibShadowedToolTip = "Use Magic"; ObjectID = "S5s-Xf-pjS"; */
 "S5s-Xf-pjS.ibShadowedToolTip" = "呪文を唱える";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Weapon slot"; ObjectID = "Wmh-CX-7kn"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Weapon slot"; ObjectID = "Wmh-CX-7kn"; */
 "Wmh-CX-7kn.ibShadowedIsNilPlaceholder" = "武器";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Right ring slot"; ObjectID = "XFs-bG-BgX"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Right ring slot"; ObjectID = "XFs-bG-BgX"; */
 "XFs-bG-BgX.ibShadowedIsNilPlaceholder" = "指輪（左手）";
 
 /* Class = "NSButton"; ibShadowedToolTip = "Again"; ObjectID = "XGZ-lm-wXf"; */
@@ -1303,6 +1267,9 @@
 
 /* Class = "NSButton"; ibShadowedToolTip = "Open"; ObjectID = "Xgt-Jt-ORS"; */
 "Xgt-Jt-ORS.ibShadowedToolTip" = "ドアを開く";
+
+/* Class = "NSMenuItem"; title = "Edit .nethackrc…"; ObjectID = "Xtc-cY-Us6"; */
+"Xtc-cY-Us6.title" = "Edit .nethackrc…";
 
 /* Class = "NSButton"; ibShadowedToolTip = "キック"; ObjectID = "YSQ-yz-IJi"; */
 "YSQ-yz-IJi.ibShadowedToolTip" = "キック";
@@ -1313,16 +1280,16 @@
 /* Class = "NSButtonCell"; title = "o"; ObjectID = "oNa-iN-bfd"; */
 "oNa-iN-bfd.title" = "o";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shoes slot"; ObjectID = "oUZ-5r-TMc"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Shoes slot"; ObjectID = "oUZ-5r-TMc"; */
 "oUZ-5r-TMc.ibShadowedIsNilPlaceholder" = "靴";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Secondary weapon slot"; ObjectID = "oc1-F0-Bt9"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Secondary weapon slot"; ObjectID = "oc1-F0-Bt9"; */
 "oc1-F0-Bt9.ibShadowedIsNilPlaceholder" = "予備の武器";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Shield slot"; ObjectID = "paO-SC-cTf"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Shield slot"; ObjectID = "paO-SC-cTf"; */
 "paO-SC-cTf.ibShadowedIsNilPlaceholder" = "よろい";
 
-/* Class = "BindingConnection"; ibShadowedIsNilPlaceholder = "Helmet slot"; ObjectID = "qqU-Tg-6UE"; */
+/* Class = "CocoaBindingsConnection"; ibShadowedIsNilPlaceholder = "Helmet slot"; ObjectID = "qqU-Tg-6UE"; */
 "qqU-Tg-6UE.ibShadowedIsNilPlaceholder" = "かぶと";
 
 /* Class = "NSMenuItem"; title = "Dungeon Overview"; ObjectID = "sbe-4J-BhS"; */

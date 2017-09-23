@@ -50,6 +50,7 @@ class NH3DMessaging: NSObject {
 	var rawPrintWindow: NSTextView! {
 		return rawPrintScrollView.contentView.documentView as? NSTextView
 	}
+	@IBOutlet weak var panelCloseButton: NSButton!
 	@IBOutlet weak var rawPrintPanel: NSPanel!
 	@IBOutlet weak var glView: NH3DOpenGLView!
 	
@@ -324,6 +325,9 @@ class NH3DMessaging: NSObject {
 	@objc func showLogPanel() -> NSApplication.TerminateReply {
 		var ripOrMainWindow: NSWindow
 		
+		panelCloseButton.action = #selector(NH3DMessaging.closeInputPanel(_:))
+		panelCloseButton.title = NSLocalizedString("OK", comment: "OK")
+		
 		rawPrintPanel.alphaValue = 0
 		rawPrintPanel.makeKeyAndOrderFront(self)
 		// window fade out/in
@@ -346,5 +350,13 @@ class NH3DMessaging: NSObject {
 		})
 		
 		return .terminateLater
+	}
+	
+	@IBAction func showLogPanel(_ sender: Any?) {
+		rawPrintPanel.makeKeyAndOrderFront(self)
+	}
+	
+	@IBAction func closeLogPanel(_ sender: Any?) {
+		rawPrintPanel.orderOut(self)
 	}
 }

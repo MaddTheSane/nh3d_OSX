@@ -2627,6 +2627,13 @@
                                     <action selector="infoMenuActions:" target="5648" id="9ri-27-oSr"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Gko-Ea-2XF"/>
+                            <menuItem title="Show Log" id="cPQ-ia-vhj">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showLogPanel:" target="5161" id="dXX-z4-j1P"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -2699,6 +2706,7 @@
             <connections>
                 <outlet property="delegate" destination="5648" id="6239"/>
             </connections>
+            <point key="canvasLocation" x="147" y="187"/>
         </menu>
         <customObject id="4755" userLabel="NH3DUserStatusModel" customClass="NH3DUserStatusModel">
             <connections>
@@ -2934,6 +2942,7 @@
                 <outlet property="inputPanel" destination="5307" id="5345"/>
                 <outlet property="inputTextField" destination="5309" id="5346"/>
                 <outlet property="messageScrollView" destination="6214" id="6426"/>
+                <outlet property="panelCloseButton" destination="5654" id="5Ab-yJ-ot5"/>
                 <outlet property="questionTextField" destination="5311" id="5360"/>
                 <outlet property="rawPrintPanel" destination="5650" id="5655"/>
                 <outlet property="rawPrintScrollView" destination="5652" id="z4t-1B-Wdm"/>
@@ -3057,7 +3066,7 @@ Gw
                         <rect key="frame" x="0.0" y="29" width="400" height="135"/>
                         <clipView key="contentView" id="szt-dP-q4S">
                             <rect key="frame" x="1" y="1" width="398" height="133"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
                                     <rect key="frame" x="0.0" y="0.0" width="398" height="133"/>
@@ -3161,7 +3170,7 @@ DQ
                         <rect key="frame" x="44" y="47" width="587" height="238"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="n3r-1g-Qlx">
                             <rect key="frame" x="0.0" y="0.0" width="587" height="238"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" drawsBackground="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5379">
                                     <rect key="frame" x="0.0" y="12" width="587" height="238"/>
@@ -3239,7 +3248,7 @@ DQ
                         <rect key="frame" x="48" y="61" width="397" height="370"/>
                         <clipView key="contentView" id="QxK-KS-b2V">
                             <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="20" id="5499">
                                     <rect key="frame" x="0.0" y="0.0" width="397" height="370"/>
@@ -3442,7 +3451,7 @@ DQ
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="xgV-6C-vHN"/>
                         </constraints>
-                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" continuous="YES" state="on" borderStyle="border" inset="2" id="6960">
+                        <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" continuous="YES" state="on" borderStyle="border" inset="2" id="6960">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <string key="keyEquivalent" base64-UTF8="YES">
@@ -3450,21 +3459,21 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="closeInputPanel:" target="5161" id="5661"/>
+                            <action selector="closeLogPanel:" target="5161" id="o7Y-le-Xch"/>
                         </connections>
                     </button>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5652">
-                        <rect key="frame" x="0.0" y="32" width="635" height="349"/>
+                        <rect key="frame" x="-1" y="32" width="637" height="350"/>
                         <clipView key="contentView" id="Hj5-ZN-y1C">
-                            <rect key="frame" x="1" y="1" width="633" height="347"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <rect key="frame" x="1" y="1" width="635" height="348"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
-                                    <rect key="frame" x="0.0" y="0.0" width="633" height="347"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="635" height="348"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="633" height="347"/>
-                                    <size key="maxSize" width="635" height="10000000"/>
+                                    <size key="minSize" width="635" height="348"/>
+                                    <size key="maxSize" width="637" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
@@ -3483,9 +3492,9 @@ DQ
                     <constraint firstItem="5654" firstAttribute="top" secondItem="5652" secondAttribute="bottom" constant="5" id="6aT-7l-4Vy"/>
                     <constraint firstAttribute="bottom" secondItem="5654" secondAttribute="bottom" constant="6" id="6tM-oD-2VX"/>
                     <constraint firstItem="5654" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5651" secondAttribute="leading" constant="20" symbolic="YES" id="6uf-eQ-TFr"/>
-                    <constraint firstItem="5652" firstAttribute="top" secondItem="5651" secondAttribute="top" id="Dx7-Sz-e5T"/>
-                    <constraint firstAttribute="trailing" secondItem="5652" secondAttribute="trailing" id="KO3-JT-hwO"/>
-                    <constraint firstItem="5652" firstAttribute="leading" secondItem="5651" secondAttribute="leading" id="SgQ-Gh-cLz"/>
+                    <constraint firstItem="5652" firstAttribute="top" secondItem="5651" secondAttribute="top" constant="-1" id="Dx7-Sz-e5T"/>
+                    <constraint firstAttribute="trailing" secondItem="5652" secondAttribute="trailing" constant="-1" id="KO3-JT-hwO"/>
+                    <constraint firstItem="5652" firstAttribute="leading" secondItem="5651" secondAttribute="leading" constant="-1" id="SgQ-Gh-cLz"/>
                     <constraint firstAttribute="trailing" secondItem="5654" secondAttribute="trailing" constant="20" symbolic="YES" id="gPF-AH-ZBL"/>
                 </constraints>
             </view>

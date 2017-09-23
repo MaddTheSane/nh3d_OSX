@@ -65,12 +65,13 @@
 "NetHack Error!" = "NetHackエラー！"; //fuzzy
 "\n\nNetHack will now crash." = "\n\nNetHackがクラッシュするようになりました．"; //fuzzy
 "Only user \"%s\" may access debug (wizard) mode." = "「%s」のみがデバッグ(wizard)モードを使用できる．";
-//"Center of Map" = "Center of Map";
+"Center of Map" = "マップの中心"; //fuzzy
 
-//"Right" = "Right";
-//"Left" = "Left";
-//"Cancel" = "Cancel";
-//"Yes" = "Yes";
-//"No" = "No";
-//"Auto" = "Auto";
-//"Quit" = "Quit";
+"Right" = "右"; //fuzzy
+"Left" = "左"; //fuzzy
+"Cancel" = "キャンセル"; //fuzzy
+"Yes" = "はい"; //fuzzy
+"No" = "いいえ"; //fuzzy
+"Auto" = "自動"; //fuzzy
+"Quit" = "終了する"; //fuzzy
+"OK" = "OK";
