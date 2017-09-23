@@ -390,11 +390,11 @@ extern const char *hu_stat[]; /* from eat.c */
 static NSString *stripParentheses(NSString *text)
 {
 	// Cache these strings so they aren't auto-generated each time
-	static NSString *leftHandStr;
-	static NSString *rightHandStr;
-	static NSString *weapInHand;
-	static NSString *weapInHands;
-	static NSString *otherHand;
+	static NSString *leftHandStr=@"";
+	static NSString *rightHandStr=@"";
+	static NSString *weapInHand=@"";
+	static NSString *weapInHands=@"";
+	static NSString *otherHand=@"";
 	static const char *hand = NULL;
 	// ...but regenerate them when our hands change
 	if (hand != body_part(HAND)) {

@@ -788,7 +788,7 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			};
 			for (NSInteger i = 0; i < sizeof(ynaqDefaults) / sizeof(ynaqDefaults[0]); i++) {
 				if (choice == ynaqDefaults[i].choice) {
-					NSButton *button = [alert addButtonWithTitle:(__bridge NSString *)(ynaqDefaults[i].value)];
+					NSButton *button = [alert addButtonWithTitle:NSLocalizedString((__bridge NSString *)(ynaqDefaults[i].value), nil)];
 					button.tag = ynaqDefaults[i].tag;
 					if (choice == def) {
 						button.keyEquivalent = @"\r";
@@ -827,11 +827,11 @@ char nh3d_yn_function(const char *question, const char *choices, char def)
 			NSAlert *alert = [[NSAlert alloc] init];
 			alert.messageText = [NSString stringWithCString:question encoding:NH3DTEXTENCODING];
 			alert.informativeText = @" ";
-			NSButton *button = [alert addButtonWithTitle:@"Right"];
+			NSButton *button = [alert addButtonWithTitle:NSLocalizedString(@"Right", @"Right")];
 			button.keyEquivalent = @"r";
-			button = [alert addButtonWithTitle:@"Left"];
+			button = [alert addButtonWithTitle:NSLocalizedString(@"Left", @"Left")];
 			button.keyEquivalent = @"l";
-			button = [alert addButtonWithTitle:@"Cancel"];
+			button = [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
 			button.keyEquivalent = @"\r";
 			
 			switch ([alert runModal]) {
@@ -1299,8 +1299,8 @@ wd_message()
 	NSAlert *alert = [[NSAlert alloc] init];
 	alert.messageText = NSLocalizedString(@"Quit NetHack3D", @"Quit NetHack3D");
 	alert.informativeText = NSLocalizedString(@"Do you really want to Force Quit?", @"Do you really want to quit and lose progress?");
-	[alert addButtonWithTitle:@"Cancel"];
-	[alert addButtonWithTitle:@"Quit"];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
+	[alert addButtonWithTitle:NSLocalizedString(@"Quit", @"Quit")];
 	NSInteger choise = [alert runModal];
 	if (choise == NSAlertSecondButtonReturn) {
 		[NSApp terminate:self];
@@ -1466,8 +1466,8 @@ static char ynPreReady(const char *str)
 	eraseSaveAlert.messageText = NSLocalizedString(@"Old Save File", @"Old Save File");
 	eraseSaveAlert.informativeText = NSLocalizedStringWithDefaultValue(nsStr, nil, [NSBundle mainBundle], nsStr, @"");
 	
-	[eraseSaveAlert addButtonWithTitle:@"No"];
-	[eraseSaveAlert addButtonWithTitle:@"Yes"];
+	[eraseSaveAlert addButtonWithTitle:NSLocalizedString(@"No", @"No")];
+	[eraseSaveAlert addButtonWithTitle:NSLocalizedString(@"Yes", @"Yes")];
 	
 	NSInteger result = [eraseSaveAlert runModal];
 	

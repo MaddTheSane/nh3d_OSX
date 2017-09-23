@@ -74,3 +74,11 @@
 "\n\nNetHack will now crash." = "\n\nNetHack will now crash.";
 "Only user \"%s\" may access debug (wizard) mode." = "Only user \"%s\" may access debug (wizard) mode.";
 "Center of Map" = "Center of Map";
+
+"Right" = "Right";
+"Left" = "Left";
+"Cancel" = "Cancel";
+"Yes" = "Yes";
+"No" = "No";
+"Auto" = "Auto";
+"Quit" = "Quit";

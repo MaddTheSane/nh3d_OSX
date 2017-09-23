@@ -66,3 +66,11 @@
 "\n\nNetHack will now crash." = "\n\nNetHackがクラッシュするようになりました．"; //fuzzy
 "Only user \"%s\" may access debug (wizard) mode." = "「%s」のみがデバッグ(wizard)モードを使用できる．";
 //"Center of Map" = "Center of Map";
+
+//"Right" = "Right";
+//"Left" = "Left";
+//"Cancel" = "Cancel";
+//"Yes" = "Yes";
+//"No" = "No";
+//"Auto" = "Auto";
+//"Quit" = "Quit";
