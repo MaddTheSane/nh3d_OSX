@@ -634,7 +634,11 @@ E void panic(const char *, ...) PRINTF_F(1, 2) NORETURN;
 E void done(int);
 E void container_contents(struct obj *, boolean,
                                   boolean, boolean);
-E void terminate(int) NORETURN;
+E void terminate(int)
+#ifndef NH3D_GRAPHICS
+NORETURN
+#endif
+;
 E int dovanquished(void);
 E int num_genocides(void);
 E void delayed_killer(int, int, const char *);

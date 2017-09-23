@@ -47,7 +47,11 @@ STATIC_DCL void disclose(int, boolean);
 STATIC_DCL void get_valuables(struct obj *);
 STATIC_DCL void sort_valuables(struct valuable_data *, int);
 STATIC_DCL void artifact_score(struct obj *, boolean, winid);
-STATIC_DCL void really_done(int) NORETURN;
+STATIC_DCL void really_done(int)
+#ifndef NH3D_GRAPHICS
+NORETURN
+#endif
+;
 STATIC_DCL boolean odds_and_ends(struct obj *, int);
 STATIC_DCL void savelife(int);
 STATIC_DCL void list_vanquished(char, boolean);
@@ -579,6 +583,9 @@ void panic(const char *str, ...)
 #endif
     va_end(the_args);
     really_done(PANICKED);
+#ifdef NH3D_GRAPHICS
+    exit(EXIT_FAILURE);
+#endif
 }
 
 STATIC_OVL boolean
