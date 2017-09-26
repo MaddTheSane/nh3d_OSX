@@ -327,8 +327,12 @@ class NH3DMessaging: NSObject {
 		
 		panelCloseButton.action = #selector(NH3DMessaging.closeInputPanel(_:))
 		panelCloseButton.title = NSLocalizedString("OK", comment: "OK")
+		let rppWasVisible = rawPrintPanel.isVisible && !ripFlag
 		
-		rawPrintPanel.alphaValue = 0
+		if !rppWasVisible {
+			rawPrintPanel.alphaValue = 0
+			rawPrintPanel.center()
+		}
 		rawPrintPanel.makeKeyAndOrderFront(self)
 		// window fade out/in
 		
@@ -341,8 +345,17 @@ class NH3DMessaging: NSObject {
 		
 		NSAnimationContext.runAnimationGroup({ (ctx) -> Void in
 			ripOrMainWindow.animator().alphaValue = 0
-			self.rawPrintPanel.animator().alphaValue = 1
+			if rppWasVisible {
+				let newRect = self.rawPrintPanel.frame.centered(in: self.rawPrintPanel.screen!.visibleFrame)
+				//TODO: make this smoother.
+				self.rawPrintPanel.animator().setFrame(newRect, display: true)
+				//self.rawPrintPanel.setFrame(newRect, display: true, animate: true)
+				//self.rawPrintPanel.animator().center()
+			} else {
+				self.rawPrintPanel.animator().alphaValue = 1
+			}
 		}, completionHandler: {
+			ripOrMainWindow.orderOut(self)
 			NSApp.runModal(for: self.rawPrintPanel)
 			self.rawPrintPanel.orderOut(self)
 			clearlocks()
@@ -358,5 +371,17 @@ class NH3DMessaging: NSObject {
 	
 	@IBAction func closeLogPanel(_ sender: Any?) {
 		rawPrintPanel.orderOut(self)
+	}
+}
+
+extension NSRect {
+	func centered(in outerRect: NSRect) -> NSRect {
+		var innerRect = self
+		innerRect.origin.x = outerRect.origin.x
+			+ floor((outerRect.size.width - innerRect.size.width) / 2.0);
+		innerRect.origin.y = outerRect.origin.y
+			+ floor((outerRect.size.height - innerRect.size.height) / 2.0);
+
+		return innerRect
 	}
 }
