@@ -50,7 +50,7 @@ extern const char *hu_stat[]; /* from eat.c */
 
 - (instancetype)init
 {
-    if (self = [super init]) {
+	if (self = [super init]) {
 		shadow = [[NSShadow alloc] init];
 		style = [[NSMutableParagraphStyle alloc] init];
 		strAttributes = [[NSMutableDictionary alloc] init];
@@ -78,7 +78,7 @@ extern const char *hu_stat[]; /* from eat.c */
 		self.playerExp = 9999;
 		self.playerAc = -9999;
 		self.playerLv = 9999;
-
+		
 		[self setStrUpdate:NO];
 		[self setHpUpdate:NO];
 		[self setDexUpdate:NO];
@@ -89,10 +89,10 @@ extern const char *hu_stat[]; /* from eat.c */
 		[self setLvUpdate:NO];
 		[self setPowUpdate:NO];
 		[self setAcUpdate:NO];
-				
+		
 		firstTime = YES;
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)prepareAttributes
@@ -396,7 +396,7 @@ static NSString *stripParentheses(NSString *text)
 	static NSString *weapInHands=@"";
 	static NSString *otherHand=@"";
 	static const char *hand = NULL;
-	// ...but regenerate them when our hands change
+	// ...but regenerate them when what our hands are change
 	if (hand != body_part(HAND)) {
 		hand = body_part(HAND);
 		NSString *handPart = [NSString stringWithCString:hand encoding:NH3DTEXTENCODING];
@@ -449,15 +449,10 @@ static NSString *stripParentheses(NSString *text)
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
 		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]);
-	} else {
-		[self setPlayerArmour:0];
-		self.playerArmorString = nil;
-	}
-
-	if (uarmu && !uarm) {
+	} else if (uarmu && !uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
 		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarmu) encoding:NH3DTEXTENCODING]);
-	} else if (!uarm) {
+	} else {
 		[self setPlayerArmour:0];
 		self.playerArmorString = nil;
 	}
@@ -1062,7 +1057,7 @@ static NSString *stripParentheses(NSString *text)
 #ifdef SCORE_ON_BOTL
 	self.playerScore = botl_score();
 #else
-	[self setPlayerScore:0];
+	self.playerScore = 0;
 #endif
 	self.playerExp = u.uexp;
 	self.playerAc = u.uac;

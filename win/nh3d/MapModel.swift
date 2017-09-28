@@ -155,15 +155,15 @@ class MapModel: NSObject {
 	
 	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:)
 	final func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
-		var ch: Int32 = 0
-		var color: Int32 = 0
-		var special: UInt32 = 0
-		
 		if mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].glyph == glf && mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].bgGlyph == bgGlyph {
 			return
 		} else if x+MAP_MARGIN > MAPSIZE_COLUMN || y+MAP_MARGIN > MAPSIZE_ROW {
 			panic("Illegal map size!")
 		} else {
+			var ch: Int32 = 0
+			var color: Int32 = 0
+			var special: UInt32 = 0
+			
 			// map glyph to character and color
 			
 			mapglyph(glf, &ch, &color, &special, x, y)
@@ -174,7 +174,7 @@ class MapModel: NSObject {
 			lock.lock()
 			
 			//  make map
-			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingIfNeeded: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(special), bgGlyph: bgGlyph)
+			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingIfNeeded: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(bitPattern: special), bgGlyph: bgGlyph)
 			
 			lock.unlock()
 			

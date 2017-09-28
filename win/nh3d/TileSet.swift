@@ -193,21 +193,13 @@ final class TileSet: NSObject {
 					toRet.size.height *= 2
 					return toRet
 				}()
-				let srcRect2x: NSRect = {
-					var toRet = srcRect
-					toRet.origin.x *= 2
-					toRet.origin.y *= 2
-					toRet.size.width *= 2
-					toRet.size.height *= 2
-					return toRet
-				}()
 
 				guard let ctx2x = CGContext(data: nil, width: Int(dstRect2x.width), height: Int(dstRect2x.height), bitsPerComponent: 8, bytesPerRow: Int(dstRect2x.width) * 4, space: clrSpace, bitmapInfo: CGBitmapInfo.byteOrder32Host.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue) else {
 					break at2x
 				}
 				NSGraphicsContext.saveGraphicsState()
 				NSGraphicsContext.current = NSGraphicsContext(cgContext: ctx2x, flipped: false)
-				imgBir2x.draw(in: dstRect2x, from: srcRect2x, operation: .copy, fraction: 1, respectFlipped: true, hints: nil)
+				imgBir2x.draw(in: dstRect2x, from: srcRect, operation: .copy, fraction: 1, respectFlipped: true, hints: nil)
 				NSGraphicsContext.restoreGraphicsState()
 				guard let cgImage2x = ctx2x.makeImage() else {
 					break at2x
