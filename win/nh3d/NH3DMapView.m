@@ -168,6 +168,7 @@
 			[self setNeedsDisplay:YES];
 			[_bindController.mainWindow displayIfNeeded];
 		}
+		[_bindController.userStatus updatePlayerInventory];
 	});
 }
 
