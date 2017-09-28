@@ -132,6 +132,11 @@ void nh3d_set_savefile_name(void);
 
 @end
 
+
+/// Something really bad happened!
+__dead2 NS_SWIFT_NAME(panic(_:))
+extern void Swift_NSPanic(NSString *__nonnull panicText);
+
 NS_ASSUME_NONNULL_END
 
 #endif /* WINNH3D_H */

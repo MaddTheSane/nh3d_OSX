@@ -10,8 +10,8 @@
 #import "winnh3d.h"
 #import "NH3DMapView.h"
 #import "NH3DSwiftHelpers.h"
-#import "NetHack3D-Swift.h"
 #import "Hearse.h"
+#import "NetHack3D-Swift.h"
 
 #include <sys/stat.h>
 #include <signal.h>
@@ -22,6 +22,14 @@
 #ifdef XI18N
 #include <X11/Xlocale.h>
 #endif
+
+
+void Swift_NSPanic(NSString *__nonnull panicText)
+{
+	panic("%s", [panicText cStringUsingEncoding:NH3DTEXTENCODING]);
+	//should never be called
+	//abort();
+}
 
 #ifdef CHDIR
 static void chdirx(const char *, boolean);

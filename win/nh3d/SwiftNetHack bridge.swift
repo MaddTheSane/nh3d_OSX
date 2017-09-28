@@ -333,5 +333,5 @@ var roomAtCurrentLocation: rm {
 
 /// Returns `true` if the passed-in level is a wizard level.
 func isWizardLevel(_ xx: UnsafeMutablePointer<d_level>) -> Bool {
-	return isWizard1Level(xx) || isWizard2Level(xx) || isWizard3Level(xx)
+	return isWizardLevel1(xx) || isWizardLevel2(xx) || isWizardLevel3(xx)
 }

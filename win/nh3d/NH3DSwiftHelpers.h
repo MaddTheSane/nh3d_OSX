@@ -203,15 +203,6 @@ static inline int Swift_objToGlyph(struct obj *__nonnull obj2)
 	return obj_to_glyph(obj2);
 }
 
-/// Something really bad happened!
-__dead2 NS_SWIFT_NAME(panic(_:))
-static inline void Swift_Panic(const char *__nonnull panicText)
-{
-	panic("%s", panicText);
-	//should never be called
-	abort();
-}
-
 
 //! returns \c true if the passed-in level is on the astral plane.
 NS_SWIFT_NAME(isAstralLevel(_:))
@@ -291,21 +282,21 @@ static inline bool Swift_Is_baal_level(d_level *__nonnull xx)
 }
 
 //! returns \c true if the passed-in level is the first wizard level.
-NS_SWIFT_NAME(isWizard1Level(_:))
+NS_SWIFT_NAME(isWizardLevel1(_:))
 static inline bool Swift_Is_wiz1_level(d_level *__nonnull xx)
 {
 	return Is_wiz1_level(xx);
 }
 
 //! returns \c true if the passed-in level is the second wizard level.
-NS_SWIFT_NAME(isWizard2Level(_:))
+NS_SWIFT_NAME(isWizardLevel2(_:))
 static inline bool Swift_Is_wiz2_level(d_level *__nonnull xx)
 {
 	return Is_wiz2_level(xx);
 }
 
 //! returns \c true if the passed-in level is the third wizard level.
-NS_SWIFT_NAME(isWizard3Level(_:))
+NS_SWIFT_NAME(isWizardLevel3(_:))
 static inline bool Swift_Is_wiz3_level(d_level *__nonnull xx)
 {
 	return Is_wiz3_level(xx);
