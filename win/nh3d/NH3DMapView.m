@@ -1238,23 +1238,32 @@
 {
 	keyBuffer = 0;
 	switch ([sender tag]) {
-		case 0: keyBuffer = '?';	/* Help */
+		case 0:		/* Help */
+			keyBuffer = '?';
 			break;
-		case 1: keyBuffer = ':';	/* What is here */
+		case 1:		/* What is here */
+			keyBuffer = ':';
 			break;
-		case 2: keyBuffer = ';';	/* What is there */
+		case 2:		/* What is there */
+			keyBuffer = ';';
 			break;
-		case 3: keyBuffer = '/';	/* What is ... */
+		case 3:		/* What is ... */
+			keyBuffer = '/';
 			break;
-		case 4: keyBuffer = 'O';	/* Preferences… */
+		case 4:		/* NetHack Preferences… */
+			keyBuffer = 'O';
 			break;
-		case 5: keyBuffer = 'S';	/* Save game */
+		case 5:		/* Save game */
+			keyBuffer = 'S';
 			break;
-		case 6: keyBuffer = 'v';	/* Version */
+		case 6:		/* Version */
+			keyBuffer = 'v';
 			break;
-		case 7: keyBuffer = M('v');	/* Compile Info */
+		case 7:		/* Compile Info */
+			keyBuffer = M('v');
 			break;
-		case 8: keyBuffer = 'V';	/* History */
+		case 8:		/* History */
+			keyBuffer = 'V';
 			break;
 		//
 		case 20 : 
