@@ -378,9 +378,9 @@ extension NSRect {
 	func centered(in outerRect: NSRect) -> NSRect {
 		var innerRect = self
 		innerRect.origin.x = outerRect.origin.x
-			+ floor((outerRect.size.width - innerRect.size.width) / 2.0);
+			+ floor((outerRect.size.width - innerRect.size.width) / 2.0)
 		innerRect.origin.y = outerRect.origin.y
-			+ floor((outerRect.size.height - innerRect.size.height) / 2.0);
+			+ floor((outerRect.size.height - innerRect.size.height) / 2.0)
 
 		return innerRect
 	}

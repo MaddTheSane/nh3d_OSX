@@ -1194,9 +1194,10 @@ wd_message()
 		 */
 	} else
 #endif
-		if (discover)
+		if (discover) {
 			
 			You("%s", [NSLocalizedString(@"are in non-scoring discovery mode.", @"(you) are in non-scoring discovery mode.") cStringUsingEncoding:NH3DTEXTENCODING]);
+		}
 }
 
 //--------------------------------------------------------------//
@@ -1353,6 +1354,7 @@ wd_message()
 
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey];
+	[[self userStatus] updatePlayerInventory];
 }
 
 // show user make panel.

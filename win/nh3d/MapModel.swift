@@ -135,11 +135,11 @@ class MapModel: NSObject {
 	
 	@objc final func startIndicator() {
 		indicatorIsActive = true
-		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(timer:)), userInfo: nil, repeats: true)
+		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
 		RunLoop.current.add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
 	}
 	
-	@objc private func updateEnemyIndicator(timer: Timer) {
+	@objc private func updateEnemyIndicator(_ timer: Timer) {
 		var value = enemyWarnBase + Int32(arc4random() % 3 + 1)
 		let alert = NSSound(named: NSSound.Name(rawValue: "Hero"))!
 		

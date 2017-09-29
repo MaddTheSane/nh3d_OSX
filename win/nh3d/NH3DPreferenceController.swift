@@ -68,7 +68,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 				let matchSquare = fileName[match1]
 				#if REDUNDANT_SAFETY_CHECKS
 					guard let tmpIntSquare = Int(String(matchSquare)) else {
-						return nil
+						break matchOneSize
 					}
 					let tmpSquare = Int32(tmpIntSquare)
 				#else
@@ -308,7 +308,9 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	
 	@IBAction func clearID(_ sender: AnyObject?) {
 		UserDefaults.standard.removeObject(forKey: kKeyHearseId)
-		restartHearse(nil)
+		#if !HEARSE_DISABLE
+			restartHearse(nil)
+		#endif
 	}
 	
 	@IBAction func applyTileSettings(_ sender: AnyObject?) {
