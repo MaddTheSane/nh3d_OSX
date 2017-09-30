@@ -411,4 +411,16 @@ static inline bool Swift_Blindfolded_only()
 	return Blindfolded_only;
 }
 
+NS_SWIFT_NAME(monsterAt(x:y:))
+static inline struct monst * __nullable Swift_m_at(int xx, int yy)
+{
+	return m_at(xx, yy);
+}
+
+NS_SWIFT_NAME(monsterBuriedAt(x:y:))
+static inline struct monst * __nullable Swift_m_buried_at(int xx, int yy)
+{
+	return m_buried_at(xx, yy);
+}
+
 #endif /* NH3DSwiftBridging_h */
