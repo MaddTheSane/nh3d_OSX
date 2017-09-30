@@ -32,15 +32,7 @@ final class TileSet: NSObject {
 	private var cache: [Int16: NSImage] = [:]
 	
 	@objc init(image img: NSImage, tileSize ts: NSSize) {
-		let rect = NSRect(origin: .zero, size: img.size)
-		#if true
-			image = img.copy() as! NSImage
-		#else
-			image = NSImage(size: rect.size)
-			image.lockFocus()
-			img.draw(in: rect, from: rect, operation: .copy, fraction: 1.0)
-			image.unlockFocus()
-		#endif
+		image = img.copy() as! NSImage
 		
 		tileSize = ts
 		rows = Int(image.size.height / tileSize.height)
@@ -62,29 +54,27 @@ final class TileSet: NSObject {
 		self.init(image: img, tileSize: size)
 	}
 	
-	@objc convenience init?(imageAtLocation loc: String, tileSize size1: NSSize = .zero) {
+	@objc convenience init?(imageAt loc: URL, tileSize size1: NSSize = .zero) {
 		var size = size1
-		guard let img = NSImage(contentsOfFile: loc) else {
+		guard let img = NSImage(contentsOf: loc) else {
 			return nil
 		}
 		
 		do {
 			//Attempt to find (and use) Retina @2x images
 			//TODO: check if hi-res, multi-page images work.
-			let x2Loc: String = {
-				//var toRet = ""
-				let nsLoc = loc as NSString
-				let ext = nsLoc.pathExtension
-				let parentPath = nsLoc.deletingLastPathComponent
-				var lastPath = (nsLoc.lastPathComponent as NSString).deletingPathExtension
+			let x2Loc: URL = {
+				let ext = loc.pathExtension
+				let parentPath = loc.deletingLastPathComponent()
+				var lastPath = (loc.lastPathComponent as NSString).deletingPathExtension
 				lastPath += "@2x"
 				lastPath = (lastPath as NSString).appendingPathExtension(ext) ?? "\(lastPath).\(ext)"
 				var toRet = parentPath
-				toRet = (toRet as NSString).appendingPathComponent(lastPath)
+				toRet.appendPathComponent(lastPath)
 				
 				return toRet
 			}()
-			if img.representations.count == 1, !(img.representations[0] is NSPDFImageRep), let img2 = NSImage(contentsOfFile: x2Loc) {
+			if img.representations.count == 1, !(img.representations[0] is NSPDFImageRep), let img2 = NSImage(contentsOf: x2Loc) {
 				let rep = img2.representations[0]
 				rep.size = img.size
 				img.addRepresentation(rep)
@@ -92,7 +82,7 @@ final class TileSet: NSObject {
 		}
 		
 		if size == .zero {
-			if let nameSize = sizeFrom(fileName: (loc as NSString).lastPathComponent) {
+			if let nameSize = sizeFrom(fileName: loc.lastPathComponent) {
 				size = NSSize(width: Int(nameSize.width), height: Int(nameSize.height))
 			} else {
 				size.width = img.size.width / CGFloat(TILES_PER_LINE)
@@ -101,6 +91,10 @@ final class TileSet: NSObject {
 		}
 		
 		self.init(image: img, tileSize: size)
+	}
+	
+	@objc convenience init?(imageAtLocation loc: String, tileSize size: NSSize = .zero) {
+		self.init(imageAt: URL(fileURLWithPath: loc), tileSize: size)
 	}
 	
 	private func sourceRect(for glyph: Int32) -> NSRect {
