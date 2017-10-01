@@ -4,8 +4,6 @@
 
 #include "hack.h"
 
-STATIC_DCL void center(int, char *);
-
 #if defined(TTY_GRAPHICS) || defined(X11_GRAPHICS) || defined(GEM_GRAPHICS) \
     || defined(MSWIN_GRAPHICS)
 #define TEXT_TOMBSTONE
@@ -17,6 +15,8 @@ STATIC_DCL void center(int, char *);
 #endif
 
 #ifdef TEXT_TOMBSTONE
+
+STATIC_DCL void center(int, char *);
 
 #ifndef NH320_DEDICATION
 /* A normal tombstone for end of game display. */

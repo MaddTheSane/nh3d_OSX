@@ -540,7 +540,7 @@ E xchar dunlevs_in_dungeon(d_level *);
 E xchar ledger_to_dnum(xchar);
 E xchar ledger_to_dlev(xchar);
 E xchar deepest_lev_reached(boolean);
-E boolean on_level(d_level *, d_level *);
+E boolean on_level(const d_level *, const d_level *);
 E void next_level(boolean);
 E void prev_level(boolean);
 E void u_on_newpos(int, int);

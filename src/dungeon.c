@@ -1052,7 +1052,7 @@ depth(d_level *lev)
 
 /* are "lev1" and "lev2" actually the same? */
 boolean
-on_level(d_level *lev1, d_level *lev2)
+on_level(const d_level *lev1, const d_level *lev2)
 {
     return (boolean) (lev1->dnum == lev2->dnum
                       && lev1->dlevel == lev2->dlevel);
