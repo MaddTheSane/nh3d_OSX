@@ -2177,19 +2177,26 @@ extension NH3DOpenGLView {
 	/// humanoids class
 	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		if glyph == PM_DWARF_KING+GLYPH_MON_OFF || glyph == PM_DWARF_KING+NetHackGlyphPetOffset {
+		switch glyph {
+		case PM_DWARF_KING+GLYPH_MON_OFF, PM_DWARF_KING+NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = float3(x: 0, y: 0.2, z: -0.21)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
-		} else {
+
+		case PM_MIND_FLAYER + GLYPH_MON_OFF, PM_MASTER_MIND_FLAYER + GLYPH_MON_OFF,
+		     PM_MIND_FLAYER + NetHackGlyphPetOffset, PM_MASTER_MIND_FLAYER + NetHackGlyphPetOffset:
+			ret = NH3DModelObject(with3DSFile: "lowerH", withTexture: false)
+			// TODO: add tentacles
+			
+		default:
 			let offset: Int32
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
 				offset = GLYPH_MON_OFF
 			}
-			ret = checkLoadedModels(at: PM_HOBBIT, to: PM_MASTER_MIND_FLAYER, offset: offset, modelName: "lowerH", without: PM_DWARF_KING)
+			ret = checkLoadedModels(at: PM_HOBBIT, to: PM_MASTER_MIND_FLAYER, offset: offset, modelName: "lowerH", without: PM_DWARF_KING, PM_MIND_FLAYER, PM_MASTER_MIND_FLAYER)
 		}
 		return ret
 	}
