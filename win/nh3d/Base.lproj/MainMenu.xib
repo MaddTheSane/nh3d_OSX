@@ -965,7 +965,7 @@
                         </view>
                     </box>
                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5005">
-                        <rect key="frame" x="248" y="194" width="330" height="16"/>
+                        <rect key="frame" x="248" y="194" width="331" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="z8H-am-ilm"/>
                         </constraints>
@@ -993,7 +993,7 @@
                         </connections>
                     </button>
                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5093">
-                        <rect key="frame" x="672" y="437" width="109" height="16"/>
+                        <rect key="frame" x="672" y="437" width="110" height="16"/>
                         <levelIndicatorCell key="cell" alignment="left" maxValue="10" tickMarkPosition="above" levelIndicatorStyle="continuousCapacity" id="6885"/>
                         <connections>
                             <binding destination="4761" name="criticalValue" keyPath="selection.playerCriticalHp" id="5102"/>
@@ -1003,7 +1003,7 @@
                         </connections>
                     </levelIndicator>
                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5094">
-                        <rect key="frame" x="672" y="413" width="109" height="16"/>
+                        <rect key="frame" x="672" y="413" width="110" height="16"/>
                         <levelIndicatorCell key="cell" alignment="left" maxValue="10" levelIndicatorStyle="continuousCapacity" id="6886"/>
                         <connections>
                             <binding destination="4761" name="criticalValue" keyPath="selection.playerCriticalPow" id="5106"/>
@@ -3424,16 +3424,16 @@ DQ
         </window>
         <customObject id="5507" userLabel="NH3DMenuWindow" customClass="NH3DMenuWindow">
             <connections>
-                <outlet property="_ripTextwindow" destination="5665" id="5670"/>
-                <outlet property="_textWindow" destination="5379" id="5623"/>
                 <outlet property="menuPanel" destination="5496" id="5508"/>
                 <outlet property="menuPanelStrings" destination="5579" id="5580"/>
                 <outlet property="menuPanelStringsShadow" destination="5589" id="5590"/>
                 <outlet property="menuScrollview" destination="5498" id="5606"/>
                 <outlet property="menuTableWindow" destination="5499" id="5509"/>
                 <outlet property="messenger" destination="5161" id="5669"/>
+                <outlet property="ripTextwindow" destination="5665" id="5670"/>
                 <outlet property="textPanel" destination="5366" id="5621"/>
                 <outlet property="textScrollView" destination="5378" id="5622"/>
+                <outlet property="textWindow" destination="5379" id="5623"/>
                 <outlet property="window" destination="21" id="x4M-LS-NnH"/>
             </connections>
         </customObject>
@@ -3987,7 +3987,7 @@ DQ
                         <rect key="frame" x="45" y="61" width="650" height="450"/>
                         <clipView key="contentView" autoresizesSubviews="NO" wantsLayer="YES" drawsBackground="NO" copiesOnScroll="NO" id="qFK-Qf-Zkl">
                             <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <imageView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6444">
                                     <rect key="frame" x="0.0" y="0.0" width="650" height="450"/>

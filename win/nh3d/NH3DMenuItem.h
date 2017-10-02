@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;
 
-// This is designated initializer.
+//! This is designated initializer.
 -(instancetype)initWithParameter:(const char*)cName
 					  identifier:(const anything *)ident
 					 accelerator:(char)accel

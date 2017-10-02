@@ -16,9 +16,6 @@
 
 @interface NH3DMenuWindow : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
 @private
-	__unsafe_unretained IBOutlet NSTextView *_textWindow;
-	__unsafe_unretained IBOutlet NSTextView *_ripTextwindow;
-	
 	NSMutableArray<NH3DMenuItem*> *nh3dMenu;
 	NSMutableDictionary<NSAttributedStringKey,id> *darkShadowStrAttributes;
 	NSMutableDictionary<NSAttributedStringKey,id> *lightShadowStrAttributes;
@@ -40,13 +37,13 @@
 @property (weak) IBOutlet NSTextField *menuPanelStringsShadow;
 @property (weak) IBOutlet NSScrollView *menuScrollview;
 
-//@property (weak) IBOutlet NSTextView *textWindow;
+@property (unsafe_unretained) IBOutlet NSTextView *textWindow;
 
 @property (weak) IBOutlet NSScrollView *textScrollView;
 @property (weak) IBOutlet NSPanel *textPanel;
 /* I am going to collect it.Probably. Perhaps.... */
 @property (weak) IBOutlet NH3DMessaging *messenger;
-//@property (weak) IBOutlet NSTextView *ripTextwindow;
+@property (unsafe_unretained) IBOutlet NSTextView *ripTextwindow;
 
 @property BOOL isMenu;
 

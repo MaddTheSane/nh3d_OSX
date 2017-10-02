@@ -1163,9 +1163,6 @@ final class NH3DOpenGLView: NSOpenGLView {
 			if (model == nil
 				&& !(glyph >= S_stone+NetHackGlyphCMapOffset
 					&& glyph <= S_water+NetHackGlyphCMapOffset)) { // Draw alternate object.
-				var f: Float = 0
-				var angle: Float = 5.0
-				
 				glPushMatrix()
 				defer {
 					glPopMatrix()
@@ -1202,7 +1199,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				
 				
 				glDisable(GLenum(GL_CULL_FACE))
-				//angle = 5.0;
+				var angle: GLfloat = 5.0
 				for f in stride(from: 0, to: GLfloat(0.02), by: 0.002) {
 					angle *= -1.0
 					glTranslatef(0.0, 0.0, f)
@@ -1227,7 +1224,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				}
 				
 				switch glyph {
-				case PM_GIANT_ANT+GLYPH_MON_OFF ... NUMMONS:
+				case PM_GIANT_ANT+GLYPH_MON_OFF ... NUMMONS+GLYPH_MON_OFF:
 					let materialCol = mapItem.material
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
