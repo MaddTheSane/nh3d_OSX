@@ -265,15 +265,15 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
-	fileprivate typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
+	private typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
 	private var loadModelBlocks = [LoadModelBlock](repeating: loadModelFunc_default, count: Int(NetHackGlyphMaxGlyph))
 	private var modelDictionary = [Int32: NH3DModelObject]()
 	private let viewLock = NSRecursiveLock()
 	
-	fileprivate typealias DrawFloorFunc = () -> Void
+	private typealias DrawFloorFunc = () -> Void
 	private var drawFloorArray = [DrawFloorFunc](repeating: blankFloorMethod, count: 11)
 	
-	fileprivate typealias SwitchMethod = (_ x: Int32, _ z: Int32, _ lx: Int32, _ lz: Int32) -> Void
+	private typealias SwitchMethod = (_ x: Int32, _ z: Int32, _ lx: Int32, _ lz: Int32) -> Void
 	private var switchMethodArray = [SwitchMethod](repeating: blankSwitchMethod, count: 11)
 	
 	private var isReady = false
@@ -4920,6 +4920,7 @@ extension NH3DOpenGLView {
 			
 			return ret
 		}
+		
 		// camera flash
 		loadModelBlocks[Int(S_flashbeam + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
@@ -4934,6 +4935,7 @@ extension NH3DOpenGLView {
 			
 			return ret
 		}
+		
 		// boomerang
 		loadModelBlocks[Int(S_boomleft + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
 		loadModelBlocks[Int(S_boomright + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang

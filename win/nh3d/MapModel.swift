@@ -70,7 +70,7 @@ class MapModel: NSObject {
 	
 	@objc private(set) final var cursX: Int32 = 0
 	@objc private(set) final var cursY: Int32 = 0
-	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_COLUMN)), count: Int(MAPSIZE_COLUMN))
+	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_ROW)), count: Int(MAPSIZE_COLUMN))
 	
 	private var lock = NSRecursiveLock()
 	
@@ -90,8 +90,9 @@ class MapModel: NSObject {
 		prepareAttributes()
 		let updateDungeon = {
 			self.prepareAttributes()
-			self.dungeonNameString = NSAttributedString(string: self.dungeonNameString.string, attributes: self.strAttributes)
-			self.dungeonNameField.attributedStringValue = self.dungeonNameString
+			let dns = NSAttributedString(string: self.dungeonNameString.string, attributes: self.strAttributes)
+			self.dungeonNameString = dns
+			self.dungeonNameField.attributedStringValue = dns
 		}
 		var toOb = UserDefaults.standard.observe(\.WindowFontName) { (defaults, cng) in
 			updateDungeon()
@@ -136,7 +137,7 @@ class MapModel: NSObject {
 	@objc final func startIndicator() {
 		indicatorIsActive = true
 		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
-		RunLoop.current.add(indicatorTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+		RunLoop.current.add(indicatorTimer!, forMode: .defaultRunLoopMode)
 	}
 	
 	@objc private func updateEnemyIndicator(_ timer: Timer) {
