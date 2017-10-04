@@ -561,7 +561,7 @@
 	}
 	
 	NSImage *bgtile = nil;
-	if (glyph != bgGlyph) {
+	if ([self hasBackground]) {
 		bgtile = self.backgroundTile;
 	}
 	if (bgtile != nil) {
@@ -572,7 +572,9 @@
 		[tmpTile unlockFocus];
 	}
 	
+	[lock lock];
 	tile = tmpTile;
+	[lock unlock];
 	return tmpTile;
 }
 

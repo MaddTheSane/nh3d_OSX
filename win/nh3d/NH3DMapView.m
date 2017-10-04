@@ -121,6 +121,19 @@
 - (void)defaultDidChange:(NSNotification *)notification
 {
 	if (!CocoaPortIsReady) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (TRADITIONAL_MAP) {
+				self.frame = NSMakeRect(0, 0, 440.0, 320.0);
+				[self removeFromSuperview];
+				[_bindController.majorMapView addSubview:self];
+				self.mapBase = [NSImage imageNamed:@"trBase"];
+			} else {
+				[self removeFromSuperview];
+				[_bindController.minorMapView addSubview:self];
+				self.frame = NSMakeRect(0, 0, 176.0, 176.0);
+				self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
+			}
+		});
 		return;
 	}
 	dispatch_async(dispatch_get_main_queue(), ^{
