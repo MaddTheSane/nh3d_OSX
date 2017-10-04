@@ -1355,6 +1355,7 @@ wd_message()
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey];
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey];
 	[[self userStatus] updatePlayerInventory];
+	[_mapModel clearTileCaches];
 }
 
 // show user make panel.

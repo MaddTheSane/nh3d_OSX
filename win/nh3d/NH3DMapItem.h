@@ -62,6 +62,8 @@ typedef NS_ENUM(NSInteger, NH3DModelDrawingTypes) {
 
 @property (readonly) NH3DModelDrawingTypes modelDrawingType;
 
+- (void)clearTileCache;
+
 /// Returns \c YES if the tile has a corpse.
 @property (readonly, getter=isCorpse) BOOL corpse;
 

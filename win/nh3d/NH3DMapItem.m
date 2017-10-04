@@ -526,6 +526,7 @@
 	[lock lock];
 	symbol = chr;
 	[self checkDrawingType];
+	//[self clearTileCache];
 	tile = nil;
 	[lock unlock];
 }
@@ -589,6 +590,13 @@
 		return [TileSet.instance imageForGlyph:bgGlyph];
 	else
 		return nil;
+}
+
+- (void)clearTileCache
+{
+	[lock lock];
+	tile = nil;
+	[lock unlock];
 }
 
 @end

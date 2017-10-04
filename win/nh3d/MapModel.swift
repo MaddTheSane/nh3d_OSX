@@ -267,4 +267,14 @@ class MapModel: NSObject {
 		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}
+	
+	@objc final func clearTileCaches() {
+		lock.lock()
+		for x in 0 ..< Int(MAPSIZE_COLUMN) {
+			for y in 0 ..< Int(MAPSIZE_ROW) {
+				mapArray[x][y]?.clearTileCache()
+			}
+		}
+		lock.unlock()
+	}
 }
