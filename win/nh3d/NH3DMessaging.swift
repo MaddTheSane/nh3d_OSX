@@ -375,7 +375,7 @@ class NH3DMessaging: NSObject {
 }
 
 extension NSRect {
-	func centered(in outerRect: NSRect) -> NSRect {
+	fileprivate func centered(in outerRect: NSRect) -> NSRect {
 		var innerRect = self
 		innerRect.origin.x = outerRect.origin.x
 			+ floor((outerRect.size.width - innerRect.size.width) / 2.0)
