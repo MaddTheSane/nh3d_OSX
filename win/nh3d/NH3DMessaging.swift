@@ -236,7 +236,7 @@ class NH3DMessaging: NSObject {
 			inputTextField.stringValue = ""
 			return -1
 		}
-		if inputTextField.stringValue.characters.count == 0 {
+		if inputTextField.stringValue.count == 0 {
 			questionTextField.stringValue = ""
 			return -1
 		}
