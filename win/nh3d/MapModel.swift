@@ -70,7 +70,7 @@ class MapModel: NSObject {
 	
 	@objc private(set) final var cursX: Int32 = 0
 	@objc private(set) final var cursY: Int32 = 0
-	final var mapArray = [[NH3DMapItem!]](repeating: [NH3DMapItem!](repeating: nil, count: Int(MAPSIZE_ROW)), count: Int(MAPSIZE_COLUMN))
+	final var mapArray = [[NH3DMapItem?]](repeating: [NH3DMapItem?](repeating: nil, count: Int(MAPSIZE_ROW)), count: Int(MAPSIZE_COLUMN))
 	
 	private var lock = NSRecursiveLock()
 	
@@ -156,7 +156,7 @@ class MapModel: NSObject {
 	
 	@objc(setMapModelGlyph:xPos:yPos:bgGlyph:)
 	final func setMapModel(glyph glf: Int32, x: Int32, y: Int32, bgGlyph: Int32) {
-		if mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].glyph == glf && mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].bgGlyph == bgGlyph {
+		if mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)]?.glyph == glf && mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)]?.bgGlyph == bgGlyph {
 			return
 		} else if x+MAP_MARGIN > MAPSIZE_COLUMN || y+MAP_MARGIN > MAPSIZE_ROW {
 			panic("Illegal map size!")
@@ -180,7 +180,7 @@ class MapModel: NSObject {
 			lock.unlock()
 			
 			if (x2-MAP_MARGIN) == Int32(u.ux) && (y2-MAP_MARGIN) == Int32(u.uy) {
-				mapArray[Int(x2)][Int(y2)].isPlayer = true
+				mapArray[Int(x2)][Int(y2)]?.isPlayer = true
 				
 				//set player pos for asciiview, openGLView
 				asciiMapView.setCenter(x: x2, y: y2, depth: Int32(depth(&u.uz)))
@@ -196,10 +196,10 @@ class MapModel: NSObject {
 	@objc(setPosCursorAtX:atY:)
 	final func setPosCursor(x: Int32, y: Int32) {
 		if (cursX == x && cursY == y) {
-			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)].hasCursor = true
+			mapArray[Int(x+MAP_MARGIN)][Int(y+MAP_MARGIN)]?.hasCursor = true
 			return
 		} else {
-			mapArray[Int(cursX+MAP_MARGIN)][Int(cursY+MAP_MARGIN)].hasCursor = false
+			mapArray[Int(cursX+MAP_MARGIN)][Int(cursY+MAP_MARGIN)]?.hasCursor = false
 			
 			cursX = x
 			cursY = y
@@ -207,7 +207,7 @@ class MapModel: NSObject {
 			// center the map on the cursor, not the player.
 			asciiMapView.setCenter(x: x + MAP_MARGIN, y: y + MAP_MARGIN, depth: Int32(depth(&u.uz)))
 			
-			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)].hasCursor = true
+			mapArray[Int(x + MAP_MARGIN)][Int(y + MAP_MARGIN)]?.hasCursor = true
 			asciiMapView.needClear = true
 			updateAllMaps()
 		}
