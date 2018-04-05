@@ -163,8 +163,8 @@
 	}
 	
 	[_window beginSheet:_textPanel completionHandler:^(NSModalResponse res){
-		[_textWindow stopSpeaking:self];
-		_textWindow.string = @"";
+		[self->_textWindow stopSpeaking:self];
+		self->_textWindow.string = @"";
 	}];
 	[NSApp runModalForWindow: _textPanel];
 	// Dialog is up here.

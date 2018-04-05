@@ -125,11 +125,11 @@
 			if (TRADITIONAL_MAP) {
 				self.frame = NSMakeRect(0, 0, 440.0, 320.0);
 				[self removeFromSuperview];
-				[_bindController.majorMapView addSubview:self];
+				[self->_bindController.majorMapView addSubview:self];
 				self.mapBase = [NSImage imageNamed:@"trBase"];
 			} else {
 				[self removeFromSuperview];
-				[_bindController.minorMapView addSubview:self];
+				[self->_bindController.minorMapView addSubview:self];
 				self.frame = NSMakeRect(0, 0, 176.0, 176.0);
 				self.mapBase = [NSImage imageNamed:@"asciiMapBase"];
 			}
@@ -138,7 +138,7 @@
 	}
 	dispatch_async(dispatch_get_main_queue(), ^{
 		if (TRADITIONAL_MAP) {
-			if (isReady) {
+			if (self->isReady) {
 				[self lockFocusIfCanDraw];
 				NSEraseRect(self.bounds);
 				[[NSColor windowBackgroundColor] set];
@@ -147,7 +147,7 @@
 			}
 			
 			[self removeFromSuperview];
-			[_bindController.majorMapView addSubview:self];
+			[self->_bindController.majorMapView addSubview:self];
 			
 			self.frame = NSMakeRect(0, 0, 440.0, 320.0) ;
 			
@@ -157,9 +157,9 @@
 			
 			[self updateMap];
 			[self setNeedsDisplay:YES];
-			[_bindController.mainWindow displayIfNeeded];
+			[self->_bindController.mainWindow displayIfNeeded];
 		} else if (!TRADITIONAL_MAP) {
-			if (isReady) {
+			if (self->isReady) {
 				if ([self lockFocusIfCanDraw]) {
 					NSEraseRect(self.bounds);
 					[[NSColor windowBackgroundColor] set];
@@ -169,7 +169,7 @@
 			}
 			
 			[self removeFromSuperview];
-			[_bindController.minorMapView addSubview:self];
+			[self->_bindController.minorMapView addSubview:self];
 			
 			self.frame = NSMakeRect(0, 0, 176.0, 176.0);
 			
@@ -179,7 +179,7 @@
 			
 			[self updateMap];
 			[self setNeedsDisplay:YES];
-			[_bindController.mainWindow displayIfNeeded];
+			[self->_bindController.mainWindow displayIfNeeded];
 		}
 	});
 }
@@ -1781,7 +1781,7 @@
 	
 	// Sheet is Up.
 	[_window beginSheet:_mapLpanel completionHandler:^(NSModalResponse returnCode) {
-		[_mapLview setImage:nil];
+		[self->_mapLview setImage:nil];
 	}];
 	
 	[NSApp runModalForWindow:_mapLpanel];
