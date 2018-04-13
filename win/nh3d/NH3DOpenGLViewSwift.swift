@@ -391,6 +391,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			NSOpenGLPixelFormatAttribute(NSOpenGLPFAAlphaSize), 8,
 			NSOpenGLPixelFormatAttribute(NSOpenGLPFAColorSize), 24,	/* set Color buffer size */
 			NSOpenGLPixelFormatAttribute(NSOpenGLPFADepthSize), 16,	/* set Depth buffer size */
+			NSOpenGLPixelFormatAttribute(NSOpenGLPFAOpenGLProfile),	/* set OpenGL profile... */
+			NSOpenGLPixelFormatAttribute(NSOpenGLProfileVersionLegacy), /* to legacy, just in case Apple changes the default */
 			0														/* null termnator */
 		]
 		
@@ -1641,7 +1643,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			viewLock.unlock()
 		}
 		var texID: GLuint = 0
-		let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitNativeEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32)!
+		guard let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitNativeEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32) else {
+			return 0
+		}
 		var symbolSize = NSSize.zero
 		
 		if !NH3DGL_USETILE {
