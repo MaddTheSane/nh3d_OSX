@@ -13,6 +13,7 @@ import OpenGL.GL.GLU
 import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
 import CoreVideo
+import simd
 
 private let bridgeTex = NH3DTextureObject(imageNamed: "bridge")!
 
@@ -314,17 +315,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](repeating:[NH3DMapItem?](repeating: nil, count: Int(NH3DGL_MAPVIEWSIZE_ROW)), count: Int(NH3DGL_MAPVIEWSIZE_COLUMN))
 	
-	private var lastCameraX: GLfloat = 5.0
-	private var lastCameraY: GLfloat = 1.8
-	private var lastCameraZ: GLfloat = 5.0
+	private var lastCamera = float3(x: 5.0, y: 1.8, z: 5.0)
 	
 	private(set) var lastCameraHead: GLfloat = 0
 	private(set) var lastCameraPitch: GLfloat = 0
 	private(set) var lastCameraRoll: GLfloat = 0
 	
-	private(set) var cameraX: GLfloat = 5.0
-	private(set) var cameraY: GLfloat = 1.8
-	private(set) var cameraZ: GLfloat = 5.0
+	private(set) var camera = float3(x: 5.0, y: 1.8, z: 5.0)
 	private(set) var cameraHead: GLfloat = 0.0
 	private(set) var cameraPitch: GLfloat = 0.0
 	private(set) var cameraRoll: GLfloat = 0.0
@@ -781,9 +778,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glPopMatrix()
 		}
 		
-		glTranslatef(lastCameraX,
-		             lastCameraY,
-		             lastCameraZ)
+		glTranslatef(lastCamera.x,
+		             lastCamera.y,
+		             lastCamera.z)
 		
 		glFogi(GLenum(GL_FOG_MODE), GL_LINEAR)
 		glHint(GLenum(GL_MULTISAMPLE_FILTER_HINT_NV), GLenum(GL_NICEST))
@@ -1297,28 +1294,28 @@ final class NH3DOpenGLView: NSOpenGLView {
 			cameraPitch = 0
 			
 			if Swift_Levitation() {
-				cameraY = 2.8
+				camera.y = 2.8
 				cameraPitch = -1.0
 				isFloating = true
 			}
 			if Swift_Flying() {
-				cameraY = 3.8
+				camera.y = 3.8
 				cameraPitch = -8.0
 				isFloating = true
 			}
 			
 			//#if STEED
 			if u.usteed != nil {
-				cameraY = 2.4
+				camera.y = 2.4
 				isFloating = true
 				isRiding = true
 			}
 			//#endif
 			if u.utrap != 0 && u.utraptype == UInt32(TT_PIT) {
-				cameraY = 0.1
+				camera.y = 0.1
 			}
 			if Swift_Underwater() {
-				cameraY = 0.1
+				camera.y = 0.1
 				isFloating = true
 			}
 		}
@@ -1467,14 +1464,10 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			drawMargin = 1
 			
-			cameraX = x
-			cameraY = y
-			cameraZ = z
+			camera = float3(x: x, y: y, z: z)
 			
 			if !isReady {
-				lastCameraX = cameraX
-				lastCameraY = cameraY
-				lastCameraZ = cameraZ
+				lastCamera = camera
 				isReady = true
 			} else if (!isFloating || isRiding) && !isSoft(roomAtCurrentLocation.typ) && !SOUND_MUTE {
 				SoundController.shared.playAudioFile(at: CameraHelp.footstep, priority: .high)
@@ -1512,9 +1505,9 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		let localPos = effectArray[Int(enemyPosition - 1)].modelShift
 		
-		effectArray[Int(enemyPosition - 1)].modelPivot = float3(x: cameraX + localPos.x,
+		effectArray[Int(enemyPosition - 1)].modelPivot = float3(x: camera.x + localPos.x,
 		                                                        y: localPos.y,
-		                                                        z: cameraZ + localPos.z)
+		                                                        z: camera.z + localPos.z)
 		if EffectHelper.effectCount < Int(waitRate) / 2 {
 			effectArray[Int(enemyPosition - 1)].drawSelf()
 			EffectHelper.effectCount += 1
@@ -1568,32 +1561,28 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private func dorryCamera() {
 		if !isReady {
-			glTranslatef(-cameraX, -cameraY, -cameraZ)
-		} else if lastCameraX == cameraX && lastCameraY == cameraY && lastCameraZ == cameraZ {
-			glTranslatef(-cameraX, -cameraY, -cameraZ)
+			glTranslatef(-camera.x, -camera.y, -camera.z)
+		} else if lastCamera == camera {
+			glTranslatef(-camera.x, -camera.y, -camera.z)
 			if drawMargin != 3 {
 				drawMargin = 0
 			}
 		} else {
-			let xstep = (cameraX - lastCameraX) / cameraStep
-			let ystep = (cameraY - lastCameraY) / cameraStep
-			let zstep = (cameraZ - lastCameraZ) / cameraStep
+			let step = (camera - lastCamera) / cameraStep
 			
-			lastCameraZ += zstep
-			lastCameraY += ystep
-			lastCameraX += xstep
+			lastCamera += step
 			
-			if xstep < 0.001 && xstep > -0.001 {
-				lastCameraX = cameraX
+			if step.x < 0.001 && step.x > -0.001 {
+				lastCamera.x = camera.x
 			}
-			if ystep < 0.001 && ystep > -0.001 {
-				lastCameraY = cameraY
+			if step.y < 0.001 && step.y > -0.001 {
+				lastCamera.y = camera.y
 			}
-			if zstep < 0.001 && zstep > -0.001 {
-				lastCameraZ = cameraZ
+			if step.z < 0.001 && step.z > -0.001 {
+				lastCamera.z = camera.z
 			}
 			
-			glTranslatef(-lastCameraX, -lastCameraY, -lastCameraZ)
+			glTranslatef(-lastCamera.x, -lastCamera.y, -lastCamera.z)
 		}
 	}
 	
