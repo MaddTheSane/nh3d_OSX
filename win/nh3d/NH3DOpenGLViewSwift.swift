@@ -839,7 +839,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glClearColor(0.0, 0.0, 0.8, 0.0)
 			glFogf(GLenum(GL_FOG_END), 6.0)
 			glFogfv(GLenum(GL_FOG_COLOR), underwaterColor)
-		} else if isRoom(roomAtCurrentLocation.typ) || isDoor(roomAtCurrentLocation.typ) || (!Swift_Underwater() && (schar(MOAT) == roomAtCurrentLocation.typ)) {
+		} else if isRoom(roomAtCurrentLocation.typ) || isDoor(roomAtCurrentLocation.typ) || (!Swift_Underwater() && (schar(MOAT.rawValue) == roomAtCurrentLocation.typ)) {
 			// in room
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
@@ -857,29 +857,29 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			for i in 1...MAP_MARGIN {
 				if (isRoom(roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ) || isDoor(roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ))
-					&& roomAtLocation(x: u.ux, y: u.uy + xchar(i)).glyph == S_stone + NetHackGlyphCMapOffset  {
+					&& roomAtLocation(x: u.ux, y: u.uy + xchar(i)).glyph == Int32(S_stone.rawValue) + NetHackGlyphCMapOffset  {
 					glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
 					
 				} else if ((isRoom(roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ) || isDoor(roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ))
-					&& roomAtLocation(x: u.ux, y: u.uy - xchar(i)).glyph == S_stone + NetHackGlyphCMapOffset) {
+					&& roomAtLocation(x: u.ux, y: u.uy - xchar(i)).glyph == Int32(S_stone.rawValue) + NetHackGlyphCMapOffset) {
 					glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
 					
 				} else if (isRoom(roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ) || isDoor(roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ))
-					&& roomAtLocation(x: u.ux + xchar(i), y: u.uy).glyph == S_stone + NetHackGlyphCMapOffset {
+					&& roomAtLocation(x: u.ux + xchar(i), y: u.uy).glyph == Int32(S_stone.rawValue) + NetHackGlyphCMapOffset {
 					glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
 					
 				} else if (isRoom(roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ) || isDoor(roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ))
-					&& roomAtLocation(x: u.ux - xchar(i), y: u.uy).glyph == S_stone + NetHackGlyphCMapOffset {
+					&& roomAtLocation(x: u.ux - xchar(i), y: u.uy).glyph == Int32(S_stone.rawValue) + NetHackGlyphCMapOffset {
 					glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
 				}
 			}
 			
 			glFogfv(GLenum(GL_FOG_COLOR), fogColor)
-		} else if roomAtCurrentLocation.typ == schar(CORR) {
+		} else if roomAtCurrentLocation.typ == schar(CORR.rawValue) {
 			// in corridor
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_POSITION), AmbLightPos)
 			glLightfv(GLenum(GL_LIGHT0), GLenum(GL_AMBIENT_AND_DIFFUSE), keyLightCol)
@@ -893,19 +893,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 			glLightf(GLenum(GL_LIGHT1), GLenum(GL_SHININESS), 30.0)
 			
 			for i in 1...MAP_MARGIN {
-				if roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ == schar(CORR)
+				if roomAtLocation(x: u.ux, y: u.uy + xchar(i)).typ == schar(CORR.rawValue)
 					&&   roomAtLocation(x: u.ux, y: u.uy + xchar(i)).lit == 0 {
 					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
-				} else if roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ == schar(CORR)
+				} else if roomAtLocation(x: u.ux, y: u.uy - xchar(i)).typ == schar(CORR.rawValue)
 					&&   roomAtLocation(x: u.ux, y: u.uy - xchar(i)).lit == 0 {
 					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
-				} else if roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ == schar(CORR)
+				} else if roomAtLocation(x: u.ux + xchar(i), y: u.uy).typ == schar(CORR.rawValue)
 					&&   roomAtLocation(x: u.ux + xchar(i), y: u.uy).lit == 0 {
 					glFogf(GLenum(GL_FOG_END) , 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
-				} else if roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ == schar(CORR)
+				} else if roomAtLocation(x: u.ux - xchar(i), y: u.uy).typ == schar(CORR.rawValue)
 					&&   roomAtLocation(x: u.ux - xchar(i), y: u.uy).lit == 0 {
 					glFogf(GLenum(GL_FOG_END), 4.5 + Float(i) * NH3DGL_TILE_SIZE)
 					break
@@ -1118,7 +1118,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	func drawModelArray(_ mapItem: NH3DMapItem) {
 		let glyph = mapItem.glyph
 		
-		if glyph != S_room + NetHackGlyphCMapOffset {
+		if glyph != Int32(S_room.rawValue) + NetHackGlyphCMapOffset {
 			viewLock.lock()
 			defer {
 				viewLock.unlock()
@@ -1160,8 +1160,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			
 			if (model == nil
-				&& !(glyph >= S_stone+NetHackGlyphCMapOffset
-					&& glyph <= S_water+NetHackGlyphCMapOffset)) { // Draw alternate object.
+				&& !(glyph >= Int32(S_stone.rawValue)+NetHackGlyphCMapOffset
+					&& glyph <= Int32(S_water.rawValue)+NetHackGlyphCMapOffset)) { // Draw alternate object.
 				glPushMatrix()
 				defer {
 					glPopMatrix()
@@ -1228,7 +1228,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
 					
-				case S_vwall + NetHackGlyphCMapOffset:
+				case Int32(S_vwall.rawValue) + NetHackGlyphCMapOffset:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posz) % 5) != 0 {
 						model.childObject(at: 0).isActive = false
@@ -1236,7 +1236,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 						model.childObject(at: 0).isActive = true
 					}
 					
-				case S_hwall + NetHackGlyphCMapOffset:
+				case Int32(S_hwall.rawValue) + NetHackGlyphCMapOffset:
 					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 					if (Int(posx) % 5) != 0 {
 						model.childObject(at: 0).isActive = false
@@ -1311,7 +1311,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				isRiding = true
 			}
 			//#endif
-			if u.utrap != 0 && u.utraptype == UInt32(TT_PIT) {
+			if u.utrap != 0 && u.utraptype == TT_PIT.rawValue {
 				camera.y = 0.1
 			}
 			if Swift_Underwater() {
@@ -1322,13 +1322,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	func changeWallsTexture(_ texID: Int32) {
-		modelDictionary[(S_vwall + NetHackGlyphCMapOffset)]?.setTexture(texID)
-		modelDictionary[(S_hwall + NetHackGlyphCMapOffset)]?.setTexture(texID)
-		modelDictionary[(S_tlcorn + NetHackGlyphCMapOffset)]?.setTexture(texID)
-		modelDictionary[(S_vodoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
-		modelDictionary[(S_hodoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
-		modelDictionary[(S_vcdoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
-		modelDictionary[(S_hcdoor + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_vwall.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_hwall.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_tlcorn.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_vodoor.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_hodoor.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_vcdoor.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
+		modelDictionary[(Int32(S_hcdoor.rawValue) + NetHackGlyphCMapOffset)]?.setTexture(texID)
 	}
 	
 	@objc(setCenterAtX:z:depth:)
@@ -1746,7 +1746,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				torchEmitter.particleSize = 10.0
 			}
 		}
-		modelDictionary[S_vwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_vwall.rawValue) + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject.model(named: "hwall", texture: wallStart)
 		model?.add(wallMines)
@@ -1769,7 +1769,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			}
 			torchObj.modelRotate = float3(x: 0.0, y: -90.0, z: 0.0)
 		}
-		modelDictionary[S_hwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_hwall.rawValue) + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject(with3DSFile: "corner", withTexture: true)
 		model?.addTexture(named: "corner_mines")
@@ -1777,15 +1777,15 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.addTexture(named: "corner_knox")
 		model?.addTexture(named: "corner_rouge")
 		
-		modelDictionary[S_tlcorn + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_trcorn + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_blcorn + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_brcorn + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_crwall + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_tuwall + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_tdwall + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_tlwall + NetHackGlyphCMapOffset] = model
-		modelDictionary[S_trwall + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_tlcorn.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_trcorn.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_blcorn.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_brcorn.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_crwall.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_tuwall.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_tdwall.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_tlwall.rawValue) + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_trwall.rawValue) + NetHackGlyphCMapOffset] = model
 		
 		let doorStart = NH3DTextureObject(imageNamed: "door")!
 		let doorMines = NH3DTextureObject(imageNamed: "door_mines")!
@@ -1798,28 +1798,28 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.add(doorHell)
 		model?.add(doorKnox)
 		model?.add(doorRouge)
-		modelDictionary[S_vodoor + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_vodoor.rawValue) + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject.model(named: "hopendoor", texture: doorStart)
 		model?.add(doorMines)
 		model?.add(doorHell)
 		model?.add(doorKnox)
 		model?.add(doorRouge)
-		modelDictionary[S_hodoor + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_hodoor.rawValue) + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject.model(named: "vdoor", texture: doorStart)
 		model?.add(doorMines)
 		model?.add(doorHell)
 		model?.add(doorKnox)
 		model?.add(doorRouge)
-		modelDictionary[S_vcdoor + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_vcdoor.rawValue) + NetHackGlyphCMapOffset] = model
 		
 		model = NH3DModelObject.model(named: "hdoor", texture: doorStart)
 		model?.add(doorMines)
 		model?.add(doorHell)
 		model?.add(doorKnox)
 		model?.add(doorRouge)
-		modelDictionary[S_hcdoor + NetHackGlyphCMapOffset] = model
+		modelDictionary[Int32(S_hcdoor.rawValue) + NetHackGlyphCMapOffset] = model
 	}
 	
 	@objc private func defaultsDidChange(notification: NSNotification?) {
@@ -3136,38 +3136,38 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case S_bars + NetHackGlyphCMapOffset:
+		case Int32(S_bars.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "ironbar", withTexture: true)
 			ret?.modelShift = float3(x: 0, y: 0, z: -3)
 			ret?.modelScale = float3(x: 0.8, y: 1, z: 0.8)
 			
-		case S_tree + NetHackGlyphCMapOffset:
+		case Int32(S_tree.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: true)
 			ret?.modelScale = float3(x: 2.5, y: 1.7, z: 2.5)
 			
-		case S_upstair + NetHackGlyphCMapOffset:
+		case Int32(S_upstair.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "upStair", withTexture: true)
 			
-		case S_dnstair + NetHackGlyphCMapOffset:
+		case Int32(S_dnstair.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "downStair", withTexture: true)
 			
-		case S_upladder + NetHackGlyphCMapOffset:
+		case Int32(S_upladder.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "upladder", withTexture: true)
 			
-		case S_dnladder + NetHackGlyphCMapOffset:
+		case Int32(S_dnladder.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "downladder", withTexture: true)
 			
-		case S_altar + NetHackGlyphCMapOffset:
+		case Int32(S_altar.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "altar", withTexture: true)
 			
-		case S_grave + NetHackGlyphCMapOffset:
+		case Int32(S_grave.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "grave", withTexture: true)
 			ret?.modelScale = float3(x: 0.6, y: 0.6, z: 0.6)
 			
-		case S_throne + NetHackGlyphCMapOffset:
+		case Int32(S_throne.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "opulent_throne", withTexture: true)
 			
-		case S_sink + NetHackGlyphCMapOffset:
+		case Int32(S_sink.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "sink", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 1.277, z: -0.812)
@@ -3184,7 +3184,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.3
 			ret?.lastChild?.particleSize = 8.0
 			
-		case S_fountain + NetHackGlyphCMapOffset:
+		case Int32(S_fountain.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: -0.34, y: 2.68, z: 0.65)
@@ -3216,21 +3216,21 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 1.2
 			ret?.lastChild?.particleSize = 8.0
 			
-		case S_vodbridge + NetHackGlyphCMapOffset:
+		case Int32(S_vodbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridgeUP", texture: bridgeTex)
 			ret?.modelRotate = float3(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
-		case S_hodbridge + NetHackGlyphCMapOffset:
+		case Int32(S_hodbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridge", texture: bridgeTex)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			ret?.lastChild?.modelPivot = float3(x: 4.0, y: 0.0, z: 0.0)
 			
-		case S_vcdbridge + NetHackGlyphCMapOffset:
+		case Int32(S_vcdbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridgeUP", texture: bridgeTex)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
-		case S_hcdbridge + NetHackGlyphCMapOffset:
+		case Int32(S_hcdbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridge", texture: bridgeTex)
 			ret?.modelRotate = float3(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
@@ -3248,21 +3248,21 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case S_arrow_trap + NetHackGlyphCMapOffset:
+		case Int32(S_arrow_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "arrowtrap", withTexture: true)
 			
-		case S_dart_trap + NetHackGlyphCMapOffset:
+		case Int32(S_dart_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "dartTrap", withTexture: true)
 			
-		case S_falling_rock_trap + NetHackGlyphCMapOffset:
+		case Int32(S_falling_rock_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "rockfalltrap", withTexture: true)
 			
-		//case S_squeaky_board + NetHackGlyphCMapOffset :
-		case S_land_mine + NetHackGlyphCMapOffset:
+		//case Int32(S_squeaky_board.rawValue) + NetHackGlyphCMapOffset :
+		case Int32(S_land_mine.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "landmine", withTexture: true)
 			
 		//case S_rolling_boulder_trap + NetHackGlyphCMapOffset :
-		case S_sleeping_gas_trap + NetHackGlyphCMapOffset:
+		case Int32(S_sleeping_gas_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
@@ -3274,7 +3274,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.56
 			ret?.lastChild?.particleSize = 5.0
 			
-		case S_rust_trap + NetHackGlyphCMapOffset:
+		case Int32(S_rust_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
@@ -3286,7 +3286,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.56
 			ret?.lastChild?.particleSize = 5.0
 			
-		case S_fire_trap + NetHackGlyphCMapOffset:
+		case Int32(S_fire_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
@@ -3298,22 +3298,22 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSlowdown = 2.0
 			ret?.lastChild?.particleLife = 0.5
 			
-		case S_bear_trap + NetHackGlyphCMapOffset:
+		case Int32(S_bear_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "beartrap", withTexture: true)
 			
-		case S_pit + NetHackGlyphCMapOffset:
+		case Int32(S_pit.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_spiked_pit + NetHackGlyphCMapOffset:
+		case Int32(S_spiked_pit.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "spikepit", withTexture: true)
 			
-		case S_hole + NetHackGlyphCMapOffset:
+		case Int32(S_hole.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_trap_door + NetHackGlyphCMapOffset:
+		case Int32(S_trap_door.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			
-		case S_teleportation_trap + NetHackGlyphCMapOffset:
+		case Int32(S_teleportation_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: -0.38, y: 3.82, z: 0.75917)
@@ -3335,7 +3335,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.particleLife = 0.25
 			
-		case S_level_teleporter + NetHackGlyphCMapOffset:
+		case Int32(S_level_teleporter.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelPivot = float3(x: -0.38, y: 3.82, z: 0.75917)
@@ -3357,7 +3357,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.particleLife = 0.25
 			
-		case S_magic_portal + NetHackGlyphCMapOffset:
+		case Int32(S_magic_portal.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "magicportal", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.modelScale = float3(x: 0.8, y: 0.7, z: 0.8)
@@ -3369,15 +3369,16 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.4
 			ret?.lastChild?.particleSize = 2.0
 			
-		case S_web + NetHackGlyphCMapOffset:
+		case Int32(S_web.rawValue) + NetHackGlyphCMapOffset:
+			//TODO: better web?
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: false)
 			ret?.modelScale = float3(x: 2.5, y: 1.7, z: 2.5)
 			ret?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			
 			//TODO: implement statue trap
-		//case S_statue_trap + NetHackGlyphCMapOffset:
+		//case Int32(S_statue_trap.rawValue) + NetHackGlyphCMapOffset:
 			
-		case S_magic_trap + NetHackGlyphCMapOffset:
+		case Int32(S_magic_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = float3(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
@@ -3388,7 +3389,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_anti_magic_trap + NetHackGlyphCMapOffset:
+		case Int32(S_anti_magic_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = float3(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
@@ -3399,7 +3400,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_polymorph_trap + NetHackGlyphCMapOffset:
+		case Int32(S_polymorph_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = float3(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
@@ -3410,7 +3411,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_vibrating_square + NetHackGlyphCMapOffset:
+		case Int32(S_vibrating_square.rawValue) + NetHackGlyphCMapOffset:
 			//TODO: implement proper vibrating square model
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
@@ -3737,7 +3738,7 @@ extension NH3DOpenGLView {
 		
 		switch glyph {
 		// dig beam
-		case S_digbeam + NetHackGlyphCMapOffset:
+		case Int32(S_digbeam.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.modelScale = float3(x: 0.7, y: 1.0, z: 0.7)
 			ret?.particleType = .aura
@@ -3749,7 +3750,7 @@ extension NH3DOpenGLView {
 			ret?.particleSize = 20.0
 			
 		// camera flash
-		case S_flashbeam + NetHackGlyphCMapOffset:
+		case Int32(S_flashbeam.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
@@ -3771,10 +3772,10 @@ extension NH3DOpenGLView {
 		let ret: NH3DModelObject? = NH3DModelObject(objFile: "boomerang", withTexture: true)
 		
 		switch glyph {
-		case S_boomleft + NetHackGlyphCMapOffset:
+		case Int32(S_boomleft.rawValue) + NetHackGlyphCMapOffset:
 			break
 			
-		case S_boomright + NetHackGlyphCMapOffset:
+		case Int32(S_boomright.rawValue) + NetHackGlyphCMapOffset:
 			break
 			
 		default:
@@ -3789,7 +3790,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case S_ss1 + NetHackGlyphCMapOffset:
+		case Int32(S_ss1.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_BLUE
@@ -3799,7 +3800,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
 			
-		case S_ss2 + NetHackGlyphCMapOffset:
+		case Int32(S_ss2.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_CYAN
@@ -3809,7 +3810,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 10.0
 			
-		case S_ss3 + NetHackGlyphCMapOffset:
+		case Int32(S_ss3.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
@@ -3819,7 +3820,7 @@ extension NH3DOpenGLView {
 			ret?.particleLife = 0.4
 			ret?.particleSize = 20.0
 			
-		case S_ss4 + NetHackGlyphCMapOffset:
+		case Int32(S_ss4.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BLUE
@@ -4828,13 +4829,13 @@ extension NH3DOpenGLView {
 		}
 		
 		// -------------------------- Map Symbol Section ----------------------------- //
-		loadModelBlocks[Int(S_bars + NetHackGlyphCMapOffset)] = loadModelFunc_MapSymbols
-		loadModelBlocks[Int(S_tree + NetHackGlyphCMapOffset)] = loadModelFunc_MapSymbols
-		for i in Int(S_upstair + NetHackGlyphCMapOffset)...Int(S_fountain + NetHackGlyphCMapOffset) {
+		loadModelBlocks[Int(Int32(S_bars.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_MapSymbols
+		loadModelBlocks[Int(Int32(S_tree.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_MapSymbols
+		for i in Int(Int32(S_upstair.rawValue) + NetHackGlyphCMapOffset)...Int(Int32(S_fountain.rawValue) + NetHackGlyphCMapOffset) {
 			loadModelBlocks[i] = loadModelFunc_MapSymbols
 		}
 		
-		for i in Int(S_vodbridge + NetHackGlyphCMapOffset)...Int(S_hcdbridge + NetHackGlyphCMapOffset) {
+		for i in Int(Int32(S_vodbridge.rawValue) + NetHackGlyphCMapOffset)...Int(Int32(S_hcdbridge.rawValue) + NetHackGlyphCMapOffset) {
 			loadModelBlocks[i] = loadModelFunc_MapSymbols
 		}
 		
@@ -4843,7 +4844,7 @@ extension NH3DOpenGLView {
 			return NH3DModelObject(with3DSFile: "boulder", withTexture: true)
 		}
 		// --------------------------  Trap Symbol Section --------------------------- //
-		for i in Int(S_arrow_trap + NetHackGlyphCMapOffset)...Int(S_vibrating_square + NetHackGlyphCMapOffset) {
+		for i in Int(Int32(S_arrow_trap.rawValue) + NetHackGlyphCMapOffset)...Int(Int32(S_vibrating_square.rawValue) + NetHackGlyphCMapOffset) {
 			loadModelBlocks[i] = loadModelFunc_TrapSymbol
 		}
 		
@@ -4900,7 +4901,7 @@ extension NH3DOpenGLView {
 		loadModelBlocks[Int(NetHack3DZapMagicAcid + NH3D_ZAP_RSLANT)] = loadModelFunc_MagicACID
 		
 		// dig beam
-		loadModelBlocks[Int(S_digbeam + NetHackGlyphCMapOffset)] = { _ in
+		loadModelBlocks[Int(Int32(S_digbeam.rawValue) + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
 			ret.modelScale = float3(x: 0.7, y: 1.0, z: 0.7)
 			ret.particleType = .aura
@@ -4915,7 +4916,7 @@ extension NH3DOpenGLView {
 		}
 		
 		// camera flash
-		loadModelBlocks[Int(S_flashbeam + NetHackGlyphCMapOffset)] = { _ in
+		loadModelBlocks[Int(Int32(S_flashbeam.rawValue) + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
 			ret.modelScale = float3(x: 1.4, y: 1.5, z: 1.4)
 			ret.particleType = .aura
@@ -4930,14 +4931,14 @@ extension NH3DOpenGLView {
 		}
 		
 		// boomerang
-		loadModelBlocks[Int(S_boomleft + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
-		loadModelBlocks[Int(S_boomright + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
+		loadModelBlocks[Int(Int32(S_boomleft.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
+		loadModelBlocks[Int(Int32(S_boomright.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_Boomerang
 		
 		// magic shild
-		loadModelBlocks[Int(S_ss1 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
-		loadModelBlocks[Int(S_ss2 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
-		loadModelBlocks[Int(S_ss3 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
-		loadModelBlocks[Int(S_ss4 + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(Int32(S_ss1.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(Int32(S_ss2.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(Int32(S_ss3.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
+		loadModelBlocks[Int(Int32(S_ss4.rawValue) + NetHackGlyphCMapOffset)] = loadModelFunc_MagicSHILD
 		
 		// pets
 		for i in Int(PM_GIANT_ANT + NetHackGlyphPetOffset) ..< Int(NUMMONS + NetHackGlyphPetOffset) {

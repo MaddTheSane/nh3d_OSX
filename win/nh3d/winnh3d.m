@@ -1032,7 +1032,7 @@ void nh3d_outrip(winid wid, int how, time_t when)
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
 		
 		/* Put together death description */
-		formatkiller(buf, BUFSZ, how);
+		formatkiller(buf, BUFSZ, how, false);
 		
 		/* Put death type on stone */
 		[ripString appendString:[NSString stringWithCString:buf encoding:NH3DTEXTENCODING]];
@@ -1146,14 +1146,10 @@ struct window_procs nh3d_procs = {
     nh3d_preference_update,
 	nh3d_getmsghistory,
 	nh3d_putmsghistory,
-#ifdef STATUS_VIA_WINDOWPORT
-	hup_void_ndecl,                                   /* status_init */
-	hup_void_ndecl,                                   /* status_finish */
-	genl_status_enablefield, hup_status_update,
-#ifdef STATUS_HILITES
-	genl_status_threshold,
-#endif
-#endif /* STATUS_VIA_WINDOWPORT */
+	genl_status_init,
+	genl_status_finish,
+	genl_status_enablefield,
+	genl_status_update,
 	genl_can_suspend_no,
 };
 
