@@ -1884,3 +1884,15 @@ void error(const char *s, ...)
 	exit(EXIT_FAILURE);
 }
 #endif
+
+#ifdef RUNTIME_PASTEBUF_SUPPORT
+
+void port_insert_pastebuf(char *buf)
+{
+	NSPasteboard *genPaste = [NSPasteboard generalPasteboard];
+	
+	[genPaste clearContents];
+	[genPaste setString:[[NSString alloc] initWithCString:buf encoding:NH3DTEXTENCODING] forType:NSPasteboardTypeString];
+}
+
+#endif
