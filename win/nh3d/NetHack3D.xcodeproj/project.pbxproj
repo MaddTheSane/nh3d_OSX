@@ -350,6 +350,7 @@
 		550B14C21CA06CD500945F09 /* FileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 550B14BF1CA06CD500945F09 /* FileLogger.m */; };
 		5514EA801CA9EE5E00FC2566 /* nethackrc in Resources */ = {isa = PBXBuildFile; fileRef = 5514EA7F1CA9EE5E00FC2566 /* nethackrc */; };
 		552673E91DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */; };
+		5527078E2097CEA000EE64F6 /* keyhelp in Resources */ = {isa = PBXBuildFile; fileRef = 5527078B2097CEA000EE64F6 /* keyhelp */; };
 		55285EAD1CA70BBD00FAFDB1 /* TileSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */; };
 		552D4F8B1F520F38006D3FA3 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552D4F8A1F520F38006D3FA3 /* PreferencesManager.swift */; };
 		55307ABE1E295D4100E0335A /* SoundController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55307ABD1E295D4100E0335A /* SoundController.swift */; };
@@ -1307,6 +1308,7 @@
 		551659B51C77CBDB00013270 /* C99Bool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = C99Bool.h; sourceTree = "<group>"; };
 		552673E71DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "NSBitmapImageRep+NH3DAdditions.h"; sourceTree = "<group>"; };
 		552673E81DE38219007652EF /* NSBitmapImageRep+NH3DAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSBitmapImageRep+NH3DAdditions.m"; sourceTree = "<group>"; };
+		5527078B2097CEA000EE64F6 /* keyhelp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = keyhelp; sourceTree = "<group>"; };
 		55285EAC1CA70BBD00FAFDB1 /* TileSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = TileSet.swift; sourceTree = "<group>"; };
 		552BE47A1C3B2D4300F7D1C9 /* macosx10.10 */ = {isa = PBXFileReference; lastKnownFileType = text; path = macosx10.10; sourceTree = "<group>"; };
 		552D4F8A1F520F38006D3FA3 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
@@ -2145,6 +2147,7 @@
 				2B5CBFA5088EB5A600940C58 /* hh */,
 				2B5CBFA6088EB5A600940C58 /* history */,
 				2B5CBFB6088EB5A600940C58 /* juiblex.lev */,
+				5527078B2097CEA000EE64F6 /* keyhelp */,
 				2B5CBFB8088EB5A600940C58 /* Kni-fila.lev */,
 				2B5CBFB9088EB5A600940C58 /* Kni-filb.lev */,
 				2B5CBFBA088EB5A600940C58 /* Kni-goal.lev */,
@@ -2992,6 +2995,7 @@
 				55FC95431B5CD7AA00B0FFB4 /* Media.xcassets in Resources */,
 				2B5CC04D088EB5A600940C58 /* fakewiz2.lev in Resources */,
 				2B5CC04E088EB5A600940C58 /* fire.lev in Resources */,
+				5527078E2097CEA000EE64F6 /* keyhelp in Resources */,
 				2B5CC050088EB5A600940C58 /* Hea-fila.lev in Resources */,
 				2B5CC051088EB5A600940C58 /* Hea-filb.lev in Resources */,
 				2B5CC052088EB5A600940C58 /* Hea-goal.lev in Resources */,
