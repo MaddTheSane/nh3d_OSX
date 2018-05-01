@@ -21,8 +21,8 @@
 	self = [super initWithWindowNibName:@"UserMakeSheet"];
 	if (self != nil) {
 		
-		[self setPriestName:@"Priest"];
-		[self setCavemanName:@"Caveman"];
+		[self setPriestName:NSLocalizedString(@"Priest", @"Male priest role")];
+		[self setCavemanName:NSLocalizedString(@"Caveman", @"Male caveman role")];
 		playerName = nil;
 	}
 	return self;
@@ -36,12 +36,12 @@
 }
 
 - (void)setPriestName:(NSString *)aString {
-	priestName = NSLocalizedString(aString, @"");
+	priestName = [aString copy];
 }
 
 
 - (void)setCavemanName:(NSString *)aString {
-	cavemanName = NSLocalizedString(aString, @"");
+	cavemanName = [aString copy];
 }
 
 - (IBAction)checkRace:(id)sender
@@ -59,7 +59,7 @@
 
 	switch (tag) {
 		case 0:
-			_userStatus.playerRace = @"Human";
+			_userStatus.playerRace = NSLocalizedString(@"Human", @"Human race");
 			[self setDone_race:YES];
 			[self setEn_archeologist:YES];
 			[self setEn_barbarian:YES];
@@ -77,7 +77,7 @@
 			break;
 			
 		case 1:
-			_userStatus.playerRace = @"Elf";
+			_userStatus.playerRace = NSLocalizedString(@"Elf", @"Elf race");
 			[self setDone_race:YES];
 			[self setEn_archeologist:NO];
 			[self setEn_barbarian:NO];
@@ -95,7 +95,7 @@
 			break;
 			
 		case 2:
-			_userStatus.playerRace = @"Dwarf";
+			_userStatus.playerRace = NSLocalizedString(@"Dwarf", @"Dwarf race");
 			[self setDone_race:YES];
 			[self setEn_archeologist:YES];
 			[self setEn_barbarian:NO];
@@ -113,7 +113,7 @@
 			break;
 			
 		case 3:
-			_userStatus.playerRace = @"Gnome";
+			_userStatus.playerRace = NSLocalizedString(@"Gnome", @"Gnome race");
 			[self setDone_race:YES];
 			[self setEn_archeologist:YES];
 			[self setEn_barbarian:NO];
@@ -131,7 +131,7 @@
 			break;
 			
 		case 4:
-			_userStatus.playerRace = @"Orc";
+			_userStatus.playerRace = NSLocalizedString(@"Orc", @"Orc race");
 			[self setDone_race:YES];
 			[self setEn_archeologist:NO];
 			[self setEn_barbarian:YES];
@@ -188,13 +188,13 @@
 	
 	switch (tag) {
 		case 0 :
-			_userStatus.playerRole = @"Archeologist";
+			_userStatus.playerRole = NSLocalizedString(@"Archeologist", @"Archeologist role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 1 :
-			_userStatus.playerRole = @"Barbarian";
+			_userStatus.playerRole = NSLocalizedString(@"Barbarian", @"Barbarian role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
@@ -206,19 +206,19 @@
 			[self setEn_female:YES];
 			break;
 		case 3 :
-			_userStatus.playerRole = @"Healer";
+			_userStatus.playerRole = NSLocalizedString(@"Healer", @"Healer role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 4 :
-			_userStatus.playerRole = @"Knight";
+			_userStatus.playerRole = NSLocalizedString(@"Knight", @"Knight role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 5 :
-			_userStatus.playerRole = @"Monk";
+			_userStatus.playerRole = NSLocalizedString(@"Monk", @"Monk role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
@@ -230,41 +230,41 @@
 			[self setEn_female:YES];
 			break;
 		case 7 :
-			_userStatus.playerRole = @"Rogue";
+			_userStatus.playerRole = NSLocalizedString(@"Rogue", @"Rogue role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 8 :
-			_userStatus.playerRole = @"Ranger";
+			_userStatus.playerRole = NSLocalizedString(@"Ranger", @"Ranger role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 9 :
-			_userStatus.playerRole = @"Samurai";
+			_userStatus.playerRole = NSLocalizedString(@"Samurai", @"Samurai role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 10 :
-			_userStatus.playerRole = @"Tourist";
+			_userStatus.playerRole = NSLocalizedString(@"Tourist", @"Tourist role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
 			break;
 		case 11 :
-			_userStatus.playerRole = @"Valkyrie";
+			_userStatus.playerRole = NSLocalizedString(@"Valkyrie", @"Valkyrie role");
 			[chooseGender selectCellWithTag:1];
-			[self setPriestName:@"Priestess"];
-			[self setCavemanName:@"Cavewoman"];
-			_userStatus.playerGender = @"Female";
+			[self setPriestName:NSLocalizedString(@"Priestess", @"Female priest (priestess) role")];
+			[self setCavemanName:NSLocalizedString(@"Cavewoman", @"Female caveman (cavewoman) role")];
+			_userStatus.playerGender = NSLocalizedString(@"Female", @"Female gender");
 			[self setDone_role:YES];
 			[self setEn_male:NO];
 			[self setEn_female:YES];
 			break;
 		case 12 :
-			_userStatus.playerRole = @"Wizard";
+			_userStatus.playerRole = NSLocalizedString(@"Wizard", @"Wizard role");
 			[self setDone_role:YES];
 			[self setEn_male:YES];
 			[self setEn_female:YES];
@@ -377,13 +377,13 @@
 	 */
 	
 	if (!tag) {
-		[self setPriestName:@"Priest"];
-		[self setCavemanName:@"Caveman"];
-		_userStatus.playerGender = @"Male";
+		[self setPriestName:NSLocalizedString(@"Priest", @"Male priest role")];
+		[self setCavemanName:NSLocalizedString(@"Caveman", @"Male caveman role")];
+		_userStatus.playerGender = NSLocalizedString(@"Male", @"Male gender");
 	} else {
-		[self setPriestName:@"Priestess"];
-		[self setCavemanName:@"Cavewoman"];
-		_userStatus.playerGender = @"Female";
+		[self setPriestName:NSLocalizedString(@"Priestess", @"Female priest (priestess) role")];
+		[self setCavemanName:NSLocalizedString(@"Cavewoman", @"Female caveman (cavewoman) role")];
+		_userStatus.playerGender = NSLocalizedString(@"Female", @"Female gender");
 	}
 	
 	if (role == 2 || role == 6) {
@@ -495,19 +495,19 @@
 	
 	switch (align) {
 		case 0:
-			_userStatus.playerAlign = @"Lowful";
+			_userStatus.playerAlign = NSLocalizedString(@"Lowful", @"Lawful alignment");
 			[_userStatus setLowfulIcon:YES];
 			[_userStatus setNewtralIcon:NO];
 			[_userStatus setChaosIcon:NO];
 			break;
 		case 1:
-			_userStatus.playerAlign = @"Newtral";
+			_userStatus.playerAlign = NSLocalizedString(@"Newtral", @"Neutral alignment");
 			[_userStatus setLowfulIcon:NO];
 			[_userStatus setNewtralIcon:YES];
 			[_userStatus setChaosIcon:NO];
 			break;
 		case 2:
-			_userStatus.playerAlign = @"Chaotic";
+			_userStatus.playerAlign = NSLocalizedString(@"Chaotic", @"Chaotic alignment");
 			[_userStatus setLowfulIcon:NO];
 			[_userStatus setNewtralIcon:NO];
 			[_userStatus setChaosIcon:YES];

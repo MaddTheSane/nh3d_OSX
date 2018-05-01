@@ -707,30 +707,6 @@ static NSString *stripParentheses(NSString *text)
 	}
 }
 
-- (void)setPlayerRace:(NSString *)aString {
-	if (![playerRace isEqualToString: NSLocalizedString(aString, @"")]) {
-		playerRace = NSLocalizedString(aString, @"");
-	}
-}
-
-- (void)setPlayerRole:(NSString *)aString {
-	if (![playerRole isEqualToString: NSLocalizedString(aString, @"")]) {
-		playerRole = NSLocalizedString(aString, @"");
-	}
-}
-
-- (void)setPlayerAlign:(NSString *)aString {
-	if (![playerAlign isEqualToString: NSLocalizedString(aString, @"")]) {
-		playerAlign = NSLocalizedString(aString, @"");
-	}
-}
-
-- (void)setPlayerGender:(NSString *)aString {
-	if (![playerGender isEqualToString: NSLocalizedString(aString, @"")]) {
-		playerGender = NSLocalizedString(aString, @"");
-	}
-}
-
 #pragma mark -
 
 - (void)setPlayerStr:(int)aValue {
@@ -1103,28 +1079,28 @@ static NSString *stripParentheses(NSString *text)
 	
 	switch (u.ualign.type) {
 		case A_LAWFUL:
-			self.playerAlign = @"Lowful";
+			self.playerAlign = NSLocalizedString(@"Lowful", @"Lawful alignment");
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:NO];
 			break;
 			
 		case A_NEUTRAL:
-			self.playerAlign = @"Newtral";
+			self.playerAlign = NSLocalizedString(@"Newtral", @"Neutral alignment");
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:NO];
 			break;
 			
 		case A_CHAOTIC:
-			self.playerAlign = @"Chaotic";
+			self.playerAlign = NSLocalizedString(@"Chaotic", @"Chaotic alignment");
 			[self setLowfulIcon:NO];
 			[self setNewtralIcon:NO];
 			[self setChaosIcon:YES];
 			break;
 			
 		case A_NONE:
-			self.playerAlign = @"Evil";
+			self.playerAlign = NSLocalizedString(@"Evil", @"Evil alignment");
 			[self setLowfulIcon:YES];
 			[self setNewtralIcon:YES];
 			[self setChaosIcon:YES];
