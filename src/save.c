@@ -114,8 +114,9 @@ dosave0()
        a few of things before saving so that they won't be restored in
        an improper state; these will be no-ops for normal save sequence */
     u.uinvulnerable = 0;
-    if (iflags.save_uswallow)
-        u.uswallow = 1, iflags.save_uswallow = 0;
+    if (iflags.save_uswallow) {
+        u.uswallow = 1; iflags.save_uswallow = 0;
+    }
     if (iflags.save_uinwater) {
         u.uinwater = 1; iflags.save_uinwater = 0;
     }

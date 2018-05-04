@@ -866,10 +866,12 @@ status_finish()
 
     /* free memory that we alloc'd now */
     for (i = 0; i < MAXBLSTATS; ++i) {
-        if (blstats[0][i].val)
-            free((genericptr_t) blstats[0][i].val), blstats[0][i].val = 0;
-        if (blstats[1][i].val)
-            free((genericptr_t) blstats[1][i].val), blstats[1][i].val = 0;
+        if (blstats[0][i].val) {
+            free((genericptr_t) blstats[0][i].val); blstats[0][i].val = 0;
+        }
+        if (blstats[1][i].val) {
+            free((genericptr_t) blstats[1][i].val); blstats[1][i].val = 0;
+        }
 #ifdef STATUS_HILITES
         if (blstats[0][i].thresholds) {
             struct hilite_s *temp = blstats[0][i].thresholds,
@@ -1115,7 +1117,7 @@ percentage(struct istat_s *bl, struct istat_s *maxbl)
         return 0;
     }
 
-    ival = 0, lval = 0L, uval = 0U, ulval = 0UL;
+    ival = 0; lval = 0L; uval = 0U; ulval = 0UL;
     anytype = bl->anytype;
     if (maxbl->a.a_void) {
         switch (anytype) {
@@ -1951,8 +1953,7 @@ query_conditions()
 }
 
 STATIC_OVL char *
-conditionbitmask2str(ul)
-unsigned long ul;
+conditionbitmask2str(unsigned long ul)
 {
     static char buf[BUFSZ];
     int i;
@@ -1982,8 +1983,7 @@ unsigned long ul;
 }
 
 STATIC_OVL unsigned long
-match_str2conditionbitmask(str)
-const char *str;
+match_str2conditionbitmask(const char *str)
 {
     int i, nmatches = 0;
     unsigned long mask = 0UL;
@@ -2045,9 +2045,7 @@ char *str;
 }
 
 STATIC_OVL boolean
-parse_condition(s, sidx)
-char (*s)[QBUFSZ];
-int sidx;
+parse_condition(char (*s)[QBUFSZ], int sidx)
 {
     int i;
     int coloridx = NO_COLOR;
@@ -2178,9 +2176,7 @@ clear_status_hilites()
 }
 
 STATIC_OVL char *
-hlattr2attrname(attrib, buf, bufsz)
-int attrib, bufsz;
-char *buf;
+hlattr2attrname(int attrib, char *buf, int bufsz)
 {
     if (attrib && buf) {
         char attbuf[BUFSZ];
@@ -2226,11 +2222,7 @@ struct _status_hilite_line_str *status_hilite_str =
 static int status_hilite_str_id = 0;
 
 STATIC_OVL void
-status_hilite_linestr_add(fld, hl, mask, str)
-int fld;
-struct hilite_s *hl;
-unsigned long mask;
-const char *str;
+status_hilite_linestr_add(int fld, struct hilite_s *hl, unsigned long mask, const char *str)
 {
     struct _status_hilite_line_str *tmp = (struct _status_hilite_line_str *)
         alloc(sizeof(struct _status_hilite_line_str));
@@ -2272,8 +2264,7 @@ status_hilite_linestr_done()
 }
 
 STATIC_OVL int
-status_hilite_linestr_countfield(fld)
-int fld;
+status_hilite_linestr_countfield(int fld)
 {
     struct _status_hilite_line_str *tmp = status_hilite_str;
     int count = 0;

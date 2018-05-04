@@ -231,8 +231,9 @@ sortloot(struct obj **olist,
     if (n > 1 && !already_sorted) {
         sliarray = (struct sortloot_item *) alloc(n * sizeof *sliarray);
         for (i = 0, o = *olist; o;
-             ++i, o = by_nexthere ? o->nexthere : o->nobj)
-            sliarray[i].obj = o, sliarray[i].indx = (int) i;
+             ++i, o = by_nexthere ? o->nexthere : o->nobj) {
+            sliarray[i].obj = o; sliarray[i].indx = (int) i;
+        }
 
         qsort((genericptr_t) sliarray, n, sizeof *sliarray, sortloot_cmp);
         for (i = 0; i < n; ++i) {
@@ -386,8 +387,9 @@ merged(struct obj **potmp, struct obj **pobj)
 
         otmp->quan += obj->quan;
         /* temporary special case for gold objects!!!! */
-        if (otmp->oclass == COIN_CLASS)
-            otmp->owt = weight(otmp), otmp->bknown = 0;
+        if (otmp->oclass == COIN_CLASS) {
+            otmp->owt = weight(otmp); otmp->bknown = 0;
+        }
         /* and puddings!!!1!!one! */
         else if (!Is_pudding(otmp))
             otmp->owt += obj->owt;
@@ -1095,8 +1097,9 @@ getobj(register const char *let, register const char *word)
         && throws_rocks(youmonst.data))
         useboulder = TRUE;
 
-    if (allownone)
-        *bp++ = HANDS_SYM, *bp++ = ' '; /* '-' */
+    if (allownone) {
+        *bp++ = HANDS_SYM; *bp++ = ' '; /* '-' */
+    }
     ap = altlets;
 
     if (!flags.invlet_constant)
@@ -1520,8 +1523,7 @@ STATIC_VAR struct xprnctx {
 
 /* safe_qbuf() -> short_oname() callback */
 STATIC_PTR char *
-safeq_xprname(obj)
-struct obj *obj;
+safeq_xprname(struct obj *obj)
 {
     return xprname(obj, (char *) 0, safeq_xprn_ctx.let, safeq_xprn_ctx.dot,
                    0L, 0L);
@@ -3689,8 +3691,9 @@ doorganize() /* inventory organizer by Del Lamb */
                         ONAME(obj) = objname;
                 } else {
                     /* will merge; discard 'from' name */
-                    if (objname)
-                        free((genericptr_t) objname), objname = 0;
+                    if (objname) {
+                        free((genericptr_t) objname); objname = 0;
+                    }
                 }
 
                 if (merged(&otmp, &obj)) {

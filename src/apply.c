@@ -323,7 +323,7 @@ use_stethoscope(register struct obj *obj)
     context.stethoscope_move = moves;
     context.stethoscope_movement = youmonst.movement;
 
-    bhitpos.x = u.ux, bhitpos.y = u.uy; /* tentative, reset below */
+    bhitpos.x = u.ux; bhitpos.y = u.uy; /* tentative, reset below */
     notonhead = u.uswallow;
     if (u.usteed && u.dz > 0) {
         if (interference) {
@@ -372,7 +372,7 @@ use_stethoscope(register struct obj *obj)
                                    SUPPRESS_IT | SUPPRESS_INVISIBLE, FALSE);
 
         /* bhitpos needed by mstatusline() iff mtmp is a long worm */
-        bhitpos.x = rx, bhitpos.y = ry;
+        bhitpos.x = rx; bhitpos.y = ry;
         notonhead = (mtmp->mx != rx || mtmp->my != ry);
 
         if (mtmp->mundetected) {
@@ -1554,8 +1554,8 @@ is_valid_jump_pos(int x, int y, int magic, boolean showmsg)
                 You_cant("jump diagonally out of a doorway.");
             return FALSE;
         }
-        uc.x = u.ux, uc.y = u.uy;
-        tc.x = x, tc.y = y; /* target */
+        uc.x = u.ux; uc.y = u.uy;
+        tc.x = x; tc.y = y; /* target */
         if (!walk_path(&uc, &tc, check_jump, (genericptr_t) &traj)) {
             if (showmsg)
                 There("is an obstacle preventing that jump.");

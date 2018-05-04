@@ -2372,10 +2372,11 @@ sanity_check_worn(struct obj *obj)
         /* embedded dragon scales have an extra bit set;
            make sure it's set, then suppress it */
         embedded = TRUE;
-        if ((owornmask & (W_ARM | I_SPECIAL)) == (W_ARM | I_SPECIAL))
+        if ((owornmask & (W_ARM | I_SPECIAL)) == (W_ARM | I_SPECIAL)) {
             owornmask &= ~I_SPECIAL;
-        else
-            n = 0,  owornmask = ~0; /* force insane_object("bogus") below */
+        } else {
+            n = 0;  owornmask = ~0; /* force insane_object("bogus") below */
+        }
     }
     if (n == 2 && carried(obj)
         && obj == uball && (owornmask & W_BALL) != 0L

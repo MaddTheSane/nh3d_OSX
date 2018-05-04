@@ -2142,10 +2142,7 @@ load_mapseen(int fd)
 
 /* to support '#stats' wizard-mode command */
 void
-overview_stats(win, statsfmt, total_count, total_size)
-winid win;
-const char *statsfmt;
-long *total_count, *total_size;
+overview_stats(winid win, const char *statsfmt, long *total_count, long *total_size)
 {
     char buf[BUFSZ], hdrbuf[QBUFSZ];
     long ocount, osize, bcount, bsize, acount, asize;

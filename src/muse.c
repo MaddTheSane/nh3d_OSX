@@ -2354,7 +2354,7 @@ munslime(struct monst *mon, boolean by_you)
                 for (y = mon->my - 1; y <= mon->my + 1; ++y)
                     if (isok(x, y) && accessible(x, y)
                         && !m_at(x, y) && (x != u.ux || y != u.uy)) {
-                        xy[0][nxy] = x, xy[1][nxy] = y;
+                        xy[0][nxy] = x; xy[1][nxy] = y;
                         ++nxy;
                     }
             for (idx = 0; idx < nxy; ++idx) {

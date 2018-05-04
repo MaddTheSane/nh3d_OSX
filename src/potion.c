@@ -1237,7 +1237,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
     boolean hit_saddle = FALSE, your_fault = (how <= POTHIT_HERO_THROW);
 
     if (isyou) {
-        tx = u.ux, ty = u.uy;
+        tx = u.ux; ty = u.uy;
         distance = 0;
         pline_The("%s crashes on your %s and breaks into shards.", botlnam,
                   body_part(HEAD));
@@ -1246,7 +1246,7 @@ potionhit(struct monst *mon, struct obj *obj, int how)
                                            : "thrown potion",
                KILLED_BY_AN);
     } else {
-        tx = mon->mx, ty = mon->my;
+        tx = mon->mx; ty = mon->my;
         /* sometimes it hits the saddle */
         if (((mon->misc_worn_check & W_SADDLE)
              && (saddle = which_armor(mon, W_SADDLE)))

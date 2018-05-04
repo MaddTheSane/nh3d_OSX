@@ -792,8 +792,9 @@ genl_status_finish()
 
     /* free alloc'd memory here */
     for (i = 0; i < MAXBLSTATS; ++i) {
-        if (status_vals[i])
-            free((genericptr_t) status_vals[i]), status_vals[i] = (char *) 0;
+        if (status_vals[i]) {
+            free((genericptr_t) status_vals[i]); status_vals[i] = (char *) 0;
+        }
     }
 }
 
@@ -983,9 +984,7 @@ STATIC_VAR time_t dumplog_now;
 STATIC_DCL char *dump_fmtstr(const char *, char *);
 
 STATIC_OVL char *
-dump_fmtstr(fmt, buf)
-const char *fmt;
-char *buf;
+dump_fmtstr(const char *fmt, char *buf)
 {
     const char *fp = fmt;
     char *bp = buf;
@@ -1067,8 +1066,7 @@ char *buf;
 #endif /* DUMPLOG */
 
 void
-dump_open_log(now)
-time_t now;
+dump_open_log(time_t now)
 {
 #ifdef DUMPLOG
     char buf[BUFSZ];
@@ -1100,11 +1098,7 @@ dump_close_log()
 }
 
 void
-dump_forward_putstr(win, attr, str, no_forward)
-winid win;
-int attr;
-const char *str;
-int no_forward;
+dump_forward_putstr(winid win, int attr, const char *str, int no_forward)
 {
     if (dumplog_file)
         fprintf(dumplog_file, "%s\n", str);

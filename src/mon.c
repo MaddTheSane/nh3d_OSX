@@ -82,7 +82,7 @@ mon_sanity_check()
         sanity_check_single_mon(mtmp, TRUE, "fmon");
         if (DEADMONSTER(mtmp))
             continue;
-        x = mtmp->mx, y = mtmp->my;
+        x = mtmp->mx; y = mtmp->my;
         if (!isok(x, y) && !(mtmp->isgd && x == 0 && y == 0)) {
             impossible("mon (%s) claims to be at <%d,%d>?",
                        fmt_ptr((genericptr_t) mtmp), x, y);
@@ -2433,8 +2433,7 @@ struct monst *mtmp;
 
 /* drop monster into "limbo" - that is, migrate to the current level */
 void
-m_into_limbo(mtmp)
-struct monst *mtmp;
+m_into_limbo(struct monst *mtmp)
 {
     unstuck(mtmp);
     mdrop_special_objs(mtmp);

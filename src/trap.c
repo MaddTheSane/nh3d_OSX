@@ -4558,7 +4558,7 @@ chest_trap(register struct obj *obj, register int bodypart, boolean disarm)
     const char *msg;
     coord cc;
 
-    if (get_obj_location(obj, &cc.x, &cc.y, 0)) /* might be carried */ {
+    if (get_obj_location(obj, &cc.x, &cc.y, 0)) { /* might be carried */
         obj->ox = cc.x; obj->oy = cc.y;
     }
 

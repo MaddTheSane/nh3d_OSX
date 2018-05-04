@@ -106,12 +106,14 @@ sysopt_release()
         sysopt.debugfiles = (char *) 0;
     }
 #ifdef DUMPLOG
-    if (sysopt.dumplogfile)
-        free((genericptr_t)sysopt.dumplogfile), sysopt.dumplogfile=(char *)0;
+    if (sysopt.dumplogfile) {
+        free((genericptr_t)sysopt.dumplogfile); sysopt.dumplogfile=(char *)0;
+    }
 #endif
-    if (sysopt.genericusers)
-        free((genericptr_t) sysopt.genericusers),
+    if (sysopt.genericusers) {
+        free((genericptr_t) sysopt.genericusers);
         sysopt.genericusers = (char *) 0;
+    }
 #ifdef PANICTRACE
     if (sysopt.gdbpath) {
         free((genericptr_t) sysopt.gdbpath); sysopt.gdbpath = (char *) 0;
