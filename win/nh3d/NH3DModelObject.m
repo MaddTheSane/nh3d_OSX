@@ -1270,7 +1270,7 @@ static const NH3DMaterial defaultMat = {
 						
 						switch (particleType) {
 							case NH3DParticleTypePoints:
-								glPointSize(((random() % 500) * 0.01) + particleSize);
+								glPointSize(((random() % 500) * 0.01f) + particleSize);
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
@@ -1282,7 +1282,7 @@ static const NH3DMaterial defaultMat = {
 								break;
 								
 							case NH3DParticleTypeLines:
-								glLineWidth(((random() % 400)*0.01) + particleSize);
+								glLineWidth(((random() % 400)*0.01f) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);
 								glColor4fv(colorArray);
@@ -1292,7 +1292,7 @@ static const NH3DMaterial defaultMat = {
 								break;
 								
 							case NH3DParticleTypeBoth:
-								glPointSize(((random() % 500)*0.01) + particleSize);
+								glPointSize(((random() % 500)*0.01f) + particleSize);
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
@@ -1313,7 +1313,7 @@ static const NH3DMaterial defaultMat = {
 								break;
 								
 							case NH3DParticleTypeAura:
-								glLineWidth(((random() % 200)*0.01) + particleSize);
+								glLineWidth(((random() % 200)*0.01f) + particleSize);
 								
 								glBegin(GL_LINE_STRIP);
 								
@@ -1340,7 +1340,7 @@ static const NH3DMaterial defaultMat = {
 								break;
 								
 							default:
-								pSize = ((random() % 5) + particleSize) * 0.01;
+								pSize = ((random() % 5) + particleSize) * 0.01f;
 								glBegin(GL_QUADS);
 								glColor4fv(colorArray);
 								glVertex3f(px + pSize, py + pSize, pz);
