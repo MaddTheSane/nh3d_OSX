@@ -45,7 +45,6 @@
 "There is too much number of the letters." = "入力された文字数が多すぎます。";
 "Please input it within 1 to 20 characters." = "英数字で1~20文字、日本語で10文字以内でお願いします。";
 "Who are you?" = "ふむ。どなたかな？";
-"Grater than MacOS 10.4 are necessary so that NetHack3D start." = "NetHack3Dの起動にはMacOS 10.4以上が必要です。";
 
 
 "There is already a game in progress under your name.  Destroy old game?" = "あなたの名前で不正終了したゲームが残っています．破棄しますか？";
