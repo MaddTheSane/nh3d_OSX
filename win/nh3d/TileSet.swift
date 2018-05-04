@@ -66,7 +66,7 @@ final class TileSet: NSObject {
 			let x2Loc: URL = {
 				let ext = loc.pathExtension
 				let parentPath = loc.deletingLastPathComponent()
-				var lastPath = (loc.lastPathComponent as NSString).deletingPathExtension
+				var lastPath = loc.deletingPathExtension().lastPathComponent
 				lastPath += "@2x"
 				lastPath = (lastPath as NSString).appendingPathExtension(ext) ?? "\(lastPath).\(ext)"
 				var toRet = parentPath
@@ -124,7 +124,7 @@ final class TileSet: NSObject {
 	}()
 	
 	@objc(imageForGlyph:)
-	func image(for glyph: Int32) -> NSImage {
+	func image(forGlyph glyph: Int32) -> NSImage {
 		let tile = glyphToTile(glyph)
 		// Check for cached image:
 		if let img = cache[tile] {
@@ -213,15 +213,5 @@ final class TileSet: NSObject {
 		// cache image
 		cache[tile] = newImage
 		return newImage
-	}
-	
-	@available(*, deprecated, message:"Use -imageForGlyph: instead")
-	@objc(tileImageFromGlyph:) func tileImageFrom(_ glyph: Int32) -> NSImage? {
-		let tile = glyphToTile(glyph)
-		if Int32(tile) >= totalTilesUsed() || tile < 0 {
-			NSLog("ERROR: Asked for tile \(tile) outside the allowed range.")
-			return nil
-		}
-		return image(for: glyph)
 	}
 }
