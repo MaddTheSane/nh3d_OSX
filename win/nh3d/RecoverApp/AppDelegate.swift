@@ -11,11 +11,7 @@ import Cocoa
 extension NHRecoveryErrors: Error {
 	public var _domain: String {
 		return NHRecoveryErrorDomain
-	}
-	
-	public var _code: Int {
-		return rawValue
-	}
+	}	
 }
 
 /// NSTableViewDataSource url table column key
@@ -60,12 +56,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			guard let parentBundle = Bundle(url: parentBundleURL),
 				let parentBundleResources = parentBundle.resourcePath,
 				parentBundle.bundleURL.pathExtension == "app" else {
-					throw NHRecoveryErrors.hostBundleNotFound
+					throw NHRecoveryErrors(.hostBundleNotFound)
 			}
 			//Change to the NetHack resource directory.
 			FileManager.default.changeCurrentDirectoryPath(parentBundleResources)
 		} catch {
-			errorToReport = .hostBundleNotFound
+			errorToReport = NHRecoveryErrors(.hostBundleNotFound)
 		}
 	}
 	
