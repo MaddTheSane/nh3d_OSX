@@ -935,7 +935,7 @@
 		2B5CBFBE088EB5A600940C58 /* knox.des */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = knox.des; sourceTree = "<group>"; };
 		2B5CBFBF088EB5A600940C58 /* knox.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = knox.lev; sourceTree = "<group>"; };
 		2B5CBFC0088EB5A600940C58 /* license */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
-		2B5CBFC1088EB5A600940C58 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		2B5CBFC1088EB5A600940C58 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		2B5CBFC2088EB5A600940C58 /* medusa-1.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "medusa-1.lev"; sourceTree = "<group>"; };
 		2B5CBFC3088EB5A600940C58 /* medusa-2.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "medusa-2.lev"; sourceTree = "<group>"; };
 		2B5CBFC4088EB5A600940C58 /* medusa.des */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = medusa.des; sourceTree = "<group>"; };
@@ -983,8 +983,8 @@
 		2B5CBFF3088EB5A600940C58 /* Rog-loca.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rog-loca.lev"; sourceTree = "<group>"; };
 		2B5CBFF4088EB5A600940C58 /* Rog-strt.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rog-strt.lev"; sourceTree = "<group>"; };
 		2B5CBFF5088EB5A600940C58 /* Rogue.des */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = Rogue.des; sourceTree = "<group>"; };
-		2B5CBFF6088EB5A600940C58 /* rumors.fal */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = rumors.fal; sourceTree = "<group>"; };
-		2B5CBFF7088EB5A600940C58 /* rumors.tru */ = {isa = PBXFileReference; fileEncoding = 3; lastKnownFileType = text; path = rumors.tru; sourceTree = "<group>"; };
+		2B5CBFF6088EB5A600940C58 /* rumors.fal */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 3; path = rumors.fal; sourceTree = "<group>"; };
+		2B5CBFF7088EB5A600940C58 /* rumors.tru */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 3; path = rumors.tru; sourceTree = "<group>"; };
 		2B5CBFF8088EB5A600940C58 /* Sam-fila.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sam-fila.lev"; sourceTree = "<group>"; };
 		2B5CBFF9088EB5A600940C58 /* Sam-filb.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sam-filb.lev"; sourceTree = "<group>"; };
 		2B5CBFFA088EB5A600940C58 /* Sam-goal.lev */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sam-goal.lev"; sourceTree = "<group>"; };
