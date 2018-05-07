@@ -1146,10 +1146,10 @@ struct window_procs nh3d_procs = {
     nh3d_preference_update,
 	nh3d_getmsghistory,
 	nh3d_putmsghistory,
-	genl_status_init,
-	genl_status_finish,
-	genl_status_enablefield,
-	genl_status_update,
+	nh3d_status_init,
+	nh3d_status_finish,
+	nh3d_status_enablefield,
+	nh3d_status_update,
 	genl_can_suspend_no,
 };
 
@@ -1864,6 +1864,27 @@ void app_recover(const char* path)
 	
 	exit(EXIT_SUCCESS);
 }
+
+void nh3d_status_init(void)
+{
+	
+}
+
+void nh3d_status_finish(void)
+{
+	
+}
+
+void nh3d_status_enablefield(int fieldidx, const char *nm, const char *fmt, boolean enable)
+{
+	
+}
+
+void nh3d_status_update(int idx, genericptr_t ptr, int chg, int percent, int color, unsigned long *colormasks)
+{
+	
+}
+
 
 #if defined(NH3D_GRAPHICS)
 #define Printf (void) printf

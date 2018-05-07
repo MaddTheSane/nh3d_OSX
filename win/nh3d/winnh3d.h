@@ -84,6 +84,10 @@ void nh3d_delay_output(void);
 void nh3d_start_screen(void);
 void nh3d_end_screen(void);
 void nh3d_outrip(winid wid, int how, time_t when);
+void nh3d_status_init(void);
+void nh3d_status_finish(void);
+void nh3d_status_enablefield(int, const char *__null_unspecified, const char *__null_unspecified, boolean);
+void nh3d_status_update(int, genericptr_t __null_unspecified, int, int, int, unsigned long *__null_unspecified);
 //int nh3d_kbhit();
 
 extern void app_recover(const char* path);
