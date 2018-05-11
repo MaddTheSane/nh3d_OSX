@@ -1020,7 +1020,7 @@ rloc(struct monst *mtmp, /* mx==0 implies migrating monster arrival */
     if (mtmp->iswiz && mtmp->mx) { /* Wizard, not just arriving */
         if (!In_W_tower(u.ux, u.uy, &u.uz)) {
             x = xupstair; y = yupstair;
-        } else if (!xdnladder) /* bottom level of tower */ {
+        } else if (!xdnladder) { /* bottom level of tower */
             x = xupladder; y = yupladder;
         } else {
             x = xdnladder; y = ydnladder;

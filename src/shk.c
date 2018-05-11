@@ -1990,7 +1990,7 @@ get_cost(register struct obj *obj,
     if (uarmh && uarmh->otyp == DUNCE_CAP) {
         multiplier *= 4L; divisor *= 3L;
     } else if ((Role_if(PM_TOURIST) && u.ulevel < (MAXULEV / 2))
-             || (uarmu && !uarm && !uarmc)) /* touristy shirt visible */ {
+             || (uarmu && !uarm && !uarmc)) { /* touristy shirt visible */
         multiplier *= 4L; divisor *= 3L;
     }
 
