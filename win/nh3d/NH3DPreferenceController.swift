@@ -39,12 +39,12 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 				let matchHeight = fileName[match2]
 				
 				#if REDUNDANT_SAFETY_CHECKS
-					guard let intMatchWidth = Int(String(matchWidth)), let intMatchHeight = Int(String(matchHeight)) else {
+					guard let intMatchWidth = Int(matchWidth), let intMatchHeight = Int(matchHeight) else {
 						break matchTwoSize
 					}
 					return (Int32(intMatchWidth), Int32(intMatchHeight))
 				#else
-					return (Int32(Int(String(matchWidth))!), Int32(Int(String(matchHeight))!))
+					return (Int32(Int(matchWidth)!), Int32(Int(matchHeight)!))
 				#endif
 			}
 		}
@@ -67,12 +67,12 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 			if let match1 = match1 {
 				let matchSquare = fileName[match1]
 				#if REDUNDANT_SAFETY_CHECKS
-					guard let tmpIntSquare = Int(String(matchSquare)) else {
+					guard let tmpIntSquare = Int(matchSquare) else {
 						break matchOneSize
 					}
 					let tmpSquare = Int32(tmpIntSquare)
 				#else
-					let tmpSquare = Int32(Int(String(matchSquare))!)
+					let tmpSquare = Int32(Int(matchSquare)!)
 				#endif
 				return (tmpSquare, tmpSquare)
 			}
