@@ -537,7 +537,10 @@ display_gamewindows()
     WIN_INVEN = create_nhwindow(NHW_MENU);
     /* in case of early quit where WIN_INVEN could be destroyed before
        ever having been used, use it here to pacify the Qt interface */
+    /* Ifdef it out for NH3d, though. Otherwise the user gets a blank sheet */
+#ifndef NH3D_GRAPHICS
     start_menu(WIN_INVEN); end_menu(WIN_INVEN, (char *) 0);
+#endif
 
 #ifdef MAC
     /* This _is_ the right place for this - maybe we will

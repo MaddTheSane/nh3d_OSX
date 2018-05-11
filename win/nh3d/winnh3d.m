@@ -1146,10 +1146,10 @@ struct window_procs nh3d_procs = {
     nh3d_preference_update,
 	nh3d_getmsghistory,
 	nh3d_putmsghistory,
-	nh3d_status_init,
-	nh3d_status_finish,
-	nh3d_status_enablefield,
-	nh3d_status_update,
+	genl_status_init,
+	genl_status_finish,
+	genl_status_enablefield,
+	genl_status_update,
 	genl_can_suspend_no,
 };
 
