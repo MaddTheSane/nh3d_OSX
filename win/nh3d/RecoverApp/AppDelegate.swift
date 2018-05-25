@@ -8,12 +8,6 @@
 
 import Cocoa
 
-extension NHRecoveryErrors: Error {
-	public var _domain: String {
-		return NHRecoveryErrorDomain
-	}	
-}
-
 /// NSTableViewDataSource url table column key
 private let locURLKey = NSUserInterfaceItemIdentifier(rawValue: "NHRecoverURL")
 
