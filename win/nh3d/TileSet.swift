@@ -206,6 +206,7 @@ final class TileSet: NSObject {
 		// last resort
 		if newImage.representations.count == 0 {
 			newImage.lockFocus()
+			// to prevent strange artifacts caused by pixel doubling
 			NSGraphicsContext.current?.imageInterpolation = .none
 			self.image.draw(in: dstRect, from: srcRect, operation: .copy, fraction: 1)
 			newImage.unlockFocus()
