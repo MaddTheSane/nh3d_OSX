@@ -1780,14 +1780,14 @@
 	}
 	
 	// Sheet is Up.
-	[_window beginSheet:_mapLpanel completionHandler:^(NSModalResponse returnCode) {
+	[self.window beginSheet:_mapLpanel completionHandler:^(NSModalResponse returnCode) {
 		//[self->_mapLview setImage:nil];
 	}];
 	
 	[NSApp runModalForWindow:_mapLpanel];
 	
 	// Sheet is Over.
-	[_window endSheet:_mapLpanel];
+	[self.window endSheet:_mapLpanel];
 	[self->_mapLview setImage:nil];
 }
 
