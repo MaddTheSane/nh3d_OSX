@@ -15,7 +15,8 @@ class NH3DMessaging: NSObject {
 	private final class ScreenEffect: CustomStringConvertible {
 		private var regex = regex_init()
 		let effect: Int32
-		/// The regex string used to match against.<br>
+		/// The regex string used to match against.
+		///
 		/// Useful for debugging
 		let str: String
 		
