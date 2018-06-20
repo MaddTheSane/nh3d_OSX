@@ -462,8 +462,9 @@ static const NH3DMaterial defaultMat = {
 	
 	char mName[21];
 	
-	if (file_3ds == nil)
+	if (file_3ds == nil) {
 		return NO;
+	}
 	
 	// Magic number check
 	[file_3ds getBytes:mName range:NSMakeRange(0, 2)];
@@ -527,7 +528,7 @@ static const NH3DMaterial defaultMat = {
 				
 				if (verts_qty > MAX_VERTICES) {
 					verts_qty = MAX_VERTICES;
-					NSLog(@"Model %@|%@ reached MaxVertices. It does not complete.", modelCode, modelName);
+					NSLog(@"Model %@|%@ reached maximum number of vertices. It will not be complete.", modelCode, modelName);
 				}
 				
 				normal_qty = verts_qty;
@@ -574,7 +575,7 @@ static const NH3DMaterial defaultMat = {
 				
 				if (face_qty > MAX_POLYGONS) {
 					face_qty = MAX_POLYGONS;
-					NSLog(@"Model %@|%@ reached MaxPolygons. It does not complete.", modelCode, modelName);
+					NSLog(@"Model %@|%@ reached maximum count of polygons. It will not be complete.", modelCode, modelName);
 				}
 				
 				if (face_qty) {
@@ -625,7 +626,7 @@ static const NH3DMaterial defaultMat = {
 				
 				if (texcords_qty > MAX_POLYGONS) {
 					texcords_qty = MAX_POLYGONS;
-					NSLog(@"Model %@|%@ TextureCoods reached MaxPolygons. It does not complete.", modelCode, modelName);
+					NSLog(@"Model %@|%@ TextureCoods reached maximum number of polygons. It will not be complete.", modelCode, modelName);
 				}
 				
 				if (texcords_qty) {
@@ -946,32 +947,36 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setParticleType:(NH3DParticleType)type
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return;
+	}
 	
 	particleType = type;
 }
 
 - (int)particleColor
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return 0;
+	}
 	
 	return particleColor;
 }
 
 - (void)setParticleColor:(int)col
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return;
+	}
 	
 	particleColor = col;
 }
 
 - (void)setParticleSpeedX:(GLfloat)x Y:(GLfloat)y
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return;
+	}
 	
 	xspeed = x;
 	yspeed = y;
@@ -979,22 +984,28 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setParticleSlowdown:(GLfloat)value
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return;
+	}
+	
 	slowdown = value;
 }
 
 - (void)setParticleLife:(GLfloat)value
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return;
+	}
+	
 	particleLife = value;
 }
 
 - (void)setParticleSize:(GLfloat)value
 {
-	if (modelType != NH3DModelTypeEmitter)
+	if (modelType != NH3DModelTypeEmitter) {
 		return;
+	}
+	
 	particleSize = value;
 }
 
