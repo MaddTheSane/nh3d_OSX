@@ -42,8 +42,8 @@ class MapModel: NSObject {
 	}
 	
 	@objc private(set) var dungeonNameString = NSAttributedString()
-	private var strAttributes: [NSAttributedStringKey: Any] = {
-		var toRet = [NSAttributedStringKey: Any]()
+	private var strAttributes: [NSAttributedString.Key: Any] = {
+		var toRet = [NSAttributedString.Key: Any]()
 		toRet.reserveCapacity(4)
 		return toRet
 	}()
@@ -137,12 +137,12 @@ class MapModel: NSObject {
 	@objc final func startIndicator() {
 		indicatorIsActive = true
 		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
-		RunLoop.current.add(indicatorTimer!, forMode: .defaultRunLoopMode)
+		RunLoop.current.add(indicatorTimer!, forMode: RunLoop.Mode.default)
 	}
 	
 	@objc private func updateEnemyIndicator(_ timer: Timer) {
 		var value = enemyWarnBase + Int32(arc4random() % 3 + 1)
-		let alert = NSSound(named: NSSound.Name(rawValue: "Hero"))!
+		let alert = NSSound(named: "Hero")!
 		
 		if enemyIndicator.intValue == value {
 			value = enemyWarnBase - Int32(arc4random() % 3 + 1)

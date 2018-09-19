@@ -649,7 +649,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		if isReady || !firstTime {
 			return
 		} else {
-			var attributes = [NSAttributedStringKey: Any]()
+			var attributes = [NSAttributedString.Key: Any]()
 			attributes[.font] = NSFont(name: "Copperplate", size: 20)
 			attributes[.foregroundColor] = NSColor(calibratedWhite: 0.5, alpha: 0.6)
 			
@@ -658,7 +658,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			NSColor.clear.set()
 			NSBezierPath.fill(bounds)
 			
-			NSImage(named: NSImage.Name(rawValue: "nh3d"))?.draw(at: NSPoint(x: 156, y: 88), from: .zero, operation: .sourceOver, fraction: 0.7)
+			NSImage(named: "nh3d")?.draw(at: NSPoint(x: 156, y: 88), from: .zero, operation: .sourceOver, fraction: 0.7)
 			"NetHack3D".draw(at: NSPoint(x: 168.0, y: 70.0), withAttributes: attributes)
 			attributes[.font] = NSFont(name: "Copperplate", size: 14)
 			"by Haruumi Yoshino 2005".draw(at: NSPoint(x: 130.0, y: 56.0), withAttributes: attributes)
@@ -686,7 +686,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	private func loadImageToTexture(named filename: String) -> GLuint {
-		guard let sourcefile = NSImage(named: NSImage.Name(rawValue: filename)) else {
+		guard let sourcefile = NSImage(named: filename) else {
 			return 0
 		}
 		
@@ -1456,7 +1456,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	/// Sets the camera's x-y-z position.
 	@objc(setCameraAtX:atY:atZ:) func setCamera(x: Float, y: Float, z: Float) {
 		struct CameraHelp {
-			static let footstep = URL(fileURLWithPath: Bundle.main.path(forSoundResource: NSSound.Name(rawValue: "footStep"))!)
+			static let footstep = URL(fileURLWithPath: Bundle.main.path(forSoundResource: "footStep")!)
 		}
 		viewLock.lock()
 		do {
@@ -1642,7 +1642,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 				assert(false)
 				return 0
 			}
-			var attributes = [NSAttributedStringKey: Any]()
+			var attributes = [NSAttributedString.Key: Any]()
 			let fontName = UserDefaults.standard.string(forKey: NH3DWindowFontKey)!
 			
 			attributes[.font] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))

@@ -42,7 +42,7 @@ final class TileSet: NSObject {
 	}
 	
 	@objc convenience init?(name named: String) {
-		guard let img = NSImage(named: NSImage.Name(rawValue: named)) else {
+		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return
 		}
@@ -145,7 +145,7 @@ final class TileSet: NSObject {
 				}
 				let clrSpace: CGColorSpace = {
 					if let nsClrSpace: NSColorSpace = (imgBir1x as AnyObject).colorSpace,
-						nsClrSpace.colorSpaceModel == .RGB,
+						nsClrSpace.colorSpaceModel == .rgb,
 						let cgClrSpace = nsClrSpace.cgColorSpace {
 						return cgClrSpace
 					}
@@ -175,7 +175,7 @@ final class TileSet: NSObject {
 				}
 				let clrSpace: CGColorSpace = {
 					if let nsClrSpace: NSColorSpace = (imgBir2x as AnyObject).colorSpace,
-						nsClrSpace.colorSpaceModel == .RGB,
+						nsClrSpace.colorSpaceModel == .rgb,
 						let cgClrSpace = nsClrSpace.cgColorSpace {
 						return cgClrSpace
 					}

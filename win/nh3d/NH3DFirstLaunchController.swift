@@ -26,7 +26,7 @@ class NH3DFirstLaunchController: NSWindowController {
 		}
 		
 		if defaults.bool(forKey: NH3DIsFirstLaunch) {
-			let controller = NH3DFirstLaunchController(windowNibName: NSNib.Name(rawValue: "FirstLaunch"))
+			let controller = NH3DFirstLaunchController(windowNibName: "FirstLaunch")
 			let bindController = NSApp.delegate as! NH3DBindController
 			
 			controller.window?.isOpaque = false

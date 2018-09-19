@@ -95,7 +95,7 @@ private func tilesInfo(fromFile fileName: String) -> (tileSize: NSSize, rows: In
 	}
 	
 	// Get the image, to calculate the needed rows and columns
-	var image = NSImage(named: NSImage.Name(rawValue: fileName))
+	var image = NSImage(named: fileName)
 	
 	if image == nil {
 		image = NSImage(byReferencingFile: fileName)
@@ -136,7 +136,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	private var fontButtonTag = 0
 	
 	convenience init() {
-		self.init(windowNibName: NSNib.Name(rawValue: "PreferencePanel"))
+		self.init(windowNibName: "PreferencePanel")
 	}
 	
 	func windowShouldClose(_ sender: NSWindow) -> Bool {
@@ -150,7 +150,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		window?.makeKeyAndOrderFront(self)
 	}
 	
-	@IBAction override func changeFont(_ sender: Any?) {
+	@IBAction func changeFont(_ sender: Any?) {
 		guard let sender = sender as? NSFontManager else {
 			return
 		}

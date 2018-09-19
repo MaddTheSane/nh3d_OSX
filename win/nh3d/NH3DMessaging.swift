@@ -66,8 +66,8 @@ class NH3DMessaging: NSObject {
 	
 	private var msgArray = [Int]()
 	
-	private var darkShadowStrAttributes = [NSAttributedStringKey: Any]()
-	private var lightShadowStrAttributes = [NSAttributedStringKey: Any]()
+	private var darkShadowStrAttributes = [NSAttributedString.Key: Any]()
+	private var lightShadowStrAttributes = [NSAttributedString.Key: Any]()
 	private let darkShadow: NSShadow = {
 		//for view or backgrounded text field.
 		let adarkShadow = NSShadow()
@@ -176,7 +176,7 @@ class NH3DMessaging: NSObject {
 			break
 			
 		case ATR_ULINE:
-			darkShadowStrAttributes[.underlineStyle] = NSUnderlineStyle.styleSingle.rawValue
+			darkShadowStrAttributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
 			
 		case ATR_BOLD:
 			darkShadowStrAttributes[.font] = NSFont(name: NH3DBOLDFONT, size: NH3DBOLDFONTSIZE)

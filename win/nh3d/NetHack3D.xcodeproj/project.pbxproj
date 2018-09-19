@@ -2859,12 +2859,12 @@
 			attributes = {
 				CLASSPREFIX = NH3D;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
 				TargetAttributes = {
 					5539E6151CB2F03F00ED6EF3 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 					};
 					557CE1C11C8E1EE100B43765 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -2879,7 +2879,7 @@
 						CreatedOnToolsVersion = 7.2.1;
 					};
 					8D1107260486CEB800E47090 = {
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -3768,7 +3768,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -3795,8 +3794,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.sbrain.portNetHack3D;
 				PRODUCT_NAME = NetHack3D;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3816,7 +3814,6 @@
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
@@ -3842,8 +3839,7 @@
 				PRODUCT_NAME = NetHack3D;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -4207,8 +4203,7 @@
 				PRODUCT_NAME = Recover;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -4240,8 +4235,7 @@
 				PRODUCT_NAME = Recover;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
