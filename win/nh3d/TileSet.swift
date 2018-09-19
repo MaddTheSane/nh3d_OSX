@@ -54,7 +54,8 @@ final class TileSet: NSObject {
 		self.init(image: img, tileSize: size)
 	}
 	
-	@objc convenience init?(imageAt loc: URL, tileSize size1: NSSize = .zero) {
+	@objc(initWithImageAtURL:tileSize:)
+	convenience init?(imageAt loc: URL, tileSize size1: NSSize = .zero) {
 		var size = size1
 		guard let img = NSImage(contentsOf: loc) else {
 			return nil
