@@ -512,71 +512,71 @@
 		int localx = 0;
 		int localy = 0;
 		
-			switch (_mapModel.playerDirection) {
-				case NH3DPlayerDirectionForward:
-					for (x = centerX - MAP_MARGIN; x < centerX + 1 + MAP_MARGIN; x++) {
-						for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
-							[lock lock];
-							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
-							mapItemValue[localx][localy] = mapItem;
-							[lock unlock];
-							localy++;
-						}
-						localx++;
-						localy=0;
+		switch (_mapModel.playerDirection) {
+			case NH3DPlayerDirectionForward:
+				for (x = centerX - MAP_MARGIN; x < centerX + 1 + MAP_MARGIN; x++) {
+					for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
+						[lock lock];
+						NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
+						mapItemValue[localx][localy] = mapItem;
+						[lock unlock];
+						localy++;
 					}
-					[self setNeedsDisplay:YES];
-					[self enemyCheck];
-					break;
-					
-				case NH3DPlayerDirectionRight:
-					for (x = centerX + MAP_MARGIN; x > centerX - 1 - MAP_MARGIN; x--) {
-						for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
-							[lock lock];
-							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
-							mapItemValue[localy][localx] = mapItem;
-							[lock unlock];
-							localy++;
-						}
-						localx++;
-						localy=0;
+					localx++;
+					localy=0;
+				}
+				[self setNeedsDisplay:YES];
+				[self enemyCheck];
+				break;
+				
+			case NH3DPlayerDirectionRight:
+				for (x = centerX + MAP_MARGIN; x > centerX - 1 - MAP_MARGIN; x--) {
+					for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
+						[lock lock];
+						NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
+						mapItemValue[localy][localx] = mapItem;
+						[lock unlock];
+						localy++;
 					}
-					[self setNeedsDisplay:YES];
-					[self enemyCheck];
-					break;
-					
-				case NH3DPlayerDirectionBack:
-					for (x = centerX + MAP_MARGIN; x > centerX-1-MAP_MARGIN; x--) {
-						for (y = centerY + MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
-							[lock lock];
-							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
-							mapItemValue[localx][localy] = mapItem;
-							[lock unlock];
-							localy++;
-						}
-						localx++;
-						localy=0;
+					localx++;
+					localy=0;
+				}
+				[self setNeedsDisplay:YES];
+				[self enemyCheck];
+				break;
+				
+			case NH3DPlayerDirectionBack:
+				for (x = centerX + MAP_MARGIN; x > centerX-1-MAP_MARGIN; x--) {
+					for (y = centerY + MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
+						[lock lock];
+						NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
+						mapItemValue[localx][localy] = mapItem;
+						[lock unlock];
+						localy++;
 					}
-					[self setNeedsDisplay:YES];
-					[self enemyCheck];
-					break;
-					
-				case NH3DPlayerDirectionLeft:
-					for (x = centerX-MAP_MARGIN; x < centerX+1+MAP_MARGIN; x++) {
-						for (y = centerY+MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
-							[lock lock];
-							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
-							mapItemValue[localy][localx] = mapItem;
-							[lock unlock];
-							localy++;
-						}
-						localx++;
-						localy=0;
+					localx++;
+					localy=0;
+				}
+				[self setNeedsDisplay:YES];
+				[self enemyCheck];
+				break;
+				
+			case NH3DPlayerDirectionLeft:
+				for (x = centerX-MAP_MARGIN; x < centerX+1+MAP_MARGIN; x++) {
+					for (y = centerY+MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
+						[lock lock];
+						NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
+						mapItemValue[localy][localx] = mapItem;
+						[lock unlock];
+						localy++;
 					}
-					[self setNeedsDisplay:YES];
-					[self enemyCheck];
-					break;
-			}
+					localx++;
+					localy=0;
+				}
+				[self setNeedsDisplay:YES];
+				[self enemyCheck];
+				break;
+		}
 	}
 }
 
@@ -646,55 +646,55 @@
 		}
 		
 		//Draw view
-			if (needClear) {
-				NSEraseRect(bounds);
-				[mapBase drawInRect:bounds
-						   fromRect:NSZeroRect
-						  operation:NSCompositeSourceOver
-						   fraction:1.0];
-				needClear = NO;
-			}
-			
-			NSString *symbol = mapItemValue[x][y].symbol;
-			if (mapItemValue[x][y].hasAlternateSymbol && [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection]) {
-				symbol = [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection];
-			}
-			
-			[symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
-											(NSMaxY(bounds) - ((y+1)*16.0)),
-											16.0, 16.0)
-						 options:NSStringDrawingUsesDeviceMetrics
-					  attributes:attributes];
-			
-			if (mapItemValue[x][y].hasCursor) {
-				[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
-							  fromRect:NSZeroRect
-							 operation:NSCompositeSourceOver
-							  fraction:cursOpacity];
-				
-				viewCursX = x;
-				viewCursY = MAPVIEWSIZE_ROW-y-1;
-			}
-			
-			NSRect petRect = NSMakeRect(bounds.origin.x+(x*16.0),
+		if (needClear) {
+			NSEraseRect(bounds);
+			[mapBase drawInRect:bounds
+					   fromRect:NSZeroRect
+					  operation:NSCompositeSourceOver
+					   fraction:1.0];
+			needClear = NO;
+		}
+		
+		NSString *symbol = mapItemValue[x][y].symbol;
+		if (mapItemValue[x][y].hasAlternateSymbol && [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection]) {
+			symbol = [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection];
+		}
+		
+		[symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
 										(NSMaxY(bounds) - ((y+1)*16.0)),
-										16.0, 16.0);
+										16.0, 16.0)
+					 options:NSStringDrawingUsesDeviceMetrics
+				  attributes:attributes];
+		
+		if (mapItemValue[x][y].hasCursor) {
+			[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
+						  fromRect:NSZeroRect
+						 operation:NSCompositeSourceOver
+						  fraction:cursOpacity];
 			
-			if (iflags.wc_hilite_pet && mapItemValue[x][y].pet) {
-				//draw pet icon
-				[_petIcon drawInRect:petRect
-							fromRect:NSZeroRect
-						   operation:NSCompositeSourceOver
-							fraction:1.0];
-			}
-			
-			if (iflags.hilite_pile && mapItemValue[x][y].pile) {
-				//draw pile icon
-				[_stackIcon drawInRect:petRect
-							  fromRect:NSZeroRect
-							 operation:NSCompositeSourceOver
-							  fraction:1.0];
-			}
+			viewCursX = x;
+			viewCursY = MAPVIEWSIZE_ROW-y-1;
+		}
+		
+		NSRect petRect = NSMakeRect(bounds.origin.x+(x*16.0),
+									(NSMaxY(bounds) - ((y+1)*16.0)),
+									16.0, 16.0);
+		
+		if (iflags.wc_hilite_pet && mapItemValue[x][y].pet) {
+			//draw pet icon
+			[_petIcon drawInRect:petRect
+						fromRect:NSZeroRect
+					   operation:NSCompositeSourceOver
+						fraction:1.0];
+		}
+		
+		if (iflags.hilite_pile && mapItemValue[x][y].pile) {
+			//draw pile icon
+			[_stackIcon drawInRect:petRect
+						  fromRect:NSZeroRect
+						 operation:NSCompositeSourceOver
+						  fraction:1.0];
+		}
 	}
 }
 
@@ -725,32 +725,32 @@
 	NSMutableDictionary *attributes_alt = [[NSMutableDictionary alloc] init];
 	attributes_alt[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE - 2.0];
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
-		
-		[self clipSmallMap];
-		if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
-			[mapRestrictedBezel drawAtPoint:NSZeroPoint
-								   fromRect:NSZeroRect
-								  operation:NSCompositeSourceOver
-								   fraction:1.0];
+	
+	[self clipSmallMap];
+	if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
+		[mapRestrictedBezel drawAtPoint:NSZeroPoint
+							   fromRect:NSZeroRect
+							  operation:NSCompositeSourceOver
+							   fraction:1.0];
+	}
+	
+	if (!TRADITIONAL_MAP) {
+		if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
+			[NSLocalizedString(@"Center of Map", @"Center of Map") drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
+		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
+			[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
+			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
+			[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
+			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+		} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
+			[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
+			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+		} else {
+			[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
+			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
 		}
-		
-		if (!TRADITIONAL_MAP) {
-			if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
-				[NSLocalizedString(@"Center of Map", @"Center of Map") drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
-			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-				[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
-				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-			} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
-				[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
-				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-			} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-				[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
-				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-			} else {
-				[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
-				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
-			}
-		}
+	}
 }
 
 - (void)enemyCheck
