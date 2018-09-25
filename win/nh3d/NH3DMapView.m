@@ -423,7 +423,7 @@
 						localx++;
 						localy=0;
 					}
-					[self drawMask];
+					[self setNeedsDisplay:YES];
 					[self enemyCheck];
 					break;
 					
@@ -440,7 +440,7 @@
 						localx++;
 						localy=0;
 					}
-					[self drawMask];
+					[self setNeedsDisplay:YES];
 					[self enemyCheck];
 					break;
 					
@@ -457,7 +457,7 @@
 						localx++;
 						localy=0;
 					}
-					[self drawMask];
+					[self setNeedsDisplay:YES];
 					[self enemyCheck];
 					break;
 					
@@ -474,7 +474,7 @@
 						localx++;
 						localy=0;
 					}
-					[self drawMask];
+					[self setNeedsDisplay:YES];
 					[self enemyCheck];
 					break;
 			}
