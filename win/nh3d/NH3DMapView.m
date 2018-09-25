@@ -241,7 +241,59 @@
 						operation:NSCompositeSourceOver
 						 fraction:cursOpacity];
 		} else {
-			[self reloadMap];
+			NSRect bounds = self.bounds;
+			NSShadow *lshadow = [[NSShadow alloc] init];
+			NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+			
+			lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
+			lshadow.shadowBlurRadius = 3.5;
+			
+			attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
+			
+			//Draw view
+			if (needClear) {
+				NSEraseRect(bounds);
+				[mapBase drawInRect:bounds
+						   fromRect:NSZeroRect
+						  operation:NSCompositeSourceOver
+						   fraction:1.0];
+				needClear = NO;
+			}
+			
+			for (int x = 0; x < MAPVIEWSIZE_COLUMN - 1; x++) @autoreleasepool {
+				for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
+					//setColor and shadow for special-flag
+					attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
+					
+					if (mapItemValue[x][y].special > 0) {
+						lshadow.shadowColor = mapItemValue[x][y].color;
+					} else {
+						lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
+					}
+					attributes[NSShadowAttributeName] = lshadow;
+					
+					NSString *symbol = mapItemValue[x][y].symbol;
+					if (mapItemValue[x][y].hasAlternateSymbol && [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection]) {
+						symbol = [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection];
+					}
+					
+					[symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
+													(NSMaxY(bounds)-((y+1)*16.0)),
+													16.0,16.0)
+								 options:NSStringDrawingUsesDeviceMetrics
+							  attributes:attributes];
+					
+					if (mapItemValue[x][y].hasCursor) {
+						[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
+									  fromRect:NSZeroRect
+									 operation:NSCompositeSourceOver
+									  fraction:cursOpacity];
+						viewCursX = x;
+						viewCursY = MAPVIEWSIZE_ROW-y-1;
+					}
+				} // end for y
+			} // end for x
+			[self updateDrawMap];
 		}
 	}
 	
@@ -390,6 +442,65 @@
 	//[_mapModel mapArrayAtX:x atY:y];
 }
 
+- (void)updateDrawMap
+{
+	if (!isReady || TRADITIONAL_MAP) {
+		return;
+	} else {
+		//Get MapItems(Tiles,Symbol,glyph,etc...) with direction.
+		
+		int x,y;
+		int localx = 0;
+		int localy = 0;
+		
+		switch (_mapModel.playerDirection) {
+			case NH3DPlayerDirectionForward:
+				for (x = centerX - MAP_MARGIN; x < centerX + 1 + MAP_MARGIN; x++) {
+					for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
+						[self drawAsciiItemAtX:localx atY:localy];
+						localy++;
+					}
+					localx++;
+					localy=0;
+				}
+				break;
+				
+			case NH3DPlayerDirectionRight:
+				for (x = centerX + MAP_MARGIN; x > centerX - 1 - MAP_MARGIN; x--) {
+					for (y = centerY - MAP_MARGIN; y < centerY + 1 + MAP_MARGIN; y++) {
+						[self drawAsciiItemAtX:localy atY:localx];
+						localy++;
+					}
+					localx++;
+					localy=0;
+				}
+				break;
+				
+			case NH3DPlayerDirectionBack:
+				for (x = centerX + MAP_MARGIN; x > centerX-1-MAP_MARGIN; x--) {
+					for (y = centerY + MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
+						[self drawAsciiItemAtX:localx atY:localy];
+						localy++;
+					}
+					localx++;
+					localy=0;
+				}
+				break;
+				
+			case NH3DPlayerDirectionLeft:
+				for (x = centerX-MAP_MARGIN; x < centerX+1+MAP_MARGIN; x++) {
+					for (y = centerY+MAP_MARGIN; y > centerY-1-MAP_MARGIN; y--) {
+						[self drawAsciiItemAtX:localy atY:localx];
+						localy++;
+					}
+					localx++;
+					localy=0;
+				}
+				break;
+		}
+	}
+}
+
 - (void)updateMap
 {
 	if (!isReady || TRADITIONAL_MAP) {
@@ -409,7 +520,6 @@
 							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 							mapItemValue[localx][localy] = mapItem;
 							[lock unlock];
-							[self drawAsciiItemAtX:localx atY:localy];
 							localy++;
 						}
 						localx++;
@@ -426,7 +536,6 @@
 							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 							mapItemValue[localy][localx] = mapItem;
 							[lock unlock];
-							[self drawAsciiItemAtX:localy atY:localx];
 							localy++;
 						}
 						localx++;
@@ -443,7 +552,6 @@
 							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 							mapItemValue[localx][localy] = mapItem;
 							[lock unlock];
-							[self drawAsciiItemAtX:localx atY:localy];
 							localy++;
 						}
 						localx++;
@@ -460,7 +568,6 @@
 							NH3DMapItem *mapItem = [_mapModel mapArrayAtX:x atY:y];
 							mapItemValue[localy][localx] = mapItem;
 							[lock unlock];
-							[self drawAsciiItemAtX:localy atY:localx];
 							localy++;
 						}
 						localx++;
@@ -539,8 +646,6 @@
 		}
 		
 		//Draw view
-		if ([self lockFocusIfCanDraw]) {
-			[self clipSmallMap];
 			if (needClear) {
 				NSEraseRect(bounds);
 				[mapBase drawInRect:bounds
@@ -590,9 +695,6 @@
 							 operation:NSCompositeSourceOver
 							  fraction:1.0];
 			}
-			
-			[self unlockFocus];
-		}
 	}
 }
 
@@ -604,64 +706,7 @@
 	if (TRADITIONAL_MAP)
 		return;
 	
-	NSRect bounds = self.bounds;
-	NSShadow *lshadow = [[NSShadow alloc] init];
-	NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
-	
-	lshadow.shadowOffset = NSMakeSize(0.8, 1.8);
-	lshadow.shadowBlurRadius = 3.5;
-	
-	attributes[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: 16];
-	
-	//Draw view
-	if ([self lockFocusIfCanDraw]) {
-		[self clipSmallMap];
-		
-		if (needClear) {
-			NSEraseRect(bounds);
-			[mapBase drawInRect:bounds
-					   fromRect:NSZeroRect
-					  operation:NSCompositeSourceOver
-					   fraction:1.0];
-			needClear = NO;
-		}
-		
-		for (int x = 0; x < MAPVIEWSIZE_COLUMN - 1; x++) @autoreleasepool {
-			for (int y = 0; y < MAPVIEWSIZE_ROW - 1; y++) {
-				//setColor and shadow for special-flag
-				attributes[NSForegroundColorAttributeName] = [mapItemValue[x][y].color highlightWithLevel:0.2];
-				
-				if (mapItemValue[x][y].special > 0) {
-					lshadow.shadowColor = mapItemValue[x][y].color;
-				} else {
-					lshadow.shadowColor = [NSColor colorWithCalibratedWhite:0.0 alpha:1.0];
-				}
-				attributes[NSShadowAttributeName] = lshadow;
-				
-				NSString *symbol = mapItemValue[x][y].symbol;
-				if (mapItemValue[x][y].hasAlternateSymbol && [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection]) {
-					symbol = [mapItemValue[x][y] alternateSymbolForDirection:_mapModel.playerDirection];
-				}
-
-				[symbol drawWithRect:NSMakeRect(bounds.origin.x+(x*16.0),
-												(NSMaxY(bounds)-((y+1)*16.0)),
-												16.0,16.0)
-							 options:NSStringDrawingUsesDeviceMetrics
-						  attributes:attributes];
-				
-				if (mapItemValue[x][y].hasCursor) {
-					[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
-								  fromRect:NSZeroRect
-								 operation:NSCompositeSourceOver
-								  fraction:cursOpacity];
-					viewCursX = x;
-					viewCursY = MAPVIEWSIZE_ROW-y-1;
-				}
-			} // end for y
-		} // end for x
-		
-		[self unlockFocus];
-	}
+	[self setNeedsDisplay:YES];
 }
 
 - (void)setCursorOpacity:(CGFloat)opaq
