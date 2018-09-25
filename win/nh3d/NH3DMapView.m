@@ -204,7 +204,42 @@
 	
 	if (isReady) {
 		if (TRADITIONAL_MAP) {
-			[self updateMap];
+			CGFloat trCenterX,trCenterY,tsizeX,tsizeY,trColumn,trRow,trcpX,trcpY;
+			NSRect bounds = self.bounds;
+			
+			if (needClear) {
+				NSEraseRect(bounds);
+				[mapBase drawInRect:bounds
+						   fromRect:NSZeroRect
+						  operation:NSCompositeCopy
+						   fraction:1.0];
+				needClear = NO;
+			}
+			
+			tsizeX = (TRADITIONAL_MAP_TILE) ? TILE_SIZE_X : NH3DMAPFONTSIZE;
+			tsizeY = (TRADITIONAL_MAP_TILE) ? TILE_SIZE_Y : NH3DMAPFONTSIZE;
+			
+			
+			trColumn = bounds.size.width / 2;
+			trRow = bounds.size.height / 2;
+			trCenterX = (centerX * tsizeX) - trColumn;
+			trCenterY = trMapImage.size .height - (centerY * tsizeY) - trRow;
+			trcpX = (centerX - _mapModel.cursX - MAP_MARGIN) * -1;
+			trcpY = (centerY - _mapModel.cursY - MAP_MARGIN) * -1;
+			
+			[trMapImage drawAtPoint:bounds.origin
+						   fromRect:NSMakeRect(trCenterX,
+											   trCenterY,
+											   bounds.size.width, bounds.size.height)
+						  operation:NSCompositeSourceOver
+						   fraction:1.0];
+			
+			[posCursor drawInRect:NSMakeRect(bounds.origin.x + ((trcpX * tsizeX) + trColumn) ,
+											 NSMaxY(bounds) - ((trcpY * tsizeY) + trRow) ,
+											 tsizeX , tsizeY)
+						 fromRect:NSMakeRect(0, 0, 16.0, 16.0)
+						operation:NSCompositeSourceOver
+						 fraction:cursOpacity];
 		} else {
 			[self reloadMap];
 		}
@@ -357,7 +392,7 @@
 
 - (void)updateMap
 {
-	if (!isReady) {
+	if (!isReady || TRADITIONAL_MAP) {
 		return;
 	} else {
 		//Get MapItems(Tiles,Symbol,glyph,etc...) with direction.
@@ -366,49 +401,6 @@
 		int localx = 0;
 		int localy = 0;
 		
-		if (TRADITIONAL_MAP) {
-			CGFloat trCenterX,trCenterY,tsizeX,tsizeY,trColumn,trRow,trcpX,trcpY;
-			NSRect bounds = self.bounds;
-			
-			if (needClear) {
-				[self lockFocusIfCanDraw];
-				NSEraseRect(bounds);
-				[mapBase drawInRect:bounds
-						   fromRect:NSZeroRect
-						  operation:NSCompositeCopy
-						   fraction:1.0];
-				[self unlockFocus];
-				needClear = NO;
-			}
-			
-			tsizeX = (TRADITIONAL_MAP_TILE) ? TILE_SIZE_X : NH3DMAPFONTSIZE;
-			tsizeY = (TRADITIONAL_MAP_TILE) ? TILE_SIZE_Y : NH3DMAPFONTSIZE;
-			
-
-				trColumn = bounds.size.width / 2;
-				trRow = bounds.size.height / 2;
-				trCenterX = (centerX * tsizeX) - trColumn;
-				trCenterY = trMapImage.size .height - (centerY * tsizeY) - trRow;
-				trcpX = (centerX - _mapModel.cursX - MAP_MARGIN) * -1;
-				trcpY = (centerY - _mapModel.cursY - MAP_MARGIN) * -1;
-				
-			if ([self lockFocusIfCanDraw]) {
-				[trMapImage drawAtPoint:bounds.origin
-							   fromRect:NSMakeRect(trCenterX,
-												   trCenterY,
-												   bounds.size.width, bounds.size.height)
-							  operation:NSCompositeSourceOver
-							   fraction:1.0];
-
-				[posCursor drawInRect:NSMakeRect(bounds.origin.x + ((trcpX * tsizeX) + trColumn) ,
-												 NSMaxY(bounds) - ((trcpY * tsizeY) + trRow) ,
-												 tsizeX , tsizeY)
-							 fromRect:NSMakeRect(0, 0, 16.0, 16.0)
-							operation:NSCompositeSourceOver
-							 fraction:cursOpacity];
-			}
-			[self unlockFocus];
-		} else {
 			switch (_mapModel.playerDirection) {
 				case NH3DPlayerDirectionForward:
 					for (x = centerX - MAP_MARGIN; x < centerX + 1 + MAP_MARGIN; x++) {
@@ -478,7 +470,6 @@
 					[self enemyCheck];
 					break;
 			}
-		}
 	}
 }
 
@@ -690,7 +681,6 @@
 	attributes_alt[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE - 2.0];
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 		
-	if ([self lockFocusIfCanDraw]) {
 		[self clipSmallMap];
 		if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
 			[mapRestrictedBezel drawAtPoint:NSZeroPoint
@@ -716,9 +706,6 @@
 				 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
 			}
 		}
-		
-		[self unlockFocus];
-	}
 }
 
 - (void)enemyCheck
