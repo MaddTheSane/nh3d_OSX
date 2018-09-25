@@ -726,7 +726,6 @@
 	attributes_alt[NSFontAttributeName] = [NSFont fontWithName:NH3DMAPFONT size: NH3DMAPFONTSIZE - 2.0];
 	attributes_alt[NSForegroundColorAttributeName] = [NSColor whiteColor];
 	
-	[self clipSmallMap];
 	if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
 		[mapRestrictedBezel drawAtPoint:NSZeroPoint
 							   fromRect:NSZeroRect
