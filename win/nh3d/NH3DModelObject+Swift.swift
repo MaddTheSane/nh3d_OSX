@@ -88,6 +88,22 @@ extension NH3DMaterial: Equatable, CustomStringConvertible {
 	public var description: String {
 		return "ambient: \(ambient), diffuse: \(diffuse), specular: \(specular), emission: \(emission), shininess: \(shininess)"
 	}
+	
+	public static func ==(lhs: NH3DMaterial, rhs: NH3DMaterial) -> Bool {
+		if lhs.ambient != rhs.ambient {
+			return false
+		} else if lhs.diffuse != rhs.diffuse {
+			return false
+		} else if lhs.specular != rhs.specular {
+			return false
+		} else if lhs.emission != rhs.emission {
+			return false
+		} else if lhs.shininess != rhs.shininess {
+			return false
+		}
+		
+		return true
+	}
 }
 
 extension nh3d_face3: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
@@ -97,6 +113,17 @@ extension nh3d_face3: Equatable, CustomStringConvertible, CustomDebugStringConve
 	
 	public var debugDescription: String {
 		return "Face a: \(a), b: \(b), c: \(c)"
+	}
+	
+	public static func ==(lhs: nh3d_face3, rhs: nh3d_face3) -> Bool {
+		if lhs.a != rhs.a {
+			return false
+		} else if lhs.b != rhs.b {
+			return false
+		} else if lhs.c != lhs.c {
+			return false
+		}
+		return true
 	}
 }
 
@@ -108,6 +135,16 @@ extension NH3DMapCoordType: Equatable, CustomStringConvertible, CustomDebugStrin
 	public var debugDescription: String {
 		return "Coord s: \(s), t: \(t)"
 	}
+	
+	public static func ==(lhs: NH3DMapCoordType, rhs: NH3DMapCoordType) -> Bool {
+		if lhs.s != rhs.s {
+			return false
+		} else if lhs.t != rhs.t {
+			return false
+		}
+		
+		return true
+	}
 }
 
 extension NH3DVertexType: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
@@ -118,52 +155,15 @@ extension NH3DVertexType: Equatable, CustomStringConvertible, CustomDebugStringC
 	public var debugDescription: String {
 		return "Vertex x: \(x), y: \(y), z: \(z)"
 	}
-}
-
-public func ==(lhs: NH3DMapCoordType, rhs: NH3DMapCoordType) -> Bool {
-	if lhs.s != rhs.s {
-		return false
-	} else if lhs.t != rhs.t {
-		return false
-	}
 	
-	return true
-}
-
-public func ==(lhs: NH3DVertexType, rhs: NH3DVertexType) -> Bool {
-	if lhs.x != rhs.x {
-		return false
-	} else if lhs.y != rhs.y {
-		return false
-	} else if lhs.z != lhs.z {
-		return false
+	public static func ==(lhs: NH3DVertexType, rhs: NH3DVertexType) -> Bool {
+		if lhs.x != rhs.x {
+			return false
+		} else if lhs.y != rhs.y {
+			return false
+		} else if lhs.z != lhs.z {
+			return false
+		}
+		return true
 	}
-	return true
-}
-
-public func ==(lhs: nh3d_face3, rhs: nh3d_face3) -> Bool {
-	if lhs.a != rhs.a {
-		return false
-	} else if lhs.b != rhs.b {
-		return false
-	} else if lhs.c != lhs.c {
-		return false
-	}
-	return true
-}
-
-public func ==(lhs: NH3DMaterial, rhs: NH3DMaterial) -> Bool {
-	if lhs.ambient != rhs.ambient {
-		return false
-	} else if lhs.diffuse != rhs.diffuse {
-		return false
-	} else if lhs.specular != rhs.specular {
-		return false
-	} else if lhs.emission != rhs.emission {
-		return false
-	} else if lhs.shininess != rhs.shininess {
-		return false
-	}
-	
-	return true
 }
