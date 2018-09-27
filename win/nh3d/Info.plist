@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
-	<string>NetHack3D 3.1.0 © Haruumi Yoshino, 2006; C.W. "Madd the Sane" Betts, 2015-2017</string>
+	<string>NetHack3D 3.1.1 © Haruumi Yoshino, 2006; C.W. &quot;Madd the Sane&quot; Betts, 2015-2018</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1.0</string>
+	<string>3.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>nh3D</string>
 	<key>CFBundleVersion</key>
