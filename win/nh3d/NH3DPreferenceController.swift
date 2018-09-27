@@ -39,12 +39,12 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 				let matchHeight = fileName[match2]
 				
 				#if REDUNDANT_SAFETY_CHECKS
-					guard let intMatchWidth = Int(matchWidth), let intMatchHeight = Int(matchHeight) else {
+					guard let intMatchWidth = Int32(matchWidth), let intMatchHeight = Int32(matchHeight) else {
 						break matchTwoSize
 					}
-					return (Int32(intMatchWidth), Int32(intMatchHeight))
+					return (intMatchWidth, intMatchHeight)
 				#else
-					return (Int32(Int(matchWidth)!), Int32(Int(matchHeight)!))
+					return (Int32(matchWidth)!, Int32(matchHeight)!)
 				#endif
 			}
 		}
@@ -67,12 +67,12 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 			if let match1 = match1 {
 				let matchSquare = fileName[match1]
 				#if REDUNDANT_SAFETY_CHECKS
-					guard let tmpIntSquare = Int(matchSquare) else {
+					guard let tmpIntSquare = Int32(matchSquare) else {
 						break matchOneSize
 					}
-					let tmpSquare = Int32(tmpIntSquare)
+					let tmpSquare = tmpIntSquare
 				#else
-					let tmpSquare = Int32(Int(matchSquare)!)
+					let tmpSquare = Int32(matchSquare)!
 				#endif
 				return (tmpSquare, tmpSquare)
 			}
@@ -189,7 +189,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		
 		let defaults = UserDefaults.standard
 		defaults.set(convertedFont.fontName, forKey: key)
-		defaults.set(Float(convertedFont.pointSize), forKey: sizeKey)
+		defaults.set(convertedFont.pointSize.native, forKey: sizeKey)
 	}
 	
 	@IBAction func showFontPanelAction(_ sender: NSButton?) {
