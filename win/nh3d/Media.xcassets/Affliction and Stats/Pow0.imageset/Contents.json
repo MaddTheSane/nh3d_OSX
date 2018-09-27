@@ -7,13 +7,14 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "1x",
+      "filename" : "Pow0-1.png",
       "appearances" : [
         {
           "appearance" : "luminosity",
           "value" : "dark"
         }
-      ]
+      ],
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
