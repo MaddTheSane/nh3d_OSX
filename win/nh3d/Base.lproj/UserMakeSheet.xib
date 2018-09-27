@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13178.6"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,21 +23,21 @@
             <rect key="contentRect" x="129" y="404" width="461" height="578"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="8">
-                <rect key="frame" x="0.0" y="0.0" width="488" height="578"/>
+                <rect key="frame" x="0.0" y="0.0" width="487" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="28">
-                        <rect key="frame" x="0.0" y="0.0" width="487" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="487" height="625"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="bottom" imageScaling="axesIndependently" image="ScrollPaper" id="101"/>
                     </imageView>
                     <box verticalHuggingPriority="251" verticalCompressionResistancePriority="751" title="Race" translatesAutoresizingMaskIntoConstraints="NO" id="35">
-                        <rect key="frame" x="44" y="318" width="229" height="149"/>
+                        <rect key="frame" x="44" y="319" width="228" height="150"/>
                         <view key="contentView" id="BIf-ho-1o6">
-                            <rect key="frame" x="2" y="2" width="225" height="132"/>
+                            <rect key="frame" x="3" y="3" width="222" height="132"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <matrix verticalHuggingPriority="750" selectionByRect="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37">
-                                    <rect key="frame" x="20" y="9" width="186" height="118"/>
+                                    <rect key="frame" x="20" y="9" width="182" height="118"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     <size key="cellSize" width="89" height="38"/>
                                     <size key="intercellSpacing" width="4" height="2"/>
@@ -100,13 +98,13 @@
                         </connections>
                     </box>
                     <box title="Role" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                        <rect key="frame" x="44" y="40" width="229" height="274"/>
+                        <rect key="frame" x="44" y="40" width="228" height="275"/>
                         <view key="contentView" id="6rB-4i-iwS">
-                            <rect key="frame" x="2" y="2" width="225" height="257"/>
+                            <rect key="frame" x="3" y="3" width="222" height="257"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <matrix verticalHuggingPriority="750" selectionByRect="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                                    <rect key="frame" x="5" y="13" width="215" height="236"/>
+                                    <rect key="frame" x="5" y="13" width="212" height="236"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     <size key="cellSize" width="90" height="32"/>
                                     <size key="intercellSpacing" width="4" height="2"/>
@@ -245,9 +243,9 @@
                         <font key="titleFont" size="11" name="Copperplate"/>
                     </box>
                     <box title="Alginment" translatesAutoresizingMaskIntoConstraints="NO" id="52">
-                        <rect key="frame" x="275" y="385" width="89" height="82"/>
+                        <rect key="frame" x="274" y="386" width="90" height="83"/>
                         <view key="contentView" id="Z2y-Em-X2U">
-                            <rect key="frame" x="2" y="2" width="85" height="65"/>
+                            <rect key="frame" x="3" y="3" width="84" height="65"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <matrix verticalHuggingPriority="750" selectionByRect="NO" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54">
@@ -296,9 +294,9 @@
                         <font key="titleFont" size="11" name="Copperplate"/>
                     </box>
                     <box title="Gender" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                        <rect key="frame" x="366" y="393" width="85" height="74"/>
+                        <rect key="frame" x="366" y="394" width="84" height="75"/>
                         <view key="contentView" id="Alm-ev-ARp">
-                            <rect key="frame" x="2" y="2" width="81" height="57"/>
+                            <rect key="frame" x="3" y="3" width="78" height="57"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <matrix verticalHuggingPriority="750" selectionByRect="NO" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32">
@@ -342,7 +340,7 @@
                         <font key="titleFont" size="11" name="Copperplate"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                        <rect key="frame" x="380" y="36" width="70" height="32"/>
+                        <rect key="frame" x="379" y="36" width="70" height="32"/>
                         <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" continuous="YES" state="on" borderStyle="border" sound="Purr" inset="2" id="107">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -364,7 +362,7 @@ DQ
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="29">
-                        <rect key="frame" x="47" y="536" width="409" height="30"/>
+                        <rect key="frame" x="47" y="538" width="408" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="378" id="HUf-B2-meG"/>
                         </constraints>
@@ -375,7 +373,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="44">
-                        <rect key="frame" x="278" y="158" width="176" height="17"/>
+                        <rect key="frame" x="277" y="158" width="176" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="NetHack" id="103">
                             <font key="font" size="13" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -383,7 +381,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="45">
-                        <rect key="frame" x="278" y="72" width="176" height="78"/>
+                        <rect key="frame" x="277" y="72" width="176" height="78"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="104">
                             <font key="font" size="10" name="Copperplate"/>
                             <string key="title">Copyright © Stichting Mathematisch Centrum, Amsterdam, 1985.
@@ -393,7 +391,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="47">
-                        <rect key="frame" x="278" y="356" width="176" height="25"/>
+                        <rect key="frame" x="277" y="357" width="176" height="25"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="NetHack3D" id="106">
                             <font key="font" size="20" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -401,7 +399,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="50">
-                        <rect key="frame" x="278" y="320" width="176" height="13"/>
+                        <rect key="frame" x="277" y="321" width="176" height="13"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="http://www.sbrain.org/nethack3d/" id="109">
                             <font key="font" metaFont="label"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -409,7 +407,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="749" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="51">
-                        <rect key="frame" x="47" y="503" width="409" height="25"/>
+                        <rect key="frame" x="47" y="505" width="408" height="25"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="PlayerName" id="110">
                             <font key="font" size="20" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -420,7 +418,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="749" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                        <rect key="frame" x="47" y="472" width="409" height="23"/>
+                        <rect key="frame" x="47" y="474" width="408" height="23"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Please tell us about you more." id="99">
                             <font key="font" size="18" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -428,7 +426,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </textFieldCell>
                     </textField>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="27">
-                        <rect key="frame" x="302" y="185" width="128" height="128"/>
+                        <rect key="frame" x="301" y="186" width="128" height="128"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="128" id="0Ij-AY-mYO"/>
                             <constraint firstAttribute="width" constant="128" id="aks-qg-J1o"/>
@@ -436,7 +434,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" image="NSApplicationIcon" id="100"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                        <rect key="frame" x="278" y="341" width="176" height="17"/>
+                        <rect key="frame" x="277" y="342" width="176" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="by Haruumi Yoshino 2005" id="108">
                             <font key="font" size="13" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -444,7 +442,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46">
-                        <rect key="frame" x="310" y="36" width="70" height="32"/>
+                        <rect key="frame" x="309" y="36" width="70" height="32"/>
                         <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="105">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
