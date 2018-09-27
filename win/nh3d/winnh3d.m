@@ -337,7 +337,7 @@ if (!soundEffect) { \
 soundEffect = [[NSURL fileURLWithPath: [[NSBundle mainBundle] pathForSoundResource:aName]] fileReferenceURL];\
 soundDict[aName] = soundEffect; \
 } \
-[[SoundController sharedSoundController] playAudioFileAtURL:soundEffect volume:100 priority:SoundPriorityLow]
+[[SoundController sharedSoundController] playAudioFileAtURL:soundEffect volume:100 priority:NH3DSoundPriorityLow]
 
 			case 1:
 				PlaySoundName(@"waterDrop");
@@ -1816,7 +1816,7 @@ void play_usersound(const char *filename, int volume)
 	}
 	NSURL *url = [NSURL fileURLWithFileSystemRepresentation:filename isDirectory:NO relativeToURL:nil];
 	
-	[SoundController.sharedSoundController playAudioFileAtURL:url volume:volume priority:SoundPriorityMedium];
+	[SoundController.sharedSoundController playAudioFileAtURL:url volume:volume priority:NH3DSoundPriorityMedium];
 }
 
 #endif

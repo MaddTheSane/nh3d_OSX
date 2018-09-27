@@ -83,7 +83,7 @@ final class SoundController: NSObject {
 		}
 	}
 	
-	@objc(SoundPriority) enum Priority: Int {
+	@objc(NH3DSoundPriority) enum Priority: Int {
 		case low = -1
 		case medium = 0
 		case high = 1
