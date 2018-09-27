@@ -20,53 +20,53 @@ static inline BOOL Swift_Invis() {
 	return (bool)Invis;
 }
 
-/// Returns \c true if player is stealthy.
+//! Returns \c true if player is stealthy.
 static inline BOOL Swift_Stealth() {
 	return (bool)Stealth;
 }
 
 //! the Eyes operate even when you really are blind or don't have any eyes.
-/// Returns \c true if player is blind.
+//! Returns \c true if player is blind.
 static inline BOOL Swift_Blind() {
 	return (bool)Blind;
 }
 
-/// Returns \c true if player is underwater.
+//! Returns \c true if player is underwater.
 static inline BOOL Swift_Underwater() {
 	return (bool)Underwater;
 }
 
-/// Returns \c true if player can teleport at will
+//! Returns \c true if player can teleport at will
 static inline BOOL Swift_Teleportation() {
 	return (bool)Teleportation;
 }
 
-/// Returns \c true if player has teleportation control
+//! Returns \c true if player has teleportation control
 static inline BOOL Swift_Teleport_control() {
 	return (bool)Teleport_control;
 }
 
-/// Returns \c true if player is hallucinating
+//! Returns \c true if player is hallucinating
 static inline BOOL Swift_Hallucination() {
 	return (bool)Hallucination;
 }
 
-/// Returns \c true if player is flying
+//! Returns \c true if player is flying
 static inline BOOL Swift_Flying() {
 	return (bool)Flying;
 }
 
-/// Returns \c true if player is levitating
+//! Returns \c true if player is levitating
 static inline BOOL Swift_Levitation() {
 	return (bool)Levitation;
 }
 
-/// Returns \c true if player can levitate at will
+//! Returns \c true if player can levitate at will
 static inline BOOL Swift_LevitationAtWill() {
 	return Lev_at_will;
 }
 
-/// Returns \c true if player is swimming underwater
+//! Returns \c true if player is swimming underwater
 static inline BOOL Swift_Swimming() {
 	return (bool)Swimming;
 }
@@ -75,7 +75,7 @@ static inline BOOL Swift_Amphibious() {
 	return (bool)Amphibious;
 }
 
-/// Returns \c true if player has infravision.
+//! Returns \c true if player has infravision.
 static inline BOOL Swift_Infravision() {
 	return (bool)Infravision;
 }
@@ -175,7 +175,7 @@ static inline BOOL Swift_IsAir(schar type) {
 	return IS_AIR(type);
 }
 
-/// Returns the amount of tiles used by NetHack.
+//! Returns the amount of tiles used by NetHack.
 static inline int totalTilesUsed()
 {
 	/* from tile.c */
@@ -183,7 +183,7 @@ static inline int totalTilesUsed()
 	return total_tiles_used;
 }
 
-/// Transforms the specified glyph into a tile
+//! Transforms the specified glyph into a tile
 static inline short glyphToTile(int i)
 {
 	/* from tile.c */
@@ -195,6 +195,84 @@ NS_SWIFT_NAME(glyphIsMonster(_:))
 static inline BOOL Swift_glyphIsMonster(int glyph1)
 {
 	return glyph_is_monster(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsNormalMonster(_:))
+static inline BOOL Swift_glyph_is_normal_monster(int glyph1)
+{
+	return glyph_is_normal_monster(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsPetMonster(_:))
+static inline BOOL Swift_glyph_is_pet(int glyph1)
+{
+	return glyph_is_pet(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsBody(_:))
+static inline BOOL Swift_glyph_is_body(int glyph1)
+{
+	return glyph_is_body(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsStatue(_:))
+static inline BOOL Swift_glyph_is_statue(int glyph1)
+{
+	return glyph_is_statue(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsRiddenMonster(_:))
+static inline BOOL Swift_glyph_is_ridden_monster(int glyph1)
+{
+	return glyph_is_ridden_monster(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsDetectedMonster(_:))
+static inline BOOL Swift_glyph_is_detected_monster(int glyph1)
+{
+	return glyph_is_detected_monster(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsInvisible(_:))
+static inline BOOL Swift_glyph_is_invisible(int glyph1)
+{
+	return glyph_is_invisible(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsNormalObject(_:))
+static inline BOOL Swift_glyph_is_normal_object(int glyph1)
+{
+	return glyph_is_normal_object(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsObject(_:))
+static inline BOOL Swift_glyph_is_object(int glyph1)
+{
+	return glyph_is_object(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsTrap(_:))
+static inline BOOL Swift_glyph_is_trap(int glyph1)
+{
+	return glyph_is_trap(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsCmap(_:))
+static inline BOOL Swift_glyph_is_cmap(int glyph1)
+{
+	return glyph_is_cmap(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsSwallow(_:))
+static inline BOOL Swift_glyph_is_swallow(int glyph1)
+{
+	return glyph_is_swallow(glyph1);
+}
+
+NS_SWIFT_NAME(glyphIsWarning(_:))
+static inline BOOL Swift_glyph_is_warning(int glyph1)
+{
+	return glyph_is_warning(glyph1);
 }
 
 NS_SWIFT_NAME(objectToGlyph(_:))
@@ -402,13 +480,13 @@ static inline bool Swift_In_endgame(const d_level *__nonnull xx)
 //! means blind because of a cover.
 static inline bool Swift_Blindfolded()
 {
-	return Blindfolded;
+	return (bool)Blindfolded;
 }
 
 //! blind because of a blindfold, and \b only that.
 static inline bool Swift_Blindfolded_only()
 {
-	return Blindfolded_only;
+	return (bool)Blindfolded_only;
 }
 
 NS_SWIFT_NAME(monsterAt(x:y:))
