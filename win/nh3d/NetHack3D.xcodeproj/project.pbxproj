@@ -1355,7 +1355,7 @@
 		5560A2BC1C34927200BF77F7 /* sysconf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sysconf; sourceTree = "<group>"; };
 		5585264A1C868A2F00813BF2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55A571021C8D61A000FE4A3B /* NH3DModelObject+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "NH3DModelObject+Swift.swift"; sourceTree = "<group>"; };
-		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55AB04E11B5D88ED0039953F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55B23DEC1ECF78B90097EB52 /* NH3DTextureObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DTextureObject.h; sourceTree = "<group>"; };
 		55B23DED1ECF78B90097EB52 /* NH3DTextureObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NH3DTextureObject.m; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GLHelpers.swift; sourceTree = "<group>"; };
@@ -1377,11 +1377,11 @@
 		55D555351C96019E001B0ECB /* boomerang.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.mtl; sourceTree = "<group>"; };
 		55D555361C96019E001B0ECB /* boomerang.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = boomerang.obj; sourceTree = "<group>"; };
 		55D663061DE4F00B0007E0CC /* NH3DSwiftHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NH3DSwiftHelpers.h; sourceTree = "<group>"; };
-		55E3784F1DE6454E000817A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		55E378511DE645DC000817A4 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E3784F1DE6454E000817A4 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		55E378511DE645DC000817A4 /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55F416641CA250B000AE8943 /* NH3DFirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NH3DFirstLaunchController.swift; sourceTree = "<group>"; };
 		55F544C01C3614A100A1A1EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55FC95401B5CD59700B0FFB4 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55FC95421B5CD7AA00B0FFB4 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../Media.xcassets; sourceTree = "<group>"; };
 		55FEB8181C37111F008B3A8C /* NH3DPreferenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NH3DPreferenceController.swift; sourceTree = "<group>"; };
 		55FEB81A1C373C33008B3A8C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
