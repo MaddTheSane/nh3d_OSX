@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, NH3DModelDrawingTypes) {
+typedef NS_ENUM(NSInteger, NH3DModelDrawingType) {
 	NH3DModelDrawingBlackWall = 0,
 	NH3DModelDrawingPlayerPosition = 1,
 	NH3DModelDrawingHole = 2,
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSInteger, NH3DModelDrawingTypes) {
 @property (readonly, strong, nullable) NSImage *foregroundTile;
 @property (readonly, strong, nullable) NSImage *backgroundTile;
 
-@property (readonly) NH3DModelDrawingTypes modelDrawingType;
+@property (readonly) NH3DModelDrawingType modelDrawingType;
 
 - (void)clearTileCache;
 
