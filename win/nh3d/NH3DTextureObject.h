@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) GLuint texture;
 
 - (nullable instancetype)initWithBitmapImageRep:(NSBitmapImageRep*)imgRep NS_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithImageNamed:(NSString*)named;
+- (nullable instancetype)initWithImageNamed:(NSImageName)named;
 - (nullable instancetype)initWithURL:(NSURL*)aURL;
 - (nullable instancetype)initWithFilePath:(NSString*)path;
 
