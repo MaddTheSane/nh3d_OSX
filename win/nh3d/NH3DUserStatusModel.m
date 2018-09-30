@@ -396,7 +396,7 @@ static NSString *stripParentheses(NSString *text)
 	static NSString *weapInHands=@"";
 	static NSString *otherHand=@"";
 	static const char *hand = NULL;
-	// ...but regenerate them when what our hands are change
+	// ...but regenerate them when what our hands are changed
 	if (hand != body_part(HAND)) {
 		hand = body_part(HAND);
 		NSString *handPart = [NSString stringWithCString:hand encoding:NH3DTEXTENCODING];
@@ -449,7 +449,7 @@ static NSString *stripParentheses(NSString *text)
 	if (uarm) {
 		[self setPlayerArmour:obj_to_glyph(uarm)];
 		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]);
-	} else if (uarmu && !uarm) {
+	} else if (uarmu) {
 		[self setPlayerArmour:obj_to_glyph(uarmu)];
 		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarmu) encoding:NH3DTEXTENCODING]);
 	} else {

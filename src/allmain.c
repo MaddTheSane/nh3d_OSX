@@ -441,8 +441,7 @@ moveloop(boolean resuming)
 
 /* maybe recover some lost health (or lose some when an eel out of water) */
 STATIC_OVL void
-regen_hp(wtcap)
-int wtcap;
+regen_hp(int wtcap)
 {
     int heal = 0;
     boolean reached_full = FALSE,
@@ -730,8 +729,7 @@ do_positionbar()
 #endif
 
 STATIC_DCL void
-interrupt_multi(msg)
-const char *msg;
+interrupt_multi(const char *msg)
 {
     if (multi > 0 && !context.travel && !context.run) {
         nomul(0);
@@ -759,10 +757,7 @@ static struct early_opt earlyopts[] = {
 };
 
 boolean
-argcheck(argc, argv, e_arg)
-int argc;
-char *argv[];
-enum earlyarg e_arg;
+argcheck(int argc, char *argv[], enum earlyarg e_arg)
 {
     int i, idx;
     boolean match = FALSE;
