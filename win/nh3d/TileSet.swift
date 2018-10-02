@@ -75,7 +75,9 @@ final class TileSet: NSObject {
 				
 				return toRet
 			}()
-			if img.representations.count == 1, !(img.representations[0] is NSPDFImageRep), let img2 = NSImage(contentsOf: x2Loc),
+			if img.representations.count == 1,
+				!(img.representations[0] is NSPDFImageRep),
+				let img2 = NSImage(contentsOf: x2Loc),
 				let rep = img2.representations[0].copy() as? NSImageRep {
 				rep.size = img.size
 				img.addRepresentation(rep)
