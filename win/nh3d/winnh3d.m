@@ -1428,6 +1428,9 @@ wd_message()
 {
 	char buf[BUFSZ] = " ";
 	_asciiMapView.needClear = YES;
+	if (TRADITIONAL_MAP) {
+		[_asciiMapView setNeedsDisplay:YES];
+	}
 	[_asciiMapView updateMap];
 	[_glMapView updateMap];
 	[_userStatus updatePlayer];
