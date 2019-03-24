@@ -398,7 +398,7 @@
 					   fraction:1.0];
 		}
 	} else if (mapItem != nil) {
-		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+		NSMutableDictionary *attributes = [[NSMutableDictionary alloc] initWithCapacity:3];
 		CGFloat fontsize = NH3DMAPFONTSIZE;
 		CGFloat drawMargin = fontsize/4;
 		
@@ -429,7 +429,7 @@
 							  fontsize+drawMargin, fontsize+drawMargin));
 		
 		NSString *symbol = mapItem.symbol;
-		if (mapItemValue[x][y].hasAlternateSymbol && [mapItem alternateSymbolForDirection:_mapModel.playerDirection]) {
+		if (mapItem.hasAlternateSymbol && [mapItem alternateSymbolForDirection:_mapModel.playerDirection]) {
 			symbol = [mapItem alternateSymbolForDirection:_mapModel.playerDirection];
 		}
 		
