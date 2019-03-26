@@ -2864,7 +2864,7 @@
 				TargetAttributes = {
 					5539E6151CB2F03F00ED6EF3 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					557CE1C11C8E1EE100B43765 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -2879,7 +2879,7 @@
 						CreatedOnToolsVersion = 7.2.1;
 					};
 					8D1107260486CEB800E47090 = {
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -3794,7 +3794,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.sbrain.portNetHack3D;
 				PRODUCT_NAME = NetHack3D;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3839,7 +3838,6 @@
 				PRODUCT_NAME = NetHack3D;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NetHack3D-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3901,6 +3899,7 @@
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -3954,6 +3953,7 @@
 				PRODUCT_NAME = NetHack3D;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -4203,7 +4203,6 @@
 				PRODUCT_NAME = Recover;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -4235,7 +4234,6 @@
 				PRODUCT_NAME = Recover;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "RecoverApp/Recover-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

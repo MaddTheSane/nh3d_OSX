@@ -62,7 +62,7 @@ extension NH3DModelObject {
 			// Dividing by 1 will result in the same number.
 			if connect > 1 {
 				let connFloat = Float(connect)
-				theNorms[i] /= float3(connFloat)
+				theNorms[i] /= float3(repeating: connFloat)
 			}
 		}
 	}

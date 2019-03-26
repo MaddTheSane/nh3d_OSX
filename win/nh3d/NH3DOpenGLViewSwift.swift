@@ -1062,6 +1062,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 						drawGLView(x: x, z: z)
 					}
 				}
+			@unknown default:
+				fatalError("Unknown value for 'mapModel.playerDirection': \(mapModel.playerDirection.rawValue)")
 			}
 			
 			// next. particle objects
