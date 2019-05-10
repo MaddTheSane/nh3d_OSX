@@ -1,4 +1,4 @@
-/* NetHack 3.6	topl.c	$NHDT-Date: 1490908468 2017/03/30 21:14:28 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.36 $ */
+/* NetHack 3.6	topl.c	$NHDT-Date: 1549333449 2019/02/05 02:24:09 $  $NHDT-Branch: NetHack-3.6.2-beta01 $:$NHDT-Revision: 1.44 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Michael Allison, 2009. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -16,7 +16,6 @@
 
 STATIC_DCL void redotoplin(const char *);
 STATIC_DCL void topl_putsym(char);
-STATIC_DCL void remember_topl(void);
 STATIC_DCL void removetopl(int);
 STATIC_DCL void msghistory_snapshot(boolean);
 STATIC_DCL void free_msghistory_snapshot(boolean);
@@ -25,9 +24,9 @@ int
 tty_doprev_message()
 {
     register struct WinDesc *cw = wins[WIN_MESSAGE];
-
     winid prevmsg_win;
     int i;
+
     if ((iflags.prevmsg_window != 's')
         && !ttyDisplay->inread) {           /* not single */
         if (iflags.prevmsg_window == 'f') { /* full */
@@ -143,7 +142,23 @@ redotoplin(const char *str)
         more();
 }
 
-STATIC_OVL void
+/* for use by tty_putstr() */
+void
+show_topl(str)
+const char *str;
+{
+    struct WinDesc *cw = wins[WIN_MESSAGE];
+
+    if (!(cw->flags & WIN_STOP)) {
+        cw->curx = cw->cury = 0;
+        home();
+        cl_end();
+        addtopl(str);
+    }
+}
+
+/* used by update_topl(); also by tty_putstr() */
+void
 remember_topl()
 {
     register struct WinDesc *cw = wins[WIN_MESSAGE];
@@ -183,6 +198,8 @@ more()
 
     /* avoid recursion -- only happens from interrupts */
     if (ttyDisplay->inmore++)
+        return;
+    if (iflags.debug_fuzzer)
         return;
 
     if (ttyDisplay->toplin) {
@@ -226,7 +243,8 @@ update_topl(register const char *bp)
     /* If there is room on the line, print message on same line */
     /* But messages like "You die..." deserve their own line */
     n0 = strlen(bp);
-    if ((ttyDisplay->toplin == 1 || (cw->flags & WIN_STOP)) && cw->cury == 0
+    if ((ttyDisplay->toplin == 1 || (cw->flags & WIN_STOP))
+        && cw->cury == 0
         && n0 + (int) strlen(toplines) + 3 < CO - 8 /* room for --More-- */
         && (notdied = strncmp(bp, "You die", 7)) != 0) {
         Strcat(toplines, "  ");
@@ -626,7 +644,7 @@ tty_getmsghistory(boolean init)
  *
  * It's also called by the quest pager code when a block message
  * has a one-line summary specified.  We put that line directly
- * message history for ^P recall without having displayed it.
+ * into message history for ^P recall without having displayed it.
  */
 void
 tty_putmsghistory(const char *msg, boolean restoring_msghist)

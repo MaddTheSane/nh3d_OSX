@@ -8,6 +8,10 @@ nethack
 NetHack3D
 *.o
 tiles.bmp
+*.moc
+graphicschk
+nhdat
+o
 
 NetHack3D-Swift.h
 NetHack3D.swiftdoc

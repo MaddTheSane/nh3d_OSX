@@ -1,15 +1,15 @@
-/* NetHack 3.6	pline.c	$NHDT-Date: 1520964541 2018/03/13 18:09:01 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.66 $ */
+/* NetHack 3.6	pline.c	$NHDT-Date: 1549327495 2019/02/05 00:44:55 $  $NHDT-Branch: NetHack-3.6.2-beta01 $:$NHDT-Revision: 1.73 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Robert Patrick Rankin, 2018. */
 /* NetHack may be freely redistributed.  See license for details. */
 
-#define NEED_VARARGS /* Uses ... */ /* comment line for pre-compiled headers \
-                                       */
+#define NEED_VARARGS /* Uses ... */ /* comment line for pre-compiled headers */
 #include "hack.h"
 
 static unsigned pline_flags = 0;
 static char prevmsg[BUFSZ];
 
+static void putmesg(const char *);
 static char *You_buf(int);
 #if defined(MSGHANDLER) && (defined(POSIX_TYPES) || defined(__GNUC__))
 static void execplinehandler(const char *);
@@ -62,7 +62,23 @@ dumplogfreemessages()
 }
 #endif
 
-/*VARARGS1*/
+/* keeps windowprocs usage out of pline() */
+static void
+putmesg(line)
+const char *line;
+{
+    int attr = ATR_NONE;
+
+    if ((pline_flags & URGENT_MESSAGE) != 0
+        && (windowprocs.wincap2 & WC2_URGENT_MESG) != 0)
+        attr |= ATR_URGENT;
+    if ((pline_flags & SUPPRESS_HISTORY) != 0
+        && (windowprocs.wincap2 & WC2_SUPPRESS_HIST) != 0)
+        attr |= ATR_NOHISTORY;
+
+    putstr(WIN_MESSAGE, attr, line);
+}
+
 /* Note that these declarations rely on knowledge of the internals
  * of the variable argument handling stuff in "tradstdc.h"
  */
@@ -137,8 +153,9 @@ vpline(const char *line, va_list the_args)
     no_repeat = (pline_flags & PLINE_NOREPEAT) ? TRUE : FALSE;
     if ((pline_flags & OVERRIDE_MSGTYPE) == 0) {
         msgtyp = msgtype_type(line, no_repeat);
-        if (msgtyp == MSGTYP_NOSHOW
-            || (msgtyp == MSGTYP_NOREP && !strcmp(line, prevmsg)))
+        if ((pline_flags & URGENT_MESSAGE) == 0
+            && (msgtyp == MSGTYP_NOSHOW
+                || (msgtyp == MSGTYP_NOREP && !strcmp(line, prevmsg))))
             /* FIXME: we need a way to tell our caller that this message
              * was suppressed so that caller doesn't set iflags.last_msg
              * for something that hasn't been shown, otherwise a subsequent
@@ -154,7 +171,7 @@ vpline(const char *line, va_list the_args)
     if (u.ux)
         flush_screen(1); /* %% */
 
-    putstr(WIN_MESSAGE, 0, line);
+    putmesg(line);
 
 #if defined(MSGHANDLER) && (defined(POSIX_TYPES) || defined(__GNUC__))
     execplinehandler(line);
@@ -236,6 +253,7 @@ void You(const char *line, ...)
 {
     va_list the_args;
     char *tmp;
+
     va_start(the_args, line);
     vpline(YouMessage(tmp, "You ", line), the_args);
     va_end(the_args);
@@ -246,6 +264,7 @@ void Your(const char *line, ...)
 {
     va_list the_args;
     char *tmp;
+
     va_start(the_args, line);
     vpline(YouMessage(tmp, "Your ", line), the_args);
     va_end(the_args);
@@ -256,6 +275,7 @@ void You_feel(const char *line, ...)
 {
     va_list the_args;
     char *tmp;
+
     va_start(the_args, line);
     if (Unaware)
         YouPrefix(tmp, "You dream that you feel ", line);
@@ -270,6 +290,7 @@ void You_cant(const char *line, ...)
 {
     va_list the_args;
     char *tmp;
+
     va_start(the_args, line);
     vpline(YouMessage(tmp, "You can't ", line), the_args);
     va_end(the_args);
@@ -280,6 +301,7 @@ void pline_The(const char *line, ...)
 {
     va_list the_args;
     char *tmp;
+
     va_start(the_args, line);
     vpline(YouMessage(tmp, "The ", line), the_args);
     va_end(the_args);
@@ -290,6 +312,7 @@ void There(const char *line, ...)
 {
     va_list the_args;
     char *tmp;
+
     va_start(the_args, line);
     vpline(YouMessage(tmp, "There ", line), the_args);
     va_end(the_args);
@@ -394,6 +417,7 @@ void impossible(const char *s, ...)
     va_list the_args;
     char pbuf[2 * BUFSZ];
     va_start(the_args, s);
+
     if (program_state.in_impossible)
         panic("impossible called impossible");
 
@@ -401,14 +425,22 @@ void impossible(const char *s, ...)
     Vsprintf(pbuf, s, the_args);
     pbuf[BUFSZ - 1] = '\0'; /* sanity */
     paniclog("impossible", pbuf);
+    if (iflags.debug_fuzzer)
+        panic("%s", pbuf);
     pline("%s", pbuf);
-    pline("%s", "Program in disorder!  (Saving and reloading may fix this problem.)");
+    /* reuse pbuf[] */
+    Strcpy(pbuf, "Program in disorder!");
+    if (program_state.something_worth_saving)
+        Strcat(pbuf, "  (Saving and reloading may fix this problem.)");
+    pline("%s", pbuf);
+
     program_state.in_impossible = 0;
     va_end(the_args);
 }
 
 #if defined(MSGHANDLER) && (defined(POSIX_TYPES) || defined(__GNUC__))
 static boolean use_pline_handler = TRUE;
+
 static void
 execplinehandler(const char *line)
 {
@@ -445,6 +477,35 @@ execplinehandler(const char *line)
         pline("%s", VA_PASS1("Fork to message handler failed."));
     }
 }
-#endif /* defined(POSIX_TYPES) || defined(__GNUC__) */
+#endif /* MSGHANDLER && (POSIX_TYPES || __GNUC__) */
+
+/*
+ * varargs handling for files.c
+ */
+static void vconfig_error_add(const char *, va_list);
+
+/*VARARGS1*/
+void
+config_error_add(const char *str, ...)
+{
+    va_list the_args;
+    va_start(the_args, str);
+    vconfig_error_add(str, the_args);
+    va_end(the_args);
+}
+
+static void
+vconfig_error_add(const char *str, va_list the_args)
+{       /* start of vconf...() or of nested block in USE_OLDARG's conf...() */
+    char buf[2 * BUFSZ];
+
+    Vsprintf(buf, str, the_args);
+    buf[BUFSZ - 1] = '\0';
+    config_erradd(buf);
+
+#if !(defined(USE_STDARG) || defined(USE_VARARGS))
+    VA_END(); /* (see pline/vpline -- ends nested block for USE_OLDARGS) */
+#endif
+}
 
 /*pline.c*/

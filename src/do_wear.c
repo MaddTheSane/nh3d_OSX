@@ -1,4 +1,4 @@
-/* NetHack 3.6	do_wear.c	$NHDT-Date: 1514072526 2017/12/23 23:42:06 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.100 $ */
+/* NetHack 3.6	do_wear.c	$NHDT-Date: 1551138255 2019/02/25 23:44:15 $  $NHDT-Branch: NetHack-3.6.2-beta01 $:$NHDT-Revision: 1.108 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Robert Patrick Rankin, 2012. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -181,10 +181,11 @@ Boots_on(VOID_ARGS)
             incr_itimeout(&HFumbling, rnd(20));
         break;
     case LEVITATION_BOOTS:
-        if (!oldprop && !HLevitation && !BLevitation) {
+        if (!oldprop && !HLevitation && !(BLevitation & FROMOUTSIDE)) {
             makeknown(uarmf->otyp);
             float_up();
-            spoteffects(FALSE);
+            if (Levitation)
+                spoteffects(FALSE); /* for sink effect */
         } else {
             float_vs_flight(); /* maybe toggle (BFlying & I_SPECIAL) */
         }
@@ -192,6 +193,7 @@ Boots_on(VOID_ARGS)
     default:
         impossible(unknown_type, c_boots, uarmf->otyp);
     }
+    uarmf->known = 1; /* boots' +/- evident because of status line AC */
     return 0;
 }
 
@@ -234,7 +236,7 @@ Boots_off(VOID_ARGS)
             HFumbling = EFumbling = 0;
         break;
     case LEVITATION_BOOTS:
-        if (!oldprop && !HLevitation && !BLevitation
+        if (!oldprop && !HLevitation && !(BLevitation & FROMOUTSIDE)
             && !context.takeoff.cancelled_don) {
             (void) float_down(0L, 0L);
             makeknown(otyp);
@@ -305,6 +307,7 @@ Cloak_on(VOID_ARGS)
     default:
         impossible(unknown_type, c_cloak, uarmc->otyp);
     }
+    uarmc->known = 1; /* cloak's +/- evident because of status line AC */
     return 0;
 }
 
@@ -420,6 +423,7 @@ Helmet_on(VOID_ARGS)
     default:
         impossible(unknown_type, c_helmet, uarmh->otyp);
     }
+    uarmh->known = 1; /* helmet's +/- evident because of status line AC */
     return 0;
 }
 
@@ -492,6 +496,7 @@ Gloves_on(VOID_ARGS)
     default:
         impossible(unknown_type, c_gloves, uarmg->otyp);
     }
+    uarmg->known = 1; /* gloves' +/- evident because of status line AC */
     return 0;
 }
 
@@ -566,7 +571,9 @@ STATIC_PTR int
 Shield_on(VOID_ARGS)
 {
     /* no shield currently requires special handling when put on, but we
-       keep this uncommented in case somebody adds a new one which does */
+       keep this uncommented in case somebody adds a new one which does
+       [reflection is handled by setting u.uprops[REFLECTION].extrinsic
+       in setworn() called by armor_or_accessory_on() before Shield_on()] */
     switch (uarms->otyp) {
     case SMALL_SHIELD:
     case ELVEN_SHIELD:
@@ -579,7 +586,7 @@ Shield_on(VOID_ARGS)
     default:
         impossible(unknown_type, c_shield, uarms->otyp);
     }
-
+    uarms->known = 1; /* shield's +/- evident because of status line AC */
     return 0;
 }
 
@@ -619,7 +626,7 @@ Shirt_on(VOID_ARGS)
     default:
         impossible(unknown_type, c_shirt, uarmu->otyp);
     }
-
+    uarmu->known = 1; /* shirt's +/- evident because of status line AC */
     return 0;
 }
 
@@ -642,14 +649,16 @@ Shirt_off(VOID_ARGS)
     return 0;
 }
 
-/* This must be done in worn.c, because one of the possible intrinsics
- * conferred is fire resistance, and we have to immediately set
- * HFire_resistance in worn.c since worn.c will check it before returning.
- */
 STATIC_PTR
 int
 Armor_on(VOID_ARGS)
 {
+    /*
+     * No suits require special handling.  Special properties conferred by
+     * suits are set up as intrinsics (actually 'extrinsics') by setworn()
+     * which is called by armor_or_accessory_on() before Armor_on().
+     */
+    uarm->known = 1; /* suit's +/- evident because of status line AC */
     return 0;
 }
 
@@ -663,7 +672,10 @@ Armor_off(VOID_ARGS)
 }
 
 /* The gone functions differ from the off functions in that if you die from
- * taking it off and have life saving, you still die.
+ * taking it off and have life saving, you still die.  [Obsolete reference
+ * to lack of fire resistance being fatal in hell (nethack 3.0) and life
+ * saving putting a removed item back on to prevent that from immediately
+ * repeating.]
  */
 int
 Armor_gone()
@@ -894,10 +906,11 @@ Ring_on(register struct obj *obj)
         }
         break;
     case RIN_LEVITATION:
-        if (!oldprop && !HLevitation && !BLevitation) {
+        if (!oldprop && !HLevitation && !(BLevitation & FROMOUTSIDE)) {
             float_up();
             learnring(obj, TRUE);
-            spoteffects(FALSE); /* for sinks */
+            if (Levitation)
+                spoteffects(FALSE); /* for sinks */
         } else {
             float_vs_flight(); /* maybe toggle (BFlying & I_SPECIAL) */
         }
@@ -910,7 +923,7 @@ Ring_on(register struct obj *obj)
         goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;
-    adjust_attrib:
+ adjust_attrib:
         old_attrib = ACURR(which);
         ABON(which) += obj->spe;
         observable = (old_attrib != ACURR(which));
@@ -1006,7 +1019,7 @@ Ring_off_or_gone(register struct obj *obj, boolean gone)
         }
         break;
     case RIN_LEVITATION:
-        if (!BLevitation) {
+        if (!(BLevitation & FROMOUTSIDE)) {
             (void) float_down(0L, 0L);
             if (!Levitation)
                 learnring(obj, TRUE);
@@ -1022,7 +1035,7 @@ Ring_off_or_gone(register struct obj *obj, boolean gone)
         goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;
-    adjust_attrib:
+ adjust_attrib:
         old_attrib = ACURR(which);
         ABON(which) -= obj->spe;
         observable = (old_attrib != ACURR(which));
@@ -1067,7 +1080,7 @@ Ring_gone(struct obj *obj)
 }
 
 void
-Blindf_on(register struct obj *otmp)
+Blindf_on(struct obj *otmp)
 {
     boolean already_blind = Blind, changed = FALSE;
 
@@ -1097,18 +1110,12 @@ Blindf_on(register struct obj *otmp)
             You("can see!");
     }
     if (changed) {
-        /* blindness has just been toggled */
-        if (Blind_telepat || Infravision)
-            see_monsters();
-        vision_full_recalc = 1; /* recalc vision limits */
-        if (!Blind)
-            learn_unseen_invent();
-        context.botl = 1;
+        toggle_blindness(); /* potion.c */
     }
 }
 
 void
-Blindf_off(register struct obj *otmp)
+Blindf_off(struct obj *otmp)
 {
     boolean was_blind = Blind, changed = FALSE;
 
@@ -1141,13 +1148,7 @@ Blindf_off(register struct obj *otmp)
         }
     }
     if (changed) {
-        /* blindness has just been toggled */
-        if (Blind_telepat || Infravision)
-            see_monsters();
-        vision_full_recalc = 1; /* recalc vision limits */
-        if (!Blind)
-            learn_unseen_invent();
-        context.botl = 1;
+        toggle_blindness(); /* potion.c */
     }
 }
 
@@ -1214,7 +1215,8 @@ donning(struct obj *otmp)
 }
 
 /* check whether the target object is currently being taken off,
-   so that stop_donning() and steal() can vary messages */
+   so that stop_donning() and steal() can vary messages and doname()
+   can vary "(being worn)" suffix */
 boolean
 doffing(struct obj *otmp)
 {
@@ -1884,31 +1886,46 @@ accessory_or_armor_on(struct obj *obj)
     if (armor) {
         int delay;
 
-        obj->known = 1; /* since AC is shown on the status line */
-        /* if the armor is wielded, release it for wearing */
+        /* if the armor is wielded, release it for wearing (won't be
+           welded even if cursed; that only happens for weapons/weptools) */
         if (obj->owornmask & W_WEAPON)
             remove_worn_item(obj, FALSE);
+        /*
+         * Setting obj->known=1 is done because setworn() causes hero's AC
+         * to change so armor's +/- value is evident via the status line.
+         * We used to set it here because of that, but then it would stick
+         * if a nymph stole the armor before it was fully worn.  Delay it
+         * until the aftermv action.  The player may still know this armor's
+         * +/- amount if donning gets interrupted, but the hero won't.
+         *
+        obj->known = 1;
+         */
         setworn(obj, mask);
+        /* if there's no delay, we'll execute 'aftermv' immediately */
+        if (obj == uarm)
+            afternmv = Armor_on;
+        else if (obj == uarmh)
+            afternmv = Helmet_on;
+        else if (obj == uarmg)
+            afternmv = Gloves_on;
+        else if (obj == uarmf)
+            afternmv = Boots_on;
+        else if (obj == uarms)
+            afternmv = Shield_on;
+        else if (obj == uarmc)
+            afternmv = Cloak_on;
+        else if (obj == uarmu)
+            afternmv = Shirt_on;
+        else
+            panic("wearing armor not worn as armor? [%08lx]", obj->owornmask);
+
         delay = -objects[obj->otyp].oc_delay;
         if (delay) {
             nomul(delay);
             multi_reason = "dressing up";
-            if (is_boots(obj))
-                afternmv = Boots_on;
-            if (is_helmet(obj))
-                afternmv = Helmet_on;
-            if (is_gloves(obj))
-                afternmv = Gloves_on;
-            if (obj == uarm)
-                afternmv = Armor_on;
             nomovemsg = "You finish your dressing maneuver.";
         } else {
-            if (is_cloak(obj))
-                (void) Cloak_on();
-            if (is_shield(obj))
-                (void) Shield_on();
-            if (is_shirt(obj))
-                (void) Shirt_on();
+            unmul(""); /* call (*aftermv)(), clear it+nomovemsg+multi_reason */
             on_msg(obj);
         }
         context.takeoff.mask = context.takeoff.what = 0L;

@@ -1,4 +1,4 @@
-/* NetHack 3.6	ball.c	$NHDT-Date: 1450402033 2015/12/18 01:27:13 $  $NHDT-Branch: NetHack-3.6.0 $:$NHDT-Revision: 1.29 $ */
+/* NetHack 3.6	ball.c	$NHDT-Date: 1557088406 2019/05/05 20:33:26 $  $NHDT-Branch: NetHack-3.6.2-beta01 $:$NHDT-Revision: 1.36 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) David Cohrs, 2006. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -23,12 +23,14 @@ ballrelease(boolean showmsg)
             setuswapwep((struct obj *) 0);
         if (uquiver == uball)
             setuqwep((struct obj *) 0);
-        ;
-        if (uwep != uball)
-            freeinv(uball);
+        /* [this used to test 'if (uwep != uball)' but that always passes
+           after the setuwep() above] */
+        freeinv(uball); /* remove from inventory but don't place on floor */
+        encumber_msg();
     }
 }
 
+/* ball&chain might hit hero when falling through a trap door */
 void
 ballfall()
 {
@@ -39,6 +41,7 @@ ballfall()
     ballrelease(TRUE);
     if (gets_hit) {
         int dmg = rn1(7, 25);
+
         pline_The("iron ball falls on your %s.", body_part(HEAD));
         if (uarmh) {
             if (is_metallic(uarmh)) {
@@ -112,9 +115,9 @@ placebc()
 
     (void) flooreffects(uchain, u.ux, u.uy, ""); /* chain might rust */
 
-    if (carried(uball)) /* the ball is carried */
+    if (carried(uball)) { /* the ball is carried */
         u.bc_order = BCPOS_DIFFER;
-    else {
+    } else {
         /* ball might rust -- already checked when carried */
         (void) flooreffects(uball, u.ux, u.uy, "");
         place_object(uball, u.ux, u.uy);
@@ -403,6 +406,7 @@ drag_ball(xchar x, xchar y, int *bc_control, xchar *ballx, xchar *bally,
     /* only need to move the chain? */
     if (carried(uball) || distmin(x, y, uball->ox, uball->oy) <= 2) {
         xchar oldchainx = uchain->ox, oldchainy = uchain->oy;
+
         *bc_control = BC_CHAIN;
         move_bc(1, *bc_control, *ballx, *bally, *chainx, *chainy);
         if (carried(uball)) {
@@ -576,7 +580,7 @@ drag_ball(xchar x, xchar y, int *bc_control, xchar *ballx, xchar *bally,
         return TRUE;
     }
 
-drag:
+ drag:
 
     if (near_capacity() > SLT_ENCUMBER && dist2(x, y, u.ux, u.uy) <= 2) {
         You("cannot %sdrag the heavy iron ball.",
@@ -591,8 +595,7 @@ drag:
              || !is_pool(uball->ox, uball->oy)
              || levl[uball->ox][uball->oy].typ == POOL))
         || ((t = t_at(uchain->ox, uchain->oy))
-            && (t->ttyp == PIT || t->ttyp == SPIKED_PIT || t->ttyp == HOLE
-                || t->ttyp == TRAPDOOR))) {
+            && (is_pit(t->ttyp) || is_hole(t->ttyp)))) {
         if (Levitation) {
             You_feel("a tug from the iron ball.");
             if (t)
@@ -695,11 +698,12 @@ drop_ball(xchar x, xchar y)
     }
 
     if (x != u.ux || y != u.uy) {
+        static const char *pullmsg = "The ball pulls you out of the %s!";
         struct trap *t;
-        const char *pullmsg = "The ball pulls you out of the %s!";
+        long side;
 
-        if (u.utrap && u.utraptype != TT_INFLOOR
-            && u.utraptype != TT_BURIEDBALL) {
+        if (u.utrap
+            && u.utraptype != TT_INFLOOR && u.utraptype != TT_BURIEDBALL) {
             switch (u.utraptype) {
             case TT_PIT:
                 pline(pullmsg, "pit");
@@ -712,8 +716,8 @@ drop_ball(xchar x, xchar y)
             case TT_LAVA:
                 pline(pullmsg, hliquid("lava"));
                 break;
-            case TT_BEARTRAP: {
-                register long side = rn2(3) ? LEFT_SIDE : RIGHT_SIDE;
+            case TT_BEARTRAP:
+                side = rn2(3) ? LEFT_SIDE : RIGHT_SIDE;
                 pline(pullmsg, "bear trap");
                 set_wounded_legs(side, rn1(1000, 500));
                 if (!u.usteed) {
@@ -726,8 +730,7 @@ drop_ball(xchar x, xchar y)
                 }
                 break;
             }
-            }
-            u.utrap = 0;
+            reset_utrap(TRUE);
             fill_pit(u.ux, u.uy);
         }
 
@@ -736,8 +739,8 @@ drop_ball(xchar x, xchar y)
         if (!Levitation && !MON_AT(x, y) && !u.utrap
             && (is_pool(x, y)
                 || ((t = t_at(x, y))
-                    && (t->ttyp == PIT || t->ttyp == SPIKED_PIT
-                        || t->ttyp == TRAPDOOR || t->ttyp == HOLE)))) {
+                    && (is_pit(t->ttyp)
+                        || is_hole(t->ttyp))))) {
             u.ux = x;
             u.uy = y;
         } else {
@@ -766,21 +769,24 @@ drop_ball(xchar x, xchar y)
     }
 }
 
+/* ball&chain cause hero to randomly lose stuff from inventory */
 STATIC_OVL void
 litter()
 {
-    struct obj *otmp = invent, *nextobj;
+    struct obj *otmp, *nextobj = 0;
     int capacity = weight_cap();
 
-    while (otmp) {
+    for (otmp = invent; otmp; otmp = nextobj) {
         nextobj = otmp->nobj;
         if ((otmp != uball) && (rnd(capacity) <= (int) otmp->owt)) {
             if (canletgo(otmp, "")) {
-                pline("%s you down the stairs.", Yobjnam2(otmp, "follow"));
+                You("drop %s and %s %s down the stairs with you.",
+                    yname(otmp), (otmp->quan == 1L) ? "it" : "they",
+                    otense(otmp, "fall"));
                 dropx(otmp);
+                encumber_msg(); /* drop[xyz]() probably ought to to this... */
             }
         }
-        otmp = nextobj;
     }
 }
 
@@ -829,6 +835,67 @@ drag_down()
             litter();
         }
     }
+}
+
+void
+bc_sanity_check()
+{
+    int otyp;
+    unsigned save_nameknown;
+    const char *onam;
+
+    if (Punished && (!uball || !uchain)) {
+        impossible("Punished without %s%s%s?",
+                   !uball ? "iron ball" : "",
+                   (!uball && !uchain) ? " and " : "",
+                   !uchain ? "attached chain" : "");
+    } else if (!Punished && (uball || uchain)) {
+        impossible("Attached %s%s%s without being Punished?",
+                   uchain ? "chain" : "",
+                   (uchain && uball) ? " and " : "",
+                   uball ? "iron ball" : "");
+    }
+    /* ball is free when swallowed, changing levels, other times? */
+    if (uball && (uball->otyp != HEAVY_IRON_BALL
+                  || (uball->where != OBJ_FLOOR
+                      && uball->where != OBJ_INVENT
+                      && uball->where != OBJ_FREE)
+                  || (uball->owornmask & W_BALL) == 0L
+                  || (uball->owornmask & ~(W_BALL | W_WEAPON)) != 0L)) {
+        otyp = uball->otyp;
+        if (otyp < STRANGE_OBJECT || otyp >= NUM_OBJECTS
+            || !OBJ_NAME(objects[otyp])) {
+            onam = "glorkum";
+        } else {
+            save_nameknown = objects[otyp].oc_name_known;
+            objects[otyp].oc_name_known = 1;
+            onam = simple_typename(otyp);
+            objects[otyp].oc_name_known = save_nameknown;
+        }
+        impossible("uball: type %d (%s), where %d, wornmask=0x%08lx",
+                   otyp, onam, uball->where, uball->owornmask);
+    }
+    /* similar check to ball except can't be in inventory */
+    if (uchain && (uchain->otyp != IRON_CHAIN
+                   || (uchain->where != OBJ_FLOOR
+                       && uchain->where != OBJ_FREE)
+                   /* [could simplify this to owornmask != W_CHAIN] */
+                   || (uchain->owornmask & W_CHAIN) == 0L
+                   || (uchain->owornmask & ~W_CHAIN) != 0L)) {
+        otyp = uchain->otyp;
+        if (otyp < STRANGE_OBJECT || otyp >= NUM_OBJECTS
+            || !OBJ_NAME(objects[otyp])) {
+            onam = "glorkum";
+        } else {
+            save_nameknown = objects[otyp].oc_name_known;
+            objects[otyp].oc_name_known = 1;
+            onam = simple_typename(otyp);
+            objects[otyp].oc_name_known = save_nameknown;
+        }
+        impossible("uchain: type %d (%s), where %d, wornmask=0x%08lx",
+                   otyp, onam, uchain->where, uchain->owornmask);
+    }
+    /* [check bc_order too?] */
 }
 
 /*ball.c*/

@@ -1,4 +1,4 @@
-/* NetHack 3.6	wintty.h	$NHDT-Date: 1433806583 2015/06/08 23:36:23 $  $NHDT-Branch: master $:$NHDT-Revision: 1.24 $ */
+/* NetHack 3.6	wintty.h	$NHDT-Date: 1553858470 2019/03/29 11:21:10 $  $NHDT-Branch: NetHack-3.6.2-beta01 $:$NHDT-Revision: 1.33 $ */
 /* Copyright (c) David Cohrs, 1991,1992				  */
 /* NetHack may be freely redistributed.  See license for details. */
 
@@ -68,6 +68,20 @@ struct DisplayDesc {
 };
 
 #endif /* WINDOW_STRUCTS */
+
+#ifdef STATUS_HILITES
+struct tty_status_fields {
+    int idx;
+    int color;
+    int attr;
+    int x, y;
+    size_t lth;
+    boolean valid;
+    boolean dirty;
+    boolean redraw;
+    boolean _not_used; /* was 'last_in_row' */
+};
+#endif
 
 #define MAXWIN 20 /* maximum number of windows, cop-out */
 
@@ -150,6 +164,8 @@ E int has_color(int color);
 
 /* ### topl.c ### */
 
+E void show_topl(const char *);
+E void remember_topl(void);
 E void addtopl(const char *);
 E void more(void);
 E void update_topl(const char *);
@@ -166,6 +182,7 @@ E void win_tty_init(int);
 
 /* external declarations */
 E void tty_init_nhwindows(int *, char **);
+E void tty_preference_update(const char *);
 E void tty_player_selection(void);
 E void tty_askname(void);
 E void tty_get_nh_event(void);
@@ -215,6 +232,7 @@ E short set_tty_font_name(winid, char *);
 #endif
 E char *tty_get_color_string(void);
 #endif
+E void tty_status_enablefield(int, const char *, const char *, boolean);
 E void tty_status_init(void);
 E void tty_status_update(int, genericptr_t, int, int, int, unsigned long *);
 

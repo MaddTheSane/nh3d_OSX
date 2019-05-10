@@ -1,15 +1,16 @@
-/* NetHack 3.6	exper.c	$NHDT-Date: 1446975467 2015/11/08 09:37:47 $  $NHDT-Branch: master $:$NHDT-Revision: 1.26 $ */
+/* NetHack 3.6	exper.c	$NHDT-Date: 1553296396 2019/03/22 23:13:16 $  $NHDT-Branch: NetHack-3.6.2-beta01 $:$NHDT-Revision: 1.32 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Robert Patrick Rankin, 2007. */
 /* NetHack may be freely redistributed.  See license for details. */
 
 #include "hack.h"
+#ifndef LONG_MAX
 #include <limits.h>
+#endif
 
-STATIC_DCL long newuexp(int);
 STATIC_DCL int enermod(int);
 
-STATIC_OVL long
+long
 newuexp(int lev)
 {
     if (lev < 10)
@@ -155,24 +156,31 @@ experience(register struct monst *mtmp, register int nk)
 void
 more_experienced(register int exper, register int rexp)
 {
-    long newexp = u.uexp + exper;
-    long rexpincr = 4 * exper + rexp;
-    long newrexp = u.urexp + rexpincr;
+    long oldexp = u.uexp,
+         oldrexp = u.urexp,
+         newexp = oldexp + exper,
+         rexpincr = 4 * exper + rexp,
+         newrexp = oldrexp + rexpincr;
 
     /* cap experience and score on wraparound */
     if (newexp < 0 && exper > 0)
         newexp = LONG_MAX;
     if (newrexp < 0 && rexpincr > 0)
         newrexp = LONG_MAX;
-    u.uexp = newexp;
-    u.urexp = newrexp;
 
-    if (exper
+    if (newexp != oldexp) {
+        u.uexp = newexp;
+        if (flags.showexp)
+            context.botl = TRUE;
+    }
+    /* newrexp will always differ from oldrexp unless they're LONG_MAX */
+    if (newrexp != oldrexp) {
+        u.urexp = newrexp;
 #ifdef SCORE_ON_BOTL
-        || flags.showscore
+        if (flags.showscore)
+            context.botl = TRUE;
 #endif
-        )
-        context.botl = 1;
+    }
     if (u.urexp >= (Role_if(PM_WIZARD) ? 1000 : 2000))
         flags.beginner = 0;
 }
@@ -236,7 +244,7 @@ losexp(const char *drainer) /* cause of death, if drain should be fatal */
             rehumanize();
     }
 
-    context.botl = 1;
+    context.botl = TRUE;
 }
 
 /*
@@ -295,7 +303,7 @@ pluslvl(boolean incr) /* true iff via incremental experience growth */
         adjabil(u.ulevel - 1, u.ulevel); /* give new intrinsics */
         reset_rndmonst(NON_PM);          /* new monster selection */
     }
-    context.botl = 1;
+    context.botl = TRUE;
 }
 
 /* compute a random amount of experience points suitable for the hero's

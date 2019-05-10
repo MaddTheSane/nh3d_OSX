@@ -6,7 +6,7 @@
 #include "hack.h"
 
 #if defined(TTY_GRAPHICS) || defined(X11_GRAPHICS) || defined(GEM_GRAPHICS) \
-    || defined(MSWIN_GRAPHICS) || defined(DUMPLOG)
+    || defined(MSWIN_GRAPHICS) || defined(DUMPLOG) || defined(CURSES_GRAPHICS)
 #define TEXT_TOMBSTONE
 #endif
 #if defined(mac) || defined(__BEOS__) || defined(WIN32_GRAPHICS)
@@ -16,6 +16,7 @@
 #endif
 
 #ifdef TEXT_TOMBSTONE
+STATIC_DCL void center(int, char *);
 
 STATIC_DCL void center(int, char *);
 
