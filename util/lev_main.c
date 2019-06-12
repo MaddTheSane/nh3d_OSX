@@ -411,7 +411,6 @@ lc_warning(const char *line, ...)
 {
     va_list the_args;
     va_start(the_args, line);
-    ;
     lc_pline_mode = LC_PLINE_WARNING;
     lc_vpline(line, the_args);
     va_end(the_args);
@@ -579,7 +578,7 @@ vadd_opvars(sp_lev *sp, const char *fmt, va_list the_args)
         {
             struct opvar *ov = New(struct opvar);
 
-            set_opvar_int(ov, (long) va_arg(la, int));
+            set_opvar_int(ov, va_arg(the_args, int));
             add_opcode(sp, SPO_PUSH, ov);
             break;
         }

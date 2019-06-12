@@ -385,6 +385,7 @@
 		55B23DEE1ECF78B90097EB52 /* NH3DTextureObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B23DED1ECF78B90097EB52 /* NH3DTextureObject.m */; };
 		55B7D8581C20821900CF5C9E /* NH3DOpenGLViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552F3D451B5EE347001D9D13 /* NH3DOpenGLViewSwift.swift */; };
 		55B7D85A1C209FF300CF5C9E /* GLHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B7D8591C209FF300CF5C9E /* GLHelpers.swift */; };
+		55BC02C422B0EC8D00624B28 /* isaac64.c in Sources */ = {isa = PBXBuildFile; fileRef = 55BC02C322B0EC8D00624B28 /* isaac64.c */; };
 		55BF8B341B76AECB0031A45A /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B331B76AECB0031A45A /* MapModel.swift */; };
 		55BF8B361B76B3C10031A45A /* SwiftNetHack bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */; };
 		55C1693C1C3520F300C1365E /* NH3DMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C1693B1C3520F300C1365E /* NH3DMessaging.swift */; };
@@ -1359,6 +1360,9 @@
 		55B23DEC1ECF78B90097EB52 /* NH3DTextureObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NH3DTextureObject.h; sourceTree = "<group>"; };
 		55B23DED1ECF78B90097EB52 /* NH3DTextureObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NH3DTextureObject.m; sourceTree = "<group>"; };
 		55B7D8591C209FF300CF5C9E /* GLHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GLHelpers.swift; sourceTree = "<group>"; };
+		55BC02C222B0EC5900624B28 /* isaac64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = isaac64.h; sourceTree = "<group>"; };
+		55BC02C322B0EC8D00624B28 /* isaac64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = isaac64.c; sourceTree = "<group>"; };
+		55BC02C522B0ECB700624B28 /* integer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = integer.h; sourceTree = "<group>"; };
 		55BF8B331B76AECB0031A45A /* MapModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MapModel.swift; sourceTree = "<group>"; };
 		55BF8B351B76B3C10031A45A /* SwiftNetHack bridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "SwiftNetHack bridge.swift"; sourceTree = "<group>"; };
 		55C1693B1C3520F300C1365E /* NH3DMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NH3DMessaging.swift; sourceTree = "<group>"; };
@@ -2282,9 +2286,9 @@
 				2B5CC0E6088EB7DF00940C58 /* dig.c */,
 				2B5CC0E7088EB7DF00940C58 /* display.c */,
 				2B5CC0E8088EB7DF00940C58 /* dlb.c */,
-				2B5CC0E9088EB7DF00940C58 /* do.c */,
 				2B5CC0EA088EB7DF00940C58 /* do_name.c */,
 				2B5CC0EB088EB7DF00940C58 /* do_wear.c */,
+				2B5CC0E9088EB7DF00940C58 /* do.c */,
 				2B5CC0EC088EB7DF00940C58 /* dog.c */,
 				2B5CC0ED088EB7DF00940C58 /* dogmove.c */,
 				2B5CC0EE088EB7DF00940C58 /* dokick.c */,
@@ -2298,11 +2302,11 @@
 				2B5CC0F6088EB7DF00940C58 /* explode.c */,
 				2B5CC0F7088EB7DF00940C58 /* extralev.c */,
 				2B5CC0F8088EB7DF00940C58 /* files.c */,
-				5560A2991C347D5B00BF77F7 /* sys.c */,
 				2B5CC0F9088EB7DF00940C58 /* fountain.c */,
 				2B5CC0FA088EB7DF00940C58 /* hack.c */,
 				2B5CC0FB088EB7DF00940C58 /* hacklib.c */,
 				2B5CC0FC088EB7DF00940C58 /* invent.c */,
+				55BC02C322B0EC8D00624B28 /* isaac64.c */,
 				2B5CC0FE088EB7DF00940C58 /* light.c */,
 				2B5CC0FF088EB7DF00940C58 /* lock.c */,
 				2B5CC100088EB7DF00940C58 /* mail.c */,
@@ -2356,6 +2360,7 @@
 				2B5CC134088EB7DF00940C58 /* spell.c */,
 				2B5CC135088EB7DF00940C58 /* steal.c */,
 				2B5CC136088EB7DF00940C58 /* steed.c */,
+				5560A2991C347D5B00BF77F7 /* sys.c */,
 				2B5CC137088EB7DF00940C58 /* Sysunix */,
 				2B5CC138088EB7DF00940C58 /* teleport.c */,
 				2B5CC139088EB7DF00940C58 /* tile.c */,
@@ -2385,6 +2390,7 @@
 		2B5CC1C0088EB7ED00940C58 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				55BC02C522B0ECB700624B28 /* integer.h */,
 				2BD3B6E1090247C70091BDD5 /* winnh3d.h */,
 				2B5CC1C1088EB7ED00940C58 /* align.h */,
 				2B5CC1C2088EB7ED00940C58 /* amiconf.h */,
@@ -2414,6 +2420,7 @@
 				2B5CC1DC088EB7ED00940C58 /* gem_rsc.h */,
 				2B5CC1DD088EB7ED00940C58 /* global.h */,
 				2B5CC1DE088EB7ED00940C58 /* hack.h */,
+				55BC02C222B0EC5900624B28 /* isaac64.h */,
 				2B5CC1E1088EB7ED00940C58 /* lev_comp.h */,
 				2B5CC1E0088EB7ED00940C58 /* lev.h */,
 				5560A29D1C347E8B00BF77F7 /* lint.h */,
@@ -2859,7 +2866,7 @@
 			attributes = {
 				CLASSPREFIX = NH3D;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
 				TargetAttributes = {
 					5539E6151CB2F03F00ED6EF3 = {
@@ -3491,6 +3498,7 @@
 				2B5CC164088EB7DF00940C58 /* dungeon.c in Sources */,
 				2B5CC165088EB7DF00940C58 /* eat.c in Sources */,
 				2B5CC166088EB7DF00940C58 /* end.c in Sources */,
+				55BC02C422B0EC8D00624B28 /* isaac64.c in Sources */,
 				2B5CC167088EB7DF00940C58 /* engrave.c in Sources */,
 				2B5CC168088EB7DF00940C58 /* exper.c in Sources */,
 				2B5CC169088EB7DF00940C58 /* explode.c in Sources */,

@@ -275,10 +275,17 @@ static inline BOOL Swift_glyph_is_warning(int glyph1)
 	return glyph_is_warning(glyph1);
 }
 
+NS_SWIFT_NAME(objectToGlyph(_:randomGenerator:))
+static inline int Swift_objToGlyphRand(const struct obj *__nonnull obj2, int (* _Nonnull randFunc)(int))
+{
+	return obj_to_glyph(obj2, randFunc);
+}
+
+
 NS_SWIFT_NAME(objectToGlyph(_:))
 static inline int Swift_objToGlyph(const struct obj *__nonnull obj2)
 {
-	return obj_to_glyph(obj2);
+	return Swift_objToGlyphRand(obj2, rn2_on_display_rng);
 }
 
 

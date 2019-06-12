@@ -447,10 +447,10 @@ static NSString *stripParentheses(NSString *text)
 - (void)updatePlayerInventory
 {
 	if (uarm) {
-		[self setPlayerArmour:obj_to_glyph(uarm)];
+		[self setPlayerArmour:obj_to_glyph(uarm, rn2_on_display_rng)];
 		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarm) encoding:NH3DTEXTENCODING]);
 	} else if (uarmu) {
-		[self setPlayerArmour:obj_to_glyph(uarmu)];
+		[self setPlayerArmour:obj_to_glyph(uarmu, rn2_on_display_rng)];
 		self.playerArmorString = stripParentheses([NSString stringWithCString:Doname2(uarmu) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerArmour:0];
@@ -458,7 +458,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uarmc) {
-		[self setPlayerCloak:obj_to_glyph(uarmc)];
+		[self setPlayerCloak:obj_to_glyph(uarmc, rn2_on_display_rng)];
 		self.playerCloakString = stripParentheses([NSString stringWithCString:Doname2(uarmc) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerCloak:0];
@@ -466,7 +466,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uarmh) {
-		[self setPlayerHelmet:obj_to_glyph(uarmh)];
+		[self setPlayerHelmet:obj_to_glyph(uarmh, rn2_on_display_rng)];
 		self.playerHelmetString = stripParentheses([NSString stringWithCString:Doname2(uarmh) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerHelmet:0];
@@ -474,7 +474,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 		
 	if (uarmg) {
-		[self setPlayerGloves:obj_to_glyph(uarmg)];
+		[self setPlayerGloves:obj_to_glyph(uarmg, rn2_on_display_rng)];
 		self.playerGlovesString = stripParentheses([NSString stringWithCString:Doname2(uarmg) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerGloves:0];
@@ -482,7 +482,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uarmf) {
-		[self setPlayerShoes:obj_to_glyph(uarmf)];
+		[self setPlayerShoes:obj_to_glyph(uarmf, rn2_on_display_rng)];
 		self.playerShoesString = stripParentheses([NSString stringWithCString:Doname2(uarmf) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerShoes:0];
@@ -490,7 +490,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uleft) {
-		[self setPlayerRingL:obj_to_glyph(uleft)];
+		[self setPlayerRingL:obj_to_glyph(uleft, rn2_on_display_rng)];
 		self.playerRingLString = stripParentheses([NSString stringWithCString:Doname2(uleft) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerRingL:0];
@@ -498,7 +498,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uright) {
-		[self setPlayerRingR:obj_to_glyph(uright)];
+		[self setPlayerRingR:obj_to_glyph(uright, rn2_on_display_rng)];
 		self.playerRingRString = stripParentheses([NSString stringWithCString:Doname2(uright) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerRingR:0];
@@ -506,7 +506,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uwep) {
-		[self setPlayerWeapon:obj_to_glyph(uwep)];
+		[self setPlayerWeapon:obj_to_glyph(uwep, rn2_on_display_rng)];
 		self.playerWeaponString = stripParentheses([NSString stringWithCString:Doname2(uwep) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerWeapon:0];
@@ -514,7 +514,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uswapwep && !u.twoweap) {
-		[self setPlayerSubWeapon:obj_to_glyph(uswapwep)];
+		[self setPlayerSubWeapon:obj_to_glyph(uswapwep, rn2_on_display_rng)];
 		self.playerSubWeaponString = stripParentheses([NSString stringWithCString:Doname2(uswapwep) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerSubWeapon:0];
@@ -522,10 +522,10 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uarms && !u.twoweap) {
-		[self setPlayerShield:obj_to_glyph(uarms)];
+		[self setPlayerShield:obj_to_glyph(uarms, rn2_on_display_rng)];
 		self.playerShieldString = stripParentheses([NSString stringWithCString:Doname2(uarms) encoding:NH3DTEXTENCODING]);
 	} else if (u.twoweap) {
-		[self setPlayerShield:obj_to_glyph(uswapwep)];
+		[self setPlayerShield:obj_to_glyph(uswapwep, rn2_on_display_rng)];
 		self.playerShieldString = stripParentheses([NSString stringWithCString:Doname2(uswapwep) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerShield:0];
@@ -533,7 +533,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (uamul) {
-		[self setPlayerAmulet:obj_to_glyph(uamul)];
+		[self setPlayerAmulet:obj_to_glyph(uamul, rn2_on_display_rng)];
 		self.playerAmuletString = stripParentheses([NSString stringWithCString:Doname2(uamul) encoding:NH3DTEXTENCODING]);
 	} else {
 		[self setPlayerAmulet:0];
@@ -541,7 +541,7 @@ static NSString *stripParentheses(NSString *text)
 	}
 	
 	if (ublindf) {
-		[self setPlayerBlindFold:obj_to_glyph(ublindf)];
+		[self setPlayerBlindFold:obj_to_glyph(ublindf, rn2_on_display_rng)];
 		self.playerBlindFoldString = stripParentheses([NSString stringWithCString:Doname2(ublindf) encoding:NH3DTEXTENCODING]);
 	} else if (uarmh) {
 		[self setPlayerBlindFold:0];
