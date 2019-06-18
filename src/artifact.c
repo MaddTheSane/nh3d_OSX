@@ -1816,9 +1816,8 @@ int count;
 }
 
 const char *
-glow_verb(count, ingsfx)
-int count; /* 0 means blind rather than no applicable creatures */
-boolean ingsfx;
+glow_verb(int count, /* 0 means blind rather than no applicable creatures */
+boolean ingsfx)
 {
     static char resbuf[20];
 

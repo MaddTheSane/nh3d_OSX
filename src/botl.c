@@ -3599,7 +3599,7 @@ shlmenu_redo:
             status_hilites_viewall();
         else
             (void) status_hilite_menu_fld(i);
-        free((genericptr_t) picks), picks = (menu_item *) 0;
+        free((genericptr_t) picks); picks = (menu_item *) 0;
         redo = TRUE;
     }
 

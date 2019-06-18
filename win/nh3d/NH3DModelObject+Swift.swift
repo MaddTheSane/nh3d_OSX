@@ -11,12 +11,12 @@ import simd
 
 extension NH3DModelObject {
 	/// Normals
-	var normals: UnsafeMutableBufferPointer<float3> {
+	var normals: UnsafeMutableBufferPointer<SIMD3<Float>> {
 		return UnsafeMutableBufferPointer(start: __norms, count: __normal_qty)
 	}
 	
 	/// Vertex points
-	var vertexes: UnsafeMutableBufferPointer<float3> {
+	var vertexes: UnsafeMutableBufferPointer<SIMD3<Float>> {
 		return UnsafeMutableBufferPointer(start: __verts, count: __verts_qty)
 	}
 	
@@ -37,7 +37,7 @@ extension NH3DModelObject {
 
 		var l_Connect = [Int32](repeating: 0, count: theVerts.count)
 
-		memset(theNorms.baseAddress!, 0, theNorms.count * MemoryLayout<float3>.stride)
+		memset(theNorms.baseAddress!, 0, theNorms.count * MemoryLayout<SIMD3<Float>>.stride)
 		
 		for face in faces {
 			let l_vect1 = theVerts[Int(face.a)]
@@ -45,8 +45,8 @@ extension NH3DModelObject {
 			let l_vect3 = theVerts[Int(face.c)]
 			
 			// Polygon normal calculation
-			let l_vect_b1 = float3(start: l_vect1, end: l_vect2)
-			let l_vect_b2 = float3(start: l_vect1, end: l_vect3)
+			let l_vect_b1 = SIMD3<Float>(start: l_vect1, end: l_vect2)
+			let l_vect_b2 = SIMD3<Float>(start: l_vect1, end: l_vect3)
 			let l_normal = normalize(cross(l_vect_b1, l_vect_b2))
 			
 			l_Connect[Int(face.a)] += 1
@@ -62,7 +62,7 @@ extension NH3DModelObject {
 			// Dividing by 1 will result in the same number.
 			if connect > 1 {
 				let connFloat = Float(connect)
-				theNorms[i] /= float3(repeating: connFloat)
+				theNorms[i] /= SIMD3<Float>(repeating: connFloat)
 			}
 		}
 	}
@@ -77,8 +77,8 @@ extension NH3DModelObject {
 	}
 }
 
-extension float3 {
-	fileprivate init(start p_start: float3, end p_end : float3) {
+extension SIMD3 where Scalar==Float {
+	fileprivate init(start p_start: SIMD3<Float>, end p_end : SIMD3<Float>) {
 		let pre = p_end - p_start
 		self = normalize(pre)
 	}

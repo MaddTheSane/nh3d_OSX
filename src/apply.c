@@ -414,7 +414,7 @@ use_stethoscope(register struct obj *obj)
         return res;
     case SCORR:
         You_hear(hollow_str, "passage");
-        lev->typ = CORR, lev->flags = 0;
+        lev->typ = CORR; lev->flags = 0;
         unblock_point(rx, ry);
         feel_newsym(rx, ry);
         return res;
@@ -2841,8 +2841,8 @@ find_poleable_mon(coord *pos, int min_range, int max_range)
     impaired = (Confusion || Stunned || Hallucination);
     mpos.x = mpos.y = 0; /* no candidate location yet */
     rt = isqrt(max_range);
-    lo_x = max(u.ux - rt, 1), hi_x = min(u.ux + rt, COLNO - 1);
-    lo_y = max(u.uy - rt, 0), hi_y = min(u.uy + rt, ROWNO - 1);
+    lo_x = max(u.ux - rt, 1); hi_x = min(u.ux + rt, COLNO - 1);
+    lo_y = max(u.uy - rt, 0); hi_y = min(u.uy + rt, ROWNO - 1);
     for (x = lo_x; x <= hi_x; ++x) {
         for (y = lo_y; y <= hi_y; ++y) {
             if (distu(x, y) < min_range || distu(x, y) > max_range
@@ -2860,7 +2860,7 @@ find_poleable_mon(coord *pos, int min_range, int max_range)
                 || (glyph_is_statue(glyph) && impaired)) {
                 if (mpos.x)
                     return FALSE; /* more than one candidate location */
-                mpos.x = x, mpos.y = y;
+                mpos.x = x; mpos.y = y;
             }
         }
     }
@@ -3344,7 +3344,7 @@ do_break_wand(struct obj *obj)
                  */
                 typ = fillholetyp(x, y, FALSE);
                 if (typ != ROOM) {
-                    levl[x][y].typ = typ, levl[x][y].flags = 0;
+                    levl[x][y].typ = typ; levl[x][y].flags = 0;
                     liquid_flow(x, y, typ, t_at(x, y),
                                 fillmsg
                                   ? (char *) 0

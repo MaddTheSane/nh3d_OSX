@@ -315,13 +315,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 	
 	private var mapItemValue: [[NH3DMapItem?]] = [[NH3DMapItem?]](repeating:[NH3DMapItem?](repeating: nil, count: Int(NH3DGL_MAPVIEWSIZE_ROW)), count: Int(NH3DGL_MAPVIEWSIZE_COLUMN))
 	
-	private var lastCamera = float3(x: 5.0, y: 1.8, z: 5.0)
+	private var lastCamera = SIMD3<Float>(x: 5.0, y: 1.8, z: 5.0)
 	
 	private(set) var lastCameraHead: GLfloat = 0
 	private(set) var lastCameraPitch: GLfloat = 0
 	private(set) var lastCameraRoll: GLfloat = 0
 	
-	private(set) var camera = float3(x: 5.0, y: 1.8, z: 5.0)
+	private(set) var camera = SIMD3<Float>(x: 5.0, y: 1.8, z: 5.0)
 	private(set) var cameraHead: GLfloat = 0.0
 	private(set) var cameraPitch: GLfloat = 0.0
 	private(set) var cameraRoll: GLfloat = 0.0
@@ -479,80 +479,80 @@ final class NH3DOpenGLView: NSOpenGLView {
 		
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.modelShift = float3(x: -1, y: 1.8, z: -1)
-			effect.particleGravity = float3(x: 3, y: -0.5, z: 3)
+			effect.modelShift = SIMD3<Float>(x: -1, y: 1.8, z: -1)
+			effect.particleGravity = SIMD3<Float>(x: 3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.modelShift = float3(x: 1, y: 1.8, z: -1)
-			effect.particleGravity = float3(x: 0, y: -0.5, z: 3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: -1)
+			effect.particleGravity = SIMD3<Float>(x: 0, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.modelShift = float3(x: 1, y: 1.8, z: -1)
-			effect.particleGravity = float3(x: -3, y: -0.5, z: 3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: -1)
+			effect.particleGravity = SIMD3<Float>(x: -3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		
 		//right direction
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.modelShift = float3(x: 1, y: 1.8, z: -1)
-			effect.particleGravity = float3(x: 3, y: -0.5, z: 3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: -1)
+			effect.particleGravity = SIMD3<Float>(x: 3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.modelShift = float3(x: 1, y: 1.8, z: 0)
-			effect.particleGravity = float3(x: 3, y: -0.5, z: 0)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: 0)
+			effect.particleGravity = SIMD3<Float>(x: 3, y: -0.5, z: 0)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.modelShift = float3(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = float3(x: 3, y: -0.5, z: -3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = SIMD3<Float>(x: 3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		
 		//back direction
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.modelShift = float3(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = float3(x: -3, y: -0.5, z: -3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = SIMD3<Float>(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.modelShift = float3(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = float3(x: -3, y: -0.5, z: -3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = SIMD3<Float>(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.modelShift = float3(x: 1, y: 1.8, z: 1)
-			effect.particleGravity = float3(x: 0, y: -0.5, z: -3)
+			effect.modelShift = SIMD3<Float>(x: 1, y: 1.8, z: 1)
+			effect.particleGravity = SIMD3<Float>(x: 0, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		
 		//left direction
 		do {
 			let effect = NH3DModelObject() // hit enemy front left
-			effect.modelShift = float3(x: -1, y: 1.8, z: 1)
-			effect.particleGravity = float3(x: -3, y: -0.5, z: -3)
+			effect.modelShift = SIMD3<Float>(x: -1, y: 1.8, z: 1)
+			effect.particleGravity = SIMD3<Float>(x: -3, y: -0.5, z: -3)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front
-			effect.modelShift = float3(x: -1, y: 1.8, z: 0)
-			effect.particleGravity = float3(x: -3, y: -0.5, z: 0)
+			effect.modelShift = SIMD3<Float>(x: -1, y: 1.8, z: 0)
+			effect.particleGravity = SIMD3<Float>(x: -3, y: -0.5, z: 0)
 			effectArray.append(effect)
 		}
 		do {
 			let effect = NH3DModelObject() // hit enemy front right
-			effect.modelShift = float3(x: -1, y: 1.8, z: -1)
-			effect.particleGravity = float3(x: -3, y: -0.5, z: 3)
+			effect.modelShift = SIMD3<Float>(x: -1, y: 1.8, z: -1)
+			effect.particleGravity = SIMD3<Float>(x: -3, y: -0.5, z: 3)
 			effectArray.append(effect)
 		}
 		
@@ -1138,7 +1138,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph < NUMMONS + NetHackGlyphPetOffset {
 						newModel.isAnimated = true
 						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
-						newModel.modelPivot = float3(x: 0.0, y: 0.3, z: 0.0)
+						newModel.modelPivot = SIMD3<Float>(x: 0.0, y: 0.3, z: 0.0)
 						newModel.useEnvironment = true
 						newModel.setTexture(Int32(envelopTex))
 					}
@@ -1466,7 +1466,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 			
 			drawMargin = 1
 			
-			camera = float3(x: x, y: y, z: z)
+			camera = SIMD3<Float>(x: x, y: y, z: z)
 			
 			if !isReady {
 				lastCamera = camera
@@ -1507,7 +1507,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 		}
 		let localPos = effectArray[Int(enemyPosition - 1)].modelShift
 		
-		effectArray[Int(enemyPosition - 1)].modelPivot = float3(x: camera.x + localPos.x,
+		effectArray[Int(enemyPosition - 1)].modelPivot = SIMD3<Float>(x: camera.x + localPos.x,
 		                                                        y: localPos.y,
 		                                                        z: camera.z + localPos.z)
 		if EffectHelper.effectCount < Int(waitRate) / 2 {
@@ -1735,13 +1735,13 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.add(wallRouge)
 		model?.addChildObject("torch", type: .texturedObject)
 		if let torchObj = model?.lastChild {
-			torchObj.modelPivot = float3(x: 0.478, y: 2.834, z: 0.007)
+			torchObj.modelPivot = SIMD3<Float>(x: 0.478, y: 2.834, z: 0.007)
 			torchObj.addChildObject("emitter", type: .emitter)
 			if let torchEmitter = torchObj.lastChild {
-				torchEmitter.modelPivot = float3(x: 0.593, y: 1.261, z: 0)
+				torchEmitter.modelPivot = SIMD3<Float>(x: 0.593, y: 1.261, z: 0)
 				torchEmitter.particleType = .both
 				torchEmitter.particleColor = CLR_ORANGE
-				torchEmitter.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
+				torchEmitter.particleGravity = SIMD3<Float>(x: 0.0, y: 2.0, z: 0)
 				torchEmitter.particleSpeed = (x: 0.0, y: 0.1)
 				torchEmitter.particleSlowdown = 6.0
 				torchEmitter.particleLife = 0.30
@@ -1757,19 +1757,19 @@ final class NH3DOpenGLView: NSOpenGLView {
 		model?.add(wallRouge)
 		model?.addChildObject("torch", type: .texturedObject)
 		if let torchObj = model?.lastChild {
-			torchObj.modelPivot = float3(x: -0.005, y: 2.834, z: 0.483)
+			torchObj.modelPivot = SIMD3<Float>(x: -0.005, y: 2.834, z: 0.483)
 			torchObj.addChildObject("emitter", type: .emitter)
 			if let torchEmitter = torchObj.lastChild {
-				torchEmitter.modelPivot = float3(x: 0.593, y: 1.261, z: 0)
+				torchEmitter.modelPivot = SIMD3<Float>(x: 0.593, y: 1.261, z: 0)
 				torchEmitter.particleType = .both
 				torchEmitter.particleColor = CLR_ORANGE
-				torchEmitter.particleGravity = float3(x: 0.0, y: 2.0, z: 0)
+				torchEmitter.particleGravity = SIMD3<Float>(x: 0.0, y: 2.0, z: 0)
 				torchEmitter.particleSpeed = (x: 0.0, y: 0.1)
 				torchEmitter.particleSlowdown = 6.0
 				torchEmitter.particleLife = 0.30
 				torchEmitter.particleSize = 10.0
 			}
-			torchObj.modelRotate = float3(x: 0.0, y: -90.0, z: 0.0)
+			torchObj.modelRotate = SIMD3<Float>(x: 0.0, y: -90.0, z: 0.0)
 		}
 		modelDictionary[Int32(S_hwall.rawValue) + NetHackGlyphCMapOffset] = model
 		
@@ -2010,11 +2010,11 @@ final class NH3DOpenGLView: NSOpenGLView {
 extension NH3DOpenGLView {
 	
 	final private func setParams(forMagicEffect magicItem: NH3DModelObject, color: Int32) {
-		magicItem.modelPivot = float3(x: 0, y: 1.2, z: 0)
-		magicItem.modelScale = float3(x: 0.4, y: 1.0, z: 0.4)
+		magicItem.modelPivot = SIMD3<Float>(x: 0, y: 1.2, z: 0)
+		magicItem.modelScale = SIMD3<Float>(x: 0.4, y: 1.0, z: 0.4)
 		magicItem.particleType = .aura
 		magicItem.particleColor = color
-		magicItem.particleGravity = float3(x: 0, y: 6.5, z: 0)
+		magicItem.particleGravity = SIMD3<Float>(x: 0, y: 6.5, z: 0)
 		magicItem.particleSpeed = (x: 1, y: 1)
 		magicItem.particleSlowdown = 3.8
 		magicItem.particleLife = 0.4
@@ -2024,7 +2024,7 @@ extension NH3DOpenGLView {
 	final private func setParams(forMagicExplosion magicItem: NH3DModelObject, color: Int32) {
 		magicItem.particleType = .aura
 		magicItem.particleColor = color
-		magicItem.particleGravity = float3(x: 0, y: 15.5, z: 0)
+		magicItem.particleGravity = SIMD3<Float>(x: 0, y: 15.5, z: 0)
 		magicItem.particleSpeed = (x: 1, y: 15)
 		magicItem.particleSlowdown = 8.8
 		magicItem.particleLife = 0.4
@@ -2173,7 +2173,7 @@ extension NH3DOpenGLView {
 		case PM_DWARF_KING+GLYPH_MON_OFF, PM_DWARF_KING+NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0, y: 0.2, z: -0.21)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.2, z: -0.21)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 
 		case PM_MIND_FLAYER + GLYPH_MON_OFF, PM_MASTER_MIND_FLAYER + GLYPH_MON_OFF,
@@ -2235,13 +2235,13 @@ extension NH3DOpenGLView {
 		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0, y: 0.1, z: -0.25)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0, y: -0.01, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: -0.01, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2285,7 +2285,7 @@ extension NH3DOpenGLView {
 		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + NetHackGlyphPetOffset {
 			ret = NH3DModelObject(with3DSFile: "lowerO", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.15, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.15, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 		} else {
 			let offset: Int32
@@ -2498,14 +2498,14 @@ extension NH3DOpenGLView {
 		     PM_GNOMISH_WIZARD + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.01, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.01, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_GNOME_KING + GLYPH_MON_OFF,
 		     PM_GNOME_KING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.05, z: -0.25)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.05, z: -0.25)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2591,7 +2591,7 @@ extension NH3DOpenGLView {
 		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.15, z: -0.18)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.15, z: -0.18)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2671,7 +2671,7 @@ extension NH3DOpenGLView {
 		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF:
 			ret =  NH3DModelObject(with3DSFile: "upperV", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0, y: 0.15, z: -0.18)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.15, z: -0.18)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		default:
@@ -2738,14 +2738,14 @@ extension NH3DOpenGLView {
 		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0, y: -0.18, z: 0)
-			ret?.lastChild?.modelRotate = float3(x: 0, y: 11.7, z: 0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: -0.18, z: 0)
+			ret?.lastChild?.modelRotate = SIMD3<Float>(x: 0, y: 11.7, z: 0)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("nurse", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0, y: -0.28, z: 1)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: -0.28, z: 1)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
 		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF,
@@ -2754,7 +2754,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0, y: 2.5, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: 2.5, z: 0)
 			ret?.lastChild?.particleSpeed = (x: 1, y: 1)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2763,13 +2763,13 @@ extension NH3DOpenGLView {
 		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.lastChild?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.lastChild?.modelPivot = float3(x: -0.827, y: 1.968, z: 1.793)
+			ret?.lastChild?.lastChild?.modelPivot = SIMD3<Float>(x: -0.827, y: 1.968, z: 1.793)
 			ret?.lastChild?.lastChild?.particleType = .both
 			ret?.lastChild?.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
-			ret?.lastChild?.lastChild?.particleGravity = float3(x: -3.5, y: 1.5, z: 0.8)
+			ret?.lastChild?.lastChild?.particleGravity = SIMD3<Float>(x: -3.5, y: 1.5, z: 0.8)
 			ret?.lastChild?.lastChild?.particleSpeed = (x: 1.5, y: 2.00)
 			ret?.lastChild?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.lastChild?.particleLife = 0.5
@@ -2777,9 +2777,9 @@ extension NH3DOpenGLView {
 			
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.modelPivot = float3(x: 0.827, y: -1.800, z: -1.793)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.827, y: -1.800, z: -1.793)
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2839,7 +2839,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2856,14 +2856,14 @@ extension NH3DOpenGLView {
 				ret.addChildObject("emitter", type: .emitter)
 				ret.lastChild?.particleType = .aura
 				ret.lastChild?.particleColor = CLR_RED
-				ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+				ret.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 				ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 				ret.lastChild?.particleSlowdown = 8.8
 				ret.lastChild?.particleLife = 0.24
 				ret.lastChild?.particleSize = 8.0
 				ret.addChildObject("kingset", type: .texturedObject)
-				ret.lastChild?.modelPivot = float3(x: 0, y: 0.52, z: 0)
-				ret.lastChild?.modelRotate = float3(x: 0, y: 0.7, z: 0)
+				ret.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.52, z: 0)
+				ret.lastChild?.modelRotate = SIMD3<Float>(x: 0, y: 0.7, z: 0)
 				ret.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			}
 		}
@@ -2880,7 +2880,7 @@ extension NH3DOpenGLView {
 			ret.addChildObject("emitter", type: .emitter)
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_RED
-			ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret.lastChild?.particleSlowdown = 8.8
 			ret.lastChild?.particleLife = 0.24
@@ -2888,7 +2888,7 @@ extension NH3DOpenGLView {
 			ret.addChildObject("emitter", type: .emitter)
 			ret.lastChild?.particleType = .aura
 			ret.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
-			ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret.lastChild?.particleSlowdown = 8.8
 			ret.lastChild?.particleLife = 0.24
@@ -2926,7 +2926,7 @@ extension NH3DOpenGLView {
 		if glyph == PM_WIZARD + GLYPH_MON_OFF {
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
 		} else {
 			ret = checkLoadedModels(at: PM_ARCHEOLOGIST, to: PM_VALKYRIE, modelName: "atmark")
 		}
@@ -2941,13 +2941,13 @@ extension NH3DOpenGLView {
 		case PM_KING_ARTHUR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.18, z: 0.0)
-			ret?.lastChild?.modelRotate = float3(x: 0.0, y: 11.7, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.18, z: 0.0)
+			ret?.lastChild?.modelRotate = SIMD3<Float>(x: 0.0, y: 11.7, z: 0.0)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2956,11 +2956,11 @@ extension NH3DOpenGLView {
 		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2971,7 +2971,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2982,7 +2982,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -2993,7 +2993,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3004,7 +3004,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3015,7 +3015,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3026,7 +3026,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3037,7 +3037,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3048,7 +3048,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3059,7 +3059,7 @@ extension NH3DOpenGLView {
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3068,13 +3068,13 @@ extension NH3DOpenGLView {
 		case PM_LORD_SURTUR + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.18, z: 0.0)
-			ret?.lastChild?.modelRotate = float3(x: 0.0, y: 11.7, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.18, z: 0.0)
+			ret?.lastChild?.modelRotate = SIMD3<Float>(x: 0.0, y: 11.7, z: 0.0)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3083,12 +3083,12 @@ extension NH3DOpenGLView {
 		case PM_DARK_ONE + GLYPH_MON_OFF:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.28, z: -0.15)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_RED
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.24
@@ -3113,7 +3113,7 @@ extension NH3DOpenGLView {
 					ret.addChildObject("emitter", type: .emitter)
 					ret.lastChild?.particleType = .aura
 					ret.lastChild?.particleColor = CLR_BRIGHT_CYAN
-					ret.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+					ret.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 					ret.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 					ret.lastChild?.particleSlowdown = 8.8
 					ret.lastChild?.particleLife = 0.24
@@ -3140,12 +3140,12 @@ extension NH3DOpenGLView {
 		switch glyph {
 		case Int32(S_bars.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "ironbar", withTexture: true)
-			ret?.modelShift = float3(x: 0, y: 0, z: -3)
-			ret?.modelScale = float3(x: 0.8, y: 1, z: 0.8)
+			ret?.modelShift = SIMD3<Float>(x: 0, y: 0, z: -3)
+			ret?.modelScale = SIMD3<Float>(x: 0.8, y: 1, z: 0.8)
 			
 		case Int32(S_tree.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: true)
-			ret?.modelScale = float3(x: 2.5, y: 1.7, z: 2.5)
+			ret?.modelScale = SIMD3<Float>(x: 2.5, y: 1.7, z: 2.5)
 			
 		case Int32(S_upstair.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "upStair", withTexture: true)
@@ -3164,7 +3164,7 @@ extension NH3DOpenGLView {
 			
 		case Int32(S_grave.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "grave", withTexture: true)
-			ret?.modelScale = float3(x: 0.6, y: 0.6, z: 0.6)
+			ret?.modelScale = SIMD3<Float>(x: 0.6, y: 0.6, z: 0.6)
 			
 		case Int32(S_throne.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "opulent_throne", withTexture: true)
@@ -3172,25 +3172,25 @@ extension NH3DOpenGLView {
 		case Int32(S_sink.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "sink", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 1.277, z: -0.812)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 1.277, z: -0.812)
 			ret?.lastChild?.particleType = .points
 			ret?.lastChild?.particleColor = CLR_CYAN
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y:-8.8, z:1.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y:-8.8, z:1.0)
 			ret?.lastChild?.particleLife = 0.21
 			ret?.lastChild?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: -0.687, z: 0.512)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.687, z: 0.512)
 			ret?.lastChild?.particleType = .points
 			ret?.lastChild?.particleColor = CLR_BRIGHT_CYAN
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y:-5.8, z:1.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y:-5.8, z:1.0)
 			ret?.lastChild?.particleLife = 0.3
 			ret?.lastChild?.particleSize = 8.0
 			
 		case Int32(S_fountain.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "fountain", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: -0.34, y: 2.68, z: 0.65)
-			ret?.lastChild?.particleGravity = float3(x: 0, y: 0.1, z: 0.08)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: -0.34, y: 2.68, z: 0.65)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: 0.1, z: 0.08)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleColor = CLR_BRIGHT_BLUE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: -130.0)
@@ -3198,9 +3198,9 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.8
 			ret?.lastChild?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.34, y: -1.70, z: -0.65)
-			ret?.lastChild?.modelScale = float3(x: 0.98, y: 0.7, z: 0.98)
-			ret?.lastChild?.particleGravity = float3(x: 0, y: 0.1, z: 0.00)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.34, y: -1.70, z: -0.65)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.98, y: 0.7, z: 0.98)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: 0.1, z: 0.00)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BLUE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: -130.0)
@@ -3208,9 +3208,9 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.28
 			ret?.lastChild?.particleSize = 8.0
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelScale = float3(x: 0.5, y: 0.7, z: 0.5)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 1.35, z: -0.0)
-			ret?.lastChild?.particleGravity = float3(x: 0, y: 0.4, z: 0.00)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.5, y: 0.7, z: 0.5)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 1.35, z: -0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: 0.4, z: 0.00)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BLUE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: -190.0)
@@ -3220,13 +3220,13 @@ extension NH3DOpenGLView {
 			
 		case Int32(S_vodbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridgeUP", texture: bridgeTex)
-			ret?.modelRotate = float3(x: 0, y: -90, z: 0)
+			ret?.modelRotate = SIMD3<Float>(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
 			
 		case Int32(S_hodbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridge", texture: bridgeTex)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 4.0, y: 0.0, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 4.0, y: 0.0, z: 0.0)
 			
 		case Int32(S_vcdbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridgeUP", texture: bridgeTex)
@@ -3234,9 +3234,9 @@ extension NH3DOpenGLView {
 			
 		case Int32(S_hcdbridge.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject.model(named: "bridge", texture: bridgeTex)
-			ret?.modelRotate = float3(x: 0, y: -90, z: 0)
+			ret?.modelRotate = SIMD3<Float>(x: 0, y: -90, z: 0)
 			ret?.addChildObject("bridge_opt", type: .texturedObject)
-			ret?.lastChild?.modelPivot = float3(x: 4.0, y: 0.0, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 4.0, y: 0.0, z: 0.0)
 			
 		default:
 			break
@@ -3267,9 +3267,9 @@ extension NH3DOpenGLView {
 		case Int32(S_sleeping_gas_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
-			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.0, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: -4.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_MAGENTA
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 300)
 			ret?.lastChild?.particleSlowdown = 5.2
@@ -3279,9 +3279,9 @@ extension NH3DOpenGLView {
 		case Int32(S_rust_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
-			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.0, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: -4.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_BRIGHT_GREEN
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 300.0)
 			ret?.lastChild?.particleSlowdown = 5.2
@@ -3291,10 +3291,10 @@ extension NH3DOpenGLView {
 		case Int32(S_fire_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "gastrap", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleSize = 4.0
-			ret?.lastChild?.particleGravity = float3(x: 0, y: -1.0, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: -1.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_ORANGE
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 200)
 			ret?.lastChild?.particleSlowdown = 2.0
@@ -3318,20 +3318,20 @@ extension NH3DOpenGLView {
 		case Int32(S_teleportation_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "teleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: -0.38, y: 3.82, z: 0.75917)
-			ret?.lastChild?.modelScale = float3(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: -0.38, y: 3.82, z: 0.75917)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.8, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: -4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_CYAN
 			ret?.lastChild?.particleSpeed = (x: 0.0, y:0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.particleLife = 0.23
 			ret?.lastChild?.isChild = false
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: -0.38, y: 0.42, z: 0.75917)
-			ret?.lastChild?.modelScale = float3(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: -0.38, y: 0.42, z: 0.75917)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = float3(x: 0, y: 4.8, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: 4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_CYAN
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
@@ -3340,20 +3340,20 @@ extension NH3DOpenGLView {
 		case Int32(S_level_teleporter.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "levelteleporter", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: -0.38, y: 3.82, z: 0.75917)
-			ret?.lastChild?.modelScale = float3(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: -0.38, y: 3.82, z: 0.75917)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = float3(x: 0, y: -4.8, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: -4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 			ret?.lastChild?.particleSpeed = (x: 0.0, y:0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
 			ret?.lastChild?.particleLife = 0.23
 			ret?.lastChild?.isChild = false
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: -0.38, y: 0.42, z: 0.75917)
-			ret?.lastChild?.modelScale = float3(x: 0.55, y: 0.8, z: 0.55)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: -0.38, y: 0.42, z: 0.75917)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.55, y: 0.8, z: 0.55)
 			ret?.lastChild?.particleType = .aura
-			ret?.lastChild?.particleGravity = float3(x: 0, y: 4.8, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: 4.8, z: 0)
 			ret?.lastChild?.particleColor = CLR_MAGENTA
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 0.1)
 			ret?.lastChild?.particleSlowdown = 1.8
@@ -3362,10 +3362,10 @@ extension NH3DOpenGLView {
 		case Int32(S_magic_portal.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject(with3DSFile: "magicportal", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelScale = float3(x: 0.8, y: 0.7, z: 0.8)
+			ret?.lastChild?.modelScale = SIMD3<Float>(x: 0.8, y: 0.7, z: 0.8)
 			ret?.lastChild?.particleType = .aura
 			ret?.lastChild?.particleColor = CLR_BRIGHT_BLUE
-			ret?.lastChild?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.lastChild?.particleSlowdown = 8.8
 			ret?.lastChild?.particleLife = 0.4
@@ -3374,7 +3374,7 @@ extension NH3DOpenGLView {
 		case Int32(S_web.rawValue) + NetHackGlyphCMapOffset:
 			//TODO: better web?
 			ret = NH3DModelObject(with3DSFile: "tree", withTexture: false)
-			ret?.modelScale = float3(x: 2.5, y: 1.7, z: 2.5)
+			ret?.modelScale = SIMD3<Float>(x: 2.5, y: 1.7, z: 2.5)
 			ret?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			
 			//TODO: implement statue trap
@@ -3382,10 +3382,10 @@ extension NH3DOpenGLView {
 			
 		case Int32(S_magic_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
-			ret?.modelScale = float3(x: 0.7, y: 0.4, z: 0.7)
+			ret?.modelScale = SIMD3<Float>(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_MAGENTA
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3393,10 +3393,10 @@ extension NH3DOpenGLView {
 			
 		case Int32(S_anti_magic_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
-			ret?.modelScale = float3(x: 0.7, y: 0.4, z: 0.7)
+			ret?.modelScale = SIMD3<Float>(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_CYAN
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3404,10 +3404,10 @@ extension NH3DOpenGLView {
 			
 		case Int32(S_polymorph_trap.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
-			ret?.modelScale = float3(x: 0.7, y: 0.4, z: 0.7)
+			ret?.modelScale = SIMD3<Float>(x: 0.7, y: 0.4, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BROWN
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3417,10 +3417,10 @@ extension NH3DOpenGLView {
 			//TODO: implement proper vibrating square model
 			ret = NH3DModelObject(with3DSFile: "pit", withTexture: true)
 			ret?.addChildObject("emitter", type: .emitter)
-			ret?.lastChild?.modelPivot = float3(x: 0.0, y: 0.5, z: 0.0)
+			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.5, z: 0.0)
 			ret?.lastChild?.particleType = .both
 			ret?.lastChild?.particleSize = 4.0
-			ret?.lastChild?.particleGravity = float3(x: 0, y: -1.0, z: 0)
+			ret?.lastChild?.particleGravity = SIMD3<Float>(x: 0, y: -1.0, z: 0)
 			ret?.lastChild?.particleColor = CLR_YELLOW
 			ret?.lastChild?.particleSpeed = (x: 0.0, y: 200)
 			ret?.lastChild?.particleSlowdown = 2.0
@@ -3447,7 +3447,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicMissile + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3455,7 +3455,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicMissile + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = SIMD3<Float>(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3463,7 +3463,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicMissile + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3471,7 +3471,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicMissile + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_WHITE)
 				//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3492,28 +3492,28 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicFire + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
 		case NetHack3DZapMagicFire + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = SIMD3<Float>(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
 		case NetHack3DZapMagicFire + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
 		case NetHack3DZapMagicFire + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_ORANGE)
 			}
 			
@@ -3532,7 +3532,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicCold + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3540,7 +3540,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicCold + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = SIMD3<Float>(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3548,7 +3548,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicCold + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3556,7 +3556,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicCold + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_CYAN)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3571,12 +3571,12 @@ extension NH3DOpenGLView {
 	/// type Magic SLEEP
 	private final func loadModelFunc_MagicSLEEP(glyph: Int32) -> NH3DModelObject? {
 		let ret = NH3DModelObject()
-		ret.modelPivot = float3(x: 0.0, y: 1.2, z: 0.0)
-		ret.modelScale = float3(x: 1.0, y: 1.0, z: 1.0)
+		ret.modelPivot = SIMD3<Float>(x: 0.0, y: 1.2, z: 0.0)
+		ret.modelScale = SIMD3<Float>(x: 1.0, y: 1.0, z: 1.0)
 		ret.particleType = .aura
 		ret.particleColor = CLR_MAGENTA
 		//[ ret setParticleColor:CLR_BRIGHT_BLUE ]; // if you want sync to 'zapcolors' from decl.c
-		ret.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+		ret.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 		ret.particleSpeed = (x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
@@ -3593,7 +3593,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicDeath + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3601,7 +3601,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicDeath + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = SIMD3<Float>(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3609,7 +3609,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicDeath + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3617,7 +3617,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicDeath + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_GRAY)
 				// :CLR_BLACK ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3637,7 +3637,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicLightning + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3645,7 +3645,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicLightning + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = SIMD3<Float>(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3653,7 +3653,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicLightning + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3661,7 +3661,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicLightning + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_YELLOW)
 				// :CLR_WHITE ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3669,7 +3669,7 @@ extension NH3DOpenGLView {
 		default:
 			break
 		}
-		ret?.modelScale = float3(x: 0.2, y: 1.0, z: 0.2)
+		ret?.modelScale = SIMD3<Float>(x: 0.2, y: 1.0, z: 0.2)
 		
 		return ret
 	}
@@ -3677,12 +3677,12 @@ extension NH3DOpenGLView {
 	/// type Magic POISONGAS
 	private final func loadModelFunc_MagicPOISONGAS(glyph: Int32) -> NH3DModelObject? {
 		let ret = NH3DModelObject()
-		ret.modelPivot = float3(x: 0.0, y: 1.2, z: 0.0)
-		ret.modelScale = float3(x: 1.0, y: 1.0, z: 1.0)
+		ret.modelPivot = SIMD3<Float>(x: 0.0, y: 1.2, z: 0.0)
+		ret.modelScale = SIMD3<Float>(x: 1.0, y: 1.0, z: 1.0)
 		ret.particleType = .aura
 		ret.particleColor = CLR_GREEN
 		//[ ret setParticleColor:CLR_YELLOW ]; // if you want sync to 'zapcolors' from decl.c
-		ret.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+		ret.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 		ret.particleSpeed = (x: 1.0, y: 1.00)
 		ret.particleSlowdown = 3.8
 		ret.particleLife = 0.4
@@ -3699,7 +3699,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicAcid + NH3D_ZAP_VBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 0.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 0.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3707,7 +3707,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicAcid + NH3D_ZAP_HBEAM:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: 0.0, y: 0.0, z: -90.0)
+				ret.modelRotate = SIMD3<Float>(x: 0.0, y: 0.0, z: -90.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3715,7 +3715,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicAcid + NH3D_ZAP_LSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: -45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: -45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3723,7 +3723,7 @@ extension NH3DOpenGLView {
 		case NetHack3DZapMagicAcid + NH3D_ZAP_RSLANT:
 			ret = NH3DModelObject()
 			if let ret = ret {
-				ret.modelRotate = float3(x: -90.0, y: 45.0, z: 0.0)
+				ret.modelRotate = SIMD3<Float>(x: -90.0, y: 45.0, z: 0.0)
 				setParams(forMagicEffect: ret, color: CLR_BRIGHT_GREEN)
 				// :CLR_GREEN ]; // if you want sync to 'zapcolors' from decl.c
 			}
@@ -3742,10 +3742,10 @@ extension NH3DOpenGLView {
 		// dig beam
 		case Int32(S_digbeam.rawValue) + NetHackGlyphCMapOffset:
 			ret = NH3DModelObject()
-			ret?.modelScale = float3(x: 0.7, y: 1.0, z: 0.7)
+			ret?.modelScale = SIMD3<Float>(x: 0.7, y: 1.0, z: 0.7)
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BROWN
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3756,7 +3756,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y:1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3796,7 +3796,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_BLUE
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3806,7 +3806,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BRIGHT_CYAN
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -3816,7 +3816,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_WHITE
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 3.8
 			ret?.particleLife = 0.4
@@ -3826,7 +3826,7 @@ extension NH3DOpenGLView {
 			ret = NH3DModelObject()
 			ret?.particleType = .aura
 			ret?.particleColor = CLR_BLUE
-			ret?.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret?.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret?.particleSpeed = (x: 1.0, y: 1.00)
 			ret?.particleSlowdown = 8.8
 			ret?.particleLife = 0.4
@@ -4152,17 +4152,17 @@ extension NH3DOpenGLView {
 			ret.useEnvironment = true
 			ret.animationRate = ((Float(arc4random() % 5) * 0.1) + 0.5) / 2
 			ret.currentMaterial = nh3dMaterialArray[Int(CLR_YELLOW)]
-			ret.modelShift = float3(x: 0, y: 0, z: 0)
-			ret.modelPivot = float3(x: 0.0, y: 0.0, z: 0.0)
+			ret.modelShift = SIMD3<Float>(x: 0, y: 0, z: 0)
+			ret.modelPivot = SIMD3<Float>(x: 0.0, y: 0.0, z: 0.0)
 			//ret.addChildObject(loadDat.modelName, type: .object)
 			ret.addChildObject(loadDat.modelName, textureName: "ceiling")
 			//ret.lastChild?.setTexture(Int32(cellingTex))
 			ret.lastChild?.useEnvironment = false
 			ret.lastChild?.currentMaterial = nh3dMaterialArray[Int(CLR_GRAY)]
 			ret.lastChild?.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
-			ret.lastChild?.modelPivot = float3(x: 0.0, y: 0.3, z: 0.0)
-			ret.lastChild?.modelShift = float3(x: 0, y: 1.5, z: 0)
-			ret.lastChild?.modelScale = float3(x: 0.75, y: 0.75, z: 0.75)
+			ret.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.3, z: 0.0)
+			ret.lastChild?.modelShift = SIMD3<Float>(x: 0, y: 1.5, z: 0)
+			ret.lastChild?.modelScale = SIMD3<Float>(x: 0.75, y: 0.75, z: 0.75)
 		}
 		return ret
 	}
@@ -4187,12 +4187,12 @@ extension NH3DOpenGLView {
 		
 		// Add floating "hearts" over target
 		model.addChildObject("emitter", type: .emitter)
-		model.lastChild?.modelScale = float3(x: 2, y: 1, z: 2)
-		model.lastChild?.modelPivot = float3(x: 0, y: 3, z: 0)
+		model.lastChild?.modelScale = SIMD3<Float>(x: 2, y: 1, z: 2)
+		model.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 3, z: 0)
 		model.lastChild?.particleType = .both
 		model.lastChild?.particleColor = CLR_BRIGHT_MAGENTA
 		model.lastChild?.currentMaterial = PetHelper.pinkMaterial
-		model.lastChild?.particleGravity = float3(x: 0.0, y: 2.5, z: 0.0)
+		model.lastChild?.particleGravity = SIMD3<Float>(x: 0.0, y: 2.5, z: 0.0)
 		model.lastChild?.particleSpeed = (x: 1.0, y: 1.00)
 		model.lastChild?.particleSlowdown = 12
 		model.lastChild?.particleLife = 1.2
@@ -4905,10 +4905,10 @@ extension NH3DOpenGLView {
 		// dig beam
 		loadModelBlocks[Int(Int32(S_digbeam.rawValue) + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
-			ret.modelScale = float3(x: 0.7, y: 1.0, z: 0.7)
+			ret.modelScale = SIMD3<Float>(x: 0.7, y: 1.0, z: 0.7)
 			ret.particleType = .aura
 			ret.particleColor = CLR_BROWN
-			ret.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret.particleSpeed = (x: 1.0, y: 1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4
@@ -4920,10 +4920,10 @@ extension NH3DOpenGLView {
 		// camera flash
 		loadModelBlocks[Int(Int32(S_flashbeam.rawValue) + NetHackGlyphCMapOffset)] = { _ in
 			let ret = NH3DModelObject()
-			ret.modelScale = float3(x: 1.4, y: 1.5, z: 1.4)
+			ret.modelScale = SIMD3<Float>(x: 1.4, y: 1.5, z: 1.4)
 			ret.particleType = .aura
 			ret.particleColor = CLR_WHITE
-			ret.particleGravity = float3(x: 0.0, y: 6.5, z: 0.0)
+			ret.particleGravity = SIMD3<Float>(x: 0.0, y: 6.5, z: 0.0)
 			ret.particleSpeed = (x: 1.0, y: 1.00)
 			ret.particleSlowdown = 3.8
 			ret.particleLife = 0.4

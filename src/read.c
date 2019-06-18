@@ -2393,9 +2393,7 @@ struct _create_particular_data {
 };
 
 boolean
-create_particular_parse(str, d)
-char *str;
-struct _create_particular_data *d;
+create_particular_parse(char *str, struct _create_particular_data *d)
 {
     char *bufp = str;
     char *tmpp;
@@ -2469,8 +2467,7 @@ struct _create_particular_data *d;
 }
 
 boolean
-create_particular_creation(d)
-struct _create_particular_data *d;
+create_particular_creation(struct _create_particular_data *d)
 {
     struct permonst *whichpm = NULL;
     int i, firstchoice = NON_PM;

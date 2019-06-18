@@ -211,10 +211,7 @@ mksobj_at(int otyp, int x, int y, boolean init, boolean artif)
 }
 
 struct obj *
-mksobj_migr_to_species(otyp, mflags2, init, artif)
-int otyp;
-unsigned mflags2;
-boolean init, artif;
+mksobj_migr_to_species(int otyp, unsigned mflags2, boolean init, boolean artif)
 {
     struct obj *otmp;
 

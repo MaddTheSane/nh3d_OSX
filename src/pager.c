@@ -1384,10 +1384,7 @@ static const char *suptext2[] = {
 };
 
 void
-do_supplemental_info(name, pm, without_asking)
-char *name;
-struct permonst *pm;
-boolean without_asking;
+do_supplemental_info(char *name, struct permonst *pm, boolean without_asking)
 {
     const char **textp;
     winid datawin = WIN_ERR;

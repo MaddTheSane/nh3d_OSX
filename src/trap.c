@@ -829,7 +829,7 @@ struct trap *trap;
     otmp->quan = 1L;
     otmp->owt = weight(otmp);
     otmp->opoisoned = 0;
-    otmp->ox = trap->tx, otmp->oy = trap->ty;
+    otmp->ox = trap->tx; otmp->oy = trap->ty;
     return otmp;
 }
 
@@ -849,8 +849,7 @@ unsigned tim, typ;
 }
 
 void
-reset_utrap(msg)
-boolean msg;
+reset_utrap(boolean msg)
 {
     boolean was_Lev = (Levitation != 0), was_Fly = (Flying != 0);
 
@@ -2786,7 +2785,7 @@ float_up()
         } else if (u.utraptype == TT_BURIEDBALL) { /* tethered */
             coord cc;
 
-            cc.x = u.ux, cc.y = u.uy;
+            cc.x = u.ux; cc.y = u.uy;
             /* caveat: this finds the first buried iron ball within
                one step of the specified location, not necessarily the
                buried [former] uball at the original anchor point */
