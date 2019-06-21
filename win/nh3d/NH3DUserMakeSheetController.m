@@ -170,8 +170,8 @@
 
 - (IBAction)checkRole:(id)sender
 {
-	int tag;
-	int race;
+	NSInteger tag;
+	NSInteger race;
 	tag = [chooseRole selectedTag];
 	race = [chooseRace selectedTag];
 
@@ -392,7 +392,7 @@
 }
 
 //
-// Matrix tags enabled/disabled use CocoaBinding
+// Matrix tags enabled/disabled using Cocoa Bindings
 //
 #pragma mark -
 - (void)setDone_race:(BOOL)enable {
