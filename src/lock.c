@@ -957,7 +957,7 @@ doorlock(struct obj *otmp, int x, int y)
                 return FALSE;
             }
             block_point(x, y);
-            door->typ = SDOOR, door->doormask = D_NODOOR;
+            door->typ = SDOOR; door->doormask = D_NODOOR;
             if (vis)
                 pline_The("doorway vanishes!");
             newsym(x, y);

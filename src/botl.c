@@ -3258,8 +3258,9 @@ choose_value:
                 hilite.rel = TXT_VALUE;
                 Strcpy(hilite.textmatch, rolelist[rv]);
             }
-            for (i = 0; i < j; i++)
-                free((genericptr_t) rolelist[i]), rolelist[i] = 0;
+            for (i = 0; i < j; i++) {
+                free((genericptr_t) rolelist[i]); rolelist[i] = 0;
+            }
             if (rv < 0)
                 goto choose_behavior;
         } else {

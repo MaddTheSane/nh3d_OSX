@@ -556,7 +556,7 @@ dismount_steed(int reason) /* Player was thrown off etc. */
      * but we don't know where that was and even if we did, it might
      * be hostile terrain.
      */
-    steedcc.x = u.ux, steedcc.y = u.uy;
+    steedcc.x = u.ux; steedcc.y = u.uy;
     if (m_at(u.ux, u.uy)) {
         /* hero's spot has a monster in it; hero must have been plucked
            from saddle as engulfer moved into his spot--other dismounts

@@ -2190,7 +2190,7 @@ blocked_boulder(int dx, int dy)
             count += otmp->quan;
     }
 
-    nx = u.ux + 2 * dx, ny = u.uy + 2 * dy; /* next spot beyond boulder(s) */
+    nx = u.ux + 2 * dx; ny = u.uy + 2 * dy; /* next spot beyond boulder(s) */
     switch (count) {
     case 0:
         /* no boulders--not blocked */

@@ -4540,7 +4540,7 @@ doset() /* changing options via menu by Per Liboriussen */
                     preference_update(compopt[opt_indx].name);
             }
         }
-        free((genericptr_t) pick_list), pick_list = (menu_item *) 0;
+        free((genericptr_t) pick_list); pick_list = (menu_item *) 0;
     }
 
     destroy_nhwindow(tmpwin);
@@ -5337,10 +5337,12 @@ special_handling(const char *optname, boolean setinitial, boolean setfromfile)
         /* clean up */
         while ((sl = symset_list) != 0) {
             symset_list = sl->next;
-            if (sl->name)
-                free((genericptr_t) sl->name), sl->name = (char *) 0;
-            if (sl->desc)
-                free((genericptr_t) sl->desc), sl->desc = (char *) 0;
+            if (sl->name) {
+                free((genericptr_t) sl->name); sl->name = (char *) 0;
+            }
+            if (sl->desc) {
+                free((genericptr_t) sl->desc); sl->desc = (char *) 0;
+            }
             free((genericptr_t) sl);
         }
 

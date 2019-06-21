@@ -452,7 +452,7 @@ savebones(int how, time_t when, struct obj *corpse)
     resetobjs(level.buriedobjlist, FALSE);
 
     /* Hero is no longer on the map. */
-    u.ux0 = u.ux, u.uy0 = u.uy;
+    u.ux0 = u.ux; u.uy0 = u.uy;
     u.ux = u.uy = 0;
 
     /* Clear all memory from the level. */

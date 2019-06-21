@@ -571,7 +571,7 @@ hitum_cleave(struct monst *target, /* non-Null; forcefight at nothing doesn't cl
                                &attknum, &armorpenalty);
         dieroll = rnd(20);
         mhit = (tmp > dieroll);
-        bhitpos.x = tx, bhitpos.y = ty; /* normally set up by attack() */
+        bhitpos.x = tx; bhitpos.y = ty; /* normally set up by attack() */
         (void) known_hitum(mtmp, uwep, &mhit, tmp, armorpenalty,
                            uattk, dieroll);
         (void) passive(mtmp, uwep, mhit, !DEADMONSTER(mtmp), AT_WEAP, !uwep);

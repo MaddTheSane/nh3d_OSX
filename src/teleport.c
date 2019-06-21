@@ -512,7 +512,7 @@ dotelecmd()
         return dotele(FALSE);
 
     added = hidden = NOOP_SPELL;
-    save_HTele = HTeleportation, save_ETele = ETeleportation;
+    save_HTele = HTeleportation; save_ETele = ETeleportation;
     if (!iflags.menu_requested) {
         ignore_restrictions = TRUE;
     } else {

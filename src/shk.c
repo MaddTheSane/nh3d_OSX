@@ -2095,8 +2095,9 @@ contained_cost(struct obj *obj, struct monst *shkp, long price, boolean usell, b
        puts it in inventory; behave as if it is still on the floor
        during the add-to-bill portion of that situation */
     on_floor = (top->where == OBJ_FLOOR || top->where == OBJ_FREE);
-    if (top->where == OBJ_FREE || !get_obj_location(top, &x, &y, 0))
-        x = u.ux, y = u.uy;
+    if (top->where == OBJ_FREE || !get_obj_location(top, &x, &y, 0)) {
+        x = u.ux; y = u.uy;
+    }
     freespot = (on_floor && x == ESHK(shkp)->shk.x && y == ESHK(shkp)->shk.y);
 
     /* price of contained objects; "top" container handled by caller */

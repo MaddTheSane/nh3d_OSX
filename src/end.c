@@ -1373,8 +1373,9 @@ really_done(int how)
         }
         display_nhwindow(WIN_MESSAGE, TRUE);
         destroy_nhwindow(WIN_MAP);  WIN_MAP = WIN_ERR;
-        if (WIN_STATUS != WIN_ERR)
-            destroy_nhwindow(WIN_STATUS),  WIN_STATUS = WIN_ERR;
+        if (WIN_STATUS != WIN_ERR) {
+            destroy_nhwindow(WIN_STATUS);  WIN_STATUS = WIN_ERR;
+        }
         destroy_nhwindow(WIN_MESSAGE);  WIN_MESSAGE = WIN_ERR;
 
         if (!done_stopprint || flags.tombstone)

@@ -63,8 +63,9 @@ boulder_hits_pool(struct obj *otmp, register int rx, register int ry, boolean pu
             if (ltyp == DRAWBRIDGE_UP) {
                 levl[rx][ry].drawbridgemask &= ~DB_UNDER; /* clear lava */
                 levl[rx][ry].drawbridgemask |= DB_FLOOR;
-            } else
-                levl[rx][ry].typ = ROOM, levl[rx][ry].flags = 0;
+            } else {
+                levl[rx][ry].typ = ROOM; levl[rx][ry].flags = 0;
+            }
 
             if (ttmp)
                 (void) delfloortrap(ttmp);

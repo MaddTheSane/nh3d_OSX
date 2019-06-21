@@ -193,7 +193,7 @@ object_from_map(int glyph, int x, int y, struct obj **obj_p)
             otmp->leashmon = 0;
         /* extra fields needed for shop price with doname() formatting */
         otmp->where = OBJ_FLOOR;
-        otmp->ox = x, otmp->oy = y;
+        otmp->ox = x; otmp->oy = y;
         otmp->no_charge = (otmp->otyp == STRANGE_OBJECT && costly_spot(x, y));
     }
     /* if located at adjacent spot, mark it as having been seen up close
@@ -1440,7 +1440,7 @@ do_supplemental_info(char *name, struct permonst *pm, boolean without_asking)
                     putstr(datawin, 0, txt);
                 }
                 display_nhwindow(datawin, FALSE);
-                destroy_nhwindow(datawin), datawin = WIN_ERR;
+                destroy_nhwindow(datawin); datawin = WIN_ERR;
             }
         }
     }

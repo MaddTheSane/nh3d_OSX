@@ -3088,7 +3088,7 @@ readobjnam(register char *bp, struct obj *no_wish)
         mntmp = NON_PM; /* not useful for "glob of <foo>" object lookup */
         cnt = 0; /* globs don't stack */
         oclass = FOOD_CLASS;
-        actualn = bp, dn = 0;
+        actualn = bp; dn = 0;
         goto srch;
     } else {
         /*

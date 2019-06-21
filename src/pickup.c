@@ -2342,7 +2342,7 @@ observe_quantum_cat(struct obj *box, boolean makecat, boolean givemsg)
             (void) christen_monst(livecat, sc);
             if (deadcat) {
                 obj_extract_self(deadcat);
-                obfree(deadcat, (struct obj *) 0), deadcat = 0;
+                obfree(deadcat, (struct obj *) 0); deadcat = 0;
             }
             box->owt = weight(box);
             box->spe = 0;

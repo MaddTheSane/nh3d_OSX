@@ -79,7 +79,7 @@ struct obj *obj;
      */
     if (!Blind)
         obj->dknown = 1; /* xname(obj) does this; we want it sooner */
-    seen = obj->dknown ? TRUE : FALSE,
+    seen = obj->dknown ? TRUE : FALSE;
     /* class order */
     classorder = flags.sortpack ? flags.inv_order : def_srt_order;
     p = index(classorder, oclass);
@@ -225,7 +225,7 @@ struct obj *obj;
      * remember 'obj's current settings.
      */
     saveo.odiluted = obj->odiluted;
-    saveo.blessed = obj->blessed, saveo.cursed = obj->cursed;
+    saveo.blessed = obj->blessed; saveo.cursed = obj->cursed;
     saveo.spe = obj->spe;
     saveo.owt = obj->owt;
     save_oname = has_oname(obj) ? ONAME(obj) : 0;
@@ -234,8 +234,9 @@ struct obj *obj;
        sortloot() will deal with them using other criteria than name */
     if (obj->oclass == POTION_CLASS) {
         obj->odiluted = 0;
-        if (obj->otyp == POT_WATER)
-            obj->blessed = 0, obj->cursed = 0;
+        if (obj->otyp == POT_WATER) {
+            obj->blessed = 0; obj->cursed = 0;
+        }
     }
     /* make "wet towel" and "moist towel" format as "towel" so that all
        three group together */
@@ -266,8 +267,9 @@ struct obj *obj;
     /* restore the object */
     if (obj->oclass == POTION_CLASS) {
         obj->odiluted = saveo.odiluted;
-        if (obj->otyp == POT_WATER)
-            obj->blessed = saveo.blessed, obj->cursed = saveo.cursed;
+        if (obj->otyp == POT_WATER) {
+            obj->blessed = saveo.blessed; obj->cursed = saveo.cursed;
+        }
     }
     if (obj->otyp == TOWEL) {
         obj->spe = saveo.spe;
@@ -502,14 +504,14 @@ boolean (*filterfunc)(OBJ_P))
             && (!augment_filter || o->otyp != CORPSE
                 || !touch_petrifies(&mons[o->corpsenm])))
             continue;
-        sliarray[i].obj = o, sliarray[i].indx = (int) i;
+        sliarray[i].obj = o; sliarray[i].indx = (int) i;
         sliarray[i].str = (char *) 0;
         sliarray[i].orderclass = sliarray[i].subclass = sliarray[i].disco = 0;
         ++i;
     }
     n = i;
     /* add a terminator so that we don't have to pass 'n' back to caller */
-    sliarray[n].obj = (struct obj *) 0, sliarray[n].indx = -1;
+    sliarray[n].obj = (struct obj *) 0; sliarray[n].indx = -1;
     sliarray[n].str = (char *) 0;
     sliarray[n].orderclass = sliarray[n].subclass = sliarray[n].disco = 0;
 
@@ -521,8 +523,9 @@ boolean (*filterfunc)(OBJ_P))
         sortlootmode = 0; /* reset static mode flags */
         /* if sortloot_cmp formatted any objects, discard their strings now */
         for (i = 0; i < n; ++i)
-            if (sliarray[i].str)
-                free((genericptr_t) sliarray[i].str), sliarray[i].str = 0;
+            if (sliarray[i].str) {
+                free((genericptr_t) sliarray[i].str); sliarray[i].str = 0;
+            }
     }
     return sliarray;
 }
@@ -532,8 +535,9 @@ void
 unsortloot(loot_array_p)
 Loot **loot_array_p;
 {
-    if (*loot_array_p)
-        free((genericptr_t) *loot_array_p), *loot_array_p = (Loot *) 0;
+    if (*loot_array_p) {
+        free((genericptr_t) *loot_array_p); *loot_array_p = (Loot *) 0;
+    }
 }
 
 #if 0 /* 3.6.0 'revamp' */
