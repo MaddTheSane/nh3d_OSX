@@ -63,8 +63,7 @@ RND(int x)
    used in cases where the answer doesn't affect gameplay and we don't
    want to give users easy control over the main RNG sequence. */
 int
-rn2_on_display_rng(x)
-register int x;
+rn2_on_display_rng(register int x)
 {
     return (isaac64_next_uint64(&rnglist[DISP].rng_state) % x);
 }

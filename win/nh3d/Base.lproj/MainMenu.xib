@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,7 +42,7 @@
                         </connections>
                     </textField>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6822">
-                        <rect key="frame" x="27" y="402" width="128" height="130"/>
+                        <rect key="frame" x="56" y="402" width="70" height="130"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="6931"/>
                         <connections>
                             <binding destination="6780" name="hidden" keyPath="values.UseTraditionalMap" id="6828">
@@ -168,7 +168,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6378" userLabel="left ring">
-                        <rect key="frame" x="123" y="170" width="35" height="32"/>
+                        <rect key="frame" x="123" y="170" width="6" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="6926"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerRingL" id="6411"/>
@@ -180,7 +180,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6375" userLabel="gloves">
-                        <rect key="frame" x="123" y="220" width="35" height="32"/>
+                        <rect key="frame" x="123" y="220" width="6" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="6923"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerGloves" id="6386"/>
@@ -243,7 +243,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372" userLabel="shield">
-                        <rect key="frame" x="120" y="267" width="41" height="38"/>
+                        <rect key="frame" x="120" y="267" width="12" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="6920"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerShield" id="6409"/>
@@ -255,7 +255,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6369" userLabel="amulet">
-                        <rect key="frame" x="123" y="320" width="35" height="32"/>
+                        <rect key="frame" x="123" y="320" width="6" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="6917"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerAmulet" id="6407"/>
@@ -898,7 +898,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Rest" verticalHuggingPriority="750" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="452">
-                                    <rect key="frame" x="56" y="56" width="22" height="23"/>
+                                    <rect key="frame" x="55.5" y="56" width="23" height="23"/>
                                     <buttonCell key="cell" type="roundTextured" title="5" bezelStyle="texturedRounded" imagePosition="overlaps" alignment="center" borderStyle="border" tag="5" imageScaling="proportionallyDown" id="6988">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="miniSystem"/>
@@ -3122,7 +3122,7 @@ DQ
                 <outlet property="initialFirstResponder" destination="5665" id="5726"/>
             </connections>
         </window>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5366" userLabel="TextPanel" customClass="NSPanel">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5366" userLabel="TextPanel" customClass="NH3DPanel">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="291" y="283" width="675" height="335"/>
@@ -3466,7 +3466,7 @@ DQ
                         <rect key="frame" x="-1" y="32" width="637" height="350"/>
                         <clipView key="contentView" id="Hj5-ZN-y1C">
                             <rect key="frame" x="1" y="1" width="635" height="348"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
                                     <rect key="frame" x="0.0" y="0.0" width="635" height="348"/>
@@ -4675,7 +4675,7 @@ DQ
         <image name="Ill0" width="65" height="65"/>
         <image name="Load0" width="40" height="40"/>
         <image name="Lowful0" width="48" height="48"/>
-        <image name="NSApplicationIcon" width="128" height="128"/>
+        <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="Newtral0" width="48" height="48"/>
         <image name="ScrollPaper" width="487" height="518"/>
         <image name="ScrollParchment" width="451" height="131"/>

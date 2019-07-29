@@ -1347,9 +1347,10 @@ wd_message()
 - (void)setTile
 {
 	TileSet.instance = [[TileSet alloc] initWithName:TILE_FILE_NAME];
+	BOOL currentMode = [[NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey];
 
-	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:NH3DTraditionalMapModeKey];
-	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:NH3DTraditionalMapModeKey];
+	[[NSUserDefaults standardUserDefaults] setBool:!currentMode forKey:NH3DTraditionalMapModeKey];
+	[[NSUserDefaults standardUserDefaults] setBool:currentMode forKey:NH3DTraditionalMapModeKey];
 	[[self userStatus] updatePlayerInventory];
 	[_mapModel clearTileCaches];
 }
