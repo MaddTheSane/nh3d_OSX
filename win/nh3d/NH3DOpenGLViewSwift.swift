@@ -4168,7 +4168,7 @@ extension NH3DOpenGLView {
 	}
 	
 	private final func loadModelFunc_Pets(glyph: Int32) -> NH3DModelObject? {
-		guard let model = loadModelBlocks[Int(glyph - NetHackGlyphPetOffset)](glyph) else {
+		guard glyph - NetHackGlyphPetOffset > 0, let model = loadModelBlocks[Int(glyph - NetHackGlyphPetOffset)](glyph) else {
 			return nil
 		}
 		

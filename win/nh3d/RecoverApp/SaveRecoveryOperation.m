@@ -293,7 +293,7 @@ static BOOL copy_bytes(int ifd, int ofd);
 	
 	tf = strrchr(lock, '.');
 	if (!tf)
-		tf = lock + strlen(lock);
+		tf = lock + strnlen(lock, sizeof(lock));
 	(void) sprintf(tf, ".%d", lev);
 }
 
@@ -309,7 +309,7 @@ static BOOL copy_bytes(int ifd, int ofd);
 - (int)createSaveFile
 {
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *saveNameNSStr = [fm stringWithFileSystemRepresentation:savename length:strlen(savename)];
+	NSString *saveNameNSStr = [fm stringWithFileSystemRepresentation:savename length:strnlen(savename, sizeof(savename))];
 	int fd;
 	NSURL *saveURL = [baseURL URLByDeletingLastPathComponent];
 	saveURL = [saveURL URLByAppendingPathComponent:saveNameNSStr];

@@ -78,7 +78,7 @@ extension NH3DModelObject {
 }
 
 extension SIMD3 where Scalar==Float {
-	fileprivate init(start p_start: SIMD3<Float>, end p_end : SIMD3<Float>) {
+	fileprivate init(start p_start: SIMD3<Scalar>, end p_end : SIMD3<Scalar>) {
 		let pre = p_end - p_start
 		self = normalize(pre)
 	}
