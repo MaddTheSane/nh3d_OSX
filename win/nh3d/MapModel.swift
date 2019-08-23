@@ -141,11 +141,11 @@ class MapModel: NSObject {
 	}
 	
 	@objc private func updateEnemyIndicator(_ timer: Timer) {
-		var value = enemyWarnBase + Int32(arc4random() % 3 + 1)
+		var value = enemyWarnBase + (1...3).randomElement()!
 		let alert = NSSound(named: "Hero")!
 		
 		if enemyIndicator.intValue == value {
-			value = enemyWarnBase - Int32(arc4random() % 3 + 1)
+			value = enemyWarnBase - (1...3).randomElement()!
 		}
 		enemyIndicator.intValue = value
 		
