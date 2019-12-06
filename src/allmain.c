@@ -874,8 +874,7 @@ argcheck(int argc, char *argv[], enum earlyarg e_arg)
  *                    can be debugged without buffering.
  */
 STATIC_OVL void
-debug_fields(opts)
-const char *opts;
+debug_fields(const char *opts)
 {
     char *op;
     boolean negated = FALSE;
