@@ -11,64 +11,48 @@ import Cocoa
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
-	// TODO: prune it down to one regex: "\\A[^\\d]+(\\d+)\\..{2,4}|[^\\d]+(\\d+)[xX\\*](\\d+)\\..{2,4}"
-	// or "\\A([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX\\*](\\d+))\\..{2,4}"
-	let regex1 = try! NSRegularExpression(pattern: "\\A[^\\d]+(\\d+)[xX](\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
-	let regex2 = try! NSRegularExpression(pattern: "\\A[^\\d]+(\\d+)\\..{2,4}", options: .useUnicodeWordBoundaries)
+	let regex1 = try! NSRegularExpression(pattern: "^([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX\\*](\\d+))\\..{2,4}$", options: .useUnicodeWordBoundaries)
 	
-	// First, try finding both width and height
-	matchTwoSize: do {
+	matchTheSize: do {
 		let matches = regex1.matches(in: fileName, range: NSRange(fileName.startIndex ..< fileName.endIndex, in: fileName))
 		
 		if let match = matches.first {
 			if match.range.notFound {
-				break matchTwoSize
+				break matchTheSize
 			}
 			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
-			let match1: Range<String.Index>? = {
-				let NSmatch1 = match.range(at: 1)
-				return Range(NSmatch1, in: fileName)
-			}()
 			let match2: Range<String.Index>? = {
 				let NSmatch1 = match.range(at: 2)
 				return Range(NSmatch1, in: fileName)
 			}()
+			let match3: Range<String.Index>? = {
+				let NSmatch1 = match.range(at: 3)
+				return Range(NSmatch1, in: fileName)
+			}()
+			let match4: Range<String.Index>? = {
+				let NSmatch1 = match.range(at: 4)
+				return Range(NSmatch1, in: fileName)
+			}()
 			
-			if let match1 = match1, let match2 = match2 {
+			if let match1 = match3, let match2 = match4 {
+				// First, try finding both width and height
 				let matchWidth = fileName[match1]
 				let matchHeight = fileName[match2]
 				
 				#if REDUNDANT_SAFETY_CHECKS
 					guard let intMatchWidth = Int32(matchWidth), let intMatchHeight = Int32(matchHeight) else {
-						break matchTwoSize
+						break matchTheSize
 					}
 					return (intMatchWidth, intMatchHeight)
 				#else
 					return (Int32(matchWidth)!, Int32(matchHeight)!)
 				#endif
-			}
-		}
-	}
-	
-	matchOneSize: do {
-		// Next, try for a square size
-		let matches = regex2.matches(in: fileName, range: NSRange(fileName.startIndex ..< fileName.endIndex, in: fileName))
-		
-		if let match = matches.first {
-			if match.range.notFound {
-				break matchOneSize
-			}
-			assert(match.range.location == 0, "Unexpected start: \(match.range.location)")
-			let match1: Range<String.Index>? = {
-				let NSmatch1 = match.range(at: 1)
-				return Range(NSmatch1, in: fileName)
-			}()
-			
-			if let match1 = match1 {
+			} else if let match1 = match2 {
+				// Next, try for a square size
 				let matchSquare = fileName[match1]
 				#if REDUNDANT_SAFETY_CHECKS
 					guard let tmpIntSquare = Int32(matchSquare) else {
-						break matchOneSize
+						break matchTheSize
 					}
 					let tmpSquare = tmpIntSquare
 				#else

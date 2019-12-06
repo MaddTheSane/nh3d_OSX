@@ -444,7 +444,7 @@
 - (NSString *)symbol
 {
 	if (SYMHANDLING(H_IBM)) {
-		char tinyStr[] = {symbol, 0};
+		const char tinyStr[] = {symbol, 0};
 		NSString *toRet = CFBridgingRelease(CFStringCreateWithCString(kCFAllocatorDefault, tinyStr, kCFStringEncodingDOSLatinUS));
 		return toRet;
 	} else {
