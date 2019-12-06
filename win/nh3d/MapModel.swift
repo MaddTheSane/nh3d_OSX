@@ -167,7 +167,7 @@ class MapModel: NSObject {
 			
 			// map glyph to character and color
 			
-			mapglyph(glf, &ch, &color, &special, x, y)
+			mapglyph(glf, &ch, &color, &special, x, y, 0)
 			// add view Margin
 			let x2 = x + MAP_MARGIN
 			let y2 = y + MAP_MARGIN

@@ -924,10 +924,10 @@ Mb_hit(struct monst *magr,  /* attacker and defender */
        char *hittee)        /* target's name: "you" or mon_nam(mdef) */
 {
     struct permonst *old_uasmon;
-    const char *verb, *fakename;
+    const char *verb;
     boolean youattack = (magr == &youmonst), youdefend = (mdef == &youmonst),
             resisted = FALSE, do_stun, do_confuse, result;
-    int attack_indx, scare_dieroll = MB_MAX_DIEROLL / 2;
+    int attack_indx, fakeidx, scare_dieroll = MB_MAX_DIEROLL / 2;
 
     result = FALSE; /* no message given yet */
     /* the most severe effects are less likely at higher enchantment */
@@ -1067,13 +1067,13 @@ Mb_hit(struct monst *magr,  /* attacker and defender */
             mdef->mconf = 1;
     }
 
-    /* now give message(s) describing side-effects;
-       don't let vtense() be fooled by assigned name ending in 's' */
-    fakename = youdefend ? "you" : "mon";
+    /* now give message(s) describing side-effects; Use fakename
+       so vtense() won't be fooled by assigned name ending in 's' */
+    fakeidx = youdefend ? 1 : 0;
     if (youattack || youdefend || vis) {
         (void) upstart(hittee); /* capitalize */
         if (resisted) {
-            pline("%s %s!", hittee, vtense(fakename, "resist"));
+            pline("%s %s!", hittee, vtense(fakename[fakeidx], "resist"));
             shieldeff(youdefend ? u.ux : mdef->mx,
                       youdefend ? u.uy : mdef->my);
         }
@@ -1087,7 +1087,7 @@ Mb_hit(struct monst *magr,  /* attacker and defender */
                 Strcat(buf, " and ");
             if (do_confuse)
                 Strcat(buf, "confused");
-            pline("%s %s %s%c", hittee, vtense(fakename, "are"), buf,
+            pline("%s %s %s%c", hittee, vtense(fakename[fakeidx], "are"), buf,
                   (do_stun && do_confuse) ? '!' : '.');
         }
     }
@@ -1806,8 +1806,7 @@ static const char *glow_verbs[] = {
 
 /* relative strength that Sting is glowing (0..3), to select verb */
 STATIC_OVL int
-glow_strength(count)
-int count;
+glow_strength(int count)
 {
     /* glow strength should also be proportional to proximity and
        probably difficulty, but we don't have that information and
@@ -1817,7 +1816,7 @@ int count;
 
 const char *
 glow_verb(int count, /* 0 means blind rather than no applicable creatures */
-boolean ingsfx)
+          boolean ingsfx)
 {
     static char resbuf[20];
 

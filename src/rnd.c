@@ -96,7 +96,7 @@ register int x;
 int
 rn2(register int x)
 {
-#ifdef BETA
+#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)
     if (x <= 0) {
         impossible("rn2(%d) attempted", x);
         return 0;
@@ -115,7 +115,7 @@ rnl(register int x)
 {
     register int i, adjustment;
 
-#ifdef BETA
+#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)
     if (x <= 0) {
         impossible("rnl(%d) attempted", x);
         return 0;
@@ -156,7 +156,7 @@ rnl(register int x)
 int
 rnd(register int x)
 {
-#ifdef BETA
+#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)
     if (x <= 0) {
         impossible("rnd(%d) attempted", x);
         return 1;
@@ -172,7 +172,7 @@ d(register int n, register int x)
 {
     register int tmp = n;
 
-#ifdef BETA
+#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)
     if (x < 0 || n < 0 || (x == 0 && n != 0)) {
         impossible("d(%d,%d) attempted", n, x);
         return 1;

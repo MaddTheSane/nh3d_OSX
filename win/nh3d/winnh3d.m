@@ -1089,6 +1089,7 @@ struct window_procs nh3d_procs = {
 	WC_FONT_TEXT|
 	WC_TILED_MAP,
     0L,
+	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 	nh3d_init_nhwindows,
 	nh3d_player_selection,
 	nh3d_askname,

@@ -502,10 +502,12 @@ static inline const struct monst * __nullable Swift_m_at(int xx, int yy)
 	return m_at(xx, yy);
 }
 
+#if 0
 NS_SWIFT_NAME(monsterBuriedAt(x:y:))
 static inline const struct monst * __nullable Swift_m_buried_at(int xx, int yy)
 {
 	return m_buried_at(xx, yy);
 }
+#endif
 
 #endif /* NH3DSwiftBridging_h */
