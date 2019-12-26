@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Deprecated/removed values
 @available(*, unavailable, renamed: "NetHackGlyphPetOffset")
 var GLYPH_PET_OFF: Int32 {
 	fatalError()
@@ -129,7 +130,9 @@ var NH3D_EXPLODE_FROSTY: Int32 {
 	fatalError()
 }
 
-//MARK: for font
+// MARK: -
+
+// MARK: for font
 var NH3DMSGFONT: String! {
 	return UserDefaults.standard.string(forKey: NH3DMsgFontKey)
 }
@@ -228,7 +231,7 @@ var See_invisible: Bool {
 		perceives(youmonst.data))
 }
 
-// MARK: Appearance and behavior
+// MARK: - Appearance and behavior
 var Adornment: Int {
 	return u.uprops.9.extrinsic
 }
@@ -249,6 +252,7 @@ var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
 }
 
+// MARK: -Deprecated/removed functions
 @available(*, unavailable, renamed: "isDoor(_:)")
 func IS_DOOR(_ typ: schar) -> Bool {
 	fatalError()
@@ -313,6 +317,8 @@ func Is_airlevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 func Is_astralevel(_ x: UnsafeMutablePointer<d_level>) -> Bool {
 	fatalError()
 }
+
+//MARK: -
 
 /// Print to the console.
 func raw_print(_ str: UnsafePointer<CChar>) {

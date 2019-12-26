@@ -67,6 +67,7 @@ extension NH3DModelObject {
 		}
 	}
 	
+	@inlinable
 	var particleSpeed: (x: GLfloat, y: GLfloat) {
 		get {
 			return (__particleSpeedX, __particleSpeedY)

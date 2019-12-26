@@ -1099,13 +1099,12 @@ final class NH3DOpenGLView: NSOpenGLView {
 			viewLock.unlock()
 		}
 		// Get the view size in Points
-		let viewRectPoints = bounds
 		let viewRectPixels: NSRect
 		
 		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
-			viewRectPixels = convertToBacking(viewRectPoints)
+			viewRectPixels = convertToBacking(bounds)
 		} else {
-			viewRectPixels = viewRectPoints
+			viewRectPixels = bounds
 		}
 		
 		glViewport(0, 0, GLsizei(viewRectPixels.width), GLsizei(viewRectPixels.height))
