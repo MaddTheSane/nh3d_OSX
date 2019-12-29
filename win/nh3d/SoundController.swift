@@ -32,7 +32,7 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 	return theSame
 }
 
-final class SoundController: NSObject {
+@objcMembers final class SoundController: NSObject {
 	private final class SoundObject {
 		let audioFile = FDAudioFile(mixer: FDAudioMixer.shared)!
 		var currentPriority = Priority.medium

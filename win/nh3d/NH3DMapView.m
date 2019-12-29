@@ -734,21 +734,20 @@
 	}
 	
 	if (!TRADITIONAL_MAP) {
+		//TODO: Center text
+		NSString *theStr;
 		if (39 - (centerX - MAP_MARGIN) == 0 && 10 - (centerY-MAP_MARGIN) == 0) {
-			[NSLocalizedString(@"Center of Map", @"Center of Map") drawAtPoint:NSMakePoint(46.0,2.0) withAttributes:attributes_alt];
+			theStr = NSLocalizedString(@"Center of Map", @"Center of Map");
 		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-			[[NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			theStr = [NSString stringWithFormat:@"E:%d N:%d", 39 - (centerX - MAP_MARGIN), 10 - (centerY - MAP_MARGIN)];
 		} else if (39 - (centerX - MAP_MARGIN) >= 0 && 10 - (centerY - MAP_MARGIN) <= 0) {
-			[[NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			theStr = [NSString stringWithFormat:@"E:%d S:%d", 39 - (centerX - MAP_MARGIN), -(11 - (centerY - MAP_MARGIN))];
 		} else if (39 - (centerX - MAP_MARGIN) <= 0 && 10 - (centerY - MAP_MARGIN) >= 0) {
-			[[NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			theStr = [NSString stringWithFormat:@"W:%d N:%d", -(39 - (centerX - MAP_MARGIN)), 10 - (centerY - MAP_MARGIN)];
 		} else {
-			[[NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))]
-			 drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
+			theStr = [NSString stringWithFormat:@"W:%d S:%d", -(39-(centerX-MAP_MARGIN)),-(10-(centerY-MAP_MARGIN))];
 		}
+		[theStr drawAtPoint:NSMakePoint(57.0,2.0) withAttributes:attributes_alt];
 	}
 }
 

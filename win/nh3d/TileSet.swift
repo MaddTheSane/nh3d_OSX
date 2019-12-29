@@ -23,7 +23,7 @@
 import Cocoa
 import CoreGraphics
 
-final class TileSet: NSObject {
+@objcMembers final class TileSet: NSObject {
 	@objc static var instance: TileSet?
 	let image: NSImage
 	@objc let tileSize: NSSize
@@ -31,7 +31,7 @@ final class TileSet: NSObject {
 	private let columns: Int
 	private var cache: [Int16: NSImage] = [:]
 	
-	@objc init(image img: NSImage, tileSize ts: NSSize) {
+	init(image img: NSImage, tileSize ts: NSSize) {
 		image = img.copy() as! NSImage
 		
 		tileSize = ts
@@ -41,7 +41,7 @@ final class TileSet: NSObject {
 		super.init()
 	}
 	
-	@objc convenience init?(name named: String) {
+	convenience init?(name named: String) {
 		guard let img = NSImage(named: named) else {
 			self.init(imageAtLocation: named)
 			return
@@ -78,7 +78,7 @@ final class TileSet: NSObject {
 			if img.representations.count == 1,
 				!(img.representations[0] is NSPDFImageRep),
 				let img2 = NSImage(contentsOf: x2Loc),
-				let rep = img2.representations[0].copy() as? NSImageRep {
+				let rep = img2.representations.first?.copy() as? NSImageRep {
 				rep.size = img.size
 				img.addRepresentation(rep)
 			}
@@ -96,7 +96,7 @@ final class TileSet: NSObject {
 		self.init(image: img, tileSize: size)
 	}
 	
-	@objc convenience init?(imageAtLocation loc: String, tileSize size: NSSize = .zero) {
+	convenience init?(imageAtLocation loc: String, tileSize size: NSSize = .zero) {
 		self.init(imageAt: URL(fileURLWithPath: loc), tileSize: size)
 	}
 	
@@ -113,7 +113,7 @@ final class TileSet: NSObject {
 		return r
 	}
 	
-	@objc private(set) lazy var imageSize: NSSize = {
+	private(set) lazy var imageSize: NSSize = {
 		var size = tileSize
 		if size.width > 16 || size.height > 16 {
 			// since these images are used in menus we want to scale them down

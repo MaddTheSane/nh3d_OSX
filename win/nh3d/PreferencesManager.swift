@@ -30,12 +30,12 @@ extension UserDefaults {
 	}
 }
 
-class PreferencesManager: NSObject {
-	@objc static let shared = PreferencesManager()
+@objcMembers class PreferencesManager: NSObject {
+	static let shared = PreferencesManager()
 	private var kvoo: [NSKeyValueObservation] = []
-	@objc private(set) var useTraditionalMap: Bool
-	@objc private(set) var useTiles: Bool
-	@objc private(set) var isMuted: Bool
+	private(set) var useTraditionalMap: Bool
+	private(set) var useTiles: Bool
+	private(set) var isMuted: Bool
 
 	private override init() {
 		let defaults = UserDefaults.standard
