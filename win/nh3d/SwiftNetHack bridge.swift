@@ -214,41 +214,41 @@ var SOUND_MUTE: Bool {
 	return PreferencesManager.shared.isMuted
 }
 
-var HSee_invisible: Int {
+@inlinable var HSee_invisible: Int {
 	return u.uprops.12.intrinsic
 }
 
-var ESee_invisible: Int {
+@inlinable var ESee_invisible: Int {
 	return u.uprops.12.extrinsic
 }
 
-private func perceives(_ ptr: UnsafePointer<permonst>) -> Bool {
+@inlinable func perceives(_ ptr: UnsafePointer<permonst>) -> Bool {
 	return (ptr.pointee.mflags1 & UInt(M1_SEE_INVIS)) != 0
 }
 
-var See_invisible: Bool {
+@inlinable var See_invisible: Bool {
 	return (HSee_invisible != 0 || ESee_invisible != 0 ||
 		perceives(youmonst.data))
 }
 
 // MARK: - Appearance and behavior
-var Adornment: Int {
+@inlinable var Adornment: Int {
 	return u.uprops.9.extrinsic
 }
 
-var HInvis: Int {
+@inlinable var HInvis: Int {
 	return u.uprops.13.intrinsic
 }
 
-var EInvis: Int {
+@inlinable var EInvis: Int {
 	return u.uprops.13.extrinsic
 }
 
-var BInvis: Int {
+@inlinable var BInvis: Int {
 	return u.uprops.13.blocked
 }
 
-var Invisible: Bool {
+@inlinable var Invisible: Bool {
 	return (Swift_Invis() && !See_invisible)
 }
 
@@ -333,11 +333,11 @@ var NH3DTextEncoding: String.Encoding {
 	return String.Encoding(rawValue: __NH3DTEXTENCODING)
 }
 
-var roomAtCurrentLocation: rm {
+@inlinable var roomAtCurrentLocation: rm {
 	return roomAtLocation(x: u.ux, y: u.uy)
 }
 
 /// Returns `true` if the passed-in level is a wizard level.
-func isWizardLevel(_ xx: UnsafePointer<d_level>) -> Bool {
+@inlinable func isWizardLevel(_ xx: UnsafePointer<d_level>) -> Bool {
 	return isWizardLevel1(xx) || isWizardLevel2(xx) || isWizardLevel3(xx)
 }

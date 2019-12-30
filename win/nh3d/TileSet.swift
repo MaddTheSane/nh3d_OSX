@@ -24,9 +24,9 @@ import Cocoa
 import CoreGraphics
 
 @objcMembers final class TileSet: NSObject {
-	@objc static var instance: TileSet?
+	static var instance: TileSet?
 	let image: NSImage
-	@objc let tileSize: NSSize
+	let tileSize: NSSize
 	private let rows: Int
 	private let columns: Int
 	private var cache: [Int16: NSImage] = [:]

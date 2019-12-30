@@ -601,7 +601,7 @@ void nh3d_display_file(const char *filename, boolean must_exist)
 		NSString *contentsOfFile = nil;
 		NSError *lerror = nil;
 		// try same Japanese encoding. see 'NSString.h' for more infomation. nethack3d default encoding is '3'(EUC-JP)
-		NSStringEncoding fileEncoding[6] = {NSUTF8StringEncoding, NSJapaneseEUCStringEncoding, NSShiftJISStringEncoding, NSUnicodeStringEncoding, NSISO2022JPStringEncoding, NSMacOSRomanStringEncoding};
+		const NSStringEncoding fileEncoding[6] = {NSUTF8StringEncoding, NSJapaneseEUCStringEncoding, NSShiftJISStringEncoding, NSUnicodeStringEncoding, NSISO2022JPStringEncoding, NSMacOSRomanStringEncoding};
 		int i = 0;
 		
 		while (contentsOfFile == nil) {

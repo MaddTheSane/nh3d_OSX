@@ -11,7 +11,7 @@ import Cocoa
 let DIALOG_OK		= 128
 let DIALOG_CANCEL	= 129
 
-class NH3DMessaging: NSObject {
+@objcMembers class NH3DMessaging: NSObject {
 	private final class ScreenEffect: CustomStringConvertible {
 		private var regex = regex_init()
 		let effect: Int32
@@ -43,12 +43,12 @@ class NH3DMessaging: NSObject {
 		}
 	}
 	
-	var messageWindow: NSTextView! {
+	@nonobjc var messageWindow: NSTextView! {
 		return messageScrollView.contentView.documentView as? NSTextView
 	}
 	@IBOutlet weak var messageScrollView: NSScrollView!
 	@IBOutlet weak var rawPrintScrollView: NSScrollView!
-	var rawPrintWindow: NSTextView! {
+	@nonobjc var rawPrintWindow: NSTextView! {
 		return rawPrintScrollView.contentView.documentView as? NSTextView
 	}
 	@IBOutlet weak var panelCloseButton: NSButton!
@@ -87,7 +87,7 @@ class NH3DMessaging: NSObject {
 	private var style = NSMutableParagraphStyle()
 	
 	private var ripFlag = false
-	@objc var lastAttackDirection: Int32 = 0
+	var lastAttackDirection: Int32 = 0
 	
 	private var effectArray = [ScreenEffect]()
 	
@@ -204,13 +204,13 @@ class NH3DMessaging: NSObject {
 	}
 	
 	/// This is a bit of a misnomer, as it doesn't wipe the text, just greys it out.
-	@objc func clearMainMessage() {
+	func clearMainMessage() {
 		messageWindow.textStorage?.addAttribute(.foregroundColor,
 		                                        value: NSColor(calibratedWhite: 0.4, alpha: 0.7),
 		                                        range: NSRange(location: 0, length: messageWindow.textStorage!.length))
 	}
 	
-	@objc func showInputPanel(_ messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
+	func showInputPanel(_ messageStr: UnsafePointer<CChar>, line: UnsafeMutablePointer<CChar>) -> Int32 {
 		guard let questionStr = String(cString: messageStr, encoding: NH3DTextEncoding) else {
 			return -1
 		}
@@ -323,7 +323,7 @@ class NH3DMessaging: NSObject {
 		}
 	}
 	
-	@objc func showLogPanel() -> NSApplication.TerminateReply {
+	func showLogPanel() -> NSApplication.TerminateReply {
 		var ripOrMainWindow: NSWindow
 		
 		panelCloseButton.action = #selector(NH3DMessaging.closeInputPanel(_:))

@@ -15,11 +15,14 @@
 
 - (instancetype)initWithURL:(NSURL*)aURL
 {
-	NSImage *sourceFile = [[NSImage alloc] initWithContentsOfURL:aURL];
-	if (!sourceFile) {
-		return nil;
+	NSBitmapImageRep * imgrep = (id)[NSBitmapImageRep imageRepWithContentsOfURL:aURL];
+	if (!imgrep || ![imgrep isKindOfClass:[NSBitmapImageRep class]]) {
+		NSImage *sourceFile = [[NSImage alloc] initWithContentsOfURL:aURL];
+		if (!sourceFile) {
+			return nil;
+		}
+		imgrep = [[NSBitmapImageRep alloc] initWithData:sourceFile.TIFFRepresentation];
 	}
-	NSBitmapImageRep *imgrep = [[NSBitmapImageRep alloc] initWithData:sourceFile.TIFFRepresentation];
 	
 	return [self initWithBitmapImageRep:imgrep];
 }
