@@ -1833,6 +1833,7 @@ E boolean authorize_wizard_mode(void);
 #endif /* MICRO || WIN32 */
 #if defined(WIN32)
 E int NDECL(getlock);
+E const char *NDECL(get_portable_device);
 #endif
 
 /* ### pcsys.c ### */
@@ -2506,7 +2507,7 @@ E boolean burnarmor(struct monst *);
 E int erode_obj(struct obj *, const char *, int, int);
 E boolean grease_protect(struct obj *, const char *, struct monst *);
 E struct trap *maketrap(int, int, int);
-E void fall_through(boolean);
+E void fall_through(boolean, unsigned);
 E struct monst *animate_statue
                       (struct obj *, xchar, xchar, int, int *);
 E struct monst *activate_statue_trap
