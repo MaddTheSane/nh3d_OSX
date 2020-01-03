@@ -1087,7 +1087,7 @@ dump_fmtstr(const char *fmt, char *buf,
                 else
                     Strcpy(tmpbuf, "{current date+time}");
                 break;
-            case 'v': /* version, eg. "3.6.3-0" */
+            case 'v': /* version, eg. "3.6.4-0" */
                 Sprintf(tmpbuf, "%s", version_string(verbuf));
                 break;
             case 'u': /* UID */
