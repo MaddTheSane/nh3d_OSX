@@ -8,14 +8,14 @@
 
 import Cocoa
 
-class MapModel: NSObject {
+@objcMembers class MapModel: NSObject {
 	@IBOutlet weak var asciiMapView: NH3DMapView!
 	@IBOutlet weak var dungeonNameField: NSTextField!
 	@IBOutlet weak var enemyIndicator: NSLevelIndicator!
 	@IBOutlet weak var glMapView: NH3DOpenGLView!
 	private var kvoo = [NSKeyValueObservation]()
 	
-	@objc dynamic var playerDirection: NH3DPlayerDirection = .forward {
+	dynamic var playerDirection: NH3DPlayerDirection = .forward {
 		willSet {
 			if newValue.rawValue >= 0 && newValue.rawValue <= 3 {
 				
@@ -41,7 +41,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc private(set) var dungeonNameString = NSAttributedString()
+	private(set) var dungeonNameString = NSAttributedString()
 	private var strAttributes: [NSAttributedString.Key: Any] = {
 		var toRet = [NSAttributedString.Key: Any]()
 		toRet.reserveCapacity(4)
@@ -50,7 +50,7 @@ class MapModel: NSObject {
 	
 	private var indicatorIsActive = false
 	
-	@objc var enemyWarnBase: Int32 {
+	var enemyWarnBase: Int32 {
 		get {
 			return enemyWarnBaseInternal
 		}
@@ -68,8 +68,8 @@ class MapModel: NSObject {
 	private(set) final var loadingStatus = 0
 	private var indicatorTimer: Timer?
 	
-	@objc private(set) final var cursX: Int32 = 0
-	@objc private(set) final var cursY: Int32 = 0
+	private(set) final var cursX: Int32 = 0
+	private(set) final var cursY: Int32 = 0
 	final var mapArray = [[NH3DMapItem?]](repeating: [NH3DMapItem?](repeating: nil, count: Int(MAPSIZE_ROW)), count: Int(MAPSIZE_COLUMN))
 	
 	private var lock = NSRecursiveLock()
@@ -128,13 +128,13 @@ class MapModel: NSObject {
 		strAttributes[.paragraphStyle] = style.copy()
 	}
 	
-	@objc final func stopIndicator() {
+	final func stopIndicator() {
 		indicatorTimer?.invalidate()
 		indicatorTimer = nil
 		indicatorIsActive = false
 	}
 	
-	@objc final func startIndicator() {
+	final func startIndicator() {
 		indicatorIsActive = true
 		indicatorTimer = Timer.scheduledTimer(timeInterval: 1.0 / 20, target: self, selector: #selector(MapModel.updateEnemyIndicator(_:)), userInfo: nil, repeats: true)
 		RunLoop.current.add(indicatorTimer!, forMode: RunLoop.Mode.default)
@@ -243,7 +243,7 @@ class MapModel: NSObject {
 		}
 	}
 	
-	@objc final func clearMapModel() {
+	final func clearMapModel() {
 		lock.lock()
 		for x in 0 ..< MAPSIZE_COLUMN {
 			for y in 0 ..< MAPSIZE_ROW {
@@ -253,22 +253,22 @@ class MapModel: NSObject {
 		lock.unlock()
 	}
 	
-	@objc final func updateAllMaps() {
+	final func updateAllMaps() {
 		asciiMapView.updateMap()
 		glMapView.updateMap()
 	}
 	
-	@objc final func reloadAllMaps() {
+	final func reloadAllMaps() {
 		asciiMapView.reloadMap()
 		glMapView.updateMap()
 	}
 	
-	@objc final func setDungeonName(_ str: String) {
+	final func setDungeonName(_ str: String) {
 		dungeonNameString = NSAttributedString(string: str, attributes: strAttributes)
 		dungeonNameField.attributedStringValue = dungeonNameString
 	}
 	
-	@objc final func clearTileCaches() {
+	final func clearTileCaches() {
 		lock.lock()
 		for x in 0 ..< Int(MAPSIZE_COLUMN) {
 			for y in 0 ..< Int(MAPSIZE_ROW) {

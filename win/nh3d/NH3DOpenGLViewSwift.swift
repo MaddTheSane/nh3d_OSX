@@ -263,7 +263,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		shininess: 0.088)
 ]
 
-final class NH3DOpenGLView: NSOpenGLView {
+@objcMembers final class NH3DOpenGLView: NSOpenGLView {
 	@IBOutlet weak var mapModel: MapModel!
 	
 	private typealias LoadModelBlock = (_ glyph: Int32) -> NH3DModelObject?
@@ -321,7 +321,7 @@ final class NH3DOpenGLView: NSOpenGLView {
 	private(set) var lastCameraPitch: GLfloat = 0
 	private(set) var lastCameraRoll: GLfloat = 0
 	
-	private(set) var camera = SIMD3<Float>(x: 5.0, y: 1.8, z: 5.0)
+	@nonobjc private(set) var camera = SIMD3<Float>(x: 5.0, y: 1.8, z: 5.0)
 	private(set) var cameraHead: GLfloat = 0.0
 	private(set) var cameraPitch: GLfloat = 0.0
 	private(set) var cameraRoll: GLfloat = 0.0
@@ -1428,7 +1428,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 
 	/// Sets the camera's head, pitch, and roll, in degrees.
-	@objc(setCameraHead:pitching:rolling:) func setCamera(head head1: Float, pitch: Float, roll: Float) {
+	@objc(setCameraHead:pitching:rolling:)
+	func setCamera(head head1: Float, pitch: Float, roll: Float) {
 		var head = head1
 		viewLock.lock()
 		do {
@@ -1455,7 +1456,8 @@ final class NH3DOpenGLView: NSOpenGLView {
 	}
 	
 	/// Sets the camera's x-y-z position.
-	@objc(setCameraAtX:atY:atZ:) func setCamera(x: Float, y: Float, z: Float) {
+	@objc(setCameraAtX:atY:atZ:)
+	func setCamera(x: Float, y: Float, z: Float) {
 		struct CameraHelp {
 			static let footstep = URL(fileURLWithPath: Bundle.main.path(forSoundResource: "footStep")!)
 		}
