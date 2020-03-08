@@ -353,6 +353,7 @@ main(int argc, char *argv[])
     return 0;
 }
 
+/* caveat: argv elements might be arbitrary long */
 static void
 process_options(int argc, char *argv[])
 {
@@ -379,11 +380,10 @@ process_options(int argc, char *argv[])
                 load_symset("DECGraphics", PRIMARY);
                 switch_symbols(TRUE);
             } else {
-                raw_printf("Unknown option: %s", *argv);
+                raw_printf("Unknown option: %.60s", *argv);
             }
             break;
         case 'X':
-
             discover = TRUE; wizard = FALSE;
             break;
 #ifdef NEWS
@@ -409,7 +409,7 @@ process_options(int argc, char *argv[])
                 load_symset("RogueIBM", ROGUESET);
                 switch_symbols(TRUE);
             } else {
-                raw_printf("Unknown option: %s", *argv);
+                raw_printf("Unknown option: %.60s", *argv);
             }
             break;
         case 'p': /* profession (role) */
@@ -447,7 +447,7 @@ process_options(int argc, char *argv[])
                 flags.initrole = i;
                 break;
             }
-            /* else raw_printf("Unknown option: %s", *argv); */
+            /* else raw_printf("Unknown option: %.60s", *argv); */
         }
     }
 
