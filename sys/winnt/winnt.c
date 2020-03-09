@@ -234,11 +234,11 @@ void error(const char *s, ...)
         end_screen();
     if (WINDOWPORT("tty")) {
         buf[0] = '\n';
-        (void) vsprintf(&buf[1], s, the_args);
+        (void) vsnprintf(&buf[1], sizeof buf - (1 + sizeof "\n"), s, the_args);
         Strcat(buf, "\n");
         msmsg(buf);
     } else {
-        (void) vsprintf(buf, s, the_args);
+        (void) vsnprintf(buf, sizeof buf - sizeof "\n", s, the_args);
         Strcat(buf, "\n");
         raw_printf(buf);
     }

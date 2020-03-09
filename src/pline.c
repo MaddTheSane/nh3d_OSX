@@ -6,6 +6,10 @@
 #define NEED_VARARGS /* Uses ... */ /* comment line for pre-compiled headers */
 #include "hack.h"
 
+#define BIGBUFSZ (5 * BUFSZ) /* big enough to format a 4*BUFSZ string (from
+                              * config file parsing) with modest decoration;
+                              * result will then be truncated to BUFSZ-1 */
+
 static unsigned pline_flags = 0;
 static char prevmsg[BUFSZ];
 
@@ -97,9 +101,12 @@ static void
 vpline(const char *line, va_list the_args)
 {       /* start of vpline() or of nested block in USE_OLDARG's pline() */
     static int in_pline = 0;
-    char pbuf[3 * BUFSZ];
+    char pbuf[BIGBUFSZ]; /* will get chopped down to BUFSZ-1 if longer */
     int ln;
     int msgtyp;
+#if !defined(NO_VSNPRINTF)
+    int vlen = 0;
+#endif
     boolean no_repeat;
     /* Do NOT use VA_START and VA_END in here... see above */
 
@@ -113,7 +120,16 @@ vpline(const char *line, va_list the_args)
         return;
 
     if (index(line, '%')) {
+#if !defined(NO_VSNPRINTF)
+        vlen = vsnprintf(pbuf, sizeof pbuf, line, the_args);
+#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED) && defined(DEBUG)
+        if (vlen >= (int) sizeof pbuf)
+            panic("%s: truncation of buffer at %zu of %d bytes",
+                  "pline", sizeof pbuf, vlen);
+#endif
+#else
         Vsprintf(pbuf, line, the_args);
+#endif
         line = pbuf;
     }
     if ((ln = (int) strlen(line)) > BUFSZ - 1) {
@@ -391,15 +407,18 @@ void raw_printf(const char *line, ...)
 static void
 vraw_printf(const char *line, va_list the_args)
 {
-    char pbuf[3 * BUFSZ];
-    int ln;
+    char pbuf[BIGBUFSZ]; /* will be chopped down to BUFSZ-1 if longer */
     /* Do NOT use VA_START and VA_END in here... see above */
 
     if (index(line, '%')) {
+#if !defined(NO_VSNPRINTF)
+        (void) vsnprintf(pbuf, sizeof pbuf, line, the_args);
+#else
         Vsprintf(pbuf, line, the_args);
+#endif
         line = pbuf;
     }
-    if ((ln = (int) strlen(line)) > BUFSZ - 1) {
+    if ((int) strlen(line) > BUFSZ - 1) {
         if (line != pbuf)
             line = strncpy(pbuf, line, BUFSZ - 1);
         /* unlike pline, we don't futz around to keep last few chars */
@@ -415,14 +434,18 @@ vraw_printf(const char *line, va_list the_args)
 void impossible(const char *s, ...)
 {
     va_list the_args;
-    char pbuf[2 * BUFSZ];
+    char pbuf[BIGBUFSZ]; /* will be chopped down to BUFSZ-1 if longer */
     va_start(the_args, s);
 
     if (program_state.in_impossible)
         panic("impossible called impossible");
 
     program_state.in_impossible = 1;
+#if !defined(NO_VSNPRINTF)
+    (void) vsnprintf(pbuf, sizeof pbuf, s, the_args);
+#else
     Vsprintf(pbuf, s, the_args);
+#endif
     pbuf[BUFSZ - 1] = '\0'; /* sanity */
     paniclog("impossible", pbuf);
     if (iflags.debug_fuzzer)
@@ -497,14 +520,26 @@ config_error_add(const char *str, ...)
 static void
 vconfig_error_add(const char *str, va_list the_args)
 {       /* start of vconf...() or of nested block in USE_OLDARG's conf...() */
-    char buf[2 * BUFSZ];
+#if !defined(NO_VSNPRINTF)
+    int vlen = 0;
+#endif
+    char buf[BIGBUFSZ]; /* will be chopped down to BUFSZ-1 if longer */
 
+#if !defined(NO_VSNPRINTF)
+    vlen = vsnprintf(buf, sizeof buf, str, the_args);
+#if (NH_DEVEL_STATUS != NH_STATUS_RELEASED) && defined(DEBUG)
+    if (vlen >= (int) sizeof buf)
+        panic("%s: truncation of buffer at %zu of %d bytes",
+              "config_error_add", sizeof buf, vlen);
+#endif
+#else
     Vsprintf(buf, str, the_args);
+#endif
     buf[BUFSZ - 1] = '\0';
     config_erradd(buf);
 
 #if !(defined(USE_STDARG) || defined(USE_VARARGS))
-    VA_END(); /* (see pline/vpline -- ends nested block for USE_OLDARGS) */
+    va_end(the_args); /* (see pline/vpline -- ends nested block for USE_OLDARGS) */
 #endif
 }
 

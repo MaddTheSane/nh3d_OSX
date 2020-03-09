@@ -1137,7 +1137,7 @@ void nttty_error(const char *s, ...)
     if (iflags.window_inited)
         end_screen();
     buf[0] = '\n';
-    (void) vsprintf(&buf[1], s, the_args);
+    (void) vsnprintf(&buf[1], sizeof buf - 1, s, the_args);
     msmsg(buf);
     really_move_cursor();
     va_end(the_args);
@@ -1951,7 +1951,7 @@ VA_DECL(const char *, fmt)
     char buf[ROWNO * COLNO]; /* worst case scenario */
     VA_START(fmt);
     VA_INIT(fmt, const char *);
-    Vsprintf(buf, fmt, VA_ARGS);
+    (void) vsnprintf(buf, sizeof buf, fmt, VA_ARGS);
     if (redirect_stdout)
         fprintf(stdout, "%s", buf);
     else {

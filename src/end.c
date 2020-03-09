@@ -633,7 +633,11 @@ void panic(const char *str, ...)
     {
         char buf[BUFSZ];
 
+#if !defined(NO_VSNPRINTF)
+        (void) vsnprintf(buf, sizeof buf, str, the_args);
+#else
         Vsprintf(buf, str, the_args);
+#endif
         raw_print(buf);
         paniclog("panic", buf);
     }

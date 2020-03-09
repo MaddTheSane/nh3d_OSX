@@ -1,45 +1,29 @@
-          NetHack 3.6.4 -- General information December 18, 2019
+         NetHack 3.6.6 -- General information March 2020
 
 NetHack 3.6 is an enhancement to the dungeon exploration game NetHack,
 which is a distant descendent of Rogue and Hack, and a direct descendent of
 NetHack 3.4 as there was no NetHack 3.5 release.
 
-NetHack 3.6.4 is the official release of NetHack that follows NetHack 3.6.3
-and contains all bug fixes since 3.6.3, including one security-related fix for
-a vulnerability that affects NetHack versions 3.6.0, 3.6.1, 3.6.2, and 3.6.3.
+NetHack 3.6.6 is the official release of NetHack that follows NetHack 3.6.5
+and contains bug fixes since 3.6.5, including a security fix that affected
+versions 3.6.1, 3.6.2, 3.6.3, 3.6.4 and 3.6.5.
 
-The file doc/fixes36.4 in the source distribution has a full list of fixes. The
-text in there was written for the development team's own use and is provided
-"as is", so please do not ask us to further explain the entries in that file.
-Some entries might be considered "spoilers", particularly in the "new features"
-section.
+The file doc/fixes36.6 in the source distribution has a full list of fixes.
+The text in there was written for the development team's own use and is
+provided "as is", so please do not ask us to further explain the entries in
+that file.  Some entries might be considered "spoilers", particularly in the
+"new features" section.
 
 Below you will find some other general notes that were not considered
 spoilers:
 
- *  fix potential buffer overflow when parsing run-time configuration file
- *  GDBPATH and GREPPATH from sysconf or -D... on compilation command line were
- *      being processed even if PANICTRACE was disabled but only being freed
- *      at end of game when that was enabled
- *  fix the article used in the message when your steed encounters a polymorph
- *      trap
- *  allow teleporting onto the vibrating square
- *  message "your knapsack can't accomodate any more items" when picking stuff
- *      up or removing such from container was inaccurate if there was some
- *      gold pending; vary the message rather than add more convoluted pickup
- *      code
- *  dozen-ish assorted spelling/typo fixes in messages and source comments
- *  wizard mode wishing for terrain would leave it unmapped if done while blind
- *  wizard mode terrain wish could leave hero in water (severe vision limits)
- *      or in lava (trapped, sinking) which wasn't there any more
- *  flying hero can go down (via '>') holes or trap doors instead of escaping
- *      trap
- *  polymorphed hero hiding on the ceiling can now use '>' to unhide instead of
- *      being told "you can't go down here"
- *  fix compilation on platforms that split the ncurses and tinfo libraries
- *  Windows: allow all game files to be on a portable device via the sysconf
- *      option 'portable_device_paths'
-
+ *  invalid status highlight color could be maliciously used to corrupt memory
+ *  formatting corpse names used internal buffers differently from formatting
+ *      other objects and could potentially clobber memory
+ *  avoid divide by 0 crash if 'bogusmon' (file of bogus monster types) is empty
+ *  avoid #wizrumorcheck crash if either 'rumors.tru' or 'rumors.fal' or both
+ *      were empty when makedefs built 'rumors'
+ 
                         - - - - - - - - - - -
 
 Please read items (1), (2) and (3) BEFORE doing anything with your new code.
@@ -83,8 +67,8 @@ Please read items (1), (2) and (3) BEFORE doing anything with your new code.
         Intel Pentium or better (or clone) running Linux, BSDI, or
                 Windows (7 through 10)
         Intel 80386 or greater (or clone) boxes running Linux, or BSDI
-	Mac OS X 10.11 (follow the instructions in sys/unix, not sys/mac)
-	OpenVMS (aka VMS) V8.4 on Alpha and on Integrity/Itanium/IA64
+        Mac OS X 10.11 (follow the instructions in sys/unix, not sys/mac)
+        OpenVMS (aka VMS) V8.4 on Alpha and on Integrity/Itanium/IA64
 
     Instructions have been provided by way of community contribution on:
         msdos protected mode using djgpp
@@ -121,7 +105,7 @@ Please read items (1), (2) and (3) BEFORE doing anything with your new code.
         Intel x86 running a version of Windows prior to XP.
         Mips M2000 running RiscOS 4.1
         NeXT running Mach (using BSD configuration)
-	Palm Size PC 1.1 devices running Windows CE 2.11
+        Palm Size PC 1.1 devices running Windows CE 2.11
         Pocket PC devices running Windows CE 3.0 and higher
         Pyramid 9820x running OSx 4.4c
         SGI Iris running IRIX
@@ -186,6 +170,6 @@ In our own patches, we will assume that your code is synchronized with ours.
 
                   -- Good luck, and happy Hacking --
 
-# $NHDT-Date: 1575587888 2019/12/05 23:18:08 $ $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.64 $
+# $NHDT-Date: 1583508658 2020/03/06 15:30:58 $ $NHDT-Branch: NetHack-3.6-Mar2020 $:$NHDT-Revision: 1.80 $
 # Copyright (c) 2012 by Michael Allison
 # NetHack may be freely redistributed.  See license for details.
