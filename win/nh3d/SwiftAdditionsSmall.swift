@@ -13,14 +13,14 @@ import Cocoa
 
 extension NSRange {
 	/// Is `true` if `location` is equal to `NSNotFound`.
-	var notFound: Bool {
+	@inlinable var notFound: Bool {
 		return location == NSNotFound
 	}
 }
 
 extension CGBitmapInfo {
 	/// The native 32-bit byte order format.
-	static var byteOrder32Host: CGBitmapInfo {
+	@inlinable static var byteOrder32Host: CGBitmapInfo {
 		#if _endian(little)
 			return .byteOrder32Little
 		#elseif _endian(big)
@@ -33,7 +33,7 @@ extension CGBitmapInfo {
 
 extension NSBitmapImageRep.Format {
 	/// The native 32-bit byte order format.
-	static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
+	@inlinable static var thirtyTwoBitNativeEndian: NSBitmapImageRep.Format {
 		#if _endian(little)
 			return .thirtyTwoBitLittleEndian
 		#elseif _endian(big)

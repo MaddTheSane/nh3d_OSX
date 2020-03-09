@@ -100,7 +100,7 @@ private func tilesInfo(fromFile fileName: String) -> (tileSize: NSSize, rows: In
 	
 	// If there's any decimal points, it means the passed-in string size
 	// doesn't match
-	if round(divHeight) != divHeight || round(divWidth) != divWidth {
+	guard round(divHeight) == divHeight && round(divWidth) == divWidth else {
 		// We failed
 		return nil
 	}
