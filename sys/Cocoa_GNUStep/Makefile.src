@@ -169,9 +169,9 @@ NH3DINC=-I../win/nh3d -I$(GNUSTEPDIR)/Headers
 MACOSXDIR = /System/Library
 OSXARCH = -arch x86_64
 OSXVECTOR = -msse3 -ftree-vectorize
-SWIFTFLAGS = $(CFLAGS) -I../include
-CFLAGS += $(OSXARCH) $(OSXVECTOR) -I../include -Os
-OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -mdynamic-no-pic -Wreturn-type -Wunused-variable -fmessage-length=0 -I../win/nh3d/Hearse -fobjc-arc
+SWIFTFLAGS = $(CFLAGS) -I../include -Xcc -DGL_SILENCE_DEPRECATION -DGL_SILENCE_DEPRECATION -swift-version 5
+CFLAGS += $(OSXARCH) $(OSXVECTOR) -I../include -Os -DGL_SILENCE_DEPRECATION
+OBJCFLAG = $(OSXARCH) $(OSXVECTOR) -I../include -Os -x objective-c -Wno-trigraphs -fobjc-exceptions -mdynamic-no-pic -Wreturn-type -Wunused-variable -fmessage-length=0 -I../win/nh3d/Hearse -fobjc-arc -DGL_SILENCE_DEPRECATION
 
 # NH3DINC=-I../win/nh3d -I$(MACOSXDIR)/Frameworks -I/usr/include
 
@@ -238,7 +238,8 @@ WINNH3DSSRC = ../win/nh3d/GLHelpers.swift ../win/nh3d/SwiftNetHack\ bridge.swift
 	../win/nh3d/MapModel.swift ../win/nh3d/NH3DOpenGLViewSwift.swift \
 	../win/nh3d/NH3DPreferenceController.swift ../win/nh3d/NH3DMessaging.swift \
 	../win/nh3d/NH3DModelObject+Swift.swift ../win/nh3d/NH3DFirstLaunchController.swift \
-	../win/nh3d/TileSet.swift
+	../win/nh3d/TileSet.swift ../win/nh3d/PreferencesManager.swift \
+	../win/nh3d/SwiftAdditionsSmall.swift
 WINNH3DSRC =  \
 	../win/nh3d/NH3DMapView.m ../win/nh3d/NH3DMenuItem.m ../win/nh3d/NH3DMenuWindow.m \
 	../win/nh3d/NH3DModelObject.m ../win/nh3d/NH3DPanel.m \
@@ -249,7 +250,7 @@ WINNH3DSRC =  \
 #	../win/nh3d/compat/Cocoa-compat.m
 WINNH3DSOBJ = GLHelpers.o SwiftNetHack\ bridge.o MapModel.o NH3DOpenGLViewSwift.o \
 	NH3DPreferenceController.o NH3DMessaging.o NH3DModelObject+Swift.o \
-	NH3DFirstLaunchController.o TileSet.o
+	NH3DFirstLaunchController.o TileSet.o PreferencesManager.o SwiftAdditionsSmall.o
 WINNH3DOBJ = NH3DMapView.o NH3DMenuItem.o NH3DMenuWindow.o \
 	NH3DModelObject.o NH3DPanel.o \
 	NH3DUserMakeSheetController.o NH3DUserStatusModel.o winnh3d.o tile.o \
@@ -776,7 +777,18 @@ NH3DModelObject+Swift.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h 
 	$(filter-out ../win/nh3d/NH3DModelObject+Swift.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
 	-emit-module -emit-module-path NH3DModelObject+Swift-partial.swiftmodule \
 	-o NH3DModelObject+Swift.o
-
+PreferencesManager.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
+	swiftc -frontend -c -color-diagnostics -primary-file \
+	../win/nh3d/PreferencesManager.swift \
+	$(filter-out ../win/nh3d/PreferencesManager.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
+	-emit-module -emit-module-path PreferencesManager-partial.swiftmodule \
+	-o PreferencesManager.o
+SwiftAdditionsSmall.o: $(WINNH3DSSRC) ../win/nh3d/NetHack3D-Bridging-Header.h $(HACK_H)
+	swiftc -frontend -c -color-diagnostics -primary-file \
+	../win/nh3d/SwiftAdditionsSmall.swift \
+	$(filter-out ../win/nh3d/SwiftAdditionsSmall.swift,$(WINNH3DSSRC)) $(SWIFTFLAGS) \
+	-emit-module -emit-module-path SwiftAdditionsSmall-partial.swiftmodule \
+	-o SwiftAdditionsSmall.o
 
 bemain.o: ../sys/be/bemain.c $(HACK_H) ../include/dlb.h
 	$(CC) $(CFLAGS) -c ../sys/be/bemain.c

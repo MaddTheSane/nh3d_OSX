@@ -2866,7 +2866,7 @@
 			attributes = {
 				CLASSPREFIX = NH3D;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Haruumi Yoshino";
 				TargetAttributes = {
 					5539E6151CB2F03F00ED6EF3 = {

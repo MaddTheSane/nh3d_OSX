@@ -3485,7 +3485,7 @@ extension NH3DOpenGLView {
 	}
 	
 	
-	// type Magic FIRE
+	/// type Magic FIRE
 	private final func loadModelFunc_MagicFIRE(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
@@ -3630,7 +3630,7 @@ extension NH3DOpenGLView {
 		return ret
 	}
 	
-	// type Magic LIGHTNING
+	/// type Magic LIGHTNING
 	private final func loadModelFunc_MagicLIGHTNING(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
@@ -3736,6 +3736,7 @@ extension NH3DOpenGLView {
 		return ret
 	}
 	
+	/// Misc. magic effects.
 	private final func loadModelFunc_MagicETC(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
