@@ -9,23 +9,23 @@
 import Foundation
 
 extension UserDefaults {
-	@objc dynamic var WindowFontName: String {
+	@objc(WindowFontName) dynamic var windowFontName: String {
 		return string(forKey: NH3DWindowFontKey)!
 	}
 	
-	@objc dynamic var WindowFontSize: CGFloat.NativeType {
+	@objc(WindowFontSize) dynamic var windowFontSize: CGFloat.NativeType {
 		return CGFloat.NativeType(double(forKey: NH3DWindowFontSizeKey))
 	}
 	
-	@objc dynamic var UseTraditionalMap: Bool {
+	@objc(UseTraditionalMap) dynamic var useTraditionalMap: Bool {
 		return bool(forKey: NH3DUseTraditionalMapKey)
 	}
 	
-	@objc dynamic var OpenGLViewUseTile: Bool {
+	@objc(OpenGLViewUseTile) dynamic var openGLViewUseTile: Bool {
 		return bool(forKey: NH3DGLTileKey)
 	}
 	
-	@objc dynamic var SoundMute: Bool {
+	@objc(SoundMute) dynamic var soundMute: Bool {
 		return bool(forKey: NH3DSoundMuteKey)
 	}
 }
@@ -45,19 +45,19 @@ extension UserDefaults {
 		
 		super.init()
 		
-		var toOb = defaults.observe(\.UseTraditionalMap) { [weak self] (defaults2, cng) in
+		var toOb = defaults.observe(\.useTraditionalMap) { [weak self] (defaults2, cng) in
 			let newVal = cng.newValue ?? defaults2.bool(forKey: NH3DUseTraditionalMapKey)
 			self?.useTraditionalMap = newVal
 		}
 		kvoo.append(toOb)
 		
-		toOb = defaults.observe(\.OpenGLViewUseTile) { [weak self] (defaults2, cng) in
+		toOb = defaults.observe(\.openGLViewUseTile) { [weak self] (defaults2, cng) in
 			let newVal = cng.newValue ?? defaults2.bool(forKey: NH3DGLTileKey)
 			self?.useTiles = newVal
 		}
 		kvoo.append(toOb)
 		
-		toOb = defaults.observe(\.SoundMute) { [weak self] (defaults2, cng) in
+		toOb = defaults.observe(\.soundMute) { [weak self] (defaults2, cng) in
 			let newVal = cng.newValue ?? defaults2.bool(forKey: NH3DSoundMuteKey)
 			self?.isMuted = newVal
 		}
