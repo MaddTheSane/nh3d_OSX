@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
-	<string>NetHack3D 3.1.2 © Haruumi Yoshino, 2006; C.W. "Madd the Sane" Betts, 2015-2019</string>
+	<string>NetHack3D 3.1.2 © Haruumi Yoshino, 2006; C.W. "Madd the Sane" Betts, 2015-2020</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

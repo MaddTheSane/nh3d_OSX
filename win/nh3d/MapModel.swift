@@ -94,11 +94,11 @@ import Cocoa
 			self.dungeonNameString = dns
 			self.dungeonNameField.attributedStringValue = dns
 		}
-		var toOb = UserDefaults.standard.observe(\.WindowFontName) { (defaults, cng) in
+		var toOb = UserDefaults.standard.observe(\.windowFontName) { (defaults, cng) in
 			updateDungeon()
 		}
 		kvoo.append(toOb)
-		toOb = UserDefaults.standard.observe(\.WindowFontSize) { (defaults, cng) in
+		toOb = UserDefaults.standard.observe(\.windowFontSize) { (defaults, cng) in
 			updateDungeon()
 		}
 		kvoo.append(toOb)
