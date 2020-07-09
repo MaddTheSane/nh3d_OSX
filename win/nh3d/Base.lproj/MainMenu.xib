@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,7 +42,7 @@
                         </connections>
                     </textField>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6822">
-                        <rect key="frame" x="56" y="402" width="70" height="130"/>
+                        <rect key="frame" x="30" y="395" width="122" height="137"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="6931"/>
                         <connections>
                             <binding destination="6780" name="hidden" keyPath="values.UseTraditionalMap" id="6828">
@@ -168,7 +168,10 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6378" userLabel="left ring">
-                        <rect key="frame" x="123" y="170" width="6" height="32"/>
+                        <rect key="frame" x="123" y="170" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="26" id="wER-fB-HGZ"/>
+                        </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="6926"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerRingL" id="6411"/>
@@ -180,7 +183,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6375" userLabel="gloves">
-                        <rect key="frame" x="123" y="220" width="6" height="32"/>
+                        <rect key="frame" x="123" y="220" width="32" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="6923"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerGloves" id="6386"/>
@@ -243,7 +246,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6372" userLabel="shield">
-                        <rect key="frame" x="120" y="267" width="12" height="38"/>
+                        <rect key="frame" x="120" y="267" width="38" height="38"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="6920"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerShield" id="6409"/>
@@ -255,7 +258,7 @@
                         </connections>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6369" userLabel="amulet">
-                        <rect key="frame" x="123" y="320" width="6" height="32"/>
+                        <rect key="frame" x="123" y="320" width="32" height="32"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="grayBezel" id="6917"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.playerAmulet" id="6407"/>
@@ -290,9 +293,9 @@
                         </view>
                     </box>
                     <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5108">
-                        <rect key="frame" x="624" y="246" width="170" height="226"/>
+                        <rect key="frame" x="624" y="246" width="170" height="214"/>
                         <view key="contentView" id="cPY-9L-Jel">
-                            <rect key="frame" x="3" y="3" width="164" height="220"/>
+                            <rect key="frame" x="3" y="3" width="164" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                     </box>
@@ -351,13 +354,13 @@
                         </view>
                     </box>
                     <box title="Class" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="316">
-                        <rect key="frame" x="624" y="474" width="170" height="38"/>
+                        <rect key="frame" x="624" y="462" width="170" height="50"/>
                         <view key="contentView" id="ZvD-gG-08D">
-                            <rect key="frame" x="3" y="3" width="164" height="32"/>
+                            <rect key="frame" x="3" y="3" width="164" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="479">
-                                    <rect key="frame" x="-1" y="2" width="166" height="25"/>
+                                    <rect key="frame" x="-1" y="2" width="166" height="37"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" baseWritingDirection="leftToRight" alignment="center" title="Class" id="6974">
                                         <font key="font" metaFont="system" size="14"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -381,49 +384,49 @@
                         </view>
                     </box>
                     <imageView toolTip="Strength (STR)" translatesAutoresizingMaskIntoConstraints="NO" id="344" userLabel="STR Status Icon">
-                        <rect key="frame" x="635" y="361" width="33" height="32"/>
+                        <rect key="frame" x="635" y="358" width="33" height="29"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6848"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.strUpdate" id="gLb-Qf-OZ8"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Dexterity (DEX)" translatesAutoresizingMaskIntoConstraints="NO" id="350" userLabel="DEX Status Icon">
-                        <rect key="frame" x="709" y="361" width="33" height="32"/>
+                        <rect key="frame" x="709" y="358" width="33" height="29"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6849"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.dexUpdate" id="4978"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Constitution (Con)" translatesAutoresizingMaskIntoConstraints="NO" id="353" userLabel="CON Status Icon">
-                        <rect key="frame" x="635" y="327" width="33" height="30"/>
+                        <rect key="frame" x="635" y="325" width="33" height="29"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6850"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.conUpdate" id="4979"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Intellegence (INT)" translatesAutoresizingMaskIntoConstraints="NO" id="356" userLabel="INT Status Icon">
-                        <rect key="frame" x="709" y="327" width="33" height="30"/>
+                        <rect key="frame" x="709" y="325" width="33" height="29"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6851"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.intUpdate" id="4980"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Wisdom (Wis)" translatesAutoresizingMaskIntoConstraints="NO" id="359" userLabel="WIS Status Icon">
-                        <rect key="frame" x="635" y="289" width="33" height="34"/>
+                        <rect key="frame" x="635" y="288" width="33" height="33"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6852"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.wisUpdate" id="4981"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Charisma (Cha)" translatesAutoresizingMaskIntoConstraints="NO" id="362" userLabel="CHA Status Icon">
-                        <rect key="frame" x="709" y="289" width="33" height="34"/>
+                        <rect key="frame" x="709" y="288" width="33" height="33"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6853"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.chaUpdate" id="4982"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Hit Points" translatesAutoresizingMaskIntoConstraints="NO" id="365" userLabel="HP Status Icon">
-                        <rect key="frame" x="635" y="433" width="33" height="32"/>
+                        <rect key="frame" x="635" y="421" width="33" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="BsB-Zb-dye"/>
                         </constraints>
@@ -433,7 +436,7 @@
                         </connections>
                     </imageView>
                     <imageView toolTip="Magic Power" translatesAutoresizingMaskIntoConstraints="NO" id="368" userLabel="MP Status Icon">
-                        <rect key="frame" x="635" y="399" width="33" height="32"/>
+                        <rect key="frame" x="635" y="393" width="33" height="26"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6855"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.powUpdate" id="4984"/>
@@ -446,7 +449,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="31" translatesAutoresizingMaskIntoConstraints="NO" id="480">
-                                    <rect key="frame" x="116" y="-1" width="35" height="17"/>
+                                    <rect key="frame" x="116" y="3" width="35" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="31" id="HM8-or-1Ez"/>
                                     </constraints>
@@ -496,7 +499,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" preferredMaxLayoutWidth="27" translatesAutoresizingMaskIntoConstraints="NO" id="484">
-                                    <rect key="frame" x="116" y="-1" width="31" height="17"/>
+                                    <rect key="frame" x="116" y="3" width="31" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="27" id="59X-GM-PzU"/>
                                     </constraints>
@@ -514,14 +517,14 @@
                         </view>
                     </box>
                     <imageView toolTip="Armor Class (AC)" translatesAutoresizingMaskIntoConstraints="NO" id="380" userLabel="AC Status Icon">
-                        <rect key="frame" x="635" y="255" width="33" height="30"/>
+                        <rect key="frame" x="635" y="255" width="33" height="29"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6856"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.acUpdate" id="4985"/>
                         </connections>
                     </imageView>
                     <imageView toolTip="Player Level" translatesAutoresizingMaskIntoConstraints="NO" id="383" userLabel="Level Status Iccon">
-                        <rect key="frame" x="709" y="255" width="33" height="30"/>
+                        <rect key="frame" x="709" y="255" width="33" height="29"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6857"/>
                         <connections>
                             <binding destination="4761" name="value" keyPath="selection.lvUpdate" id="4986"/>
@@ -553,7 +556,7 @@
                         </view>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="455">
-                        <rect key="frame" x="667" y="346" width="27" height="15"/>
+                        <rect key="frame" x="667" y="344" width="27" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="CON" id="6862">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -561,7 +564,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="457">
-                        <rect key="frame" x="667" y="311" width="27" height="15"/>
+                        <rect key="frame" x="667" y="312" width="27" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="WIS" id="6863">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -569,7 +572,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="459">
-                        <rect key="frame" x="742" y="381" width="22" height="15"/>
+                        <rect key="frame" x="742" y="378" width="22" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="DEX" id="6864">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -577,7 +580,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="461">
-                        <rect key="frame" x="742" y="346" width="20" height="15"/>
+                        <rect key="frame" x="742" y="344" width="20" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="INT" id="6865">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -585,7 +588,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="465">
-                        <rect key="frame" x="673" y="452" width="21" height="15"/>
+                        <rect key="frame" x="673" y="443" width="21" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="17" id="sa9-oY-bfH"/>
                         </constraints>
@@ -596,7 +599,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="467">
-                        <rect key="frame" x="667" y="275" width="21" height="15"/>
+                        <rect key="frame" x="667" y="277" width="21" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Ac" id="6868">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -604,7 +607,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="469">
-                        <rect key="frame" x="673" y="400" width="26" height="15"/>
+                        <rect key="frame" x="673" y="394" width="26" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Pow" id="6869">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -612,7 +615,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="471">
-                        <rect key="frame" x="742" y="275" width="20" height="15"/>
+                        <rect key="frame" x="742" y="277" width="20" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="16" id="3fH-oF-OhQ"/>
                         </constraints>
@@ -646,7 +649,7 @@
                         </view>
                     </box>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="453">
-                        <rect key="frame" x="667" y="378" width="21" height="18"/>
+                        <rect key="frame" x="667" y="373" width="21" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="STR" id="6861">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -654,7 +657,7 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="STR" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="463">
-                        <rect key="frame" x="742" y="311" width="26" height="15"/>
+                        <rect key="frame" x="742" y="312" width="26" height="12"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="CHA" id="6866">
                             <font key="font" size="10" name="Optima-Regular"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -662,7 +665,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="577">
-                        <rect key="frame" x="667" y="364" width="44" height="19"/>
+                        <rect key="frame" x="667" y="359" width="44" height="18"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6871">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -673,7 +676,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="578">
-                        <rect key="frame" x="667" y="334" width="44" height="16"/>
+                        <rect key="frame" x="667" y="332" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6872">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -684,7 +687,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="579">
-                        <rect key="frame" x="667" y="298" width="44" height="16"/>
+                        <rect key="frame" x="667" y="297" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6873">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -695,7 +698,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="580">
-                        <rect key="frame" x="742" y="367" width="44" height="16"/>
+                        <rect key="frame" x="742" y="362" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6874">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -706,7 +709,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="581">
-                        <rect key="frame" x="742" y="334" width="44" height="16"/>
+                        <rect key="frame" x="742" y="332" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6875">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -717,7 +720,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="582">
-                        <rect key="frame" x="742" y="298" width="44" height="16"/>
+                        <rect key="frame" x="742" y="297" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6876">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -728,7 +731,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="585">
-                        <rect key="frame" x="667" y="262" width="44" height="16"/>
+                        <rect key="frame" x="667" y="262" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00000" id="6877">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -739,7 +742,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="586">
-                        <rect key="frame" x="742" y="262" width="44" height="16"/>
+                        <rect key="frame" x="742" y="262" width="44" height="15"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00000" id="6878">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -975,22 +978,8 @@
                             </binding>
                         </connections>
                     </levelIndicator>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5006">
-                        <rect key="frame" x="375" y="5" width="50" height="10"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="8" id="E33-Td-PtU"/>
-                            <constraint firstAttribute="width" constant="50" id="ggw-4n-zn3"/>
-                        </constraints>
-                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" borderStyle="border" inset="2" id="6884">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="miniSystem"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="toggle:" target="4999" id="5194"/>
-                        </connections>
-                    </button>
                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5093">
-                        <rect key="frame" x="673" y="435" width="108" height="18"/>
+                        <rect key="frame" x="673" y="426" width="108" height="18"/>
                         <levelIndicatorCell key="cell" alignment="left" maxValue="10" tickMarkPosition="above" levelIndicatorStyle="continuousCapacity" id="6885"/>
                         <connections>
                             <binding destination="4761" name="criticalValue" keyPath="selection.playerCriticalHp" id="5102"/>
@@ -1000,7 +989,7 @@
                         </connections>
                     </levelIndicator>
                     <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5094">
-                        <rect key="frame" x="673" y="411" width="108" height="18"/>
+                        <rect key="frame" x="673" y="402" width="108" height="18"/>
                         <levelIndicatorCell key="cell" alignment="left" maxValue="10" levelIndicatorStyle="continuousCapacity" id="6886"/>
                         <connections>
                             <binding destination="4761" name="criticalValue" keyPath="selection.playerCriticalPow" id="5106"/>
@@ -1010,7 +999,7 @@
                         </connections>
                     </levelIndicator>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5112" userLabel="Player HP shadow">
-                        <rect key="frame" x="721" y="452" width="27" height="12"/>
+                        <rect key="frame" x="721" y="444" width="27" height="8"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0000" id="6887">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1021,7 +1010,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5113">
-                        <rect key="frame" x="721" y="401" width="27" height="13"/>
+                        <rect key="frame" x="721" y="395" width="27" height="10"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="0000" id="6888">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1032,7 +1021,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5114">
-                        <rect key="frame" x="755" y="401" width="26" height="13"/>
+                        <rect key="frame" x="755" y="395" width="26" height="10"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6889">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1043,7 +1032,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5115">
-                        <rect key="frame" x="755" y="452" width="26" height="12"/>
+                        <rect key="frame" x="755" y="444" width="26" height="8"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6890">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="0.40000001000000002" green="0.40000001000000002" blue="0.40000001000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1054,7 +1043,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5125">
-                        <rect key="frame" x="666" y="365" width="44" height="20"/>
+                        <rect key="frame" x="666" y="360" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6891">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1069,7 +1058,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5126">
-                        <rect key="frame" x="666" y="332" width="44" height="20"/>
+                        <rect key="frame" x="666" y="330" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6892">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1084,7 +1073,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5127">
-                        <rect key="frame" x="666" y="296" width="44" height="20"/>
+                        <rect key="frame" x="666" y="295" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6893">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1099,7 +1088,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5128" userLabel="Player AC">
-                        <rect key="frame" x="666" y="260" width="44" height="20"/>
+                        <rect key="frame" x="666" y="260" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00000" id="6894">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1114,7 +1103,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5129">
-                        <rect key="frame" x="741" y="365" width="44" height="20"/>
+                        <rect key="frame" x="741" y="360" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6895">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1129,7 +1118,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5130">
-                        <rect key="frame" x="741" y="332" width="44" height="20"/>
+                        <rect key="frame" x="741" y="330" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6896">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1144,7 +1133,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5131">
-                        <rect key="frame" x="741" y="296" width="44" height="20"/>
+                        <rect key="frame" x="741" y="295" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00/00" id="6897">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1159,7 +1148,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5132">
-                        <rect key="frame" x="741" y="260" width="44" height="20"/>
+                        <rect key="frame" x="741" y="260" width="44" height="19"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="00000" id="6898">
                             <font key="font" size="14" name="Courier"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1243,7 +1232,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5149">
-                        <rect key="frame" x="720" y="453" width="27" height="12"/>
+                        <rect key="frame" x="720" y="446" width="27" height="7"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="23" id="w4F-q9-QC6"/>
                         </constraints>
@@ -1261,7 +1250,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5151">
-                        <rect key="frame" x="754" y="453" width="26" height="12"/>
+                        <rect key="frame" x="754" y="446" width="26" height="7"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6904">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1276,7 +1265,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5152">
-                        <rect key="frame" x="720" y="402" width="27" height="12"/>
+                        <rect key="frame" x="720" y="395" width="27" height="11"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0000" id="6905">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1291,7 +1280,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5153">
-                        <rect key="frame" x="754" y="402" width="26" height="12"/>
+                        <rect key="frame" x="754" y="395" width="26" height="11"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0000" id="6906">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1306,7 +1295,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5159">
-                        <rect key="frame" x="743" y="452" width="13" height="14"/>
+                        <rect key="frame" x="743" y="444" width="13" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="9" id="Ofs-Xf-2lm"/>
                         </constraints>
@@ -1317,7 +1306,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5160">
-                        <rect key="frame" x="743" y="401" width="13" height="14"/>
+                        <rect key="frame" x="743" y="395" width="13" height="11"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="/" id="6908">
                             <font key="font" metaFont="fixedUser"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1348,7 +1337,7 @@
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6910"/>
                     </imageView>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="5264">
-                        <rect key="frame" x="673" y="413" width="108" height="40"/>
+                        <rect key="frame" x="673" y="404" width="108" height="40"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="6911"/>
                     </imageView>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5358">
@@ -1666,7 +1655,7 @@
                         </subviews>
                         <visibilityPriorities>
                             <integer value="1000"/>
-                            <real value="1000"/>
+                            <integer value="1000"/>
                             <integer value="1000"/>
                             <integer value="1000"/>
                         </visibilityPriorities>
@@ -1692,7 +1681,6 @@
                     <constraint firstItem="5463" firstAttribute="leading" secondItem="6214" secondAttribute="trailing" constant="27" id="0UJ-1x-Y9P"/>
                     <constraint firstItem="453" firstAttribute="top" secondItem="469" secondAttribute="bottom" constant="4" id="0fq-lW-Uh8"/>
                     <constraint firstItem="5459" firstAttribute="trailing" secondItem="5457" secondAttribute="trailing" id="0gG-zn-Jqg"/>
-                    <constraint firstItem="5006" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="0k6-l7-BE9"/>
                     <constraint firstItem="5437" firstAttribute="top" secondItem="386" secondAttribute="bottom" constant="4" id="0sY-4q-Vyl"/>
                     <constraint firstItem="5144" firstAttribute="top" secondItem="5143" secondAttribute="bottom" constant="8" symbolic="YES" id="14E-dI-pop"/>
                     <constraint firstItem="5358" firstAttribute="leading" secondItem="4994" secondAttribute="trailing" constant="4" id="17y-d6-xLq"/>
@@ -1815,6 +1803,7 @@
                     <constraint firstItem="387" firstAttribute="top" secondItem="5128" secondAttribute="bottom" constant="13" id="KtK-V2-boR"/>
                     <constraint firstItem="6369" firstAttribute="leading" secondItem="6368" secondAttribute="trailing" constant="18" id="Ku1-jW-2RG"/>
                     <constraint firstItem="581" firstAttribute="trailing" secondItem="580" secondAttribute="trailing" id="Kz3-LR-Qe6"/>
+                    <constraint firstAttribute="bottom" secondItem="6406" secondAttribute="bottom" constant="22" id="Kz9-yx-jUr"/>
                     <constraint firstAttribute="bottom" secondItem="5464" secondAttribute="bottom" constant="16" id="L4Z-hZ-3CC"/>
                     <constraint firstItem="5149" firstAttribute="leading" secondItem="465" secondAttribute="trailing" constant="30" id="L8X-Li-Y45"/>
                     <constraint firstItem="5463" firstAttribute="baseline" secondItem="5358" secondAttribute="baseline" id="LEN-ps-YrN"/>
@@ -1888,7 +1877,6 @@
                     <constraint firstItem="467" firstAttribute="top" secondItem="5127" secondAttribute="bottom" constant="6" id="VU2-CW-vbF"/>
                     <constraint firstItem="5115" firstAttribute="leading" secondItem="5159" secondAttribute="trailing" constant="3" id="VUS-z8-di0"/>
                     <constraint firstItem="5114" firstAttribute="trailing" secondItem="5115" secondAttribute="trailing" id="VYL-eV-Kqc"/>
-                    <constraint firstItem="5006" firstAttribute="top" secondItem="6214" secondAttribute="bottom" constant="18" id="VcJ-2g-7gt"/>
                     <constraint firstItem="6375" firstAttribute="leading" secondItem="6374" secondAttribute="trailing" constant="15" id="VdJ-qt-itw"/>
                     <constraint firstItem="5125" firstAttribute="leading" secondItem="5126" secondAttribute="leading" id="VgX-FL-Ri2"/>
                     <constraint firstItem="5144" firstAttribute="top" secondItem="378" secondAttribute="bottom" constant="8" symbolic="YES" id="Vgr-XM-rpw"/>
@@ -1934,7 +1922,6 @@
                     <constraint firstItem="344" firstAttribute="top" secondItem="368" secondAttribute="bottom" constant="6" id="bfa-mB-tSB"/>
                     <constraint firstItem="5129" firstAttribute="leading" secondItem="350" secondAttribute="trailing" constant="1" id="bhw-7h-Mpx"/>
                     <constraint firstItem="5131" firstAttribute="trailing" secondItem="5130" secondAttribute="trailing" id="bsF-C4-LDo"/>
-                    <constraint firstItem="5006" firstAttribute="top" secondItem="6406" secondAttribute="bottom" constant="8" symbolic="YES" id="bsk-o7-niK"/>
                     <constraint firstItem="6822" firstAttribute="trailing" secondItem="6369" secondAttribute="trailing" id="bvd-SH-BJk"/>
                     <constraint firstItem="6368" firstAttribute="leading" secondItem="6414" secondAttribute="leading" id="c8l-ei-9dM"/>
                     <constraint firstItem="5151" firstAttribute="leading" secondItem="5112" secondAttribute="trailing" constant="10" id="cIa-i0-TzU"/>
@@ -2000,6 +1987,7 @@
                     <constraint firstItem="5141" firstAttribute="top" secondItem="6406" secondAttribute="top" id="k6T-Nk-qrI"/>
                     <constraint firstItem="6402" firstAttribute="bottom" secondItem="6341" secondAttribute="bottom" id="kKz-sz-Pjm"/>
                     <constraint firstItem="5142" firstAttribute="top" secondItem="587" secondAttribute="bottom" constant="7" id="kQK-H0-bWq"/>
+                    <constraint firstAttribute="bottom" secondItem="6214" secondAttribute="bottom" constant="32" id="kUS-ir-phC"/>
                     <constraint firstItem="6374" firstAttribute="leading" secondItem="6373" secondAttribute="trailing" constant="15" id="kZR-1L-Vi3"/>
                     <constraint firstItem="356" firstAttribute="leading" secondItem="362" secondAttribute="leading" id="kaa-2x-5dW"/>
                     <constraint firstItem="577" firstAttribute="leading" secondItem="344" secondAttribute="trailing" constant="1" id="kbt-BL-Twz"/>
@@ -2708,7 +2696,6 @@
         </menu>
         <customObject id="4755" userLabel="NH3DUserStatusModel" customClass="NH3DUserStatusModel">
             <connections>
-                <outlet property="stDrawer" destination="4999" id="5195"/>
                 <outlet property="window" destination="21" id="5727"/>
             </connections>
         </customObject>
@@ -2791,132 +2778,6 @@
                 <outlet property="content" destination="4755" id="4805"/>
             </connections>
         </objectController>
-        <drawer preferredEdge="minY" leadingOffset="131" trailingOffset="131" id="4999" userLabel="StatusDrawer">
-            <size key="contentSize" width="528" height="75"/>
-            <size key="minContentSize" width="528" height="75"/>
-            <size key="maxContentSize" width="528" height="75"/>
-            <connections>
-                <outlet property="contentView" destination="5000" id="5009"/>
-                <outlet property="delegate" destination="5089" id="5772"/>
-                <outlet property="parentWindow" destination="21" id="5002"/>
-            </connections>
-        </drawer>
-        <customView id="5000" userLabel="StatusView">
-            <rect key="frame" x="0.0" y="0.0" width="526" height="67"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <subviews>
-                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="2" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jt1-iU-EBU">
-                    <rect key="frame" x="8" y="0.0" width="510" height="65"/>
-                    <subviews>
-                        <imageView toolTip="Hunger" translatesAutoresizingMaskIntoConstraints="NO" id="5012" userLabel="Hungry">
-                            <rect key="frame" x="0.0" y="3" width="62" height="62"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="62" id="SJb-ue-hud"/>
-                                <constraint firstAttribute="width" constant="62" id="nbm-ky-dbX"/>
-                            </constraints>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hunger1" id="6934"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stHunger" id="5466"/>
-                                <binding destination="4761" name="toolTip" keyPath="selection.stHungerTip" id="wCT-P1-iOl"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Confused" translatesAutoresizingMaskIntoConstraints="NO" id="5013" userLabel="Confused">
-                            <rect key="frame" x="64" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Confuse0" id="6935"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stConfuse" id="5188"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Sick" translatesAutoresizingMaskIntoConstraints="NO" id="5014" userLabel="Sick">
-                            <rect key="frame" x="128" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Sick0" id="6936"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stSick" id="5189"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Ill" translatesAutoresizingMaskIntoConstraints="NO" id="5015" userLabel="Ill">
-                            <rect key="frame" x="192" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Ill0" id="6937"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stIll" id="5190"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Blind" translatesAutoresizingMaskIntoConstraints="NO" id="5016" userLabel="Blind">
-                            <rect key="frame" x="256" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Blind0" id="6938"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stBlind" id="5191"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Stunned" translatesAutoresizingMaskIntoConstraints="NO" id="5017" userLabel="Stunned">
-                            <rect key="frame" x="320" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Stun0" id="6939"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stStun" id="5192"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Hallucinating" translatesAutoresizingMaskIntoConstraints="NO" id="eUY-GY-Zq8" userLabel="Hallucinating">
-                            <rect key="frame" x="384" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Hallu0" id="e0V-lr-lVg"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stHallu" id="9gY-pC-WAm"/>
-                            </connections>
-                        </imageView>
-                        <imageView toolTip="Encumbrance" translatesAutoresizingMaskIntoConstraints="NO" id="5018" userLabel="Load">
-                            <rect key="frame" x="448" y="3" width="62" height="62"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Load0" id="6940"/>
-                            <connections>
-                                <binding destination="4761" name="value" keyPath="selection.stLoad" id="aEW-xX-QZd"/>
-                                <binding destination="4761" name="toolTip" keyPath="selection.stLoadTip" id="i6t-nw-4tu"/>
-                            </connections>
-                        </imageView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="5015" firstAttribute="width" secondItem="5012" secondAttribute="width" id="9ii-So-57J"/>
-                        <constraint firstItem="5014" firstAttribute="height" secondItem="5012" secondAttribute="height" id="BW1-Bu-c73"/>
-                        <constraint firstItem="5018" firstAttribute="height" secondItem="5012" secondAttribute="height" id="KMe-1h-Rwb"/>
-                        <constraint firstItem="5017" firstAttribute="width" secondItem="5012" secondAttribute="width" id="Ler-6X-kS2"/>
-                        <constraint firstItem="5013" firstAttribute="width" secondItem="5012" secondAttribute="width" id="OaU-9K-JV2"/>
-                        <constraint firstItem="5016" firstAttribute="height" secondItem="5012" secondAttribute="height" id="QWn-dr-PgF"/>
-                        <constraint firstItem="5018" firstAttribute="width" secondItem="5012" secondAttribute="width" id="eFv-YW-npf"/>
-                        <constraint firstItem="eUY-GY-Zq8" firstAttribute="width" secondItem="5012" secondAttribute="width" id="ecV-wZ-rnT"/>
-                        <constraint firstItem="5013" firstAttribute="height" secondItem="5012" secondAttribute="height" id="fB6-Ns-4iF"/>
-                        <constraint firstItem="5014" firstAttribute="width" secondItem="5012" secondAttribute="width" id="ong-C8-jMA"/>
-                        <constraint firstItem="5015" firstAttribute="height" secondItem="5012" secondAttribute="height" id="tDl-27-s4U"/>
-                        <constraint firstItem="5016" firstAttribute="width" secondItem="5012" secondAttribute="width" id="vv8-hJ-l8k"/>
-                        <constraint firstItem="eUY-GY-Zq8" firstAttribute="height" secondItem="5012" secondAttribute="height" id="wQ2-4x-l1L"/>
-                        <constraint firstItem="5017" firstAttribute="height" secondItem="5012" secondAttribute="height" id="x5Y-So-lFs"/>
-                    </constraints>
-                    <visibilityPriorities>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                        <integer value="1000"/>
-                    </visibilityPriorities>
-                    <customSpacing>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                        <real value="3.4028234663852886e+38"/>
-                    </customSpacing>
-                </stackView>
-            </subviews>
-            <constraints>
-                <constraint firstItem="Jt1-iU-EBU" firstAttribute="top" secondItem="5000" secondAttribute="top" constant="2" id="OBx-zr-TuN"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jt1-iU-EBU" secondAttribute="trailing" constant="8" id="UAt-ik-Man"/>
-                <constraint firstAttribute="bottom" secondItem="Jt1-iU-EBU" secondAttribute="bottom" id="lQM-Nu-dn0"/>
-                <constraint firstItem="Jt1-iU-EBU" firstAttribute="centerX" secondItem="5000" secondAttribute="centerX" id="zmT-2s-rLA"/>
-            </constraints>
-            <point key="canvasLocation" x="238" y="644.5"/>
-        </customView>
         <customObject id="5089" userLabel="NH3DBindController" customClass="NH3DBindController">
             <connections>
                 <outlet property="asciiMapView" destination="5648" id="5756"/>
@@ -2929,7 +2790,6 @@
                 <outlet property="menuWindow" destination="5507" id="5513"/>
                 <outlet property="messenger" destination="5161" id="5258"/>
                 <outlet property="minorMapView" destination="rno-5P-KjT" id="Jwr-8z-s58"/>
-                <outlet property="stDrawer" destination="4999" id="5755"/>
                 <outlet property="userStatus" destination="4755" id="5257"/>
             </connections>
         </customObject>
@@ -3121,6 +2981,7 @@ DQ
             <connections>
                 <outlet property="initialFirstResponder" destination="5665" id="5726"/>
             </connections>
+            <point key="canvasLocation" x="139" y="571"/>
         </window>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5366" userLabel="TextPanel" customClass="NH3DPanel">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES" utility="YES" nonactivatingPanel="YES"/>
@@ -3193,7 +3054,7 @@ DQ
                         </scroller>
                     </scrollView>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5429">
-                        <rect key="frame" x="42" y="291" width="62" height="25"/>
+                        <rect key="frame" x="42" y="294" width="62" height="19"/>
                         <buttonCell key="cell" type="bevel" title="Speak" bezelStyle="regularSquare" alignment="center" borderStyle="border" inset="2" id="6950">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="13" name="Copperplate"/>
@@ -3421,6 +3282,7 @@ DQ
             <connections>
                 <outlet property="delegate" destination="5507" id="6192"/>
             </connections>
+            <point key="canvasLocation" x="139" y="511"/>
         </window>
         <customObject id="5507" userLabel="NH3DMenuWindow" customClass="NH3DMenuWindow">
             <connections>
@@ -3466,7 +3328,7 @@ DQ
                         <rect key="frame" x="-1" y="32" width="637" height="350"/>
                         <clipView key="contentView" id="Hj5-ZN-y1C">
                             <rect key="frame" x="1" y="1" width="635" height="348"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" selectable="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5653">
                                     <rect key="frame" x="0.0" y="0.0" width="635" height="348"/>
@@ -3502,6 +3364,7 @@ DQ
             <connections>
                 <outlet property="initialFirstResponder" destination="5653" id="5660"/>
             </connections>
+            <point key="canvasLocation" x="-519" y="514"/>
         </window>
         <menu title="Menu" autoenablesItems="NO" id="5915" userLabel="PopMenu">
             <items>
@@ -4027,7 +3890,7 @@ DQ
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6454">
-                        <rect key="frame" x="109" y="20" width="109" height="17"/>
+                        <rect key="frame" x="109" y="20" width="109" height="16"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="System Font Text" id="6964">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -4570,16 +4433,16 @@ DQ
                 </menuItem>
             </items>
         </menu>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" frameAutosaveName="NH3DStartwinPos" animationBehavior="default" id="6764" userLabel="StartWindow">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" frameAutosaveName="NH3DStartwinPos" animationBehavior="default" titlebarAppearsTransparent="YES" id="6764" userLabel="StartWindow">
             <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="214" y="651" width="328" height="233"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="6765">
-                <rect key="frame" x="0.0" y="0.0" width="328" height="233"/>
+                <rect key="frame" x="0.0" y="0.0" width="328" height="229"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6768">
-                        <rect key="frame" x="17" y="105" width="128" height="128"/>
+                        <rect key="frame" x="17" y="101" width="128" height="128"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="128" id="VX0-rq-cKX"/>
                             <constraint firstAttribute="height" constant="128" id="rkV-Bd-t5M"/>
@@ -4587,7 +4450,7 @@ DQ
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="NSApplicationIcon" id="6967"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6769">
-                        <rect key="frame" x="0.0" y="85" width="162" height="17"/>
+                        <rect key="frame" x="0.0" y="85" width="162" height="13"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="NetHack" id="6968">
                             <font key="font" size="13" name="Copperplate"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -4605,7 +4468,7 @@ NetHack may be freely redistributed.  See license for details.</string>
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6771">
-                        <rect key="frame" x="175" y="63" width="139" height="32"/>
+                        <rect key="frame" x="175" y="59" width="139" height="32"/>
                         <buttonCell key="cell" type="push" title="Play NetHack3D" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="6970">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -4618,7 +4481,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6801">
-                        <rect key="frame" x="174" y="185" width="140" height="32"/>
+                        <rect key="frame" x="174" y="181" width="140" height="32"/>
                         <buttonCell key="cell" type="push" title="Edit Preferences" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="6971">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -4628,7 +4491,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6806">
-                        <rect key="frame" x="211" y="153" width="66" height="32"/>
+                        <rect key="frame" x="211" y="149" width="66" height="32"/>
                         <buttonCell key="cell" type="push" title="Quit" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="6972">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -4667,22 +4530,14 @@ DQ
         <userDefaultsController representsSharedInstance="YES" id="6780" userLabel="Shared Defaults"/>
     </objects>
     <resources>
-        <image name="Blind0" width="65" height="65"/>
         <image name="Chaos0" width="48" height="48"/>
-        <image name="Confuse0" width="65" height="65"/>
-        <image name="Hallu0" width="65" height="65"/>
-        <image name="Hunger1" width="65" height="65"/>
-        <image name="Ill0" width="65" height="65"/>
-        <image name="Load0" width="40" height="40"/>
         <image name="Lowful0" width="48" height="48"/>
         <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="Newtral0" width="48" height="48"/>
         <image name="ScrollPaper" width="487" height="518"/>
         <image name="ScrollParchment" width="451" height="131"/>
-        <image name="Sick0" width="65" height="65"/>
         <image name="SoundOffTemplate" width="15" height="14"/>
         <image name="SoundOnTemplate" width="15" height="14"/>
-        <image name="Stun0" width="65" height="65"/>
         <image name="ZoomInTemplate" width="20" height="20"/>
         <image name="ZoomOutTemplate" width="20" height="20"/>
         <image name="base48" width="48" height="48"/>

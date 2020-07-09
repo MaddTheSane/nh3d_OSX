@@ -1323,10 +1323,6 @@ wd_message()
 	if (!iflags.window_inited)
 		return NSTerminateNow;
 	
-	if (_stDrawer.state != NSDrawerClosedState) {
-		[_stDrawer close:self];
-	} 
-	
 	raw_print([NSLocalizedString(@"NetHack3D say,'See you again.'", @"'See you again.' leaving message") cStringUsingEncoding:NH3DTEXTENCODING]);
 	ret = [_messenger showLogPanel];
 	

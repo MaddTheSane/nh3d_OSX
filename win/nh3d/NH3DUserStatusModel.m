@@ -19,7 +19,6 @@ extern const char *hu_stat[]; /* from eat.c */
 
 
 @implementation NH3DUserStatusModel
-@synthesize stDrawer;
 @synthesize window;
 
 @synthesize playerDex;
@@ -981,6 +980,7 @@ static NSString *stripParentheses(NSString *text)
 
 - (void)checkStDrawer
 {
+	/*
 	if (stHunger > NOT_HUNGRY || stConfuse || stSick || stIll || stBlind || stStun || stHallu || stLoad > UNENCUMBERED) {
 		if (stDrawer.state == NSDrawerClosedState || stDrawer.state == NSDrawerClosingState) {
 			if (!SOUND_MUTE) {
@@ -991,15 +991,10 @@ static NSString *stripParentheses(NSString *text)
 	} else if (stDrawer.state == NSDrawerOpenState || stDrawer.state == NSDrawerOpeningState) {
 		[stDrawer close];
 	}
+	 */
 }
 
 #pragma mark -
-
-- (void)pokeDrawer
-{
-	[window displayIfNeeded];
-	[stDrawer.contentView display];
-}
 
 - (void)updatePlayer
 {
@@ -1110,10 +1105,6 @@ static NSString *stripParentheses(NSString *text)
 	firstTime = NO;
 
 	[self checkStDrawer];
-	if (stDrawer.state != NSDrawerClosedState) {
-		[stDrawer.contentView setNeedsDisplay:YES];
-		[self performSelector:@selector(pokeDrawer) withObject:nil afterDelay:0.5];
-	}
 }
 
 @end

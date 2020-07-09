@@ -119,7 +119,6 @@ void nh3d_set_savefile_name(void);
 @property (weak) IBOutlet NH3DOpenGLView *glMapView;
 @property (weak) IBOutlet NH3DMapView *asciiMapView;
 @property (weak) IBOutlet NH3DMenuWindow *menuWindow;
-@property (weak) IBOutlet NSDrawer *stDrawer;
 - (void)didPresentError:(NSError *)error;
 
 - (void)printGlyph:(winid)wid xPos:(xchar)x yPos:(xchar)y glyph:(int)glyph bkglyph:(int)bkglyph;

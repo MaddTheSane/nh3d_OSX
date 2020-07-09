@@ -86,7 +86,6 @@
 //	NSLock *lock;
 }
 //IBOutlet NSTextField *inputName;
-@property (weak) IBOutlet NSDrawer *stDrawer;
 @property (weak) IBOutlet NSWindow *window;
 
 - (void)prepareAttributes;
