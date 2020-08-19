@@ -130,7 +130,7 @@ let DIALOG_CANCEL	= 129
 	}
 	
 	@objc(addEffectMessage:effectType:)
-	func addEffect(message newMsg: String, effectType: Int32) -> Bool {
+	func addEffect(message newMsg: String, type effectType: Int32) -> Bool {
 		guard effectType == 1 || effectType == 2 else {
 			return false
 		}

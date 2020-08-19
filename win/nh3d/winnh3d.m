@@ -1147,10 +1147,10 @@ struct window_procs nh3d_procs = {
     nh3d_preference_update,
 	nh3d_getmsghistory,
 	nh3d_putmsghistory,
-	genl_status_init,
-	genl_status_finish,
-	genl_status_enablefield,
-	genl_status_update,
+	nh3d_status_init,
+	nh3d_status_finish,
+	nh3d_status_enablefield,
+	nh3d_status_update,
 	genl_can_suspend_no,
 };
 
@@ -1849,41 +1849,59 @@ void app_recover(const char* path)
 	
 	NSString *filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
 	{
-		//this little dance is to make sure we have an absolute path.
-		NSURL *fileURL = [NSURL fileURLWithPath:filePath];
-		filePath = [fileURL path];
+		// this is to make sure we have an absolute path.
+		if (![filePath isAbsolutePath]) {
+			filePath = [filePath stringByStandardizingPath];
+		}
 	}
 	
-	NSError *error = nil;
 	NSArray *arguments = @[filePath];
-	NSRunningApplication *recoverApp = [workspace launchApplicationAtURL:url options:NSWorkspaceLaunchWithoutAddingToRecents configuration:@{NSWorkspaceLaunchConfigurationArguments: arguments} error:&error];
-	if (!recoverApp) {
-		[[NSAlert alertWithError:error] runModal];
-		return;
+	if (@available(macOS 10.15, *)) {
+		NSWorkspaceOpenConfiguration *openConf = [[NSWorkspaceOpenConfiguration alloc] init];
+		openConf.arguments = arguments;
+		openConf.addsToRecentItems = NO;
+		openConf.activates = YES;
+		
+		[workspace openApplicationAtURL:url configuration:openConf completionHandler:^(NSRunningApplication * _Nullable recoverApp, NSError * _Nullable error) {
+			if (!recoverApp) {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[[NSAlert alertWithError:error] runModal];
+				});
+				return;
+			}
+			exit(EXIT_SUCCESS);
+		}];
+	} else {
+		NSError *error = nil;
+		NSRunningApplication *recoverApp = [workspace launchApplicationAtURL:url options:NSWorkspaceLaunchWithoutAddingToRecents configuration:@{NSWorkspaceLaunchConfigurationArguments: arguments} error:&error];
+		if (!recoverApp) {
+			[[NSAlert alertWithError:error] runModal];
+			return;
+		}
+		[recoverApp activateWithOptions:NSApplicationActivateAllWindows];
+		
+		exit(EXIT_SUCCESS);
 	}
-	[recoverApp activateWithOptions:NSApplicationActivateAllWindows];
-	
-	exit(EXIT_SUCCESS);
 }
 
 void nh3d_status_init(void)
 {
-	
+	genl_status_init();
 }
 
 void nh3d_status_finish(void)
 {
-	
+	genl_status_finish();
 }
 
 void nh3d_status_enablefield(int fieldidx, const char *nm, const char *fmt, boolean enable)
 {
-	
+	genl_status_enablefield(fieldidx, nm, fmt, enable);
 }
 
 void nh3d_status_update(int idx, genericptr_t ptr, int chg, int percent, int color, unsigned long *colormasks)
 {
-	
+	genl_status_update(idx, ptr, chg, percent, color, colormasks);
 }
 
 
