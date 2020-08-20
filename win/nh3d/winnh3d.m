@@ -1848,11 +1848,9 @@ void app_recover(const char* path)
 	}
 	
 	NSString *filePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
-	{
-		// this is to make sure we have an absolute path.
-		if (![filePath isAbsolutePath]) {
-			filePath = [filePath stringByStandardizingPath];
-		}
+	// this is to make sure we have an absolute path.
+	if (![filePath isAbsolutePath]) {
+		filePath = [filePath stringByStandardizingPath];
 	}
 	
 	NSArray *arguments = @[filePath];

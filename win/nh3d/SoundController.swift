@@ -83,11 +83,15 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 		}
 	}
 	
-	@objc(NH3DSoundPriority) enum Priority: Int {
+	@objc(NH3DSoundPriority) enum Priority: Int, Comparable {
 		case low = -1
 		case medium = 0
 		case high = 1
 		case immediate = 2
+		
+		static func < (lhs: SoundController.Priority, rhs: SoundController.Priority) -> Bool {
+			return lhs.rawValue < rhs.rawValue
+		}
 	}
 	
 	@objc(sharedSoundController) static let shared = SoundController()
@@ -124,7 +128,7 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 	
 	private func findObject(withPriorityLowerThan newPrio: Priority) -> SoundObject? {
 		for obj in audioObjects {
-			if obj.currentPriority.rawValue < newPrio.rawValue {
+			if obj.currentPriority < newPrio {
 				return obj
 			}
 		}
@@ -135,7 +139,7 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 	private func findObject(withPriorityEqualTo newPrio: Priority) -> SoundObject? {
 		for obj in audioObjects {
 			// Just in case
-			if obj.currentPriority.rawValue <= newPrio.rawValue {
+			if obj.currentPriority <= newPrio {
 				return obj
 			}
 		}
