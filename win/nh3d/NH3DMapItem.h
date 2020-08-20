@@ -79,6 +79,8 @@ typedef NS_ENUM(NSInteger, NH3DModelDrawingType) {
 /// Returns \c YES if there is a pile of objects on the block.
 @property (readonly, getter=isPile) BOOL pile;
 
+@property (readonly, getter=isStatue) BOOL statue;
+
 @end
 
 NS_ASSUME_NONNULL_END
