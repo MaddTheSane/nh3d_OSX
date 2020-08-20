@@ -59,9 +59,6 @@ extern NSString *const NH3DUseSightRestrictionKey;
 
 // Sound Mute
 extern NSString *const NH3DSoundMuteKey;
-static inline BOOL SOUND_MUTE_func() {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DSoundMuteKey];
-}
 
 #define SOUND_MUTE	PreferencesManager.shared.isMuted
 
@@ -69,10 +66,6 @@ static inline BOOL SOUND_MUTE_func() {
 
 extern NSString *const NH3DUseTraditionalMapKey;
 extern NSString *const NH3DTraditionalMapModeKey;
-
-static inline BOOL TRADITIONAL_MAP_func() {
-	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DUseTraditionalMapKey];
-}
 
 #define TRADITIONAL_MAP			PreferencesManager.shared.useTraditionalMap
 #define TRADITIONAL_MAP_TILE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey]
@@ -121,11 +114,6 @@ extern NSString *const NH3DGLTileKey;
 #define NH3DGL_MAPVIEWSIZE_COLUMN	11
 #define NH3DGL_MAPVIEWSIZE_ROW		11
 #define NH3D_MAX_EFFECTS			12l
-
-static inline BOOL NH3DGL_USETILE_func()
-{
-	return [[NSUserDefaults standardUserDefaults] boolForKey:NH3DGLTileKey];
-}
 
 #define NH3DGL_USETILE PreferencesManager.shared.useTiles
 
