@@ -107,7 +107,7 @@ extension NH3DMaterial: Equatable, CustomStringConvertible {
 	}
 }
 
-extension nh3d_face3: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+extension nh3d_face3: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
 	public var description: String {
 		return "a: \(a), b: \(b), c: \(c)"
 	}
@@ -126,9 +126,19 @@ extension nh3d_face3: Equatable, CustomStringConvertible, CustomDebugStringConve
 		}
 		return true
 	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(a)
+		hasher.combine(b)
+		hasher.combine(c)
+	}
+	
+	init(vector value: SIMD3<UInt16>) {
+		self.init(a: value.x, b: value.y, c: value.z)
+	}
 }
 
-extension NH3DMapCoordType: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+extension NH3DMapCoordType: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
 	public var description: String {
 		return "s: \(s), t: \(t)"
 	}
@@ -146,9 +156,18 @@ extension NH3DMapCoordType: Equatable, CustomStringConvertible, CustomDebugStrin
 		
 		return true
 	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(s)
+		hasher.combine(t)
+	}
+	
+	init(vector value: SIMD2<Float>) {
+		self.init(s: value.x, t: value.y)
+	}
 }
 
-extension NH3DVertexType: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
+extension NH3DVertexType: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
 	public var description: String {
 		return "x: \(x), y: \(y), z: \(z)"
 	}
@@ -166,5 +185,15 @@ extension NH3DVertexType: Equatable, CustomStringConvertible, CustomDebugStringC
 			return false
 		}
 		return true
+	}
+	
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(x)
+		hasher.combine(y)
+		hasher.combine(z)
+	}
+	
+	init(vector value: SIMD3<Float>) {
+		self.init(x: value.x, y: value.y, z: value.z)
 	}
 }
