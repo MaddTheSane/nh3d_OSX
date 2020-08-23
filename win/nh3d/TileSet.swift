@@ -168,9 +168,9 @@ import CoreGraphics
 				newImage.addRepresentation(bir1x)
 			}
 			at2x: do { //@2x
+				let at2xSize = NSSize(width: image.size.width * 2, height: image.size.height * 2)
 				guard let imgBir2x = image.representations.first(where: { (imgRep) -> Bool in
 					let bmpSize = NSSize(width: imgRep.pixelsWide, height: imgRep.pixelsHigh)
-					let at2xSize = NSSize(width: image.size.width * 2, height: image.size.height * 2)
 					return bmpSize == at2xSize
 				}) else {
 					break at2x

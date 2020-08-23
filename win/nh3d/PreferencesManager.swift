@@ -31,7 +31,7 @@ extension UserDefaults {
 }
 
 @objcMembers class PreferencesManager: NSObject {
-	static let shared = PreferencesManager()
+	@objc(sharedManager) static let shared = PreferencesManager()
 	private var kvoo: [NSKeyValueObservation] = []
 	private(set) var useTraditionalMap: Bool
 	private(set) var useTiles: Bool

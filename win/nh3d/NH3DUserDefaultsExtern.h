@@ -60,14 +60,14 @@ extern NSString *const NH3DUseSightRestrictionKey;
 // Sound Mute
 extern NSString *const NH3DSoundMuteKey;
 
-#define SOUND_MUTE	PreferencesManager.shared.isMuted
+#define SOUND_MUTE	PreferencesManager.sharedManager.isMuted
 
 // Map Mode
 
 extern NSString *const NH3DUseTraditionalMapKey;
 extern NSString *const NH3DTraditionalMapModeKey;
 
-#define TRADITIONAL_MAP			PreferencesManager.shared.useTraditionalMap
+#define TRADITIONAL_MAP			PreferencesManager.sharedManager.useTraditionalMap
 #define TRADITIONAL_MAP_TILE	[[NSUserDefaults standardUserDefaults] boolForKey:NH3DTraditionalMapModeKey]
 
 // Tile settings
