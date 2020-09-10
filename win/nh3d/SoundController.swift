@@ -103,6 +103,7 @@ private func URLsPointingToTheSameFile(_ urlA: URL, _ urlB: URL) -> Bool {
 	
 	private var audioObjects: [SoundObject] = {
 		var arrs = [SoundObject]()
+		arrs.reserveCapacity(8)
 		for _ in 0 ..< 8 {
 			arrs.append(SoundObject())
 		}
