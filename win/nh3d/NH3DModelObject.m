@@ -14,6 +14,7 @@
 #import "NetHack3D-Swift.h"
 #import "NSBitmapImageRep+NH3DAdditions.h"
 #import "NH3DTextureObject.h"
+#include <simd/simd.h>
 
 
 typedef struct NH3DParticle {
@@ -23,9 +24,9 @@ typedef struct NH3DParticle {
 	GLfloat r;       /*!< Red value */
 	GLfloat g;       /*!< Green value */
 	GLfloat b;       /*!< Blue value */
-	vector_float3 position;		/*!< Position */
-	vector_float3 direction;	/*!< Direction */
-	vector_float3 gravity;		/*!< Gravity */
+	simd_float3 position;	/*!< Position */
+	simd_float3 direction;	/*!< Direction */
+	simd_float3 gravity;	/*!< Gravity */
 } NH3DParticle;
 
 static const GLfloat colors[16][3] = {
@@ -243,8 +244,8 @@ static const NH3DMaterial defaultMat = {
 			NSLog(@"Invalid OBJ file \"%@\"? Vertexes: %li, Normals: %li, Faces: %li, Texture Coordinates: %li", name, (long)vtxCnt, (long)nmlCnt, (long)facCnt, (long)cooCnt);
 			return NO;
 		}
-		verts = calloc(vtxCnt, sizeof(vector_float3));
-		norms = calloc(nmlCnt, sizeof(vector_float3));
+		verts = calloc(vtxCnt, sizeof(simd_float3));
+		norms = calloc(nmlCnt, sizeof(simd_float3));
 		faces = calloc(facCnt, sizeof(NH3DFaceType));
 		texcoords = calloc(cooCnt, sizeof(NH3DMapCoordType));
 	}
@@ -534,8 +535,8 @@ static const NH3DMaterial defaultMat = {
 				normal_qty = verts_qty;
 				
 				if (verts_qty) {
-					verts = malloc(verts_qty * sizeof(vector_float3));
-					norms = malloc(normal_qty * sizeof(vector_float3));
+					verts = malloc(verts_qty * sizeof(simd_float3));
+					norms = malloc(normal_qty * sizeof(simd_float3));
 					
 					//NSLog(@"Number of vertices: %d",verts_qty);
 					
@@ -734,7 +735,7 @@ static const NH3DMaterial defaultMat = {
 		xspeed = 0;
 		yspeed = 0;
 		
-		particleGravity = (vector_float3){0, -4.0f, 0};
+		particleGravity = simd_make_float3(0, -4.0f, 0);
 		particleSize = 1.0;
 		particleType = NH3DParticleTypePoints;
 		particleLife = 1.0;
@@ -782,7 +783,7 @@ static const NH3DMaterial defaultMat = {
 		xspeed = 0;
 		yspeed = 0;
 		
-		particleGravity = (vector_float3){0, -4.0f, 0};
+		particleGravity = simd_make_float3(0, -4.0f, 0);
 		
 		particleSize = 1.0;
 		
@@ -924,7 +925,7 @@ static const NH3DMaterial defaultMat = {
 	animationValue += animationRate;
 }
 
-- (void)setParticleGravity:(vector_float3)aParticleGravity
+- (void)setParticleGravity:(simd_float3)aParticleGravity
 {
 	if (modelType != NH3DModelTypeEmitter)
 		return;
@@ -938,7 +939,7 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity
 {
-	vector_float3 toSet;
+	simd_float3 toSet;
 	toSet.x = x_gravity;
 	toSet.y = y_gravity;
 	toSet.z = z_gravity;
@@ -1011,38 +1012,22 @@ static const NH3DMaterial defaultMat = {
 
 - (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz
 {
-	vector_float3 toSet;
-	toSet.x = sx;
-	toSet.y = sy;
-	toSet.z = sz;
-	self.modelShift = toSet;
+	self.modelShift = simd_make_float3(sx, sy, sz);
 }
 
 - (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz
 {
-	vector_float3 toSet;
-	toSet.x = scx;
-	toSet.y = scy;
-	toSet.z = scz;
-	self.modelScale = toSet;
+	self.modelScale = simd_make_float3(scx, scy, scz);
 }
 
 - (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz
 {
-	vector_float3 toSet;
-	toSet.x = rx;
-	toSet.y = ry;
-	toSet.z = rz;
-	self.modelRotate = toSet;
+	self.modelRotate = simd_make_float3(rx, ry, rz);
 }
 
 - (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz
 {
-	vector_float3 toSet;
-	toSet.x = px;
-	toSet.y = py;
-	toSet.z = pz;
-	self.modelPivot = toSet;
+	self.modelPivot = simd_make_float3(px, py, pz);
 }
 
 - (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
@@ -1169,7 +1154,7 @@ static const NH3DMaterial defaultMat = {
 				glBegin(GL_TRIANGLES);
 				
 				for (i = 0; i < face_qty; i++) {
-					vector_float3 vertShift = verts[faces[i].a] + modelShift;
+					simd_float3 vertShift = verts[faces[i].a] + modelShift;
 					glNormal3f(norms[faces[i].a].x,
 							   norms[faces[i].a].y,
 							   norms[faces[i].a].z);
@@ -1219,7 +1204,7 @@ static const NH3DMaterial defaultMat = {
 				glBegin(GL_TRIANGLES);
 				
 				for (i = 0; i < face_qty; i++) {
-					vector_float3 vertShift = verts[faces[i].a] + modelShift;
+					simd_float3 vertShift = verts[faces[i].a] + modelShift;
 					glNormal3f(norms[faces[i].a].x,
 							   norms[faces[i].a].y,
 							   norms[faces[i].a].z);

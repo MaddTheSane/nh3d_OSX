@@ -55,8 +55,8 @@ typedef struct NH3DMaterial {
 	NH3DFaceType		texReference[MAX_POLYGONS];	/**< OBJ face optional texture reference */
 	NH3DFaceType		normReference[MAX_POLYGONS];/**< OBJ face optional normal reference */
 	
-	vector_float3		*verts;		/**< vertex points */
-	vector_float3		*norms;		/**< normals */
+	simd_float3			*verts;		/**< vertex points */
+	simd_float3			*norms;		/**< normals */
 	NH3DFaceType		*faces;		/**< faces */
 	NH3DMapCoordType	*texcoords;	/**< TextureCoords */
 	
@@ -68,7 +68,7 @@ typedef struct NH3DMaterial {
 	BOOL				useEnvironment;
 	
 	NH3DParticleType	particleType;
-	vector_float3		particleGravity;
+	simd_float3			particleGravity;
 	int					particleColor;
 	GLfloat				particleLife;
 	GLfloat				particleSize;
@@ -124,9 +124,9 @@ typedef struct NH3DMaterial {
 @property (readonly) NSInteger texcords_qty NS_REFINED_FOR_SWIFT;
 
 /*! vertex points */
-@property (readonly) vector_float3 *verts NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
+@property (readonly) simd_float3 *verts NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
 /*! normals */
-@property (readonly) vector_float3 *norms NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
+@property (readonly) simd_float3 *norms NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
 
 /*! faces */
 @property (readonly) NH3DFaceType *faces NS_RETURNS_INNER_POINTER NS_REFINED_FOR_SWIFT;
@@ -148,7 +148,7 @@ typedef struct NH3DMaterial {
 @property GLfloat animationValue;
 @property GLfloat animationRate;
 
-@property (nonatomic) vector_float3 particleGravity;
+@property (nonatomic) simd_float3 particleGravity;
 - (void)setParticleGravityX:(GLfloat)x_gravity Y:(GLfloat)y_gravity Z:(GLfloat)z_gravity NS_SWIFT_NAME(setParticleGravity(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the particleGravity property");
 @property (nonatomic) NH3DParticleType particleType;
 @property int particleColor;
@@ -169,16 +169,16 @@ typedef struct NH3DMaterial {
 - (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
 @property (readonly, strong, nullable) NH3DModelObject *lastChildObject;
 
-@property (readwrite) vector_float3 modelShift;
+@property (readwrite) simd_float3 modelShift;
 - (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz NS_SWIFT_NAME(setModelShift(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelShift property");
 
-@property (readwrite) vector_float3 modelScale;
+@property (readwrite) simd_float3 modelScale;
 - (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz NS_SWIFT_NAME(setModelScale(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelScale property");
 
-@property (readwrite) vector_float3 modelRotate;
+@property (readwrite) simd_float3 modelRotate;
 - (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz NS_SWIFT_NAME(setModelRotate(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelRotate property");
 
-@property (readwrite) vector_float3 modelPivot;
+@property (readwrite) simd_float3 modelPivot;
 - (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz NS_SWIFT_NAME(setPivot(x:y:z:)) NS_SWIFT_UNAVAILABLE("Use the modelPivot property");
 
 @property NH3DMaterial currentMaterial;
