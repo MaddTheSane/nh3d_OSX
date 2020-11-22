@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "NH3Dcommon.h"
 #import "NH3DUserDefaultsExtern.h"
+#include <simd/vector_types.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSInteger, NH3DModelDrawingType) {
 @property (readonly) int material;
 @property (readonly) int posX;
 @property (readonly) int posY;
+@property (readonly) simd_int2 position;
 @property (readonly) unsigned int special;
 @property (readonly) int bgGlyph;
 

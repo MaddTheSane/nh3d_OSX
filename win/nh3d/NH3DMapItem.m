@@ -10,6 +10,7 @@
 #import "NH3DMapItem.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NetHack3D-Swift.h"
+#include <simd/simd.h>
 
 @implementation NH3DMapItem {
 	NSRecursiveLock *lock;
@@ -19,14 +20,23 @@
 @synthesize player;
 @synthesize hasAlternateSymbol;
 @synthesize hasCursor;
-@synthesize posX;
-@synthesize posY;
+@synthesize position;
 @synthesize glyph;
 @synthesize cSymbol = symbol;
 @synthesize modelDrawingType;
 @synthesize special;
 @synthesize material = color;
 @synthesize bgGlyph;
+
+- (int)posX
+{
+	return position.x;
+}
+
+- (int)posY
+{
+	return position.y;
+}
 
 - (nullable NSString*)alternateSymbolForDirection:(NH3DPlayerDirection)direction;
 {
@@ -260,13 +270,13 @@
 - (void)checkDrawingType
 {
 	// Quiet undefined behavior warnings
-	if ((posX-MAP_MARGIN) < 0 || (posY-MAP_MARGIN) < 0 || posY-MAP_MARGIN >= ROWNO || posX-MAP_MARGIN >= COLNO) {
+	if ((position.x-MAP_MARGIN) < 0 || (position.y-MAP_MARGIN) < 0 || position.y-MAP_MARGIN >= ROWNO || position.x-MAP_MARGIN >= COLNO) {
 		modelDrawingType = NH3DModelDrawingBlackWall;
 		return;
 	}
 	
 	if (glyph ==  S_stone+GLYPH_CMAP_OFF &&
-		(!IS_ROOM(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ) && !IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ))) {
+		(!IS_ROOM(levl[position.x-MAP_MARGIN][position.y-MAP_MARGIN].typ) && !IS_WALL(levl[position.x-MAP_MARGIN][position.y-MAP_MARGIN].typ))) {
 		// draw type is corrwall object (10 = stone wall type / 0 = black wall type)
 		modelDrawingType = NH3DModelDrawingBlackWall;
 	} else if (player) {
@@ -275,9 +285,9 @@
 	} else {
 		switch (glyph) {
 			case S_stone + GLYPH_CMAP_OFF:
-				modelDrawingType = (IS_WALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
-									|| IS_STWALL(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)
-									|| IS_DOOR(levl[posX-MAP_MARGIN][posY-MAP_MARGIN].typ)) ? NH3DModelDrawingBlackWall : NH3DModelDrawingPlayerPosition;
+				modelDrawingType = (IS_WALL(levl[position.x-MAP_MARGIN][position.y-MAP_MARGIN].typ)
+									|| IS_STWALL(levl[position.x-MAP_MARGIN][position.y-MAP_MARGIN].typ)
+									|| IS_DOOR(levl[position.x-MAP_MARGIN][position.y-MAP_MARGIN].typ)) ? NH3DModelDrawingBlackWall : NH3DModelDrawingPlayerPosition;
 				break;
 			case S_room + GLYPH_CMAP_OFF:
 			case S_corr + GLYPH_CMAP_OFF:
@@ -391,8 +401,7 @@
 		symbol = ch;
 		glyph = glf;
 		color = col;
-		posX = x;
-		posY = y;
+        position = simd_make_int2(x, y);
 		special = sp;
 		player = NO;
 		hasAlternateSymbol = NO;

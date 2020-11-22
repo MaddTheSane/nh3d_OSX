@@ -678,7 +678,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		}
 		let type = mapItem.modelDrawingType
 		if type != .model3D {
-			switchMethodArray[type.rawValue](mapItem.posX, mapItem.posY, x, z)
+			switchMethodArray[type.rawValue](mapItem.position.x, mapItem.position.y, x, z)
 		} else {
 			// delay drawing for alpha blending.
 			delayDrawing.append((item: mapItem, x: x, z: z))
@@ -760,7 +760,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		
 		let AmbLightPos: [GLfloat] = [0.0, 4.0, 0.0, 0]
 		let keyLightPos: [GLfloat] = [0.01, 3.0, 0.0, 1]
-		var fogColor: [GLfloat] = [gblight/4, 0.0, 0.0, 0.0]
+		let fogColor: [GLfloat] = [gblight/4, 0.0, 0.0, 0.0]
 		let lightEmisson: [GLfloat] = [0.1, 0.1, 0.1, 1]
 		
 		keyLightCol[0] = 2.0
@@ -1069,7 +1069,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			// next. particle objects
 			for (mapItem, lx, lz) in delayDrawing {
 				let drawMethod = switchMethodArray[mapItem.modelDrawingType.rawValue]
-				drawMethod(mapItem.posX, mapItem.posY, lx, lz)
+				drawMethod(mapItem.position.x, mapItem.position.y, lx, lz)
 			} // end for x
 			
 			if enemyPosition != 0 {
@@ -1127,8 +1127,8 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			struct drawModelArrayHelper {
 				static var rot: GLfloat = 0
 			}
-			var posx = Float(mapItem.posX) * NH3DGL_TILE_SIZE
-			var posz = Float(mapItem.posY) * NH3DGL_TILE_SIZE
+			let posx = Float(mapItem.position.x) * NH3DGL_TILE_SIZE
+			let posz = Float(mapItem.position.y) * NH3DGL_TILE_SIZE
 			
 			var model = modelDictionary[glyph]
 			
