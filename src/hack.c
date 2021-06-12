@@ -2551,7 +2551,7 @@ check_special_room(register boolean newlev)
   -1 = do normal pickup
   -2 = loot the monster */
 int
-pickup_checks()
+pickup_checks(void)
 {
     /* uswallow case added by GAN 01/29/87 */
     if (u.uswallow) {

@@ -293,7 +293,7 @@ gloc_filter_floodfill(int x, int y)
 }
 
 void
-gloc_filter_init()
+gloc_filter_init(void)
 {
     if (iflags.getloc_filter == GFILTER_AREA) {
         if (!gloc_filter_map) {
@@ -314,7 +314,7 @@ gloc_filter_init()
 }
 
 void
-gloc_filter_done()
+gloc_filter_done(void)
 {
     if (gloc_filter_map) {
         opvar_free_x(gloc_filter_map);
