@@ -2294,8 +2294,8 @@ const struct condmap condition_aliases[] = {
     { "movement",       BL_MASK_LEV | BL_MASK_FLY | BL_MASK_RIDE }
 };
 
-unsigned long
-query_conditions()
+static unsigned long
+query_conditions(void)
 {
     int i,res;
     unsigned long ret = 0UL;
@@ -3619,8 +3619,8 @@ shlmenu_free:
     return acted;
 }
 
-void
-status_hilites_viewall()
+static void
+status_hilites_viewall(void)
 {
     winid datawin;
     struct _status_hilite_line_str *hlstr = status_hilite_str;

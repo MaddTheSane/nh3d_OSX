@@ -2094,7 +2094,7 @@ bury_obj(struct obj *otmp)
 #ifdef DEBUG
 /* bury everything at your loc and around */
 int
-wiz_debug_cmd_bury()
+wiz_debug_cmd_bury(void)
 {
     int x, y;
 

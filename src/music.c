@@ -433,8 +433,8 @@ do_earthquake(int force)
         }
 }
 
-const char *
-generic_lvl_desc()
+static const char *
+generic_lvl_desc(void)
 {
     if (Is_astralevel(&u.uz))
         return "astral plane";

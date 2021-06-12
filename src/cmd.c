@@ -3616,8 +3616,8 @@ bind_key(uchar key, const char *command)
 }
 
 /* initialize all keyboard commands */
-void
-commands_init()
+static void
+commands_init(void)
 {
     struct ext_func_tab *extcmd;
 

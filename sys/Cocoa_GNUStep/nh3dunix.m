@@ -502,7 +502,7 @@ get_unix_pw()
 }
 
 unsigned long
-sys_random_seed()
+sys_random_seed(void)
 {
 	unsigned long seed = 0L;
 	unsigned long pid = (unsigned long) getpid();

@@ -17,8 +17,8 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="196" y="123" width="800" height="626"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <value key="minSize" type="size" width="800" height="580"/>
-            <value key="maxSize" type="size" width="800" height="580"/>
+            <value key="minSize" type="size" width="800" height="626"/>
+            <value key="maxSize" type="size" width="800" height="626"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="798" height="626"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -327,13 +327,13 @@
                             <action selector="controllerActions:" target="5648" id="5807"/>
                         </connections>
                     </button>
-                    <box title="Name" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="314">
+                    <box ambiguous="YES" title="Name" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="314">
                         <rect key="frame" x="622" y="554" width="170" height="36"/>
-                        <view key="contentView" id="o7Z-WO-cnk">
+                        <view key="contentView" ambiguous="YES" id="o7Z-WO-cnk">
                             <rect key="frame" x="3" y="3" width="164" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5122">
+                                <textField verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5122">
                                     <rect key="frame" x="-1" y="0.0" width="166" height="27"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" baseWritingDirection="leftToRight" alignment="center" title="PlayerName" id="6973">
                                         <font key="font" size="14" name="Optima-Bold"/>
@@ -358,13 +358,13 @@
                             </constraints>
                         </view>
                     </box>
-                    <box title="Class" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="316">
+                    <box ambiguous="YES" title="Class" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="316">
                         <rect key="frame" x="622" y="509" width="170" height="49"/>
-                        <view key="contentView" id="ZvD-gG-08D">
+                        <view key="contentView" ambiguous="YES" id="ZvD-gG-08D">
                             <rect key="frame" x="3" y="3" width="164" height="43"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="479">
+                                <textField verticalHuggingPriority="750" ambiguous="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="479">
                                     <rect key="frame" x="-1" y="2" width="166" height="36"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" baseWritingDirection="leftToRight" alignment="center" title="Class" id="6974">
                                         <font key="font" metaFont="system" size="14"/>
@@ -1926,6 +1926,7 @@
                     <constraint firstItem="6368" firstAttribute="bottom" secondItem="6414" secondAttribute="bottom" id="Gv7-Vh-siE"/>
                     <constraint firstItem="5461" firstAttribute="top" secondItem="5459" secondAttribute="bottom" constant="4" id="GyN-Hb-g6g"/>
                     <constraint firstItem="580" firstAttribute="baseline" secondItem="5129" secondAttribute="firstBaseline" id="H68-Iu-OAH"/>
+                    <constraint firstItem="316" firstAttribute="top" secondItem="314" secondAttribute="bottom" constant="2" id="HVp-ae-421"/>
                     <constraint firstItem="581" firstAttribute="leading" secondItem="463" secondAttribute="leading" id="HYl-QM-Eft"/>
                     <constraint firstItem="5125" firstAttribute="trailing" secondItem="5126" secondAttribute="trailing" id="Heh-2F-0sd"/>
                     <constraint firstItem="375" firstAttribute="leading" secondItem="5142" secondAttribute="leading" id="HjV-gs-HAd"/>
@@ -2217,7 +2218,6 @@
                     <constraint firstItem="5463" firstAttribute="bottom" secondItem="5358" secondAttribute="bottom" id="vwU-hg-BxG"/>
                     <constraint firstItem="580" firstAttribute="top" secondItem="459" secondAttribute="bottom" constant="1" id="w5Y-rI-rYM"/>
                     <constraint firstItem="5129" firstAttribute="leading" secondItem="5130" secondAttribute="leading" id="wR3-0a-g8J"/>
-                    <constraint firstItem="316" firstAttribute="top" secondItem="2" secondAttribute="top" constant="70" id="whi-1b-qMV"/>
                     <constraint firstItem="589" firstAttribute="top" secondItem="588" secondAttribute="bottom" constant="5" id="x1n-sB-rcZ"/>
                     <constraint firstItem="378" firstAttribute="leading" secondItem="5143" secondAttribute="leading" id="x2H-sn-ZMJ"/>
                     <constraint firstItem="5737" firstAttribute="centerX" secondItem="4994" secondAttribute="centerX" id="xB3-bQ-R4B"/>
@@ -3072,7 +3072,7 @@ Gw
                         <rect key="frame" x="0.0" y="28" width="400" height="136"/>
                         <clipView key="contentView" id="szt-dP-q4S">
                             <rect key="frame" x="1" y="1" width="398" height="134"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="5665">
                                     <rect key="frame" x="0.0" y="0.0" width="398" height="134"/>
@@ -4583,8 +4583,8 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="214" y="651" width="328" height="233"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
-            <view key="contentView" id="6765">
-                <rect key="frame" x="0.0" y="0.0" width="328" height="229"/>
+            <view key="contentView" misplaced="YES" id="6765">
+                <rect key="frame" x="0.0" y="0.0" width="328" height="233"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView translatesAutoresizingMaskIntoConstraints="NO" id="6768">
