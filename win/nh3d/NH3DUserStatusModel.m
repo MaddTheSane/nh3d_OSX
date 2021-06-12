@@ -630,31 +630,55 @@ static NSString *stripParentheses(NSString *text)
 
 - (NSImage *)stHunger
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Hunger", (int)stHunger]];
+	if (stHunger > NOT_HUNGRY) {
+		return [NSImage imageNamed:@"hungry"];
+	} else if (stHunger == SATIATED) {
+		return [NSImage imageNamed:@"satiated"];
+	} else {
+		return nil;
+	}
 }
 - (NSImage *)stConfuse
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Confuse", (int)stConfuse]];
+	if (stConfuse) {
+		return [NSImage imageNamed:@"confused"];
+	}
+	return nil;
 }
 - (NSImage *)stSick
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Sick", (int)stSick]];
+	if (stSick) {
+		return [NSImage imageNamed:@"sick_il"];
+	}
+	return nil;
 }
 - (NSImage *)stIll
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Ill", (int)stIll]];
+	if (stIll) {
+		return [NSImage imageNamed:@"sick_fp"];
+	}
+	return nil;
 }
 - (NSImage *)stBlind
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Blind", (int)stBlind]];
+	if (stBlind) {
+		return [NSImage imageNamed:@"blind"];
+	}
+	return nil;
 }
 - (NSImage *)stStun
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Stun", (int)stStun]];
+	if (stStun) {
+		return [NSImage imageNamed:@"stunned"];
+	}
+	return nil;
 }
 - (NSImage *)stHallu
 {
-	return [NSImage imageNamed:[NSString stringWithFormat:@"%@%d", @"Hallu", (int)stHallu]];
+	if (stHallu) {
+		return [NSImage imageNamed:@"hallu"];
+	}
+	return nil;
 }
 - (NSImage *)stLoad
 {
