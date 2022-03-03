@@ -532,3 +532,21 @@ sys_random_seed(void)
 	}
 	return seed;
 }
+
+/* XXX should be ifdef PANICTRACE_GDB, but there's no such symbol yet */
+#ifdef PANICTRACE
+boolean
+file_exists(const char *path)
+{
+	struct stat sb;
+
+	/* Just see if it's there - trying to figure out if we can actually
+	 * execute it in all cases is too hard - we really just want to
+	 * catch typos in SYSCF.
+	 */
+	if (stat(path, &sb)) {
+		return FALSE;
+	}
+	return TRUE;
+}
+#endif
