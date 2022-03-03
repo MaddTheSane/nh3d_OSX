@@ -52,11 +52,6 @@ NS_ENUM(int) {
 	NetHack3DExplodeMagical = NH3D_EXPLODE_MAGICAL,
 	NetHack3DExplodeFiery = NH3D_EXPLODE_FIERY,
 	NetHack3DExplodeFrosty = NH3D_EXPLODE_FROSTY,
-	};
-	
-	//Because Xcode is being a dumb-dumb
-#if 0
-}
-#endif
+};
 
 #endif /* NH3DEnums_h */

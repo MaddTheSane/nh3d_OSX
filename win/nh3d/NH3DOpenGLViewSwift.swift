@@ -712,7 +712,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		return texID
 	}
 	
-	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = GLYPH_MON_OFF, modelName: String, textured flag: Bool = false, textureName: String? = nil, without: Int32...) -> NH3DModelObject? {
+	private final func checkLoadedModels(at startNum: Int32, to endNum: Int32, offset: Int32 = NetHackGlyphMonsterOffset, modelName: String, textured flag: Bool = false, textureName: String? = nil, without: Int32...) -> NH3DModelObject? {
 		var withoutFlag = false
 		
 		for i in (startNum+offset)...(endNum+offset) {
@@ -1134,7 +1134,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			
 			if model == nil && defaultTex[Int(glyph)] == 0 {
 				if let newModel = loadModelBlocks[Int(glyph)](glyph) {
-					if glyph >= PM_GIANT_ANT+GLYPH_MON_OFF && glyph < NUMMONS + NetHackGlyphPetOffset {
+					if glyph >= PM_GIANT_ANT+NetHackGlyphMonsterOffset && glyph < NUMMONS + NetHackGlyphPetOffset {
 						newModel.isAnimated = true
 						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
 						newModel.modelPivot = SIMD3<Float>(x: 0.0, y: 0.3, z: 0.0)
@@ -1224,7 +1224,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 				}
 				
 				switch glyph {
-				case PM_GIANT_ANT+GLYPH_MON_OFF ... NUMMONS+GLYPH_MON_OFF:
+				case PM_GIANT_ANT+NetHackGlyphMonsterOffset ... NUMMONS+NetHackGlyphMonsterOffset:
 					let materialCol = mapItem.material
 					// setMaterial
 					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
@@ -2096,7 +2096,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GIANT_ANT, to: PM_QUEEN_BEE, offset: offset, modelName: "lowerA")
 	}
@@ -2107,7 +2107,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_ACID_BLOB, to: PM_GELATINOUS_CUBE, offset: offset, modelName: "lowerB")
 	}
@@ -2118,7 +2118,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_CHICKATRICE, to: PM_PYROLISK, offset: offset, modelName: "lowerC")
 	}
@@ -2129,7 +2129,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_JACKAL, to: PM_HELL_HOUND, offset: offset, modelName: "lowerD")
 	}
@@ -2140,7 +2140,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GAS_SPORE, to: PM_SHOCKING_SPHERE, offset: offset, modelName: "lowerE")
 	}
@@ -2151,7 +2151,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_KITTEN, to: PM_TIGER, offset: offset, modelName: "lowerF")
 	}
@@ -2162,7 +2162,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GREMLIN, to: PM_WINGED_GARGOYLE, offset: offset, modelName: "lowerG")
 	}
@@ -2171,13 +2171,13 @@ extension NH3DOpenGLView {
 	private func loadModelFunc_humanoids(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
-		case PM_DWARF_KING+GLYPH_MON_OFF, PM_DWARF_KING+NetHackGlyphPetOffset:
+		case PM_DWARF_KING+NetHackGlyphMonsterOffset, PM_DWARF_KING+NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.2, z: -0.21)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 
-		case PM_MIND_FLAYER + GLYPH_MON_OFF, PM_MASTER_MIND_FLAYER + GLYPH_MON_OFF,
+		case PM_MIND_FLAYER + NetHackGlyphMonsterOffset, PM_MASTER_MIND_FLAYER + NetHackGlyphMonsterOffset,
 		     PM_MIND_FLAYER + NetHackGlyphPetOffset, PM_MASTER_MIND_FLAYER + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerH", withTexture: false)
 			// TODO: add tentacles
@@ -2187,7 +2187,7 @@ extension NH3DOpenGLView {
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_HOBBIT, to: PM_MASTER_MIND_FLAYER, offset: offset, modelName: "lowerH", without: PM_DWARF_KING, PM_MIND_FLAYER, PM_MASTER_MIND_FLAYER)
 		}
@@ -2200,7 +2200,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_MANES, to: PM_TENGU, offset: offset, modelName: "lowerI")
 	}
@@ -2212,7 +2212,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_BLUE_JELLY, to: PM_OCHRE_JELLY, offset: offset, modelName: "lowerJ")
 	}
@@ -2222,24 +2222,24 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_KOBOLD+GLYPH_MON_OFF, PM_LARGE_KOBOLD+GLYPH_MON_OFF,
+		case PM_KOBOLD+NetHackGlyphMonsterOffset, PM_LARGE_KOBOLD+NetHackGlyphMonsterOffset,
 		     PM_KOBOLD+NetHackGlyphPetOffset, PM_LARGE_KOBOLD+NetHackGlyphPetOffset:
 			let offset: Int32
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			
 			ret = checkLoadedModels(at: PM_KOBOLD, to: PM_LARGE_KOBOLD, offset: offset, modelName: "lowerK", without: PM_KOBOLD_LORD, PM_KOBOLD_SHAMAN)
 			
-		case PM_KOBOLD_LORD+GLYPH_MON_OFF, PM_KOBOLD_LORD+NetHackGlyphPetOffset:
+		case PM_KOBOLD_LORD+NetHackGlyphMonsterOffset, PM_KOBOLD_LORD+NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerK", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.1, z: -0.25)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_KOBOLD_SHAMAN + GLYPH_MON_OFF, PM_KOBOLD_SHAMAN + NetHackGlyphPetOffset:
+		case PM_KOBOLD_SHAMAN + NetHackGlyphMonsterOffset, PM_KOBOLD_SHAMAN + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerK", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: -0.01, z: -0.15)
@@ -2263,7 +2263,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_SMALL_MIMIC, to: PM_GIANT_MIMIC, offset: offset, modelName: "lowerM")
 	}
@@ -2274,7 +2274,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_WOOD_NYMPH, to: PM_MOUNTAIN_NYMPH, offset: offset, modelName: "lowerN")
 	}
@@ -2283,7 +2283,7 @@ extension NH3DOpenGLView {
 	private func loadModelFunc_orc(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
-		if glyph == PM_ORC_SHAMAN + GLYPH_MON_OFF || glyph == PM_ORC_SHAMAN + NetHackGlyphPetOffset {
+		if glyph == PM_ORC_SHAMAN + NetHackGlyphMonsterOffset || glyph == PM_ORC_SHAMAN + NetHackGlyphPetOffset {
 			ret = NH3DModelObject(with3DSFile: "lowerO", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.15, z: -0.15)
@@ -2293,7 +2293,7 @@ extension NH3DOpenGLView {
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_GOBLIN, to: PM_ORC_CAPTAIN, offset: offset, modelName: "lowerO", without: PM_ORC_SHAMAN)
 		}
@@ -2307,7 +2307,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_ROCK_PIERCER, to: PM_GLASS_PIERCER, offset: offset, modelName: "lowerP")
 	}
@@ -2318,7 +2318,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_ROTHE, to: PM_MASTODON, offset: offset, modelName: "lowerQ")
 	}
@@ -2329,7 +2329,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_SEWER_RAT, to: PM_WOODCHUCK, offset: offset, modelName: "lowerR")
 	}
@@ -2340,7 +2340,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_CAVE_SPIDER, to: PM_SCORPION, offset: offset, modelName: "lowerS")
 	}
@@ -2351,7 +2351,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_LURKER_ABOVE, to: PM_TRAPPER, offset: offset, modelName: "lowerT")
 	}
@@ -2362,7 +2362,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_WHITE_UNICORN, to: PM_WARHORSE, offset: offset, modelName: "lowerU")
 	}
@@ -2373,7 +2373,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_FOG_CLOUD, to: PM_FIRE_VORTEX, offset: offset, modelName: "lowerV")
 	}
@@ -2384,7 +2384,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_BABY_LONG_WORM, to: PM_PURPLE_WORM, offset: offset, modelName: "lowerW")
 	}
@@ -2395,7 +2395,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GRID_BUG, to: PM_XAN, offset: offset, modelName: "lowerX")
 	}
@@ -2406,7 +2406,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_YELLOW_LIGHT, to: PM_BLACK_LIGHT, offset: offset, modelName: "lowerY")
 	}
@@ -2417,7 +2417,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_COUATL, to: PM_ARCHON, offset: offset, modelName: "upperA")
 	}
@@ -2428,7 +2428,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_BAT, to: PM_VAMPIRE_BAT, offset: offset, modelName: "upperB")
 	}
@@ -2439,7 +2439,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_PLAINS_CENTAUR, to: PM_MOUNTAIN_CENTAUR, offset: offset, modelName: "upperC")
 	}
@@ -2450,7 +2450,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_BABY_GRAY_DRAGON, to: PM_YELLOW_DRAGON, offset: offset, modelName: "upperD")
 	}
@@ -2461,7 +2461,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_STALKER, to: PM_WATER_ELEMENTAL, offset: offset, modelName: "upperE")
 	}
@@ -2472,7 +2472,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_LICHEN, to: PM_VIOLET_FUNGUS, offset: offset, modelName: "upperF")
 	}
@@ -2481,13 +2481,13 @@ extension NH3DOpenGLView {
 	private final func loadModelFunc_Gnomes(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
-		case PM_GNOME+GLYPH_MON_OFF, PM_GNOME_LORD+GLYPH_MON_OFF,
+		case PM_GNOME+NetHackGlyphMonsterOffset, PM_GNOME_LORD+NetHackGlyphMonsterOffset,
 		     PM_GNOME+NetHackGlyphPetOffset, PM_GNOME_LORD+NetHackGlyphPetOffset:
 			let offset: Int32
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_GNOME,
 			                        to: PM_GNOME_LORD,
@@ -2495,14 +2495,14 @@ extension NH3DOpenGLView {
 			                        modelName: "upperG",
 			                        without: PM_GNOMISH_WIZARD, PM_GNOME_KING)
 			
-		case PM_GNOMISH_WIZARD + GLYPH_MON_OFF,
+		case PM_GNOMISH_WIZARD + NetHackGlyphMonsterOffset,
 		     PM_GNOMISH_WIZARD + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.01, z: -0.15)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_GNOME_KING + GLYPH_MON_OFF,
+		case PM_GNOME_KING + NetHackGlyphMonsterOffset,
 		     PM_GNOME_KING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"upperG", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
@@ -2522,7 +2522,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GIANT, to: PM_MINOTAUR, offset: offset, modelName: "upperH")
 	}
@@ -2533,7 +2533,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_KEYSTONE_KOP, to: PM_KOP_KAPTAIN, offset: offset, modelName: "upperK")
 	}
@@ -2544,7 +2544,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_LICH, to: PM_ARCH_LICH, offset: offset, modelName: "upperL")
 	}
@@ -2555,7 +2555,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_KOBOLD_MUMMY, to: PM_GIANT_MUMMY, offset: offset, modelName: "upperM")
 	}
@@ -2566,7 +2566,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_RED_NAGA_HATCHLING, to: PM_GUARDIAN_NAGA, offset: offset, modelName: "upperN")
 	}
@@ -2575,13 +2575,13 @@ extension NH3DOpenGLView {
 	private final func loadModelFunc_Ogres(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
-		case PM_OGRE + GLYPH_MON_OFF, PM_OGRE_LORD + GLYPH_MON_OFF,
+		case PM_OGRE + NetHackGlyphMonsterOffset, PM_OGRE_LORD + NetHackGlyphMonsterOffset,
 		PM_OGRE + NetHackGlyphPetOffset, PM_OGRE_LORD + NetHackGlyphPetOffset:
 			let offset: Int32
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_OGRE,
 			                        to: PM_OGRE_LORD,
@@ -2589,7 +2589,7 @@ extension NH3DOpenGLView {
 			                        modelName: "upperO",
 			                        without: PM_OGRE_KING)
 			
-		case PM_OGRE_KING + GLYPH_MON_OFF, PM_OGRE_KING + NetHackGlyphPetOffset:
+		case PM_OGRE_KING + NetHackGlyphMonsterOffset, PM_OGRE_KING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "upperO", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: 0.15, z: -0.18)
@@ -2607,7 +2607,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GRAY_OOZE, to: PM_GREEN_SLIME, offset: offset, modelName: "upperP")
 	}
@@ -2623,7 +2623,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_RUST_MONSTER, to: PM_DISENCHANTER, offset: offset, modelName: "upperR")
 	}
@@ -2634,7 +2634,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GARTER_SNAKE, to: PM_COBRA, offset: offset, modelName: "upperS")
 	}
@@ -2645,7 +2645,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_TROLL, to: PM_OLOG_HAI, offset: offset, modelName: "upperT")
 	}
@@ -2659,17 +2659,17 @@ extension NH3DOpenGLView {
 	private final func loadModelFunc_Vampires(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		switch glyph {
-		case PM_VAMPIRE + GLYPH_MON_OFF, PM_VAMPIRE_LORD + GLYPH_MON_OFF,
+		case PM_VAMPIRE + NetHackGlyphMonsterOffset, PM_VAMPIRE_LORD + NetHackGlyphMonsterOffset,
 			PM_VAMPIRE + NetHackGlyphPetOffset, PM_VAMPIRE_LORD + NetHackGlyphPetOffset:
 			let offset: Int32
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_VAMPIRE, to: PM_VAMPIRE_LORD, offset: offset, modelName: "upperV")
 			
-		case PM_VLAD_THE_IMPALER + GLYPH_MON_OFF:
+		case PM_VLAD_THE_IMPALER + NetHackGlyphMonsterOffset:
 			ret =  NH3DModelObject(with3DSFile: "upperV", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: 0.15, z: -0.18)
@@ -2688,7 +2688,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_BARROW_WIGHT, to: PM_NAZGUL, offset: offset, modelName: "upperW")
 	}
@@ -2704,7 +2704,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_MONKEY, to: PM_SASQUATCH, offset: offset, modelName: "upperY")
 	}
@@ -2715,7 +2715,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_KOBOLD_ZOMBIE, to: PM_SKELETON, offset: offset, modelName: "upperZ")
 	}
@@ -2726,7 +2726,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_STRAW_GOLEM, to: PM_IRON_GOLEM, offset: offset, modelName: golemModel)
 	}
@@ -2736,20 +2736,20 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_ELVENKING + GLYPH_MON_OFF, PM_ELVENKING + NetHackGlyphPetOffset:
+		case PM_ELVENKING + NetHackGlyphMonsterOffset, PM_ELVENKING + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: -0.18, z: 0)
 			ret?.lastChild?.modelRotate = SIMD3<Float>(x: 0, y: 11.7, z: 0)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_NURSE + GLYPH_MON_OFF, PM_NURSE + NetHackGlyphPetOffset:
+		case PM_NURSE + NetHackGlyphMonsterOffset, PM_NURSE + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("nurse", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0, y: -0.28, z: 1)
 			ret?.lastChild?.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
 			
-		case PM_HIGH_PRIEST + GLYPH_MON_OFF, PM_MEDUSA + GLYPH_MON_OFF, PM_CROESUS + GLYPH_MON_OFF,
+		case PM_HIGH_PRIEST + NetHackGlyphMonsterOffset, PM_MEDUSA + NetHackGlyphMonsterOffset, PM_CROESUS + NetHackGlyphMonsterOffset,
 		     PM_HIGH_PRIEST + NetHackGlyphPetOffset, PM_MEDUSA + NetHackGlyphPetOffset, PM_CROESUS + NetHackGlyphPetOffset:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
@@ -2761,7 +2761,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_WIZARD_OF_YENDOR + GLYPH_MON_OFF:
+		case PM_WIZARD_OF_YENDOR + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile:"atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
@@ -2791,7 +2791,7 @@ extension NH3DOpenGLView {
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_HUMAN,
 			                        to: PM_WIZARD_OF_YENDOR,
@@ -2810,7 +2810,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_GHOST, to: PM_SHADE, offset: offset, modelName: "invisible")
 	}
@@ -2821,9 +2821,9 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
-		if glyph != PM_DJINNI+GLYPH_MON_OFF || glyph != PM_SANDESTIN+GLYPH_MON_OFF ||
+		if glyph != PM_DJINNI+NetHackGlyphMonsterOffset || glyph != PM_SANDESTIN+NetHackGlyphMonsterOffset ||
 			glyph != PM_DJINNI+NetHackGlyphPetOffset || glyph != PM_SANDESTIN+NetHackGlyphPetOffset {
 			return checkLoadedModels(at: PM_WATER_DEMON, to: PM_BALROG, offset: offset, modelName: "ampersand")
 		} else {
@@ -2835,7 +2835,7 @@ extension NH3DOpenGLView {
 	private final func loadModelFunc_GraterDamons(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
 		
-		if glyph == PM_JUIBLEX + GLYPH_MON_OFF || glyph == PM_JUIBLEX + NetHackGlyphPetOffset {
+		if glyph == PM_JUIBLEX + NetHackGlyphMonsterOffset || glyph == PM_JUIBLEX + NetHackGlyphPetOffset {
 			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -2850,7 +2850,7 @@ extension NH3DOpenGLView {
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
 			ret = checkLoadedModels(at: PM_YEENOGHU, to: PM_DEMOGORGON, offset: offset, modelName: "ampersand")
 			if let ret = ret, !ret.hasChildren {
@@ -2905,7 +2905,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_JELLYFISH, to: PM_KRAKEN, offset: offset, modelName: "semicolon")
 	}
@@ -2916,7 +2916,7 @@ extension NH3DOpenGLView {
 		if glyph > NetHackGlyphPetOffset {
 			offset = NetHackGlyphPetOffset
 		} else {
-			offset = GLYPH_MON_OFF
+			offset = NetHackGlyphMonsterOffset
 		}
 		return checkLoadedModels(at: PM_NEWT, to: PM_SALAMANDER, offset: offset, modelName: "colon")
 	}
@@ -2924,7 +2924,7 @@ extension NH3DOpenGLView {
 	/// Adventurers
 	private final func loadModelFunc_Adventures(glyph: Int32) -> NH3DModelObject? {
 		var ret: NH3DModelObject? = nil
-		if glyph == PM_WIZARD + GLYPH_MON_OFF {
+		if glyph == PM_WIZARD + NetHackGlyphMonsterOffset {
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
@@ -2939,7 +2939,7 @@ extension NH3DOpenGLView {
 		var ret: NH3DModelObject? = nil
 		
 		switch glyph {
-		case PM_KING_ARTHUR + GLYPH_MON_OFF:
+		case PM_KING_ARTHUR + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.18, z: 0.0)
@@ -2954,7 +2954,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_NEFERET_THE_GREEN + GLYPH_MON_OFF:
+		case PM_NEFERET_THE_GREEN + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
@@ -2967,7 +2967,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_MINION_OF_HUHETOTL + GLYPH_MON_OFF:
+		case PM_MINION_OF_HUHETOTL + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -2978,7 +2978,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_THOTH_AMON + GLYPH_MON_OFF:
+		case PM_THOTH_AMON + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -2989,7 +2989,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_CHROMATIC_DRAGON + GLYPH_MON_OFF:
+		case PM_CHROMATIC_DRAGON + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3000,7 +3000,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_CYCLOPS + GLYPH_MON_OFF:
+		case PM_CYCLOPS + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3011,7 +3011,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_IXOTH + GLYPH_MON_OFF:
+		case PM_IXOTH + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "upperD", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3022,7 +3022,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_MASTER_KAEN + GLYPH_MON_OFF:
+		case PM_MASTER_KAEN + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3033,7 +3033,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_NALZOK + GLYPH_MON_OFF:
+		case PM_NALZOK + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "ampersand", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3044,7 +3044,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_SCORPIUS + GLYPH_MON_OFF:
+		case PM_SCORPIUS + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "lowerS", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3055,7 +3055,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_MASTER_ASSASSIN + GLYPH_MON_OFF, PM_ASHIKAGA_TAKAUJI + GLYPH_MON_OFF:
+		case PM_MASTER_ASSASSIN + NetHackGlyphMonsterOffset, PM_ASHIKAGA_TAKAUJI + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("emitter", type: .emitter)
 			ret?.lastChild?.particleType = .aura
@@ -3066,7 +3066,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_LORD_SURTUR + GLYPH_MON_OFF:
+		case PM_LORD_SURTUR + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "upperH", withTexture: false)
 			ret?.addChildObject("kingset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.18, z: 0.0)
@@ -3081,7 +3081,7 @@ extension NH3DOpenGLView {
 			ret?.lastChild?.particleLife = 0.24
 			ret?.lastChild?.particleSize = 8.0
 			
-		case PM_DARK_ONE + GLYPH_MON_OFF:
+		case PM_DARK_ONE + NetHackGlyphMonsterOffset:
 			ret = NH3DModelObject(with3DSFile: "atmark", withTexture: false)
 			ret?.addChildObject("wizardset", type: .texturedObject)
 			ret?.lastChild?.modelPivot = SIMD3<Float>(x: 0.0, y: -0.28, z: -0.15)
@@ -3100,9 +3100,9 @@ extension NH3DOpenGLView {
 			if glyph > NetHackGlyphPetOffset {
 				offset = NetHackGlyphPetOffset
 			} else {
-				offset = GLYPH_MON_OFF
+				offset = NetHackGlyphMonsterOffset
 			}
-			if (glyph >= PM_LORD_CARNARVON + GLYPH_MON_OFF && glyph <= PM_NORN + GLYPH_MON_OFF) ||
+			if (glyph >= PM_LORD_CARNARVON + NetHackGlyphMonsterOffset && glyph <= PM_NORN + NetHackGlyphMonsterOffset) ||
 				(glyph >= PM_LORD_CARNARVON + NetHackGlyphPetOffset && glyph <= PM_NORN + NetHackGlyphPetOffset) {
 				ret = checkLoadedModels(at: PM_LORD_CARNARVON,
 				                        to: PM_NORN,
@@ -4515,315 +4515,315 @@ extension NH3DOpenGLView {
 		}
 		
 		// insect class
-		for i in Int(PM_GIANT_ANT+GLYPH_MON_OFF)...Int(PM_QUEEN_BEE+GLYPH_MON_OFF) {
+		for i in Int(PM_GIANT_ANT+NetHackGlyphMonsterOffset)...Int(PM_QUEEN_BEE+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_insect
 		}
 		
 		// blob class
-		loadModelBlocks[Int(PM_ACID_BLOB+GLYPH_MON_OFF)] =			loadModelFunc_blob
-		loadModelBlocks[Int(PM_QUIVERING_BLOB+GLYPH_MON_OFF)] =		loadModelFunc_blob
-		loadModelBlocks[Int(PM_GELATINOUS_CUBE+GLYPH_MON_OFF)] =	loadModelFunc_blob
+		loadModelBlocks[Int(PM_ACID_BLOB+NetHackGlyphMonsterOffset)] =			loadModelFunc_blob
+		loadModelBlocks[Int(PM_QUIVERING_BLOB+NetHackGlyphMonsterOffset)] =		loadModelFunc_blob
+		loadModelBlocks[Int(PM_GELATINOUS_CUBE+NetHackGlyphMonsterOffset)] =	loadModelFunc_blob
 		
 		// cockatrice class
-		loadModelBlocks[Int(PM_CHICKATRICE+GLYPH_MON_OFF)] =	loadModelFunc_cockatrice
-		loadModelBlocks[Int(PM_COCKATRICE+GLYPH_MON_OFF)] =		loadModelFunc_cockatrice
-		loadModelBlocks[Int(PM_PYROLISK+GLYPH_MON_OFF)] =		loadModelFunc_cockatrice
+		loadModelBlocks[Int(PM_CHICKATRICE+NetHackGlyphMonsterOffset)] =	loadModelFunc_cockatrice
+		loadModelBlocks[Int(PM_COCKATRICE+NetHackGlyphMonsterOffset)] =		loadModelFunc_cockatrice
+		loadModelBlocks[Int(PM_PYROLISK+NetHackGlyphMonsterOffset)] =		loadModelFunc_cockatrice
 		
 		// dog or canine class
-		for i in Int(PM_JACKAL+GLYPH_MON_OFF)...Int(PM_HELL_HOUND+GLYPH_MON_OFF) {
+		for i in Int(PM_JACKAL+NetHackGlyphMonsterOffset)...Int(PM_HELL_HOUND+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_dog
 		}
 		
 		// eye or sphere class
-		for i in Int(PM_GAS_SPORE+GLYPH_MON_OFF)...Int(PM_SHOCKING_SPHERE+GLYPH_MON_OFF) {
+		for i in Int(PM_GAS_SPORE+NetHackGlyphMonsterOffset)...Int(PM_SHOCKING_SPHERE+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_sphere
 		}
 		
 		// cat or feline class
-		for i in Int(PM_KITTEN+GLYPH_MON_OFF)...Int(PM_TIGER+GLYPH_MON_OFF) {
+		for i in Int(PM_KITTEN+NetHackGlyphMonsterOffset)...Int(PM_TIGER+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_cat
 		}
 		
 		// gremlins and gagoyles class
-		loadModelBlocks[Int(PM_GREMLIN+GLYPH_MON_OFF)] =			loadModelFunc_gremlins
-		loadModelBlocks[Int(PM_GARGOYLE+GLYPH_MON_OFF)] =			loadModelFunc_gremlins
-		loadModelBlocks[Int(PM_WINGED_GARGOYLE+GLYPH_MON_OFF)] =	loadModelFunc_gremlins
+		loadModelBlocks[Int(PM_GREMLIN+NetHackGlyphMonsterOffset)] =			loadModelFunc_gremlins
+		loadModelBlocks[Int(PM_GARGOYLE+NetHackGlyphMonsterOffset)] =			loadModelFunc_gremlins
+		loadModelBlocks[Int(PM_WINGED_GARGOYLE+NetHackGlyphMonsterOffset)] =	loadModelFunc_gremlins
 		
 		// humanoids class
-		for i in Int(PM_HOBBIT+GLYPH_MON_OFF)...Int(PM_MASTER_MIND_FLAYER+GLYPH_MON_OFF) {
+		for i in Int(PM_HOBBIT+NetHackGlyphMonsterOffset)...Int(PM_MASTER_MIND_FLAYER+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_humanoids
 		}
 		
 		// imp and minor demons
-		for i in Int(PM_MANES+GLYPH_MON_OFF)...Int(PM_TENGU+GLYPH_MON_OFF) {
+		for i in Int(PM_MANES+NetHackGlyphMonsterOffset)...Int(PM_TENGU+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_imp
 		}
 		
 		// jellys
-		loadModelBlocks[Int(PM_BLUE_JELLY+GLYPH_MON_OFF)] =		loadModelFunc_jellys
-		loadModelBlocks[Int(PM_SPOTTED_JELLY+GLYPH_MON_OFF)] =	loadModelFunc_jellys
-		loadModelBlocks[Int(PM_OCHRE_JELLY+GLYPH_MON_OFF)] =	loadModelFunc_jellys
+		loadModelBlocks[Int(PM_BLUE_JELLY+NetHackGlyphMonsterOffset)] =		loadModelFunc_jellys
+		loadModelBlocks[Int(PM_SPOTTED_JELLY+NetHackGlyphMonsterOffset)] =	loadModelFunc_jellys
+		loadModelBlocks[Int(PM_OCHRE_JELLY+NetHackGlyphMonsterOffset)] =	loadModelFunc_jellys
 		
 		// kobolds
-		loadModelBlocks[Int(PM_KOBOLD+GLYPH_MON_OFF)] =			loadModelFunc_kobolds
-		loadModelBlocks[Int(PM_LARGE_KOBOLD+GLYPH_MON_OFF)] =	loadModelFunc_kobolds
-		loadModelBlocks[Int(PM_KOBOLD_LORD+GLYPH_MON_OFF)] =	loadModelFunc_kobolds
-		loadModelBlocks[Int(PM_KOBOLD_SHAMAN+GLYPH_MON_OFF)] =	loadModelFunc_kobolds
+		loadModelBlocks[Int(PM_KOBOLD+NetHackGlyphMonsterOffset)] =			loadModelFunc_kobolds
+		loadModelBlocks[Int(PM_LARGE_KOBOLD+NetHackGlyphMonsterOffset)] =	loadModelFunc_kobolds
+		loadModelBlocks[Int(PM_KOBOLD_LORD+NetHackGlyphMonsterOffset)] =	loadModelFunc_kobolds
+		loadModelBlocks[Int(PM_KOBOLD_SHAMAN+NetHackGlyphMonsterOffset)] =	loadModelFunc_kobolds
 		
 		// leprechaun
-		loadModelBlocks[Int(PM_LEPRECHAUN+GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_LEPRECHAUN+NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile: "lowerL", withTexture: false)
 		}
 		
 		// mimics
-		loadModelBlocks[Int(PM_SMALL_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
-		loadModelBlocks[Int(PM_LARGE_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
-		loadModelBlocks[Int(PM_GIANT_MIMIC+GLYPH_MON_OFF)] = loadModelFunc_mimics
+		loadModelBlocks[Int(PM_SMALL_MIMIC+NetHackGlyphMonsterOffset)] = loadModelFunc_mimics
+		loadModelBlocks[Int(PM_LARGE_MIMIC+NetHackGlyphMonsterOffset)] = loadModelFunc_mimics
+		loadModelBlocks[Int(PM_GIANT_MIMIC+NetHackGlyphMonsterOffset)] = loadModelFunc_mimics
 		
 		// nymphs
-		loadModelBlocks[Int(PM_WOOD_NYMPH+GLYPH_MON_OFF)] =		loadModelFunc_nymphs
-		loadModelBlocks[Int(PM_WATER_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs
-		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+GLYPH_MON_OFF)] =	loadModelFunc_nymphs
+		loadModelBlocks[Int(PM_WOOD_NYMPH+NetHackGlyphMonsterOffset)] =		loadModelFunc_nymphs
+		loadModelBlocks[Int(PM_WATER_NYMPH+NetHackGlyphMonsterOffset)] =	loadModelFunc_nymphs
+		loadModelBlocks[Int(PM_MOUNTAIN_NYMPH+NetHackGlyphMonsterOffset)] =	loadModelFunc_nymphs
 		
 		// orc class
-		for i in Int(PM_GOBLIN+GLYPH_MON_OFF)...Int(PM_ORC_CAPTAIN+GLYPH_MON_OFF) {
+		for i in Int(PM_GOBLIN+NetHackGlyphMonsterOffset)...Int(PM_ORC_CAPTAIN+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_orc
 		}
 		
 		// piercers
-		for i in Int(PM_ROCK_PIERCER+GLYPH_MON_OFF)...Int(PM_GLASS_PIERCER+GLYPH_MON_OFF) {
+		for i in Int(PM_ROCK_PIERCER+NetHackGlyphMonsterOffset)...Int(PM_GLASS_PIERCER+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_piercers
 		}
 		
 		// quadrupeds
-		for i in Int(PM_ROTHE+GLYPH_MON_OFF)...Int(PM_MASTODON+GLYPH_MON_OFF) {
+		for i in Int(PM_ROTHE+NetHackGlyphMonsterOffset)...Int(PM_MASTODON+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_quadrupeds
 		}
 		
 		// rodents
-		for i in Int(PM_SEWER_RAT+GLYPH_MON_OFF)...Int(PM_WOODCHUCK+GLYPH_MON_OFF) {
+		for i in Int(PM_SEWER_RAT+NetHackGlyphMonsterOffset)...Int(PM_WOODCHUCK+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_rodents
 		}
 		
 		// spiders
-		loadModelBlocks[Int(PM_CAVE_SPIDER+GLYPH_MON_OFF)] =	loadModelFunc_spiders
-		loadModelBlocks[Int(PM_CENTIPEDE+GLYPH_MON_OFF)] =		loadModelFunc_spiders
-		loadModelBlocks[Int(PM_GIANT_SPIDER+GLYPH_MON_OFF)] =	loadModelFunc_spiders
-		loadModelBlocks[Int(PM_SCORPION+GLYPH_MON_OFF)] =		loadModelFunc_spiders
+		loadModelBlocks[Int(PM_CAVE_SPIDER+NetHackGlyphMonsterOffset)] =	loadModelFunc_spiders
+		loadModelBlocks[Int(PM_CENTIPEDE+NetHackGlyphMonsterOffset)] =		loadModelFunc_spiders
+		loadModelBlocks[Int(PM_GIANT_SPIDER+NetHackGlyphMonsterOffset)] =	loadModelFunc_spiders
+		loadModelBlocks[Int(PM_SCORPION+NetHackGlyphMonsterOffset)] =		loadModelFunc_spiders
 		
 		// trapper
-		loadModelBlocks[Int(PM_LURKER_ABOVE+GLYPH_MON_OFF)] =	loadModelFunc_trapper
-		loadModelBlocks[Int(PM_TRAPPER+GLYPH_MON_OFF)] =		loadModelFunc_trapper
+		loadModelBlocks[Int(PM_LURKER_ABOVE+NetHackGlyphMonsterOffset)] =	loadModelFunc_trapper
+		loadModelBlocks[Int(PM_TRAPPER+NetHackGlyphMonsterOffset)] =		loadModelFunc_trapper
 		
 		// unicorns and horses
-		for i in Int(PM_PONY+GLYPH_MON_OFF)...Int(PM_WARHORSE+GLYPH_MON_OFF) {
+		for i in Int(PM_PONY+NetHackGlyphMonsterOffset)...Int(PM_WARHORSE+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_unicorns
 		}
 		
 		// vortices
-		for i in Int(PM_FOG_CLOUD+GLYPH_MON_OFF)...Int(PM_FIRE_VORTEX+GLYPH_MON_OFF) {
+		for i in Int(PM_FOG_CLOUD+NetHackGlyphMonsterOffset)...Int(PM_FIRE_VORTEX+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_vortices
 		}
 		
 		// worms
-		loadModelBlocks[Int(PM_BABY_LONG_WORM+GLYPH_MON_OFF)] =		loadModelFunc_worms
-		loadModelBlocks[Int(PM_BABY_PURPLE_WORM+GLYPH_MON_OFF)] =	loadModelFunc_worms
-		loadModelBlocks[Int(PM_LONG_WORM+GLYPH_MON_OFF)] =			loadModelFunc_worms
-		loadModelBlocks[Int(PM_PURPLE_WORM+GLYPH_MON_OFF)] =		loadModelFunc_worms
+		loadModelBlocks[Int(PM_BABY_LONG_WORM+NetHackGlyphMonsterOffset)] =		loadModelFunc_worms
+		loadModelBlocks[Int(PM_BABY_PURPLE_WORM+NetHackGlyphMonsterOffset)] =	loadModelFunc_worms
+		loadModelBlocks[Int(PM_LONG_WORM+NetHackGlyphMonsterOffset)] =			loadModelFunc_worms
+		loadModelBlocks[Int(PM_PURPLE_WORM+NetHackGlyphMonsterOffset)] =		loadModelFunc_worms
 		
 		// xan
-		loadModelBlocks[Int(PM_GRID_BUG+GLYPH_MON_OFF)] =	loadModelFunc_xan
-		loadModelBlocks[Int(PM_XAN+GLYPH_MON_OFF)] =		loadModelFunc_xan
+		loadModelBlocks[Int(PM_GRID_BUG+NetHackGlyphMonsterOffset)] =	loadModelFunc_xan
+		loadModelBlocks[Int(PM_XAN+NetHackGlyphMonsterOffset)] =		loadModelFunc_xan
 		
 		// lights
-		loadModelBlocks[Int(PM_YELLOW_LIGHT+GLYPH_MON_OFF)] =	loadModelFunc_lights
-		loadModelBlocks[Int(PM_BLACK_LIGHT+GLYPH_MON_OFF)] =	loadModelFunc_lights
+		loadModelBlocks[Int(PM_YELLOW_LIGHT+NetHackGlyphMonsterOffset)] =	loadModelFunc_lights
+		loadModelBlocks[Int(PM_BLACK_LIGHT+NetHackGlyphMonsterOffset)] =	loadModelFunc_lights
 		
 		// zruty
-		loadModelBlocks[Int(PM_ZRUTY+GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_ZRUTY+NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile: "lowerZ", withTexture: false)
 		}
 		
 		// Angels
-		for i in Int(PM_COUATL+GLYPH_MON_OFF)...Int(PM_ARCHON+GLYPH_MON_OFF) {
+		for i in Int(PM_COUATL+NetHackGlyphMonsterOffset)...Int(PM_ARCHON+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Angels
 		}
 		
 		// Bats
-		loadModelBlocks[Int(PM_BAT+GLYPH_MON_OFF)] =			loadModelFunc_Bats
-		loadModelBlocks[Int(PM_GIANT_BAT+GLYPH_MON_OFF)] =		loadModelFunc_Bats
-		loadModelBlocks[Int(PM_RAVEN+GLYPH_MON_OFF)] =			loadModelFunc_Bats
-		loadModelBlocks[Int(PM_VAMPIRE_BAT+GLYPH_MON_OFF)] =	loadModelFunc_Bats
+		loadModelBlocks[Int(PM_BAT+NetHackGlyphMonsterOffset)] =			loadModelFunc_Bats
+		loadModelBlocks[Int(PM_GIANT_BAT+NetHackGlyphMonsterOffset)] =		loadModelFunc_Bats
+		loadModelBlocks[Int(PM_RAVEN+NetHackGlyphMonsterOffset)] =			loadModelFunc_Bats
+		loadModelBlocks[Int(PM_VAMPIRE_BAT+NetHackGlyphMonsterOffset)] =	loadModelFunc_Bats
 		
 		// Centaurs
-		loadModelBlocks[Int(PM_PLAINS_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
-		loadModelBlocks[Int(PM_FOREST_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
-		loadModelBlocks[Int(PM_MOUNTAIN_CENTAUR+GLYPH_MON_OFF)] = loadModelFunc_Centaurs
+		loadModelBlocks[Int(PM_PLAINS_CENTAUR+NetHackGlyphMonsterOffset)] = loadModelFunc_Centaurs
+		loadModelBlocks[Int(PM_FOREST_CENTAUR+NetHackGlyphMonsterOffset)] = loadModelFunc_Centaurs
+		loadModelBlocks[Int(PM_MOUNTAIN_CENTAUR+NetHackGlyphMonsterOffset)] = loadModelFunc_Centaurs
 		
 		// Dragons
-		for i in Int(PM_BABY_GRAY_DRAGON+GLYPH_MON_OFF)...Int(PM_YELLOW_DRAGON+GLYPH_MON_OFF) {
+		for i in Int(PM_BABY_GRAY_DRAGON+NetHackGlyphMonsterOffset)...Int(PM_YELLOW_DRAGON+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Dragons
 		}
 		
 		// Elementals
-		for i in Int(PM_STALKER+GLYPH_MON_OFF)...Int(PM_WATER_ELEMENTAL+GLYPH_MON_OFF) {
+		for i in Int(PM_STALKER+NetHackGlyphMonsterOffset)...Int(PM_WATER_ELEMENTAL+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Elementals
 		}
 		
 		// Fungi
-		for i in Int(PM_LICHEN+GLYPH_MON_OFF)...Int(PM_VIOLET_FUNGUS+GLYPH_MON_OFF) {
+		for i in Int(PM_LICHEN+NetHackGlyphMonsterOffset)...Int(PM_VIOLET_FUNGUS+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Fungi
 		}
 		
 		// Gnomes
-		loadModelBlocks[Int(PM_GNOME+GLYPH_MON_OFF)] =			loadModelFunc_Gnomes
-		loadModelBlocks[Int(PM_GNOME_LORD+GLYPH_MON_OFF)] =		loadModelFunc_Gnomes
-		loadModelBlocks[Int(PM_GNOMISH_WIZARD+GLYPH_MON_OFF)] =	loadModelFunc_Gnomes
-		loadModelBlocks[Int(PM_GNOME_KING+GLYPH_MON_OFF)] =		loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME+NetHackGlyphMonsterOffset)] =			loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME_LORD+NetHackGlyphMonsterOffset)] =		loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOMISH_WIZARD+NetHackGlyphMonsterOffset)] =	loadModelFunc_Gnomes
+		loadModelBlocks[Int(PM_GNOME_KING+NetHackGlyphMonsterOffset)] =		loadModelFunc_Gnomes
 		
 		// Giant Humanoids
-		for i in Int(PM_GIANT+GLYPH_MON_OFF)...Int(PM_MINOTAUR+GLYPH_MON_OFF) {
+		for i in Int(PM_GIANT+NetHackGlyphMonsterOffset)...Int(PM_MINOTAUR+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_giantHumanoids
 		}
 		
 		// Jabberwock
-		loadModelBlocks[Int(PM_JABBERWOCK + GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_JABBERWOCK + NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile: "upperJ", withTexture: false)
 		}
 		
 		// Kops
-		loadModelBlocks[Int(PM_KEYSTONE_KOP + GLYPH_MON_OFF)] =		loadModelFunc_Kops
-		loadModelBlocks[Int(PM_KOP_SERGEANT + GLYPH_MON_OFF)] =		loadModelFunc_Kops
-		loadModelBlocks[Int(PM_KOP_LIEUTENANT + GLYPH_MON_OFF)] =	loadModelFunc_Kops
-		loadModelBlocks[Int(PM_KOP_KAPTAIN + GLYPH_MON_OFF)] =		loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KEYSTONE_KOP + NetHackGlyphMonsterOffset)] =		loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_SERGEANT + NetHackGlyphMonsterOffset)] =		loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_LIEUTENANT + NetHackGlyphMonsterOffset)] =	loadModelFunc_Kops
+		loadModelBlocks[Int(PM_KOP_KAPTAIN + NetHackGlyphMonsterOffset)] =		loadModelFunc_Kops
 		
 		// Liches
-		loadModelBlocks[Int(PM_LICH + GLYPH_MON_OFF)] =			loadModelFunc_Liches
-		loadModelBlocks[Int(PM_DEMILICH + GLYPH_MON_OFF)] =		loadModelFunc_Liches
-		loadModelBlocks[Int(PM_MASTER_LICH + GLYPH_MON_OFF)] =	loadModelFunc_Liches
-		loadModelBlocks[Int(PM_ARCH_LICH + GLYPH_MON_OFF)] =	loadModelFunc_Liches
+		loadModelBlocks[Int(PM_LICH + NetHackGlyphMonsterOffset)] =			loadModelFunc_Liches
+		loadModelBlocks[Int(PM_DEMILICH + NetHackGlyphMonsterOffset)] =		loadModelFunc_Liches
+		loadModelBlocks[Int(PM_MASTER_LICH + NetHackGlyphMonsterOffset)] =	loadModelFunc_Liches
+		loadModelBlocks[Int(PM_ARCH_LICH + NetHackGlyphMonsterOffset)] =	loadModelFunc_Liches
 		
 		// Mummies
-		for i in Int(PM_KOBOLD_MUMMY+GLYPH_MON_OFF)...Int(PM_GIANT_MUMMY+GLYPH_MON_OFF) {
+		for i in Int(PM_KOBOLD_MUMMY+NetHackGlyphMonsterOffset)...Int(PM_GIANT_MUMMY+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Mummies
 		}
 		
 		// Nagas
-		for i in Int(PM_RED_NAGA_HATCHLING+GLYPH_MON_OFF)...Int(PM_GUARDIAN_NAGA+GLYPH_MON_OFF) {
+		for i in Int(PM_RED_NAGA_HATCHLING+NetHackGlyphMonsterOffset)...Int(PM_GUARDIAN_NAGA+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Nagas
 		}
 		
 		// Ogres
-		loadModelBlocks[Int(PM_OGRE + GLYPH_MON_OFF)] =			loadModelFunc_Ogres
-		loadModelBlocks[Int(PM_OGRE_LORD + GLYPH_MON_OFF)] =	loadModelFunc_Ogres
-		loadModelBlocks[Int(PM_OGRE_KING + GLYPH_MON_OFF)] =	loadModelFunc_Ogres
+		loadModelBlocks[Int(PM_OGRE + NetHackGlyphMonsterOffset)] =			loadModelFunc_Ogres
+		loadModelBlocks[Int(PM_OGRE_LORD + NetHackGlyphMonsterOffset)] =	loadModelFunc_Ogres
+		loadModelBlocks[Int(PM_OGRE_KING + NetHackGlyphMonsterOffset)] =	loadModelFunc_Ogres
 		
 		// Puddings
-		loadModelBlocks[Int(PM_GRAY_OOZE + GLYPH_MON_OFF)] =		loadModelFunc_Puddings
-		loadModelBlocks[Int(PM_BROWN_PUDDING + GLYPH_MON_OFF)] =	loadModelFunc_Puddings
-		loadModelBlocks[Int(PM_BLACK_PUDDING + GLYPH_MON_OFF)] =	loadModelFunc_Puddings
-		loadModelBlocks[Int(PM_GREEN_SLIME + GLYPH_MON_OFF)] =		loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_GRAY_OOZE + NetHackGlyphMonsterOffset)] =		loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_BROWN_PUDDING + NetHackGlyphMonsterOffset)] =	loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_BLACK_PUDDING + NetHackGlyphMonsterOffset)] =	loadModelFunc_Puddings
+		loadModelBlocks[Int(PM_GREEN_SLIME + NetHackGlyphMonsterOffset)] =		loadModelFunc_Puddings
 		
 		// Quantum mechanics
-		loadModelBlocks[Int(PM_QUANTUM_MECHANIC + GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_QUANTUM_MECHANIC + NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile: "upperQ", withTexture: false)
 		}
 		
 		// Rust monster or disenchanter
-		loadModelBlocks[Int(PM_RUST_MONSTER + GLYPH_MON_OFF)] = loadModelFunc_Rustmonster
-		loadModelBlocks[Int(PM_DISENCHANTER + GLYPH_MON_OFF)] = loadModelFunc_Rustmonster
+		loadModelBlocks[Int(PM_RUST_MONSTER + NetHackGlyphMonsterOffset)] = loadModelFunc_Rustmonster
+		loadModelBlocks[Int(PM_DISENCHANTER + NetHackGlyphMonsterOffset)] = loadModelFunc_Rustmonster
 		
 		// Snakes
-		for i in Int(PM_GARTER_SNAKE + GLYPH_MON_OFF)...Int(PM_COBRA + GLYPH_MON_OFF) {
+		for i in Int(PM_GARTER_SNAKE + NetHackGlyphMonsterOffset)...Int(PM_COBRA + NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Snakes
 		}
 		
 		// Trolls
-		for i in Int(PM_TROLL + GLYPH_MON_OFF)...Int(PM_OLOG_HAI + GLYPH_MON_OFF) {
+		for i in Int(PM_TROLL + NetHackGlyphMonsterOffset)...Int(PM_OLOG_HAI + NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Trolls
 		}
 		
 		// Umber hulk
-		loadModelBlocks[Int(PM_UMBER_HULK + GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_UMBER_HULK + NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile:"upperU", withTexture:false)
 		}
 		
 		// Vampires
-		loadModelBlocks[Int(PM_VAMPIRE + GLYPH_MON_OFF)] =			loadModelFunc_Vampires
-		loadModelBlocks[Int(PM_VAMPIRE_LORD + GLYPH_MON_OFF)] =		loadModelFunc_Vampires
-		loadModelBlocks[Int(PM_VLAD_THE_IMPALER + GLYPH_MON_OFF)] =	loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VAMPIRE + NetHackGlyphMonsterOffset)] =			loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VAMPIRE_LORD + NetHackGlyphMonsterOffset)] =		loadModelFunc_Vampires
+		loadModelBlocks[Int(PM_VLAD_THE_IMPALER + NetHackGlyphMonsterOffset)] =	loadModelFunc_Vampires
 		
 		// Wraiths
-		loadModelBlocks[Int(PM_BARROW_WIGHT + GLYPH_MON_OFF)] = loadModelFunc_Wraiths
-		loadModelBlocks[Int(PM_WRAITH + GLYPH_MON_OFF)] = loadModelFunc_Wraiths
-		loadModelBlocks[Int(PM_NAZGUL + GLYPH_MON_OFF)] = loadModelFunc_Wraiths
+		loadModelBlocks[Int(PM_BARROW_WIGHT + NetHackGlyphMonsterOffset)] = loadModelFunc_Wraiths
+		loadModelBlocks[Int(PM_WRAITH + NetHackGlyphMonsterOffset)] = loadModelFunc_Wraiths
+		loadModelBlocks[Int(PM_NAZGUL + NetHackGlyphMonsterOffset)] = loadModelFunc_Wraiths
 		
 		// Xorn
-		loadModelBlocks[Int(PM_XORN + GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_XORN + NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile:"upperX", withTexture:false)
 		}
 		
 		// Yeti and other large beasts
-		for i in Int(PM_MONKEY + GLYPH_MON_OFF)...Int(PM_SASQUATCH + GLYPH_MON_OFF) {
+		for i in Int(PM_MONKEY + NetHackGlyphMonsterOffset)...Int(PM_SASQUATCH + NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Yeti
 		}
 		
 		// Zombies
-		for i in Int(PM_KOBOLD_ZOMBIE + GLYPH_MON_OFF)...Int(PM_SKELETON + GLYPH_MON_OFF) {
+		for i in Int(PM_KOBOLD_ZOMBIE + NetHackGlyphMonsterOffset)...Int(PM_SKELETON + NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Zombie
 		}
 		
 		// Golems
-		for i in Int(PM_STRAW_GOLEM + GLYPH_MON_OFF)...Int(PM_IRON_GOLEM + GLYPH_MON_OFF) {
+		for i in Int(PM_STRAW_GOLEM + NetHackGlyphMonsterOffset)...Int(PM_IRON_GOLEM + NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Golems
 		}
 		
 		// Human or Elves
-		for i in Int(PM_HUMAN+GLYPH_MON_OFF)...Int(PM_CROESUS+GLYPH_MON_OFF) {
+		for i in Int(PM_HUMAN+NetHackGlyphMonsterOffset)...Int(PM_CROESUS+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_HumanOrElves
 		}
 		
 		// Ghosts
-		loadModelBlocks[Int(PM_GHOST + GLYPH_MON_OFF)] = loadModelFunc_Ghosts
-		loadModelBlocks[Int(PM_SHADE + GLYPH_MON_OFF)] = loadModelFunc_Ghosts
+		loadModelBlocks[Int(PM_GHOST + NetHackGlyphMonsterOffset)] = loadModelFunc_Ghosts
+		loadModelBlocks[Int(PM_SHADE + NetHackGlyphMonsterOffset)] = loadModelFunc_Ghosts
 		
 		// Major Demons
-		for i in Int(PM_WATER_DEMON+GLYPH_MON_OFF)...Int(PM_BALROG+GLYPH_MON_OFF) {
+		for i in Int(PM_WATER_DEMON+NetHackGlyphMonsterOffset)...Int(PM_BALROG+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_MajorDamons
 		}
 		
 		// Greater Demons
-		for i in Int(PM_JUIBLEX+GLYPH_MON_OFF)...Int(PM_DEMOGORGON+GLYPH_MON_OFF) {
+		for i in Int(PM_JUIBLEX+NetHackGlyphMonsterOffset)...Int(PM_DEMOGORGON+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_GraterDamons
 		}
 		
 		// "The Riders"
-		loadModelBlocks[Int(PM_DEATH + GLYPH_MON_OFF)] =		loadModelFunc_Riders
-		loadModelBlocks[Int(PM_PESTILENCE + GLYPH_MON_OFF)] =	loadModelFunc_Riders
-		loadModelBlocks[Int(PM_FAMINE + GLYPH_MON_OFF)] =		loadModelFunc_Riders
+		loadModelBlocks[Int(PM_DEATH + NetHackGlyphMonsterOffset)] =		loadModelFunc_Riders
+		loadModelBlocks[Int(PM_PESTILENCE + NetHackGlyphMonsterOffset)] =	loadModelFunc_Riders
+		loadModelBlocks[Int(PM_FAMINE + NetHackGlyphMonsterOffset)] =		loadModelFunc_Riders
 		
 		// sea monsters
-		for i in Int(PM_JELLYFISH+GLYPH_MON_OFF)...Int(PM_KRAKEN+GLYPH_MON_OFF) {
+		for i in Int(PM_JELLYFISH+NetHackGlyphMonsterOffset)...Int(PM_KRAKEN+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_seamonsters
 		}
 		
 		// lizards
-		for i in Int(PM_NEWT+GLYPH_MON_OFF)...Int(PM_SALAMANDER+GLYPH_MON_OFF) {
+		for i in Int(PM_NEWT+NetHackGlyphMonsterOffset)...Int(PM_SALAMANDER+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_lizards
 		}
 		
 		// wormtail
-		loadModelBlocks[Int(PM_LONG_WORM_TAIL + GLYPH_MON_OFF)] = { _ in
+		loadModelBlocks[Int(PM_LONG_WORM_TAIL + NetHackGlyphMonsterOffset)] = { _ in
 			return NH3DModelObject(with3DSFile: "wormtail", withTexture: false)
 		}
 		
 		// Adventures
-		for i in Int(PM_ARCHEOLOGIST+GLYPH_MON_OFF)...Int(PM_WIZARD+GLYPH_MON_OFF) {
+		for i in Int(PM_ARCHEOLOGIST+NetHackGlyphMonsterOffset)...Int(PM_WIZARD+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Adventures
 		}
 		
 		// Unique person
-		for i in Int(PM_LORD_CARNARVON+GLYPH_MON_OFF)...Int(PM_APPRENTICE+GLYPH_MON_OFF) {
+		for i in Int(PM_LORD_CARNARVON+NetHackGlyphMonsterOffset)...Int(PM_APPRENTICE+NetHackGlyphMonsterOffset) {
 			loadModelBlocks[i] = loadModelFunc_Uniqueperson
 		}
 		
