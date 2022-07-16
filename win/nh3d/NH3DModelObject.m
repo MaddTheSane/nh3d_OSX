@@ -1010,26 +1010,6 @@ static const NH3DMaterial defaultMat = {
 	particleSize = value;
 }
 
-- (void)setModelShiftX:(GLfloat)sx shiftY:(GLfloat)sy shiftZ:(GLfloat)sz
-{
-	self.modelShift = simd_make_float3(sx, sy, sz);
-}
-
-- (void)setModelScaleX:(GLfloat)scx scaleY:(GLfloat)scy scaleZ:(GLfloat)scz
-{
-	self.modelScale = simd_make_float3(scx, scy, scz);
-}
-
-- (void)setModelRotateX:(GLfloat)rx rotateY:(GLfloat)ry rotateZ:(GLfloat)rz
-{
-	self.modelRotate = simd_make_float3(rx, ry, rz);
-}
-
-- (void)setPivotX:(GLfloat)px atY:(GLfloat)py atZ:(GLfloat)pz
-{
-	self.modelPivot = simd_make_float3(px, py, pz);
-}
-
 - (NH3DModelObject *)childObjectAtIndex:(NSInteger)index;
 {
 	return childObjects[index];
