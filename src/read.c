@@ -2511,7 +2511,7 @@ create_particular_creation(struct _create_particular_data *d)
             /* otherwise try again */
             continue;
         }
-        mx = mtmp->mx, my = mtmp->my;
+        mx = mtmp->mx; my = mtmp->my;
         /* 'is_FOO()' ought to be called 'always_FOO()' */
         if (d->fem != -1 && !is_male(mtmp->data) && !is_female(mtmp->data))
             mtmp->female = d->fem; /* ignored for is_neuter() */

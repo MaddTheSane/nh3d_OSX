@@ -1310,19 +1310,25 @@ freedynamicdata()
     free_dungeons();
 
     /* some pointers in iflags */
-    if (iflags.wc_font_map)
-        free((genericptr_t) iflags.wc_font_map), iflags.wc_font_map = 0;
-    if (iflags.wc_font_message)
-        free((genericptr_t) iflags.wc_font_message),
+    if (iflags.wc_font_map) {
+        free((genericptr_t) iflags.wc_font_map); iflags.wc_font_map = 0;
+    }
+    if (iflags.wc_font_message) {
+        free((genericptr_t) iflags.wc_font_message);
         iflags.wc_font_message = 0;
-    if (iflags.wc_font_text)
-        free((genericptr_t) iflags.wc_font_text), iflags.wc_font_text = 0;
-    if (iflags.wc_font_menu)
-        free((genericptr_t) iflags.wc_font_menu), iflags.wc_font_menu = 0;
-    if (iflags.wc_font_status)
-        free((genericptr_t) iflags.wc_font_status), iflags.wc_font_status = 0;
-    if (iflags.wc_tile_file)
-        free((genericptr_t) iflags.wc_tile_file), iflags.wc_tile_file = 0;
+    }
+    if (iflags.wc_font_text) {
+        free((genericptr_t) iflags.wc_font_text); iflags.wc_font_text = 0;
+    }
+    if (iflags.wc_font_menu) {
+        free((genericptr_t) iflags.wc_font_menu); iflags.wc_font_menu = 0;
+    }
+    if (iflags.wc_font_status) {
+        free((genericptr_t) iflags.wc_font_status); iflags.wc_font_status = 0;
+    }
+    if (iflags.wc_tile_file) {
+        free((genericptr_t) iflags.wc_tile_file); iflags.wc_tile_file = 0;
+    }
     free_autopickup_exceptions();
 
     /* miscellaneous */

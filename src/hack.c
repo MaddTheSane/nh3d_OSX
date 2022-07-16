@@ -1801,9 +1801,10 @@ domove_core()
                     && !(verysmall(mtmp->data)
                          && (!mtmp->minvent || (curr_mon_load(mtmp) <= 600)))) {
             /* can't swap places when pet won't fit there with the boulder */
-            u.ux = u.ux0, u.uy = u.uy0; /* didn't move after all */
-            if (u.usteed)
-                u.usteed->mx = u.ux, u.usteed->my = u.uy;
+            u.ux = u.ux0; u.uy = u.uy0; /* didn't move after all */
+            if (u.usteed) {
+                u.usteed->mx = u.ux; u.usteed->my = u.uy;
+            }
             You("stop.  %s won't fit into the same spot that you're at.",
                  upstart(y_monnam(mtmp)));
         } else if (u.ux0 != x && u.uy0 != y && bad_rock(mtmp->data, x, u.uy0)

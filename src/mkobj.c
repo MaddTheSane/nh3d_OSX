@@ -2810,12 +2810,14 @@ obj_meld(struct obj **obj1, struct obj **obj2)
             if (!(otmp2->where == OBJ_FLOOR && otmp1->where == OBJ_FREE)
                 && (otmp1->owt > otmp2->owt
                     || (otmp1->owt == otmp2->owt && rn2(2)))) {
-                if (otmp2->where == OBJ_FLOOR)
-                    ox = otmp2->ox, oy = otmp2->oy;
+                if (otmp2->where == OBJ_FLOOR) {
+                    ox = otmp2->ox; oy = otmp2->oy;
+                }
                 result = obj_absorb(obj1, obj2);
             } else {
-                if (otmp1->where == OBJ_FLOOR)
-                    ox = otmp1->ox, oy = otmp1->oy;
+                if (otmp1->where == OBJ_FLOOR) {
+                    ox = otmp1->ox; oy = otmp1->oy;
+                }
                 result = obj_absorb(obj2, obj1);
             }
             /* callers really ought to take care of this; glob melding is

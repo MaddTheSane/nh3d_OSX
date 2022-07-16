@@ -190,7 +190,7 @@ enexto_core(coord *cc, xchar xx, xchar yy, struct permonst *mdat, unsigned entfl
     if (good_ptr == good) {
         /* 3.6.3: earlier versions didn't have the option to try <xx,yy>,
            and left 'cc' uninitialized when returning False */
-        cc->x = xx, cc->y = yy;
+        cc->x = xx; cc->y = yy;
         /* if every spot other than <xx,yy> has failed, try <xx,yy> itself */
         if (allow_xx_yy && goodpos(xx, yy, &fakemon, entflags)) {
             return TRUE; /* 'cc' is set */

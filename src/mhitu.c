@@ -1856,10 +1856,12 @@ gulpmu(struct monst *mtmp, struct attack *mattk)
     if (Punished) {
         /* ball&chain are in limbo while swallowed; update their internal
            location to be at swallower's spot */
-        if (uchain->where == OBJ_FREE)
-            uchain->ox = mtmp->mx, uchain->oy = mtmp->my;
-        if (uball->where == OBJ_FREE)
-            uball->ox = mtmp->mx, uball->oy = mtmp->my;
+        if (uchain->where == OBJ_FREE) {
+            uchain->ox = mtmp->mx; uchain->oy = mtmp->my;
+        }
+        if (uball->where == OBJ_FREE) {
+            uball->ox = mtmp->mx; uball->oy = mtmp->my;
+        }
     }
     if (u.uswldtim > 0)
         u.uswldtim -= 1;

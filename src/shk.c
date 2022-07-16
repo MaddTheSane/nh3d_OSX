@@ -4702,7 +4702,7 @@ globby_bill_fixup(struct obj *obj_absorber, struct obj *obj_absorbed)
         impossible("globby_bill_fixup called for non-globby object");
 
     if (floor_absorber) {
-        x = obj_absorber->ox, y = obj_absorber->oy;
+        x = obj_absorber->ox; y = obj_absorber->oy;
     }
     if (obj_absorber->unpaid) {
         /* look for a shopkeeper who owns this object */

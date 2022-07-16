@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,10 +16,10 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" visibleAtLaunch="NO" frameAutosaveName="NH3DPrefPanePos" animationBehavior="default" id="5" userLabel="PreferencePanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES"/>
             <rect key="contentRect" x="55" y="638" width="518" height="321"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="518" height="321"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <tabView initialItem="8" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                         <rect key="frame" x="-11" y="-10" width="540" height="337"/>
@@ -31,13 +31,13 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <box title="Map settings" translatesAutoresizingMaskIntoConstraints="NO" id="19">
-                                            <rect key="frame" x="12" y="160" width="244" height="131"/>
+                                            <rect key="frame" x="12" y="162" width="244" height="129"/>
                                             <view key="contentView" id="Vfg-Zd-24E">
-                                                <rect key="frame" x="3" y="3" width="238" height="113"/>
+                                                <rect key="frame" x="3" y="3" width="238" height="111"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13">
-                                                        <rect key="frame" x="12" y="37" width="218" height="40"/>
+                                                        <rect key="frame" x="12" y="36" width="218" height="40"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                         <size key="cellSize" width="218" height="18"/>
                                                         <size key="intercellSpacing" width="4" height="4"/>
@@ -73,9 +73,9 @@
                                             </view>
                                         </box>
                                         <box title="OpenGL Settings" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                            <rect key="frame" x="12" y="7" width="244" height="147"/>
+                                            <rect key="frame" x="12" y="7" width="244" height="149"/>
                                             <view key="contentView" id="xcE-A4-VyZ">
-                                                <rect key="frame" x="3" y="3" width="238" height="129"/>
+                                                <rect key="frame" x="3" y="3" width="238" height="131"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <box title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="30">
@@ -93,7 +93,7 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="24">
-                                                                    <rect key="frame" x="34" y="19" width="124" height="15"/>
+                                                                    <rect key="frame" x="32" y="17" width="128" height="17"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="124" id="IEn-VC-Rvl"/>
                                                                     </constraints>
@@ -106,7 +106,7 @@
                                                                     </connections>
                                                                 </slider>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="26">
-                                                                    <rect key="frame" x="26" y="39" width="140" height="18"/>
+                                                                    <rect key="frame" x="26" y="39" width="139" height="16"/>
                                                                     <buttonCell key="cell" type="check" title="Enable Framerate limit" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="280">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                         <font key="font" metaFont="smallSystem"/>
@@ -149,7 +149,7 @@
                                                         </cells>
                                                     </matrix>
                                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="262">
-                                                        <rect key="frame" x="10" y="103" width="210" height="18"/>
+                                                        <rect key="frame" x="12" y="105" width="206" height="16"/>
                                                         <buttonCell key="cell" type="check" title="Use tiled graphics for Alt. Objects" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="281">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="smallSystem"/>

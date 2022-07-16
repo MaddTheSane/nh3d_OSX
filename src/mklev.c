@@ -1618,7 +1618,7 @@ mkgrave(struct mkroom *croom)
 
         gold->quan = (long) (rnd(20) + level_difficulty() * rnd(5));
         gold->owt = weight(gold);
-        gold->ox = m.x, gold->oy = m.y;
+        gold->ox = m.x; gold->oy = m.y;
         add_to_buried(gold);
     }
     for (tryct = rn2(5); tryct; tryct--) {

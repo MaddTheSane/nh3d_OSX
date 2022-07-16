@@ -1097,7 +1097,7 @@ do_mname()
     if (getpos(&cc, FALSE, "the monster you want to name") < 0
         || !isok(cc.x, cc.y))
         return;
-    cx = cc.x, cy = cc.y;
+    cx = cc.x; cy = cc.y;
 
     if (cx == u.ux && cy == u.uy) {
         if (u.usteed && canspotmon(u.usteed)) {

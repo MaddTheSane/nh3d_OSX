@@ -3146,8 +3146,9 @@ parse_conf_file(FILE *fp, boolean (*proc)(char *))
                         continue;
                     }
                     bufp++;
-                    if (config_section_chosen)
-                        free(config_section_chosen), config_section_chosen = 0;
+                    if (config_section_chosen) {
+                        free(config_section_chosen); config_section_chosen = 0;
+                    }
                     section = choose_random_part(bufp, ',');
                     if (section) {
                         config_section_chosen = dupstr(section);

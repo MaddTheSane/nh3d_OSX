@@ -1021,20 +1021,21 @@ done_object_cleanup()
      * not being knocked down holes, but it seems better to get this
      * game over with than risk being tangled up in more and more details.
      */
-    ox = u.ux + u.dx, oy = u.uy + u.dy;
-    if (!isok(ox, oy) || !accessible(ox, oy))
-        ox = u.ux, oy = u.uy;
+    ox = u.ux + u.dx; oy = u.uy + u.dy;
+    if (!isok(ox, oy) || !accessible(ox, oy)) {
+        ox = u.ux; oy = u.uy;
+    }
     /* put thrown or kicked object on map (for bones); location might
        be incorrect (perhaps killed by divine lightning when throwing at
        a temple priest?) but this should be better than just vanishing
        (fragile stuff should be taken care of before getting here) */
     if (thrownobj && thrownobj->where == OBJ_FREE) {
         place_object(thrownobj, ox, oy);
-        stackobj(thrownobj), thrownobj = 0;
+        stackobj(thrownobj); thrownobj = 0;
     }
     if (kickedobj && kickedobj->where == OBJ_FREE) {
         place_object(kickedobj, ox, oy);
-        stackobj(kickedobj), kickedobj = 0;
+        stackobj(kickedobj); kickedobj = 0;
     }
     /* if Punished hero dies during level change or dies or quits while
        swallowed, uball and uchain will be in limbo; put them on floor

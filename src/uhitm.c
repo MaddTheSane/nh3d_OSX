@@ -1550,8 +1550,9 @@ steal_it(struct monst *mdef, struct attack *mattk)
         obj_extract_self(gold);
 
     while ((otmp = mdef->minvent) != 0) {
-        if (gold) /* put 'mdef's gold back after remembering mdef->minvent */
-            mpickobj(mdef, gold), gold = 0;
+        if (gold) { /* put 'mdef's gold back after remembering mdef->minvent */
+            mpickobj(mdef, gold); gold = 0;
+        }
         if (!Upolyd)
             break; /* no longer have ability to steal */
         /* take the object away from the monster */
