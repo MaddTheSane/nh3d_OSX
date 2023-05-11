@@ -522,7 +522,7 @@ regen_hp(int wtcap)
 }
 
 void
-stop_occupation()
+stop_occupation(void)
 {
     if (occupation) {
         if (!maybe_finished_meal(TRUE))
@@ -537,7 +537,7 @@ stop_occupation()
 }
 
 void
-display_gamewindows()
+display_gamewindows(void)
 {
     WIN_MESSAGE = create_nhwindow(NHW_MESSAGE);
     if (VIA_WINDOWPORT()) {
@@ -576,7 +576,7 @@ display_gamewindows()
 }
 
 void
-newgame()
+newgame(void)
 {
     int i;
 

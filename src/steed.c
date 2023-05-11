@@ -14,7 +14,7 @@ STATIC_DCL void maybewakesteed(struct monst *);
 
 /* caller has decided that hero can't reach something while mounted */
 void
-rider_cant_reach()
+rider_cant_reach(void)
 {
     You("aren't skilled enough to reach from %s.", y_monnam(u.usteed));
 }
@@ -139,9 +139,7 @@ use_saddle(struct obj *otmp)
 }
 
 void
-put_saddle_on_mon(saddle, mtmp)
-struct obj *saddle;
-struct monst *mtmp;
+put_saddle_on_mon(struct obj *saddle, struct monst *mtmp)
 {
     if (!can_saddle(mtmp) || which_armor(mtmp, W_SADDLE))
         return;
@@ -165,7 +163,7 @@ can_ride(struct monst *mtmp)
 }
 
 int
-doride()
+doride(void)
 {
     boolean forcemount = FALSE;
 
@@ -356,7 +354,7 @@ mount_steed(struct monst *mtmp, /* The animal */
 
 /* You and your steed have moved */
 void
-exercise_steed()
+exercise_steed(void)
 {
     if (!u.usteed)
         return;
@@ -371,7 +369,7 @@ exercise_steed()
 
 /* The player kicks or whips the steed */
 void
-kick_steed()
+kick_steed(void)
 {
     char He[4];
     if (!u.usteed)

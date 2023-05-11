@@ -997,7 +997,7 @@ newmonhp(struct monst *mon, int mndx)
 }
 
 struct mextra *
-newmextra()
+newmextra(void)
 {
     struct mextra *mextra;
 
@@ -1391,8 +1391,7 @@ makemon(register struct permonst *ptr, register int x, register int y, int mmfla
 }
 
 int
-mbirth_limit(mndx)
-int mndx;
+mbirth_limit(int mndx)
 {
     /* There is an implicit limit of 4 for "high priest of <deity>",
      * but aligned priests can grow into high priests, thus they aren't
@@ -1492,7 +1491,7 @@ static NEARDATA struct {
 
 /* select a random monster type */
 struct permonst *
-rndmonst()
+rndmonst(void)
 {
     register struct permonst *ptr;
     register int mndx, ct;

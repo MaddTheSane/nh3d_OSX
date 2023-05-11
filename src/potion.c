@@ -299,7 +299,7 @@ make_blinded(long xtime, boolean talk)
 /* blindness has just started or just ended--caller enforces that;
    called by Blindf_on(), Blindf_off(), and make_blinded() */
 void
-toggle_blindness()
+toggle_blindness(void)
 {
     boolean Stinging = (uwep && (EWarn_of_mon & W_WEP) != 0L);
 
@@ -427,7 +427,7 @@ make_glib(int xtime)
 }
 
 void
-self_invis_message()
+self_invis_message(void)
 {
     pline("%s %s.",
           Hallucination ? "Far out, man!  You"
@@ -437,7 +437,7 @@ self_invis_message()
 }
 
 STATIC_OVL void
-ghost_from_bottle()
+ghost_from_bottle(void)
 {
     struct monst *mtmp = makemon(&mons[PM_GHOST], u.ux, u.uy, NO_MM_FLAGS);
 
@@ -460,7 +460,7 @@ ghost_from_bottle()
 
 /* "Quaffing is like drinking, except you spill more." - Terry Pratchett */
 int
-dodrink()
+dodrink(void)
 {
     register struct obj *otmp;
     const char *potion_descr;
@@ -1184,7 +1184,7 @@ const char *bottlenames[] = { "bottle", "phial", "flagon", "carafe",
                               "flask",  "jar",   "vial" };
 
 const char *
-bottlename()
+bottlename(void)
 {
     return bottlenames[rn2(SIZE(bottlenames))];
 }
@@ -1846,7 +1846,7 @@ mixtype(register struct obj *o1, register struct obj *o2)
 
 /* #dip command */
 int
-dodip()
+dodip(void)
 {
     static const char Dip_[] = "Dip ";
     register struct obj *potion, *obj;

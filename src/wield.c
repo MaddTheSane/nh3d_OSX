@@ -251,7 +251,7 @@ static NEARDATA const char bullets[] = { /* (note: different from dothrow.c) */
 };
 
 int
-dowield()
+dowield(void)
 {
     register struct obj *wep, *oldwep;
     int result;
@@ -302,7 +302,7 @@ dowield()
 }
 
 int
-doswapweapon()
+doswapweapon(void)
 {
     register struct obj *oldwep, *oldswap;
     int result = 0;
@@ -345,7 +345,7 @@ doswapweapon()
 }
 
 int
-dowieldquiver()
+dowieldquiver(void)
 {
     char qbuf[QBUFSZ];
     struct obj *newquiver;
@@ -590,7 +590,7 @@ wield_tool(struct obj *obj,
 }
 
 int
-can_twoweapon()
+can_twoweapon(void)
 {
     struct obj *otmp;
 
@@ -630,7 +630,7 @@ can_twoweapon()
 }
 
 void
-drop_uswapwep()
+drop_uswapwep(void)
 {
     char str[BUFSZ];
     struct obj *obj = uswapwep;
@@ -642,7 +642,7 @@ drop_uswapwep()
 }
 
 int
-dotwoweapon()
+dotwoweapon(void)
 {
     /* You can always toggle it off */
     if (u.twoweap) {
@@ -670,7 +670,7 @@ dotwoweapon()
  * 2.  Making an item disappear for a bones pile.
  */
 void
-uwepgone()
+uwepgone(void)
 {
     if (uwep) {
         if (artifact_light(uwep) && uwep->lamplit) {
@@ -685,7 +685,7 @@ uwepgone()
 }
 
 void
-uswapwepgone()
+uswapwepgone(void)
 {
     if (uswapwep) {
         setworn((struct obj *) 0, W_SWAPWEP);
@@ -694,7 +694,7 @@ uswapwepgone()
 }
 
 void
-uqwepgone()
+uqwepgone(void)
 {
     if (uquiver) {
         setworn((struct obj *) 0, W_QUIVER);
@@ -703,7 +703,7 @@ uqwepgone()
 }
 
 void
-untwoweapon()
+untwoweapon(void)
 {
     if (u.twoweap) {
         You("can no longer use two weapons at once.");

@@ -2181,7 +2181,7 @@ static NEARDATA const char zap_syms[] = { WAND_CLASS, 0 };
 
 /* 'z' command (or 'y' if numbed_pad==-1) */
 int
-dozap()
+dozap(void)
 {
     register struct obj *obj;
     int damage;
@@ -2966,13 +2966,13 @@ zap_updown(struct obj *obj) /* wand or spell */
 
 /* used by do_break_wand() was well as by weffects() */
 void
-zapsetup()
+zapsetup(void)
 {
     obj_zapped = FALSE;
 }
 
 void
-zapwrapup()
+zapwrapup(void)
 {
     /* if do_osshock() set obj_zapped while polying, give a message now */
     if (obj_zapped)
@@ -5196,7 +5196,7 @@ wishcmdassist(int triesleft)
 }
 
 void
-makewish()
+makewish(void)
 {
     char buf[BUFSZ] = DUMMY;
     char promptbuf[BUFSZ];

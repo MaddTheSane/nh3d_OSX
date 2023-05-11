@@ -84,7 +84,7 @@ sanity_check_single_mon(struct monst *mtmp, boolean chk_geno, const char *msg)
 }
 
 void
-mon_sanity_check()
+mon_sanity_check(void)
 {
     int x, y;
     struct monst *mtmp, *m;
@@ -665,7 +665,7 @@ mcalcmove(struct monst *mon)
    individual monster's metabolism; some of these might need to
    be reclassified to occur more in proportion with movement rate */
 void
-mcalcdistress()
+mcalcdistress(void)
 {
     struct monst *mtmp;
 
@@ -706,7 +706,7 @@ mcalcdistress()
 }
 
 int
-movemon()
+movemon(void)
 {
     register struct monst *mtmp, *nmtmp;
     register boolean somebody_can_move = FALSE;
@@ -1582,7 +1582,7 @@ monnear(struct monst *mon, int x, int y)
 
 /* really free dead monsters */
 void
-dmonsfree()
+dmonsfree(void)
 {
     struct monst **mtmp, *freetmp;
     int count = 0;
@@ -2493,8 +2493,7 @@ mon_to_stone(struct monst *mtmp)
 }
 
 boolean
-vamp_stone(mtmp)
-struct monst *mtmp;
+vamp_stone(struct monst *mtmp)
 {
     if (is_vampshifter(mtmp)) {
         int mndx = mtmp->cham;
@@ -2983,7 +2982,7 @@ wakeup(register struct monst *mtmp, boolean via_attack)
 
 /* Wake up nearby monsters without angering them. */
 void
-wake_nearby()
+wake_nearby(void)
 {
     wake_nearto(u.ux, u.uy, u.ulevel * 20);
 }
@@ -3040,7 +3039,7 @@ seemimic(register struct monst *mtmp)
 
 /* force all chameleons to become normal */
 void
-rescham()
+rescham(void)
 {
     register struct monst *mtmp;
     int mcham;
@@ -3066,7 +3065,7 @@ rescham()
 
 /* Let the chameleons change again -dgk */
 void
-restartcham()
+restartcham(void)
 {
     register struct monst *mtmp;
 
@@ -3216,7 +3215,7 @@ mon_animal_list(boolean construct)
 }
 
 STATIC_OVL int
-pick_animal()
+pick_animal(void)
 {
     int res;
 
@@ -3903,7 +3902,7 @@ kill_eggs(struct obj *obj_list)
 
 /* kill all members of genocided species */
 void
-kill_genocided_monsters()
+kill_genocided_monsters(void)
 {
     struct monst *mtmp, *mtmp2;
     boolean kill_cham;
@@ -4021,7 +4020,7 @@ angry_guards(boolean silent)
 }
 
 void
-pacify_guards()
+pacify_guards(void)
 {
     struct monst *mtmp;
 

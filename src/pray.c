@@ -142,7 +142,7 @@ critically_low_hp(boolean only_if_injured) /* determines whether maxhp <= 5 matt
 /* return True if surrounded by impassible rock, regardless of the state
    of your own location (for example, inside a doorless closet) */
 boolean
-stuck_in_wall()
+stuck_in_wall(void)
 {
     int i, j, x, y, count = 0;
 
@@ -179,7 +179,7 @@ stuck_in_wall()
  * hands; that's a case where the ramifications override this doubt.
  */
 STATIC_OVL int
-in_trouble()
+in_trouble(void)
 {
     struct obj *otmp;
     int i;
@@ -269,7 +269,7 @@ in_trouble()
 
 /* select an item for TROUBLE_CURSED_ITEMS */
 STATIC_OVL struct obj *
-worst_cursed_item()
+worst_cursed_item(void)
 {
     register struct obj *otmp;
 
@@ -754,7 +754,7 @@ at_your_feet(const char *str)
 }
 
 STATIC_OVL void
-gcrownu()
+gcrownu(void)
 {
     struct obj *obj;
     boolean already_exists, in_hand;
@@ -1310,7 +1310,7 @@ consume_offering(register struct obj *otmp)
 }
 
 int
-dosacrifice()
+dosacrifice(void)
 {
     static NEARDATA const char cloud_of_smoke[] =
         "A cloud of %s smoke surrounds you...";
@@ -1826,7 +1826,7 @@ can_pray(boolean praying) /* false means no messages should be given */
 
 /* #pray commmand */
 int
-dopray()
+dopray(void)
 {
     /* Confirm accidental slips of Alt-P */
     if (ParanoidPray && yn("Are you sure you want to pray?") != 'y')
@@ -1866,7 +1866,7 @@ dopray()
 }
 
 STATIC_PTR int
-prayer_done() /* M. Stephenson (1.0.3b) */
+prayer_done(void) /* M. Stephenson (1.0.3b) */
 {
     aligntyp alignment = p_aligntyp;
 
@@ -1922,7 +1922,7 @@ prayer_done() /* M. Stephenson (1.0.3b) */
 
 /* #turn command */
 int
-doturn()
+doturn(void)
 {
     /* Knights & Priest(esse)s only please */
     struct monst *mtmp, *mtmp2;
@@ -2066,7 +2066,7 @@ doturn()
 }
 
 const char *
-a_gname()
+a_gname(void)
 {
     return a_gname_at(u.ux, u.uy);
 }
@@ -2083,7 +2083,7 @@ a_gname_at(xchar x, xchar y)
 
 /* returns the name of the hero's deity */
 const char *
-u_gname()
+u_gname(void)
 {
     return align_gname(u.ualign.type);
 }

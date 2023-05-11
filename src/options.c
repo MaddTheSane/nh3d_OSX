@@ -584,7 +584,7 @@ STATIC_DCL void wc_set_font_name(int, char *);
 STATIC_DCL int wc_set_window_colors(char *);
 
 void
-reglyph_darkroom()
+reglyph_darkroom(void)
 {
     xchar x, y;
 
@@ -659,7 +659,7 @@ nh_getenv(const char *ev)
 
 /* process options, possibly including SYSCF */
 void
-initoptions()
+initoptions(void)
 {
     initoptions_init();
 #ifdef SYSCF
@@ -685,7 +685,7 @@ initoptions()
 }
 
 void
-initoptions_init()
+initoptions_init(void)
 {
 #if (defined(UNIX) || defined(VMS)) && defined(TTY_GRAPHICS)
     char *opts;
@@ -834,7 +834,7 @@ initoptions_init()
 }
 
 void
-initoptions_finish()
+initoptions_finish(void)
 {
     nhsym sym = 0;
 #ifndef MAC
@@ -1579,7 +1579,7 @@ msgtype2name(int typ)
 }
 
 STATIC_OVL int
-query_msgtype()
+query_msgtype(void)
 {
     winid tmpwin;
     anything any;
@@ -1628,7 +1628,7 @@ msgtype_add(int typ, char *pattern)
 }
 
 void
-msgtype_free()
+msgtype_free(void)
 {
     struct plinemsg_type *tmp, *tmp2 = 0;
 
@@ -1851,7 +1851,7 @@ get_menu_coloring(const char *str, int *color, int *attr)
 }
 
 void
-free_menu_coloring()
+free_menu_coloring(void)
 {
     struct menucoloring *tmp, *tmp2;
 
@@ -4128,8 +4128,7 @@ parseoptions(register char *opts, boolean tinitial, boolean tfrom_file)
 
 /* parse key:command */
 boolean
-parsebindings(bindings)
-char* bindings;
+parsebindings(char* bindings)
 {
     char *bind;
     char key;
@@ -4436,7 +4435,7 @@ static struct other_opts {
 
 /* the 'O' command */
 int
-doset() /* changing options via menu by Per Liboriussen */
+doset(void) /* changing options via menu by Per Liboriussen */
 {
     static boolean made_fmtstr = FALSE;
     char buf[BUFSZ];
@@ -5901,7 +5900,7 @@ get_compopt_value(const char *optname, char *buf)
 }
 
 int
-dotogglepickup()
+dotogglepickup(void)
 {
     char buf[BUFSZ], ocl[MAXOCLASSES + 1];
 
@@ -5992,7 +5991,7 @@ remove_autopickup_exception(struct autopickup_exception *whichape)
 }
 
 void
-free_autopickup_exceptions()
+free_autopickup_exceptions(void)
 {
     struct autopickup_exception *ape = apelist;
 
@@ -6024,7 +6023,7 @@ load_symset(const char *s, int which_set)
 }
 
 void
-free_symsets()
+free_symsets(void)
 {
     clear_symsetentry(PRIMARY, TRUE);
     clear_symsetentry(ROGUESET, TRUE);
@@ -6169,7 +6168,7 @@ static const char *opt_epilog[] = {
 };
 
 void
-option_help()
+option_help(void)
 {
     char buf[BUFSZ], buf2[BUFSZ];
     register int i;
@@ -6816,7 +6815,7 @@ wc_set_window_colors(char *op)
    OPTIONS=playmode:debug, or from dorecover()'s restgamestate() if
    restoring a game which was saved in wizard mode */
 void
-set_playmode()
+set_playmode(void)
 {
     if (wizard) {
         if (authorize_wizard_mode())

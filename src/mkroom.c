@@ -84,7 +84,7 @@ mkroom(int roomtype)
 }
 
 STATIC_OVL void
-mkshop()
+mkshop(void)
 {
     register struct mkroom *sroom;
     int i = -1;
@@ -448,7 +448,7 @@ mkundead(coord *mm, boolean revive_corpses, int mm_flags)
 }
 
 STATIC_OVL struct permonst *
-morguemon()
+morguemon(void)
 {
     register int i = rn2(100), hd = rn2(level_difficulty());
 
@@ -472,7 +472,7 @@ morguemon()
 }
 
 struct permonst *
-antholemon()
+antholemon(void)
 {
     int mtyp, indx, trycnt = 0;
 
@@ -500,7 +500,7 @@ antholemon()
 }
 
 STATIC_OVL void
-mkswamp() /* Michiel Huisjes & Fred de Wilde */
+mkswamp(void) /* Michiel Huisjes & Fred de Wilde */
 {
     register struct mkroom *sroom;
     register int sx, sy, i, eelct = 0;
@@ -559,7 +559,7 @@ shrine_pos(int roomno)
 }
 
 STATIC_OVL void
-mktemple()
+mktemple(void)
 {
     register struct mkroom *sroom;
     coord *shrine_spot;
@@ -713,7 +713,7 @@ search_special(schar type)
 }
 
 struct permonst *
-courtmon()
+courtmon(void)
 {
     int i = rn2(60) + rn2(3 * level_difficulty());
 
@@ -749,7 +749,7 @@ static struct {
 
 /* return soldier types. */
 STATIC_OVL struct permonst *
-squadmon()
+squadmon(void)
 {
     int sel_prob, i, cpro, mndx;
 

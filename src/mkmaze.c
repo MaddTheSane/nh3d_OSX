@@ -355,7 +355,7 @@ put_lregion_here(xchar x, xchar y, xchar nlx, xchar nly, xchar nhx, xchar nhy, x
    its legs are walls within solid rock--regular wallification
    classifies them as superfluous and gets rid of them */
 STATIC_OVL void
-baalz_fixup()
+baalz_fixup(void)
 {
     struct monst *mtmp;
     int x, y, lastx, lasty;
@@ -442,7 +442,7 @@ baalz_fixup()
 
 /* this is special stuff that the level compiler cannot (yet) handle */
 void
-fixup_special()
+fixup_special(void)
 {
     lev_region *r = lregions;
     struct d_level lev;
@@ -1209,7 +1209,7 @@ mazexy(coord *cc)
  * that provides a window of abuse for wallified special levels
  */
 void
-bound_digging()
+bound_digging(void)
 {
     int x, y;
     unsigned typ;
@@ -1311,7 +1311,7 @@ mkportal(xchar x, xchar y, xchar todnum, xchar todlevel)
 }
 
 void
-fumaroles()
+fumaroles(void)
 {
     xchar n;
     boolean snd = FALSE, loud = FALSE;
@@ -1355,7 +1355,7 @@ STATIC_DCL void mk_bubble(int, int, int);
 STATIC_DCL void mv_bubble(struct bubble *, int, int, boolean);
 
 void
-movebubbles()
+movebubbles(void)
 {
     static const struct rm water_pos = { cmap_to_glyph(S_water), WATER, 0, 0,
                                          0, 0, 0, 0, 0, 0 };
@@ -1499,7 +1499,7 @@ movebubbles()
 
 /* when moving in water, possibly (1 in 3) alter the intended destination */
 void
-water_friction()
+water_friction(void)
 {
     int x, y, dx, dy;
     boolean eff = FALSE;
@@ -1626,7 +1626,7 @@ waterbody_name(xchar x, xchar y)
 }
 
 STATIC_OVL void
-set_wportal()
+set_wportal(void)
 {
     /* there better be only one magic portal on water level... */
     for (wportal = ftrap; wportal; wportal = wportal->ntrap)
@@ -1636,7 +1636,7 @@ set_wportal()
 }
 
 STATIC_OVL void
-setup_waterlevel()
+setup_waterlevel(void)
 {
     int x, y, xskip, yskip, typ, glyph;
 
@@ -1683,7 +1683,7 @@ setup_waterlevel()
 }
 
 STATIC_OVL void
-unsetup_waterlevel()
+unsetup_waterlevel(void)
 {
     struct bubble *b, *bb;
 

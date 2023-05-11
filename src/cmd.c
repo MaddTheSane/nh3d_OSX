@@ -242,7 +242,7 @@ timed_occupation(VOID_ARGS)
  *                      Setting traps.
  */
 void
-reset_occupations()
+reset_occupations(void)
 {
     reset_remarm();
     reset_pick();
@@ -278,7 +278,7 @@ static char pushq[BSIZE], saveq[BSIZE];
 static NEARDATA int phead, ptail, shead, stail;
 
 STATIC_OVL char
-popch()
+popch(void)
 {
     /* If occupied, return '\0', letting tgetch know a character should
      * be read from the keyboard.  If the character read is not the
@@ -294,7 +294,7 @@ popch()
 }
 
 char
-pgetchar() /* courtesy of aeb@cwi.nl */
+pgetchar(void) /* courtesy of aeb@cwi.nl */
 {
     register int ch;
 
@@ -1709,7 +1709,7 @@ enlght_halfdmg(int category, int final)
 
 /* is hero actively using water walking capability on water (or lava)? */
 STATIC_OVL boolean
-walking_on_water()
+walking_on_water(void)
 {
     if (u.uinwater || Levitation || Flying)
         return FALSE;
@@ -4093,7 +4093,7 @@ misc_stats(winid win, long *total_count, long *total_size)
  * Display memory usage of all monsters and objects on the level.
  */
 static int
-wiz_show_stats()
+wiz_show_stats(void)
 {
     char buf[BUFSZ];
     winid win;
@@ -4176,7 +4176,7 @@ wiz_show_stats()
 }
 
 void
-sanity_check()
+sanity_check(void)
 {
     obj_sanity_check();
     timer_sanity_check();
@@ -4540,7 +4540,7 @@ accept_menu_prefix(int (*cmd_func)(void))
 }
 
 char
-randomkey()
+randomkey(void)
 {
     static unsigned i = 0;
     char c;
@@ -4593,9 +4593,7 @@ randomkey()
 }
 
 void
-random_response(buf, sz)
-char *buf;
-int sz;
+random_response(char *buf, int sz)
 {
     char c;
     int count = 0;
@@ -4907,7 +4905,7 @@ movecmd(char sym)
 
 /* grid bug handling which used to be in movecmd() */
 int
-dxdy_moveok()
+dxdy_moveok(void)
 {
     if (u.dx && u.dy && NODIAG(u.umonnum))
         u.dx = u.dy = 0;
@@ -5202,7 +5200,7 @@ const char *msg)
 }
 
 void
-confdir()
+confdir(void)
 {
     register int x = NODIAG(u.umonnum) ? 2 * rn2(4) : rn2(8);
 
@@ -5667,7 +5665,7 @@ boolean historical /* whether to include in message history: True => yes */)
 
 
 STATIC_OVL char *
-parse()
+parse(void)
 {
 #ifdef LINT /* static char in_line[COLNO]; */
     char in_line[COLNO];
@@ -5779,7 +5777,7 @@ hangup(int sig_unused UNUSED) /* called as signal() handler, so sent at least on
 }
 
 void
-end_of_input()
+end_of_input(void)
 {
 #ifdef NOSAVEONHANGUP
 #ifdef INSURANCE
@@ -5804,7 +5802,7 @@ end_of_input()
 #endif /* HANGUPHANDLING */
 
 char
-readchar()
+readchar(void)
 {
     register int sym;
     int x = u.ux, y = u.uy, mod = 0;

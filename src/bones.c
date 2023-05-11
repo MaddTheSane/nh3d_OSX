@@ -311,7 +311,7 @@ fixuporacle(struct monst *oracle)
 
 /* check whether bones are feasible */
 boolean
-can_make_bones()
+can_make_bones(void)
 {
     register struct trap *ttmp;
 
@@ -563,7 +563,7 @@ savebones(int how, time_t when, struct obj *corpse)
 }
 
 int
-getbones()
+getbones(void)
 {
     register int fd;
     register int ok;

@@ -16,67 +16,67 @@
 
 #include "extern.h"
 
-static inline BOOL Swift_Invis() {
+static inline BOOL Swift_Invis(void) {
 	return (bool)Invis;
 }
 
 //! Returns \c true if player is stealthy.
-static inline BOOL Swift_Stealth() {
+static inline BOOL Swift_Stealth(void) {
 	return (bool)Stealth;
 }
 
 //! the Eyes operate even when you really are blind or don't have any eyes.
 //! Returns \c true if player is blind.
-static inline BOOL Swift_Blind() {
+static inline BOOL Swift_Blind(void) {
 	return (bool)Blind;
 }
 
 //! Returns \c true if player is underwater.
-static inline BOOL Swift_Underwater() {
+static inline BOOL Swift_Underwater(void) {
 	return (bool)Underwater;
 }
 
 //! Returns \c true if player can teleport at will
-static inline BOOL Swift_Teleportation() {
+static inline BOOL Swift_Teleportation(void) {
 	return (bool)Teleportation;
 }
 
 //! Returns \c true if player has teleportation control
-static inline BOOL Swift_Teleport_control() {
+static inline BOOL Swift_Teleport_control(void) {
 	return (bool)Teleport_control;
 }
 
 //! Returns \c true if player is hallucinating
-static inline BOOL Swift_Hallucination() {
+static inline BOOL Swift_Hallucination(void) {
 	return (bool)Hallucination;
 }
 
 //! Returns \c true if player is flying
-static inline BOOL Swift_Flying() {
+static inline BOOL Swift_Flying(void) {
 	return (bool)Flying;
 }
 
 //! Returns \c true if player is levitating
-static inline BOOL Swift_Levitation() {
+static inline BOOL Swift_Levitation(void) {
 	return (bool)Levitation;
 }
 
 //! Returns \c true if player can levitate at will
-static inline BOOL Swift_LevitationAtWill() {
+static inline BOOL Swift_LevitationAtWill(void) {
 	return Lev_at_will;
 }
 
 //! Returns \c true if player is swimming underwater
-static inline BOOL Swift_Swimming() {
+static inline BOOL Swift_Swimming(void) {
 	return (bool)Swimming;
 }
 
-static inline BOOL Swift_Amphibious() {
+static inline BOOL Swift_Amphibious(void) {
 	return (bool)Amphibious;
 }
 
 //! Returns \c true if player has infravision.
-static inline BOOL Swift_Infravision() {
+static inline BOOL Swift_Infravision(void) {
 	return (bool)Infravision;
 }
 
@@ -176,7 +176,7 @@ static inline BOOL Swift_IsAir(schar type) {
 }
 
 //! Returns the amount of tiles used by NetHack.
-static inline int totalTilesUsed()
+static inline int totalTilesUsed(void)
 {
 	/* from tile.c */
 	extern int total_tiles_used;
@@ -485,13 +485,13 @@ static inline bool Swift_In_endgame(const d_level *_Nonnull xx)
 }
 
 //! means blind because of a cover.
-static inline bool Swift_Blindfolded()
+static inline bool Swift_Blindfolded(void)
 {
 	return (bool)Blindfolded;
 }
 
 //! blind because of a blindfold, and \b only that.
-static inline bool Swift_Blindfolded_only()
+static inline bool Swift_Blindfolded_only(void)
 {
 	return (bool)Blindfolded_only;
 }

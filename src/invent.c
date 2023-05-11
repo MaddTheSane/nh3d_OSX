@@ -54,9 +54,7 @@ static char venom_inv[] = { VENOM_CLASS, 0 }; /* (constant) */
 
 /* sortloot() classification; called at most once [per sort] for each object */
 STATIC_OVL void
-loot_classify(sort_item, obj)
-Loot *sort_item;
-struct obj *obj;
+loot_classify(Loot *sort_item, struct obj *obj)
 {
     /* we may eventually make this a settable option to always use
        with sortloot instead of only when the 'sortpack' option isn't
@@ -214,8 +212,7 @@ struct obj *obj;
 
 /* sortloot() formatting routine; for alphabetizing, not shown to user */
 STATIC_OVL char *
-loot_xname(obj)
-struct obj *obj;
+loot_xname(struct obj *obj)
 {
     struct obj saveo;
     boolean save_debug;
@@ -534,8 +531,7 @@ sortloot(struct obj **olist, /* previous version might have changed *olist, we d
 
 /* sortloot() callers should use this to free up memory it allocates */
 void
-unsortloot(loot_array_p)
-Loot **loot_array_p;
+unsortloot(Loot **loot_array_p)
 {
     if (*loot_array_p) {
         free((genericptr_t) *loot_array_p); *loot_array_p = (Loot *) 0;
@@ -628,7 +624,7 @@ assigninvlet(register struct obj *otmp)
 
 /* sort the inventory; used by addinv() and doorganize() */
 STATIC_OVL void
-reorder_invent()
+reorder_invent(void)
 {
     struct obj *otmp, *prev, *next;
     boolean need_more_sorting;
@@ -1263,7 +1259,7 @@ currency(long amount)
 }
 
 boolean
-have_lizard()
+have_lizard(void)
 {
     register struct obj *otmp;
 
@@ -1275,7 +1271,7 @@ have_lizard()
 
 /* 3.6 tribute */
 struct obj *
-u_have_novel()
+u_have_novel(void)
 {
     register struct obj *otmp;
 
@@ -1849,7 +1845,7 @@ ckunpaid(struct obj *otmp)
 }
 
 boolean
-wearing_armor()
+wearing_armor(void)
 {
     return (boolean) (uarm || uarmc || uarmf || uarmg
                       || uarmh || uarms || uarmu);
@@ -2293,8 +2289,7 @@ menu_identify(int id_limit)
 }
 /* count the unidentified items */
 int
-count_unidentified(objchn)
-struct obj *objchn;
+count_unidentified(struct obj *objchn)
 {
     int unid_cnt = 0;
     struct obj *obj;
@@ -2345,7 +2340,7 @@ identify_pack(int id_limit,
 /* called when regaining sight; mark inventory objects which were picked
    up while blind as now having been seen */
 void
-learn_unseen_invent()
+learn_unseen_invent(void)
 {
     struct obj *otmp;
 
@@ -2370,7 +2365,7 @@ learn_unseen_invent()
    (*windowprocs.win_update_inventory) but the restore hackery
    was getting out of hand; this is now a central call point */
 void
-update_inventory()
+update_inventory(void)
 {
     if (restoring)
         return;
@@ -2456,7 +2451,7 @@ xprname(struct obj *obj,
 
 /* the 'i' command */
 int
-ddoinv()
+ddoinv(void)
 {
     (void) display_inventory((char *) 0, FALSE);
     return 0;
@@ -2500,7 +2495,7 @@ find_unpaid(struct obj *list, struct obj **last_found)
 static winid cached_pickinv_win = WIN_ERR;
 
 void
-free_pickinv_cache()
+free_pickinv_cache(void)
 {
     if (cached_pickinv_win != WIN_ERR) {
         destroy_nhwindow(cached_pickinv_win);
@@ -2941,7 +2936,7 @@ count_contents(struct obj *container,
 }
 
 STATIC_OVL void
-dounpaid()
+dounpaid(void)
 {
     winid win;
     struct obj *otmp, *marker, *contnr;
@@ -3077,7 +3072,7 @@ this_type_only(struct obj *obj)
 
 /* the 'I' command */
 int
-dotypeinv()
+dotypeinv(void)
 {
     char c = '\0';
     int n, i = 0;
@@ -3496,7 +3491,7 @@ look_here(int obj_cnt,/* obj_cnt > 0 implies that autopickup is in progress */
 
 /* the ':' command - explicitly look at what is here, including all objects */
 int
-dolook()
+dolook(void)
 {
     int res;
 
@@ -3646,7 +3641,7 @@ mergable(register struct obj *otmp, register struct obj *obj)
 
 /* the '$' command */
 int
-doprgold()
+doprgold(void)
 {
     /* the messages used to refer to "carrying gold", but that didn't
        take containers into account */
@@ -3662,7 +3657,7 @@ doprgold()
 
 /* the ')' command */
 int
-doprwep()
+doprwep(void)
 {
     if (!uwep) {
         You("are empty %s.", body_part(HANDED));
@@ -3699,7 +3694,7 @@ noarmor(boolean report_uskin)
 
 /* the '[' command */
 int
-doprarm()
+doprarm(void)
 {
     char lets[8];
     register int ct = 0;
@@ -3734,7 +3729,7 @@ doprarm()
 
 /* the '=' command */
 int
-doprring()
+doprring(void)
 {
     if (!uleft && !uright)
         You("are not wearing any rings.");
@@ -3754,7 +3749,7 @@ doprring()
 
 /* the '"' command */
 int
-dopramulet()
+dopramulet(void)
 {
     if (!uamul)
         You("are not wearing an amulet.");
@@ -3776,7 +3771,7 @@ tool_in_use(struct obj *obj)
 
 /* the '(' command */
 int
-doprtool()
+doprtool(void)
 {
     struct obj *otmp;
     int ct = 0;
@@ -3796,7 +3791,7 @@ doprtool()
 /* '*' command; combines the ')' + '[' + '=' + '"' + '(' commands;
    show inventory of all currently wielded, worn, or used objects */
 int
-doprinuse()
+doprinuse(void)
 {
     struct obj *otmp;
     int ct = 0;
@@ -3898,7 +3893,7 @@ let_to_name(char let, boolean unpaid, boolean showsym)
 
 /* release the static buffer used by let_to_name() */
 void
-free_invbuf()
+free_invbuf(void)
 {
     if (invbuf) {
         free((genericptr_t) invbuf); invbuf = (char *) 0;
@@ -3909,7 +3904,7 @@ free_invbuf()
 /* give consecutive letters to every item in inventory (for !fixinv mode);
    gold is always forced to '$' slot at head of list */
 void
-reassign()
+reassign(void)
 {
     int i;
     struct obj *obj, *prevobj, *goldobj;
@@ -3982,7 +3977,7 @@ reassign()
  *      is unnamed and source is named.
  */
 int
-doorganize() /* inventory organizer by Del Lamb */
+doorganize(void) /* inventory organizer by Del Lamb */
 {
     struct obj *obj, *otmp, *splitting, *bumped;
     int ix, cur, trycnt, goldstacks;

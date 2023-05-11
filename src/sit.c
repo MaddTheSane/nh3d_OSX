@@ -9,7 +9,7 @@
 
 /* take away the hero's money */
 void
-take_gold()
+take_gold(void)
 {
     struct obj *otmp, *nobj;
     int lost_money = 0;
@@ -32,7 +32,7 @@ take_gold()
 
 /* #sit command */
 int
-dosit()
+dosit(void)
 {
     static const char sit_message[] = "sit on the %s.";
     register struct trap *trap = t_at(u.ux, u.uy);
@@ -329,7 +329,7 @@ dosit()
 
 /* curse a few inventory items at random! */
 void
-rndcurse()
+rndcurse(void)
 {
     int nobj = 0;
     int cnt, onum;
@@ -399,7 +399,7 @@ rndcurse()
 
 /* remove a random INTRINSIC ability */
 void
-attrcurse()
+attrcurse(void)
 {
     switch (rnd(11)) {
     case 1:

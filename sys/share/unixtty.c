@@ -196,7 +196,7 @@ speednum(speed_t speed)
 #endif
 
 static void
-setctty()
+setctty(void)
 {
     if (STTY(&curttyb) < 0 || STTY2(&curttyb2) < 0)
         perror("NetHack (setctty)");
@@ -208,7 +208,7 @@ setctty()
  * Called by startup() in termcap.c and after returning from ! or ^Z
  */
 void
-gettty()
+gettty(void)
 {
     if (GTTY(&inittyb) < 0 || GTTY2(&inittyb2) < 0)
         perror("NetHack (gettty)");
@@ -245,7 +245,7 @@ settty(const char *s)
 }
 
 void
-setftty()
+setftty(void)
 {
     unsigned ef, cf;
     int change = 0;
@@ -312,7 +312,7 @@ setftty()
     start_screen();
 }
 
-void intron() /* enable kbd interupts if enabled when game started */
+void intron(void) /* enable kbd interupts if enabled when game started */
 {
 #ifdef TTY_GRAPHICS
     /* Ugly hack to keep from changing tty modes for non-tty games -dlc */
@@ -324,7 +324,7 @@ void intron() /* enable kbd interupts if enabled when game started */
 #endif
 }
 
-void introff() /* disable kbd interrupts if required*/
+void introff(void) /* disable kbd interrupts if required*/
 {
 #ifdef TTY_GRAPHICS
     /* Ugly hack to keep from changing tty modes for non-tty games -dlc */

@@ -89,7 +89,7 @@ veryold(int fd)
 }
 
 static int
-eraseoldlocks()
+eraseoldlocks(void)
 {
 	int i;
 	
@@ -110,7 +110,7 @@ eraseoldlocks()
 }
 
 void
-getlock()
+getlock(void)
 {
 	int i = 0, fd, c;
 	const char *fq_lock;
@@ -284,7 +284,7 @@ msleep(unsigned msec) /* milliseconds */
 
 #ifdef SHELL
 int
-dosh()
+dosh(void)
 {
 	register char *str;
 #ifdef SYSCF
@@ -429,7 +429,7 @@ sethanguphandler(void (*handler)(int))
 
 /* validate wizard mode if player has requested access to it */
 boolean
-authorize_wizard_mode()
+authorize_wizard_mode(void)
 {
     struct passwd *pw = get_unix_pw();
     if (pw && sysopt.wizards && sysopt.wizards[0]) {
@@ -471,7 +471,7 @@ check_user_string(char *optstr)
 }
 
 static struct passwd *
-get_unix_pw()
+get_unix_pw(void)
 {
     char *user;
     unsigned uid;

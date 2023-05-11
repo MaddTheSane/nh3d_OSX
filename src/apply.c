@@ -526,7 +526,7 @@ um_dist(xchar x, xchar y, xchar n)
 }
 
 int
-number_leashed()
+number_leashed(void)
 {
     int i = 0;
     struct obj *obj;
@@ -569,7 +569,7 @@ m_unleash(register struct monst *mtmp, boolean feedback)
 
 /* player is about to die (for bones) */
 void
-unleash_all()
+unleash_all(void)
 {
     register struct obj *otmp;
     register struct monst *mtmp;
@@ -707,7 +707,7 @@ get_mleash(struct monst *mtmp)
 }
 
 boolean
-next_to_u()
+next_to_u(void)
 {
     register struct monst *mtmp;
     register struct obj *otmp;
@@ -807,7 +807,7 @@ check_leash(register xchar x, register xchar y)
 }
 
 const char *
-beautiful()
+beautiful(void)
 {
     return ((ACURR(A_CHA) > 14)
                ? ((poly_gender() == 1)
@@ -1438,7 +1438,7 @@ light_cocktail(struct obj **optr)
 static NEARDATA const char cuddly[] = { TOOL_CLASS, GEM_CLASS, 0 };
 
 int
-dorub()
+dorub(void)
 {
     struct obj *obj = getobj(cuddly, "rub");
 
@@ -1486,7 +1486,7 @@ dorub()
 }
 
 int
-dojump()
+dojump(void)
 {
     /* Physical jump */
     return jump(0);
@@ -2444,7 +2444,7 @@ static struct trapinfo {
 } trapinfo;
 
 void
-reset_trapset()
+reset_trapset(void)
 {
     trapinfo.tobj = 0;
     trapinfo.force_bungle = 0;
@@ -2551,7 +2551,7 @@ use_trap(struct obj *otmp)
 
 STATIC_PTR
 int
-set_trap()
+set_trap(void)
 {
     struct obj *otmp = trapinfo.tobj;
     struct trap *ttmp;
@@ -3517,7 +3517,7 @@ setapplyclasses(char class_list[])
 
 /* the 'a' command */
 int
-doapply()
+doapply(void)
 {
     struct obj *obj;
     register int res = 1;

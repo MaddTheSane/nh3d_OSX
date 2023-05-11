@@ -26,7 +26,7 @@ enum dig_types {
 };
 
 STATIC_OVL boolean
-rm_waslit()
+rm_waslit(void)
 {
     register xchar x, y;
 
@@ -161,7 +161,7 @@ dig_typ(struct obj *otmp, xchar x, xchar y)
 }
 
 boolean
-is_digging()
+is_digging(void)
 {
     if (occupation == dig) {
         return TRUE;
@@ -482,7 +482,7 @@ dig(VOID_ARGS)
 
 /* When will hole be finished? Very rough indication used by shopkeeper. */
 int
-holetime()
+holetime(void)
 {
     if (occupation != dig || !*u.ushops)
         return -1;
@@ -1357,7 +1357,7 @@ draft_message(boolean unexpected)
 
 /* digging via wand zap or spell cast */
 void
-zap_dig()
+zap_dig(void)
 {
     struct rm *room;
     struct monst *mtmp;
@@ -1738,7 +1738,7 @@ buried_ball(coord *cc)
 }
 
 void
-buried_ball_to_punishment()
+buried_ball_to_punishment(void)
 {
     coord cc;
     struct obj *ball;
@@ -1761,7 +1761,7 @@ buried_ball_to_punishment()
 }
 
 void
-buried_ball_to_freedom()
+buried_ball_to_freedom(void)
 {
     coord cc;
     struct obj *ball;

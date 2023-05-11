@@ -357,7 +357,7 @@ unsigned nhUse_dummy = 0;
 
 /* dummy routine used to force linkage */
 void
-decl_init()
+decl_init(void)
 {
     return;
 }

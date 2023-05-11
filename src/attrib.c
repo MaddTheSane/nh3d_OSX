@@ -362,7 +362,7 @@ stone_luck(boolean parameter)/* So I can't think up of a good name.  So sue me. 
 
 /* there has just been an inventory change affecting a luck-granting item */
 void
-set_moreluck()
+set_moreluck(void)
 {
     int luckbon = stone_luck(TRUE);
 
@@ -375,7 +375,7 @@ set_moreluck()
 }
 
 void
-restore_attrib()
+restore_attrib(void)
 {
     int i, equilibrium;;
 
@@ -435,7 +435,7 @@ exercise(int i, boolean inc_or_dec)
 }
 
 STATIC_OVL void
-exerper()
+exerper(void)
 {
     if (!(moves % 10)) {
         /* Hunger Checks */
@@ -515,7 +515,7 @@ static NEARDATA const char *const exertext[A_MAX][2] = {
 };
 
 void
-exerchk()
+exerchk(void)
 {
     int i, ax, mod_val, lolim, hilim;
 
@@ -651,7 +651,7 @@ init_attr(register int np)
 }
 
 void
-redist_attr()
+redist_attr(void)
 {
     register int i, tmp;
 
@@ -960,7 +960,7 @@ adjabil(int oldlevel, int newlevel)
 }
 
 int
-newhp()
+newhp(void)
 {
     int hp, conplus;
 
@@ -1053,7 +1053,7 @@ acurr(int x)
 /* condense clumsy ACURR(A_STR) value into value that fits into game formulas
  */
 schar
-acurrstr()
+acurrstr(void)
 {
     register int str = ACURR(A_STR);
 

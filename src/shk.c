@@ -252,9 +252,7 @@ restshk(struct monst *shkp, boolean ghostly)
 
 /* Clear the unpaid bit on a single object and its contents. */
 STATIC_OVL void
-clear_unpaid_obj(shkp, otmp)
-struct monst *shkp;
-struct obj *otmp;
+clear_unpaid_obj(struct monst *shkp, struct obj *otmp)
 {
     if (Has_contents(otmp))
         clear_unpaid(shkp, otmp->cobj);
@@ -736,7 +734,7 @@ shop_debt(struct eshk *eshkp)
 
 /* called in response to the `$' command */
 void
-shopper_financial_report()
+shopper_financial_report(void)
 {
     struct monst *shkp, *this_shkp = shop_keeper(inside_shop(u.ux, u.uy));
     struct eshk *eshkp;
@@ -1006,7 +1004,7 @@ home_shk(register struct monst *shkp, register boolean killkops)
 }
 
 STATIC_OVL boolean
-angry_shk_exists()
+angry_shk_exists(void)
 {
     register struct monst *shkp;
 
@@ -1177,7 +1175,7 @@ cheapest_item(register struct monst *shkp)
 }
 
 int
-dopay()
+dopay(void)
 {
     register struct eshk *eshkp;
     register struct monst *shkp;
@@ -1856,7 +1854,7 @@ set_repo_loc(struct monst *shkp)
 /* called at game exit, after inventory disclosure but before making bones;
    shouldn't issue any messages */
 void
-finish_paybill()
+finish_paybill(void)
 {
     struct monst *shkp = repo.shopkeeper;
     int ox = repo.location.x, oy = repo.location.y;
@@ -2294,8 +2292,7 @@ set_cost(register struct obj *obj, register struct monst *shkp)
 /* unlike alter_cost() which operates on a specific item, identifying or
    forgetting a gem causes all unpaid gems of its type to change value */
 void
-gem_learned(oindx)
-int oindx;
+gem_learned(int oindx)
 {
     struct obj *obj;
     struct monst *shkp;

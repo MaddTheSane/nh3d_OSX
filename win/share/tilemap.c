@@ -262,7 +262,7 @@ int lastmontile, lastobjtile, lastothtile;
  * introduced in 3.3.1.
  */
 void
-init_tilemap()
+init_tilemap(void)
 {
     int i, j, condnum, tilenum;
     int corpsetile, swallowbase;
@@ -473,7 +473,7 @@ process_substitutions(FILE *ofp)
 }
 
 int
-main()
+main(void)
 {
     register int i;
     char filename[30];
@@ -623,9 +623,7 @@ struct {
 };
 
 boolean
-acceptable_tilename(idx, encountered, expected)
-int idx;
-const char *encountered, *expected;
+acceptable_tilename(int idx, const char *encountered, const char *expected)
 {
     if (idx >= 0 && idx < SIZE(altlabels)) {
         if (!strcmp(altlabels[idx].expectedlabel, expected)) {

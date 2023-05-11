@@ -26,7 +26,7 @@ static int rect_cnt;
  */
 
 void
-init_rect()
+init_rect(void)
 {
     rect_cnt = 1;
     rect[0].lx = rect[0].ly = 0;
@@ -84,7 +84,7 @@ get_rect(NhRect *r)
  */
 
 NhRect *
-rnd_rect()
+rnd_rect(void)
 {
     return rect_cnt > 0 ? &rect[rn2(rect_cnt)] : 0;
 }

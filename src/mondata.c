@@ -299,8 +299,7 @@ hates_silver(register struct permonst *ptr)
 
 /* True if specific monster is especially affected by light-emitting weapons */
 boolean
-mon_hates_light(mon)
-struct monst *mon;
+mon_hates_light(struct monst *mon)
 {
     return (boolean) (hates_light(mon->data));
 }
@@ -330,8 +329,7 @@ can_blow(struct monst *mtmp)
 
 /* for casting spells and reading scrolls while blind */
 boolean
-can_chant(mtmp)
-struct monst *mtmp;
+can_chant(struct monst *mtmp)
 {
     if ((mtmp == &youmonst && Strangled)
         || is_silent(mtmp->data) || !has_head(mtmp->data)
@@ -1010,8 +1008,7 @@ big_to_little(int montype)
 /* determine whether two permonst indices are part of the same progression;
    existence of progressions with more than one step makes it a bit tricky */
 boolean
-big_little_match(montyp1, montyp2)
-int montyp1, montyp2;
+big_little_match(int montyp1, int montyp2)
 {
     int l, b;
 

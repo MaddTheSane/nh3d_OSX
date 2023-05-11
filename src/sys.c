@@ -18,7 +18,7 @@
 struct sysopt sysopt;
 
 void
-sys_early_init()
+sys_early_init(void)
 {
     sysopt.support = (char *) 0;
     sysopt.recover = (char *) 0;
@@ -88,7 +88,7 @@ sys_early_init()
 }
 
 void
-sysopt_release()
+sysopt_release(void)
 {
     if (sysopt.support) {
         free((genericptr_t) sysopt.support); sysopt.support = (char *) 0;

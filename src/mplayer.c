@@ -41,7 +41,7 @@ static const char *developers[] = {
 
 /* return a randomly chosen developer name */
 STATIC_OVL const char *
-dev_name()
+dev_name(void)
 {
     register int i, m = 0, n = SIZE(developers);
     register struct monst *mtmp;

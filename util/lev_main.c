@@ -336,7 +336,7 @@ yywarning(const char *s)
  * Stub needed for lex interface.
  */
 int
-yywrap()
+yywrap(void)
 {
     return 1;
 }
@@ -656,7 +656,7 @@ vadd_opvars(sp_lev *sp, const char *fmt, va_list the_args)
 }
 
 void
-break_stmt_start()
+break_stmt_start(void)
 {
     allow_break_statements++;
 }
@@ -1127,7 +1127,7 @@ get_object_id(char *s, char c /* class */)
 }
 
 static void
-init_obj_classes()
+init_obj_classes(void)
 {
     int i, class, prev_class;
 

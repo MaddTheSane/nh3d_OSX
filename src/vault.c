@@ -195,7 +195,7 @@ in_fcorridor(struct monst *grd, int x, int y)
 }
 
 struct monst *
-findgd()
+findgd(void)
 {
     register struct monst *mtmp;
 
@@ -209,7 +209,7 @@ findgd()
 }
 
 void
-vault_summon_gd()
+vault_summon_gd(void)
 {
     if (vault_occupied(u.urooms) && !findgd())
         u.uinvault = (VAULT_GUARD_TIME - 1);
@@ -228,8 +228,7 @@ vault_occupied(char *array)
 
 /* hero has teleported out of vault while a guard is active */
 void
-uleftvault(grd)
-struct monst *grd;
+uleftvault(struct monst *grd)
 {
     /* only called if caller has checked vault_occupied() and findgd() */
     if (!grd || !grd->isgd || DEADMONSTER(grd)) {
@@ -290,7 +289,7 @@ find_guard_dest(struct monst *guard, xchar *rx, xchar *ry)
 }
 
 void
-invault()
+invault(void)
 {
 #ifdef BSD_43_BUG
     int dummy; /* hack to avoid schain botch */
@@ -1090,7 +1089,7 @@ paygd(boolean silently)
 }
 
 long
-hidden_gold()
+hidden_gold(void)
 {
     long value = 0L;
     struct obj *obj;
@@ -1105,7 +1104,7 @@ hidden_gold()
 
 /* prevent "You hear footsteps.." when inappropriate */
 boolean
-gd_sound()
+gd_sound(void)
 {
     struct monst *grd = findgd();
 

@@ -39,7 +39,7 @@ STATIC_VAR int sex_change_ok = 0;
 
 /* update the youmonst.data structure pointer and intrinsics */
 void
-set_uasmon()
+set_uasmon(void)
 {
     struct permonst *mdat = &mons[u.umonnum];
 
@@ -109,7 +109,7 @@ set_uasmon()
 
 /* Levitation overrides Flying; set or clear BFlying|I_SPECIAL */
 void
-float_vs_flight()
+float_vs_flight(void)
 {
     boolean stuck_in_floor = (u.utrap && u.utraptype != TT_PIT);
 
@@ -226,7 +226,7 @@ polyman(const char *fmt, const char *arg)
 }
 
 void
-change_sex()
+change_sex(void)
 {
     /* setting u.umonster for caveman/cavewoman or priest/priestess
        swap unintentionally makes `Upolyd' appear to be true */
@@ -264,7 +264,7 @@ change_sex()
 }
 
 STATIC_OVL void
-newman()
+newman(void)
 {
     int i, oldlvl, newlvl, hpmax, enmax;
 
@@ -882,7 +882,7 @@ dropp(struct obj *obj)
 }
 
 STATIC_OVL void
-break_armor()
+break_armor(void)
 {
     register struct obj *otmp;
 
@@ -1056,7 +1056,7 @@ drop_weapon(int alone)
 }
 
 void
-rehumanize()
+rehumanize(void)
 {
     boolean was_flying = (Flying != 0);
 
@@ -1099,7 +1099,7 @@ rehumanize()
 }
 
 int
-dobreathe()
+dobreathe(void)
 {
     struct attack *mattk;
 
@@ -1129,7 +1129,7 @@ dobreathe()
 }
 
 int
-dospit()
+dospit(void)
 {
     struct obj *otmp;
     struct attack *mattk;
@@ -1159,7 +1159,7 @@ dospit()
 }
 
 int
-doremove()
+doremove(void)
 {
     if (!Punished) {
         if (u.utrap && u.utraptype == TT_BURIEDBALL) {
@@ -1175,7 +1175,7 @@ doremove()
 }
 
 int
-dospinweb()
+dospinweb(void)
 {
     register struct trap *ttmp = t_at(u.ux, u.uy);
 
@@ -1293,7 +1293,7 @@ dospinweb()
 }
 
 int
-dosummon()
+dosummon(void)
 {
     int placeholder;
     if (u.uen < 10) {
@@ -1311,7 +1311,7 @@ dosummon()
 }
 
 int
-dogaze()
+dogaze(void)
 {
     register struct monst *mtmp;
     int looked = 0;
@@ -1446,7 +1446,7 @@ dogaze()
 }
 
 int
-dohide()
+dohide(void)
 {
     boolean ismimic = youmonst.data->mlet == S_MIMIC,
             on_ceiling = is_clinger(youmonst.data) || Flying;
@@ -1517,7 +1517,7 @@ dohide()
 }
 
 int
-dopoly()
+dopoly(void)
 {
     struct permonst *savedat = youmonst.data;
 
@@ -1532,7 +1532,7 @@ dopoly()
 }
 
 int
-domindblast()
+domindblast(void)
 {
     struct monst *mtmp, *nmon;
 
@@ -1569,7 +1569,7 @@ domindblast()
 }
 
 void
-uunstick()
+uunstick(void)
 {
     if (!u.ustuck) {
         impossible("uunstick: no ustuck?");
@@ -1755,7 +1755,7 @@ body_part(int part)
 }
 
 int
-poly_gender()
+poly_gender(void)
 {
     /* Returns gender of polymorphed player;
      * 0/1=same meaning as flags.female, 2=none.
@@ -1839,7 +1839,7 @@ armor_to_dragon(int atyp)
 
 /* some species have awareness of other species */
 static void
-polysense()
+polysense(void)
 {
     short warnidx = NON_PM;
 
@@ -1867,7 +1867,7 @@ polysense()
 
 /* True iff hero's role or race has been genocided */
 boolean
-ugenocided()
+ugenocided(void)
 {
     return (boolean) ((mvitals[urole.malenum].mvflags & G_GENOD)
                       || (urole.femalenum != NON_PM
@@ -1879,7 +1879,7 @@ ugenocided()
 
 /* how hero feels "inside" after self-genocide of role or race */
 const char *
-udeadinside()
+udeadinside(void)
 {
     /* self-genocide used to always say "you feel dead inside" but that
        seems silly when you're polymorphed into something undead;

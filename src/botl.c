@@ -19,7 +19,7 @@ STATIC_DCL void bot_via_windowport(void);
 STATIC_DCL void stat_update_time(void);
 
 static char *
-get_strength_str()
+get_strength_str(void)
 {
     static char buf[32];
     int st = ACURR(A_STR);
@@ -38,7 +38,7 @@ get_strength_str()
 }
 
 void
-check_gold_symbol()
+check_gold_symbol(void)
 {
     nhsym goldch = showsyms[COIN_CLASS + SYM_OFF_O];
 
@@ -46,7 +46,7 @@ check_gold_symbol()
 }
 
 char *
-do_statusline1()
+do_statusline1(void)
 {
     static char newbot1[BUFSZ];
     register char *nb;
@@ -95,7 +95,7 @@ do_statusline1()
 }
 
 char *
-do_statusline2()
+do_statusline2(void)
 {
     static char newbot2[BUFSZ], /* MAXCO: botl.h */
          /* dungeon location (and gold), hero health (HP, PW, AC),
@@ -230,7 +230,7 @@ do_statusline2()
 }
 
 void
-bot()
+bot(void)
 {
     /* dosave() flags completion by setting u.uhp to -1 */
     if ((u.uhp != -1) && youmonst.data && iflags.status_updates) {
@@ -247,7 +247,7 @@ bot()
 }
 
 void
-timebot()
+timebot(void)
 {
     if (flags.time && iflags.status_updates) {
         if (VIA_WINDOWPORT()) {
@@ -306,7 +306,7 @@ rank_of(int lev, short monnum, boolean female)
 }
 
 STATIC_OVL const char *
-rank()
+rank(void)
 {
     return rank_of(u.ulevel, Role_switch, flags.female);
 }
@@ -343,7 +343,7 @@ title_to_mon(const char *str, int *rank_indx, int *title_length)
 }
 
 void
-max_rank_sz()
+max_rank_sz(void)
 {
     register int i, r, maxr = 0;
     for (i = 0; i < 9; i++) {
@@ -358,7 +358,7 @@ max_rank_sz()
 
 #ifdef SCORE_ON_BOTL
 long
-botl_score()
+botl_score(void)
 {
     long deepest = deepest_lev_reached(FALSE);
     long utotal;
@@ -554,7 +554,7 @@ static unsigned long cond_hilites[BL_ATTCLR_MAX];
 static int now_or_before_idx = 0; /* 0..1 for array[2][] first index */
 
 STATIC_OVL void
-bot_via_windowport()
+bot_via_windowport(void)
 {
     char buf[BUFSZ];
     const char *titl;
@@ -736,7 +736,7 @@ bot_via_windowport()
 
 /* update just the status lines' 'time' field */
 STATIC_OVL void
-stat_update_time()
+stat_update_time(void)
 {
     int idx = now_or_before_idx; /* no 0/1 toggle */
     int fld = BL_TIME;
@@ -753,9 +753,7 @@ stat_update_time()
 }
 
 STATIC_OVL boolean
-eval_notify_windowport_field(fld, valsetlist, idx)
-int fld, idx;
-boolean *valsetlist;
+eval_notify_windowport_field(int fld, boolean *valsetlist, int idx)
 {
     static int oldrndencode = 0;
     static nhsym oldgoldsym = 0;
@@ -872,9 +870,7 @@ boolean *valsetlist;
 }
 
 STATIC_OVL void
-evaluate_and_notify_windowport(valsetlist, idx)
-int idx;
-boolean *valsetlist;
+evaluate_and_notify_windowport(boolean *valsetlist, int idx)
 {
     int i, updated = 0, notpresent = 0;
 
@@ -966,7 +962,7 @@ status_initialize(boolean
 }
 
 void
-status_finish()
+status_finish(void)
 {
     int i;
 
@@ -1000,7 +996,7 @@ status_finish()
 }
 
 STATIC_OVL void
-init_blstats()
+init_blstats(void)
 {
     static boolean initalready = FALSE;
     int i, j;
@@ -1049,8 +1045,7 @@ init_blstats()
  *
  */
 STATIC_OVL int
-compare_blstats(bl1, bl2)
-struct istat_s *bl1, *bl2;
+compare_blstats(struct istat_s *bl1, struct istat_s *bl2)
 {
     int anytype, result = 0;
 
@@ -1278,7 +1273,7 @@ percentage(struct istat_s *bl, struct istat_s *maxbl)
 /* percentage for both xp (level) and exp (points) is the percentage for
    (curr_exp - this_level_start) in (next_level_start - this_level_start) */
 STATIC_OVL int
-exp_percentage()
+exp_percentage(void)
 {
     int res = 0;
 
@@ -1315,7 +1310,7 @@ exp_percentage()
 /* experience points have changed but experience level hasn't; decide whether
    botl update is needed for a different percentage highlight rule for Xp */
 boolean
-exp_percent_changing()
+exp_percent_changing(void)
 {
     int pc, color_dummy;
     anything a;
@@ -1348,7 +1343,7 @@ exp_percent_changing()
    to reconstruct that from the encumbrance string or asking the general
    core what the value is */
 int
-stat_cap_indx()
+stat_cap_indx(void)
 {
     int cap;
 
@@ -1363,7 +1358,7 @@ stat_cap_indx()
 /* callback so that interface can get hunger index rather than trying to
    reconstruct that from the hunger string or dipping into core internals */
 int
-stat_hunger_indx()
+stat_hunger_indx(void)
 {
     int uhs;
 
@@ -1377,8 +1372,7 @@ stat_hunger_indx()
 
 /* used by X11 for "tty status" even when STATUS_HILITES is disabled */
 const char *
-bl_idx_to_fldname(idx)
-int idx;
+bl_idx_to_fldname(int idx)
 {
     if (idx >= 0 && idx < MAXBLSTATS)
         return initblstats[idx].fldname;
@@ -1486,7 +1480,7 @@ hilite_reset_needed(struct istat_s *bl_p, long augmented_time /* no longer augme
 
 /* called from moveloop(); sets context.botl if temp hilites have timed out */
 void
-status_eval_next_unhilite()
+status_eval_next_unhilite(void)
 {
     int i;
     struct istat_s *curr;
@@ -1527,7 +1521,7 @@ status_eval_next_unhilite()
 
 /* called by options handling when 'statushilites' value is changed */
 void
-reset_status_hilites()
+reset_status_hilites(void)
 {
     if (iflags.hilite_delta) {
         int i;
@@ -1542,8 +1536,7 @@ reset_status_hilites()
 /* test whether the text from a title rule matches the string for
    title-while-polymorphed in the 'textmatch' menu */
 STATIC_OVL boolean
-noneoftheabove(hl_text)
-const char *hl_text;
+noneoftheabove(const char *hl_text)
 {
     if (fuzzymatch(hl_text, "none of the above", "\" -_", TRUE)
         || fuzzymatch(hl_text, "(polymorphed)", "\"()", TRUE)
@@ -2394,8 +2387,7 @@ match_str2conditionbitmask(const char *str)
 }
 
 STATIC_OVL unsigned long
-str2conditionbitmask(str)
-char *str;
+str2conditionbitmask(char *str)
 {
     unsigned long conditions_bitmask = 0UL;
     char **subfields;
@@ -2540,7 +2532,7 @@ parse_condition(char (*s)[QBUFSZ], int sidx)
 }
 
 void
-clear_status_hilites()
+clear_status_hilites(void)
 {
     int i;
 
@@ -2630,7 +2622,7 @@ status_hilite_linestr_add(int fld, struct hilite_s *hl, unsigned long mask, cons
 }
 
 STATIC_OVL void
-status_hilite_linestr_done()
+status_hilite_linestr_done(void)
 {
     struct _status_hilite_line_str *nxt, *tmp = status_hilite_str;
 
@@ -2670,7 +2662,7 @@ count_status_hilites(VOID_ARGS)
 }
 
 STATIC_OVL void
-status_hilite_linestr_gather_conditions()
+status_hilite_linestr_gather_conditions(void)
 {
     int i;
     struct _cond_map {
@@ -2750,7 +2742,7 @@ status_hilite_linestr_gather_conditions()
 }
 
 STATIC_OVL void
-status_hilite_linestr_gather()
+status_hilite_linestr_gather(void)
 {
     int i;
     struct hilite_s *hl;
@@ -2848,7 +2840,7 @@ status_hilite2str(struct hilite_s *hl)
 }
 
 STATIC_OVL int
-status_hilite_menu_choose_field()
+status_hilite_menu_choose_field(void)
 {
     winid tmpwin;
     int i, res, fld = BL_FLUSH;
@@ -3641,7 +3633,7 @@ status_hilites_viewall(void)
 }
 
 boolean
-status_hilite_menu()
+status_hilite_menu(void)
 {
     winid tmpwin;
     int i, res;

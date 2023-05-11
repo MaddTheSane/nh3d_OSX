@@ -168,7 +168,7 @@ were_summon(struct permonst *ptr,
 }
 
 void
-you_were()
+you_were(void)
 {
     char qbuf[QBUFSZ];
     boolean controllable_poly = Polymorph_control && !(Stunned || Unaware);
@@ -204,8 +204,7 @@ you_unwere(boolean purify)
 
 /* lycanthropy is being caught or cured, but no shape change is involved */
 void
-set_ulycn(which)
-int which;
+set_ulycn(int which)
 {
     u.ulycn = which;
     /* add or remove lycanthrope's innate intrinsics (Drain_resistance) */

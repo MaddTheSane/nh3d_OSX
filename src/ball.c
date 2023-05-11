@@ -40,7 +40,7 @@ ballrelease(boolean showmsg)
 
 /* ball&chain might hit hero when falling through a trap door */
 void
-ballfall()
+ballfall(void)
 {
     boolean gets_hit;
 
@@ -114,7 +114,7 @@ ballfall()
  *  Should not be called while swallowed except on waterlevel.
  */
 STATIC_OVL void
-placebc_core()
+placebc_core(void)
 {
     if (!uchain || !uball) {
         impossible("Where are your ball and chain?");
@@ -141,7 +141,7 @@ placebc_core()
 }
 
 STATIC_OVL void
-unplacebc_core()
+unplacebc_core(void)
 {
     if (u.uswallow) {
         if (Is_waterlevel(&u.uz)) {
@@ -186,7 +186,7 @@ check_restriction(int restriction)
 
 #ifndef BREADCRUMBS
 void
-placebc()
+placebc(void)
 {
     if (!check_restriction(0)) {
 #if (NH_DEVEL_STATUS != NH_STATUS_RELEASED)
@@ -205,7 +205,7 @@ placebc()
 }
 
 void
-unplacebc()
+unplacebc(void)
 {
     if (bcrestriction) {
         impossible("unplacebc denied, restriction in place");
@@ -215,7 +215,7 @@ unplacebc()
 }
 
 int
-unplacebc_and_covet_placebc()
+unplacebc_and_covet_placebc(void)
 {
     int restriction = 0;
 
@@ -347,7 +347,7 @@ Lift_covet_and_placebc(int pin, char *funcnm, int linenum)
  *  hero is being punished.
  */
 STATIC_OVL int
-bc_order()
+bc_order(void)
 {
     struct obj *obj;
 
@@ -954,7 +954,7 @@ drop_ball(xchar x, xchar y)
 
 /* ball&chain cause hero to randomly lose stuff from inventory */
 STATIC_OVL void
-litter()
+litter(void)
 {
     struct obj *otmp, *nextobj = 0;
     int capacity = weight_cap();
@@ -974,7 +974,7 @@ litter()
 }
 
 void
-drag_down()
+drag_down(void)
 {
     boolean forward;
     uchar dragchance = 3;
@@ -1021,7 +1021,7 @@ drag_down()
 }
 
 void
-bc_sanity_check()
+bc_sanity_check(void)
 {
     int otyp, freeball, freechain;
     const char *onam;

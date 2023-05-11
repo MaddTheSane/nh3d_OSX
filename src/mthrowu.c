@@ -150,9 +150,7 @@ STATIC_OVL struct monst *archer = 0;
 /* calculate multishot volley count for mtmp throwing otmp (if not ammo) or
    shooting otmp with mwep (if otmp is ammo and mwep appropriate launcher) */
 STATIC_OVL int
-monmulti(mtmp, otmp, mwep)
-struct monst *mtmp;
-struct obj *otmp, *mwep;
+monmulti(struct monst *mtmp, struct obj *otmp, struct obj *mwep)
 {
     int skill = (int) objects[otmp->otyp].oc_skill;
     int multishot = 1;
@@ -238,9 +236,7 @@ struct obj *otmp, *mwep;
 
 /* mtmp throws otmp, or shoots otmp with mwep, at hero or at monster mtarg */
 STATIC_OVL void
-monshoot(mtmp, otmp, mwep)
-struct monst *mtmp;
-struct obj *otmp, *mwep;
+monshoot(struct monst *mtmp, struct obj *otmp, struct obj *mwep)
 {
     struct monst *mtarg = target;
     int dm = distmin(mtmp->mx, mtmp->my,
@@ -796,9 +792,7 @@ spitmm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
 
 /* monster breathes at monster (ranged) */
 int
-breamm(mtmp, mattk, mtarg)
-struct monst *mtmp, *mtarg;
-struct attack  *mattk;
+breamm(struct monst *mtmp, struct attack *mattk, struct monst *mtarg)
 {
     /* if new breath types are added, change AD_ACID to max type */
     int typ = (mattk->adtyp == AD_RBRE) ? rnd(AD_ACID) : mattk->adtyp ;

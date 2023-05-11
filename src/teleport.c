@@ -415,7 +415,7 @@ safe_teleds(boolean allow_drag)
 }
 
 STATIC_OVL void
-vault_tele()
+vault_tele(void)
 {
     register struct mkroom *croom = search_special(VAULT);
     coord c;
@@ -456,7 +456,7 @@ teleport_pet(register struct monst *mtmp, boolean force_it)
 
 /* teleport the hero via some method other than scroll of teleport */
 void
-tele()
+tele(void)
 {
     (void) scrolltele((struct obj *) 0);
 }
@@ -533,7 +533,7 @@ scrolltele(struct obj *scroll)
 
 /* ^T command; 'm ^T' == choose among several teleport modes */
 int
-dotelecmd()
+dotelecmd(void)
 {
     long save_HTele, save_ETele;
     int res, added, hidden;
@@ -759,7 +759,7 @@ dotele(boolean break_the_rules) /* True: wizard mode ^T */
 }
 
 void
-level_tele()
+level_tele(void)
 {
     register int newlev;
     d_level newlevel;
@@ -1449,7 +1449,7 @@ rloco(register struct obj *obj)
 
 /* Returns an absolute depth */
 int
-random_teleport_level()
+random_teleport_level(void)
 {
     int nlev, max_depth, min_depth, cur_depth = (int) depth(&u.uz);
 

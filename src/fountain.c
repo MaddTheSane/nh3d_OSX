@@ -30,7 +30,7 @@ floating_above(const char *what)
 
 /* Fountain of snakes! */
 STATIC_OVL void
-dowatersnakes()
+dowatersnakes(void)
 {
     register int num = rn1(5, 2);
     struct monst *mtmp;
@@ -52,7 +52,7 @@ dowatersnakes()
 
 /* Water demon */
 STATIC_OVL void
-dowaterdemon()
+dowaterdemon(void)
 {
     struct monst *mtmp;
 
@@ -80,7 +80,7 @@ dowaterdemon()
 
 /* Water Nymph */
 STATIC_OVL void
-dowaternymph()
+dowaternymph(void)
 {
     register struct monst *mtmp;
 
@@ -146,7 +146,7 @@ gush(int x, int y, genericptr_t poolcnt)
 
 /* Find a gem in the sparkling waters. */
 STATIC_OVL void
-dofindgem()
+dofindgem(void)
 {
     if (!Blind)
         You("spot a gem in the sparkling waters!");
@@ -213,7 +213,7 @@ dryup(xchar x, xchar y, boolean isyou)
 }
 
 void
-drinkfountain()
+drinkfountain(void)
 {
     /* What happens when you drink from a fountain? */
     register boolean mgkftn = (levl[u.ux][u.uy].blessedftn == 1);
@@ -509,7 +509,7 @@ breaksink(int x, int y)
 }
 
 void
-drinksink()
+drinksink(void)
 {
     struct obj *otmp;
     struct monst *mtmp;

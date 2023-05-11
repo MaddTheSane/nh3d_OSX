@@ -28,7 +28,7 @@ extern short glyph2tile[]; /* from tile.c */
  * another routine.
  */
 STATIC_OVL void
-shuffle_tiles()
+shuffle_tiles(void)
 {
     int i;
     short tmp_tilemap[NUM_OBJECTS];
@@ -106,7 +106,7 @@ shuffle(int o_low, int o_high, boolean domaterial)
 }
 
 void
-init_objects()
+init_objects(void)
 {
     register int i, first, last, sum;
     register char oclass;
@@ -236,7 +236,7 @@ obj_shuffle_range(int otyp,             /* input: representative item */
 
 /* randomize object descriptions */
 STATIC_OVL void
-shuffle_all()
+shuffle_all(void)
 {
     /* entire classes; obj_shuffle_range() handles their exceptions */
     static char shuffle_classes[] = {
@@ -264,7 +264,7 @@ shuffle_all()
 
 /* find the object index for snow boots; used [once] by slippery ice code */
 int
-find_skates()
+find_skates(void)
 {
     register int i;
     register const char *s;
@@ -279,7 +279,7 @@ find_skates()
 
 /* level dependent initialization */
 void
-oinit()
+oinit(void)
 {
     setgemprobs(&u.uz);
 }
@@ -408,7 +408,7 @@ static short uniq_objs[] = {
 
 /* the '\' command - show discovered object types */
 int
-dodiscovered() /* free after Robert Viduya */
+dodiscovered(void) /* free after Robert Viduya */
 {
     register int i, dis;
     int ct = 0;
@@ -479,7 +479,7 @@ oclass_to_name(char oclass, char *buf)
 
 /* the '`' command - show discovered object types for one class */
 int
-doclassdisco()
+doclassdisco(void)
 {
     static NEARDATA const char
         prompt[] = "View discoveries for which sort of objects?",
@@ -648,7 +648,7 @@ doclassdisco()
 
 /* put up nameable subset of discoveries list as a menu */
 void
-rename_disco()
+rename_disco(void)
 {
     register int i, dis;
     int ct = 0, mn = 0, sl;

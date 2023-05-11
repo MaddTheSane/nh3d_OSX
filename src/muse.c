@@ -288,8 +288,7 @@ mquaffmsg(struct monst *mtmp, struct obj *otmp)
  */
 
 STATIC_OVL boolean
-m_use_healing(mtmp)
-struct monst *mtmp;
+m_use_healing(struct monst *mtmp)
 {
     struct obj *obj = 0;
     if ((obj = m_carrying(mtmp, POT_FULL_HEALING)) != 0) {

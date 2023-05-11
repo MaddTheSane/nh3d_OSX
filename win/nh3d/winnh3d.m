@@ -288,14 +288,14 @@ void nh3d_init_nhwindows(int* argc, char** argv)
 #endif
 }
 
-void nh3d_player_selection()
+void nh3d_player_selection(void)
 {			
 	@autoreleasepool {
 		[_NH3DBindController showUserMakeSheet];
 	}
 }
 
-void nh3d_askname()
+void nh3d_askname(void)
 {
 	@autoreleasepool {
 		nh3d_getlin([NSLocalizedString(@"Who are you?", @"Asking for the player name") cStringUsingEncoding:NH3DTEXTENCODING], plname);
@@ -316,7 +316,7 @@ void nh3d_askname()
 
 static NSMutableDictionary<NSString*, NSURL*> *soundDict = nil;
 
-void nh3d_get_nh_event()
+void nh3d_get_nh_event(void)
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -400,7 +400,7 @@ void nh3d_suspend_nhwindows(const char *str)
 	return;
 }
 
-void nh3d_resume_nhwindows()
+void nh3d_resume_nhwindows(void)
 {
 	/*Do Nothing.*/
 	return;
@@ -675,19 +675,19 @@ int nh3d_select_menu(winid wid, int how, menu_item **selected)
 	return ret;
 }
 
-void nh3d_update_inventory()
+void nh3d_update_inventory(void)
 {
 	if (CocoaPortIsReady) {
 		[_NH3DUserStatusModel updatePlayerInventory];
 	}
 }
 
-void nh3d_mark_synch()
+void nh3d_mark_synch(void)
 {
 	/* Do nothing */
 }
 
-void nh3d_wait_synch()
+void nh3d_wait_synch(void)
 {
 	/* Do nothing */
 }
@@ -734,7 +734,7 @@ void nh3d_raw_print_bold(const char *str)
 	}
 }
 
-int nh3d_nhgetch()
+int nh3d_nhgetch(void)
 {
 	return [_NH3DBindController nhGetKey];
 }
@@ -744,7 +744,7 @@ int nh3d_nh_poskey(int *x, int *y, int *mod)
 	return [_NH3DBindController nhPosKeyAtX:x atY:y keyMod:mod];
 }
 
-void nh3d_nhbell()
+void nh3d_nhbell(void)
 {
 	@autoreleasepool {
 		NSSound *bell = [NSSound soundNamed:@"Sosumi"];
@@ -752,7 +752,7 @@ void nh3d_nhbell()
 	}
 }
 
-int nh3d_doprev_message()
+int nh3d_doprev_message(void)
 {
 	/*Do Nothing... They can read old messages using the scrollbar. */
 	return 0;
@@ -953,7 +953,7 @@ void nh3d_getlin(const char *prompt, char *line)
 		line[0] = (char)0;
 }
 
-int nh3d_get_ext_cmd()
+int nh3d_get_ext_cmd(void)
 {
 	@autoreleasepool {
 		int ret = _NH3DKeyBuffer.extendKey;
@@ -997,19 +997,19 @@ void nh3d_number_pad(int num)
 	/* Do Nothing */
 }
 
-void nh3d_delay_output()
+void nh3d_delay_output(void)
 {
 	usleep(48000);
 }
 
-void nh3d_start_screen()
+void nh3d_start_screen(void)
 {
 	NSLog(@"StartScreen");
 	/* Do Nothing */
 	return;
 }
 
-void nh3d_end_screen()
+void nh3d_end_screen(void)
 {
 	NSLog(@"EndScreen");
 	/* Do Nothing */
@@ -1063,7 +1063,7 @@ void nethack3d_exit(int status)
 
 #ifndef GNUSTEP
 //  UTF8 file Handring
-void nh3d_set_savefile_name()
+void nh3d_set_savefile_name(void)
 {
 	@autoreleasepool {
 		NSString *saveString;
@@ -1170,7 +1170,7 @@ void nh3d_preference_update(const char *pref)
 }
 
 static void
-wd_message()
+wd_message(void)
 {
 #ifdef WIZARD
 	if (wiz_error_flag) {

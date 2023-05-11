@@ -798,7 +798,7 @@ randrole(boolean for_display)
 }
 
 STATIC_OVL int
-randrole_filtered()
+randrole_filtered(void)
 {
     int i, n = 0, set[SIZE(roles)];
 
@@ -1299,7 +1299,7 @@ pick_align(int rolenum, int racenum, int gendnum, int pickhow)
 }
 
 void
-rigid_role_checks()
+rigid_role_checks(void)
 {
     int tmp;
 
@@ -1367,7 +1367,7 @@ setrolefilter(const char *bufp)
 }
 
 boolean
-gotrolefilter()
+gotrolefilter(void)
 {
     int i;
 
@@ -1380,7 +1380,7 @@ gotrolefilter()
 }
 
 void
-clearrolefilter()
+clearrolefilter(void)
 {
     int i;
 
@@ -1674,7 +1674,7 @@ build_plselection_prompt(char *buf, int buflen, int rolenum, int racenum, int ge
 #undef NUM_BP
 
 void
-plnamesuffix()
+plnamesuffix(void)
 {
     char *sptr, *eptr;
     int i;
@@ -1971,7 +1971,7 @@ role_menu_extra(int which, winid where, boolean preselect)
  * This code also replaces quest_init().
  */
 void
-role_init()
+role_init(void)
 {
     int alignmnt;
     struct permonst *pm;
@@ -2123,7 +2123,7 @@ Hello(struct monst *mtmp)
 }
 
 const char *
-Goodbye()
+Goodbye(void)
 {
     switch (Role_switch) {
     case PM_KNIGHT:

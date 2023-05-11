@@ -867,7 +867,7 @@ reseed_random(int (*fn)(int))
 }
 
 time_t
-getnow()
+getnow(void)
 {
     time_t datetime = 0;
 
@@ -876,7 +876,7 @@ getnow()
 }
 
 STATIC_OVL struct tm *
-getlt()
+getlt(void)
 {
     time_t date = getnow();
 
@@ -884,7 +884,7 @@ getlt()
 }
 
 int
-getyear()
+getyear(void)
 {
     return (1900 + getlt()->tm_year);
 }
@@ -1043,7 +1043,7 @@ time_from_yyyymmddhhmmss(char *buf)
  * + 11/22 for rounding
  */
 int
-phase_of_the_moon() /* 0-7, with 0: new, 4: full */
+phase_of_the_moon(void) /* 0-7, with 0: new, 4: full */
 {
     register struct tm *lt = getlt();
     register int epact, diy, goldn;
@@ -1058,7 +1058,7 @@ phase_of_the_moon() /* 0-7, with 0: new, 4: full */
 }
 
 boolean
-friday_13th()
+friday_13th(void)
 {
     register struct tm *lt = getlt();
 
@@ -1067,7 +1067,7 @@ friday_13th()
 }
 
 int
-night()
+night(void)
 {
     register int hour = getlt()->tm_hour;
 
@@ -1075,7 +1075,7 @@ night()
 }
 
 int
-midnight()
+midnight(void)
 {
     return (getlt()->tm_hour == 0);
 }

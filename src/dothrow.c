@@ -254,7 +254,7 @@ ok_to_throw(int *shotlimit_p) /* (see dothrow()) */
 
 /* t command - throw */
 int
-dothrow()
+dothrow(void)
 {
     register struct obj *obj;
     int shotlimit;
@@ -283,7 +283,7 @@ dothrow()
 /* KMH -- Automatically fill quiver */
 /* Suggested by Jeffrey Bay <jbay@convex.hp.com> */
 static void
-autoquiver()
+autoquiver(void)
 {
     struct obj *otmp, *oammo = 0, *omissile = 0, *omisc = 0, *altammo = 0;
 
@@ -346,7 +346,7 @@ autoquiver()
 
 /* f command -- fire: throw from the quiver */
 int
-dofire()
+dofire(void)
 {
     int shotlimit;
     struct obj *obj;
@@ -528,9 +528,7 @@ walk_path(coord *src_cc, coord *dest_cc,
    vs drag-to-dest; original callers use first mode, jumping wants second,
    grappling hook backfire and thrown chained ball need third */
 boolean
-hurtle_jump(arg, x, y)
-genericptr_t arg;
-int x, y;
+hurtle_jump(genericptr_t arg, int x, int y)
 {
     boolean res;
     long save_EWwalking = EWwalking;

@@ -709,7 +709,7 @@ Armor_off(VOID_ARGS)
  * repeating.]
  */
 int
-Armor_gone()
+Armor_gone(void)
 {
     context.takeoff.mask &= ~W_ARM;
     setnotworn(uarm);
@@ -718,7 +718,7 @@ Armor_gone()
 }
 
 STATIC_OVL void
-Amulet_on()
+Amulet_on(void)
 {
     /* make sure amulet isn't wielded; can't use remove_worn_item()
        here because it has already been set worn in amulet slot */
@@ -787,7 +787,7 @@ Amulet_on()
 }
 
 void
-Amulet_off()
+Amulet_off(void)
 {
     context.takeoff.mask &= ~W_AMUL;
 
@@ -1291,9 +1291,7 @@ doffing(struct obj *otmp)
 /* despite their names, cancel_don() and cancel_doff() both apply to both
    donning and doffing... */
 void
-cancel_doff(obj, slotmask)
-struct obj *obj;
-long slotmask;
+cancel_doff(struct obj *obj, long slotmask)
 {
     /* Called by setworn() for old item in specified slot or by setnotworn()
      * for specified item.  We don't want to call cancel_don() if we got
@@ -1312,7 +1310,7 @@ long slotmask;
 /* despite their names, cancel_don() and cancel_doff() both apply to both
    donning and doffing... */
 void
-cancel_don()
+cancel_don(void)
 {
     /* the piece of armor we were donning/doffing has vanished, so stop
      * wasting time on it (and don't dereference it when donning would
@@ -1480,7 +1478,7 @@ armor_or_accessory_off(struct obj *obj)
 
 /* the 'T' command */
 int
-dotakeoff()
+dotakeoff(void)
 {
     struct obj *otmp = (struct obj *) 0;
 
@@ -1506,7 +1504,7 @@ dotakeoff()
 
 /* the 'R' command */
 int
-doremring()
+doremring(void)
 {
     struct obj *otmp = 0;
 
@@ -2036,7 +2034,7 @@ accessory_or_armor_on(struct obj *obj)
 
 /* the 'W' command */
 int
-dowear()
+dowear(void)
 {
     struct obj *otmp;
 
@@ -2058,7 +2056,7 @@ dowear()
 
 /* the 'P' command */
 int
-doputon()
+doputon(void)
 {
     struct obj *otmp;
 
@@ -2077,7 +2075,7 @@ doputon()
 
 /* calculate current armor class */
 void
-find_ac()
+find_ac(void)
 {
     int uac = mons[u.umonnum].ac; /* base armor class for current form */
 
@@ -2123,7 +2121,7 @@ find_ac()
 }
 
 void
-glibr()
+glibr(void)
 {
     register struct obj *otmp;
     int xfl = 0;
@@ -2267,7 +2265,7 @@ stuck_ring(struct obj *ring, int otyp)
 
 /* also for praying; find worn item that confers "Unchanging" attribute */
 struct obj *
-unchanger()
+unchanger(void)
 {
     if (uamul && uamul->otyp == AMULET_OF_UNCHANGING)
         return uamul;
@@ -2402,7 +2400,7 @@ select_off(register struct obj *otmp)
 }
 
 STATIC_OVL struct obj *
-do_takeoff()
+do_takeoff(void)
 {
     struct obj *otmp = (struct obj *) 0;
     struct takeoff_info *doff = &context.takeoff;
@@ -2566,7 +2564,7 @@ take_off(VOID_ARGS)
 
 /* clear saved context to avoid inappropriate resumption of interrupted 'A' */
 void
-reset_remarm()
+reset_remarm(void)
 {
     context.takeoff.what = context.takeoff.mask = 0L;
     context.takeoff.disrobing[0] = '\0';
@@ -2574,7 +2572,7 @@ reset_remarm()
 
 /* the 'A' command -- remove multiple worn items */
 int
-doddoremarm()
+doddoremarm(void)
 {
     int result = 0;
 

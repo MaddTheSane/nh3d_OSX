@@ -212,7 +212,7 @@ static struct monst *invent_carrying_monster = NULL;
 #define SPLEV_STACK_RESERVE 128
 
 void
-solidify_map()
+solidify_map(void)
 {
     xchar x, y;
 
@@ -628,7 +628,7 @@ set_wall_property(xchar x1, xchar y1, xchar x2, xchar y2, int prop)
 }
 
 STATIC_OVL void
-shuffle_alignments()
+shuffle_alignments(void)
 {
     int i;
     aligntyp atmp;
@@ -649,7 +649,7 @@ shuffle_alignments()
  * Count the different features (sinks, fountains) in the level.
  */
 STATIC_OVL void
-count_features()
+count_features(void)
 {
     xchar x, y;
 
@@ -665,7 +665,7 @@ count_features()
 }
 
 void
-remove_boundary_syms()
+remove_boundary_syms(void)
 {
     /*
      * If any CROSSWALLs are found, must change to ROOM after REGION's
@@ -691,8 +691,7 @@ remove_boundary_syms()
 
 /* used by sel_set_door() and link_doors_rooms() */
 STATIC_OVL void
-set_door_orientation(x, y)
-int x, y;
+set_door_orientation(int x, int y)
 {
     boolean wleft, wright, wup, wdown;
 
@@ -745,7 +744,7 @@ maybe_add_door(int x, int y, struct mkroom *droom)
 }
 
 STATIC_OVL void
-link_doors_rooms()
+link_doors_rooms(void)
 {
     int x, y;
     int tmpi, m;
@@ -768,7 +767,7 @@ link_doors_rooms()
 }
 
 void
-fill_rooms()
+fill_rooms(void)
 {
     int tmpi, m;
 
@@ -785,7 +784,7 @@ fill_rooms()
  * Choose randomly the state (nodoor, open, closed or locked) for a door
  */
 STATIC_OVL int
-rnddoor()
+rnddoor(void)
 {
     int i = 1 << rn2(5);
 
@@ -797,7 +796,7 @@ rnddoor()
  * Select a random trap
  */
 STATIC_OVL int
-rndtrap()
+rndtrap(void)
 {
     int rtrap;
 
@@ -1498,8 +1497,7 @@ m_bad_boulder_spot(int x, int y)
 }
 
 STATIC_OVL int
-pm_to_humidity(pm)
-struct permonst *pm;
+pm_to_humidity(struct permonst *pm)
 {
     int loc = DRY;
     if (!pm)
@@ -2253,7 +2251,7 @@ dig_corridor(coord *org, coord *dest, boolean nxcor, schar ftyp, schar btyp)
  * stairs don't get created until _after_ sorting takes place.
  */
 STATIC_OVL void
-fix_stair_rooms()
+fix_stair_rooms(void)
 {
     int i;
     struct mkroom *croom;
@@ -2533,7 +2531,7 @@ maze1xy(coord *m, int humidity)
  * to the size of the maze.
  */
 STATIC_OVL void
-fill_empty_maze()
+fill_empty_maze(void)
 {
     int mapcountmax, mapcount, mapfact;
     xchar x, y;
@@ -3759,10 +3757,7 @@ floodfillchk_match_accessible(int x, int y)
 
 /* check whethere <x,y> is already in xs[],ys[] */
 STATIC_OVL boolean
-sel_flood_havepoint(x, y, xs, ys, n)
-int x, y;
-xchar xs[], ys[];
-int n;
+sel_flood_havepoint(int x, int y, xchar xs[], xchar ys[], int n)
 {
     xchar xx = (xchar) x, yy = (xchar) y;
 
@@ -4304,7 +4299,7 @@ generate_way_out_method(int nx, int ny, struct opvar *ov)
 }
 
 STATIC_OVL void
-ensure_way_out()
+ensure_way_out(void)
 {
     static const char nhFunc[] = "ensure_way_out";
     struct opvar *ov = selection_opvar((char *) 0);

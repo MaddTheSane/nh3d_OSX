@@ -756,7 +756,7 @@ kickstr(char *buf, const char *kickobjnam)
 }
 
 int
-dokick()
+dokick(void)
 {
     int x, y;
     int avrg_attrib;
@@ -1676,10 +1676,7 @@ obj_delivery(boolean near_hero)
 }
 
 void
-deliver_obj_to_mon(mtmp, cnt, deliverflags)
-int cnt;
-struct monst *mtmp;
-unsigned long deliverflags;
+deliver_obj_to_mon(struct monst *mtmp, int cnt, unsigned long deliverflags)
 {
     struct obj *otmp, *otmp2;
     int where, maxobj = 1;

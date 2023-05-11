@@ -238,7 +238,7 @@ flood_fill_rm(int sx, register int sy, register int rmno, boolean lit, boolean a
  * auto-magically wallify it.  Taken from lev_main.c.
  */
 STATIC_OVL void
-wallify_map()
+wallify_map(void)
 {
     int x, y, xx, yy;
 

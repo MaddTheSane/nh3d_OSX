@@ -344,7 +344,7 @@ remove_region(NhRegion *reg)
  * when changing level, for instance).
  */
 void
-clear_regions()
+clear_regions(void)
 {
     register int i;
 
@@ -363,7 +363,7 @@ clear_regions()
  * callbacks when needed.
  */
 void
-run_regions()
+run_regions(void)
 {
     register int i, j, k;
     int f_indx;
@@ -512,7 +512,7 @@ m_in_out_region(struct monst *mon, xchar x, xchar y)
  * Checks player's regions after a teleport for instance.
  */
 void
-update_player_regions()
+update_player_regions(void)
 {
     register int i;
 
@@ -1017,7 +1017,7 @@ create_gas_cloud(xchar x, xchar y, int radius, int damage)
 
 /* for checking troubles during prayer; is hero at risk? */
 boolean
-region_danger()
+region_danger(void)
 {
     int i, f_indx, n = 0;
 
@@ -1044,7 +1044,7 @@ region_danger()
 /* for fixing trouble at end of prayer;
    danger detected at start of prayer might have expired by now */
 void
-region_safety()
+region_safety(void)
 {
     NhRegion *r = 0;
     int i, f_indx, n = 0;

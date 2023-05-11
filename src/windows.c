@@ -590,7 +590,7 @@ static void (*previnterface_exit_nhwindows)(const char *) = 0;
 
 /* hangup has occurred; switch to no-op user interface */
 void
-nhwindows_hangup()
+nhwindows_hangup(void)
 {
     char *(*previnterface_getmsghistory)(boolean) = 0;
 
@@ -827,7 +827,7 @@ char *status_vals[MAXBLSTATS];
 boolean status_activefields[MAXBLSTATS];
 
 void
-genl_status_init()
+genl_status_init(void)
 {
     int i;
 
@@ -843,7 +843,7 @@ genl_status_init()
 }
 
 void
-genl_status_finish()
+genl_status_finish(void)
 {
     /* tear down routine */
     int i;
@@ -1187,7 +1187,7 @@ dump_open_log(time_t now)
 }
 
 void
-dump_close_log()
+dump_close_log(void)
 {
     if (dumplog_file) {
         (void) fclose(dumplog_file);

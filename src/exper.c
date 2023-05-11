@@ -42,7 +42,7 @@ enermod(int en)
 
 /* calculate spell power/energy points for new level */
 int
-newpw()
+newpw(void)
 {
     int en = 0, enrnd, enfix;
 
@@ -261,7 +261,7 @@ losexp(const char *drainer) /* cause of death, if drain should be fatal */
  * at a dragon created with a wand of polymorph??
  */
 void
-newexplevel()
+newexplevel(void)
 {
     if (u.ulevel < MAXULEV && u.uexp >= newuexp(u.ulevel))
         pluslvl(TRUE);

@@ -763,7 +763,7 @@ ghod_hitsu(struct monst *priest)
 }
 
 void
-angry_priest()
+angry_priest(void)
 {
     register struct monst *priest;
     struct rm *lev;
@@ -804,7 +804,7 @@ angry_priest()
  * [Perhaps we should convert them into roamers instead?]
  */
 void
-clearpriests()
+clearpriests(void)
 {
     struct monst *mtmp;
 
@@ -994,7 +994,7 @@ mstatusline(struct monst *mtmp)
 
 /* stethoscope or probing applied to hero -- one-line feedback */
 void
-ustatusline()
+ustatusline(void)
 {
     char info[BUFSZ];
 

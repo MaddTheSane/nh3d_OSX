@@ -84,7 +84,7 @@ long wgrowtime[MAX_NUM_WORMS] = DUMMY;
  *  Implementation is left to the interested hacker.
  */
 int
-get_wormno()
+get_wormno(void)
 {
     register int new_wormno = 1;
 
@@ -700,8 +700,7 @@ random_dir(xchar x, xchar y, xchar *nx, xchar *ny)
 
 /* for size_monst(cmd.c) to support #stats */
 int
-size_wseg(worm)
-struct monst *worm;
+size_wseg(struct monst *worm)
 {
     return (int) (count_wsegs(worm) * sizeof (struct wseg));
 }

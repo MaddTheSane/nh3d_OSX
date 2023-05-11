@@ -92,7 +92,7 @@ finddpos(coord *cc, xchar xl, xchar yl, xchar xh, xchar yh)
 }
 
 void
-sort_rooms()
+sort_rooms(void)
 {
 #if defined(SYSV) || defined(DGUX)
 #define CAST_nroom (unsigned) nroom
@@ -203,7 +203,7 @@ add_subroom(struct mkroom *proom, int lowx, int lowy, int hix, int hiy,
 }
 
 STATIC_OVL void
-makerooms()
+makerooms(void)
 {
     boolean tried_vault = FALSE;
 
@@ -297,7 +297,7 @@ join(register int a, register int b, boolean nxcor)
 }
 
 void
-makecorridors()
+makecorridors(void)
 {
     int a, b, i;
     boolean any = TRUE;
@@ -519,7 +519,7 @@ makeniche(int trap_type)
 }
 
 STATIC_OVL void
-make_niches()
+make_niches(void)
 {
     int ct = rnd((nroom >> 1) + 1), dep = depth(&u.uz);
     boolean ltptr = (!level.flags.noteleport && dep > 15),
@@ -538,7 +538,7 @@ make_niches()
 }
 
 STATIC_OVL void
-makevtele()
+makevtele(void)
 {
     makeniche(TELEP_TRAP);
 }
@@ -549,7 +549,7 @@ makevtele()
  * each type initializes what it needs to separately.
  */
 STATIC_OVL void
-clear_level_structures()
+clear_level_structures(void)
 {
     static struct rm zerorm = { cmap_to_glyph(S_stone),
                                 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -620,7 +620,7 @@ clear_level_structures()
 }
 
 STATIC_OVL void
-makelevel()
+makelevel(void)
 {
     register struct mkroom *croom, *troom;
     register int tryct;
@@ -956,7 +956,7 @@ mineralize(int kelp_pool, int kelp_moat, int goldprob, int gemprob, boolean skip
 }
 
 void
-mklev()
+mklev(void)
 {
     struct mkroom *croom;
     int ridx;
@@ -1652,7 +1652,7 @@ mkgrave(struct mkroom *croom)
  * attempted while blind (in order to make blind-from-birth conduct viable).]
  */
 void
-mkinvokearea()
+mkinvokearea(void)
 {
     int dist;
     xchar xmin = inv_pos.x, xmax = inv_pos.x,

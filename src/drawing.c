@@ -352,7 +352,7 @@ def_char_to_monclass(char ch)
  */
 
 void
-init_symbols()
+init_symbols(void)
 {
     init_ov_primary_symbols();
     init_ov_rogue_symbols();
@@ -362,7 +362,7 @@ init_symbols()
 }
 
 void
-init_showsyms()
+init_showsyms(void)
 {
     register int i;
 
@@ -380,7 +380,7 @@ init_showsyms()
 
 /* initialize defaults for the overrides to the rogue symset */
 void
-init_ov_rogue_symbols()
+init_ov_rogue_symbols(void)
 {
     register int i;
 
@@ -389,7 +389,7 @@ init_ov_rogue_symbols()
 }
 /* initialize defaults for the overrides to the primary symset */
 void
-init_ov_primary_symbols()
+init_ov_primary_symbols(void)
 {
     register int i;
 
@@ -424,7 +424,7 @@ get_othersym(int idx, int which_set)
 
 /* initialize defaults for the primary symset */
 void
-init_primary_symbols()
+init_primary_symbols(void)
 {
     register int i;
 
@@ -444,7 +444,7 @@ init_primary_symbols()
 
 /* initialize defaults for the rogue symset */
 void
-init_rogue_symbols()
+init_rogue_symbols(void)
 {
     register int i;
 

@@ -276,8 +276,7 @@ map_invisible(register xchar x, register xchar y)
 }
 
 boolean
-unmap_invisible(x, y)
-int x, y;
+unmap_invisible(int x, int y)
 {
     if (isok(x,y) && glyph_is_invisible(levl[x][y].glyph)) {
         unmap_object(x, y);
@@ -516,8 +515,7 @@ display_warning(register struct monst *mon)
 }
 
 int
-warning_of(mon)
-struct monst *mon;
+warning_of(struct monst *mon)
 {
     int wl = 0, tmp = 0;
 
@@ -1252,7 +1250,7 @@ under_ground(int mode)
  *        sit.c]
  */
 void
-see_monsters()
+see_monsters(void)
 {
     register struct monst *mon;
     int new_warn_obj_cnt = 0;
@@ -1288,7 +1286,7 @@ see_monsters()
  * changes.
  */
 void
-set_mimic_blocking()
+set_mimic_blocking(void)
 {
     register struct monst *mon;
 
@@ -1309,7 +1307,7 @@ set_mimic_blocking()
  *      + hallucinating.
  */
 void
-see_objects()
+see_objects(void)
 {
     register struct obj *obj;
     for (obj = fobj; obj; obj = obj->nobj)
@@ -1321,7 +1319,7 @@ see_objects()
  * Update hallucinated traps.
  */
 void
-see_traps()
+see_traps(void)
 {
     struct trap *trap;
     int glyph;
@@ -1337,20 +1335,20 @@ see_traps()
  * Put the cursor on the hero.  Flush all accumulated glyphs before doing it.
  */
 void
-curs_on_u()
+curs_on_u(void)
 {
     flush_screen(1); /* Flush waiting glyphs & put cursor on hero */
 }
 
 int
-doredraw()
+doredraw(void)
 {
     docrt();
     return 0;
 }
 
 void
-docrt()
+docrt(void)
 {
     register int x, y;
     register struct rm *lev;
@@ -1406,7 +1404,7 @@ docrt()
 /* for panning beyond a clipped region; resend the current map data to
    the interface rather than use docrt()'s regeneration of that data */
 void
-redraw_map()
+redraw_map(void)
 {
     int x, y, glyph;
 
@@ -1561,7 +1559,7 @@ static gbuf_entry nul_gbuf = { 0, cmap_to_glyph(S_stone) };
  * Turn the 3rd screen into stone.
  */
 void
-clear_glyph_buffer()
+clear_glyph_buffer(void)
 {
     register int x, y;
     register gbuf_entry *gptr;
@@ -1589,7 +1587,7 @@ row_refresh(int start, int stop, int y)
 }
 
 void
-cls()
+cls(void)
 {
     static boolean in_cls = 0;
 
@@ -2097,7 +2095,7 @@ set_crosswall(int x, int y)
 
 /* Called from mklev.  Scan the level and set the wall modes. */
 void
-set_wall_state()
+set_wall_state(void)
 {
     int x, y;
     int wmode;

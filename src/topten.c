@@ -366,7 +366,7 @@ writexlentry(FILE *rfile, struct toptenentry *tt, int how)
 }
 
 STATIC_OVL long
-encodexlogflags()
+encodexlogflags(void)
 {
     long e = 0L;
 
@@ -381,7 +381,7 @@ encodexlogflags()
 }
 
 STATIC_OVL long
-encodeconduct()
+encodeconduct(void)
 {
     long e = 0L;
 
@@ -414,7 +414,7 @@ encodeconduct()
 }
 
 STATIC_OVL long
-encodeachieve()
+encodeachieve(void)
 {
     long r = 0L;
 
@@ -762,7 +762,7 @@ destroywin:
 }
 
 STATIC_OVL void
-outheader()
+outheader(void)
 {
     char linebuf[BUFSZ];
     register char *bp;
@@ -1148,7 +1148,7 @@ classmon(char *plch, boolean fem)
  * Get a random player name and class from the high score list,
  */
 struct toptenentry *
-get_rnd_toptenentry()
+get_rnd_toptenentry(void)
 {
     int rank, i;
     FILE *rfile;

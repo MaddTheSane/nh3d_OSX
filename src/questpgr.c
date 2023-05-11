@@ -44,7 +44,7 @@ static char nambuf[sizeof cvt_buf];
    build with DEBUG enabled and use DEBUGFILES=questpgr.c
    in sysconf file or environment */
 static void
-dump_qtlist()
+dump_qtlist(void)
 {
 #ifdef DEBUG
     struct qtmsg *msg;
@@ -93,7 +93,7 @@ construct_qtlist(long hdr_offset)
 }
 
 void
-load_qtlist()
+load_qtlist(void)
 {
     int n_classes, i;
     char qt_classes[N_HDR][LEN_HDR];
@@ -138,7 +138,7 @@ load_qtlist()
 
 /* called at program exit */
 void
-unload_qtlist()
+unload_qtlist(void)
 {
     if (msg_file) {
         (void) dlb_fclose(msg_file); msg_file = 0;
@@ -172,7 +172,7 @@ quest_info(int typ)
 
 /* return your role leader's name */
 const char *
-ldrname()
+ldrname(void)
 {
     int i = urole.ldrnum;
 
@@ -183,7 +183,7 @@ ldrname()
 
 /* return your intermediate target string */
 STATIC_OVL const char *
-intermed()
+intermed(void)
 {
     return urole.intermed;
 }
@@ -195,8 +195,7 @@ is_quest_artifact(struct obj *otmp)
 }
 
 STATIC_OVL struct obj *
-find_qarti(ochain)
-struct obj *ochain;
+find_qarti(struct obj *ochain)
 {
     struct obj *otmp, *qarti;
 
@@ -212,8 +211,7 @@ struct obj *ochain;
 /* check several object chains for the quest artifact to determine
    whether it is present on the current level */
 struct obj *
-find_quest_artifact(whichchains)
-unsigned whichchains;
+find_quest_artifact(unsigned whichchains)
 {
     struct monst *mtmp;
     struct obj *qarti = 0;
@@ -248,7 +246,7 @@ unsigned whichchains;
 
 /* return your role nemesis' name */
 STATIC_OVL const char *
-neminame()
+neminame(void)
 {
     int i = urole.neminum;
 
@@ -258,7 +256,7 @@ neminame()
 }
 
 STATIC_OVL const char *
-guardname() /* return your role leader's guard monster name */
+guardname(void) /* return your role leader's guard monster name */
 {
     int i = urole.guardnum;
 
@@ -266,7 +264,7 @@ guardname() /* return your role leader's guard monster name */
 }
 
 STATIC_OVL const char *
-homebase() /* return your role leader's location */
+homebase(void) /* return your role leader's location */
 {
     return urole.homebase;
 }
@@ -639,7 +637,7 @@ qt_pager(int msgnum)
 }
 
 struct permonst *
-qt_montype()
+qt_montype(void)
 {
     int qpm;
 
@@ -657,7 +655,7 @@ qt_montype()
 
 /* special levels can include a custom arrival message; display it */
 void
-deliver_splev_message()
+deliver_splev_message(void)
 {
     char *str, *nl, in_line[BUFSZ], out_line[BUFSZ];
 

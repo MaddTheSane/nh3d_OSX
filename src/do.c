@@ -26,7 +26,7 @@ static NEARDATA const char drop_types[] = { ALLOW_COUNT, COIN_CLASS,
 
 /* 'd' command: drop one inventory item */
 int
-dodrop()
+dodrop(void)
 {
     int result, i = (invent) ? 0 : (SIZE(drop_types) - 1);
 
@@ -299,7 +299,7 @@ trycall(register struct obj *obj)
 /* Transforms the sink at the player's position into
    a fountain, throne, altar or grave. */
 STATIC_DCL void
-polymorph_sink()
+polymorph_sink(void)
 {
     uchar sym = S_sink;
     boolean sinklooted;
@@ -356,7 +356,7 @@ polymorph_sink()
 /* Teleports the sink at the player's position;
    return True if sink teleported. */
 STATIC_DCL boolean
-teleport_sink()
+teleport_sink(void)
 {
     int cx, cy;
     int cnt = 0;
@@ -779,7 +779,7 @@ obj_no_longer_held(struct obj *obj)
 
 /* 'D' command: drop several things */
 int
-doddrop()
+doddrop(void)
 {
     int result = 0;
 
@@ -920,7 +920,7 @@ static NEARDATA boolean at_ladder = FALSE;
 
 /* the '>' command */
 int
-dodown()
+dodown(void)
 {
     struct trap *trap = 0;
     boolean stairs_down = ((u.ux == xdnstair && u.uy == ydnstair)
@@ -1075,7 +1075,7 @@ dodown()
 
 /* the '<' command */
 int
-doup()
+doup(void)
 {
     if (u_rooted())
         return 1;
@@ -1129,7 +1129,7 @@ d_level save_dlevel = { 0, 0 };
 
 /* check that we can write out the current level */
 STATIC_OVL int
-currentlevel_rewrite()
+currentlevel_rewrite(void)
 {
     register int fd;
     char whynot[BUFSZ];
@@ -1165,7 +1165,7 @@ currentlevel_rewrite()
 
 #ifdef INSURANCE
 void
-save_currentstate()
+save_currentstate(void)
 {
     int fd;
 
@@ -1671,7 +1671,7 @@ goto_level(d_level *newlevel, boolean at_stairs, boolean falling, boolean portal
 }
 
 STATIC_OVL void
-final_level()
+final_level(void)
 {
     struct monst *mtmp;
 
@@ -1720,7 +1720,7 @@ schedule_goto(d_level *tolev, boolean at_stairs, boolean falling,
 
 /* handle something like portal ejection */
 void
-deferred_goto()
+deferred_goto(void)
 {
     if (!on_level(&u.uz, &u.utolev)) {
         d_level dest;
@@ -1889,7 +1889,7 @@ revive_mon(anything *arg, long timeout UNUSED)
 }
 
 int
-donull()
+donull(void)
 {
     return 1; /* Do nothing, but let other things happen */
 }
@@ -1921,7 +1921,7 @@ wipeoff(VOID_ARGS)
 }
 
 int
-dowipe()
+dowipe(void)
 {
     if (u.ucreamed) {
         static NEARDATA char buf[39];

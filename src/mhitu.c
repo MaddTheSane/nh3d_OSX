@@ -119,7 +119,7 @@ mpoisons_subj(struct monst *mtmp, struct attack *mattk)
 
 /* called when your intrinsic speed is taken away */
 void
-u_slow_down()
+u_slow_down(void)
 {
     HFast = 0L;
     if (!Fast)
@@ -1740,7 +1740,7 @@ hitmu(register struct monst *mtmp, register struct attack *mattk)
  * to see if an engulfing attack should immediately take affect, like
  * a passive attack. TRUE if engulfing blindness occurred */
 boolean
-gulp_blnd_check()
+gulp_blnd_check(void)
 {
     struct attack *mattk;
 
@@ -2927,7 +2927,7 @@ passiveum(struct permonst *olduasmon, struct monst *mtmp, struct attack *mattk)
 }
 
 struct monst *
-cloneu()
+cloneu(void)
 {
     struct monst *mon;
     int mndx = monsndx(youmonst.data);

@@ -24,7 +24,7 @@ STATIC_DCL void chat_with_guardian(void);
 STATIC_DCL void prisoner_speaks(struct monst *);
 
 STATIC_OVL void
-on_start()
+on_start(void)
 {
     if (!Qstat(first_start)) {
         qt_pager(QT_FIRSTTIME);
@@ -38,7 +38,7 @@ on_start()
 }
 
 STATIC_OVL void
-on_locate()
+on_locate(void)
 {
     /* the locate messages are phrased in a manner such that they only
        make sense when arriving on the level from above */
@@ -60,7 +60,7 @@ on_locate()
 }
 
 STATIC_OVL void
-on_goal()
+on_goal(void)
 {
     if (Qstat(killed_nemesis)) {
         return;
@@ -88,7 +88,7 @@ on_goal()
 }
 
 void
-onquest()
+onquest(void)
 {
     if (u.uevent.qcompleted || Not_firsttime)
         return;
@@ -105,7 +105,7 @@ onquest()
 }
 
 void
-nemdead()
+nemdead(void)
 {
     if (!Qstat(killed_nemesis)) {
         Qstat(killed_nemesis) = TRUE;
@@ -129,14 +129,14 @@ artitouch(struct obj *obj)
 
 /* external hook for do.c (level change check) */
 boolean
-ok_to_quest()
+ok_to_quest(void)
 {
     return (boolean) ((Qstat(got_quest) || Qstat(got_thanks))
                       && is_pure(FALSE) > 0);
 }
 
 STATIC_OVL boolean
-not_capable()
+not_capable(void)
 {
     return (boolean) (u.ulevel < MIN_QUEST_LEVEL);
 }
@@ -240,7 +240,7 @@ finish_quest(struct obj *obj) /* quest artifact; possibly null if carrying Amule
 }
 
 STATIC_OVL void
-chat_with_leader()
+chat_with_leader(void)
 {
     /*  Rule 0: Cheater checks. */
     if (u.uhave.questart && !Qstat(met_nemesis))
@@ -332,7 +332,7 @@ leader_speaks(struct monst *mtmp)
 }
 
 STATIC_OVL void
-chat_with_nemesis()
+chat_with_nemesis(void)
 {
     /*  The nemesis will do most of the talking, but... */
     qt_pager(rn1(10, QT_DISCOURAGE));
@@ -341,7 +341,7 @@ chat_with_nemesis()
 }
 
 void
-nemesis_speaks()
+nemesis_speaks(void)
 {
     if (!Qstat(in_battle)) {
         if (u.uhave.questart)
@@ -363,7 +363,7 @@ nemesis_speaks()
 }
 
 STATIC_OVL void
-chat_with_guardian()
+chat_with_guardian(void)
 {
     /*  These guys/gals really don't have much to say... */
     if (u.uhave.questart && Qstat(killed_nemesis))

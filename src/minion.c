@@ -369,7 +369,7 @@ dlord(aligntyp atyp)
 
 /* create lawful (good) lord */
 int
-llord()
+llord(void)
 {
     if (!(mvitals[PM_ARCHON].mvflags & G_GONE))
         return PM_ARCHON;
@@ -378,7 +378,7 @@ llord()
 }
 
 int
-lminion()
+lminion(void)
 {
     int tryct;
     struct permonst *ptr;
@@ -445,7 +445,7 @@ lose_guardian_angel(struct monst *mon) /* if null, angel hasn't been created yet
 
 /* just entered the Astral Plane; receive tame guardian angel if worthy */
 void
-gain_guardian_angel()
+gain_guardian_angel(void)
 {
     struct monst *mtmp;
     struct obj *otmp;

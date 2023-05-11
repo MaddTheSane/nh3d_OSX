@@ -208,9 +208,7 @@ do_light_sources(char **cs_rows)
    way to its destination; show its light so that hero has a chance to
    remember terrain, objects, and monsters being revealed */
 void
-show_transient_light(obj, x, y)
-struct obj *obj;
-int x, y;
+show_transient_light(struct obj *obj, int x, int y)
 {
     light_source *ls;
     struct monst *mon;
@@ -257,7 +255,7 @@ int x, y;
    was flagged for being visible during transient light movement but can't
    be seen now */
 void
-transient_light_cleanup()
+transient_light_cleanup(void)
 {
     struct monst *mon;
     int mtempcount = 0;
@@ -459,7 +457,7 @@ maybe_write_ls(int fd, int range, boolean write_it)
 }
 
 void
-light_sources_sanity_check()
+light_sources_sanity_check(void)
 {
     light_source *ls;
     struct monst *mtmp;
@@ -539,7 +537,7 @@ obj_move_light_source(struct obj *src, struct obj *dest)
 
 /* return true if there exist any light sources */
 boolean
-any_light_source()
+any_light_source(void)
 {
     return (boolean) (light_base != (light_source *) 0);
 }
@@ -740,7 +738,7 @@ arti_light_description(struct obj *obj)
 }
 
 int
-wiz_light_sources()
+wiz_light_sources(void)
 {
     winid win;
     char buf[BUFSZ];

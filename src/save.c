@@ -75,7 +75,7 @@ static struct save_procs {
 static unsigned ustuck_id = 0, usteed_id = 0;
 
 int
-dosave()
+dosave(void)
 {
     if (iflags.debug_fuzzer)
         return 0;
@@ -104,7 +104,7 @@ dosave()
 
 /* returns 1 if save successful */
 int
-dosave0()
+dosave0(void)
 {
     const char *fq_save;
     register int fd, ofd;
@@ -370,7 +370,7 @@ tricked_fileremoved(int fd, char *whynot)
 
 #ifdef INSURANCE
 void
-savestateinlock()
+savestateinlock(void)
 {
     int fd, hpid;
     static boolean havestate = TRUE;
@@ -1253,7 +1253,7 @@ set_savepref(const char *suitename)
 
 /* also called by prscore(); this probably belongs in dungeon.c... */
 void
-free_dungeons()
+free_dungeons(void)
 {
 #ifdef FREE_ALL_MEMORY
     savelevchn(0, FREE_SAVE);
@@ -1263,7 +1263,7 @@ free_dungeons()
 }
 
 void
-freedynamicdata()
+freedynamicdata(void)
 {
 #if defined(UNIX) && defined(MAIL)
     free_maildata();

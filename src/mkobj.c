@@ -68,7 +68,7 @@ static const struct icp hellprobs[] = { { 20, WEAPON_CLASS },
                                         { 4, AMULET_CLASS } };
 
 struct oextra *
-newoextra()
+newoextra(void)
 {
     struct oextra *oextra;
 
@@ -333,7 +333,7 @@ mkbox_cnts(struct obj *box)
 
 /* select a random, common monster type */
 int
-rndmonnum()
+rndmonnum(void)
 {
     register struct permonst *ptr;
     register int i;
@@ -532,7 +532,7 @@ unsplitobj(struct obj *obj)
 
 /* reset splitobj()/unsplitobj() context */
 void
-clear_splitobjs()
+clear_splitobjs(void)
 {
     context.objsplit.parent_oid = context.objsplit.child_oid = 0;
 }
@@ -590,8 +590,7 @@ replace_object(struct obj *obj, struct obj *otmp)
 /* is 'obj' inside a container whose contents aren't known?
    if so, return the outermost container meeting that criterium */
 struct obj *
-unknwn_contnr_contents(obj)
-struct obj *obj;
+unknwn_contnr_contents(struct obj *obj)
 {
     struct obj *result = 0, *parent;
 
@@ -2197,7 +2196,7 @@ static const char NEARDATA /* pline formats for insane_object() */
 
 /* Check all object lists for consistency. */
 void
-obj_sanity_check()
+obj_sanity_check(void)
 {
     int x, y;
     struct obj *obj;
@@ -2833,9 +2832,7 @@ obj_meld(struct obj **obj1, struct obj **obj2)
 
 /* give a message if hero notices two globs merging [used to be in pline.c] */
 void
-pudding_merge_message(otmp, otmp2)
-struct obj *otmp;
-struct obj *otmp2;
+pudding_merge_message(struct obj *otmp, struct obj *otmp2)
 {
     boolean visible = (cansee(otmp->ox, otmp->oy)
                        || cansee(otmp2->ox, otmp2->oy)),

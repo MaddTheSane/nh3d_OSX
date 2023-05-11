@@ -830,9 +830,7 @@ mu_maybe_destroy_web(struct monst *mtmp, boolean domsg, struct trap *trap)
 
 /* make a single arrow/dart/rock for a trap to shoot or drop */
 STATIC_OVL struct obj *
-t_missile(otyp, trap)
-int otyp;
-struct trap *trap;
+t_missile(int otyp, struct trap *trap)
 {
     struct obj *otmp = mksobj(otyp, TRUE, FALSE);
 
@@ -844,8 +842,7 @@ struct trap *trap;
 }
 
 void
-set_utrap(tim, typ)
-unsigned tim, typ;
+set_utrap(unsigned tim, unsigned typ)
 {
     u.utrap = tim;
     /* FIXME:
@@ -1696,7 +1693,7 @@ launch_drop_spot(struct obj *obj, xchar x, xchar y)
 }
 
 boolean
-launch_in_progress()
+launch_in_progress(void)
 {
     if (launchplace.obj)
         return TRUE;
@@ -1704,7 +1701,7 @@ launch_in_progress()
 }
 
 void
-force_launch_placement()
+force_launch_placement(void)
 {
     if (launchplace.obj) {
         launchplace.obj->otrapped = 0;
@@ -2787,7 +2784,7 @@ mselftouch(struct monst *mon, const char *arg, boolean byplayer)
 
 /* start levitating */
 void
-float_up()
+float_up(void)
 {
     context.botl = TRUE;
     if (u.utrap) {
@@ -3026,7 +3023,7 @@ float_down(long hmask, long emask) /* might cancel timeout */
 
 /* shared code for climbing out of a pit */
 void
-climb_pit()
+climb_pit(void)
 {
     if (!u.utrap || u.utraptype != TT_PIT)
         return;
@@ -3139,7 +3136,7 @@ dofiretrap(struct obj *box) /* null for floor trap */
 }
 
 STATIC_OVL void
-domagictrap()
+domagictrap(void)
 {
     register int fate = rnd(20);
 
@@ -3673,7 +3670,7 @@ emergency_disrobe(boolean *lostsome)
 
 /*  return TRUE iff player relocated */
 boolean
-drown()
+drown(void)
 {
     const char *pool_of_water;
     boolean inpool_ok = FALSE, crawl_ok;
@@ -3852,7 +3849,7 @@ drain_en(int n)
 
 /* disarm a trap */
 int
-dountrap()
+dountrap(void)
 {
     if (near_capacity() >= HVY_ENCUMBER) {
         pline("You're too strained to do that.");
@@ -4970,8 +4967,7 @@ clear_conjoined_pits(struct trap *trap)
 }
 
 STATIC_OVL boolean
-adj_nonconjoined_pit(adjtrap)
-struct trap *adjtrap;
+adj_nonconjoined_pit(struct trap *adjtrap)
 {
     struct trap *trap_with_u = t_at(u.ux0, u.uy0);
 
@@ -5132,7 +5128,7 @@ thitm(int tlev, struct monst *mon, struct obj *obj, int d_override, boolean noco
 }
 
 boolean
-unconscious()
+unconscious(void)
 {
     if (multi >= 0)
         return FALSE;
@@ -5147,7 +5143,7 @@ unconscious()
 static const char lava_killer[] = "molten lava";
 
 boolean
-lava_effects()
+lava_effects(void)
 {
     register struct obj *obj, *obj2;
     int dmg = d(6, 6); /* only applicable for water walking */
@@ -5273,7 +5269,7 @@ burn_stuff:
 
 /* called each turn when trapped in lava */
 void
-sink_into_lava()
+sink_into_lava(void)
 {
     static const char sink_deeper[] = "You sink deeper into the lava.";
 
@@ -5321,7 +5317,7 @@ sink_into_lava()
 /* called when something has been done (breaking a boulder, for instance)
    which entails a luck penalty if performed on a sokoban level */
 void
-sokoban_guilt()
+sokoban_guilt(void)
 {
     if (Sokoban) {
         change_luck(-1);
@@ -5336,7 +5332,7 @@ sokoban_guilt()
 
 /* called when a trap has been deleted or had its ttyp replaced */
 STATIC_OVL void
-maybe_finish_sokoban()
+maybe_finish_sokoban(void)
 {
     struct trap *t;
 

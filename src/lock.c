@@ -43,7 +43,7 @@ picking_at(int x, int y)
 
 /* produce an occupation string appropriate for the current activity */
 STATIC_OVL const char *
-lock_action()
+lock_action(void)
 {
     /* "unlocking"+2 == "locking" */
     static const char *actions[] = {
@@ -260,7 +260,7 @@ forcelock(VOID_ARGS)
 }
 
 void
-reset_pick()
+reset_pick(void)
 {
     xlock.usedtime = xlock.chance = xlock.picktyp = 0;
     xlock.magic_key = FALSE;
@@ -270,8 +270,7 @@ reset_pick()
 
 /* level change or object deletion; context may no longer be valid */
 void
-maybe_reset_pick(container)
-struct obj *container; /* passed from obfree() */
+maybe_reset_pick(struct obj *container /* passed from obfree() */)
 {
     /*
      * If a specific container, only clear context if it is for that
@@ -523,7 +522,7 @@ pick_lock(struct obj *pick)
 
 /* try to force a chest with your weapon */
 int
-doforce()
+doforce(void)
 {
     register struct obj *otmp;
     register int c, picktyp;
@@ -617,7 +616,7 @@ stumble_on_door_mimic(int x, int y)
 
 /* the 'O' command - try to open a door */
 int
-doopen()
+doopen(void)
 {
     return doopen_indir(0, 0);
 }
@@ -765,7 +764,7 @@ obstructed(register int x, register int y, boolean quietly)
 
 /* the 'C' command - try to close a door */
 int
-doclose()
+doclose(void)
 {
     register int x, y;
     register struct rm *door;

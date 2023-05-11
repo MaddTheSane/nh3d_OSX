@@ -298,7 +298,7 @@ main(int argc, char *argv[])
 #endif
 
 static void
-link_sanity_check()
+link_sanity_check(void)
 {
     /* Note:  these initializers don't do anything except guarantee that
             we're linked properly.
@@ -640,7 +640,7 @@ static int grep_stack[GREP_STACK_SIZE] = { ST_LD(1, 0) };
 static int grep_lineno = 0;
 
 static void
-do_grep_showvars()
+do_grep_showvars(void)
 {
     int x;
 
@@ -793,7 +793,7 @@ do_grep_rewrite(char *buf)
 static void grep0(FILE *, FILE *);
 
 static void
-do_grep()
+do_grep(void)
 {
     if (!inputfp) {
         Fprintf(stderr, "--grep requires --input\n");
@@ -986,7 +986,7 @@ do_rnd_access_file(const char *fname, const char *deflt_content)
 }
 
 void
-do_rumors()
+do_rumors(void)
 {
     char *line;
     static const char rumors_header[] =
@@ -1098,7 +1098,7 @@ rumors_failure:
      )
 
 static void
-make_version()
+make_version(void)
 {
     register int i;
 
@@ -1254,7 +1254,7 @@ bannerc_string(char *outbuf, const char *build_date)
 }
 
 void
-do_date()
+do_date(void)
 {
 #ifdef KR1ED
     long clocktim = 0;
@@ -1414,8 +1414,7 @@ do_date()
 }
 
 static boolean
-get_gitinfo(githash, gitbranch)
-char *githash, *gitbranch;
+get_gitinfo(char *githash, char *gitbranch)
 {
     FILE *gifp;
     size_t len;
@@ -1493,7 +1492,7 @@ case_insensitive_comp(const char *s1, const char *s2)
 static char save_bones_compat_buf[BUFSZ];
 
 static void
-build_savebones_compat_string()
+build_savebones_compat_string(void)
 {
 #ifdef VERSION_COMPATIBILITY
     unsigned long uver = VERSION_COMPATIBILITY;
@@ -1749,7 +1748,7 @@ static struct win_info window_opts[] = {
 };
 
 static void
-windowing_sanity()
+windowing_sanity(void)
 {
 #ifndef DEFAULT_WINDOW_SYS
     /* pre-standard compilers didn't support #error; wait til run-time */
@@ -1790,9 +1789,7 @@ windowing_sanity()
 static const char opt_indent[] = "    ";
 
 static void
-opt_out_words(str, length_p)
-char *str; /* input, but modified during processing */
-int *length_p; /* in/out */
+opt_out_words(char *str /* input, but modified during processing */, int *length_p /* in/out */)
 {
     char *word;
 
@@ -1816,7 +1813,7 @@ int *length_p; /* in/out */
 }
 
 void
-do_options()
+do_options(void)
 {
     char buf[BUFSZ];
     int i, length, winsyscnt;
@@ -1924,7 +1921,7 @@ text-b/text-c           at fseek(0x01234567L + 456L)
  */
 
 void
-do_data()
+do_data(void)
 {
     char infile[60], tempfile[60];
     boolean ok;
@@ -2078,7 +2075,7 @@ static const char *special_oracle[] = {
  */
 
 void
-do_oracles()
+do_oracles(void)
 {
     char infile[60], tempfile[60];
     boolean in_oracle, ok;
@@ -2240,7 +2237,7 @@ do_oracles()
 }
 
 void
-do_dungeon()
+do_dungeon(void)
 {
     char *line;
 
@@ -2282,7 +2279,7 @@ do_dungeon()
 }
 
 void
-do_monstr()
+do_monstr(void)
 {
     /* Don't break anything for ports that haven't been updated. */
     printf("DEPRECATION WARNINGS:\n");
@@ -2334,7 +2331,7 @@ do_monstr()
 }
 
 void
-do_permonst()
+do_permonst(void)
 {
     int i;
     char *c, *nam;
@@ -2392,7 +2389,7 @@ do_permonst()
 #include "qtext.h"
 
 static struct qthdr qt_hdr;
-static struct msghdr msg_hdr[N_HDR];
+static struct nhmsghdr msg_hdr[N_HDR];
 static struct qtmsg *curr_msg;
 
 static int qt_line;
@@ -2582,7 +2579,7 @@ do_qt_text(char *s)
 }
 
 static void
-adjust_qt_hdrs()
+adjust_qt_hdrs(void)
 {
     int i, j;
     long count = 0L, hdr_offset = sizeof(int)
@@ -2604,7 +2601,7 @@ adjust_qt_hdrs()
 }
 
 static void
-put_qt_hdrs()
+put_qt_hdrs(void)
 {
     int i;
 
@@ -2653,7 +2650,7 @@ put_qt_hdrs()
 }
 
 void
-do_questtxt()
+do_questtxt(void)
 {
     char *line;
 
@@ -2734,7 +2731,7 @@ static char *limit(char *name, int pref) /* limit a name to 30 characters length
 }
 
 void
-do_objs()
+do_objs(void)
 {
     int i, sum = 0;
     char *c, *objnam;
@@ -2918,7 +2915,7 @@ eos(char *str)
  */
 
 void
-do_vision()
+do_vision(void)
 {
 #ifdef VISION_TABLES
     int i, j;

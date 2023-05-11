@@ -1462,7 +1462,7 @@ joust(struct monst *mon, /* target */
  * Pulling it out makes it work.
  */
 STATIC_OVL void
-demonpet()
+demonpet(void)
 {
     int i;
     struct permonst *pm;
@@ -2074,7 +2074,7 @@ start_engulf(struct monst *mdef)
 }
 
 STATIC_OVL void
-end_engulf()
+end_engulf(void)
 {
     if (!Invisible) {
         tmp_at(DISP_END, 0);

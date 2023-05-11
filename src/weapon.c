@@ -347,11 +347,8 @@ dmgval(struct obj *otmp, struct monst *mon)
 /* check whether blessed and/or silver damage applies for *non-weapon* hit;
    return value is the amount of the extra damage */
 int
-special_dmgval(magr, mdef, armask, silverhit_p)
-struct monst *magr, *mdef;
-long armask; /* armor mask, multiple bits accepted for W_ARMC|W_ARM|W_ARMU
-              * or W_ARMG|W_RINGL|W_RINGR only */
-long *silverhit_p; /* output flag mask for silver bonus */
+special_dmgval(struct monst *magr, struct monst *mdef, long armask, /* armor mask, multiple bits accepted for W_ARMC|W_ARM|W_ARMU
+                                        * or W_ARMG|W_RINGL|W_RINGR only */ long *silverhit_p /* output flag mask for silver bonus */)
 {
     struct obj *obj;
     struct permonst *ptr = mdef->data;
@@ -422,10 +419,7 @@ long *silverhit_p; /* output flag mask for silver bonus */
 /* give a "silver <item> sears <target>" message;
    not used for weapon hit, so we only handle rings */
 void
-silver_sears(magr, mdef, silverhit)
-struct monst *magr UNUSED;
-struct monst *mdef;
-long silverhit;
+silver_sears(struct monst *magr UNUSED, struct monst *mdef, long silverhit)
 {
     char rings[20]; /* plenty of room for "rings" */
     int ltyp = ((uleft && (silverhit & W_RINGL) != 0L)
@@ -615,8 +609,7 @@ select_rwep(register struct monst *mtmp)
 
 /* is 'obj' a type of weapon that any monster knows how to throw? */
 boolean
-monmightthrowwep(obj)
-struct obj *obj;
+monmightthrowwep(struct obj *obj)
 {
     short idx;
 
@@ -870,7 +863,7 @@ mwepgone(struct monst *mon)
 
 /* attack bonus for strength & dexterity */
 int
-abon()
+abon(void)
 {
     int sbon;
     int str = ACURR(A_STR), dex = ACURR(A_DEX);
@@ -908,7 +901,7 @@ abon()
 
 /* damage bonus for strength */
 int
-dbon()
+dbon(void)
 {
     int str = ACURR(A_STR);
 
@@ -1027,8 +1020,7 @@ skill_level_name(int skill, char *buf)
 }
 
 const char *
-skill_name(skill)
-int skill;
+skill_name(int skill)
 {
     return P_NAME(skill);
 }
@@ -1130,7 +1122,7 @@ static const struct skill_range {
  * others unselectable.
  */
 int
-enhance_weapon_skill()
+enhance_weapon_skill(void)
 {
     int pass, i, n, len, longest, to_advance, eventually_advance, maxxed_cnt;
     char buf[BUFSZ], sklnambuf[BUFSZ];
@@ -1351,7 +1343,7 @@ weapon_type(struct obj *obj)
 }
 
 int
-uwep_skill_type()
+uwep_skill_type(void)
 {
     if (u.twoweap)
         return P_TWO_WEAPON_COMBAT;

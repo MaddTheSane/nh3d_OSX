@@ -577,7 +577,7 @@ knows_class(register char sym)
 }
 
 void
-u_init()
+u_init(void)
 {
     register int i;
     struct u_roleplay tmpuroleplay = u.uroleplay; /* set by rcfile options */

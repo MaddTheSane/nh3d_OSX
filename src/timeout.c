@@ -108,7 +108,7 @@ static NEARDATA const char *const stoned_texts[] = {
 };
 
 STATIC_OVL void
-stoned_dialogue()
+stoned_dialogue(void)
 {
     register long i = (Stoned & TIMEOUT);
 
@@ -168,7 +168,7 @@ static NEARDATA const char *const vomiting_texts[] = {
 };
 
 STATIC_OVL void
-vomiting_dialogue()
+vomiting_dialogue(void)
 {
     const char *txt = 0;
     long v = (Vomiting & TIMEOUT);
@@ -249,7 +249,7 @@ static NEARDATA const char *const choke_texts2[] = {
 };
 
 STATIC_OVL void
-choke_dialogue()
+choke_dialogue(void)
 {
     register long i = (Strangled & TIMEOUT);
 
@@ -274,7 +274,7 @@ static NEARDATA const char *const levi_texts[] = {
 };
 
 STATIC_OVL void
-levitation_dialogue()
+levitation_dialogue(void)
 {
     /* -1 because the last message comes via float_down() */
     long i = (((HLevitation & TIMEOUT) - 1L) / 2L);
@@ -309,7 +309,7 @@ static NEARDATA const char *const slime_texts[] = {
 };
 
 STATIC_OVL void
-slime_dialogue()
+slime_dialogue(void)
 {
     register long i = (Slimed & TIMEOUT) / 2L;
 
@@ -360,7 +360,7 @@ slime_dialogue()
 }
 
 void
-burn_away_slime()
+burn_away_slime(void)
 {
     if (Slimed) {
         make_slimed(0L, "The slime that covers you is burned away!");
@@ -446,7 +446,7 @@ static NEARDATA const char *const phaze_texts[] = {
 };
 
 STATIC_OVL void
-phaze_dialogue()
+phaze_dialogue(void)
 {
     long i = ((HPasses_walls & TIMEOUT) / 2L);
 
@@ -474,7 +474,7 @@ done_timeout(int how, int which)
 }
 
 void
-nh_timeout()
+nh_timeout(void)
 {
     register struct prop *upp;
     struct kinfo *kptr;
@@ -984,7 +984,7 @@ attach_fig_transform_timeout(struct obj *figurine)
 
 /* give a fumble message */
 STATIC_OVL void
-slip_or_trip()
+slip_or_trip(void)
 {
     struct obj *otmp = vobj_at(u.ux, u.uy), *otmp2;
     const char *what;
@@ -1557,7 +1557,7 @@ cleanup_burn(anything *arg, long expire_time)
 }
 
 void
-do_storms()
+do_storms(void)
 {
     int nstrike;
     register int x, y;
@@ -1747,7 +1747,7 @@ print_queue(winid win, timer_element *base)
 }
 
 int
-wiz_timeout_queue()
+wiz_timeout_queue(void)
 {
     winid win;
     char buf[BUFSZ];
@@ -1813,7 +1813,7 @@ wiz_timeout_queue()
 }
 
 void
-timer_sanity_check()
+timer_sanity_check(void)
 {
     timer_element *curr;
 
@@ -1834,7 +1834,7 @@ timer_sanity_check()
  * Do this until their time is less than or equal to the move count.
  */
 void
-run_timers()
+run_timers(void)
 {
     timer_element *curr;
 

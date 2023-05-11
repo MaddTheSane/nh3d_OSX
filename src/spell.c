@@ -324,8 +324,7 @@ deadbook(struct obj *book2)
 /* 'book' has just become cursed; if we're reading it and realize it is
    now cursed, interrupt */
 void
-book_cursed(book)
-struct obj *book;
+book_cursed(struct obj *book)
 {
     if (occupation == learn && context.spbook.book == book
         && book->cursed && book->bknown && multi >= 0)
@@ -613,7 +612,7 @@ book_substitution(struct obj *old_obj, struct obj *new_obj)
 
 /* called from moveloop() */
 void
-age_spells()
+age_spells(void)
 {
     int i;
     /*
@@ -631,7 +630,7 @@ age_spells()
 /* return True if spellcasting is inhibited;
    only covers a small subset of reasons why casting won't work */
 STATIC_OVL boolean
-rejectcasting()
+rejectcasting(void)
 {
     /* rejections which take place before selecting a particular spell */
     if (Stunned) {
@@ -710,7 +709,7 @@ getspell(int *spell_no)
 
 /* the 'Z' command -- cast a spell */
 int
-docast()
+docast(void)
 {
     int spell_no;
 
@@ -750,7 +749,7 @@ spell_skilltype(int booktype)
 }
 
 STATIC_OVL void
-cast_protection()
+cast_protection(void)
 {
     int l = u.ulevel, loglev = 0,
         gain, natac = u.uac + u.uspellprot;
@@ -1201,9 +1200,7 @@ spelleffects(int spell, boolean atme)
 
 /*ARGSUSED*/
 STATIC_OVL boolean
-spell_aim_step(arg, x, y)
-genericptr_t arg UNUSED;
-int x, y;
+spell_aim_step(genericptr_t arg UNUSED, int x, int y)
 {
     if (!isok(x,y))
         return FALSE;
@@ -1215,7 +1212,7 @@ int x, y;
 
 /* Choose location where spell takes effect. */
 STATIC_OVL int
-throwspell()
+throwspell(void)
 {
     coord cc, uc;
     struct monst *mtmp;
@@ -1263,8 +1260,7 @@ throwspell()
 /* add/hide/remove/unhide teleport-away on behalf of dotelecmd() to give
    more control to behavior of ^T when used in wizard mode */
 int
-tport_spell(what)
-int what;
+tport_spell(int what)
 {
     static struct tport_hideaway {
         struct spell savespell;
@@ -1320,7 +1316,7 @@ int what;
    they used to be lost entirely, as if never learned, but now we
    just set the memory retention to zero so that they can't be cast */
 void
-losespells()
+losespells(void)
 {
     int n, nzap, i;
 
@@ -1486,7 +1482,7 @@ spell_cmp(const genericptr vptr1, const genericptr vptr2)
    list (sortmode == SORTBY_xxx), or sort the spellbook itself to make
    the current display order stick (sortmode == SORTRETAINORDER) */
 STATIC_OVL void
-sortspells()
+sortspells(void)
 {
     int i;
 #if defined(SYSV) || defined(DGUX)
@@ -1535,7 +1531,7 @@ sortspells()
 
 /* called if the [sort spells] entry in the view spells menu gets chosen */
 STATIC_OVL boolean
-spellsortmenu()
+spellsortmenu(void)
 {
     winid tmpwin;
     menu_item *selected;
@@ -1579,7 +1575,7 @@ spellsortmenu()
 
 /* the '+' command -- view known spells */
 int
-dovspell()
+dovspell(void)
 {
     char qbuf[QBUFSZ];
     int splnum, othnum;

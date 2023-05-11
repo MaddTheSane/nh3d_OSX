@@ -1512,21 +1512,21 @@ do_supplemental_info(char *name, struct permonst *pm, boolean without_asking)
 
 /* the '/' command */
 int
-dowhatis()
+dowhatis(void)
 {
     return do_look(0, (coord *) 0);
 }
 
 /* the ';' command */
 int
-doquickwhatis()
+doquickwhatis(void)
 {
     return do_look(1, (coord *) 0);
 }
 
 /* the '^' command */
 int
-doidtrap()
+doidtrap(void)
 {
     register struct trap *trap;
     int x, y, tt, glyph;
@@ -1606,7 +1606,7 @@ doidtrap()
 */
 
 STATIC_DCL void
-whatdoes_help()
+whatdoes_help(void)
 {
     dlb *fp;
     char *p, buf[BUFSZ];
@@ -1842,7 +1842,7 @@ dowhatdoes_core(char q, char *cbuf)
 }
 
 int
-dowhatdoes()
+dowhatdoes(void)
 {
     static boolean once = FALSE;
     char bufr[BUFSZ];
@@ -2012,7 +2012,7 @@ static struct {
 
 /* the '?' command */
 int
-dohelp()
+dohelp(void)
 {
     winid tmpwin = create_nhwindow(NHW_MENU);
     char helpbuf[QBUFSZ];
@@ -2049,7 +2049,7 @@ dohelp()
 
 /* the 'V' command; also a choice for '?' */
 int
-dohistory()
+dohistory(void)
 {
     display_file(HISTORY, TRUE);
     return 0;

@@ -93,7 +93,7 @@ catch_stp()
 #endif /* AUX */
 
 void
-getwindowsz()
+getwindowsz(void)
 {
 #ifdef USE_WIN_IOCTL
     /*
@@ -116,7 +116,7 @@ getwindowsz()
 }
 
 void
-getioctls()
+getioctls(void)
 {
 #ifdef BSD_JOB_CONTROL
     (void) ioctl(fileno(stdin), (int) TIOCGLTC, (char *) &ltchars);
@@ -139,7 +139,7 @@ getioctls()
 }
 
 void
-setioctls()
+setioctls(void)
 {
 #ifdef BSD_JOB_CONTROL
     (void) ioctl(fileno(stdin), (int) TIOCSLTC, (char *) &ltchars);
@@ -158,7 +158,7 @@ setioctls()
 
 #ifdef SUSPEND /* No longer implies BSD */
 int
-dosuspend()
+dosuspend(void)
 {
 #ifdef SYSCF
     /* NB: check_user_string() is port-specific. */

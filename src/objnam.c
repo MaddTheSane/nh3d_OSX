@@ -80,7 +80,7 @@ static char NEARDATA obufs[NUMOBUF][BUFSZ];
 static int obufidx = 0;
 
 STATIC_OVL char *
-nextobuf()
+nextobuf(void)
 {
     obufidx = (obufidx + 1) % NUMOBUF;
     return obufs[obufidx];
@@ -273,8 +273,7 @@ fruitname(boolean juice) /* whether or not to append " juice" to the name */
 
 /* look up a named fruit by index (1..127) */
 struct fruit *
-fruit_from_indx(indx)
-int indx;
+fruit_from_indx(int indx)
 {
     struct fruit *f;
 
@@ -879,8 +878,7 @@ add_erosion_words(struct obj *obj, char *prefix)
 
 /* used to prevent rust on items where rust makes no difference */
 boolean
-erosion_matters(obj)
-struct obj *obj;
+erosion_matters(struct obj *obj)
 {
     switch (obj->oclass) {
     case TOOL_CLASS:
@@ -1614,9 +1612,7 @@ singular(register struct obj *otmp, char *(*func)(OBJ_P))
 
 /* pick "", "a ", or "an " as article for 'str'; used by an() and doname() */
 STATIC_OVL char *
-just_an(outbuf, str)
-char *outbuf;
-const char *str;
+just_an(char *outbuf, const char *str)
 {
     char c0;
 

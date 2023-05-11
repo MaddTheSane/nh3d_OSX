@@ -4265,11 +4265,14 @@ extension NH3DOpenGLView {
 			self.drawModelArray(self.mapItemValue[Int(lx)][Int(lz)]!)
 		}
 		
-		drawFloorArray[0] = { [unowned self] in
+		drawFloorArray[0] = { [weak self] in
+			guard let ourSelf = self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture(GLenum(GL_TEXTURE_2D), self.floorCurrent)
+			glBindTexture(GLenum(GL_TEXTURE_2D), ourSelf.floorCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)
@@ -4279,7 +4282,10 @@ extension NH3DOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
-		drawFloorArray[1] = { [unowned self] in
+		drawFloorArray[1] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4293,7 +4299,10 @@ extension NH3DOpenGLView {
 			
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
-		drawFloorArray[2] = { [unowned self] in
+		drawFloorArray[2] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4316,7 +4325,11 @@ extension NH3DOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw pool
-		drawFloorArray[3] = { [unowned self] in
+		drawFloorArray[3] = { [weak self] in
+			guard let self else {
+				return
+			}
+
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4365,7 +4378,10 @@ extension NH3DOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw ice
-		drawFloorArray[4] = { [unowned self] in
+		drawFloorArray[4] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4411,7 +4427,10 @@ extension NH3DOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//Draw lava
-		drawFloorArray[5] = { [unowned self] in
+		drawFloorArray[5] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4437,7 +4456,10 @@ extension NH3DOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//draw air
-		drawFloorArray[6] = { [unowned self] in
+		drawFloorArray[6] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4452,7 +4474,10 @@ extension NH3DOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//draw cloud
-		drawFloorArray[7] = { [unowned self] in
+		drawFloorArray[7] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
@@ -4467,7 +4492,10 @@ extension NH3DOpenGLView {
 			glDisable(GLenum(GL_TEXTURE_2D))
 		}
 		//draw water
-		drawFloorArray[8] = { [unowned self] in
+		drawFloorArray[8] = { [weak self] in
+			guard let self else {
+				return
+			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			

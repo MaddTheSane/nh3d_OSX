@@ -180,7 +180,7 @@ getrumor(int truth, /* 1=true, -1=false, 0=either */
  * test that the true/false rumor boundaries are valid.
  */
 void
-rumor_check()
+rumor_check(void)
 {
     dlb *rumors = 0;
     winid tmpwin;

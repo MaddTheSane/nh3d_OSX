@@ -331,9 +331,7 @@ castmu(register struct monst *mtmp, register struct attack *mattk,
 }
 
 STATIC_OVL int
-m_cure_self(mtmp, dmg)
-struct monst *mtmp;
-int dmg;
+m_cure_self(struct monst *mtmp, int dmg)
 {
     if (mtmp->mhp < mtmp->mhpmax) {
         if (canseemon(mtmp))

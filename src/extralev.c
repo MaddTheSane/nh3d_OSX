@@ -199,7 +199,7 @@ miniwalk(int x, int y)
 }
 
 void
-makeroguerooms()
+makeroguerooms(void)
 {
     register int x, y;
     /* Rogue levels are structured 3 by 3, with each section containing
@@ -293,7 +293,7 @@ corr(int x, int y)
 }
 
 void
-makerogueghost()
+makerogueghost(void)
 {
     register struct monst *ghost;
     struct obj *ghostobj;

@@ -19,7 +19,7 @@ struct qtmsg {
 
 #define N_MSG 100 /* arbitrary */
 
-struct msghdr {
+struct nhmsghdr {
     int n_msg;
     struct qtmsg qt_msg[N_MSG];
 };

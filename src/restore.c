@@ -90,7 +90,7 @@ static NEARDATA long omoves;
 
 /* Recalculate level.objects[x][y], since this info was not saved. */
 STATIC_OVL void
-find_lev_obj()
+find_lev_obj(void)
 {
     register struct obj *fobjtmp = (struct obj *) 0;
     register struct obj *otmp;
@@ -1210,7 +1210,7 @@ restore_msghistory(register int fd)
 
 /* Clear all structures for object and monster ID mapping. */
 STATIC_OVL void
-clear_id_mapping()
+clear_id_mapping(void)
 {
     struct bucket *curr;
 
@@ -1367,7 +1367,7 @@ restore_menu(winid bannerwin) /* if not WIN_ERR, clear window and show copyright
 #endif /* SELECTSAVED */
 
 void
-minit()
+minit(void)
 {
     (*restoreprocs.restore_minit)();
     return;
@@ -1460,7 +1460,7 @@ validate(int fd, const char *name)
 }
 
 void
-reset_restpref()
+reset_restpref(void)
 {
 #ifdef ZEROCOMP
     if (iflags.zerocomp)
@@ -1570,7 +1570,7 @@ zerocomp_mread(int fd, genericptr_t buf, register unsigned len)
 #endif /* ZEROCOMP */
 
 STATIC_OVL void
-def_minit()
+def_minit(void)
 {
     return;
 }

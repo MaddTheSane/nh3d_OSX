@@ -318,8 +318,7 @@ static boolean class_filter, bucx_filter, shop_filter;
 
 /* check valid_menu_classes[] for an entry; also used by askchain() */
 boolean
-menu_class_present(c)
-int c;
+menu_class_present(int c)
 {
     return (c && index(valid_menu_classes, c)) ? TRUE : FALSE;
 }
@@ -1194,8 +1193,7 @@ count_categories(struct obj *olist, int qflags)
  *  than trying to match the calculation used by weight() in mkobj.c.
  */
 STATIC_OVL int
-delta_cwt(container, obj)
-struct obj *container, *obj;
+delta_cwt(struct obj *container, struct obj *obj)
 {
     struct obj **prev;
     int owt, nwt;
@@ -1572,7 +1570,7 @@ pick_obj(struct obj *otmp)
  * returns the new encumbrance value (from near_capacity()).
  */
 int
-encumber_msg()
+encumber_msg(void)
 {
     static int oldcap = UNENCUMBERED;
     int newcap = near_capacity();
@@ -1720,7 +1718,7 @@ do_loot_cont(struct obj **cobjp,
 
 /* loot a container on the floor or loot saddle from mon. */
 int
-doloot()
+doloot(void)
 {
     struct obj *cobj, *nobj;
     register int c = -1;
@@ -1899,7 +1897,7 @@ doloot()
 
 /* called when attempting to #loot while confused */
 STATIC_OVL boolean
-reverse_loot()
+reverse_loot(void)
 {
     struct obj *goldob = 0, *coffers, *otmp, boxdummy;
     struct monst *mon;
@@ -2059,9 +2057,7 @@ mbag_explodes(struct obj *obj, int depthin)
 }
 
 STATIC_OVL long
-boh_loss(container, held)
-struct obj *container;
-int held;
+boh_loss(struct obj *container, int held)
 {
     /* sometimes toss objects if a cursed magic bag */
     if (Is_mbag(container) && container->cursed && Has_contents(container)) {
@@ -2305,8 +2301,7 @@ out_container(register struct obj *obj)
 
 /* taking a corpse out of an ice box needs a couple of adjustments */
 STATIC_OVL void
-removed_from_icebox(obj)
-struct obj *obj;
+removed_from_icebox(struct obj *obj)
 {
     if (!age_is_relative(obj)) {
         obj->age = monstermoves - obj->age; /* actual age */
@@ -2442,7 +2437,7 @@ explain_container_prompt(boolean more_containers)
 }
 
 boolean
-u_handsy()
+u_handsy(void)
 {
     if (nohands(youmonst.data)) {
         You("have no hands!"); /* not `body_part(HAND)' */
@@ -2902,7 +2897,7 @@ static const char tippables[] = { ALL_CLASSES, TOOL_CLASS, 0 };
 
 /* #tip command -- empty container contents onto floor */
 int
-dotip()
+dotip(void)
 {
     struct obj *cobj, *nobj;
     coord cc;

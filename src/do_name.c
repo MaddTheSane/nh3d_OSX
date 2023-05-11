@@ -26,7 +26,7 @@ extern const char what_is_an_unknown_object[]; /* from pager.c */
 
 /* manage a pool of BUFSZ buffers, so callers don't have to */
 STATIC_OVL char *
-nextmbuf()
+nextmbuf(void)
 {
     static char NEARDATA bufs[NUMMBUF][BUFSZ];
     static int bufidx = 0;
@@ -1081,7 +1081,7 @@ alreadynamed(struct monst *mtmp, char *monnambuf, char *usrbuf)
 
 /* allow player to assign a name to some chosen monster */
 STATIC_OVL void
-do_mname()
+do_mname(void)
 {
     char buf[BUFSZ], monnambuf[BUFSZ], qbuf[QBUFSZ];
     coord cc;
@@ -1302,7 +1302,7 @@ objtyp_is_callable(int i)
 
 /* C and #name commands - player can name monster or object or type of obj */
 int
-docallcmd()
+docallcmd(void)
 {
     struct obj *obj;
     winid win;
@@ -1472,7 +1472,7 @@ docall(struct obj *obj)
 }
 
 STATIC_OVL void
-namefloorobj()
+namefloorobj(void)
 {
     coord cc;
     int glyph;
@@ -1564,7 +1564,7 @@ static const char *const ghostnames[] = {
 
 /* ghost names formerly set by x_monnam(), now by makemon() instead */
 const char *
-rndghostname()
+rndghostname(void)
 {
     return rn2(7) ? ghostnames[rn2(SIZE(ghostnames))] : (const char *) plname;
 }
@@ -2013,7 +2013,7 @@ bogon_is_pname(char code)
 
 /* name of a Rogue player */
 const char *
-roguename()
+roguename(void)
 {
     char *i, *opts;
 
@@ -2050,7 +2050,7 @@ hcolor(const char *colorpref)
 
 /* return a random real color unless hallucinating */
 const char *
-rndcolor()
+rndcolor(void)
 {
     int k = rn2(CLR_MAX);
 
@@ -2070,8 +2070,7 @@ static NEARDATA const char *const hliquids[] = {
 };
 
 const char *
-hliquid(liquidpref)
-const char *liquidpref;
+hliquid(const char *liquidpref)
 {
     return (Hallucination || !liquidpref) ? hliquids[rn2(SIZE(hliquids))]
                                           : liquidpref;
@@ -2103,8 +2102,7 @@ coyotename(struct monst *mtmp, char *buf)
 }
 
 char *
-rndorcname(s)
-char *s;
+rndorcname(char *s)
 {
     static const char *v[] = { "a", "ai", "og", "u" };
     static const char *snd[] = { "gor", "gris", "un", "bane", "ruk",
@@ -2123,9 +2121,7 @@ char *s;
 }
 
 struct monst *
-christen_orc(mtmp, gang, other)
-struct monst *mtmp;
-const char *gang, *other;
+christen_orc(struct monst *mtmp, const char *gang, const char *other)
 {
     int sz = 0;
     char buf[BUFSZ], buf2[BUFSZ], *orcname;

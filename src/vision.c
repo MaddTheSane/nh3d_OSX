@@ -116,7 +116,7 @@ STATIC_DCL void rogue_vision(char **, char *, char *);
  * or before a game restore.   Else we die a horrible death.
  */
 void
-vision_init()
+vision_init(void)
 {
     int i;
 
@@ -188,7 +188,7 @@ does_block(int x, int y, register struct rm *lev)
  * level and the level monsters and objects are in place.
  */
 void
-vision_reset()
+vision_reset(void)
 {
     int y;
     register int x, i, dig_left, block;
@@ -2279,7 +2279,7 @@ STATIC_DCL void left_side(int, int, int, char *);
 
 /* Initialize algorithm C (nothing). */
 STATIC_OVL void
-view_init()
+view_init(void)
 {
 }
 

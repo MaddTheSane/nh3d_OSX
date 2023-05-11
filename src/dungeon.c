@@ -79,7 +79,7 @@ STATIC_DCL char *tunesuffix(mapseen *, char *);
 STATIC_DCL void dumpit(void);
 
 STATIC_OVL void
-dumpit()
+dumpit(void)
 {
     int i;
     s_level *x;
@@ -681,7 +681,7 @@ struct level_map {
 
 /* initialize the "dungeon" structs */
 void
-init_dungeons()
+init_dungeons(void)
 {
     dlb *dgn_file;
     register int i, cl = 0, cb = 0;
@@ -956,8 +956,7 @@ dunlev(d_level *lev)
 
 /* return the lowest level number for *this* dungeon */
 xchar
-dunlevs_in_dungeon(lev)
-d_level *lev;
+dunlevs_in_dungeon(d_level *lev)
 {
     return dungeons[lev->dnum].num_dunlevs;
 }
@@ -1017,7 +1016,7 @@ ledger_no(d_level *lev)
  * depth visited by the player.
  */
 xchar
-maxledgerno()
+maxledgerno(void)
 {
     return (xchar) (dungeons[n_dgns - 1].ledger_start
                     + dungeons[n_dgns - 1].num_dunlevs);
@@ -1214,7 +1213,7 @@ u_on_sstairs(int upflag)
 
 /* place you on upstairs (or special equivalent) */
 void
-u_on_upstairs()
+u_on_upstairs(void)
 {
     if (xupstair)
         u_on_newpos(xupstair, yupstair);
@@ -1224,7 +1223,7 @@ u_on_upstairs()
 
 /* place you on dnstairs (or special equivalent) */
 void
-u_on_dnstairs()
+u_on_dnstairs(void)
 {
     if (xdnstair)
         u_on_newpos(xdnstair, ydnstair);
@@ -1519,7 +1518,7 @@ Invocation_lev(d_level *lev)
  * dependent on the location in the dungeon (eg. monster creation).
  */
 xchar
-level_difficulty()
+level_difficulty(void)
 {
     int res;
 
@@ -1730,8 +1729,7 @@ br_string(int type)
 }
 
 STATIC_OVL char
-chr_u_on_lvl(dlev)
-d_level *dlev;
+chr_u_on_lvl(d_level *dlev)
 {
     return u.uz.dnum == dlev->dnum && u.uz.dlevel == dlev->dlevel ? '*' : ' ';
 }
@@ -1963,7 +1961,7 @@ get_annotation(d_level *lev)
 
 /* #annotate command - add a custom name to the current level */
 int
-donamelevel()
+donamelevel(void)
 {
     mapseen *mptr;
     char nbuf[BUFSZ]; /* Buffer for response */
@@ -2024,8 +2022,7 @@ find_mapseen(d_level *lev)
 }
 
 STATIC_OVL mapseen *
-find_mapseen_by_str(s)
-const char *s;
+find_mapseen_by_str(const char *s)
 {
     mapseen *mptr;
 
@@ -2066,8 +2063,7 @@ forget_mapseen(int ledger_num)
 }
 
 void
-rm_mapseen(ledger_num)
-int ledger_num;
+rm_mapseen(int ledger_num)
 {
     mapseen *mptr, *mprev = (mapseen *)0;
     struct cemetery *bp, *bpnext;
@@ -2303,7 +2299,7 @@ interest_mapseen(mapseen *mptr)
 
 /* recalculate mapseen for the current level */
 void
-recalc_mapseen()
+recalc_mapseen(void)
 {
     mapseen *mptr;
     struct monst *mtmp;
@@ -2586,7 +2582,7 @@ room_discovered(int roomno)
 
 /* #overview command */
 int
-dooverview()
+dooverview(void)
 {
     show_overview(0, 0);
     return 0;

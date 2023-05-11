@@ -402,7 +402,7 @@ veggy_item(struct obj *obj, int otyp) /* used iff obj is null */
 }
 
 STATIC_OVL int
-shkveg()
+shkveg(void)
 {
     int i, j, maxprob, prob;
     char oclass = FOOD_CLASS;
@@ -671,9 +671,7 @@ shkinit(const struct shclass *shp, struct mkroom *sroom)
 }
 
 STATIC_OVL boolean
-stock_room_goodpos(sroom, rmno, sh, sx, sy)
-struct mkroom *sroom;
-int rmno, sh, sx,sy;
+stock_room_goodpos(struct mkroom *sroom, int rmno, int sh, int sx, int sy)
 {
     if (sroom->irregular) {
         if (levl[sx][sy].edge

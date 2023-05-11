@@ -112,7 +112,7 @@ is_edible(register struct obj *obj)
 /* used for hero init, life saving (if choking), and prayer results of fix
    starving, fix weak from hunger, or golden glow boon (if u.uhunger < 900) */
 void
-init_uhunger()
+init_uhunger(void)
 {
     context.botl = (u.uhs != NOT_HUNGRY || ATEMP(A_STR) < 0);
     u.uhunger = 900;
@@ -169,7 +169,7 @@ eatmdone(VOID_ARGS)
 
 /* called when hallucination is toggled */
 void
-eatmupdate()
+eatmupdate(void)
 {
     const char *altmsg = 0;
     int altapp = 0; /* lint suppression */
@@ -279,7 +279,7 @@ choke(struct obj *food)
 
 /* modify object wt. depending on time spent consuming it */
 STATIC_OVL void
-recalc_wt()
+recalc_wt(void)
 {
     struct obj *piece = context.victual.piece;
     if (!piece) {
@@ -295,7 +295,7 @@ recalc_wt()
 
 /* called when eating interrupted by an event */
 void
-reset_eat()
+reset_eat(void)
 {
     /* we only set a flag here - the actual reset process is done after
      * the round is spent eating.
@@ -396,7 +396,7 @@ food_substitution(struct obj *old_obj, struct obj *new_obj)
 }
 
 STATIC_OVL void
-do_reset_eat()
+do_reset_eat(void)
 {
     debugpline0("do_reset_eat...");
     if (context.victual.piece) {
@@ -729,7 +729,7 @@ cprefx(register int pm)
 }
 
 void
-fix_petrification()
+fix_petrification(void)
 {
     char buf[BUFSZ];
 
@@ -1138,7 +1138,7 @@ cpostfx(int pm)
 }
 
 void
-violated_vegetarian()
+violated_vegetarian(void)
 {
     u.uconduct.unvegetarian++;
     if (Role_if(PM_MONK)) {
@@ -2050,7 +2050,7 @@ eataccessory(struct obj *otmp)
 
 /* called after eating non-food */
 STATIC_OVL void
-eatspecial()
+eatspecial(void)
 {
     struct obj *otmp = context.victual.piece;
 
@@ -2402,7 +2402,7 @@ edibility_prompts(struct obj *otmp)
 
 /* 'e' command */
 int
-doeat()
+doeat(void)
 {
     struct obj *otmp;
     int basenutrit; /* nutrition of full item */
@@ -2719,7 +2719,7 @@ use_tin_opener(struct obj *obj)
  * modifying usedtime.  Returns 1 if they choked and survived, 0 otherwise.
  */
 STATIC_OVL int
-bite()
+bite(void)
 {
     if (context.victual.canchoke && u.uhunger >= 2000) {
         choke(context.victual.piece);
@@ -2746,7 +2746,7 @@ bite()
 
 /* as time goes by - called by moveloop(every move) & domove(melee attack) */
 void
-gethungry()
+gethungry(void)
 {
     if (u.uinvulnerable)
         return; /* you don't feel hungrier */
@@ -2867,14 +2867,14 @@ unfaint(VOID_ARGS)
 }
 
 boolean
-is_fainted()
+is_fainted(void)
 {
     return (boolean) (u.uhs == FAINTED);
 }
 
 /* call when a faint must be prematurely terminated */
 void
-reset_faint()
+reset_faint(void)
 {
     if (afternmv == unfaint)
         unmul("You revive.");
@@ -3145,7 +3145,7 @@ floorfood(const char *verb,
 /* Side effects of vomiting */
 /* added nomul (MRS) - it makes sense, you're too busy being sick! */
 void
-vomit() /* A good idea from David Neves */
+vomit(void) /* A good idea from David Neves */
 {
     if (cantvomit(youmonst.data)) {
         /* doesn't cure food poisoning; message assumes that we aren't

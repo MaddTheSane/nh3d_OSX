@@ -176,7 +176,7 @@ apron_text(struct obj *apron, char *buf)
 }
 
 int
-doread()
+doread(void)
 {
     register struct obj *scroll;
     boolean confused, nodisappear;
@@ -797,7 +797,7 @@ forget_map(int howmuch)
 
 /* Forget all traps on the level. */
 void
-forget_traps()
+forget_traps(void)
 {
     register struct trap *trap;
 
@@ -926,8 +926,7 @@ maybe_tame(struct monst *mtmp, struct obj *sobj)
 }
 
 STATIC_OVL boolean
-get_valid_stinking_cloud_pos(x,y)
-int x,y;
+get_valid_stinking_cloud_pos(int x, int y)
 {
     return (!(!isok(x,y) || !cansee(x, y)
               || !ACCESSIBLE(levl[x][y].typ)
@@ -1996,7 +1995,7 @@ litroom(register boolean on, struct obj *obj)
 }
 
 STATIC_OVL void
-do_class_genocide()
+do_class_genocide(void)
 {
     int i, j, immunecnt, gonecnt, goodcnt, class, feel_dead = 0;
     char buf[BUFSZ] = DUMMY;
@@ -2349,7 +2348,7 @@ punish(struct obj *sobj)
 
 /* remove the ball and chain */
 void
-unpunish()
+unpunish(void)
 {
     struct obj *savechain = uchain;
 
@@ -2578,7 +2577,7 @@ create_particular_creation(struct _create_particular_data *d)
  * this code was also used for the scroll/spell in explore mode.
  */
 boolean
-create_particular()
+create_particular(void)
 {
     char buf[BUFSZ] = DUMMY, *bufp;
     int  tryct = 5;

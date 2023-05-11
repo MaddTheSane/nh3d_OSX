@@ -141,8 +141,7 @@ static boolean NH_panictrace_gdb(void);
 /* called as signal() handler, so sent at least one arg */
 /*ARGUSED*/
 void
-panictrace_handler(sig_unused)
-int sig_unused UNUSED;
+panictrace_handler(int sig_unused UNUSED)
 {
 #define SIG_MSG "\nSignal received.\n"
     int f2;
@@ -189,7 +188,7 @@ panictrace_setsignals(boolean set)
 #endif /* NO_SIGNAL */
 
 static void
-NH_abort()
+NH_abort(void)
 {
     int gdb_prio = SYSOPT_PANICTRACE_GDB;
     int libc_prio = SYSOPT_PANICTRACE_LIBC;
@@ -225,7 +224,7 @@ NH_abort()
 }
 
 static boolean
-NH_panictrace_libc()
+NH_panictrace_libc(void)
 {
 #ifdef PANICTRACE_LIBC
     void *bt[20];
@@ -260,7 +259,7 @@ NH_panictrace_libc()
 #endif /* PANICTRACE_GDB */
 
 static boolean
-NH_panictrace_gdb()
+NH_panictrace_gdb(void)
 {
 #ifdef PANICTRACE_GDB
     /* A (more) generic method to get a stack trace - invoke
@@ -341,7 +340,7 @@ done1(int sig_unused UNUSED) /* called as signal() handler, so sent at least one
 
 /* "#quit" command or keyboard interrupt */
 int
-done2()
+done2(void)
 {
     if (iflags.debug_fuzzer)
         return 0;
@@ -549,8 +548,7 @@ static const struct {
 /* clear away while-helpless when the cause of death caused that
    helplessness (ie, "petrified by <foo> while getting stoned") */
 STATIC_DCL void
-fixup_death(how)
-int how;
+fixup_death(int how)
 {
     int i;
 
@@ -998,7 +996,7 @@ odds_and_ends(struct obj *list, int what)
 
 /* deal with some objects which may be in an abnormal state at end of game */
 STATIC_OVL void
-done_object_cleanup()
+done_object_cleanup(void)
 {
     int ox, oy;
 
@@ -1757,9 +1755,7 @@ static const char *vanqorders[NUM_VANQ_ORDER_MODES] = {
 static int vanq_sortmode = VANQ_MLVL_MNDX;
 
 STATIC_PTR int CFDECLSPEC
-vanqsort_cmp(vptr1, vptr2)
-const genericptr vptr1;
-const genericptr vptr2;
+vanqsort_cmp(const genericptr vptr1, const genericptr vptr2)
 {
     int indx1 = *(short *) vptr1, indx2 = *(short *) vptr2,
         mlev1, mlev2, mstr1, mstr2, uniq1, uniq2, died1, died2, res;
@@ -1838,7 +1834,7 @@ const genericptr vptr2;
 
 /* returns -1 if cancelled via ESC */
 STATIC_OVL int
-set_vanq_order()
+set_vanq_order(void)
 {
     winid tmpwin;
     menu_item *selected;
@@ -1872,7 +1868,7 @@ set_vanq_order()
 
 /* #vanquished command */
 int
-dovanquished()
+dovanquished(void)
 {
     list_vanquished('a', FALSE);
     return 0;
@@ -2013,7 +2009,7 @@ list_vanquished(char defquery, boolean ask)
 
 /* number of monster species which have been genocided */
 int
-num_genocides()
+num_genocides(void)
 {
     int i, n = 0;
 
@@ -2029,7 +2025,7 @@ num_genocides()
 }
 
 STATIC_OVL int
-num_extinct()
+num_extinct(void)
 {
     int i, n = 0;
 

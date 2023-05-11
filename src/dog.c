@@ -51,7 +51,7 @@ initedog(register struct monst *mtmp)
 }
 
 STATIC_OVL int
-pet_type()
+pet_type(void)
 {
     if (urole.petnum != NON_PM)
         return  urole.petnum;
@@ -143,7 +143,7 @@ make_familiar(register struct obj *otmp, xchar x, xchar y, boolean quietly)
 }
 
 struct monst *
-makedog()
+makedog(void)
 {
     register struct monst *mtmp;
     register struct obj *otmp;
@@ -197,7 +197,7 @@ makedog()
 /* record `last move time' for all monsters prior to level save so that
    mon_arrive() can catch up for lost time when they're restored later */
 void
-update_mlstmv()
+update_mlstmv(void)
 {
     struct monst *mon;
 
@@ -211,7 +211,7 @@ update_mlstmv()
 }
 
 void
-losedogs()
+losedogs(void)
 {
     register struct monst *mtmp, *mtmp0, *mtmp2;
     int dismissKops = 0;

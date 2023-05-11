@@ -138,8 +138,7 @@ setnotworn(register struct obj *obj)
 
 /* return item worn in slot indiciated by wornmask; needed by poly_obj() */
 struct obj *
-wearmask_to_obj(wornmask)
-long wornmask;
+wearmask_to_obj(long wornmask)
 {
     const struct worn *wp;
 
@@ -682,7 +681,7 @@ m_lose_armor(struct monst *mon, struct obj *obj)
 
 /* all objects with their bypass bit set should now be reset to normal */
 void
-clear_bypasses()
+clear_bypasses(void)
 {
     struct obj *otmp, *nobj;
     struct monst *mtmp;
@@ -783,9 +782,7 @@ nxt_unbypassed_obj(struct obj *objchain)
    there's an added complication that the array may have stale pointers
    for deleted objects (see Multiple-Drop case in askchain(invent.c)) */
 struct obj *
-nxt_unbypassed_loot(lootarray, listhead)
-Loot *lootarray;
-struct obj *listhead;
+nxt_unbypassed_loot(Loot *lootarray, struct obj *listhead)
 {
     struct obj *o, *obj;
 

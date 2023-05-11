@@ -81,7 +81,7 @@ getversionstring(char *buf)
 
 /* the 'v' command */
 int
-doversion()
+doversion(void)
 {
     char buf[BUFSZ];
 
@@ -91,7 +91,7 @@ doversion()
 
 /* the '#version' command; also a choice for '?' */
 int
-doextversion()
+doextversion(void)
 {
     dlb *f;
     char buf[BUFSZ], *p = 0;
@@ -355,7 +355,7 @@ get_feature_notice_ver(char *str)
 }
 
 unsigned long
-get_current_feature_ver()
+get_current_feature_ver(void)
 {
     return FEATURE_NOTICE_VER(VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL);
 }

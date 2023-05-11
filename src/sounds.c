@@ -20,7 +20,7 @@ mon_in_room(struct monst *mon, int rmtyp)
 }
 
 void
-dosounds()
+dosounds(void)
 {
     register struct mkroom *sroom;
     register int hallu, vx, vy;
@@ -964,7 +964,7 @@ domonnoise(register struct monst *mtmp)
 
 /* #chat command */
 int
-dotalk()
+dotalk(void)
 {
     int result;
 
@@ -973,7 +973,7 @@ dotalk()
 }
 
 STATIC_OVL int
-dochat()
+dochat(void)
 {
     struct monst *mtmp;
     int tx, ty;

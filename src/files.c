@@ -590,7 +590,7 @@ delete_levelfile(int lev)
 }
 
 void
-clearlocks()
+clearlocks(void)
 {
 #ifdef HANGUPHANDLING
     if (program_state.preserve_locks)
@@ -765,7 +765,7 @@ set_bonesfile_name(char *file, d_level *lev)
  * the same array may be used instead of copying.)
  */
 STATIC_OVL char *
-set_bonestemp_name()
+set_bonestemp_name(void)
 {
     char *tf;
 
@@ -888,7 +888,7 @@ delete_bonesfile(d_level *lev)
 /* assume we're compressing the recently read or created bonesfile, so the
  * file name is already set properly */
 void
-compress_bonesfile()
+compress_bonesfile(void)
 {
     nh_compress(fqname(bones, BONESPREFIX, 0));
 }
@@ -967,7 +967,7 @@ save_savefile_name(int fd)
 #ifndef MICRO
 /* change pre-existing savefile name to indicate an error savefile */
 void
-set_error_savefile()
+set_error_savefile(void)
 {
 #ifdef VMS
     {
@@ -989,7 +989,7 @@ set_error_savefile()
 
 /* create save file, overwriting one if it already exists */
 int
-create_savefile()
+create_savefile(void)
 {
     const char *fq_save;
     int fd;
@@ -1020,7 +1020,7 @@ create_savefile()
 
 /* open savefile for reading */
 int
-open_savefile()
+open_savefile(void)
 {
     const char *fq_save;
     int fd;
@@ -1036,7 +1036,7 @@ open_savefile()
 
 /* delete savefile */
 int
-delete_savefile()
+delete_savefile(void)
 {
     (void) unlink(fqname(SAVEF, SAVEPREFIX, 0));
     return 0; /* for restore_saved_game() (ex-xxxmain.c) test */
@@ -1044,7 +1044,7 @@ delete_savefile()
 
 /* try to open up a save file and prepare to restore it */
 int
-restore_saved_game()
+restore_saved_game(void)
 {
     const char *fq_save;
     int fd;
@@ -1124,7 +1124,7 @@ plname_from_file(const char *filename)
 #endif /* defined(SELECTSAVED) */
 
 char **
-get_saved_games()
+get_saved_games(void)
 {
 #if defined(SELECTSAVED)
     int n, j = 0;
@@ -2192,7 +2192,7 @@ choose_random_part(char *str,char sep)
 }
 
 STATIC_OVL void
-free_config_sections()
+free_config_sections(void)
 {
     if (config_section_chosen) {
         free(config_section_chosen);
@@ -2205,8 +2205,7 @@ free_config_sections()
 }
 
 STATIC_OVL boolean
-is_config_section(str)
-const char *str;
+is_config_section(const char *str)
 {
     const char *a = rindex(str, ']');
 
@@ -2214,8 +2213,7 @@ const char *str;
 }
 
 STATIC_OVL boolean
-handle_config_section(buf)
-char *buf;
+handle_config_section(char *buf)
 {
     if (is_config_section(buf)) {
         char *send;
@@ -2821,8 +2819,7 @@ config_error_nextline(const char *line)
 
 /* varargs 'config_error_add()' moved to pline.c */
 void
-config_erradd(buf)
-const char *buf;
+config_erradd(const char *buf)
 {
     char lineno[QBUFSZ];
 
@@ -2852,7 +2849,7 @@ const char *buf;
 }
 
 int
-config_error_done()
+config_error_done(void)
 {
     int n;
     struct _config_error_frame *tmp = config_error_data;
@@ -2896,7 +2893,7 @@ read_config_file(const char *filename, int src)
 }
 
 STATIC_OVL FILE *
-fopen_wizkit_file()
+fopen_wizkit_file(void)
 {
     FILE *fp;
 #if defined(VMS) || defined(UNIX)
@@ -2994,8 +2991,7 @@ wizkit_addinv(struct obj *obj)
 
 
 boolean
-proc_wizkit_line(buf)
-char *buf;
+proc_wizkit_line(char *buf)
 {
     struct obj *otmp;
 
@@ -3015,7 +3011,7 @@ char *buf;
 }
 
 void
-read_wizkit()
+read_wizkit(void)
 {
     FILE *fp;
 
@@ -3186,7 +3182,7 @@ static int symset_which_set = 0;
 
 STATIC_OVL
 FILE *
-fopen_sym_file()
+fopen_sym_file(void)
 {
     FILE *fp;
 
@@ -3252,8 +3248,7 @@ read_sym_file(int which_set)
 }
 
 boolean
-proc_symset_line(buf)
-char *buf;
+proc_symset_line(char *buf)
 {
     return !((boolean) parse_sym_line(buf, symset_which_set));
 }
@@ -3623,10 +3618,7 @@ paniclog(const char *type,      /* panic, impossible, trickery */
 }
 
 void
-testinglog(filenm, type, reason)
-const char *filenm;   /* ad hoc file name */
-const char *type;
-const char *reason;   /* explanation */
+testinglog(const char *filenm /* ad hoc file name */, const char *type, const char *reason /* explanation */)
 {
     FILE *lfile;
     char fnbuf[BUFSZ];
@@ -3855,7 +3847,7 @@ copy_bytes(int ifd, int ofd)
 #ifdef SYSCF
 #ifdef SYSCF_FILE
 void
-assure_syscf_file()
+assure_syscf_file(void)
 {
     int fd;
 

@@ -68,8 +68,7 @@ dumplogfreemessages()
 
 /* keeps windowprocs usage out of pline() */
 static void
-putmesg(line)
-const char *line;
+putmesg(const char *line)
 {
     int attr = ATR_NONE;
 
@@ -249,7 +248,7 @@ You_buf(int siz)
 }
 
 void
-free_youbuf()
+free_youbuf(void)
 {
     if (you_buf) {
         free((genericptr_t) you_buf); you_buf = (char *) 0;

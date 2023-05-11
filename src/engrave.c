@@ -408,7 +408,7 @@ del_engr_at(int x, int y)
  * freehand - returns true if player has a free hand
  */
 int
-freehand()
+freehand(void)
 {
     return (!uwep || !welded(uwep)
             || (!bimanual(uwep) && (!uarms || !uarms->cursed)));
@@ -448,7 +448,7 @@ static NEARDATA const char styluses[] = { ALL_CLASSES, ALLOW_NONE,
 
 /* return 1 if action took 1 (or more) moves, 0 if error or aborted */
 int
-doengrave()
+doengrave(void)
 {
     boolean dengr = FALSE;    /* TRUE if we wipe out the current engraving */
     boolean doblind = FALSE;  /* TRUE if engraving blinds the player */
@@ -1149,7 +1149,7 @@ doengrave()
 /* while loading bones, clean up text which might accidentally
    or maliciously disrupt player's terminal when displayed */
 void
-sanitize_engravings()
+sanitize_engravings(void)
 {
     struct engr *ep;
 

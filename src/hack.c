@@ -96,7 +96,7 @@ revive_nasty(int x, int y, const char *msg)
 }
 
 STATIC_OVL int
-moverock()
+moverock(void)
 {
     register xchar rx, ry, sx, sy;
     register struct obj *otmp;
@@ -543,7 +543,7 @@ movobj(register struct obj *obj, register xchar ox, register xchar oy)
 static NEARDATA const char fell_on_sink[] = "fell onto a sink";
 
 STATIC_OVL void
-dosinkfall()
+dosinkfall(void)
 {
     register struct obj *obj;
     int dmg;
@@ -1314,7 +1314,7 @@ trapmove(int x, int y,          /* targetted destination, <u.ux+u.dx,u.uy+u.dy> 
 }
 
 boolean
-u_rooted()
+u_rooted(void)
 {
     if (!youmonst.data->mmove) {
         You("are rooted %s.",
@@ -1328,7 +1328,7 @@ u_rooted()
 }
 
 void
-domove()
+domove(void)
 {
         int ux1 = u.ux, uy1 = u.uy;
 
@@ -1341,7 +1341,7 @@ domove()
 }
 
 STATIC_OVL void
-domove_core()
+domove_core(void)
 {
     register struct monst *mtmp;
     register struct rm *tmpr;
@@ -1942,8 +1942,7 @@ domove_core()
 }
 
 STATIC_OVL void
-maybe_smudge_engr(x1,y1,x2,y2)
-int x1, y1, x2, y2;
+maybe_smudge_engr(int x1, int y1, int x2, int y2)
 {
     struct engr *ep;
 
@@ -1958,7 +1957,7 @@ int x1, y1, x2, y2;
 
 /* combat increases metabolism */
 boolean
-overexertion()
+overexertion(void)
 {
     /* this used to be part of domove() when moving to a monster's
        position, but is now called by attack() so that it doesn't
@@ -1979,7 +1978,7 @@ overexertion()
 }
 
 void
-invocation_message()
+invocation_message(void)
 {
     /* a special clue-msg when on the Invocation position */
     if (invocation_pos(u.ux, u.uy) && !On_stairs(u.ux, u.uy)) {
@@ -2006,7 +2005,7 @@ invocation_message()
    might be going into solid rock, inhibiting levitation or flight,
    or coming back out of such, reinstating levitation/flying */
 void
-switch_terrain()
+switch_terrain(void)
 {
     struct rm *lev = &levl[u.ux][u.uy];
     boolean blocklev = (IS_ROCK(lev->typ) || closed_door(u.ux, u.uy)
@@ -2653,7 +2652,7 @@ dopickup(VOID_ARGS)
 /* turn around a corner if that is the only way we can proceed */
 /* do not turn left or right twice */
 void
-lookaround()
+lookaround(void)
 {
     register int x, y;
     int i, x0 = 0, y0 = 0, m0 = 1, i0 = 9;
@@ -2851,7 +2850,7 @@ crawl_destination(int x, int y)
 /* something like lookaround, but we are not running */
 /* react only to monsters that might hit us */
 int
-monster_nearby()
+monster_nearby(void)
 {
     register int x, y;
     register struct monst *mtmp;
@@ -2921,7 +2920,7 @@ unmul(const char *msg_override)
 }
 
 STATIC_OVL void
-maybe_wail()
+maybe_wail(void)
 {
     static short powers[] = { TELEPORT, SEE_INVIS, POISON_RES, COLD_RES,
                               SHOCK_RES, FIRE_RES, SLEEP_RES, DISINT_RES,
@@ -2987,7 +2986,7 @@ losehp(register int n, register const char *knam, boolean k_format)
 }
 
 int
-weight_cap()
+weight_cap(void)
 {
     long carrcap, save_ELev = ELevitation, save_BLev = BLevitation;
 
@@ -3046,7 +3045,7 @@ static int wc; /* current weight_cap(); valid after call to inv_weight() */
 /* returns how far beyond the normal capacity the player is currently. */
 /* inv_weight() is negative if the player is below normal capacity. */
 int
-inv_weight()
+inv_weight(void)
 {
     register struct obj *otmp = invent;
     register int wt = 0;
@@ -3080,13 +3079,13 @@ calc_capacity(int xtra_wt)
 }
 
 int
-near_capacity()
+near_capacity(void)
 {
     return calc_capacity(0);
 }
 
 int
-max_capacity()
+max_capacity(void)
 {
     int wt = inv_weight();
 

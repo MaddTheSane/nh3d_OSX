@@ -432,7 +432,7 @@ rcouple		: '(' INTEGER ',' INTEGER ')'
 %%
 
 void
-init_dungeon()
+init_dungeon(void)
 {
 	if(++n_dgns > MAXDUNGEON) {
 	    (void) fprintf(stderr, "FATAL - Too many dungeons (limit: %d).\n",
@@ -454,7 +454,7 @@ init_dungeon()
 }
 
 void
-init_level()
+init_level(void)
 {
 	if(++n_levs > LEV_LIMIT) {
 
@@ -471,7 +471,7 @@ init_level()
 }
 
 void
-init_branch()
+init_branch(void)
 {
 	if(++n_brs > BRANCH_LIMIT) {
 
@@ -510,7 +510,7 @@ getchain(char *s)
  */
 
 int
-check_dungeon()
+check_dungeon(void)
 {
 	int i;
 
@@ -547,7 +547,7 @@ check_dungeon()
  */
 
 int
-check_level()
+check_level(void)
 {
 	int i;
 
@@ -589,7 +589,7 @@ check_level()
  */
 
 int
-check_branch()
+check_branch(void)
 {
 	int i;
 
@@ -636,7 +636,7 @@ check_branch()
  */
 
 void
-output_dgn()
+output_dgn(void)
 {
 	int	nd, cl = 0, nl = 0,
 		    cb = 0, nb = 0;
