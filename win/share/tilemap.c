@@ -396,8 +396,8 @@ init_tilemap(void)
 #endif
 }
 
-const char *prolog[] = { "", "void", "substitute_tiles(plev)",
-                         "d_level *plev;", "{", "    int i;", "" };
+const char *prolog[] = { "", "void", "substitute_tiles(d_level *plev)",
+                         "{", "    int i;", "" };
 
 const char *epilog[] = { "    return;", "}" };
 
