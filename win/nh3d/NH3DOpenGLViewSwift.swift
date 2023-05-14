@@ -12,6 +12,7 @@ import OpenGL.GL.Ext
 import OpenGL.GL.GLU
 import GLKit.GLKMatrix4
 import GLKit.GLKMathUtils
+import GLKit.GLKTextureLoader
 import CoreVideo
 import simd
 

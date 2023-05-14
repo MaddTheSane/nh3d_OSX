@@ -62,7 +62,9 @@ static const NH3DMaterial defaultMat = {
 
 @implementation NH3DModelObject
 {
-	NH3DParticle		*particles;			/**< particle Array */
+	/*! Particle Array */
+	NH3DParticle *particles;
+	
 	NSMutableArray<NH3DTextureObject*> *textureObjects;
 }
 @synthesize currentMaterial;

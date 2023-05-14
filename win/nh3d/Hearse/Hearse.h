@@ -62,9 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if __has_feature(objc_class_property)
 @property (class, readonly, strong, nullable) Hearse *instance;
-#else
-+ (nullable Hearse *) instance;
 #endif
++ (nullable Hearse *) instance;
 + (BOOL) start;
 + (void) stop;
 

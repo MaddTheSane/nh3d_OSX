@@ -214,10 +214,10 @@
 #endif
 
 #ifndef GDBPATH
-#define GDBPATH "/usr/bin/gdb"
+#define GDBPATH "/usr/bin/lldb"
 #endif
 #ifndef GREPPATH
-#define GREPPATH "/bin/grep"
+#define GREPPATH "/usr/bin/grep"
 #endif
 
 /* note: "larger" is in comparison with 'record', the high-scores file

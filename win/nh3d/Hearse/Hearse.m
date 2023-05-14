@@ -211,7 +211,7 @@ static NSString *const hearseCommandDownload = @"download";
 		if (!valid) {
 			return NO;
 		}
-		return (bool)(flags & kSCNetworkReachabilityFlagsReachable);
+		return (flags & kSCNetworkReachabilityFlagsReachable) == kSCNetworkReachabilityFlagsReachable;
 	}
 	return NO;
 }
@@ -390,7 +390,7 @@ static NSString *const hearseCommandDownload = @"download";
 	if ([file.pathExtension isEqualToString:@"gz"]) {
 		data = [Hearse dataFromGzippedFile:file];
 	} else {
-		data = [NSData dataWithContentsOfFile:file];
+		data = [NSData dataWithContentsOfFile:file options:NSDataReadingMappedIfSafe error:NULL];
 	}
 	req.HTTPBody = data;
 	NSString *md5Data = [Hearse md5HexForData:data];

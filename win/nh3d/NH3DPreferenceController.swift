@@ -177,7 +177,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 	}
 	
 	@IBAction func showFontPanelAction(_ sender: NSButton?) {
-		guard let sender = sender else {
+		guard let sender else {
 			return
 		}
 		let defaults = UserDefaults.standard

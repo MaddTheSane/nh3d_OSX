@@ -9,73 +9,67 @@
 #import "NH3DTextureObject.h"
 #import "NSBitmapImageRep+NH3DAdditions.h"
 #include <OpenGL/gl.h>
+#import <GLKit/GLKTextureLoader.h>
 
 @implementation NH3DTextureObject
 @synthesize texture;
 
-- (instancetype)initWithURL:(NSURL*)aURL
+- (void)loadFromTextureInfo:(GLKTextureInfo*)texInfo
 {
-	NSBitmapImageRep * imgrep = (id)[NSBitmapImageRep imageRepWithContentsOfURL:aURL];
-	if (!imgrep || ![imgrep isKindOfClass:[NSBitmapImageRep class]]) {
-		NSImage *sourceFile = [[NSImage alloc] initWithContentsOfURL:aURL];
-		if (!sourceFile) {
-			return nil;
-		}
-		imgrep = [[NSBitmapImageRep alloc] initWithData:sourceFile.TIFFRepresentation];
-	}
+	texture = texInfo.name;
 	
-	return [self initWithBitmapImageRep:imgrep];
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 }
 
-- (instancetype)initWithBitmapImageRep:(NSBitmapImageRep*)preImgRep
+- (instancetype)initWithURL:(NSURL*)aURL
 {
 	if (self = [super init]) {
-		NSBitmapImageRep *imgrep = [preImgRep forceRGBColorSpace];
-		
-		if (!imgrep) {
+		GLKTextureInfo *texInfo = [GLKTextureLoader textureWithContentsOfURL:aURL options:@{GLKTextureLoaderGenerateMipmaps: @YES} error:nil];
+		if (!texInfo) {
 			return nil;
 		}
-		
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		
-		// create automipmap texture
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-					 imgrep.pixelsWide, imgrep.pixelsHigh,
-					 0, imgrep.alpha ? GL_RGBA : GL_RGB,
-					 GL_UNSIGNED_BYTE, imgrep.bitmapData);
-
+		[self loadFromTextureInfo:texInfo];
 	}
 	return self;
 }
 
 - (instancetype)initWithImageNamed:(NSString*)fileName
 {
-	NSImage	*sourcefile = [NSImage imageNamed:fileName];
-	NSBitmapImageRep	*imgrep;
-	
-	if (sourcefile == nil) {
-		sourcefile = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:fileName]];
-		
-		if (sourcefile == nil) {
-			NSLog(@"texture file %@ was not found.",fileName);
-			return nil;
+	if (self = [super init]) {
+		NSError *err = nil;
+		GLKTextureInfo *texInfo = [GLKTextureLoader textureWithName:fileName scaleFactor:1 bundle:[NSBundle mainBundle] options:@{GLKTextureLoaderGenerateMipmaps: @YES} error:&err];
+		if (!texInfo) {
+//			NSLog(@"%@", err);
+			NSImage	*sourcefile = [NSImage imageNamed:fileName];
+			NSBitmapImageRep	*imgrep;
+			
+			if (sourcefile == nil) {
+				sourcefile = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:fileName]];
+				
+				if (sourcefile == nil) {
+					NSLog(@"texture file %@ was not found.",fileName);
+					return nil;
+				}
+			}
+			
+			err = nil;
+			GLKTextureInfo *texInfo = [GLKTextureLoader textureWithContentsOfData:sourcefile.TIFFRepresentation options:@{GLKTextureLoaderGenerateMipmaps: @YES} error:&err];
+			
+			if (!texInfo) {
+				NSLog(@"%@", err);
+				return nil;
+			}
+			[self loadFromTextureInfo:texInfo];
+			return self;
 		}
+		[self loadFromTextureInfo:texInfo];
 	}
-	
-	imgrep = [[NSBitmapImageRep alloc] initWithData:sourcefile.TIFFRepresentation];
-
-	return [self initWithBitmapImageRep:imgrep];
+	return self;
 }
 
 - (nullable instancetype)initWithFilePath:(NSString*)path;

@@ -15,9 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NH3DTextureObject : NSObject
 @property (readonly) GLuint texture;
 
-- (nullable instancetype)initWithBitmapImageRep:(NSBitmapImageRep*)imgRep NS_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithImageNamed:(NSImageName)named;
-- (nullable instancetype)initWithURL:(NSURL*)aURL;
+- (nullable instancetype)initWithImageNamed:(NSImageName)named NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithURL:(NSURL*)aURL NS_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithFilePath:(NSString*)path;
 
 - (instancetype)init UNAVAILABLE_ATTRIBUTE;

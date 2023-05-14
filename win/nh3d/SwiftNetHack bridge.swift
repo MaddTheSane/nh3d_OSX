@@ -8,9 +8,7 @@
 
 import Foundation
 
-// MARK: -
-
-// MARK: for font
+// MARK: - for font
 var NH3DMSGFONT: String! {
 	return UserDefaults.standard.string(forKey: NH3DMsgFontKey)
 }
@@ -48,9 +46,13 @@ var NH3DINVFONTSIZE: CGFloat {
 	return CGFloat(UserDefaults.standard.double(forKey: NH3DInventryFontSizeKey))
 }
 
+// MARK: -
+
 var TRADITIONAL_MAP: Bool {
 	return PreferencesManager.shared.useTraditionalMap
 }
+
+// MARK: - Tiles
 
 var TRADITIONAL_MAP_TILE: Bool {
 	return UserDefaults.standard.bool(forKey: NH3DTraditionalMapModeKey)
@@ -67,6 +69,8 @@ var TILES_PER_LINE: Int {
 var NUMBER_OF_TILES_ROW: Int {
 	return UserDefaults.standard.integer(forKey: NH3DNumberOfTilesRowKey)
 }
+
+// MARK: -
 
 var OPENGLVIEW_WAITRATE: Double {
 	return UserDefaults.standard.double(forKey: NH3DOpenGLWaitRateKey)
