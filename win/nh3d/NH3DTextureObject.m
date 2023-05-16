@@ -46,7 +46,6 @@
 		if (!texInfo) {
 //			NSLog(@"%@", err);
 			NSImage	*sourcefile = [NSImage imageNamed:fileName];
-			NSBitmapImageRep	*imgrep;
 			
 			if (sourcefile == nil) {
 				sourcefile = [[NSImage alloc] initWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:fileName]];
