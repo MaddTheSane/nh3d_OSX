@@ -862,10 +862,7 @@
 		2B31DD6D08CD73D5008CCAAC /* Makefile.gcc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.gcc; sourceTree = "<group>"; };
 		2B31DD6E08CD73D5008CCAAC /* Makefile.msc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.msc; sourceTree = "<group>"; };
 		2B31DD7008CD73D5008CCAAC /* nethack.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nethack.def; sourceTree = "<group>"; };
-		2B31DD7108CD73D5008CCAAC /* nh340key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nh340key.c; sourceTree = "<group>"; };
-		2B31DD7208CD73D5008CCAAC /* nhdefkey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nhdefkey.c; sourceTree = "<group>"; };
 		2B31DD7308CD73D5008CCAAC /* nhico.uu */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nhico.uu; sourceTree = "<group>"; };
-		2B31DD7408CD73D5008CCAAC /* nhraykey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nhraykey.c; sourceTree = "<group>"; };
 		2B31DD7508CD73D5008CCAAC /* nhsetup.bat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nhsetup.bat; sourceTree = "<group>"; };
 		2B31DD7608CD73D5008CCAAC /* ntsound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ntsound.c; sourceTree = "<group>"; };
 		2B31DD7708CD73D5008CCAAC /* nttty.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nttty.c; sourceTree = "<group>"; };
@@ -2074,10 +2071,7 @@
 				2B31DD6D08CD73D5008CCAAC /* Makefile.gcc */,
 				2B31DD6E08CD73D5008CCAAC /* Makefile.msc */,
 				2B31DD7008CD73D5008CCAAC /* nethack.def */,
-				2B31DD7108CD73D5008CCAAC /* nh340key.c */,
-				2B31DD7208CD73D5008CCAAC /* nhdefkey.c */,
 				2B31DD7308CD73D5008CCAAC /* nhico.uu */,
-				2B31DD7408CD73D5008CCAAC /* nhraykey.c */,
 				2B31DD7508CD73D5008CCAAC /* nhsetup.bat */,
 				2B31DD7608CD73D5008CCAAC /* ntsound.c */,
 				2B31DD7708CD73D5008CCAAC /* nttty.c */,

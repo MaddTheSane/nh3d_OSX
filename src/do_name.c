@@ -1,4 +1,4 @@
-/* NetHack 3.6	do_name.c	$NHDT-Date: 1582364431 2020/02/22 09:40:31 $  $NHDT-Branch: NetHack-3.7 $:$NHDT-Revision: 1.174 $ */
+/* NetHack 3.6	do_name.c	$NHDT-Date: 1674864731 2023/01/28 00:12:11 $  $NHDT-Branch: NetHack-3.6 $:$NHDT-Revision: 1.154 $ */
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /*-Copyright (c) Pasi Kallinen, 2018. */
 /* NetHack may be freely redistributed.  See license for details. */
@@ -10,6 +10,7 @@ STATIC_DCL void getpos_help(boolean, const char *);
 STATIC_DCL int CFDECLSPEC cmp_coord_distu(const void *,
                                           const void *);
 STATIC_DCL boolean gather_locs_interesting(int, int, int);
+STATIC_DCL char *name_from_player(char *, const char *, const char *);
 STATIC_DCL void gather_locs(coord **, int *, int);
 STATIC_DCL int gloc_filter_floodfill_matcharea(int, int);
 STATIC_DCL void auto_describe(int, int);
@@ -1029,6 +1030,33 @@ safe_oname(struct obj *obj)
     return "";
 }
 
+/* get a name for a monster or an object from player;
+   truncate if longer than PL_PSIZ, then return it */
+static char *
+name_from_player(char *outbuf/* output buffer, assumed to be at least BUFSZ long;
+                              * anything longer than PL_PSIZ will be truncated */,
+                 const char *prompt,
+                 const char *defres /* only used if EDIT_GETLIN is enabled; only useful
+                                     * if windowport xxx's xxx_getlin() supports that */)
+{
+    outbuf[0] = '\0';
+#ifdef EDIT_GETLIN
+    if (defres && *defres)
+        Strcpy(outbuf, defres); /* default response from getlin() */
+#else
+    nhUse(defres);
+#endif
+    getlin(prompt, outbuf);
+    if (!*outbuf || *outbuf == '\033')
+        return NULL;
+
+    /* strip leading and trailing spaces, condense internal sequences */
+    (void) mungspaces(outbuf);
+    if (strlen(outbuf) >= PL_PSIZ)
+        outbuf[PL_PSIZ - 1] = '\0';
+    return outbuf;
+}
+
 /* historical note: this returns a monster pointer because it used to
    allocate a new bigger block of memory to hold the monster and its name */
 struct monst *
@@ -1122,17 +1150,9 @@ do_mname(void)
     /* special case similar to the one in lookat() */
     Sprintf(qbuf, "What do you want to call %s?",
             distant_monnam(mtmp, ARTICLE_THE, monnambuf));
-    buf[0] = '\0';
-#ifdef EDIT_GETLIN
-    /* if there's an existing name, make it be the default answer */
-    if (has_mname(mtmp))
-        Strcpy(buf, MNAME(mtmp));
-#endif
-    getlin(qbuf, buf);
-    if (!*buf || *buf == '\033')
+    /* use getlin() to get a name string from the player */
+    if (!name_from_player(buf, qbuf, has_mname(mtmp) ? MNAME(mtmp) : NULL))
         return;
-    /* strip leading and trailing spaces; unnames monster if all spaces */
-    (void) mungspaces(buf);
 
     /* Unique monsters have their own specific names or titles.
      * Shopkeepers, temple priests and other minions use alternate
@@ -1183,17 +1203,9 @@ do_oname(register struct obj *obj)
     Sprintf(qbuf, "What do you want to name %s ",
             is_plural(obj) ? "these" : "this");
     (void) safe_qbuf(qbuf, qbuf, "?", obj, xname, simpleonames, "item");
-    buf[0] = '\0';
-#ifdef EDIT_GETLIN
-    /* if there's an existing name, make it be the default answer */
-    if (has_oname(obj))
-        Strcpy(buf, ONAME(obj));
-#endif
-    getlin(qbuf, buf);
-    if (!*buf || *buf == '\033')
+    /* use getlin() to get a name string from the player */
+    if (!name_from_player(buf, qbuf, safe_oname(obj)))
         return;
-    /* strip leading and trailing spaces; unnames item if all spaces */
-    (void) mungspaces(buf);
 
     /*
      * We don't violate illiteracy conduct here, although it is
@@ -1442,14 +1454,8 @@ docall(struct obj *obj)
                          docall_xname, simpleonames, "thing");
     /* pointer to old name */
     str1 = &(objects[obj->otyp].oc_uname);
-    buf[0] = '\0';
-#ifdef EDIT_GETLIN
-    /* if there's an existing name, make it be the default answer */
-    if (*str1)
-        Strcpy(buf, *str1);
-#endif
-    getlin(qbuf, buf);
-    if (!*buf || *buf == '\033')
+    /* use getlin() to get a name string from the player */
+    if (!name_from_player(buf, qbuf, *str1))
         return;
 
     /* clear old name */

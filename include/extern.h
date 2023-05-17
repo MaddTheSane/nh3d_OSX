@@ -1680,7 +1680,8 @@ E void set_output_mode(int);
 E void synch_cursor(void);
 E void nethack_enter_nttty(void);
 E void nttty_exit(void);
-#endif
+E int set_keyhandling_via_option(void);
+#endif /* WIN32 */
 
 /* ### o_init.c ### */
 

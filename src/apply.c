@@ -562,8 +562,10 @@ m_unleash(register struct monst *mtmp, boolean feedback)
             Your("leash falls slack.");
     }
     for (otmp = invent; otmp; otmp = otmp->nobj)
-        if (otmp->otyp == LEASH && otmp->leashmon == (int) mtmp->m_id)
+        if (otmp->otyp == LEASH && otmp->leashmon == (int) mtmp->m_id) {
             otmp->leashmon = 0;
+            update_inventory();
+        }
     mtmp->mleashed = 0;
 }
 
