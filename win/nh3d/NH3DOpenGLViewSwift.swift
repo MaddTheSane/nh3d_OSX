@@ -589,7 +589,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			var link: CVDisplayLink?
 			CVDisplayLinkCreateWithCGDisplay(displayNum, &link)
 			
-			if let link = link {
+			if let link {
 				let aTime: CVTime = CVDisplayLinkGetNominalOutputVideoRefreshPeriod(link)
 				if (aTime.flags & CVTimeFlags.isIndefinite.rawValue) == 0 {
 					aRefreshRate = Double(aTime.timeScale) / Double(aTime.timeValue)
@@ -740,7 +740,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		
 		if modelName == "emitter" {
 			return NH3DModelObject()
-		} else if flag, let textureName = textureName {
+		} else if flag, let textureName {
 			return NH3DModelObject(with3DSFile: modelName, textureNamed: textureName)
 		} else {
 			return NH3DModelObject(with3DSFile: modelName, withTexture: flag)
@@ -3935,23 +3935,6 @@ extension NH3DOpenGLView {
 		return nil
 	}
 	
-	/*
-	/*
-	- ( id )loadModelToArray:(int)glyph
-	{
-	return ret
-	
-	}
-	*/
-	
-	- ( void )setNowUpdating:( BOOL )flag
-	{
-	[ viewLock lock ];
-	nowUpdating = flag;
-	[ viewLock unlock ];
-	}
-	*/
-	
 	/// Statues
 	private final func loadModelFunc_Statues(glyph: Int32) -> NH3DModelObject? {
 		var loadDat: (at: Int32, to: Int32, modelName: String)
@@ -4267,13 +4250,13 @@ extension NH3DOpenGLView {
 		}
 		
 		drawFloorArray[0] = { [weak self] in
-			guard let ourSelf = self else {
+			guard let self else {
 				return
 			}
 			glActiveTexture(GLenum(GL_TEXTURE0))
 			glEnable(GLenum(GL_TEXTURE_2D))
 			
-			glBindTexture(GLenum(GL_TEXTURE_2D), ourSelf.floorCurrent)
+			glBindTexture(GLenum(GL_TEXTURE_2D), self.floorCurrent)
 			glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
 			
 			glNormalPointer(GLenum(GL_FLOAT), 0, FloorVertNorms)

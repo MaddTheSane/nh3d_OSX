@@ -1086,7 +1086,7 @@ static const NH3DMaterial defaultMat = {
 - (void)drawSelf
 {
 	int i;
-	GLfloat px, py, pz;
+	simd_float3 p;
 	
 	if (active) {
 		static const GLfloat blendcol[4] = {1.0, 1.0, 1.0, 0.33};
@@ -1241,9 +1241,7 @@ static const NH3DMaterial defaultMat = {
 					GLfloat colorArray[4] = {currentParticle->r, currentParticle->g, currentParticle->b, currentParticle->life};
 					
 					if (currentParticle->active) {
-						px = currentParticle->position.x;
-						py = currentParticle->position.y;
-						pz = currentParticle->position.z;
+						p = currentParticle->position;
 						float pSize;
 						
 						switch (particleType) {
@@ -1252,10 +1250,10 @@ static const NH3DMaterial defaultMat = {
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
-								glVertex3f(px + 0.02f, py + 0.02f, pz + 0.02f);
-								glVertex3f(px - 0.02f, py + 0.02f, pz - 0.02f);
-								glVertex3f(px + 0.02f, py - 0.02f, pz + 0.02f);
-								glVertex3f(px - 0.02f, py - 0.02f, pz - 0.02f);
+								glVertex3f(p.x + 0.02f, p.y + 0.02f, p.z + 0.02f);
+								glVertex3f(p.x - 0.02f, p.y + 0.02f, p.z - 0.02f);
+								glVertex3f(p.x + 0.02f, p.y - 0.02f, p.z + 0.02f);
+								glVertex3f(p.x - 0.02f, p.y - 0.02f, p.z - 0.02f);
 								glEnd();
 								break;
 								
@@ -1264,8 +1262,8 @@ static const NH3DMaterial defaultMat = {
 								
 								glBegin(GL_LINE_STRIP);
 								glColor4fv(colorArray);
-								glVertex3f(px + 0.02f, py, pz); glVertex3f(px - 0.02f, py + 0.1f, pz + 0.01f);
-								glVertex3f(px - 0.02f, py, pz); glVertex3f(px + 0.02f, py - 0.1f, pz - 0.01f);
+								glVertex3f(p.x + 0.02f, p.y, p.z); glVertex3f(p.x - 0.02f, p.y + 0.1f, p.z + 0.01f);
+								glVertex3f(p.x - 0.02f, p.y, p.z); glVertex3f(p.x + 0.02f, p.y - 0.1f, p.z - 0.01f);
 								glEnd();
 								break;
 								
@@ -1274,10 +1272,10 @@ static const NH3DMaterial defaultMat = {
 								
 								glBegin(GL_POINTS);
 								glColor4fv(colorArray);
-								glVertex3f(px + 0.02f, py + 0.02f, pz + 0.02f);
-								glVertex3f(px - 0.02f, py + 0.02f, pz - 0.02f);
-								glVertex3f(px + 0.02f, py - 0.02f, pz + 0.02f);
-								glVertex3f(px - 0.02f, py - 0.02f, pz - 0.02f);
+								glVertex3f(p.x + 0.02f, p.y + 0.02f, p.z + 0.02f);
+								glVertex3f(p.x - 0.02f, p.y + 0.02f, p.z - 0.02f);
+								glVertex3f(p.x + 0.02f, p.y - 0.02f, p.z + 0.02f);
+								glVertex3f(p.x - 0.02f, p.y - 0.02f, p.z - 0.02f);
 								glEnd();
 								
 								glLineWidth((random() % 4) + particleSize);
@@ -1285,8 +1283,8 @@ static const NH3DMaterial defaultMat = {
 								glBegin(GL_LINE_STRIP);
 								
 								glColor4fv(colorArray);
-								glVertex3f(px + 0.02f, py, pz); glVertex3f(px - 0.02f, py + 0.1f, pz + 0.01f);
-								glVertex3f(px , py , pz); glVertex3f(px - 0.02f, py - 0.1f, pz - 0.01f);
+								glVertex3f(p.x + 0.02f, p.y, p.z); glVertex3f(p.x - 0.02f, p.y + 0.1f, p.z + 0.01f);
+								glVertex3f(p.x , p.y , p.z); glVertex3f(p.x - 0.02f, p.y - 0.1f, p.z - 0.01f);
 								glEnd();
 								break;
 								
@@ -1298,22 +1296,22 @@ static const NH3DMaterial defaultMat = {
 								glColor4fv(colorArray);
 								
 								// TODO: remove magic numbers!
-								glVertex3f(px + 0.3975f , py + 0.2f , pz + 2.0f   );	glVertex3f(px + 1.11333f, py		 , pz + 1.6963f);
-								glVertex3f(px + 1.11333f, py		 , pz + 1.6963f);	glVertex3f(px + 1.6958f , py + 0.1f , pz + 1.1338f);
-								glVertex3f(px + 1.6958f , py + 0.1f , pz + 1.1338f);	glVertex3f(px + 2.0f	 , py		 , pz + 0.3984f);
-								glVertex3f(px + 2.0f	 , py		 , pz + 0.3984f);	glVertex3f(px + 2.0f	 , py + 0.2f , pz - 0.3984f);
-								glVertex3f(px + 2.0f	 , py + 0.2f , pz - 0.3984f);	glVertex3f(px + 1.6958f , py		 , pz - 1.1338f);
-								glVertex3f(px + 1.6958f , py		 , pz - 1.1338f);	glVertex3f(px + 1.1333f , py + 0.1f , pz - 1.6953f);
-								glVertex3f(px + 1.1333f , py + 0.1f , pz - 1.6953f);	glVertex3f(px + 0.3975f , py		 , pz - 2.0f);
-								glVertex3f(px + 0.3975f , py		 , pz - 2.0f   );	glVertex3f(px - 0.3975f , py + 0.2f , pz - 2.0f);
-								glVertex3f(px - 0.3975f , py + 0.2f , pz - 2.0f   );	glVertex3f(px - 1.1323f , py		 , pz - 1.6953f);
-								glVertex3f(px - 1.1323f , py		 , pz - 1.6953f);	glVertex3f(px - 1.6958f , py + 0.1f , pz - 1.1338f);
-								glVertex3f(px - 1.6958f , py + 0.1f , pz - 1.1338f);	glVertex3f(px - 2.0f    , py		 , pz - 0.3984f);
-								glVertex3f(px - 2.0f    , py		 , pz  -0.3984f);	glVertex3f(px - 2.0f    , py + 0.2f , pz + 0.3984f);
-								glVertex3f(px - 2.0f    , py + 0.2f , pz + 0.3984f);	glVertex3f(px - 1.6958f , py		 , pz + 1.1338f);
-								glVertex3f(px - 1.6958f , py		 , pz + 1.1338f);	glVertex3f(px - 1.1323f , py + 0.1f , pz + 1.6963f);
-								glVertex3f(px - 1.1323f , py + 0.1f , pz + 1.6963f);	glVertex3f(px - 0.3975f , py		 , pz + 2.0f);
-								glVertex3f(px - 0.3975f , py		 , pz + 2.0f   );	glVertex3f(px + 0.3975f , py + 0.2f , pz + 2.0f);
+								glVertex3f(p.x + 0.3975f , p.y + 0.2f , p.z + 2.0f   );	glVertex3f(p.x + 1.11333f, p.y		 , p.z + 1.6963f);
+								glVertex3f(p.x + 1.11333f, p.y		 , p.z + 1.6963f);	glVertex3f(p.x + 1.6958f , p.y + 0.1f , p.z + 1.1338f);
+								glVertex3f(p.x + 1.6958f , p.y + 0.1f , p.z + 1.1338f);	glVertex3f(p.x + 2.0f	 , p.y		 , p.z + 0.3984f);
+								glVertex3f(p.x + 2.0f	 , p.y		 , p.z + 0.3984f);	glVertex3f(p.x + 2.0f	 , p.y + 0.2f , p.z - 0.3984f);
+								glVertex3f(p.x + 2.0f	 , p.y + 0.2f , p.z - 0.3984f);	glVertex3f(p.x + 1.6958f , p.y		 , p.z - 1.1338f);
+								glVertex3f(p.x + 1.6958f , p.y		 , p.z - 1.1338f);	glVertex3f(p.x + 1.1333f , p.y + 0.1f , p.z - 1.6953f);
+								glVertex3f(p.x + 1.1333f , p.y + 0.1f , p.z - 1.6953f);	glVertex3f(p.x + 0.3975f , p.y		 , p.z - 2.0f);
+								glVertex3f(p.x + 0.3975f , p.y		 , p.z - 2.0f   );	glVertex3f(p.x - 0.3975f , p.y + 0.2f , p.z - 2.0f);
+								glVertex3f(p.x - 0.3975f , p.y + 0.2f , p.z - 2.0f   );	glVertex3f(p.x - 1.1323f , p.y		 , p.z - 1.6953f);
+								glVertex3f(p.x - 1.1323f , p.y		 , p.z - 1.6953f);	glVertex3f(p.x - 1.6958f , p.y + 0.1f , p.z - 1.1338f);
+								glVertex3f(p.x - 1.6958f , p.y + 0.1f , p.z - 1.1338f);	glVertex3f(p.x - 2.0f    , p.y		 , p.z - 0.3984f);
+								glVertex3f(p.x - 2.0f    , p.y		 , p.z  -0.3984f);	glVertex3f(p.x - 2.0f    , p.y + 0.2f , p.z + 0.3984f);
+								glVertex3f(p.x - 2.0f    , p.y + 0.2f , p.z + 0.3984f);	glVertex3f(p.x - 1.6958f , p.y		 , p.z + 1.1338f);
+								glVertex3f(p.x - 1.6958f , p.y		 , p.z + 1.1338f);	glVertex3f(p.x - 1.1323f , p.y + 0.1f , p.z + 1.6963f);
+								glVertex3f(p.x - 1.1323f , p.y + 0.1f , p.z + 1.6963f);	glVertex3f(p.x - 0.3975f , p.y		 , p.z + 2.0f);
+								glVertex3f(p.x - 0.3975f , p.y		 , p.z + 2.0f   );	glVertex3f(p.x + 0.3975f , p.y + 0.2f , p.z + 2.0f);
 								glEnd();
 								break;
 								
@@ -1321,10 +1319,10 @@ static const NH3DMaterial defaultMat = {
 								pSize = ((random() % 5) + particleSize) * 0.01f;
 								glBegin(GL_QUADS);
 								glColor4fv(colorArray);
-								glVertex3f(px + pSize, py + pSize, pz);
-								glVertex3f(px - pSize, py + pSize, pz);
-								glVertex3f(px + pSize, py - pSize, pz);
-								glVertex3f(px - pSize, py - pSize, pz);
+								glVertex3f(p.x + pSize, p.y + pSize, p.z);
+								glVertex3f(p.x - pSize, p.y + pSize, p.z);
+								glVertex3f(p.x + pSize, p.y - pSize, p.z);
+								glVertex3f(p.x - pSize, p.y - pSize, p.z);
 								glEnd();
 								break;
 						}
