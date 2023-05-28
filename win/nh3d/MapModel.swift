@@ -172,12 +172,10 @@ import Cocoa
 			let x2 = x + MAP_MARGIN
 			let y2 = y + MAP_MARGIN
 			
-			lock.lock()
-			
-			//  make map
-			mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingIfNeeded: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(bitPattern: special), bgGlyph: bgGlyph)
-			
-			lock.unlock()
+			lock.withLock {
+				//  make map
+				mapArray[Int(x2)][Int(y2)] = NH3DMapItem(parameter: Int8(truncatingIfNeeded: ch), glyph: glf, color: color, posX: x2, posY: y2, special: Int32(bitPattern: special), bgGlyph: bgGlyph)
+			}
 			
 			if (x2-MAP_MARGIN) == Int32(u.ux) && (y2-MAP_MARGIN) == Int32(u.uy) {
 				mapArray[Int(x2)][Int(y2)]?.isPlayer = true
@@ -244,13 +242,13 @@ import Cocoa
 	}
 	
 	final func clearMapModel() {
-		lock.lock()
-		for x in 0 ..< MAPSIZE_COLUMN {
-			for y in 0 ..< MAPSIZE_ROW {
-				mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: Int32(S_stone.rawValue) + NetHackGlyphCMapOffset, color: 0, posX: x, posY: y, special: 0, bgGlyph: NetHackGlyphNoGlyph)
+		lock.withLock {
+			for x in 0 ..< MAPSIZE_COLUMN {
+				for y in 0 ..< MAPSIZE_ROW {
+					mapArray[Int(x)][Int(y)] = NH3DMapItem(parameter: 0x20, glyph: Int32(S_stone.rawValue) + NetHackGlyphCMapOffset, color: 0, posX: x, posY: y, special: 0, bgGlyph: NetHackGlyphNoGlyph)
+				}
 			}
 		}
-		lock.unlock()
 	}
 	
 	final func updateAllMaps() {
@@ -269,12 +267,12 @@ import Cocoa
 	}
 	
 	final func clearTileCaches() {
-		lock.lock()
-		for x in 0 ..< Int(MAPSIZE_COLUMN) {
-			for y in 0 ..< Int(MAPSIZE_ROW) {
-				mapArray[x][y]?.clearTileCache()
+		lock.withLock {
+			for x in 0 ..< Int(MAPSIZE_COLUMN) {
+				for y in 0 ..< Int(MAPSIZE_ROW) {
+					mapArray[x][y]?.clearTileCache()
+				}
 			}
 		}
-		lock.unlock()
 	}
 }

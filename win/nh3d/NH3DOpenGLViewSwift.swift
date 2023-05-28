@@ -283,11 +283,11 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	private(set) var isRiding = false
 	@objc(shocked) var isShocked: Bool {
 		set {
-			viewLock.lock()
-			nowUpdating = true
-			_shocked = newValue
-			nowUpdating = false
-			viewLock.unlock()
+			viewLock.withLock {
+				nowUpdating = true
+				_shocked = newValue
+				nowUpdating = false
+			}
 		}
 		@objc(isShocked) get {
 			return _shocked
@@ -337,11 +337,11 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	private(set) var drawMargin: Int32 = 0
 	var enemyPosition: Int32 {
 		set {
-			viewLock.lock()
-			nowUpdating = true
-			_enemyPosition = newValue
-			nowUpdating = false
-			viewLock.unlock()
+			viewLock.withLock {
+				nowUpdating = true
+				_enemyPosition = newValue
+				nowUpdating = false
+			}
 		}
 		get {
 			return _enemyPosition
@@ -358,9 +358,9 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	private var nowUpdating = false
 	@objc(running) var isRunning: Bool {
 		set {
-			viewLock.lock()
-			_running = newValue
-			viewLock.unlock()
+			viewLock.withLock {
+				_running = newValue
+			}
 		}
 		@objc(isRunning) get {
 			return _running
@@ -608,12 +608,12 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	
 	@objc private func windowDidChangeScreen(_ notification: Notification) {
 		if let notObj = notification.object as AnyObject?, notObj === window {
-			viewLock.lock()
-			dRefreshRate = getRefreshRate()
-			if !hasWait {
-				waitRate = dRefreshRate
+			viewLock.withLock {
+				dRefreshRate = getRefreshRate()
+				if !hasWait {
+					waitRate = dRefreshRate
+				}
 			}
-			viewLock.unlock()
 		}
 	}
 	
@@ -697,18 +697,16 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		
 		var texID: GLuint = 0
 		
-		viewLock.lock()
-		
-		glGenTextures(1, &texID)
-		glBindTexture(GLenum(GL_TEXTURE_2D), texID)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
-		glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(imgRep.pixelsWide), GLsizei(imgRep.pixelsHigh), 0, GLenum(imgRep.hasAlpha ? GL_RGBA : GL_RGB), GLenum(GL_UNSIGNED_BYTE), UnsafeRawPointer(imgRep.bitmapData!))
-		
-		viewLock.unlock()
+		viewLock.withLock {
+			glGenTextures(1, &texID)
+			glBindTexture(GLenum(GL_TEXTURE_2D), texID)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
+			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(imgRep.pixelsWide), GLsizei(imgRep.pixelsHigh), 0, GLenum(imgRep.hasAlpha ? GL_RGBA : GL_RGB), GLenum(GL_UNSIGNED_BYTE), UnsafeRawPointer(imgRep.bitmapData!))
+		}
 		
 		return texID
 	}
@@ -971,17 +969,15 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		assert(!Thread.isMainThread)
 		Thread.current.name = "NH3D OpenGL thread"
 		
-		viewLock.lock()
-		
-		var vsType: GLint
-		if OPENGLVIEW_WAITSYNC {
-			vsType = vsyncWait
-		} else {
-			vsType = vsyncNoWait
+		viewLock.withLock {
+			var vsType: GLint
+			if OPENGLVIEW_WAITSYNC {
+				vsType = vsyncWait
+			} else {
+				vsType = vsyncNoWait
+			}
+			openGLContext?.setValues(&vsType, for: .swapInterval)
 		}
-		openGLContext?.setValues(&vsType, for: .swapInterval)
-		
-		viewLock.unlock()
 		
 		while _running && !TRADITIONAL_MAP {
 			if isReady && !nowUpdating && !self.needsDisplay {
@@ -1091,24 +1087,23 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	
 	override func reshape() {
 		super.reshape()
-		viewLock.lock()
-		nowUpdating = true
-		CGLLockContext(openGLContext!.cglContextObj!)
-		defer {
+		viewLock.withLock {
+			nowUpdating = true
+			CGLLockContext(openGLContext!.cglContextObj!)
+			// Get the view size in Points
+			let viewRectPixels: NSRect
+			
+			if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
+				viewRectPixels = convertToBacking(bounds)
+			} else {
+				viewRectPixels = bounds
+			}
+			
+			glViewport(0, 0, GLsizei(viewRectPixels.width), GLsizei(viewRectPixels.height))
+			
 			CGLUnlockContext(openGLContext!.cglContextObj!)
 			nowUpdating = false
-			viewLock.unlock()
 		}
-		// Get the view size in Points
-		let viewRectPixels: NSRect
-		
-		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
-			viewRectPixels = convertToBacking(bounds)
-		} else {
-			viewRectPixels = bounds
-		}
-		
-		glViewport(0, 0, GLsizei(viewRectPixels.width), GLsizei(viewRectPixels.height))
 	}
 	
 	func clearGLView() {
@@ -1121,145 +1116,144 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		let glyph = mapItem.glyph
 		
 		if glyph != Int32(S_room.rawValue) + NetHackGlyphCMapOffset {
-			viewLock.lock()
-			defer {
-				viewLock.unlock()
-			}
 			struct drawModelArrayHelper {
 				static var rot: GLfloat = 0
 			}
-			let posx = Float(mapItem.position.x) * NH3DGL_TILE_SIZE
-			let posz = Float(mapItem.position.y) * NH3DGL_TILE_SIZE
-			
-			var model = modelDictionary[glyph]
-			
-			if model == nil && defaultTex[Int(glyph)] == 0 {
-				if let newModel = loadModelBlocks[Int(glyph)](glyph) {
-					if glyph >= PM_GIANT_ANT+NetHackGlyphMonsterOffset && glyph < NUMMONS + NetHackGlyphPetOffset {
-						newModel.isAnimated = true
-						newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
-						newModel.modelPivot = SIMD3<Float>(x: 0.0, y: 0.3, z: 0.0)
-						newModel.useEnvironment = true
-						newModel.setTexture(Int32(envelopTex))
-					}
-					modelDictionary[glyph] = newModel
-					keyArray.append(glyph)
-					
-					model = modelDictionary[glyph]
-				}
-			}
-			
-			if drawModelArrayHelper.rot >= 360.0 {
-				drawModelArrayHelper.rot -= 360.0
-			}
-			
-			glPushMatrix()
-			glTranslatef(posx, 0.0, posz)
-			defer {
-				glPopMatrix()
+			viewLock.withLock {
 				
-				drawModelArrayHelper.rot += 0.05
-			}
-			
-			if (model == nil
-				&& !(glyph >= Int32(S_stone.rawValue)+NetHackGlyphCMapOffset
-					&& glyph <= Int32(S_water.rawValue)+NetHackGlyphCMapOffset)) { // Draw alternate object.
+				let posx = Float(mapItem.position.x) * NH3DGL_TILE_SIZE
+				let posz = Float(mapItem.position.y) * NH3DGL_TILE_SIZE
+				
+				var model = modelDictionary[glyph]
+				
+				if model == nil && defaultTex[Int(glyph)] == 0 {
+					if let newModel = loadModelBlocks[Int(glyph)](glyph) {
+						if glyph >= PM_GIANT_ANT+NetHackGlyphMonsterOffset && glyph < NUMMONS + NetHackGlyphPetOffset {
+							newModel.isAnimated = true
+							newModel.animationRate = (Float(arc4random() % 5) * 0.1) + 0.5
+							newModel.modelPivot = SIMD3<Float>(x: 0.0, y: 0.3, z: 0.0)
+							newModel.useEnvironment = true
+							newModel.setTexture(Int32(envelopTex))
+						}
+						modelDictionary[glyph] = newModel
+						keyArray.append(glyph)
+						
+						model = modelDictionary[glyph]
+					}
+				}
+				
+				if drawModelArrayHelper.rot >= 360.0 {
+					drawModelArrayHelper.rot -= 360.0
+				}
+				
 				glPushMatrix()
+				glTranslatef(posx, 0.0, posz)
 				defer {
 					glPopMatrix()
-				}
-				glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
-				
-				if defaultTex[Int(glyph)] == 0 {
-					if NH3DGL_USETILE {
-						defaultTex[Int(glyph)] = createTexture(from: mapItem.foregroundTile!, color: nil)
-					} else {
-						defaultTex[Int(glyph)] = createTexture(from: mapItem.symbol, color: mapItem.color)
-					}
-				}
-				glActiveTexture(GLenum(GL_TEXTURE0))
-				glEnable(GLenum(GL_TEXTURE_2D))
-				
-				glEnable(GLenum(GL_ALPHA_TEST))
-				glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
-				
-				glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
-				glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
-				
-				glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
-				
-				glAlphaFunc(GLenum(GL_GREATER), 0.5)
-				
-				glEnableClientState(GLenum(GL_VERTEX_ARRAY))
-				glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-				glEnableClientState(GLenum(GL_NORMAL_ARRAY))
-				
-				glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
-				glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
-				glVertexPointer(3, GLenum(GL_FLOAT), 0, defaultVerts)
-				
-				
-				glDisable(GLenum(GL_CULL_FACE))
-				var angle: GLfloat = 5.0
-				for f in stride(from: 0, to: GLfloat(0.02), by: 0.002) {
-					angle *= -1.0
-					glTranslatef(0.0, 0.0, f)
-					glRotatef(angle, 0, 1.0, 0)
-					glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
-				}
-				glEnable(GLenum(GL_CULL_FACE))
-				
-				glDisableClientState(GLenum(GL_NORMAL_ARRAY))
-				glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
-				glDisableClientState(GLenum(GL_VERTEX_ARRAY))
-				
-				glDisable(GLenum(GL_ALPHA_TEST))
-				glDisable(GLenum(GL_TEXTURE_2D))
-			} else { // Draw model
-				guard let model = model else {
-					return
-				}
-				
-				if model.isAnimated {
-					glRotatef(model.animationValue, 0.0, 1.0, 0.0)
-				}
-				
-				switch glyph {
-				case PM_GIANT_ANT+NetHackGlyphMonsterOffset ... NUMMONS+NetHackGlyphMonsterOffset:
-					let materialCol = mapItem.material
-					// setMaterial
-					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
 					
-				case Int32(S_vwall.rawValue) + NetHackGlyphCMapOffset:
-					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
-					if (Int(posz) % 5) != 0 {
-						model.childObject(at: 0).isActive = false
-					} else {
-						model.childObject(at: 0).isActive = true
+					drawModelArrayHelper.rot += 0.05
+				}
+				
+				if (model == nil
+					&& !(glyph >= Int32(S_stone.rawValue)+NetHackGlyphCMapOffset
+						 && glyph <= Int32(S_water.rawValue)+NetHackGlyphCMapOffset)) { // Draw alternate object.
+					glPushMatrix()
+					defer {
+						glPopMatrix()
+					}
+					glRotatef(drawModelArrayHelper.rot, 0.0, 1.0, 0.0)
+					
+					if defaultTex[Int(glyph)] == 0 {
+						if NH3DGL_USETILE {
+							defaultTex[Int(glyph)] = createTexture(from: mapItem.foregroundTile!, color: nil)
+						} else {
+							defaultTex[Int(glyph)] = createTexture(from: mapItem.symbol, color: mapItem.color)
+						}
+					}
+					glActiveTexture(GLenum(GL_TEXTURE0))
+					glEnable(GLenum(GL_TEXTURE_2D))
+					
+					glEnable(GLenum(GL_ALPHA_TEST))
+					glBlendFunc(GLenum(GL_SRC_ALPHA), GLenum(GL_ONE_MINUS_SRC_ALPHA))
+					
+					glBindTexture(GLenum(GL_TEXTURE_2D), defaultTex[Int(glyph)])
+					glTexEnvi(GLenum(GL_TEXTURE_ENV), GLenum(GL_TEXTURE_ENV_MODE), GL_MODULATE)
+					
+					glMaterial(nh3dMaterialArray[Int(NO_COLOR)])
+					
+					glAlphaFunc(GLenum(GL_GREATER), 0.5)
+					
+					glEnableClientState(GLenum(GL_VERTEX_ARRAY))
+					glEnableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+					glEnableClientState(GLenum(GL_NORMAL_ARRAY))
+					
+					glNormalPointer(GLenum(GL_FLOAT), 0, defaultNorms)
+					glTexCoordPointer(2, GLenum(GL_FLOAT), 0, defaultTexVerts)
+					glVertexPointer(3, GLenum(GL_FLOAT), 0, defaultVerts)
+					
+					
+					glDisable(GLenum(GL_CULL_FACE))
+					var angle: GLfloat = 5.0
+					for f in stride(from: 0, to: GLfloat(0.02), by: 0.002) {
+						angle *= -1.0
+						glTranslatef(0.0, 0.0, f)
+						glRotatef(angle, 0, 1.0, 0)
+						glDrawArrays(GLenum(GL_TRIANGLE_STRIP), 0, 4)
+					}
+					glEnable(GLenum(GL_CULL_FACE))
+					
+					glDisableClientState(GLenum(GL_NORMAL_ARRAY))
+					glDisableClientState(GLenum(GL_TEXTURE_COORD_ARRAY))
+					glDisableClientState(GLenum(GL_VERTEX_ARRAY))
+					
+					glDisable(GLenum(GL_ALPHA_TEST))
+					glDisable(GLenum(GL_TEXTURE_2D))
+				} else { // Draw model
+					guard let model = model else {
+						return
 					}
 					
-				case Int32(S_hwall.rawValue) + NetHackGlyphCMapOffset:
-					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
-					if (Int(posx) % 5) != 0 {
-						model.childObject(at: 0).isActive = false
-					} else {
-						model.childObject(at: 0).isActive = true
+					if model.isAnimated {
+						glRotatef(model.animationValue, 0.0, 1.0, 0.0)
 					}
 					
-				case PM_GIANT_ANT+NetHackGlyphStatueOffset ... NUMMONS + NetHackGlyphStatueOffset:
-					model.currentMaterial = nh3dMaterialArray[Int(CLR_WHITE)]
+					switch glyph {
+					case PM_GIANT_ANT+NetHackGlyphMonsterOffset ... NUMMONS+NetHackGlyphMonsterOffset:
+						let materialCol = mapItem.material
+						// setMaterial
+						model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
+						
+					case Int32(S_vwall.rawValue) + NetHackGlyphCMapOffset:
+						model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+						if (Int(posz) % 5) != 0 {
+							model.childObject(at: 0).isActive = false
+						} else {
+							model.childObject(at: 0).isActive = true
+						}
+						
+					case Int32(S_hwall.rawValue) + NetHackGlyphCMapOffset:
+						model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+						if (Int(posx) % 5) != 0 {
+							model.childObject(at: 0).isActive = false
+						} else {
+							model.childObject(at: 0).isActive = true
+						}
+						
+					case PM_GIANT_ANT+NetHackGlyphStatueOffset ... NUMMONS + NetHackGlyphStatueOffset:
+						model.currentMaterial = nh3dMaterialArray[Int(CLR_WHITE)]
+						
+					case PM_GIANT_ANT+NetHackGlyphPetOffset ... NUMMONS + NetHackGlyphPetOffset:
+						let materialCol = mapItem.material
+						// setMaterial
+						model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
+						
+					default:
+						model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+					}
 					
-				case PM_GIANT_ANT+NetHackGlyphPetOffset ... NUMMONS + NetHackGlyphPetOffset:
-					let materialCol = mapItem.material
-					// setMaterial
-					model.currentMaterial = nh3dMaterialArray[Int(materialCol)]
-					
-				default:
-					model.currentMaterial = nh3dMaterialArray[Int(NO_COLOR)]
+					model.drawSelf()
+					model.animate()
 				}
-				
-				model.drawSelf()
-				model.animate()
 			}
 		}
 	}
@@ -1268,57 +1262,54 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		if !isReady || TRADITIONAL_MAP {
 			return
 		} else {
-			viewLock.lock()
-			defer {
-				viewLock.unlock()
-			}
-			
-			var localx = 0
-			var localz = 0
-			
-			nowUpdating = true
-			defer {
-				nowUpdating = false
-			}
-			
-			for x in (centerX-MAP_MARGIN)..<(centerX+1+MAP_MARGIN) {
-				for z in (centerZ - MAP_MARGIN) ..< (centerZ + 1 + MAP_MARGIN) {
-					let mapItem = mapModel.mapArray(x: x, y: z)
-					mapItemValue[localx][localz] = mapItem
-					localz += 1
+			viewLock.withLock {
+				var localx = 0
+				var localz = 0
+				
+				nowUpdating = true
+				defer {
+					nowUpdating = false
 				}
-				localx += 1
-				localz = 0
-			}
-			
-			isFloating = false
-			isRiding = false
-			cameraPitch = 0
-			
-			if Swift_Levitation() {
-				camera.y = 2.8
-				cameraPitch = -1.0
-				isFloating = true
-			}
-			if Swift_Flying() {
-				camera.y = 3.8
-				cameraPitch = -8.0
-				isFloating = true
-			}
-			
-			//#if STEED
-			if u.usteed != nil {
-				camera.y = 2.4
-				isFloating = true
-				isRiding = true
-			}
-			//#endif
-			if u.utrap != 0 && u.utraptype == TT_PIT.rawValue {
-				camera.y = 0.1
-			}
-			if Swift_Underwater() {
-				camera.y = 0.1
-				isFloating = true
+				
+				for x in (centerX-MAP_MARGIN)..<(centerX+1+MAP_MARGIN) {
+					for z in (centerZ - MAP_MARGIN) ..< (centerZ + 1 + MAP_MARGIN) {
+						let mapItem = mapModel.mapArray(x: x, y: z)
+						mapItemValue[localx][localz] = mapItem
+						localz += 1
+					}
+					localx += 1
+					localz = 0
+				}
+				
+				isFloating = false
+				isRiding = false
+				cameraPitch = 0
+				
+				if Swift_Levitation() {
+					camera.y = 2.8
+					cameraPitch = -1.0
+					isFloating = true
+				}
+				if Swift_Flying() {
+					camera.y = 3.8
+					cameraPitch = -8.0
+					isFloating = true
+				}
+				
+				//#if STEED
+				if u.usteed != nil {
+					camera.y = 2.4
+					isFloating = true
+					isRiding = true
+				}
+				//#endif
+				if u.utrap != 0 && u.utraptype == TT_PIT.rawValue {
+					camera.y = 0.1
+				}
+				if Swift_Underwater() {
+					camera.y = 0.1
+					isFloating = true
+				}
 			}
 		}
 	}
@@ -1335,95 +1326,94 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	
 	@objc(setCenterAtX:z:depth:)
 	func setCenter(x: Int32, z: Int32, depth: Int32) {
-		viewLock.lock()
-		nowUpdating = true
-		
-		centerX = x
-		centerZ = z
-		
-		if playerDepth != depth {
-			elementalLevel = 0
-			isReady = false
+		viewLock.withLock {
+			nowUpdating = true
 			
-			// Clear modelDictionary
-			//@synchronized( modelDictionary ) {
-			//	@synchronized( keyArray ) {
-			for key in keyArray {
-				modelDictionary.removeValue(forKey: key)
-			}
-			keyArray.removeAll()
-			//	}
-			//}
+			centerX = x
+			centerZ = z
 			
-			// Setup speciallevels
-			if In_mines(&u.uz) {
-				changeWallsTexture(1)
-				floorCurrent = minesTex
-				cellingCurrent = cellingTex
+			if playerDepth != depth {
 				elementalLevel = 0
-			} else if Swift_Inhell() {
-				changeWallsTexture(2)
-				floorCurrent = hellTex
-				cellingCurrent = cellingTex
-				elementalLevel = 0
+				isReady = false
 				
-				//glPolygonMode( GL_FRONT_AND_BACK,GL_FILL );
-			} else if isFortKnox(&u.uz) || isSanctum(&u.uz) || isStrongholdLevel(&u.uz) {
-				changeWallsTexture(3)
-				floorCurrent = floor2Tex
-				cellingCurrent = floor2Tex
-				elementalLevel = 0
-			} else if inSokoban(&u.uz) {
-				changeWallsTexture(0)
-				floorCurrent = floorTex
-				cellingCurrent = floorTex
-				elementalLevel = 0
-				/* not yet */
+				// Clear modelDictionary
+				//@synchronized( modelDictionary ) {
+				//	@synchronized( keyArray ) {
+				for key in keyArray {
+					modelDictionary.removeValue(forKey: key)
+				}
+				keyArray.removeAll()
+				//	}
+				//}
 				
-			} else if isEarthLevel(&u.uz) {
-				changeWallsTexture(3)
-				floorCurrent = floor2Tex
-				cellingCurrent = floor2Tex
-				
-				elementalLevel = 1
-			} else if isWaterLevel(&u.uz) {
-				changeWallsTexture(3)
-				floorCurrent = floor2Tex
-				cellingCurrent = floor2Tex
-				
-				elementalLevel = 2
-			} else if isFireLevel(&u.uz) {
-				changeWallsTexture(3)
-				floorCurrent = floor2Tex
-				cellingCurrent = floor2Tex
-				
-				elementalLevel = 3
-			} else if isAirLevel(&u.uz) {
-				changeWallsTexture(3)
-				floorCurrent = floor2Tex
-				cellingCurrent = floor2Tex
-				
-				elementalLevel = 4
-			} else if isAstralLevel(&u.uz) {
-				changeWallsTexture(3)
-				floorCurrent = floor2Tex
-				cellingCurrent = floor2Tex
-				
-				elementalLevel = 5
-			} else if isRogueLevel(&u.uz) {
-				changeWallsTexture(4)
-				floorCurrent = rougeTex
-				cellingCurrent = rougeTex
-			} else if floorCurrent != floorTex {
-				changeWallsTexture(0)
-				floorCurrent = floorTex
-				cellingCurrent = cellingTex
-				elementalLevel = 0
+				// Setup speciallevels
+				if In_mines(&u.uz) {
+					changeWallsTexture(1)
+					floorCurrent = minesTex
+					cellingCurrent = cellingTex
+					elementalLevel = 0
+				} else if Swift_Inhell() {
+					changeWallsTexture(2)
+					floorCurrent = hellTex
+					cellingCurrent = cellingTex
+					elementalLevel = 0
+					
+					//glPolygonMode( GL_FRONT_AND_BACK,GL_FILL );
+				} else if isFortKnox(&u.uz) || isSanctum(&u.uz) || isStrongholdLevel(&u.uz) {
+					changeWallsTexture(3)
+					floorCurrent = floor2Tex
+					cellingCurrent = floor2Tex
+					elementalLevel = 0
+				} else if inSokoban(&u.uz) {
+					changeWallsTexture(0)
+					floorCurrent = floorTex
+					cellingCurrent = floorTex
+					elementalLevel = 0
+					/* not yet */
+					
+				} else if isEarthLevel(&u.uz) {
+					changeWallsTexture(3)
+					floorCurrent = floor2Tex
+					cellingCurrent = floor2Tex
+					
+					elementalLevel = 1
+				} else if isWaterLevel(&u.uz) {
+					changeWallsTexture(3)
+					floorCurrent = floor2Tex
+					cellingCurrent = floor2Tex
+					
+					elementalLevel = 2
+				} else if isFireLevel(&u.uz) {
+					changeWallsTexture(3)
+					floorCurrent = floor2Tex
+					cellingCurrent = floor2Tex
+					
+					elementalLevel = 3
+				} else if isAirLevel(&u.uz) {
+					changeWallsTexture(3)
+					floorCurrent = floor2Tex
+					cellingCurrent = floor2Tex
+					
+					elementalLevel = 4
+				} else if isAstralLevel(&u.uz) {
+					changeWallsTexture(3)
+					floorCurrent = floor2Tex
+					cellingCurrent = floor2Tex
+					
+					elementalLevel = 5
+				} else if isRogueLevel(&u.uz) {
+					changeWallsTexture(4)
+					floorCurrent = rougeTex
+					cellingCurrent = rougeTex
+				} else if floorCurrent != floorTex {
+					changeWallsTexture(0)
+					floorCurrent = floorTex
+					cellingCurrent = cellingTex
+					elementalLevel = 0
+				}
 			}
+			playerDepth = depth
 		}
-		playerDepth = depth
-		
-		viewLock.unlock()
 		
 		setCamera(x: Float(x) * NH3DGL_TILE_SIZE, y: 1.8, z: Float(z) * NH3DGL_TILE_SIZE)
 	}
@@ -1432,8 +1422,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	@objc(setCameraHead:pitching:rolling:)
 	func setCamera(head head1: Float, pitch: Float, roll: Float) {
 		var head = head1
-		viewLock.lock()
-		do {
+		viewLock.withLock {
 			nowUpdating = true
 			
 			drawMargin = 3
@@ -1453,7 +1442,6 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			
 			nowUpdating = false
 		}
-		viewLock.unlock()
 	}
 	
 	/// Sets the camera's x-y-z position.
@@ -1462,8 +1450,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 		struct CameraHelp {
 			static let footstep = URL(fileURLWithPath: Bundle.main.path(forSoundResource: "footStep")!)
 		}
-		viewLock.lock()
-		do {
+		viewLock.withLock {
 			nowUpdating = true
 			
 			drawMargin = 1
@@ -1479,7 +1466,6 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			
 			nowUpdating = false
 		}
-		viewLock.unlock()
 		
 		if TRADITIONAL_MAP {
 			self.isHidden = true
@@ -1631,91 +1617,89 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	
 	/// Creates a symbol based off of either an image or string, applying color as well.
 	private func createTexture(from symbol: Any, color: NSColor?) -> GLuint {
-		viewLock.lock()
-		defer {
-			viewLock.unlock()
-		}
-		var texID: GLuint = 0
-		guard let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitNativeEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32) else {
-			return 0
-		}
-		var symbolSize = NSSize.zero
-		
-		if !NH3DGL_USETILE {
-			guard let symbol = symbol as? String else {
-				assert(false)
+		return viewLock.withLock {
+			var texID: GLuint = 0
+			guard let img = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: TEX_SIZE, pixelsHigh: TEX_SIZE, bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false, colorSpaceName: .calibratedRGB, bitmapFormat: [.thirtyTwoBitNativeEndian, .alphaFirst], bytesPerRow: TEX_SIZE * 4, bitsPerPixel: 32) else {
 				return 0
 			}
-			var attributes = [NSAttributedString.Key: Any]()
-			let fontName = UserDefaults.standard.string(forKey: NH3DWindowFontKey)!
+			var symbolSize = NSSize.zero
 			
-			attributes[.font] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
+			if !NH3DGL_USETILE {
+				guard let symbol = symbol as? String else {
+					assert(false)
+					return 0
+				}
+				var attributes = [NSAttributedString.Key: Any]()
+				let fontName = UserDefaults.standard.string(forKey: NH3DWindowFontKey)!
+				
+				attributes[.font] = NSFont(name: fontName, size: CGFloat(TEX_SIZE))
+				
+				attributes[.foregroundColor] = color
+				attributes[.backgroundColor] = NSColor.clear
+				
+				symbolSize = symbol.size(withAttributes: attributes)
+				
+				// Draw texture
+				NSGraphicsContext.saveGraphicsState()
+				NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: img)
+				
+				symbol.draw(at: NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
+				
+				NSGraphicsContext.restoreGraphicsState()
+			} else {
+				guard let symbol = symbol as? NSImage else {
+					assert(false)
+					return 0
+				}
+				symbolSize = symbol.size
+				
+				// Draw Tiled texture
+				NSGraphicsContext.saveGraphicsState()
+				NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: img)
+				symbol.draw(in: NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
+							from: NSRect(origin: .zero, size: symbolSize),
+							operation: .sourceOver,
+							fraction: 1.0)
+				NSGraphicsContext.restoreGraphicsState()
+			}
 			
-			attributes[.foregroundColor] = color
-			attributes[.backgroundColor] = NSColor.clear
-			
-			symbolSize = symbol.size(withAttributes: attributes)
-			
-			// Draw texture
-			NSGraphicsContext.saveGraphicsState()
-			NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: img)
-			
-			symbol.draw(at: NSPoint(x: CGFloat(TEX_SIZE / 2) - (symbolSize.width / 2), y: CGFloat(TEX_SIZE / 2) - (symbolSize.height / 2)), withAttributes: attributes)
-			
-			NSGraphicsContext.restoreGraphicsState()
-		} else {
-			guard let symbol = symbol as? NSImage else {
-				assert(false)
+			guard let imgData = img.tiffRepresentation, let imgrep = NSBitmapImageRep(data: imgData)?.forceRGBColorSpace() else {
 				return 0
 			}
-			symbolSize = symbol.size
 			
-			// Draw Tiled texture
-			NSGraphicsContext.saveGraphicsState()
-			NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: img)
-			symbol.draw(in: NSRect(x: CGFloat(TEX_SIZE) / 4, y: 0, width: (CGFloat(TEX_SIZE) / 4) * 3, height: (CGFloat(TEX_SIZE) / 4) * 3),
-			            from: NSRect(origin: .zero, size: symbolSize),
-			            operation: .sourceOver,
-			            fraction: 1.0)
-			NSGraphicsContext.restoreGraphicsState()
+			glPixelStorei(GLenum(GL_UNPACK_ALIGNMENT), 1)
+			
+			glGenTextures(1, &texID)
+			glBindTexture(GLenum(GL_TEXTURE_2D), texID)
+			
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
+			glHint(GLenum(GL_PERSPECTIVE_CORRECTION_HINT), GLenum(GL_NICEST))
+			
+			// create automipmap texture
+			
+			if imgrep.hasAlpha {
+				glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA,
+							 GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
+							 0, GLenum(GL_RGBA),
+							 GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData)
+			} else {
+				glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB,
+							 GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
+							 0, GLenum(GL_RGB),
+							 GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData)
+			}
+			// setup texture status
+			
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT)
+			
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
+			glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
+			
+			glAlphaFunc(GLenum(GL_GREATER), 0.5)
+			
+			return texID
 		}
-		
-		guard let imgData = img.tiffRepresentation, let imgrep = NSBitmapImageRep(data: imgData)?.forceRGBColorSpace() else {
-			return 0
-		}
-		
-		glPixelStorei(GLenum(GL_UNPACK_ALIGNMENT), 1)
-		
-		glGenTextures(1, &texID)
-		glBindTexture(GLenum(GL_TEXTURE_2D), texID)
-		
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_GENERATE_MIPMAP), GL_TRUE)
-		glHint(GLenum(GL_PERSPECTIVE_CORRECTION_HINT), GLenum(GL_NICEST))
-		
-		// create automipmap texture
-		
-		if imgrep.hasAlpha {
-			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA,
-			             GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
-			             0, GLenum(GL_RGBA),
-			             GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData)
-		} else {
-			glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGB,
-			             GLsizei(imgrep.pixelsWide), GLsizei(imgrep.pixelsHigh),
-			             0, GLenum(GL_RGB),
-			             GLenum(GL_UNSIGNED_BYTE), imgrep.bitmapData)
-		}
-		// setup texture status
-		
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_REPEAT)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_REPEAT)
-		
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR)
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR_MIPMAP_LINEAR)
-		
-		glAlphaFunc(GLenum(GL_GREATER), 0.5)
-		
-		return texID
 	}
 
 	/// load models first time.
@@ -1853,71 +1837,69 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 			}
 		}
 		
-		viewLock.lock()
-		
-		let oglFrameRateMenu = self.menu?.item(withTag: 1000)?.submenu?.item(withTag: 1002)?.submenu
-		
-		nowUpdating = true
-		hasWait = OPENGLVIEW_USEWAIT
-		
-		if !hasWait {
-			dRefreshRate = getRefreshRate()
-			waitRate = dRefreshRate
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .off
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .off
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .off
-		} else if OPENGLVIEW_WAITRATE == WAIT_FAST {
-			waitRate = WAIT_FAST
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .on
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .off
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .off
-		} else if OPENGLVIEW_WAITRATE == WAIT_NORMAL {
-			waitRate = WAIT_NORMAL
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .off
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .on
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .off
-		} else {
-			waitRate = WAIT_SLOW
-			oglFrameRateMenu?.item(withTag: 1004)?.state = .off
-			oglFrameRateMenu?.item(withTag: 1005)?.state = .off
-			oglFrameRateMenu?.item(withTag: 1006)?.state = .on
-		}
-		
-		cameraStep = Float(waitRate / 8.5)
-		
-		do {
-			var vsType: GLint
-			if OPENGLVIEW_WAITSYNC {
-				vsType = vsyncWait
+		viewLock.withLock {
+			
+			let oglFrameRateMenu = self.menu?.item(withTag: 1000)?.submenu?.item(withTag: 1002)?.submenu
+			
+			nowUpdating = true
+			hasWait = OPENGLVIEW_USEWAIT
+			
+			if !hasWait {
+				dRefreshRate = getRefreshRate()
+				waitRate = dRefreshRate
+				oglFrameRateMenu?.item(withTag: 1004)?.state = .off
+				oglFrameRateMenu?.item(withTag: 1005)?.state = .off
+				oglFrameRateMenu?.item(withTag: 1006)?.state = .off
+			} else if OPENGLVIEW_WAITRATE == WAIT_FAST {
+				waitRate = WAIT_FAST
+				oglFrameRateMenu?.item(withTag: 1004)?.state = .on
+				oglFrameRateMenu?.item(withTag: 1005)?.state = .off
+				oglFrameRateMenu?.item(withTag: 1006)?.state = .off
+			} else if OPENGLVIEW_WAITRATE == WAIT_NORMAL {
+				waitRate = WAIT_NORMAL
+				oglFrameRateMenu?.item(withTag: 1004)?.state = .off
+				oglFrameRateMenu?.item(withTag: 1005)?.state = .on
+				oglFrameRateMenu?.item(withTag: 1006)?.state = .off
 			} else {
-				vsType = vsyncNoWait
+				waitRate = WAIT_SLOW
+				oglFrameRateMenu?.item(withTag: 1004)?.state = .off
+				oglFrameRateMenu?.item(withTag: 1005)?.state = .off
+				oglFrameRateMenu?.item(withTag: 1006)?.state = .on
 			}
-			openGLContext?.setValues(&vsType, for: .swapInterval)
+			
+			cameraStep = Float(waitRate / 8.5)
+			
+			do {
+				var vsType: GLint
+				if OPENGLVIEW_WAITSYNC {
+					vsType = vsyncWait
+				} else {
+					vsType = vsyncNoWait
+				}
+				openGLContext?.setValues(&vsType, for: .swapInterval)
+			}
+			
+			if useTile != NH3DGL_USETILE {
+				glDeleteTextures(NetHackGlyphMaxGlyph, defaultTex)
+				memset(&defaultTex, 0, Int(NetHackGlyphMaxGlyph) * MemoryLayout<GLuint>.size)
+				useTile = NH3DGL_USETILE
+			}
+			
+			nowUpdating = false
 		}
-		
-		if useTile != NH3DGL_USETILE {
-			glDeleteTextures(NetHackGlyphMaxGlyph, defaultTex)
-			memset(&defaultTex, 0, Int(NetHackGlyphMaxGlyph) * MemoryLayout<GLuint>.size)
-			useTile = NH3DGL_USETILE
-		}
-		
-		nowUpdating = false
-		viewLock.unlock()
 	}
 	
 	/// wait for vSync...
 	@IBAction func drawAllFrameFunction(_ sender: AnyObject) {
-		viewLock.lock()
-		nowUpdating = true
-		
-		do {
+		viewLock.withLock {
+			nowUpdating = true
+			
 			let hi: NSControl.StateValue = sender.state
 			UserDefaults.standard.set(hi != .on, forKey: NH3DOpenGLWaitSyncKey)
 			(NSUserDefaultsController.shared.values as AnyObject).setValue(hi != .on, forKey: NH3DOpenGLWaitSyncKey)
+			
+			nowUpdating = false
 		}
-		
-		nowUpdating = false
-		viewLock.unlock()
 		
 		var vsType: GLint
 		if OPENGLVIEW_WAITSYNC {
@@ -1929,17 +1911,17 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	}
 	
 	@IBAction func useAntiAlias(_ sender: NSMenuItem) {
-		viewLock.lock()
-		nowUpdating = true
-		if sender.state == .off {
-			turnOnSmooth()
-			sender.state = .on
-		} else {
-			turnOffSmooth()
-			sender.state = .off
+		viewLock.withLock {
+			nowUpdating = true
+			if sender.state == .off {
+				turnOnSmooth()
+				sender.state = .on
+			} else {
+				turnOffSmooth()
+				sender.state = .off
+			}
+			nowUpdating = false
 		}
-		nowUpdating = false
-		viewLock.unlock()
 	}
 	
 	@IBAction func changeWaitRate(_ sender: NSMenuItem) {
