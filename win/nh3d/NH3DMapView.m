@@ -199,7 +199,7 @@
 	
 	[mapBase drawInRect:bounds
 			   fromRect:NSZeroRect
-			  operation:NSCompositeSourceOver
+			  operation:NSCompositingOperationSourceOver
 			   fraction:1.0];
 	
 	if (isReady) {
@@ -211,7 +211,7 @@
 				NSEraseRect(bounds);
 				[mapBase drawInRect:bounds
 						   fromRect:NSZeroRect
-						  operation:NSCompositeCopy
+						  operation:NSCompositingOperationCopy
 						   fraction:1.0];
 				needClear = NO;
 			}
@@ -231,14 +231,14 @@
 						   fromRect:NSMakeRect(trCenterX,
 											   trCenterY,
 											   bounds.size.width, bounds.size.height)
-						  operation:NSCompositeSourceOver
+						  operation:NSCompositingOperationSourceOver
 						   fraction:1.0];
 			
 			[posCursor drawInRect:NSMakeRect(bounds.origin.x + ((trcpX * tsizeX) + trColumn) ,
 											 NSMaxY(bounds) - ((trcpY * tsizeY) + trRow) ,
 											 tsizeX , tsizeY)
 						 fromRect:NSMakeRect(0, 0, 16.0, 16.0)
-						operation:NSCompositeSourceOver
+						operation:NSCompositingOperationSourceOver
 						 fraction:cursOpacity];
 		} else {
 			NSRect bounds = self.bounds;
@@ -255,7 +255,7 @@
 				NSEraseRect(bounds);
 				[mapBase drawInRect:bounds
 						   fromRect:NSZeroRect
-						  operation:NSCompositeSourceOver
+						  operation:NSCompositingOperationSourceOver
 						   fraction:1.0];
 				needClear = NO;
 			}
@@ -286,7 +286,7 @@
 					if (mapItemValue[x][y].hasCursor) {
 						[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
 									  fromRect:NSZeroRect
-									 operation:NSCompositeSourceOver
+									 operation:NSCompositingOperationSourceOver
 									  fraction:cursOpacity];
 						viewCursX = x;
 						viewCursY = MAPVIEWSIZE_ROW-y-1;
@@ -394,7 +394,7 @@
 										   (CGFloat)TILE_SIZE_X , (CGFloat)TILE_SIZE_Y)
 					   fromRect:NSMakeRect(0, 0,
 										   tileSize.width, tileSize.height)
-					  operation:NSCompositeSourceOver
+					  operation:NSCompositingOperationSourceOver
 					   fraction:1.0];
 		}
 	} else if (mapItem != nil) {
@@ -650,7 +650,7 @@
 			NSEraseRect(bounds);
 			[mapBase drawInRect:bounds
 					   fromRect:NSZeroRect
-					  operation:NSCompositeSourceOver
+					  operation:NSCompositingOperationSourceOver
 					   fraction:1.0];
 			needClear = NO;
 		}
@@ -669,7 +669,7 @@
 		if (mapItemValue[x][y].hasCursor) {
 			[posCursor drawAtPoint:NSMakePoint((bounds.origin.x+(x*16.0))-3.0,((NSMaxY(bounds)-((y+1)*16.0)))-3.0)
 						  fromRect:NSZeroRect
-						 operation:NSCompositeSourceOver
+						 operation:NSCompositingOperationSourceOver
 						  fraction:cursOpacity];
 			
 			viewCursX = x;
@@ -684,7 +684,7 @@
 			//draw pet icon
 			[_petIcon drawInRect:petRect
 						fromRect:NSZeroRect
-					   operation:NSCompositeSourceOver
+					   operation:NSCompositingOperationSourceOver
 						fraction:1.0];
 		}
 		
@@ -692,7 +692,7 @@
 			//draw pile icon
 			[_stackIcon drawInRect:petRect
 						  fromRect:NSZeroRect
-						 operation:NSCompositeSourceOver
+						 operation:NSCompositingOperationSourceOver
 						  fraction:1.0];
 		}
 	}
@@ -729,7 +729,7 @@
 	if (RESTRICTED_VIEW && !TRADITIONAL_MAP) {
 		[mapRestrictedBezel drawAtPoint:NSZeroPoint
 							   fromRect:NSZeroRect
-							  operation:NSCompositeSourceOver
+							  operation:NSCompositingOperationSourceOver
 							   fraction:1.0];
 	}
 	
@@ -1356,7 +1356,7 @@
 					continue;
 				} else {
 					switch (event.type) {
-						case NSKeyDown:
+						case NSEventTypeKeyDown:
 							if (strlen(event.charactersIgnoringModifiers.UTF8String) < 2) {
 								strcpy(ch, event.charactersIgnoringModifiers.UTF8String);
 							}
@@ -1386,13 +1386,13 @@
 								[_num8 performClick:self];
 								continue;
 								
-							} else if (event.modifierFlags & NSCommandKeyMask) {
+							} else if (event.modifierFlags & NSEventModifierFlagCommand) {
 								[NSApp sendEvent:event];
 								continue;
-							} else if (event.modifierFlags & NSShiftKeyMask) {
+							} else if (event.modifierFlags & NSEventModifierFlagShift) {
 								modKeyFlag = MODKEY_SHIFT;
 								ch[0] = (isupper((int)ch[0])) ? tolower((int)ch[0]) : ch[0];
-							} else if (event.modifierFlags & NSControlKeyMask) {
+							} else if (event.modifierFlags & NSEventModifierFlagControl) {
 								if (ch[0]=='d') {
 									[_kickButton performClick:self];
 									continue;
@@ -1596,7 +1596,7 @@
 							[self setKeyUpdated:YES];
 							break;
 							
-						case NSLeftMouseUp:
+						case NSEventTypeLeftMouseUp:
 						{
 							NSPoint p = event.locationInWindow;
 							NSRect bounds = self.bounds;
@@ -1705,7 +1705,7 @@
 						[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
 														 imgSize.height - (drawSize.height * (CGFloat)y))
 									fromRect:NSZeroRect
-								   operation:NSCompositeSourceOver
+								   operation:NSCompositingOperationSourceOver
 									fraction:1.0];
 					}
 					
@@ -1715,7 +1715,7 @@
 					[tileImg drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
 													 imgSize.height - (drawSize.height * (CGFloat)y))
 								fromRect:NSZeroRect
-							   operation:NSCompositeSourceOver
+							   operation:NSCompositingOperationSourceOver
 								fraction:1.0];
 				} else { // Draw ASCII Map.
 					NSShadow *lshadow = [[NSShadow alloc] init];
@@ -1753,7 +1753,7 @@
 					[posCursor drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)x,
 													   imgSize.height - (drawSize.height * (CGFloat)y))
 								  fromRect:NSZeroRect
-								 operation:NSCompositeSourceOver
+								 operation:NSCompositingOperationSourceOver
 								  fraction:1.0];
 					posCursor.size = cursOrigin;
 					[NSGraphicsContext restoreGraphicsState];
@@ -1774,14 +1774,14 @@
 				if (iflags.wc_hilite_pet && mapcell.pet) { //draw pet icon
 					[_petIcon drawInRect:petRect
 								fromRect:NSZeroRect
-							   operation:NSCompositeSourceOver
+							   operation:NSCompositingOperationSourceOver
 								fraction:1.0];
 				}
 				
 				if (iflags.hilite_pile && mapcell.pile) { //draw pile icon
 					[_stackIcon drawInRect:petRect
 								  fromRect:NSZeroRect
-								 operation:NSCompositeSourceOver
+								 operation:NSCompositingOperationSourceOver
 								  fraction:1.0];
 				}
 				
@@ -1795,7 +1795,7 @@
 		[[NSImage imageNamed:@"direction"] drawAtPoint:NSMakePoint(drawSize.width * (CGFloat)(cusx + 8) ,
 																   imgSize.height - (drawSize.height * (CGFloat)cusy))
 											  fromRect:NSZeroRect
-											 operation:NSCompositeSourceOver
+											 operation:NSCompositingOperationSourceOver
 											  fraction:0.5];
 		
 		[mapImage unlockFocus];

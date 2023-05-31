@@ -81,7 +81,6 @@
 	cell.bezelStyle = NSBezelStyleRecessed;
 	cell.buttonType = NSButtonTypeMomentaryLight;
 	cell.bordered = YES;
-	cell.gradientType = NSGradientNone;
 	cell.highlightsBy = NSNoCellMask;
 	cell.wraps = YES;
 	cell.lineBreakMode = NSLineBreakByCharWrapping;

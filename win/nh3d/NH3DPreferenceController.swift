@@ -11,8 +11,44 @@ import Cocoa
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
-	let regex1 = try! NSRegularExpression(pattern: "^([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX\\*](\\d+))\\..{2,4}$", options: .useUnicodeWordBoundaries)
-	
+	if #available(macOS 13.0, *) {
+		let regex2 = /^([^\d]+(\d+)|[^\d]+(\d+)[xX\*](\d+))\..{2,4}$/
+	matchTheSize2: do {
+		let match = try? regex2.firstMatch(in: fileName)
+		guard let match else {
+			break matchTheSize2
+		}
+		let match2 = match.2
+		let match3 = match.3
+		let match4 = match.4
+		
+		if let match1 = match3, let match2 = match4 {
+			// First, try finding both width and height
+#if REDUNDANT_SAFETY_CHECKS
+			guard let intMatchWidth = Int32(match1), let intMatchHeight = Int32(match2) else {
+				break matchTheSize2
+			}
+			return (intMatchWidth, intMatchHeight)
+#else
+			return (Int32(match1)!, Int32(match2)!)
+#endif
+		} else if let match1 = match2 {
+			// Next, try for a square size
+#if REDUNDANT_SAFETY_CHECKS
+			guard let tmpIntSquare = Int32(match1) else {
+				break matchTheSize2
+			}
+			let tmpSquare = tmpIntSquare
+#else
+			let tmpSquare = Int32(match1)!
+#endif
+			return (tmpSquare, tmpSquare)
+			
+		}
+	}
+	} else {
+		let regex1 = try! NSRegularExpression(pattern: "^([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX\\*](\\d+))\\..{2,4}$", options: .useUnicodeWordBoundaries)
+		
 	matchTheSize: do {
 		let matches = regex1.matches(in: fileName, range: NSRange(fileName.startIndex ..< fileName.endIndex, in: fileName))
 		
@@ -39,28 +75,29 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 				let matchWidth = fileName[match1]
 				let matchHeight = fileName[match2]
 				
-				#if REDUNDANT_SAFETY_CHECKS
-					guard let intMatchWidth = Int32(matchWidth), let intMatchHeight = Int32(matchHeight) else {
-						break matchTheSize
-					}
-					return (intMatchWidth, intMatchHeight)
-				#else
-					return (Int32(matchWidth)!, Int32(matchHeight)!)
-				#endif
+#if REDUNDANT_SAFETY_CHECKS
+				guard let intMatchWidth = Int32(matchWidth), let intMatchHeight = Int32(matchHeight) else {
+					break matchTheSize
+				}
+				return (intMatchWidth, intMatchHeight)
+#else
+				return (Int32(matchWidth)!, Int32(matchHeight)!)
+#endif
 			} else if let match1 = match2 {
 				// Next, try for a square size
 				let matchSquare = fileName[match1]
-				#if REDUNDANT_SAFETY_CHECKS
-					guard let tmpIntSquare = Int32(matchSquare) else {
-						break matchTheSize
-					}
-					let tmpSquare = tmpIntSquare
-				#else
-					let tmpSquare = Int32(matchSquare)!
-				#endif
+#if REDUNDANT_SAFETY_CHECKS
+				guard let tmpIntSquare = Int32(matchSquare) else {
+					break matchTheSize
+				}
+				let tmpSquare = tmpIntSquare
+#else
+				let tmpSquare = Int32(matchSquare)!
+#endif
 				return (tmpSquare, tmpSquare)
 			}
 		}
+	}
 	}
 	
 	// We didn't get either
@@ -71,7 +108,8 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 ///
 /// Needed because NH3D uses a different way of handling tiles:
 /// NH3D wants the number of rows and columns; other front-ends
-/// specify the width and height of one tile.<br>
+/// specify the width and height of one tile.
+///
 /// This assumes that there are no extra pixels, such as signatures.
 private func tilesInfo(fromFile fileName: String) -> (tileSize: NSSize, rows: Int, columns: Int)? {
 	guard let fileDimensions = sizeFrom(fileName: (fileName as NSString).lastPathComponent) else {
@@ -84,15 +122,15 @@ private func tilesInfo(fromFile fileName: String) -> (tileSize: NSSize, rows: In
 	if image == nil {
 		image = NSImage(byReferencingFile: fileName)
 	}
-	guard let image1 = image else {
+	guard let image else {
 		// We didn't get the image :(
 		return nil
 	}
 	let imgDimensions: NSSize
-	if let firstRep = image1.representations.first as? NSBitmapImageRep {
+	if let firstRep = image.representations.first as? NSBitmapImageRep {
 		imgDimensions = NSSize(width: firstRep.pixelsWide, height: firstRep.pixelsHigh)
 	} else {
-		imgDimensions = image1.size
+		imgDimensions = image.size
 	}
 	// divide the numbers, getting the remainder remainder
 	let divWidth = imgDimensions.width / CGFloat(fileDimensions.width)
@@ -106,7 +144,7 @@ private func tilesInfo(fromFile fileName: String) -> (tileSize: NSSize, rows: In
 	}
 	
 	let actualSize: NSSize = {
-		var imgSize = image1.size
+		var imgSize = image.size
 		imgSize.width /= divWidth
 		imgSize.height /= divHeight
 		return imgSize
@@ -265,7 +303,7 @@ class NH3DPreferenceController : NSWindowController, NSWindowDelegate {
 		openPanel.allowedFileTypes = NSImage.imageTypes
 		//openPanel.directoryURL = [NSURL fileURLWithPath:NSHomeDirectory()];
 		openPanel.beginSheetModal(for: window!) { (result) -> Void in
-			if result.rawValue == NSFileHandlingPanelOKButton {
+			if result == NSApplication.ModalResponse.OK {
 				let filePath = openPanel.url!.path
 				let defaults = UserDefaults.standard
 				if let tileSize = tilesInfo(fromFile: filePath) {
