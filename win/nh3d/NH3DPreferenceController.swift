@@ -7,20 +7,45 @@
 //
 
 import Cocoa
+import RegexBuilder
 
 /// Scans the file name to identify the width and height.
 /// - returns: `nil` if the tile size could not be identified
 func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 	if #available(macOS 13.0, *) {
-		let regex2 = /^([^\d]+(\d+)|[^\d]+(\d+)[xX\*](\d+))\..{2,4}$/
+		let regex2 = Regex {
+			Anchor.startOfLine
+			ChoiceOf {
+				Regex {
+					OneOrMore(.digit.inverted)
+					Capture {
+						OneOrMore(.digit)
+					}
+				}
+				Regex {
+					OneOrMore(.digit.inverted)
+					Capture {
+						OneOrMore(.digit)
+					}
+					One(.anyOf("xX×✕*"))
+					Capture {
+						OneOrMore(.digit)
+					}
+				}
+			}
+			"."
+			Repeat(2...4) {
+				/./
+			}
+			Anchor.endOfLine
+		}
 	matchTheSize2: do {
-		let match = try? regex2.firstMatch(in: fileName)
-		guard let match else {
+		guard let match = try? regex2.firstMatch(in: fileName) else {
 			break matchTheSize2
 		}
-		let match2 = match.2
-		let match3 = match.3
-		let match4 = match.4
+		let match2 = match.1
+		let match3 = match.2
+		let match4 = match.3
 		
 		if let match1 = match3, let match2 = match4 {
 			// First, try finding both width and height
@@ -47,7 +72,7 @@ func sizeFrom(fileName: String) -> (width: Int32, height: Int32)? {
 		}
 	}
 	} else {
-		let regex1 = try! NSRegularExpression(pattern: "^([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX\\*](\\d+))\\..{2,4}$", options: .useUnicodeWordBoundaries)
+		let regex1 = try! NSRegularExpression(pattern: "^([^\\d]+(\\d+)|[^\\d]+(\\d+)[xX×✕\\*](\\d+))\\..{2,4}$", options: .useUnicodeWordBoundaries)
 		
 	matchTheSize: do {
 		let matches = regex1.matches(in: fileName, range: NSRange(fileName.startIndex ..< fileName.endIndex, in: fileName))
