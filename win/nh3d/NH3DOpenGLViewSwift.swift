@@ -619,9 +619,7 @@ private let nh3dMaterialArray: [NH3DMaterial] = [
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		if UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL) {
-			wantsBestResolutionOpenGLSurface = true
-		}
+		wantsBestResolutionOpenGLSurface = UserDefaults.standard.bool(forKey: NH3DUseRetinaOpenGL)
 		let nCenter = NotificationCenter.default
 		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.defaultsDidChange(notification:)), name: UserDefaults.didChangeNotification, object: nil)
 		nCenter.addObserver(self, selector: #selector(NH3DOpenGLView.windowDidChangeScreen(_:)), name: NSWindow.didChangeScreenNotification, object: window)
